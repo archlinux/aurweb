@@ -19,12 +19,14 @@ Directory Layout
 
 * `aurweb`: aurweb Python modules, Git interface and maintenance scripts
 * `conf`: configuration and configuration templates
+* `static`: static resource files
+* `templates`: jinja2 template collection
 * `doc`: project documentation
 * `po`: translation files for strings in the aurweb interface
 * `schema`: schema for the SQL database
 * `test`: test suite and test cases
 * `upgrading`: instructions for upgrading setups from one release to another
-* `web`: web interface for the AUR
+* `web`: PHP-based web interface for the AUR
 
 Links
 -----
@@ -46,3 +48,8 @@ Translations are welcome via our Transifex project at
 https://www.transifex.com/lfleischer/aurweb; see `doc/i18n.txt` for details.
 
 ![Transifex](https://www.transifex.com/projects/p/aurweb/chart/image_png)
+
+Testing
+-------
+
+See [test/README.md](test/README.md) for details on dependencies and testing.

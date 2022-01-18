@@ -1,0 +1,65 @@
+<div id="intro" class="box">
+    <h2>{{ "Dashboard" | tr }}</h2>
+
+    <h3>{{ "My Flagged Packages" | tr }}</h3>
+    {% if not flagged_packages %}
+        <p>{{ "No packages matched your search criteria." | tr }}</p>
+    {% else %}
+        {% with table_id = "flagged-packages",
+            packages = flagged_packages,
+            votes = flagged_packages_voted,
+            notified = flagged_packages_notified
+        %}
+            {% include 'partials/packages/results.html' %}
+        {% endwith %}
+    {% endif %}
+
+    <h3>{{ "My Requests" | tr }}</h3>
+    {% if not package_requests %}
+        <p>{{ "No requests matched your search criteria." | tr }}</p>
+    {% else %}
+        {% with requests = package_requests %}
+            {% include 'partials/packages/requests.html' %}
+        {% endwith %}
+    {% endif %}
+</div>
+
+<div id="intro" class="box">
+    <h2>{{ "My Packages" | tr }}</h2>
+    <p>
+        <a href="/packages/?SeB=m&K={{ request.user.Username }}">
+            {{ "Search for packages I maintain" | tr }}
+        </a>
+    </p>
+    {% if not packages %}
+        <p>{{ "No packages matched your search criteria." | tr }}</p>
+    {% else %}
+        {% with table_id = "my-packages",
+            votes = packages_voted,
+            notified = packages_notified
+        %}
+            {% include 'partials/packages/results.html' %}
+        {% endwith %}
+    {% endif %}
+</div>
+
+<div id="intro" class="box">
+    <h2>{{ "Co-Maintained Packages" | tr }}</h2>
+    <p>
+        <a href="/packages/?SeB=c&K={{ request.user.Username }}">
+            {{ "Search for packages I co-maintain" | tr }}
+        </a>
+    </p>
+    {% if not comaintained %}
+        <p>{{ "No packages matched your search criteria." | tr }}</p>
+    {% else %}
+        {% with table_id = "comaintained-packages",
+            packages = comaintained,
+            votes = comaintained_voted,
+            notified = comaintained_notified
+        %}
+            {% include 'partials/packages/results.html' %}
+        {% endwith %}
+    {% endif %}
+</div>
+

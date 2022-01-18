@@ -1,0 +1,120 @@
+<div class="box">
+    <h2>{% trans %}{{ title }}{% endtrans %}</h2>
+
+    {% if title == "Current Votes" and request.user.has_credential(creds.TU_ADD_VOTE) %}
+        <ul class="admin-actions">
+            <li>
+                <a href="/addvote">
+                    {% trans %}Add Proposal{% endtrans %}
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+
+    {% if not results %}
+        <p>
+            {% trans %}No results found.{% endtrans %}
+        </p>
+    {% else %}
+        <table class="results {{ table_class }}">
+
+            <thead>
+                <tr>
+                    <th>{{ "Proposal" | tr }}</th>
+                    <th>
+                        {% set off_qs = "%s=%d" | format(off_param, off) %}
+                        {% set by_qs = "%s=%s" | format(by_param, by_next | quote_plus) %}
+                        <a href="?{{ q | extend_query([off_param, off], [by_param, by_next]) | urlencode }}">
+                            {{ "Start" | tr }}
+                        </a>
+                    </th>
+                    <th>{{ "End" | tr }}</th>
+                    <th>{{ "User" | tr }}</th>
+                    {% if title != "Current Votes" %}
+                        <th>{{ "Yes" | tr }}</th>
+                        <th>{{ "No" | tr }}</th>
+                    {% endif %}
+                    <th>{{ "Voted" | tr }}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>
+                            <!-- Truncate the agenda back to prev_len. -->
+                            {% set agenda = result.Agenda[:prev_len] %}
+                            <a href="/tu/{{ result.ID }}">{{ agenda }}</a>
+                        </td>
+
+                        <!-- Convert result.Submitted (timestamp) to datetime,
+                        then apply the request's timezone to it. -->
+                        {% set submitted = result.Submitted | dt | as_timezone(timezone) %}
+                        <td>{{ submitted.strftime("%Y-%m-%d") }}</td>
+
+                        <!-- Convert result.End (timestamp) to datetime,
+                        then apply the request's timezone to it. -->
+                        {% set end = result.End | dt | as_timezone(timezone) %}
+                        <td>{{ end.strftime("%Y-%m-%d") }}</td>
+
+                        <td>
+                            {% if not result.User %}
+                                N/A
+                            {% else %}
+                                <a href="/packages/?K={{ result.User }}&amp;SeB=m">
+                                    {{ result.User }}
+                                </a>
+                            {% endif %}
+                        </td>
+
+                        {% if title != "Current Votes" %}
+                            <td>{{ result.Yes }}</td>
+                            <td>{{ result.No }}</td>
+                        {% endif %}
+
+                        {% set vote = (result | get_vote(request)) %}
+                        <td>
+                            {% if vote %}
+                                <span style="color: green; font-weight: bold">
+                                    {{ "Yes" | tr }}
+                                </span>
+                            {% else %}
+                                <span style="color: red; font-weight: bold">
+                                    {{ "No" | tr }}
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pkglist-stats">
+            <p class="pkglist-nav">
+                {% if total_votes > pp %}
+
+                    {% if off > 0 %}
+                        {% set off_qs = "%s=%d" | format(off_param, off - 10) %}
+                        {% set by_qs = "%s=%s" | format(by_param, by | quote_plus) %}
+                        <a class="page"
+                           href="?{{ q | extend_query([off_param, ([off - 10, 0] | max)], [by_param, by]) | urlencode }}">
+                            ‹ Back
+                        </a>
+                    {% endif %}
+
+                    {% if off < total_votes - pp %}
+                        {% set off_qs = "%s=%d" | format(off_param, off + 10) %}
+                        {% set by_qs = "%s=%s" | format(by_param, by | quote_plus) %}
+                        <a class="page"
+                           href="?{{ q | extend_query([off_param, off + pp], [by_param, by]) | urlencode }}">
+                            Next ›
+                        </a>
+                    {% endif %}
+
+                {% endif %}
+            </p>
+        </div>
+
+    {% endif %}
+
+</div>

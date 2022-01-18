@@ -1,3 +1,4 @@
+import logging
 import logging.config
 
 import sqlalchemy
@@ -11,10 +12,6 @@ import aurweb.schema
 # access to the values within the .ini file in use.
 config = context.config
 
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
-logging.config.fileConfig(config.config_file_name)
-
 # model MetaData for autogenerating migrations
 target_metadata = aurweb.schema.metadata
 
@@ -22,6 +19,14 @@ target_metadata = aurweb.schema.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+# If configure_logger is either True or not specified,
+# configure the logger via fileConfig.
+if config.attributes.get("configure_logger", True):
+    logging.config.fileConfig(config.config_file_name)
+
+# This grabs the root logger in env.py.
+logger = logging.getLogger(__name__)
 
 
 def run_migrations_offline():
@@ -36,6 +41,8 @@ def run_migrations_offline():
     script output.
 
     """
+    dbname = aurweb.db.name()
+    logging.info(f"Performing offline migration on database '{dbname}'.")
     context.configure(
         url=aurweb.db.get_sqlalchemy_url(),
         target_metadata=target_metadata,
@@ -54,6 +61,8 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    dbname = aurweb.db.name()
+    logging.info(f"Performing online migration on database '{dbname}'.")
     connectable = sqlalchemy.create_engine(
         aurweb.db.get_sqlalchemy_url(),
         poolclass=sqlalchemy.pool.NullPool,

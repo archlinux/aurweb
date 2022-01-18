@@ -1,0 +1,6 @@
+*/*.mo
+conf/config
+conf/config.sqlite
+conf/config.sqlite.defaults
+conf/docker
+conf/docker.defaults

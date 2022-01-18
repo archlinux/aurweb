@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class AurwebException(Exception):
     pass
 
@@ -73,3 +76,17 @@ class NotVotedException(AurwebException):
 class InvalidArgumentsException(AurwebException):
     def __init__(self, msg):
         super(InvalidArgumentsException, self).__init__(msg)
+
+
+class RPCError(AurwebException):
+    pass
+
+
+class ValidationError(AurwebException):
+    def __init__(self, data: Any, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.data = data
+
+
+class InvariantError(AurwebException):
+    pass

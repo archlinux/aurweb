@@ -5,14 +5,14 @@
 # Translators:
 # GenghisKhan <genghiskhan@gmx.ca>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2020
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-02-01 14:37+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Hebrew (http://www.transifex.com/lfleischer/aurweb/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -473,6 +473,12 @@ msgid ""
 "checkbox."
 msgstr "החבילות הבאות לא נותקו מבעליהן, נא לסמן את התיבה לאישור."
 
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr "החבילות הנבחרות לא אומצו, נא לסמן את תיבת האישור."
+
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "לא ניתן למצוא חבילה למיזוג הצבעות ותגובות אליה."
@@ -570,6 +576,14 @@ msgstr "סימון התגובה"
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "סימון תגובה כלא עדכנית"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr "כנראה שזאת חבילה ממערכת ניהול גרסאות קוד. נא %sלא%s לסמן אותה כפגת תוקף אם גרסת החבילה ב־AUR אינה תואמת להגשה העדכנית ביותר. יש לסמן את החבילה רק אם המקורות הועברו או שיש צורך בשינוי ב־PKGBUILD עקב שינויים עדכניים במאגר המקורי."
 
 #: html/pkgflag.php
 #, php-format
@@ -867,6 +881,10 @@ msgstr "כתובת הכניסה מנוטרלת לכתובת ה־ IP שלך, כנ
 msgid "Account suspended"
 msgstr "חשבון מושעה"
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr "אין לך הרשאות להשהות חשבונות."
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -952,6 +970,30 @@ msgstr "שגיאה בקבלת נתוני חבילה."
 msgid "Package details could not be found."
 msgstr "נתוני חבילה לא נמצאו."
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr "כותרת הפניה שגויה."
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr "לא בחרת חבילות לקבל עבורן התראות."
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr "ההתראות על החבילות הנבחרות הופעלו."
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr "לא בחרת חבילות כלשהן להסרת התראות."
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr "לא מופעלות התראות על החבילה שבחרת."
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr "ההתראות על החבילות הנבחרות הוסרו."
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "עליך להיכנס לפני שיהיה באפשרותך לסמן חבילות."
@@ -988,6 +1030,10 @@ msgstr "אין לך הרשאה למחוק חבילות."
 msgid "You did not select any packages to delete."
 msgstr "לא בחרת שום חבילות למחיקה."
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr "אחת החבילות שבחרת אינה קיימת."
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "החבילות המסומנות נמחקו."
@@ -996,9 +1042,17 @@ msgstr "החבילות המסומנות נמחקו."
 msgid "You must be logged in before you can adopt packages."
 msgstr "עליך להיכנס לפני שיהיה באפשרותך לאמץ חבילות."
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr "אסור לך לאמץ את אחת החבילות שבחרת."
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "עליך להיכנס לפני שיהיה באפשרותך לנתק בעלות על חבילות."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr "אסור לך לנשל את אחת החבילות שבחרת."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -1700,7 +1754,7 @@ msgstr "קבוצות"
 
 #: template/pkg_details.php
 msgid "Conflicts"
-msgstr "התנגשויות"
+msgstr "סתירות"
 
 #: template/pkg_details.php
 msgid "Provides"
@@ -2247,3 +2301,48 @@ msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
 msgstr "נא לזכור להצביע בהצעה {id} [1]. ההצבעה תסתיים בעוד פחות מ־48 שעות."
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr "סוג החשבון שסופק שגוי."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr "אין לך הרשאות לשנות סוגי חשבון."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr "אין לך הרשאות לשנות את סוג חשבון המשתמש הזה לכדי %s."
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr "אין בקשות יתומות קיימות שתוקפן פג לאשר עבור %s."
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr "שגיאת שרת פנימית"
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr "קרתה תקלה משמעותית."
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr "הפרטים תועדו ויועברו לבדיקת ההנהלה במהירות האפשרות. אנו מתנצלים על אי הנוחות שנגרמה."
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr "שגיאת שרת ה־AUR"
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""

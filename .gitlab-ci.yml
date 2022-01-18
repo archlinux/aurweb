@@ -1,19 +1,81 @@
-image: archlinux
-
+image: archlinux:base-devel
 cache:
   key: system-v1
   paths:
     # For some reason Gitlab CI only supports storing cache/artifacts in a path relative to the build directory
     - .pkg-cache
 
-before_script:
-  - pacman -Syu --noconfirm --noprogressbar --needed --cachedir .pkg-cache
-           base-devel git gpgme protobuf pyalpm python-mysql-connector
-           python-pygit2 python-srcinfo python-bleach python-markdown
-           python-sqlalchemy python-alembic python-pytest python-werkzeug
-           python-pytest-tap python-fastapi hypercorn nginx python-authlib
-           python-itsdangerous python-httpx python-orjson
+variables:
+  AUR_CONFIG: conf/config # Default MySQL config setup in before_script.
+  DB_HOST: localhost
+  TEST_RECURSION_LIMIT: 10000
+  CURRENT_DIR: "$(pwd)"
+  LOG_CONFIG: logging.test.conf
 
 test:
+  stage: test
+  tags:
+    - fast-single-thread
+  before_script:
+    - export PATH="$HOME/.poetry/bin:${PATH}"
+    - ./docker/scripts/install-deps.sh
+    - ./docker/scripts/install-python-deps.sh
+    - useradd -U -d /aurweb -c 'AUR User' aur
+    - ./docker/mariadb-entrypoint.sh
+    - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
+    - 'until : > /dev/tcp/127.0.0.1/3306; do sleep 1s; done'
+    - cp -v conf/config.dev conf/config
+    - sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
+    - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
+    - make -C po all install # Compile translations.
+    - make -C doc # Compile asciidoc.
+    - make -C test clean # Cleanup coverage.
   script:
-    - make -C test
+    # Run sharness.
+    - make -C test sh
+    # Run pytest.
+    - pytest
+    - make -C test coverage # Produce coverage reports.
+    - flake8 --count aurweb # Assert no flake8 violations in aurweb.
+    - flake8 --count test # Assert no flake8 violations in test.
+    - flake8 --count migrations # Assert no flake8 violations in migrations.
+    - isort --check-only aurweb # Assert no isort violations in aurweb.
+    - isort --check-only test # Assert no flake8 violations in test.
+    - isort --check-only migrations # Assert no flake8 violations in migrations.
+  coverage: '/TOTAL.*\s+(\d+\%)/'
+  artifacts:
+    reports:
+      cobertura: coverage.xml
+
+deploy:
+  stage: deploy
+  tags:
+    - secure
+  rules:
+    - if: $CI_COMMIT_BRANCH == "pu"
+      when: manual
+  variables:
+    FASTAPI_BACKEND: gunicorn
+    FASTAPI_WORKERS: 5
+    AURWEB_PHP_PREFIX: https://aur-dev.archlinux.org
+    AURWEB_FASTAPI_PREFIX: https://aur-dev.archlinux.org
+    AURWEB_SSHD_PREFIX: ssh://aur@aur-dev.archlinux.org:2222
+    COMMIT_HASH: $CI_COMMIT_SHA
+    GIT_DATA_DIR: git_data
+  script:
+    - pacman -Syu --noconfirm docker docker-compose socat openssh
+    - chmod 600 ${SSH_KEY}
+    - socat "UNIX-LISTEN:/tmp/docker.sock,reuseaddr,fork" EXEC:"ssh -o UserKnownHostsFile=${SSH_KNOWN_HOSTS} -Ti ${SSH_KEY} ${SSH_USER}@${SSH_HOST}" &
+    - export DOCKER_HOST="unix:///tmp/docker.sock"
+    # Set secure login config for aurweb.
+    - sed -ri "s/^(disable_http_login).*$/\1 = 1/" conf/config.dev
+    - docker-compose build
+    - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml down --remove-orphans
+    - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml up -d
+    - docker image prune -f
+    - docker container prune -f
+    - docker volume prune -f
+
+  environment:
+    name: development
+    url: https://aur-dev.archlinux.org

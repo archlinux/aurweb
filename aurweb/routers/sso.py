@@ -1,6 +1,7 @@
 import time
 import uuid
 
+from http import HTTPStatus
 from urllib.parse import urlencode
 
 import fastapi
@@ -14,6 +15,7 @@ from starlette.requests import Request
 import aurweb.config
 import aurweb.db
 
+from aurweb import util
 from aurweb.l10n import get_translator_for_request
 from aurweb.schema import Bans, Sessions, Users
 
@@ -58,7 +60,8 @@ def open_session(request, conn, user_id):
     """
     if is_account_suspended(conn, user_id):
         _ = get_translator_for_request(request)
-        raise HTTPException(status_code=403, detail=_('Account suspended'))
+        raise HTTPException(status_code=HTTPStatus.FORBIDDEN,
+                            detail=_('Account suspended'))
         # TODO This is a terrible message because it could imply the attempt at
         #      logging in just caused the suspension.
 
@@ -103,7 +106,7 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
     if is_ip_banned(conn, request.client.host):
         _ = get_translator_for_request(request)
         raise HTTPException(
-            status_code=403,
+            status_code=HTTPStatus.FORBIDDEN,
             detail=_('The login form is currently disabled for your IP address, '
                      'probably due to sustained spam attacks. Sorry for the '
                      'inconvenience.'))
@@ -116,13 +119,14 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
         # Let’s give attackers as little information as possible.
         _ = get_translator_for_request(request)
         raise HTTPException(
-            status_code=400,
+            status_code=HTTPStatus.BAD_REQUEST,
             detail=_('Bad OAuth token. Please retry logging in from the start.'))
 
     sub = user.get("sub")  # this is the SSO account ID in JWT terminology
     if not sub:
         _ = get_translator_for_request(request)
-        raise HTTPException(status_code=400, detail=_("JWT is missing its `sub` field."))
+        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
+                            detail=_("JWT is missing its `sub` field."))
 
     aur_accounts = conn.execute(select([Users.c.ID]).where(Users.c.SSOAccountID == sub)) \
                        .fetchall()
@@ -131,14 +135,16 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
     elif len(aur_accounts) == 1:
         sid = open_session(request, conn, aur_accounts[0][Users.c.ID])
         response = RedirectResponse(redirect if redirect and is_aur_url(redirect) else "/")
+        secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
         response.set_cookie(key="AURSID", value=sid, httponly=True,
-                            secure=request.url.scheme == "https")
+                            secure=secure_cookies)
         if "id_token" in token:
             # We save the id_token for the SSO logout. It’s not too important
             # though, so if we can’t find it, we can live without it.
-            response.set_cookie(key="SSO_ID_TOKEN", value=token["id_token"], path="/sso/",
-                                httponly=True, secure=request.url.scheme == "https")
-        return response
+            response.set_cookie(key="SSO_ID_TOKEN", value=token["id_token"],
+                                path="/sso/", httponly=True,
+                                secure=secure_cookies)
+        return util.add_samesite_fields(response, "strict")
     else:
         # We’ve got a severe integrity violation.
         raise Exception("Multiple accounts found for SSO account " + sub)

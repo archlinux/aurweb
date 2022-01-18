@@ -56,14 +56,14 @@ db_backend = aurweb.config.get("database", "backend")
 def rebuild_unique_indexes_with_str_cols():
     for idx_name in indexes:
         sql = f"""
-DROP INDEX IF EXISTS {idx_name} 
+DROP INDEX IF EXISTS {idx_name}
 ON {indexes.get(idx_name)[0]}
 """
         op.execute(sql)
         sql = f"""
-CREATE UNIQUE INDEX {idx_name} 
-ON {indexes.get(idx_name)[0]} 
-({indexes.get(idx_name)[1]}, {indexes.get(idx_name)[2]}) 
+CREATE UNIQUE INDEX {idx_name}
+ON {indexes.get(idx_name)[0]}
+({indexes.get(idx_name)[1]}, {indexes.get(idx_name)[2]})
 """
         op.execute(sql)
 
@@ -77,8 +77,8 @@ def upgrade():
     def op_execute(table_meta):
         table, charset, collate = table_meta
         sql = f"""
-ALTER TABLE {table} 
-CONVERT TO CHARACTER SET {charset} 
+ALTER TABLE {table}
+CONVERT TO CHARACTER SET {charset}
 COLLATE {collate}
 """
         op.execute(sql)
@@ -94,8 +94,8 @@ def downgrade():
     def op_execute(table_meta):
         table, charset, collate = table_meta
         sql = f"""
-ALTER TABLE {table} 
-CONVERT TO CHARACTER SET {src_charset} 
+ALTER TABLE {table}
+CONVERT TO CHARACTER SET {src_charset}
 COLLATE {src_collate}
 """
         op.execute(sql)

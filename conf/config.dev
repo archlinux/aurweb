@@ -6,19 +6,44 @@
 ; development-specific options too.
 
 [database]
-backend = sqlite
-name = YOUR_AUR_ROOT/aurweb.sqlite3
+; PHP options: mysql, sqlite.
+; FastAPI options: mysql.
+backend = mysql
 
-; Alternative MySQL configuration
-;backend = mysql
-;name = aurweb
-;user = aur
+; If using sqlite, set name to the database file path.
+name = aurweb
+
+; MySQL database information. User defaults to root for containerized
+; testing with mysqldb. This should be set to a non-root user.
+user = root
 ;password = aur
+host = localhost
+;port = 3306
+socket = /var/run/mysqld/mysqld.sock
 
 [options]
+aurwebdir = YOUR_AUR_ROOT
 aur_location = http://127.0.0.1:8080
 disable_http_login = 0
 enable-maintenance = 0
+localedir = YOUR_AUR_ROOT/web/locale
+; In production, salt_rounds should be higher; suggested: 12.
+salt_rounds = 4
+; See config.defaults comment about cache.
+cache = none
+; In docker, the memcached host is available. On a user's system,
+; this should be set to localhost (most likely).
+memcache_servers = memcached:11211
+; If cache = 'redis' this address is used to connect to Redis.
+redis_address = redis://127.0.0.1
+aur_request_ml = aur-requests@localhost
+traceback = 1
+
+[notifications]
+; For development/testing, use /usr/bin/sendmail
+sendmail = YOUR_AUR_ROOT/util/sendmail
+sender = notify@localhost
+reply-to = noreply@localhost
 
 ; Single sign-on; see doc/sso.txt.
 [sso]
@@ -39,3 +64,17 @@ bind_address = 127.0.0.1:8082
 
 ; Passphrase FastAPI uses to sign client-side sessions.
 session_secret = secret
+
+[devel]
+;commit_hash = 1234567
+
+[mkpkglists]
+archivedir = /var/lib/aurweb/archives
+packagesfile = /var/lib/aurweb/archives/packages.gz
+packagesmetafile = /var/lib/aurweb/archives/packages-meta-v1.json.gz
+packagesmetaextfile = /var/lib/aurweb/archives/packages-meta-ext-v1.json.gz
+pkgbasefile = /var/lib/aurweb/archives/pkgbase.gz
+userfile = /var/lib/aurweb/archives/users.gz
+
+[aurblup]
+db-path = YOUR_AUR_ROOT/aurblup/

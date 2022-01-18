@@ -5,14 +5,15 @@
 # Translators:
 # Adolfo Jayme-Barrientos, 2014
 # Hector Mtz-Seara <hseara@gmail.com>, 2011,2013
+# Ícar <icar.nin@gmail.com>, 2021
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-01-31 08:29+0000\n"
-"Last-Translator: Lukas Fleischer\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/lfleischer/aurweb/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,38 +31,38 @@ msgstr "Ho sentim, la pàgina que ha sol·licitat no existeix."
 
 #: html/404.php template/pkgreq_close_form.php
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Les URL de clonació del Git no estan destinades a ser obertes en un navegador."
 
 #: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "Per clonar el repositori Git de %s, executeu %s."
 
 #: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Clica %saquí%s per tornar a la pàgina de detalls de %s."
 
 #: html/503.php
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Servei no disponible"
 
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr ""
+msgstr "No pateixis! Aquest lloc està caigut a causa d'un manteniment. Tornarem aviat."
 
 #: html/account.php
 msgid "Account"
-msgstr ""
+msgstr "Compte"
 
 #: html/account.php template/header.php
 msgid "Accounts"
-msgstr "Compte"
+msgstr "Comptes"
 
 #: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
@@ -77,7 +78,7 @@ msgstr "No teniu permís per a editar aquest compte."
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr ""
+msgstr "Contrasenya no vàlida."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -135,19 +136,19 @@ msgstr "Tipus"
 
 #: html/addvote.php
 msgid "Addition of a TU"
-msgstr ""
+msgstr "Adició d'un TU"
 
 #: html/addvote.php
 msgid "Removal of a TU"
-msgstr ""
+msgstr "Elimincació d'un TU"
 
 #: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "Elimincació d'un TU (inactivitat no declarada)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Modificació de les lleis"
 
 #: html/addvote.php template/tu_list.php
 msgid "Proposal"
@@ -159,15 +160,15 @@ msgstr "Envia"
 
 #: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Gestiona els co-mantenidors"
 
 #: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
-msgstr ""
+msgstr "Edita el comentari"
 
 #: html/home.php template/header.php
 msgid "Dashboard"
-msgstr ""
+msgstr "Tauler"
 
 #: html/home.php template/header.php
 msgid "Home"
@@ -175,11 +176,11 @@ msgstr "Inici"
 
 #: html/home.php
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Els meus paquets marcats"
 
 #: html/home.php
 msgid "My Requests"
-msgstr ""
+msgstr "Les meves peticions"
 
 #: html/home.php
 msgid "My Packages"
@@ -187,15 +188,15 @@ msgstr "Els meus paquets"
 
 #: html/home.php
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Cerca paquets que mantinc"
 
 #: html/home.php
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Paquets co-mantinguts"
 
 #: html/home.php
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Cerca paquets que co-mantinc"
 
 #: html/home.php
 #, php-format
@@ -227,68 +228,68 @@ msgstr "Avís legal"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr ""
+msgstr "Els paquets de l'AUR són contingut produït per usuaris. Qualsevol ús dels fitxers proporcionats és sota el seu propi risc."
 
 #: html/home.php
 msgid "Learn more..."
-msgstr ""
+msgstr "Més informació..."
 
 #: html/home.php
 msgid "Support"
-msgstr ""
+msgstr "Suport"
 
 #: html/home.php
 msgid "Package Requests"
-msgstr ""
+msgstr "Sol·licituds de paquets"
 
 #: html/home.php
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr ""
+msgstr "Hi ha tres tipus de sol·licituds que es poden presentar al quadre %sAccions del paquet%s a la pàgina de detalls del paquet:"
 
 #: html/home.php
 msgid "Orphan Request"
-msgstr ""
+msgstr "Sol·licitud d'orfenat"
 
 #: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr ""
+msgstr "Sol·licita que un paquet sigui renegat, per exemple quan el mantenidor estigui inactiu i el paquet s'ha marcat com a obsolet durant molt de temps."
 
 #: html/home.php
 msgid "Deletion Request"
-msgstr ""
+msgstr "Sol·licitud de supressió"
 
 #: html/home.php
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr ""
+msgstr "Sol·liciteu que s'elimini un paquet de l'AUR. Si us plau, no ho utilitzeu si un paquet està trencat i es pot arreglar fàcilment. En lloc d'això, poseu-vos en contacte amb el mantenidor del paquet i sol·liciteu que es se'n renegui si cal."
 
 #: html/home.php
 msgid "Merge Request"
-msgstr ""
+msgstr "Sol·licitud de fusió"
 
 #: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr ""
+msgstr "Sol·licita que un paquet es fusioni en un altre. Es pot utilitzar quan un paquet s'ha de reanomenar o substituir per un paquet dividit."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr ""
+msgstr "Si voleu debatre una sol·licitud, podeu utilitzar la llista de correu %saur-requests%s. No obstant això, si us plau, no utilitzeu aquesta llista per a enviar una petició."
 
 #: html/home.php
 msgid "Submitting Packages"
-msgstr ""
+msgstr "Enviar paquets"
 
 #: html/home.php
 #, php-format
@@ -296,11 +297,11 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr ""
+msgstr "Ara s'utilitza Git a sobre d'SSH per enviar paquets a l'AUR. Feu un cop d'ull a la secció \"%sSubmitting packages%s\" de la pàgina de l'ArchWIki de l'AUR per més detalls."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr ""
+msgstr "Les següents empremtes digitals d'SSH són usades per l'AUR:"
 
 #: html/home.php
 msgid "Discussion"
@@ -312,7 +313,7 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "El debat general sobre el repositori per usuaris d'Arch (AUR) i de l'estructura dels Usuaris de Confiança es realitza a %saur-general%s. Per la discussió relacionada amb el desenvolupament de la interfície web de l'AUR, utilitzeu la llista de correu %saur-dev%s."
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -325,7 +326,7 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the package maintainer or leave "
 "a comment on the appropriate package page."
-msgstr ""
+msgstr "Si troba un error en la interfície web de l'AUR, si us plau, ompliu un informe d'error al nostre %srastrejador d'errades%s. Utilitzeu el rastrejador per reportar %snomés%s errors de l'interfície web. Per informar d'errades en els paquets contacteu directament amb el responsable del paquet o deixeu un comentari a la pàgina del paquet corresponent."
 
 #: html/home.php
 msgid "Package Search"
@@ -333,7 +334,7 @@ msgstr "Cercar Paquets"
 
 #: html/index.php
 msgid "Adopt"
-msgstr ""
+msgstr "Adopta"
 
 #: html/index.php
 msgid "Vote"
@@ -374,7 +375,7 @@ msgstr "Introduïu les credencials d'inici de sessió"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "Nom d'usuari o adreça de correu primària"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
@@ -438,7 +439,7 @@ msgstr "La seva contrasenya s'ha restablert correctament."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "Confirmeu el vostre nom d'usuari o l'adreça de correu electrònic primària:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -457,19 +458,25 @@ msgstr "Continuar"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Si heu oblidat el nom d'usuari i l'adreça de correu electrònic primària utilitzada al registrar-vos, si us plau envieu un missatge a la llista de correu %saur-general%s."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr ""
+msgstr "Entreu el vostre nom d'usuari o la vostra adreça de correu electrònic primària:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
-msgstr ""
+msgstr "Bases del paquet"
 
 #: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr "Els paquets seleccionats no han sigut renegats, marqueu la casella de confirmació."
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
 "checkbox."
 msgstr ""
 
@@ -479,7 +486,7 @@ msgstr "No es pot trobar el paquet on combinar vots i comentaris."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "No es pot fusionar la base d'un paquet amb la mateixa."
 
 #: html/pkgbase.php
 msgid ""
@@ -500,7 +507,7 @@ msgstr "Esborrar el paquet"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "Utilitzeu aquest formulari per eliminar la base del paquet %s%s%s i els següents paquets de l'AUR:"
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -569,6 +576,14 @@ msgstr ""
 
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
+msgstr ""
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
 msgstr ""
 
 #: html/pkgflag.php
@@ -867,6 +882,10 @@ msgstr "El formulari de registre està deshabilitat per la seva adreça IP, prob
 msgid "Account suspended"
 msgstr ""
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr ""
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -952,6 +971,30 @@ msgstr "No s'han pogut obtenir els detalls del paquet."
 msgid "Package details could not be found."
 msgstr "No s'han pogut trobar els detalls del paquet."
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Heu d'identificar-vos abans de marcar paquets."
@@ -988,6 +1031,10 @@ msgstr "No té permís per eliminar paquets."
 msgid "You did not select any packages to delete."
 msgstr "No heu seleccionat cap paquet per a esborrar."
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Els paquets seleccionats s'han esborrat."
@@ -996,9 +1043,17 @@ msgstr "Els paquets seleccionats s'han esborrat."
 msgid "You must be logged in before you can adopt packages."
 msgstr "Heu d'identificar-vos abans d'apropiar-se paquets."
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Heu d'identificar-vos abans de desapropiàr-se paquets."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -2236,4 +2291,49 @@ msgstr ""
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr ""
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr ""

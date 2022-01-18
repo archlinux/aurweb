@@ -1,0 +1,84 @@
+version: "3.8"
+
+services:
+  ca:
+    volumes:
+      - data:/data
+      - step:/root/.step
+
+  memcached:
+    restart: always
+
+  redis:
+    restart: always
+
+  mariadb:
+    restart: always
+
+  git:
+    restart: always
+    environment:
+      - AUR_CONFIG=/aurweb/conf/config
+      # SSH_CMDLINE should be updated to production's ssh cmdline.
+      - SSH_CMDLINE=${SSH_CMDLINE:-ssh ssh://aur@localhost:2222}
+    volumes:
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
+      - data:/aurweb/data
+
+  smartgit:
+    restart: always
+    volumes:
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
+      - data:/data
+      - smartgit_run:/var/run/smartgit
+
+  cgit-php:
+    restart: always
+    volumes:
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
+
+  cgit-fastapi:
+    restart: always
+    volumes:
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
+
+  cron:
+    volumes:
+      # Exclude ./aurweb:/aurweb in production.
+      - mariadb_run:/var/run/mysqld
+      - archives:/var/lib/aurweb/archives
+
+  php-fpm:
+    restart: always
+    environment:
+      - AURWEB_PHP_PREFIX=${AURWEB_PHP_PREFIX}
+      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
+    volumes:
+      - data:/data
+
+  fastapi:
+    restart: always
+    environment:
+      - COMMIT_HASH=$COMMIT_HASH
+      - FASTAPI_BACKEND="gunicorn"
+      - FASTAPI_WORKERS=${FASTAPI_WORKERS}
+      - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}
+      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
+      - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
+    volumes:
+      - data:/data
+
+  nginx:
+    restart: always
+    volumes:
+      - data:/data
+      - archives:/var/lib/aurweb/archives
+      - smartgit_run:/var/run/smartgit
+
+volumes:
+  mariadb_run: {} # Share /var/run/mysqld
+  mariadb_data: {} # Share /var/lib/mysql
+  git_data: {} # Share aurweb/aur.git
+  smartgit_run: {}
+  data: {}
+  logs: {}

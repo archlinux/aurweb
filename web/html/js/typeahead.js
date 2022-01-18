@@ -67,7 +67,7 @@ const typeahead = (function() {
   }
 
   function fetchData(letter) {
-    const url = '/rpc?type=' + suggest_type + '&arg=' + letter;
+    const url = '/rpc?v=5&type=' + suggest_type + '&arg=' + letter;
     fetch(url).then(function(response) {
       return response.json();
     }).then(function(data) {

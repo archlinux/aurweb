@@ -1,0 +1,2336 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the AURWEB package.
+# 
+# Translators:
+# Panwar108 <caspian7pena@gmail.com>, 2018,2020-2021
+msgid ""
+msgstr ""
+"Project-Id-Version: aurweb\n"
+"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
+"Language-Team: Hindi (India) (http://www.transifex.com/lfleischer/aurweb/language/hi_IN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: html/404.php
+msgid "Page Not Found"
+msgstr "पृष्ठ नहीं मिला"
+
+#: html/404.php
+msgid "Sorry, the page you've requested does not exist."
+msgstr "क्षमा करें, अनुरोधित पृष्ठ अनुपलब्ध है।"
+
+#: html/404.php template/pkgreq_close_form.php
+msgid "Note"
+msgstr "ध्यान दें"
+
+#: html/404.php
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "Git क्लोन यूआरएल ब्राउज़र में उपयोग नहीं होते हैं।"
+
+#: html/404.php
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "%s का पैकेज-संग्रह प्रतिरूपित करने हेतु, %s को निष्पादित करें।"
+
+#: html/404.php
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "%sयहाँ%s क्लिक कर %s विवरण पृष्ठ पर वापस जाएँ।"
+
+#: html/503.php
+msgid "Service Unavailable"
+msgstr "सेवा अनुपलब्ध"
+
+#: html/503.php
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr "धैर्य रखें। अनुरक्षण के कारण साइट अभी बंद है। साइट शीघ्र ही चालू हो जाएगी।"
+
+#: html/account.php
+msgid "Account"
+msgstr "अकाउंट"
+
+#: html/account.php template/header.php
+msgid "Accounts"
+msgstr "अकाउंट"
+
+#: html/account.php html/addvote.php
+msgid "You are not allowed to access this area."
+msgstr "इस क्षेत्र हेतु आपका अभिगम निषेध है।"
+
+#: html/account.php
+msgid "Could not retrieve information for the specified user."
+msgstr "निर्दिष्ट उपयोक्ता हेतु जानकारी प्राप्त प्राप्त करना विफल।"
+
+#: html/account.php
+msgid "You do not have permission to edit this account."
+msgstr "आपके पास अकाउंट संपादन हेतु अनुमति नहीं है।"
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr "अमान्य कूटशब्द।"
+
+#: html/account.php
+msgid "Use this form to search existing accounts."
+msgstr "वर्तमान उपयोक्ता खोजने हेतु यह प्रपत्र उपयोग करें।"
+
+#: html/account.php
+msgid "You must log in to view user information."
+msgstr "उपयोक्ता जानकारी देखने हेतु लॉगिन आवश्यक है।"
+
+#: html/addvote.php template/tu_list.php
+msgid "Add Proposal"
+msgstr "प्रस्ताव जोड़ें"
+
+#: html/addvote.php
+msgid "Invalid token for user action."
+msgstr "उपयोक्ता कार्य हेतु अमान्य टोकन।"
+
+#: html/addvote.php
+msgid "Username does not exist."
+msgstr "अनुपस्थित उपयोक्ता नाम।"
+
+#: html/addvote.php
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s हेतु प्रस्ताव पहले से दर्ज है।"
+
+#: html/addvote.php
+msgid "Invalid type."
+msgstr "अमान्य प्रकार।"
+
+#: html/addvote.php
+msgid "Proposal cannot be empty."
+msgstr "प्रस्ताव रिक्त नहीं होना चाहिए।"
+
+#: html/addvote.php
+msgid "New proposal submitted."
+msgstr "नवीन प्रस्ताव निवेदित किया गया।"
+
+#: html/addvote.php
+msgid "Submit a proposal to vote on."
+msgstr "मत हेतु प्रस्ताव निवेदित करें।"
+
+#: html/addvote.php
+msgid "Applicant/TU"
+msgstr "निवेदक/विश्वसनीय उपयोक्ता"
+
+#: html/addvote.php
+msgid "(empty if not applicable)"
+msgstr "(अनावश्यक होने पर रिक्त)"
+
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
+msgid "Type"
+msgstr "प्रकार"
+
+#: html/addvote.php
+msgid "Addition of a TU"
+msgstr "विश्वसनीय उपयोक्ता जोड़ना"
+
+#: html/addvote.php
+msgid "Removal of a TU"
+msgstr "विश्वसनीय उपयोक्ता हटाना"
+
+#: html/addvote.php
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr "विश्वसनीय उपयोक्ता हटाना (अघोषित निष्क्रियता)"
+
+#: html/addvote.php
+msgid "Amendment of Bylaws"
+msgstr "उपनियम संशोधन"
+
+#: html/addvote.php template/tu_list.php
+msgid "Proposal"
+msgstr "प्रस्ताव"
+
+#: html/addvote.php
+msgid "Submit"
+msgstr "निवेदित करें"
+
+#: html/comaintainers.php template/comaintainers_form.php
+msgid "Manage Co-maintainers"
+msgstr "सह-अनुरक्षक प्रबंधन"
+
+#: html/commentedit.php template/pkg_comments.php
+msgid "Edit comment"
+msgstr "टिप्पणी संपादन"
+
+#: html/home.php template/header.php
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+#: html/home.php template/header.php
+msgid "Home"
+msgstr "होम"
+
+#: html/home.php
+msgid "My Flagged Packages"
+msgstr "चिन्हित किए गए मेरे पैकेज"
+
+#: html/home.php
+msgid "My Requests"
+msgstr "मेरे अनुरोध"
+
+#: html/home.php
+msgid "My Packages"
+msgstr "मेरे पैकेज"
+
+#: html/home.php
+msgid "Search for packages I maintain"
+msgstr "मेरे द्वारा अनुरक्षित पैकेज"
+
+#: html/home.php
+msgid "Co-Maintained Packages"
+msgstr "सह-अनुरक्षित पैकेज"
+
+#: html/home.php
+msgid "Search for packages I co-maintain"
+msgstr "मेरे द्वारा सह-अनुरक्षित पैकेज"
+
+#: html/home.php
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr "AUR में स्वागत है! अधिक जानकारी हेतु %sAUR उपयोक्ता%s व %sAUR विश्वसनीय उपयोक्ता%s दिशा-निर्देश पढ़ें।"
+
+#: html/home.php
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr "योगदान की गई PKGBUILD का %sआर्च पैकेज मानकों%s के अनुरूप होना %sआवश्यक%s है अन्यथा वे हटा दी जाएँगी!"
+
+#: html/home.php
+msgid "Remember to vote for your favourite packages!"
+msgstr "अपने पसंदीदा पैकेज हेतु मतदान अवश्य करें!"
+
+#: html/home.php
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "[community] के कुछ पैकेज बाइनरी फाइल के रूप में उपलब्ध हो सकते हैं।"
+
+#: html/home.php
+msgid "DISCLAIMER"
+msgstr "अस्वीकरण"
+
+#: html/home.php template/footer.php
+msgid ""
+"AUR packages are user produced content. Any use of the provided files is at "
+"your own risk."
+msgstr "AUR पैकेज उपयोक्ता निर्मित हैं। अतः उपलब्ध फाइलों का उपयोग सावधानीपूर्वक करें।"
+
+#: html/home.php
+msgid "Learn more..."
+msgstr "और जानें..."
+
+#: html/home.php
+msgid "Support"
+msgstr "सहायता"
+
+#: html/home.php
+msgid "Package Requests"
+msgstr "पैकेज अनुरोध"
+
+#: html/home.php
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
+msgstr "पैकेज विवरण पृष्ठ में %sपैकेज कार्य%s हेतु तीन प्रकार के निवेदन संभव हैं :"
+
+#: html/home.php
+msgid "Orphan Request"
+msgstr "निरर्थक पैकेज हेतु अनुरोध"
+
+#: html/home.php
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr "पैकेज स्वामित्व निरस्त करने हेतु अनुरोध; अत्यधिक समय तक अनुरक्षक के निष्क्रिय व पैकेज पुराना होने की स्थिति में।"
+
+#: html/home.php
+msgid "Deletion Request"
+msgstr "पैकेज हटाने हेतु अनुरोध"
+
+#: html/home.php
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr "आर्च उपयोक्ता पैकेज-संग्रह से पैकेज हटाने हेतु अनुरोध। कृपया पैकेज उपयोग संबंधी समस्या होने पर इसका उपयोग न करें। उचित होगा कि पैकेज अनुरक्षक से संपर्क करें व आवश्यकता हो तो निरर्थक पैकेज हेतु अनुरोध करें।"
+
+#: html/home.php
+msgid "Merge Request"
+msgstr "विलय अनुरोध"
+
+#: html/home.php
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr "एकाधिक पैकेज का आपस में विलय हेतु अनुरोध। पैकेज नाम बदलाव या विभाजित पैकेज से बदलने की स्थिति में।"
+
+#: html/home.php
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr "आप अनुरोध संबंधी चर्चा हेतु %saur-requests%s ईमेल-सूची उपयोग कर सकते हैं। ईमेल-सूची केवल चर्चा हेतु है न कि अनुरोध।"
+
+#: html/home.php
+msgid "Submitting Packages"
+msgstr "पैकेज निवेदन"
+
+#: html/home.php
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr "AUR में पैकेज निवेदित करने हेतु एसएसएच द्वारा Git उपयोग होती है। अधिक जानकारी हेतु आर्च उपयोक्ता पैकेज-संग्रह आर्च विकी पृष्ठ का %sपैकेज निवेदन%s अनुखंड देखें।"
+
+#: html/home.php
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "AUR हेतु निम्नलिखित एसएसएच एन्क्रिप्शन पहचान चिन्ह उपयोग होते हैं :"
+
+#: html/home.php
+msgid "Discussion"
+msgstr "चर्चा"
+
+#: html/home.php
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr "आर्च उपयोक्ता पैकेज-संग्रह (AUR) व विश्वसनीय उपयोक्ता संरचना संबंधी सामान्य चर्चा %saur-general%s पर होती है। AUR वेब अंतरफलक के विकास संबंधी चर्चा हेतु %saur-dev%s ईमेल-सूची उपयोग करें।"
+
+#: html/home.php
+msgid "Bug Reporting"
+msgstr "समस्या हेतु रिपोर्ट"
+
+#: html/home.php
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
+msgstr "AUR वेब अंतरफलक में समस्या होने पर कृपया हमारे %sसमस्या ट्रैकर%s पर समस्या रिपोर्ट दर्ज करें। ट्रैकर का उपयोग %sकेवल%s AUR वेब अंतरफलक संबंधी समस्याओं के लिए ही करें। पैकेज समस्याओं हेतु पैकेज अनुरक्षक से संपर्क करें या उपयुक्त पैकेज के पृष्ठ पर टिप्पणी करें।"
+
+#: html/home.php
+msgid "Package Search"
+msgstr "पैकेज खोज"
+
+#: html/index.php
+msgid "Adopt"
+msgstr "स्वामित्व लें"
+
+#: html/index.php
+msgid "Vote"
+msgstr "मतदान करें"
+
+#: html/index.php
+msgid "UnVote"
+msgstr "मत वापस लें"
+
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
+msgid "Notify"
+msgstr "सूचित करें"
+
+#: html/index.php template/pkg_search_results.php
+msgid "UnNotify"
+msgstr "सूचित न करें"
+
+#: html/index.php
+msgid "UnFlag"
+msgstr "अचिन्हित करें"
+
+#: html/login.php template/header.php
+msgid "Login"
+msgstr "लॉगिन"
+
+#: html/login.php html/tos.php
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "के तौर पर लॉग-इन हैं : %s"
+
+#: html/login.php template/header.php
+msgid "Logout"
+msgstr "लॉगआउट"
+
+#: html/login.php
+msgid "Enter login credentials"
+msgstr "लॉगिन जानकारी दर्ज करें"
+
+#: html/login.php
+msgid "User name or primary email address"
+msgstr "उपयोक्ता नाम या प्राथमिक ईमेल पता"
+
+#: html/login.php template/account_delete.php template/account_edit_form.php
+msgid "Password"
+msgstr "कूटशब्द"
+
+#: html/login.php
+msgid "Remember me"
+msgstr "लॉगिन स्मरण करें"
+
+#: html/login.php
+msgid "Forgot Password"
+msgstr "कूटशब्द भूल गए"
+
+#: html/login.php
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "एचटीटीपी लॉगिन निष्क्रिय है। लॉगिन करने हेतु कृपया %sएचटीटीपीएस उपयोग%s करें।"
+
+#: html/packages.php template/pkg_search_form.php
+msgid "Search Criteria"
+msgstr "खोज मानदंड"
+
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
+msgid "Packages"
+msgstr "पैकेज"
+
+#: html/packages.php
+msgid "Error trying to retrieve package details."
+msgstr "पैकेज विवरण प्राप्त करने हेतु त्रुटि।"
+
+#: html/passreset.php lib/acctfuncs.inc.php
+msgid "Missing a required field."
+msgstr "आवश्यक जानकारी अनुपलब्ध।"
+
+#: html/passreset.php lib/acctfuncs.inc.php
+msgid "Password fields do not match."
+msgstr "कूटशब्द मेल नहीं खाते।"
+
+#: html/passreset.php lib/acctfuncs.inc.php
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "कूटशब्द में %s अक्षर आवश्यक हैं।"
+
+#: html/passreset.php
+msgid "Invalid e-mail."
+msgstr "अमान्य ईमेल।"
+
+#: html/passreset.php
+msgid "Password Reset"
+msgstr "कूटशब्द पुनः सेट करें"
+
+#: html/passreset.php
+msgid "Check your e-mail for the confirmation link."
+msgstr "पुष्टिकरण लिंक हेतु अपना ईमेल देखें।"
+
+#: html/passreset.php
+msgid "Your password has been reset successfully."
+msgstr "कूटशब्द पुनः सेट करना सफल।"
+
+#: html/passreset.php
+msgid "Confirm your user name or primary e-mail address:"
+msgstr "उपयोक्ता नाम या प्राथमिक ईमेल की पुष्टि करें :"
+
+#: html/passreset.php
+msgid "Enter your new password:"
+msgstr "नया कूटशब्द दर्ज करें :"
+
+#: html/passreset.php
+msgid "Confirm your new password:"
+msgstr "नए कूटशब्द की पुष्टि करें :"
+
+#: html/passreset.php html/tos.php
+msgid "Continue"
+msgstr "जारी रखें"
+
+#: html/passreset.php
+#, php-format
+msgid ""
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr "यदि आप पंजीकरण में उपयोग किया गया अपना उपयोक्ता नाम व प्राथमिक ईमेल भूल गए हैं तो %saur-general%s ईमेल-सूची पर संदेश भेजें।"
+
+#: html/passreset.php
+msgid "Enter your user name or your primary e-mail address:"
+msgstr "उपयोक्ता नाम या प्राथमिक ईमेल दर्ज करें :"
+
+#: html/pkgbase.php
+msgid "Package Bases"
+msgstr "पैकेज बेस"
+
+#: html/pkgbase.php
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr "चयनित पैकेज का स्वामित्व निरस्त नहीं हुआ, चिन्हित कर पुष्टि करें।"
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr "चयनित पैकेज स्वामीविहीन हैं, चिन्हित कर पुष्टि करें।"
+
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
+msgid "Cannot find package to merge votes and comments into."
+msgstr "मत व टिप्पणियाँ विलय करने हेतु पैकेज नहीं मिला।"
+
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
+msgid "Cannot merge a package base with itself."
+msgstr "पैकेज बेस का स्वयं के साथ विलय संभव नहीं है।"
+
+#: html/pkgbase.php
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "चयनित पैकेज हटाएँ नहीं गए, चिन्हित कर पुष्टि करें।"
+
+#: html/pkgdel.php
+msgid "Package Deletion"
+msgstr "पैकेज हटाना"
+
+#: html/pkgdel.php template/pkgbase_actions.php
+msgid "Delete Package"
+msgstr "पैकेज हटाएँ"
+
+#: html/pkgdel.php
+#, php-format
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr "यह प्रपत्र उपयोग कर पैकेज बेस %s%s%s व निम्नलिखित पैकेज AUR से हटाएँ :"
+
+#: html/pkgdel.php
+msgid "Deletion of a package is permanent. "
+msgstr "पैकेज स्थायी रूप से हट जाएगा।"
+
+#: html/pkgdel.php html/pkgmerge.php
+msgid "Select the checkbox to confirm action."
+msgstr "चिन्हित कर कार्य की पुष्टि करें।"
+
+#: html/pkgdel.php
+msgid "Confirm package deletion"
+msgstr "पैकेज हटाने की पुष्टि करें"
+
+#: html/pkgdel.php template/account_delete.php
+msgid "Delete"
+msgstr "हटाएँ"
+
+#: html/pkgdel.php
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr "केवल विश्वसनीय उपयोक्ता व व सॉफ्टवेयर विकासकर्ता ही पैकेज हटा सकते हैं।"
+
+#: html/pkgdisown.php template/pkgbase_actions.php
+msgid "Disown Package"
+msgstr "पैकेज स्वामित्व निरस्त करें"
+
+#: html/pkgdisown.php
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
+msgstr "यह प्रपत्र उपयोग कर पैकेज बेस %s%s%s में सम्मिलित निम्नलिखित पैकेज हेतु स्वामित्व निरस्त करें :"
+
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to no longer be a "
+"package co-maintainer."
+msgstr "इसे चिन्हित कर पुष्टि करें कि अब आप पैकेज सह-अनुरक्षक बने रहने के इच्छुक नहीं हैं।"
+
+#: html/pkgdisown.php
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr "इसे चिन्हित कर पुष्टि करें कि अब आप पैकेज हेतु अपना स्वामित्व निरस्त कर %s%s%s को स्वामित्व दे रहें हैं।"
+
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr "इसे चिन्हित कर पुष्टि करें कि अब आप पैकेज हेतु अपना स्वामित्व निरस्त कर रहें हैं।"
+
+#: html/pkgdisown.php
+msgid "Confirm to disown the package"
+msgstr "पैकेज स्वामित्व निरस्त करने हेतु पुष्टि करें"
+
+#: html/pkgdisown.php
+msgid "Disown"
+msgstr "स्वामित्व निरस्त करें"
+
+#: html/pkgdisown.php
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr "केवल विश्वसनीय उपयोक्ता व व सॉफ्टवेयर विकासकर्ता ही पैकेज स्वामित्व निरस्त कर सकते हैं।"
+
+#: html/pkgflagcomment.php
+msgid "Flag Comment"
+msgstr "टिप्पणी चिन्हित करें"
+
+#: html/pkgflag.php
+msgid "Flag Package Out-Of-Date"
+msgstr "पैकेज को पुराने के रूप में चिन्हित करें"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr "प्रतीत होता है कि यह एक वीसीएस पैकेज है। AUR पैकेज संस्करण का हालिया संचित कार्य से मिलान न होने की स्थिति में कृपया इसे पुराने के रूप में चिन्हित %sन%s करें। स्रोत अंतरण या स्रोत में हालिया परिवर्तनों के कारण PKGBUILD में परिवर्तन होने पर ही इस पैकेज को चिन्हित करें।"
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
+msgstr "यह प्रपत्र उपयोग कर पैकेज बेस %s%s%s व निम्नलिखित पैकेज को पुराने के रूप में चिन्हित करें :"
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Please do %snot%s use this form to report bugs. Use the package comments "
+"instead."
+msgstr "कृपया यह प्रपत्र समस्या रिपोर्ट हेतु उपयोग %sन%s करें। समस्या हेतु पैकेज पृष्ठ पर टिप्पणी करें।"
+
+#: html/pkgflag.php
+msgid ""
+"Enter details on why the package is out-of-date below, preferably including "
+"links to the release announcement or the new release tarball."
+msgstr "नवीन संस्करण की घोषणा या उपलब्ध फाइल की साइट प्रदान कर टिप्पणी करें कि पैकेज पुराने से रूप में चिन्हित क्यों है।"
+
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
+msgid "Comments"
+msgstr "टिप्पणियाँ"
+
+#: html/pkgflag.php
+msgid "Flag"
+msgstr "चिन्हित"
+
+#: html/pkgflag.php
+msgid "Only registered users can flag packages out-of-date."
+msgstr "केवल पंजीकृत उपयोक्ता ही पैकेज को पुराने के रूप में चिन्हित कर सकते हैं।"
+
+#: html/pkgmerge.php
+msgid "Package Merging"
+msgstr "पैकेज विलय"
+
+#: html/pkgmerge.php template/pkgbase_actions.php
+msgid "Merge Package"
+msgstr "पैकेज विलय करें"
+
+#: html/pkgmerge.php
+#, php-format
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr "यह प्रपत्र उपयोग कर पैकेज बेस %s%s%s का अन्य पैकेज में विलय करें।"
+
+#: html/pkgmerge.php
+msgid "The following packages will be deleted: "
+msgstr "निम्नलिखित पैकेज हटेंगे :"
+
+#: html/pkgmerge.php
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr "पैकेज विलय उपरांत इसे पूर्ववत करना संभव नहीं है।"
+
+#: html/pkgmerge.php
+msgid "Enter the package name you wish to merge the package into. "
+msgstr "पैकेज विलय हेतु पैकेज नाम दर्ज करें।"
+
+#: html/pkgmerge.php
+msgid "Merge into:"
+msgstr "इसमें विलय करें :"
+
+#: html/pkgmerge.php
+msgid "Confirm package merge"
+msgstr "पैकेज विलय पुष्टिकरण"
+
+#: html/pkgmerge.php template/pkgreq_form.php
+msgid "Merge"
+msgstr "विलय करें"
+
+#: html/pkgmerge.php
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr "केवल विश्वसनीय उपयोक्ता व व सॉफ्टवेयर विकासकर्ता ही पैकेज विलय कर सकते हैं।"
+
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
+msgid "Submit Request"
+msgstr "अनुरोध निवेदित करें"
+
+#: html/pkgreq.php template/pkgreq_close_form.php
+msgid "Close Request"
+msgstr "अनुरोध निरस्त करें"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
+msgid "First"
+msgstr "पहला"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
+msgid "Previous"
+msgstr "पिछला"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
+msgid "Next"
+msgstr "अगला"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
+msgid "Last"
+msgstr "अंतिम"
+
+#: html/pkgreq.php template/header.php
+msgid "Requests"
+msgstr "अनुरोध"
+
+#: html/register.php template/header.php
+msgid "Register"
+msgstr "पंजीकरण"
+
+#: html/register.php
+msgid "Use this form to create an account."
+msgstr "यह प्रपत्र उपयोग कर अकाउंट बनाएँ।"
+
+#: html/tos.php
+msgid "Terms of Service"
+msgstr "सेवा की शर्तें"
+
+#: html/tos.php
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr "निम्नलिखित प्रलेखों में परिवर्तन हुए हैं। कृपया ध्यानपूर्वक पढ़ें :"
+
+#: html/tos.php
+#, php-format
+msgid "revision %d"
+msgstr "संशोधन %d"
+
+#: html/tos.php
+msgid "I accept the terms and conditions above."
+msgstr "मैं ऊपर दिए गए नियम व शर्तों को स्वीकारता हूँ।"
+
+#: html/tu.php template/account_details.php template/header.php
+msgid "Trusted User"
+msgstr "विश्वसनीय उपयोक्ता"
+
+#: html/tu.php
+msgid "Could not retrieve proposal details."
+msgstr "प्रस्ताव विवरण प्राप्त करने में विफल।"
+
+#: html/tu.php
+msgid "Voting is closed for this proposal."
+msgstr "इस प्रस्ताव हेतु वोट प्रक्रिया बंद है।"
+
+#: html/tu.php
+msgid "Only Trusted Users are allowed to vote."
+msgstr "केवल विश्वसनीय उपयोक्ता ही मतदान कर सकते हैं।"
+
+#: html/tu.php
+msgid "You cannot vote in an proposal about you."
+msgstr "स्वयं से संबंधित प्रस्ताव में मतदान निषेध है।"
+
+#: html/tu.php
+msgid "You've already voted for this proposal."
+msgstr "इस प्रस्ताव हेतु आपका मत दर्ज है।"
+
+#: html/tu.php
+msgid "Vote ID not valid."
+msgstr "अमान्य मतदान आईडी।"
+
+#: html/tu.php template/tu_list.php
+msgid "Current Votes"
+msgstr "वर्तमान मत"
+
+#: html/tu.php
+msgid "Past Votes"
+msgstr "पूर्व मत"
+
+#: html/voters.php template/tu_details.php
+msgid "Voters"
+msgstr "मतदाता"
+
+#: lib/acctfuncs.inc.php
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "संभवतः अवांछनीय इंटरनेट गतिविधिय के कारण आपके आईपी पते हेतु अकाउंट पंजीकरण निष्क्रिय है। असुविधा के लिए खेद है।"
+
+#: lib/acctfuncs.inc.php
+msgid "Missing User ID"
+msgstr "अनुपस्थित उपयोक्ता आईडी"
+
+#: lib/acctfuncs.inc.php
+msgid "The username is invalid."
+msgstr "अमान्य उपयोक्ता नाम।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "%s से लेकर %s अक्षर होना आवश्यक है"
+
+#: lib/acctfuncs.inc.php
+msgid "Start and end with a letter or number"
+msgstr "आरंभ व अंत अक्षर या अंक से हो"
+
+#: lib/acctfuncs.inc.php
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "केवल एक बिंदु, अंडरस्कोर या हायफ़न ही उपयोग करें।"
+
+#: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr "कृपया नए कूटशब्द की पुष्टि करें।"
+
+#: lib/acctfuncs.inc.php
+msgid "The email address is invalid."
+msgstr "अमान्य ईमेल पता।"
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr "अमान्य बैकअप ईमेल पता।"
+
+#: lib/acctfuncs.inc.php
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr "अमान्य होम पृष्ठ, कृपया पूर्ण एचटीटीपी(एस) यूआरएल दर्ज करें।"
+
+#: lib/acctfuncs.inc.php
+msgid "The PGP key fingerprint is invalid."
+msgstr "अमान्य पीजीपी कुंजी पहचान चिन्ह।"
+
+#: lib/acctfuncs.inc.php
+msgid "The SSH public key is invalid."
+msgstr "अमान्य सार्वजनिक एसएसएच कुंजी।"
+
+#: lib/acctfuncs.inc.php
+msgid "Cannot increase account permissions."
+msgstr "अकाउंट अनुमतियाँ बढ़ाना संभव नहीं है।"
+
+#: lib/acctfuncs.inc.php
+msgid "Language is not currently supported."
+msgstr "असमर्थित भाषा।"
+
+#: lib/acctfuncs.inc.php
+msgid "Timezone is not currently supported."
+msgstr "असमर्थित समयक्षेत्र।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr "उपयोक्ता नाम, %s%s%s, पहले से कार्यरत है।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr "पता, %s%s%s, पहले से कार्यरत है।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr "सार्वजनिक एसएसएच कुंजी, %s%s%s, पहले से कार्यरत है।"
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr "अनुपस्थित CAPTCHA।"
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr "CAPTCHA मान्यता समाप्त। पुनः प्रयास करें।"
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr "अमान्य CAPTCHA उत्तर दर्ज किया गया।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr "अकाउंट, %s%s%s बनाने हेतु त्रुटि।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr "अकाउंट,%s%s%s, सफलतापूर्वक बनाया गया।"
+
+#: lib/acctfuncs.inc.php
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "कूटशब्द पुनः सेट करने हेतु कुंजी आपको ईमेल कर दी गई है।"
+
+#: lib/acctfuncs.inc.php
+msgid "Click on the Login link above to use your account."
+msgstr "अकाउंट उपयोग करने हेतु लॉगिन पर क्लिक करें।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "No changes were made to the account, %s%s%s."
+msgstr "अकाउंट, %s%s%s में कोई परिवर्तन नहीं हुआ।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr "अकाउंट,%s%s%s, हेतु परिवर्तन सफल।"
+
+#: lib/acctfuncs.inc.php
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "संभवतः अवांछनीय इंटरनेट गतिविधि के कारण आपके आईपी पते हेतु लॉगिन प्रपत्र अभी निष्क्रिय है। असुविधा के लिए खेद है।"
+
+#: lib/acctfuncs.inc.php
+msgid "Account suspended"
+msgstr "निलंबित अकाउंट"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr "आपके पास अकाउंट निलंबन हेतु अनुमति नहीं है।"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "कूटशब्द पुनः सेट किया गया। यदि अकाउंट नवीन है तो, पुष्टिकरण ईमेल में दिए गए लिंक द्वारा आरंभिक कूटशब्द सेट करें। अन्यथा %sकूटशब्द पुनः सेट%s पृष्ठ द्वारा पुनः सेट करने हेतु कुंजी प्राप्त करें।"
+
+#: lib/acctfuncs.inc.php
+msgid "Bad username or password."
+msgstr "अनुचित उपयोक्ता नाम या कूटशब्द।"
+
+#: lib/acctfuncs.inc.php
+msgid "An error occurred trying to generate a user session."
+msgstr "उपयोक्ता सत्र बनाने हेतु त्रुटि।"
+
+#: lib/acctfuncs.inc.php
+msgid "Invalid e-mail and reset key combination."
+msgstr "अमान्य ईमेल व पुनः सेट कुंजी संयोजन।"
+
+#: lib/aur.inc.php template/pkg_details.php
+msgid "None"
+msgstr "कुछ नहीं"
+
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
+#, php-format
+msgid "View account information for %s"
+msgstr "%s हेतु अकाउंट जानकारी देखें"
+
+#: lib/aurjson.class.php
+msgid "Package base ID or package base name missing."
+msgstr "अनुपस्थित पैकेज बेस आईडी या पैकेज बेस नाम।"
+
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to edit this comment."
+msgstr "यह टिप्पणी संपादित करना संभव नहीं है।"
+
+#: lib/aurjson.class.php
+msgid "Comment does not exist."
+msgstr "अनुपस्थित टिप्पणी।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment cannot be empty."
+msgstr "टिप्पणी रिक्त नहीं होनी चाहिए।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been added."
+msgstr "टिप्पणी जोड़ी गई।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can edit package information."
+msgstr "पैकेज जानकारी संपादन हेतु लॉगिन आवश्यक है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Missing comment ID."
+msgstr "अनुपस्थित टिप्पणी आईडी।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "No more than 5 comments can be pinned."
+msgstr "5 से अधिक कमेंट पिन करना संभव नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to pin this comment."
+msgstr "आप इस टिप्पणी को पिन नहीं कर सकते हैं।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to unpin this comment."
+msgstr "आप इस टिप्पणी को पिन से नहीं हटा सकते हैं।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been pinned."
+msgstr "टिप्पणी पिन की गई।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been unpinned."
+msgstr "टिप्पणी पिन से हटाई गई।"
+
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
+msgid "Error retrieving package details."
+msgstr "पैकेज विवरण प्राप्त करने हेतु त्रुटि।"
+
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
+msgid "Package details could not be found."
+msgstr "पैकेज विवरण प्राप्त करने में विफल।"
+
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr "अनुचित संदर्भित हैडर।"
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr "अधिसूचना हेतु कोई पैकेज चयनित नहीं है।"
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr "चयनित पैकेज हेतु अधिसूचनाएँ सक्रिय हैं।"
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr "अधिसूचना निष्क्रिय करने हेतु कोई पैकेज चयनित नहीं है।"
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr "आपके द्वारा चयनित एक पैकेज हेतु अधिसूचनाएँ निष्क्रिय है।"
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr "चयनित पैकेज हेतु अधिसूचनाएँ हटा दी गई हैं।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can flag packages."
+msgstr "पैकेज चिन्हित करने हेतु लॉगिन आवश्यक है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to flag."
+msgstr "चिन्हित करने हेतु कोई पैकेज चयनित नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have not been flagged, please enter a comment."
+msgstr "चयनित पैकेज अचिन्हित हैं, कृपया टिप्पणी दर्ज करें।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been flagged out-of-date."
+msgstr "चयनित पैकेज पुराने के रूप में चिन्हित हैं।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can unflag packages."
+msgstr "पैकेज अचिन्हित करने हेतु लॉगिन आवश्यक है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to unflag."
+msgstr "अचिन्हित करने हेतु कोई पैकेज चयनित नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been unflagged."
+msgstr "चयनित पैकेज अचिन्हित किए गए।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You do not have permission to delete packages."
+msgstr "आपके पास पैकेज हटाने हेतु अनुमति नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to delete."
+msgstr "हटाने हेतु कोई पैकेज चयनित नहीं है।"
+
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr "आपके द्वारा चयनित एक पैकेज अनुपलब्ध है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been deleted."
+msgstr "चयनित पैकेज हटाए गए।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can adopt packages."
+msgstr "पैकेज स्वामित्व प्राप्त करने हेतु लॉगिन आवश्यक है।"
+
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr "आपके द्वारा चयनित पैकेज में से एक की स्वामित्व प्राप्ति निषेध है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can disown packages."
+msgstr "पैकेज स्वामित्व निरस्त करने हेतु लॉगिन आवश्यक है।"
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr "आपके द्वारा चयनित पैकेज में से एक का स्वामित्व निरस्त करना निषेध है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to adopt."
+msgstr "स्वामित्व प्राप्त करने हेतु कोई पैकेज चयनित नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to disown."
+msgstr "स्वामित्व निरस्त करने हेतु कोई पैकेज चयनित नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been adopted."
+msgstr "चयनित पैकेज का स्वामित्व प्राप्त किया गया।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been disowned."
+msgstr "चयनित पैकेज का स्वामित्व निरस्त किया गया।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can vote for packages."
+msgstr "पैकेज के लिए मतदान करने हेतु लॉगिन आवश्यक है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "पैकेज के लिए मतदान वापस लेने हेतु लॉगिन आवश्यक है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to vote for."
+msgstr "मतदान करने हेतु कोई पैकेज चयनित नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Your votes have been removed from the selected packages."
+msgstr "चयनित पैकेज हेतु आपके मत हटाए गए।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Your votes have been cast for the selected packages."
+msgstr "चयनित पैकेज हेतु आपके मत दर्ज किए गए।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Couldn't add to notification list."
+msgstr "अधिसूचना सूची में जोड़ना विफल।"
+
+#: lib/pkgbasefuncs.inc.php
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "आपको %s के लिए टिप्पणियों हेतु अधिसूचना सूची में जोड़ दिया गया है।"
+
+#: lib/pkgbasefuncs.inc.php
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "आपको %s के लिए टिप्पणियों हेतु अधिसूचना सूची में से हटा दिया गया है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to undelete this comment."
+msgstr "आपके पास यह टिप्पणी नहीं हटाने हेतु अनुमति नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been undeleted."
+msgstr "टिप्पणी हटाई नहीं गई।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to delete this comment."
+msgstr "आपके पास यह टिप्पणी हटाने हेतु अनुमति नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been deleted."
+msgstr "टिप्पणी हटा दी गई।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been edited."
+msgstr "टिप्पणी संपादित की गई।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "आपके पास इस पैकेज बेस के वर्गीकरण शब्द संपादित करने हेतु अनुमति नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The package base keywords have been updated."
+msgstr "पैकेज बेस के वर्गीकरण शब्द अपडेट किए गए।"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr "आपके पास इस पैकेज बेस के सह-अनुरक्षकों के प्रबंधन हेतु अनुमति नहीं है।"
+
+#: lib/pkgbasefuncs.inc.php
+#, php-format
+msgid "Invalid user name: %s"
+msgstr "अमान्य उपयोक्ता नाम : %s"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The package base co-maintainers have been updated."
+msgstr "पैकेज बेस के सह-अनुरक्षक अपडेट किए गए।"
+
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
+msgid "View packages details for"
+msgstr "इस हेतु पैकेज विवरण देखें"
+
+#: lib/pkgfuncs.inc.php
+#, php-format
+msgid "requires %s"
+msgstr "%s आवश्यक है"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "You must be logged in to file package requests."
+msgstr "पैकेज अनुरोध करने हेतु लॉगिन आवश्यक है।"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "अमान्य नाम : केवल लोअरकेस अक्षर ही स्वीकार्य हैं।"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "The comment field must not be empty."
+msgstr "टिप्पणी रिक्त नहीं होनी चाहिए।"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Invalid request type."
+msgstr "अमान्य अनुरोध प्रकार।"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Added request successfully."
+msgstr "अनुरोध जोड़ना सफल।"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Invalid reason."
+msgstr "अमान्य कारण।"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Only TUs and developers can close requests."
+msgstr "केवल विश्वसनीय उपयोक्ता व व सॉफ्टवेयर विकासकर्ता ही अनुरोध निरस्त कर सकते हैं।"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Request closed successfully."
+msgstr "अनुरोध निरस्त करना सफल।"
+
+#: template/account_delete.php
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "यह प्रपत्र उपयोग कर AUR अकाउंट स्थायी रूप से हटाएँ।%s"
+
+#: template/account_delete.php
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%sचेतावनी%s: यह कार्य पूर्ववत करना संभव नहीं है।"
+
+#: template/account_delete.php
+msgid "Confirm deletion"
+msgstr "हटाने की पुष्टि करें"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "Username"
+msgstr "उपयोक्ता नाम"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Account Type"
+msgstr "अकाउंट प्रकार"
+
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
+msgid "User"
+msgstr "उपयोक्ता"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Developer"
+msgstr "सॉफ्टवेयर विकासकर्ता"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Trusted User & Developer"
+msgstr "विश्वसनीय उपयोक्ता व सॉफ्टवेयर विकासकर्ता"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Email Address"
+msgstr "ईमेल पता"
+
+#: template/account_details.php
+msgid "hidden"
+msgstr "अदृश्य"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "Real Name"
+msgstr "वास्तविक नाम"
+
+#: template/account_details.php template/account_edit_form.php
+msgid "Homepage"
+msgstr "होम पृष्ठ"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "IRC Nick"
+msgstr "आईआरसी उपनाम"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
+msgid "PGP Key Fingerprint"
+msgstr "पीजीपी कुंजी पहचान चिन्ह"
+
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
+msgid "Status"
+msgstr "स्थिति"
+
+#: template/account_details.php
+msgid "Inactive since"
+msgstr "तब से निष्क्रिय"
+
+#: template/account_details.php template/account_search_results.php
+msgid "Active"
+msgstr "सक्रिय"
+
+#: template/account_details.php
+msgid "Registration date:"
+msgstr "पंजीकरण दिनांक :"
+
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php
+#: template/tu_details.php
+msgid "unknown"
+msgstr "अज्ञात"
+
+#: template/account_details.php
+msgid "Last Login"
+msgstr "अंतिम बार लॉगिन"
+
+#: template/account_details.php
+msgid "Never"
+msgstr "कभी नहीं"
+
+#: template/account_details.php
+msgid "View this user's packages"
+msgstr "इस उपयोक्ता के पैकेज देखें"
+
+#: template/account_details.php
+msgid "Edit this user's account"
+msgstr "उपयोक्ता अकाउंट संपादित करें"
+
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr "इस उपयोक्ता की टिप्पणियाँ देखें"
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "%sयहाँ%s क्लिक कर यह अकाउंट स्थायी रूप से हटाएँ।"
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "%sयहाँ%s क्लिक कर उपयोक्ता विवरण देखें।"
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr "%sयहाँ%s क्लिक कर इस अकाउंट द्वारा की गई टिप्पणियाँ देखें।"
+
+#: template/account_edit_form.php
+msgid "required"
+msgstr "आवश्यक है"
+
+#: template/account_edit_form.php
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr "लॉगिन हेतु प्रयुक्त नाम ही उपयोक्ता नाम होता है। अकाउंट निष्क्रिय होने पर भी यह सार्वजनिक रूप से दृश्यमान होगा।"
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Normal user"
+msgstr "सामान्य उपयोक्ता"
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Trusted user"
+msgstr "विश्वसनीय उपयोक्ता"
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Account Suspended"
+msgstr "निलंबित अकाउंट"
+
+#: template/account_edit_form.php
+msgid "Inactive"
+msgstr "निष्क्रिय"
+
+#: template/account_edit_form.php
+msgid ""
+"Please ensure you correctly entered your email address, otherwise you will "
+"be locked out."
+msgstr "सुनिश्चित करें कि दर्ज किया गया ईमेल पता उचित है, अन्यथा अभिगम निरस्त हो जाएगी।"
+
+#: template/account_edit_form.php
+msgid "Hide Email Address"
+msgstr "ईमेल पता छुपाएँ"
+
+#: template/account_edit_form.php
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr "ईमेल पता न छुपाने पर यह सभी पंजीकृत उपयोक्ताओं व छुपाने पर यह केवल आर्च लिनक्स कर्मियों को दृश्यमान होगा।"
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr "बैकअप ईमेल पता"
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr "एक वैकल्पिक ईमेल पता भी दर्ज करें ताकि प्राथमिक ईमेल हेतु अभिगम न होने पर भी आप अपना अकाउंट पुनः स्थापित कर सकें।"
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr "कूटशब्द पुनः सेट करने हेतु लिंक प्राथमिक व बैकअप दोनों पर ईमेल किए जाते हैं।"
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr "बैकअप ईमेल पता आर्च लिनक्स कर्मियों को सदैव दृश्यमान होता है, यह %s सेटिंग पर निर्भर नहीं है।"
+
+#: template/account_edit_form.php
+msgid "Language"
+msgstr "भाषा"
+
+#: template/account_edit_form.php
+msgid "Timezone"
+msgstr "समयक्षेत्र"
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr "कूटशब्द बदलने हेतु नया कूटशब्द दर्ज करें व पुनः दर्ज कर उसकी पुष्टि करें।"
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "कूटशब्द पुनः दर्ज करें"
+
+#: template/account_edit_form.php
+msgid ""
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
+msgstr "निम्नलिखित जानकारी केवल आर्च उपयोक्ता पैकेज-संग्रह में पैकेज निवेदन करने हेतु ही आवश्यक है।"
+
+#: template/account_edit_form.php
+msgid "SSH Public Key"
+msgstr "सार्वजनिक एसएसएच कुंजी"
+
+#: template/account_edit_form.php
+msgid "Notification settings"
+msgstr "अधिसूचना सेटिंग्स"
+
+#: template/account_edit_form.php
+msgid "Notify of new comments"
+msgstr "नवीन टिप्पणी हेतु सूचित करें"
+
+#: template/account_edit_form.php
+msgid "Notify of package updates"
+msgstr "पैकेज अपडेट हेतु सूचित करें"
+
+#: template/account_edit_form.php
+msgid "Notify of ownership changes"
+msgstr "स्वामित्व परिवर्तन हेतु सूचित करें"
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr "अपना वर्तमान कूटशब्द दर्ज कर, प्रोफाइल परिवर्तनों की पुष्टि करें :"
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr "वर्तमान कूटशब्द"
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr "AUR में स्वतः अकाउंट निर्माण रोकने हेतु कृपया नीचे दी गई कमांड का आउटपुट प्रदान करें :"
+
+#: template/account_edit_form.php
+msgid "Answer"
+msgstr "उत्तर"
+
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
+msgid "Update"
+msgstr "अपडेट करें"
+
+#: template/account_edit_form.php
+msgid "Create"
+msgstr "बनाएँ"
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Reset"
+msgstr "पुनः सेट करें"
+
+#: template/account_search_results.php
+msgid "No results matched your search criteria."
+msgstr "आपके खोज मानदंड हेतु कोई परिणाम नहीं मिला।"
+
+#: template/account_search_results.php
+msgid "Edit Account"
+msgstr "अकाउंट संपादित करें"
+
+#: template/account_search_results.php
+msgid "Suspended"
+msgstr "निलंबित"
+
+#: template/account_search_results.php
+msgid "Edit"
+msgstr "संपादित करें"
+
+#: template/account_search_results.php
+msgid "Less"
+msgstr "कम"
+
+#: template/account_search_results.php
+msgid "More"
+msgstr "अधिक"
+
+#: template/account_search_results.php
+msgid "No more results to display."
+msgstr "कोई अन्य परिणाम नहीं है।"
+
+#: template/comaintainers_form.php
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr "यह प्रपत्र उपयोग कर %s%s%s हेतु सह-अनुरक्षक जोड़ें (प्रत्येक पंक्ति में एक उपयोक्ता):"
+
+#: template/comaintainers_form.php
+msgid "Users"
+msgstr "उपयोक्ता"
+
+#: template/comaintainers_form.php template/pkg_comment_form.php
+msgid "Save"
+msgstr "संचित करें"
+
+#: template/flag_comment.php
+#, php-format
+msgid "Flagged Out-of-Date Comment: %s"
+msgstr "पुराने के रूप में चिन्हित करती टिप्पणी : %s"
+
+#: template/flag_comment.php
+#, php-format
+msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
+msgstr "%s%s%s द्वारा %s%s%s को निम्नलिखित कारण से %s%s%s को पुराने के रूप में चिन्हित किया गया :"
+
+#: template/flag_comment.php
+#, php-format
+msgid "%s%s%s is not flagged out-of-date."
+msgstr "%s%s%s पुराने के रूप में चिन्हित नहीं है।"
+
+#: template/flag_comment.php
+msgid "Return to Details"
+msgstr "विवरण पर वापस जाएँ"
+
+#: template/footer.php
+#, php-format
+msgid "Copyright %s 2004-%d aurweb Development Team."
+msgstr "प्रतिलिप्याधिकार %s 2004-%d aurweb विकासकर्ता टीम।"
+
+#: template/header.php
+msgid " My Account"
+msgstr "मेरा अकाउंट"
+
+#: template/pkgbase_actions.php
+msgid "Package Actions"
+msgstr "पैकेज संबंधी कार्य"
+
+#: template/pkgbase_actions.php
+msgid "View PKGBUILD"
+msgstr "PKGBUILD देखें"
+
+#: template/pkgbase_actions.php
+msgid "View Changes"
+msgstr "बदलाव देखें"
+
+#: template/pkgbase_actions.php
+msgid "Download snapshot"
+msgstr "स्नैपशॉट डाउनलोड"
+
+#: template/pkgbase_actions.php
+msgid "Search wiki"
+msgstr "विकी में ढूँढें"
+
+#: template/pkgbase_actions.php
+#, php-format
+msgid "Flagged out-of-date (%s)"
+msgstr "पुराने के रूप में चिन्हित (%s)"
+
+#: template/pkgbase_actions.php
+msgid "Flag package out-of-date"
+msgstr "पैकेज को पुराने के रूप में चिन्हित करें"
+
+#: template/pkgbase_actions.php
+msgid "Unflag package"
+msgstr "पैकेज अचिन्हित करें"
+
+#: template/pkgbase_actions.php
+msgid "Remove vote"
+msgstr "मत हटाएँ"
+
+#: template/pkgbase_actions.php
+msgid "Vote for this package"
+msgstr "इस पैकेज को वोट दें"
+
+#: template/pkgbase_actions.php scripts/notify.py
+msgid "Disable notifications"
+msgstr "अधिसूचनाएँ निष्क्रिय करें"
+
+#: template/pkgbase_actions.php template/pkg_comment_form.php
+msgid "Enable notifications"
+msgstr "अधिसूचनाएँ सक्रिय करें"
+
+#: template/pkgbase_actions.php
+msgid "Manage Co-Maintainers"
+msgstr "सह-अनुरक्षक प्रबंधन"
+
+#: template/pkgbase_actions.php
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] "%d शेष अनुरोध"
+msgstr[1] "%d शेष अनुरोध"
+
+#: template/pkgbase_actions.php
+msgid "Adopt Package"
+msgstr "पैकेज स्वामित्व लें"
+
+#: template/pkgbase_details.php
+msgid "Package Base Details"
+msgstr "पैकेज बेस विवरण"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "Git Clone URL"
+msgstr "Git प्रतिरूपण यूआरएल"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "read-only"
+msgstr "केवल रीड योग्य"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr "कॉपी करने हेतु क्लिक करें"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
+msgid "Keywords"
+msgstr "वर्गीकरण शब्द"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
+msgid "Submitter"
+msgstr "निवेदक"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Maintainer"
+msgstr "अनुरक्षक"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "Last Packager"
+msgstr "अंतिम पैकेज कर्ता"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Votes"
+msgstr "मत"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Popularity"
+msgstr "लोकप्रियता"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "First Submitted"
+msgstr "प्रथम बार निवेदित"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "Last Updated"
+msgstr "अंतिम बार अपडेट"
+
+#: template/pkg_comment_box.php
+#, php-format
+msgid "Edit comment for: %s"
+msgstr "इस हेतु टिप्पणी संपादन : %s"
+
+#: template/pkg_comment_box.php template/pkg_comment_form.php
+msgid "Add Comment"
+msgstr "टिप्पणी करें"
+
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr "AUR पैकेज-संग्रह व यूआरएल संचय कार्यों की और इंगित करते Git संचय पहचान साधन स्वतः ही लिंक में परिवर्तित कर दिए जाते हैं।"
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr "%sमार्कडाउन वाक्य-विन्यास%s आंशिक रूप से ही समर्थित है।"
+
+#: template/pkg_comments.php
+msgid "Pinned Comments"
+msgstr "पिन की गई टिप्पणियाँ"
+
+#: template/pkg_comments.php
+msgid "Latest Comments"
+msgstr "नवीनतम टिप्पणियाँ"
+
+#: template/pkg_comments.php
+msgid "Comments for"
+msgstr "इस हेतु टिप्पणियाँ"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "%s commented on %s"
+msgstr "%s ने %s को टिप्पणी की"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Anonymous comment on %s"
+msgstr "अज्ञात ने %s को टिप्पणी की"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr "%s पैकेज हेतु %s को टिप्पणी की"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "deleted on %s by %s"
+msgstr "%s ने %s को हटाया"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "deleted on %s"
+msgstr "%s को हटाया गया"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "edited on %s by %s"
+msgstr "%s द्वारा %s को संपादित"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "edited on %s"
+msgstr "%s को संपादित"
+
+#: template/pkg_comments.php
+msgid "Undelete comment"
+msgstr "टिप्पणी न हटाएँ"
+
+#: template/pkg_comments.php
+msgid "Delete comment"
+msgstr "टिप्पणी हटाएँ"
+
+#: template/pkg_comments.php
+msgid "Pin comment"
+msgstr "टिप्पणी पिन करें"
+
+#: template/pkg_comments.php
+msgid "Unpin comment"
+msgstr "टिप्पणी पिन से हटाएँ"
+
+#: template/pkg_details.php
+msgid "Package Details"
+msgstr "पैकेज विवरण"
+
+#: template/pkg_details.php template/pkg_search_form.php
+msgid "Package Base"
+msgstr "पैकेज बेस"
+
+#: template/pkg_details.php template/pkg_search_results.php
+msgid "Description"
+msgstr "विवरण"
+
+#: template/pkg_details.php
+msgid "Upstream URL"
+msgstr "स्रोत यूआरएल"
+
+#: template/pkg_details.php
+msgid "Visit the website for"
+msgstr "इस हेतु वेबसाइट देखें"
+
+#: template/pkg_details.php
+msgid "Licenses"
+msgstr "लाइसेंस"
+
+#: template/pkg_details.php
+msgid "Groups"
+msgstr "समूह"
+
+#: template/pkg_details.php
+msgid "Conflicts"
+msgstr "इनके विरुद्ध"
+
+#: template/pkg_details.php
+msgid "Provides"
+msgstr "प्रदान करता है"
+
+#: template/pkg_details.php
+msgid "Replaces"
+msgstr "इनके स्थान पर"
+
+#: template/pkg_details.php
+msgid "Dependencies"
+msgstr "आश्रित पैकेज"
+
+#: template/pkg_details.php
+msgid "Required by"
+msgstr "इन हेतु आवश्यक"
+
+#: template/pkg_details.php
+msgid "Sources"
+msgstr "स्रोत"
+
+#: template/pkgreq_close_form.php
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr "यह प्रपत्र उपयोग कर पैकेज बेस %s%s%s हेतु अनुरोध निरस्त करें।"
+
+#: template/pkgreq_close_form.php
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr "टिप्पणी होना आवश्यक है। हालाँकि, अनुरोध निरस्त करने के उपरांत भी टिप्पणी करना आवश्यक है।"
+
+#: template/pkgreq_close_form.php
+msgid "Reason"
+msgstr "कारण"
+
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
+msgid "Accepted"
+msgstr "स्वीकृत"
+
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
+msgid "Rejected"
+msgstr "अस्वीकृत"
+
+#: template/pkgreq_form.php
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "यह प्रपत्र उपयोग कर पैकेज बेस %s%s%s व उसमें सम्मिलित निम्नलिखित पैकेज के विरुद्ध हेतु अनुरोध करें :"
+
+#: template/pkgreq_form.php
+msgid "Request type"
+msgstr "अनुरोध प्रकार"
+
+#: template/pkgreq_form.php
+msgid "Deletion"
+msgstr "हटाना"
+
+#: template/pkgreq_form.php
+msgid "Orphan"
+msgstr "निरर्थक पैकेज"
+
+#: template/pkgreq_form.php template/pkg_search_results.php
+msgid "Merge into"
+msgstr "इसमें विलय करें"
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr "हटाने हेतु अनुरोध से अभिप्राय है विश्वसनीय उपयोक्ता को पैकेज बेस हटाने हेतु निवेदन। यह प्रतिरूपित प्रोग्राम, स्रोत द्वारा त्यागे गए सॉफ्टवेयर के साथ ही अवैध व समाधान विहीन समस्यात्मक पैकेज हेतु उचित होता है।"
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr "विलय अनुरोध से अभिप्राय है विश्वसनीय उपयोक्ता को पैकेज बेस हटाकर मत व टिप्पणियाँ अन्य पैकेज बेस में अंतरण हेतु निवेदन। पैकेज बेस हटाने से संबंधित पैकेज-संग्रह प्रभावित नहीं होते हैं। सुनिश्चित करें कि आप लक्षित पैकेज का Git वृतांत स्वयं अपडेट करें।"
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr "निरर्थक पैकेज अनुरोध से अभिप्राय है विश्वसनीय उपयोक्ता को पैकेज स्वामित्व निरस्त करने हेतु निवेदन। अनुरक्षक कार्य अनिवार्यता, अनुरक्षक की अघोषित अनुपस्थिति और स्वयं अनुरक्षक से संपर्क हेतु प्रयास होने पर ही कृपया ऐसा करें।"
+
+#: template/pkgreq_results.php
+msgid "No requests matched your search criteria."
+msgstr "आपके खोज मानदंड हेतु कोई अनुरोध नहीं मिला।"
+
+#: template/pkgreq_results.php
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] "%d पैकेज अनुरोध मिला।"
+msgstr[1] "%d पैकेज अनुरोध मिले।"
+
+#: template/pkgreq_results.php template/pkg_search_results.php
+#, php-format
+msgid "Page %d of %d."
+msgstr "%d का %d पृष्ठ।"
+
+#: template/pkgreq_results.php
+msgid "Package"
+msgstr "पैकेज"
+
+#: template/pkgreq_results.php
+msgid "Filed by"
+msgstr "इन द्वारा निवेदित"
+
+#: template/pkgreq_results.php
+msgid "Date"
+msgstr "दिनांक"
+
+#: template/pkgreq_results.php
+#, php-format
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "~%d दिन शेष"
+msgstr[1] "~%d दिन शेष"
+
+#: template/pkgreq_results.php
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] "~%d घंटा शेष"
+msgstr[1] "~%d घंटे शेष"
+
+#: template/pkgreq_results.php
+msgid "<1 hour left"
+msgstr "<1 घंटा शेष"
+
+#: template/pkgreq_results.php
+msgid "Accept"
+msgstr "स्वीकारें"
+
+#: template/pkgreq_results.php
+msgid "Locked"
+msgstr "लॉक है"
+
+#: template/pkgreq_results.php
+msgid "Close"
+msgstr "निरस्त"
+
+#: template/pkgreq_results.php
+msgid "Pending"
+msgstr "शेष"
+
+#: template/pkgreq_results.php
+msgid "Closed"
+msgstr "निरस्त है"
+
+#: template/pkg_search_form.php
+msgid "Name, Description"
+msgstr "नाम, विवरण"
+
+#: template/pkg_search_form.php
+msgid "Name Only"
+msgstr "केवल नाम"
+
+#: template/pkg_search_form.php
+msgid "Exact Name"
+msgstr "सटीक नाम"
+
+#: template/pkg_search_form.php
+msgid "Exact Package Base"
+msgstr "सटीक पैकेज बेस"
+
+#: template/pkg_search_form.php
+msgid "Co-maintainer"
+msgstr "सह-अनुरक्षक"
+
+#: template/pkg_search_form.php
+msgid "Maintainer, Co-maintainer"
+msgstr "अनुरक्षक, सह-अनुरक्षक"
+
+#: template/pkg_search_form.php
+msgid "All"
+msgstr "सभी"
+
+#: template/pkg_search_form.php
+msgid "Flagged"
+msgstr "चिन्हित"
+
+#: template/pkg_search_form.php
+msgid "Not Flagged"
+msgstr "अचिन्हित"
+
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Name"
+msgstr "नाम"
+
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
+msgid "Voted"
+msgstr "मतदान किया गया"
+
+#: template/pkg_search_form.php
+msgid "Last modified"
+msgstr "अंतिम बार परिवर्तन"
+
+#: template/pkg_search_form.php
+msgid "Ascending"
+msgstr "आरोह"
+
+#: template/pkg_search_form.php
+msgid "Descending"
+msgstr "अवरोह"
+
+#: template/pkg_search_form.php
+msgid "Enter search criteria"
+msgstr "खोज मानदंड दर्ज करें"
+
+#: template/pkg_search_form.php
+msgid "Search by"
+msgstr "खोज हेतु मापदंड"
+
+#: template/pkg_search_form.php template/stats/user_table.php
+msgid "Out of Date"
+msgstr "पुराने"
+
+#: template/pkg_search_form.php template/search_accounts_form.php
+msgid "Sort by"
+msgstr "अनुक्रमण"
+
+#: template/pkg_search_form.php
+msgid "Sort order"
+msgstr "क्रम"
+
+#: template/pkg_search_form.php
+msgid "Per page"
+msgstr "प्रति पृष्ठ"
+
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Go"
+msgstr "खोजें"
+
+#: template/pkg_search_form.php
+msgid "Orphans"
+msgstr "निरर्थक पैकेज"
+
+#: template/pkg_search_results.php
+msgid "Error retrieving package list."
+msgstr "पैकेज सूची प्राप्त करने हेतु त्रुटि।"
+
+#: template/pkg_search_results.php
+msgid "No packages matched your search criteria."
+msgstr "आपके खोज मानदंड हेतु कोई पैकेज नहीं मिला।"
+
+#: template/pkg_search_results.php
+#, php-format
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] "%d पैकेज मिले।"
+msgstr[1] "%d पैकेज मिले।"
+
+#: template/pkg_search_results.php
+msgid "Version"
+msgstr "संस्करण"
+
+#: template/pkg_search_results.php
+#, php-format
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of %.2f per day since its creation."
+msgstr "पैकेज लोकप्रियता की गणना उसके निर्माण उपरांत प्रति दिन से %.2f कारक युक्त प्रत्येक मत के साथ सभी मतों के योग के रूप में की जाती है।"
+
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
+msgid "Yes"
+msgstr "हाँ"
+
+#: template/pkg_search_results.php
+msgid "orphan"
+msgstr "निरर्थक पैकेज"
+
+#: template/pkg_search_results.php
+msgid "Actions"
+msgstr "कार्य"
+
+#: template/pkg_search_results.php
+msgid "Unflag Out-of-date"
+msgstr "पुराने के रूप में अचिन्हित करें"
+
+#: template/pkg_search_results.php
+msgid "Adopt Packages"
+msgstr "पैकेज स्वामित्व लें"
+
+#: template/pkg_search_results.php
+msgid "Disown Packages"
+msgstr "पैकेज स्वामित्व निरस्त करें"
+
+#: template/pkg_search_results.php
+msgid "Delete Packages"
+msgstr "पैकेज हटाएँ"
+
+#: template/pkg_search_results.php
+msgid "Confirm"
+msgstr "पुष्टि करें"
+
+#: template/search_accounts_form.php
+msgid "Any type"
+msgstr "कोई भी प्रकार"
+
+#: template/search_accounts_form.php
+msgid "Search"
+msgstr "खोजें"
+
+#: template/stats/general_stats_table.php
+msgid "Statistics"
+msgstr "आँकड़ें"
+
+#: template/stats/general_stats_table.php
+msgid "Orphan Packages"
+msgstr "निरर्थक पैकेज"
+
+#: template/stats/general_stats_table.php
+msgid "Packages added in the past 7 days"
+msgstr "पिछले 7 दिनों में जोड़ें गए पैकेज"
+
+#: template/stats/general_stats_table.php
+msgid "Packages updated in the past 7 days"
+msgstr "पिछले 7 दिनों में अपडेट हुए पैकेज"
+
+#: template/stats/general_stats_table.php
+msgid "Packages updated in the past year"
+msgstr "पिछले वर्ष में अपडेट हुए पैकेज"
+
+#: template/stats/general_stats_table.php
+msgid "Packages never updated"
+msgstr "कभी अपडेट नहीं हुए पैकेज"
+
+#: template/stats/general_stats_table.php
+msgid "Registered Users"
+msgstr "पंजीकृत उपयोक्ता"
+
+#: template/stats/general_stats_table.php
+msgid "Trusted Users"
+msgstr "विश्वसनीय उपयोक्ता"
+
+#: template/stats/updates_table.php
+msgid "Recent Updates"
+msgstr "हालिया अपडेट"
+
+#: template/stats/updates_table.php
+msgid "more"
+msgstr "अधिक"
+
+#: template/stats/user_table.php
+msgid "My Statistics"
+msgstr "मेरे आँकड़ें"
+
+#: template/tu_details.php
+msgid "Proposal Details"
+msgstr "प्रस्ताव विवरण"
+
+#: template/tu_details.php
+msgid "This vote is still running."
+msgstr "मतदान प्रक्रिया चालू है।"
+
+#: template/tu_details.php
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "निवेदित : %s द्वारा %s"
+
+#: template/tu_details.php template/tu_list.php
+msgid "End"
+msgstr "अंत"
+
+#: template/tu_details.php
+msgid "Result"
+msgstr "परिणाम"
+
+#: template/tu_details.php template/tu_list.php
+msgid "No"
+msgstr "नहीं"
+
+#: template/tu_details.php
+msgid "Abstain"
+msgstr "वोट न करें"
+
+#: template/tu_details.php
+msgid "Total"
+msgstr "कुल"
+
+#: template/tu_details.php
+msgid "Participation"
+msgstr "भाग लिया"
+
+#: template/tu_last_votes_list.php
+msgid "Last Votes by TU"
+msgstr "विश्वसनीय उपयोक्ताओं द्वारा अंतिम मत"
+
+#: template/tu_last_votes_list.php
+msgid "Last vote"
+msgstr "अंतिम मत"
+
+#: template/tu_last_votes_list.php template/tu_list.php
+msgid "No results found."
+msgstr "कोई परिणाम नहीं मिला।"
+
+#: template/tu_list.php
+msgid "Start"
+msgstr "आरंभ"
+
+#: template/tu_list.php
+msgid "Back"
+msgstr "वापस"
+
+#: scripts/notify.py
+msgid "AUR Password Reset"
+msgstr "AUR कूटशब्द पुनः सेट करें"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"A password reset request was submitted for the account {user} associated "
+"with your email address. If you wish to reset your password follow the link "
+"[1] below, otherwise ignore this message and nothing will happen."
+msgstr "आपके ईमेल पते से संबंधित अकाउंट {user} हेतु कूटशब्द पुनः सेट करने हेतु अनुरोध किया गया है। यदि आप कूटशब्द पुनः सेट करना चाहते हैं तो नीचे दिया लिंक [1] उपयोग करें, अन्यथा इस संदेश को अनदेखा करें।"
+
+#: scripts/notify.py
+msgid "Welcome to the Arch User Repository"
+msgstr "आर्च उपयोक्ता पैकेज-संग्रह में स्वागत है"
+
+#: scripts/notify.py
+msgid ""
+"Welcome to the Arch User Repository! In order to set an initial password for"
+" your new account, please click the link [1] below. If the link does not "
+"work, try copying and pasting it into your browser."
+msgstr "आर्च उपयोक्ता पैकेज-संग्रह में स्वागत है! नवीन अकाउंट हेतु आरंभिक कूटशब्द सेट करने हेतु, नीचे दिया लिंक [1] उपयोग करें। लिंक उपयोग में समस्या होने पर इस लिंक को कॉपी कर ब्राउज़र में पेस्ट करें।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Comment for {pkgbase}"
+msgstr "{pkgbase} हेतु AUR टिप्पणी"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] added the following comment to {pkgbase} [2]:"
+msgstr "{user} [1] द्वारा {pkgbase} [2] में निम्नलिखित टिप्पणी में जोड़ी गई :"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"If you no longer wish to receive notifications about this package, please go"
+" to the package page [2] and select \"{label}\"."
+msgstr "यदि आप इस पैकेज संबंधी अधिसूचना प्राप्त नहीं करना चाहते हैं तो पैकेज पृष्ठ [2] पर जाकर \"{label}\" चुनें।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package Update: {pkgbase}"
+msgstr "AUR पैकेज अपडेट : {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
+msgstr "{user} [1] द्वारा {pkgbase} [2] में निम्नलिखित संचित कार्य किया गया :"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Out-of-date Notification for {pkgbase}"
+msgstr "{pkgbase} के पुराना होने की AUR अधिसूचना"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
+msgstr "{user} [2] द्वारा आपका पैकेज {pkgbase} [1] पुराने के रूप में चिन्हित किया गया है :"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Ownership Notification for {pkgbase}"
+msgstr "{pkgbase} हेतु स्वामित्व की AUR अधिसूचना"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was adopted by {user} [2]."
+msgstr "{user} [2] द्वारा पैकेज {pkgbase} [1] का स्वामित्व लिया गया।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was disowned by {user} [2]."
+msgstr "{user} [2] द्वारा पैकेज {pkgbase} [1] का स्वामित्व निरस्त किया गया।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Co-Maintainer Notification for {pkgbase}"
+msgstr "{pkgbase} हेतु सह-अनुरक्षक की AUR अधिसूचना"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were added to the co-maintainer list of {pkgbase} [1]."
+msgstr "आपको {pkgbase} [1] की सह-अनुरक्षक सूची में जोड़ा गया।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
+msgstr "आपको {pkgbase} [1] की सह-अनुरक्षक सूची से हटाया गया।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package deleted: {pkgbase}"
+msgstr "AUR पैकेज हटाया गया : {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"-- \n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr "{user} [1] द्वारा {old} [2] का {new} [3] में विलय।\n\n-- \nयदि आप इस नवीन पैकेज संबंधी अधिसूचना प्राप्त नहीं करना चाहते हैं तो [3] पर जाकर \"{label}\" पर क्लिक करें।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] deleted {pkgbase} [2].\n"
+"\n"
+"You will no longer receive notifications about this package."
+msgstr "{user} [1] द्वारा {pkgbase} [2] हटाया गया।\n\nआपको इस पैकेज संबंधी कोई अधिसूचना प्राप्त नहीं होंगी।"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "TU Vote Reminder: Proposal {id}"
+msgstr "विश्वसनीय उपयोक्ता मतदान सूचक : प्रस्ताव {id}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"Please remember to cast your vote on proposal {id} [1]. The voting period "
+"ends in less than 48 hours."
+msgstr "प्रस्ताव {id} [1] हेतु अवश्य मतदान करें। मतदान प्रक्रिया 48 घंटे में समाप्त होगी।"
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr "प्रदान किया गया अकाउंट प्रकार अमान्य है।"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr "आपके पास अकाउंट प्रकार में परिवर्तन हेतु अनुमति नहीं है।"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr "आपके पास इस उपयोक्ता के अकाउंट प्रकार को %s में परिवर्तित करने हेतु अनुमति नहीं है।"
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr "%s स्वीकारनें हेतु कोई निरर्थक पैकेज अनुरोध शेष नहीं है।"
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""

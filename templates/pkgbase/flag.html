@@ -1,0 +1,71 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Flag Package Out-Of-Date" | tr }}: {{ pkgbase.Name }}</h2>
+
+        <p>
+            {{
+                "Use this form to flag the package base %s%s%s and "
+                "the following packages out-of-date: "
+                | tr | format("<strong>", pkgbase.Name, "</strong>") | safe
+            }}
+        </p>
+
+        <ul>
+            {% for package in pkgbase.packages.all() %}
+                <li>{{ package.Name }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if pkgbase.Name.endswith(('-cvs', '-svn', '-git', '-hg', '-bzr', '-darcs')) %}
+            <p class="error">
+                {# TODO: This error is not yet translated. #}
+                {{
+                    "This seems to be a VCS package. Please do %snot%s flag "
+                    "it out-of-date if the package version in the AUR does "
+                    "not match the most recent commit. Flagging this package "
+                    "should only be done if the sources moved or changes in "
+                    "the PKGBUILD are required because of recent upstream "
+                    "changes." | tr | format("<strong>", "</strong>") | safe
+                }}
+            </p>
+        {% endif %}
+
+        <p>
+            {{
+                "Please do %snot%s use this form to report bugs. "
+                "Use the package comments instead."
+                | tr | format("<strong>", "</strong>") | safe
+            }}
+            {{
+                "Enter details on why the package is out-of-date below, "
+                "preferably including links to the release announcement "
+                "or the new release tarball." | tr
+            }}
+        </p>
+
+        {% if errors %}
+            <ul class="errorlist">
+                {% for error in errors %}
+                    <li>{{ error | tr }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form action="/pkgbase/{{ pkgbase.Name }}/flag" method="post">
+            <fieldset>
+                <p>
+                    <label for="id_comments">{{ "Comments" | tr }}:</label>
+                    <textarea id="id_comments"
+                              name="comments"
+                              rows="5"
+                              cols="50"></textarea>
+                </p>
+                <p>
+                    <input class="button" type="submit" value="{{ 'Flag' | tr }}" />
+                </p>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

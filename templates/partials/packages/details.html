@@ -1,0 +1,161 @@
+{% set pkg = pkgbase.packages.first() %}
+<table id="pkginfo">
+    <tr>
+        <th>{{ "Git Clone URL" | tr }}:</th>
+        <td>
+            <a class="copy" href="{{ git_clone_uri_anon | format(pkgbase.Name) }}">{{ git_clone_uri_anon | format(pkgbase.Name) }}</a> ({{ "read-only" | tr }}, {{ "click to copy" | tr }})
+            {% if request.user.is_authenticated() %}
+                <br /> <a class="copy" href="{{ git_clone_uri_priv | format(pkgbase.Name) }}">{{ git_clone_uri_priv | format(pkgbase.Name) }}</a> ({{ "click to copy" | tr }})
+            {% endif %}
+        </td>
+    </tr>
+    {% if show_package_details | default(False) %}
+        <tr>
+            <th>{{ "Package Base" | tr }}:</th>
+            <td class="wrap">
+                <a href="/pkgbase/{{ pkgbase.Name }}">
+                    {{ pkgbase.Name }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>{{ "Description" | tr }}:</th>
+            <td class="wrap">{{ pkg.Description }}</td>
+        </tr>
+        <tr>
+            <th>{{ "Upstream URL" | tr }}:</th>
+            <td class="wrap">
+                {% if pkg.URL %}
+                    <a href="{{ pkg.URL }}">{{ pkg.URL }}</a>
+                {% else %}
+                    {{ "None" | tr }}
+                {% endif %}
+            </td>
+        </tr>
+    {% endif %}
+    {% if pkgbase.keywords.count() or request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer]) %}
+        <tr>
+            <th>{{ "Keywords" | tr }}:</th>
+            {% if request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer]) %}
+            <td>
+                <form method="post"
+                      action="/pkgbase/{{ pkgbase.Name }}/keywords"
+                >
+                    <div>
+                        <input type="text"
+                               name="keywords"
+                               value="{{ pkgbase.keywords | join(' ', attribute='Keyword') }}"
+                        />
+                        <input type="submit" value="{{ 'Update' | tr }}"/>
+                    </div>
+                </form>
+            </td>
+            {% else %}
+            <td>
+                {% for keyword in pkgbase.keywords.all() %}
+                    <a class="keyword"
+                       href="/packages/?K={{ keyword.Keyword }}&amp;SB=p"
+                    >
+                        {{ keyword.Keyword }}
+                    </a>
+                {% endfor %}
+            </td>
+            {% endif %}
+        </tr>
+    {% endif %}
+    {% if show_package_details and licenses and licenses.count() %}
+        <tr id="licenses">
+            <th>{{ "Licenses" | tr }}:</th>
+            <td>{{ licenses.all() | join(', ', attribute='License.Name') }} </td>
+        </tr>
+    {% endif %}
+    {% if show_package_details and conflicts and conflicts.count() %}
+        <tr id="conflicts">
+            <th>{{ "Conflicts" | tr }}:</th>
+            <td class="wrap">
+                {{ conflicts.all() | join(', ', attribute='RelName') }}
+            </td>
+        </tr>
+    {% endif %}
+    {% if show_package_details and provides and provides.count() %}
+        <tr id="provides">
+            <th>{{ "Provides" | tr }}:</th>
+            <td class="wrap">
+                {{ provides.all() | join(', ', attribute='RelName') }}
+            </td>
+        </tr>
+    {% endif %}
+    {% if show_package_details and replaces and replaces.count() %}
+        <tr id="replaces">
+            <th>{{ "Replaces" | tr }}:</th>
+            <td class="wrap">
+                {{ replaces.all() | join(', ', attribute='RelName') }}
+            </td>
+        </tr>
+    {% endif %}
+    <tr>
+        <th>{{ "Submitter" | tr }}:</th>
+        <td>
+            {% if request.user.is_authenticated() and pkgbase.Submitter %}
+                <a href="/account/{{ pkgbase.Submitter.Username }}">
+                    {{ pkgbase.Submitter.Username }}
+                </a>
+            {% else %}
+                {{ pkgbase.Submitter.Username | default("None" | tr) }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{{ "Maintainer" | tr }}:</th>
+        <td>
+            {% if request.user.is_authenticated() and pkgbase.Maintainer %}
+                <a href="/account/{{ pkgbase.Maintainer.Username }}">
+                    {{ pkgbase.Maintainer.Username }}
+                </a>
+            {% else %}
+                {{ pkgbase.Maintainer.Username | default("None" | tr) }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{{ "Last Packager" | tr }}:</th>
+        <td>
+            {% if request.user.is_authenticated() and pkgbase.Packager %}
+                <a href="/account/{{ pkgbase.Packager.Username }}">
+                    {{ pkgbase.Packager.Username }}
+                </a>
+            {% else %}
+                {{ pkgbase.Packager.Username | default("None" | tr) }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>{{ "Votes" | tr }}:</th>
+        {% if request.user.has_credential(creds.PKGBASE_LIST_VOTERS) %}
+            <td>
+                <a href="/pkgbase/{{ pkgbase.Name }}/voters">
+                    {{ pkgbase.NumVotes }}
+                </a>
+            </td>
+        {% else %}
+            <td>{{ pkgbase.NumVotes }}</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <th>{{ "Popularity" | tr }}:</th>
+        <td>{{ pkgbase.Popularity | number_format(6 if pkgbase.Popularity <= 0.2 else 2) }}</td>
+    </tr>
+    <tr>
+        {% set submitted = pkgbase.SubmittedTS | dt | as_timezone(timezone) %}
+        <th>{{ "First Submitted" | tr }}:</th>
+        <td>{{ "%s" | format(submitted.strftime("%Y-%m-%d %H:%M")) }}</td>
+    </tr>
+    <tr>
+        <th>{{ "Last Updated" | tr }}:</th>
+        {% set updated = pkgbase.ModifiedTS | dt | as_timezone(timezone) %}
+        <td>{{ "%s" | format(updated.strftime("%Y-%m-%d %H:%M")) }}</td>
+    </tr>
+</table>
+
+<script type="text/javascript" src="/static/js/copy.js"></script>
+

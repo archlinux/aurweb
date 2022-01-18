@@ -76,16 +76,16 @@ computations and clean up the database:
 * aurweb-usermaint removes the last login IP address of all users that did not
   login within the past seven days.
 
-These scripts can be installed by running `python3 setup.py install` and are
+These scripts can be installed by running `poetry install` and are
 usually scheduled using Cron. The current setup is:
 
 ----
-*/5 * * * * aurweb-mkpkglists [--extended]
-1 */2 * * * aurweb-popupdate
-2 */2 * * * aurweb-aurblup
-3 */2 * * * aurweb-pkgmaint
-4 */2 * * * aurweb-usermaint
-5 */12 * * * aurweb-tuvotereminder
+*/5 * * * * poetry run aurweb-mkpkglists [--extended]
+1 */2 * * * poetry run aurweb-popupdate
+2 */2 * * * poetry run aurweb-aurblup
+3 */2 * * * poetry run aurweb-pkgmaint
+4 */2 * * * poetry run aurweb-usermaint
+5 */12 * * * poetry run aurweb-tuvotereminder
 ----
 
 Advanced Administrative Features

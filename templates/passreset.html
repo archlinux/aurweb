@@ -1,0 +1,76 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{% trans %}Password Reset{% endtrans %}</h2>
+
+        <p>
+            {% if step == "confirm" %}
+                {% trans %}Check your e-mail for the confirmation link.{% endtrans %}
+            {% elif step == "complete" %}
+                {% trans %}Your password has been reset successfully.{% endtrans %}
+            {% elif resetkey %}
+                <!-- Provided with a resetkey. -->
+                {% include "partials/error.html" %}
+
+                <form method="post">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>{% trans %}Confirm your user name or primary e-mail address:{% endtrans %}</td>
+                                <td>
+                                    <input type="text" name="user" size="30" maxlength="64"
+                                           value="{{ user or '' }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{% trans %}Enter your new password:{% endtrans %}</td>
+                                <td>
+                                    <input type="password" name="password" size="30"
+                                           value="{{ password or '' }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{% trans %}Confirm your new password:{% endtrans %}</td>
+                                <td>
+                                    <input type="password" name="confirm" size="30"
+                                           value="{{ confirm or '' }}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <input type="hidden" name="resetkey"
+                           value="{{ resetkey }}">
+                    <input class="button" type="submit"
+                           value="{% trans %}Continue{% endtrans %}">
+                </form>
+            {% else %}
+                <!-- Default page with prompt for user name/e-mail. -->
+                {% set url = "https://mailman.archlinux.org/mailman/listinfo/aur-general" %}
+                {{ "If you have forgotten the user name and the primary e-mail "
+                "address you used to register, please send a message to the "
+                "%saur-general%s mailing list."
+                | tr
+                | format(
+                    '<a href="%s">' | format(url),
+                    "</a>")
+                | safe
+                }}
+                </p>
+
+                {% include "partials/error.html" %}
+
+                <form method="post">
+                    <p>
+                        {% trans %}Enter your user name or your primary e-mail address:{% endtrans %}
+                        <input type="text" name="user" size="30" maxlength="64"
+                               value="{{ user or '' }}">
+                    </p>
+                    <input class="button" type="submit"
+                           value="{% trans %}Continue{% endtrans %}">
+                </form>
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}

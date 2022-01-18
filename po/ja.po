@@ -5,15 +5,15 @@
 # Translators:
 # kusakata, 2013
 # kusakata, 2013
-# kusakata, 2013-2018,2020
+# kusakata, 2013-2018,2020-2022
 # 尾ノ上卓朗 <onoue@showway.biz>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-02-26 12:49+0000\n"
-"Last-Translator: kusakata\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/lfleischer/aurweb/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -474,6 +474,12 @@ msgid ""
 "checkbox."
 msgstr "選択されたパッケージは孤児になっていません。確認チェックボックスにチェックを入れて下さい。"
 
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr "選択されたパッケージはまだ継承されていません。確認チェックボックスにチェックを入れてください。"
+
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "投票やコメントのマージをするパッケージが見つかりません。"
@@ -571,6 +577,14 @@ msgstr "コメントのフラグを立てる"
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "パッケージの Out-Of-Date フラグを立てる"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr "このパッケージは VCS パッケージです。AUR 上のパッケージのバージョンと最新のコミットが一致してない場合でも out-of-date フラグを%s立てないでください%s。フラグを立てていいのはソースが変わってしまった場合や上流の変更によって PKGBUILD に変更が必要な場合だけです。"
 
 #: html/pkgflag.php
 #, php-format
@@ -868,6 +882,10 @@ msgstr "スパムのために、現在あなたのIPアドレスからはログ�
 msgid "Account suspended"
 msgstr "休眠アカウント"
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr "あなたはアカウントを停止する権限を持っていません。"
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -953,6 +971,30 @@ msgstr "パッケージの詳細の取得エラー。"
 msgid "Package details could not be found."
 msgstr "パッケージの詳細が見つかりませんでした。"
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr "不正なリファラヘッダー。"
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr "通知するパッケージが選ばれていません。"
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr "選択されたパッケージの通知が有効になりました。"
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr "通知から外すパッケージが選ばれていません。"
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr "選択されたパッケージの通知は有効になっていません。"
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr "選択されたパッケージの通知は解除されました。"
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "パッケージのフラグを立てるにはログインする必要があります。"
@@ -989,6 +1031,10 @@ msgstr "あなたはパッケージを削除する許可を持っていません
 msgid "You did not select any packages to delete."
 msgstr "削除するパッケージが選ばれていません。"
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr "存在しないパッケージが選択されています。"
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "選択されたパッケージが削除されました。"
@@ -997,9 +1043,17 @@ msgstr "選択されたパッケージが削除されました。"
 msgid "You must be logged in before you can adopt packages."
 msgstr "パッケージを承継するにはログインする必要があります。"
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr "承継できないパッケージが選択されています。"
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "パッケージを放棄するにはログインする必要があります。"
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr "放棄できないパッケージが選択されています。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -2233,3 +2287,48 @@ msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
 msgstr "{id} [1] の提案について投票してください。投票期限は48時間以内です。"
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr "不正なアカウントタイプが指定されました。"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr "あなたはアカウントタイプを変更する権限を持っていません。"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr "あなたはこのユーザーのアカウントタイプを %s に変更する権限を持っていません。"
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr "%s の承認できる孤児リクエストは存在しません。"
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr "内部サーバーエラー"
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr "深刻なエラーが発生しました。"
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr "詳細はログに記録され即座に管理者によって確認されます。ご不便をおかけして申し訳ございません。"
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr "AUR サーバーエラー"
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""

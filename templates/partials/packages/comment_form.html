@@ -1,0 +1,47 @@
+{# `action` is assigned the proper route to use for the form action.
+When `comment` is provided (PackageComment), we display an edit form
+for the comment. Otherwise, we display a new form.
+
+Routes:
+    new comment  - /pkgbase/{name}/comments
+    edit comment - /pkgbase/{name}/comments/{id}
+#}
+{% set action = "/pkgbase/%s/comments" | format(pkgbase.Name) %}
+{% if comment %}
+    {% set action = "/pkgbase/%s/comments/%d" | format(pkgbase.Name, comment.ID) %}
+{% endif %}
+
+<form action="{{ action }}" method="post">
+    <fieldset>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <p>
+            {{ "Git commit identifiers referencing commits in the AUR package "
+            "repository and URLs are converted to links automatically." | tr }}
+            {{ "%sMarkdown syntax%s is partially supported." | tr
+            | format('<a href="https://daringfireball.net/projects/markdown/syntax">',
+                     "</a>")
+            | safe }}
+        </p>
+        <p>
+        <textarea id="id_comment"
+                  name="comment"
+                  cols="80"
+                  rows="10"
+        >{% if comment %}{{ comment.Comments or '' }}{% endif %}</textarea>
+        </p>
+        <p>
+            <button type="submit" class="button">
+                {{ ("Save" if comment else "Add Comment") | tr }}
+            </button>
+            {% if comment and not request.user.notified(pkgbase) %}
+                <span class="comment-enable-notifications">
+                    <input type="checkbox" name="enable_notifications"
+                           id="id_enable_notifications" />
+                    <label for="id_enable_notifications">
+                        {{ "Enable notifications" | tr }}
+                    </label>
+                </span>
+            {% endif %}
+        </p>
+    </fieldset>
+</form>

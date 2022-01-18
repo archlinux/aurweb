@@ -18,6 +18,11 @@ AURBLUP="$TOPLEVEL/aurweb/scripts/aurblup.py"
 NOTIFY="$TOPLEVEL/aurweb/scripts/notify.py"
 RENDERCOMMENT="$TOPLEVEL/aurweb/scripts/rendercomment.py"
 
+# We reuse some of these scripts when running `env`, so add
+# it to PATH; that way, env can pick up the script when loaded.
+PATH="${PATH}:${TOPLEVEL}/test/scripts"
+export PATH
+
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
 [database]
@@ -25,6 +30,7 @@ backend = sqlite
 name = aur.db
 
 [options]
+aurwebdir = $TOPLEVEL
 aur_location = https://aur.archlinux.org
 aur_request_ml = aur-requests@lists.archlinux.org
 enable-maintenance = 0
@@ -61,6 +67,7 @@ sync-dbs = test
 server = file://$(pwd)/remote/
 
 [mkpkglists]
+archivedir = $(pwd)/archive
 packagesfile = packages.gz
 packagesmetafile = packages-meta-v1.json.gz
 packagesmetaextfile = packages-meta-ext-v1.json.gz

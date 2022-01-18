@@ -1,0 +1,109 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box">
+        <h2>{{ "Submit Request" | tr }}: {{ pkgbase.Name }}</h2>
+
+        <p>
+            {{ "Use this form to file a request against package base "
+            "%s%s%s which includes the following packages:"
+            | tr | format("<strong>", pkgbase.Name, "</strong>") | safe }}
+        </p>
+        <ul>
+            {% for package in pkgbase.packages %}
+                <li>{{ package.Name }}</li>
+            {% endfor %}
+        </ul>
+
+        {# Request form #}
+        <form id="request-form" action="/pkgbase/{{ pkgbase.Name }}/request"
+              method="post">
+            <fieldset>
+                <p>
+                    <label for="id_type">{{ "Request type" | tr }}:</label>
+                    <select id="id_type" name="type">
+                        <option value="deletion"
+                            {% if type == "deletion" %}
+                                selected
+                            {% endif %}
+                        >{{ "Deletion" | tr }}</option>
+                        <option value="merge"
+                            {% if type == "merge" %}
+                                selected
+                            {% endif %}
+                        >{{ "Merge" | tr }}</option>
+                        <option value="orphan"
+                            {% if type == "orphan" %}
+                                selected
+                            {% endif %}
+                        >{{ "Orphan" | tr }}</option>
+                    </select>
+                </p>
+
+                {# Javascript included for HTML-changing triggers depending
+                on the selected type (above). #}
+                <script type="text/javascript"
+                        src="/static/js/typeahead-pkgbase-request.js"></script>
+
+                <p id="merge_section" style="display: none">
+                    <label for="id_merge_into">{{ "Merge into" | tr }}:</label>
+                    <input id="id_merge_into" type="text" name="merge_into"
+                           autocomplete="off" value="{{ merge_into or '' }}" />
+                </p>
+
+                <p>
+                    <label for="id_comments">{{ "Comments" | tr }}:</label>
+                    <textarea id="id_comments" name="comments"
+                              rows="5" cols="50">{{ comments or '' }}</textarea>
+                </p>
+
+                <p id="deletion_hint">
+                    {{
+                        "By submitting a deletion request, you ask a Trusted "
+                        "User to delete the package base. This type of "
+                        "request should be used for duplicates, software "
+                        "abandoned by upstream, as well as illegal and "
+                        "irreparably broken packages." | tr
+                    }}
+                </p>
+
+                <p id="merge_hint" style="display: none">
+                    {{
+                        "By submitting a merge request, you ask a Trusted "
+                        "User to delete the package base and transfer its "
+                        "votes and comments to another package base. "
+                        "Merging a package does not affect the corresponding "
+                        "Git repositories. Make sure you update the Git "
+                        "history of the target package yourself." | tr
+                    }}
+                </p>
+
+                <p id="orphan_hint" style="display: none">
+                    {{
+                        "By submitting an orphan request, you ask a Trusted "
+                        "User to disown the package base. Please only do this "
+                        "if the package needs maintainer action, the "
+                        "maintainer is MIA and you already tried to contact "
+                        "the maintainer previously." | tr
+                    }}
+                </p>
+
+                <p>
+                    <button class="button" type="submit">
+                        {{ "Submit Request" | tr }}
+                    </button>
+                </p>
+
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}

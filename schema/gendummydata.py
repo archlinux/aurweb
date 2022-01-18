@@ -16,26 +16,32 @@ import random
 import sys
 import time
 
+import bcrypt
+
 LOG_LEVEL = logging.DEBUG  # logging level. set to logging.INFO to reduce output
 SEED_FILE = "/usr/share/dict/words"
 USER_ID = 5            # Users.ID of first bogus user
 PKG_ID = 1             # Packages.ID of first package
-MAX_USERS = 76000      # how many users to 'register'
+# how many users to 'register'
+MAX_USERS = int(os.environ.get("MAX_USERS", 38000))
 MAX_DEVS = .1          # what percentage of MAX_USERS are Developers
 MAX_TUS = .2           # what percentage of MAX_USERS are Trusted Users
-MAX_PKGS = 64000       # how many packages to load
+# how many packages to load
+MAX_PKGS = int(os.environ.get("MAX_PKGS", 32000))
 PKG_DEPS = (1, 15)     # min/max depends a package has
 PKG_RELS = (1, 5)      # min/max relations a package has
 PKG_SRC = (1, 3)       # min/max sources a package has
 PKG_CMNTS = (1, 5)     # min/max number of comments a package has
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
 VOTING = (0, .001)     # percentage range for package voting
-OPEN_PROPOSALS = 5     # number of open trusted user proposals
-CLOSE_PROPOSALS = 15   # number of closed trusted user proposals
+# number of open trusted user proposals
+OPEN_PROPOSALS = int(os.environ.get("OPEN_PROPOSALS", 15))
+# number of closed trusted user proposals
+CLOSE_PROPOSALS = int(os.environ.get("CLOSE_PROPOSALS", 50))
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
-FORTUNE_FILE = "/usr/share/fortune/cookie"
+FORTUNE_FILE = os.environ.get("FORTUNE_FILE", "/usr/share/fortune/cookie")
 
 # setup logging
 logformat = "%(levelname)s: %(message)s"
@@ -98,10 +104,18 @@ if MAX_USERS > len(contents):
     MAX_USERS = len(contents)
 if MAX_PKGS > len(contents):
     MAX_PKGS = len(contents)
-if len(contents) - MAX_USERS > MAX_PKGS:
-    need_dupes = 0
-else:
+
+need_dupes = 0
+if not len(contents) - MAX_USERS > MAX_PKGS:
     need_dupes = 1
+
+
+def normalize(unicode_data):
+    """ We only accept ascii for usernames. Also use this to normalize
+    package names; our database utf8mb4 collations compare with Unicode
+    Equivalence. """
+    return unicode_data.encode('ascii', 'ignore').decode('ascii')
+
 
 # select random usernames
 #
@@ -110,11 +124,12 @@ user_id = USER_ID
 while len(seen_users) < MAX_USERS:
     user = random.randrange(0, len(contents))
     word = contents[user].replace("'", "").replace(".", "").replace(" ", "_")
-    word = word.strip().lower()
+    word = normalize(word.strip().lower())
     if word not in seen_users:
         seen_users[word] = user_id
         user_id += 1
 user_keys = list(seen_users.keys())
+
 
 # select random package names
 #
@@ -123,7 +138,7 @@ num_pkgs = PKG_ID
 while len(seen_pkgs) < MAX_PKGS:
     pkg = random.randrange(0, len(contents))
     word = contents[pkg].replace("'", "").replace(".", "").replace(" ", "_")
-    word = word.strip().lower()
+    word = normalize(word.strip().lower())
     if not need_dupes:
         if word not in seen_pkgs and word not in seen_users:
             seen_pkgs[word] = num_pkgs
@@ -173,11 +188,17 @@ for u in user_keys:
             #
             pass
 
+    # For dummy data, we just use 4 salt rounds.
+    salt = bcrypt.gensalt(rounds=4).decode()
+
+    # "{salt}{username}"
+    to_hash = f"{salt}{u}"
+
     h = hashlib.new('md5')
-    h.update(u.encode())
-    s = ("INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd)"
-         " VALUES (%d, %d, '%s', '%s@example.com', '%s');\n")
-    s = s % (seen_users[u], account_type, u, u, h.hexdigest())
+    h.update(to_hash.encode())
+    s = ("INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd, Salt)"
+         " VALUES (%d, %d, '%s', '%s@example.com', '%s', '%s');\n")
+    s = s % (seen_users[u], account_type, u, u, h.hexdigest(), salt)
     out.write(s)
 
 log.debug("Number of developers: %d" % len(developers))
@@ -285,10 +306,10 @@ for p in seen_pkgs_keys:
     for i in range(num_sources):
         src_file = user_keys[random.randrange(0, len(user_keys))]
         src = "%s%s.%s/%s/%s-%s.tar.gz" % (
-                RANDOM_URL[random.randrange(0, len(RANDOM_URL))],
-                p, RANDOM_TLDS[random.randrange(0, len(RANDOM_TLDS))],
-                RANDOM_LOCS[random.randrange(0, len(RANDOM_LOCS))],
-                src_file, genVersion())
+            RANDOM_URL[random.randrange(0, len(RANDOM_URL))],
+            p, RANDOM_TLDS[random.randrange(0, len(RANDOM_TLDS))],
+            RANDOM_LOCS[random.randrange(0, len(RANDOM_LOCS))],
+            src_file, genVersion())
         s = "INSERT INTO PackageSources(PackageID, Source) VALUES (%d, '%s');\n"
         s = s % (seen_pkgs[p], src)
         out.write(s)

@@ -1,0 +1,41 @@
+<!--
+    This partial requires the following  to render properly
+    - pkgname
+    - pkgbase-id
+    - comments (list)
+-->
+
+{% if request.user.is_authenticated() %}
+<div id="generic-form" class="box">
+    <h2>Add Comment</h2>
+    {% include "partials/packages/comment_form.html" %}
+</div>
+{% endif %}
+
+{% if pinned_comments.count() %}
+    <div class="comments package-comments">
+        <div class="comments-header">
+            <h3>
+                <span class="text">{{ "Pinned Comments" | tr }}</span>
+                <span class="arrow"></span>
+            </h3>
+        </div>
+        {% for comment in pinned_comments.all() %}
+            {% include "partials/packages/comment.html" %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if comments.count() %}
+    <div class="comments package-comments">
+        <div class="comments-header">
+            <h3>
+                <span class="text">{{ "Latest Comments" | tr }}</span>
+                <span class="arrow"></span>
+            </h3>
+        </div>
+        {% for comment in comments.all() %}
+            {% include "partials/packages/comment.html" %}
+        {% endfor %}
+    </div>
+{% endif %}

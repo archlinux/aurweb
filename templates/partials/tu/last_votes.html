@@ -1,0 +1,33 @@
+<div class="box">
+    <h2>{% trans %}{{ title }}{% endtrans %}</h2>
+
+    <table class="results last-votes">
+        <thead>
+            <th>{{ "User" | tr }}</th>
+            <th>{{ "Last vote" | tr }}</th>
+        </thead>
+
+        <tbody>
+            {% if not votes %}
+                <tr>
+                    <td align="center" colspan="0">
+                        {{ "No results found." | tr }}
+                    </td>
+                    <td></td>
+                </tr>
+            {% else %}
+                {% for vote in votes %}
+                    <tr>
+                        <td>{{ vote.User.Username }}</td>
+                        <td>
+                            <a href="/tu/{{ vote.VoteID }}">
+                                {{ vote.VoteID }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+</div>

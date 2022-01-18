@@ -1,0 +1,42 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Close Request" | tr }}: {{ pkgreq.PackageBaseName }}</h2>
+
+        <p>
+            {{
+                "Use this form to close the request for package base %s%s%s."
+                | tr | format("<strong>", pkgreq.PackageBaseName, "</strong>")
+                | safe
+            }}
+        </p>
+
+        <p>
+            <em>{{ "Note" | tr }}:</em>
+            {{
+                "The comments field can be left empty. However, it is highly "
+                "recommended to add a comment when rejecting a request."
+                | tr
+            }}
+        </p>
+
+        <form action="/requests/{{ pkgreq.ID }}/close" method="post">
+            <fieldset>
+                <p>
+                    <label for="id_comments">{{ "Comments" | tr }}:</label>
+                    <textarea id="id_comments" name="comments"
+                              rows="5" cols="50"></textarea>
+                </p>
+
+                <p>
+                    <button class="button" type="submit">
+                        {{ "Close Request" | tr }}
+                    </button>
+                </p>
+
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}

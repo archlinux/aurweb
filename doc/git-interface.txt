@@ -111,3 +111,21 @@ receive.autogc to false. Remember to periodically run `git gc` manually or
 setup a maintenance script which initiates the garbage collection if you follow
 this advice. For gc.pruneExpire, we recommend "3.months.ago", such that commits
 that became unreachable by TU intervention are kept for a while.
+
+Script Wrappers (poetry)
+------------------------
+
+When aurweb is installed within a poetry virtualenv, commands need
+to be prefixed with `poetry run`. A few wrapper scripts are provided
+which automate this, as long as the executing user's `$HOME` is
+aurweb's project root.
+
+- `examples/aurweb-git-auth.sh`
+- `examples/aurweb-git-serve.sh`
+- `examples/aurweb-git-update.sh`
+
+These scripts should be installed somewhere on the aurweb host. The
+following options need to be updated to the installed wrappers:
+
+- `[auth] git-serve-cmd`
+- `[serve] git-update-cmd`

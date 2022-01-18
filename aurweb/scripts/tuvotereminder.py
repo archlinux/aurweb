@@ -1,27 +1,34 @@
 #!/usr/bin/env python3
 
-import subprocess
-import time
+from sqlalchemy import and_
 
 import aurweb.config
-import aurweb.db
+
+from aurweb import db, time
+from aurweb.models import TUVoteInfo
+from aurweb.scripts import notify
 
 notify_cmd = aurweb.config.get('notifications', 'notify-cmd')
 
 
 def main():
-    conn = aurweb.db.Connection()
+    db.get_engine()
 
-    now = int(time.time())
-    filter_from = now + 500
-    filter_to = now + 172800
+    now = time.utcnow()
 
-    cur = conn.execute("SELECT ID FROM TU_VoteInfo " +
-                       "WHERE End >= ? AND End <= ?",
-                       [filter_from, filter_to])
+    start = aurweb.config.getint("tuvotereminder", "range_start")
+    filter_from = now + start
 
-    for vote_id in [row[0] for row in cur.fetchall()]:
-        subprocess.Popen((notify_cmd, 'tu-vote-reminder', str(vote_id))).wait()
+    end = aurweb.config.getint("tuvotereminder", "range_end")
+    filter_to = now + end
+
+    query = db.query(TUVoteInfo.ID).filter(
+        and_(TUVoteInfo.End >= filter_from,
+             TUVoteInfo.End <= filter_to)
+    )
+    for voteinfo in query:
+        notif = notify.TUVoteReminderNotification(voteinfo.ID)
+        notif.send()
 
 
 if __name__ == '__main__':

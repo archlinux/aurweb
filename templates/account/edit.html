@@ -1,0 +1,46 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{% trans %}Accounts{% endtrans %}</h2>
+
+        {% if complete %}
+
+            {{
+                "The account, %s%s%s, has been successfully modified."
+                | tr
+                | format("<strong>", user.Username, "</strong>")
+                | safe
+            }}
+
+        {% else %}
+            {% if errors %}
+                {% include "partials/error.html" %}
+            {% else %}
+                <p>
+                {{ "Click %shere%s if you want to permanently delete this account."
+                | tr
+                | format('<a href="%s/delete">' | format(user | account_url),
+                         "</a>")
+                | safe
+                }}
+                {{ "Click %shere%s for user details."
+                | tr
+                | format('<a href="%s">' | format(user | account_url),
+                         "</a>")
+                | safe
+                }}
+                {{ "Click %shere%s to list the comments made by this account."
+                | tr
+                | format('<a href="%s/comments">' | format(user | account_url),
+                         "</a>")
+                | safe
+                }}
+                </p>
+            {% endif %}
+
+            {% set form_type = "UpdateAccount" %}
+            {% include "partials/account_form.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

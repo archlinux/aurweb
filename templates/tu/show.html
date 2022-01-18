@@ -1,0 +1,21 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        {% include "partials/tu/proposal/details.html" %}
+    </div>
+    
+    {% if utcnow >= voteinfo.End %}
+        <div class="box">
+            {% include "partials/tu/proposal/voters.html" %}
+        </div>
+    {% endif %}
+
+    <div class="box">
+        {% if error %}
+            <span class="status">{{ error | tr }}</span>
+        {% else %}
+            {% include "partials/tu/proposal/form.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Accounts" | tr }}</h2>
+
+        {% if not users %}
+            {{ "No results matched your search criteria." | tr }}
+        {% else %}
+            {% include "partials/account/results.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

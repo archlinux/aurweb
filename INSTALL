@@ -4,64 +4,135 @@ Setup on Arch Linux
 For testing aurweb patches before submission, you can use the instructions in
 TESTING for testing the web interface only.
 
-Note that you can only do limited testing using the PHP built-in web server.
-In particular, the cgit interface will be unusable as well as the ssh+git
-interface. For a detailed description on how to setup a full aurweb server,
+For a detailed description on how to setup a full aurweb server,
 read the instructions below.
 
-1) Clone the aurweb project:
+1) Clone the aurweb project and install it (via `python-poetry`):
 
-   $ cd /srv/http/
-   $ git clone https://gitlab.archlinux.org/archlinux/aurweb.git
+    $ cd /srv/http/
+    $ git clone git://git.archlinux.org/aurweb.git
+    $ cd aurweb
+    $ poetry install
 
 2) Setup a web server with PHP and MySQL. Configure the web server to redirect
    all URLs to /index.php/foo/bar/. The following block can be used with nginx:
 
     server {
-        listen       80;
+        # https is preferred and can be done easily with LetsEncrypt
+        # or self-CA signing. Users can still listen over 80 for plain
+        # http, for which the [options] disable_http_login used to toggle
+        # the authentication feature.
+        listen       443 ssl http2;
         server_name  aur.local aur;
 
-        root   /srv/http/aurweb/web/html;
-        index  index.php;
+        # To enable SSL proxy properly, make sure gunicorn and friends
+        # are supporting forwarded headers over 127.0.0.1 or any if
+        # the asgi server is contacted by non-localhost hosts.
+        ssl_certificate /etc/ssl/certs/aur.cert.pem;
+        ssl_certificate_key /etc/ssl/private/aur.key.pem;
 
-        location ~ ^/[^/]+\.php($|/) {
-            fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
-            fastcgi_index  index.php;
-            fastcgi_split_path_info ^(/[^/]+\.php)(/.*)$;
-            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-            fastcgi_param  PATH_INFO        $fastcgi_path_info;
-            include        fastcgi_params;
+        # Asset root. This is used to match against gzip archives.
+        root   /srv/http/aurweb/web/html;
+
+        # TU Bylaws redirect.
+        location = /trusted-user/TUbylaws.html {
+            return 301 https://tu-bylaws.aur.archlinux.org;
         }
 
-        location ~ .* {
-            rewrite ^/(.*)$ /index.php/$1 last;
+        # smartgit location.
+        location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
+            include      uwsgi_params;
+            uwsgi_pass   smartgit;
+            uwsgi_modifier1 9;
+            uwsgi_param  SCRIPT_FILENAME /usr/lib/git-core/git-http-backend;
+            uwsgi_param  PATH_INFO /aur.git/$3;
+            uwsgi_param  GIT_HTTP_EXPORT_ALL "";
+            uwsgi_param  GIT_NAMESPACE $1;
+            uwsgi_param  GIT_PROJECT_ROOT /srv/http/aurweb;
+        }
+
+        # cgitrc.proto should be configured and located somewhere
+        # of your choosing.
+        location ~ ^/cgit {
+            include uwsgi_params;
+            rewrite ^/cgit/([^?/]+/[^?]*)?(?:\?(.*))?$ /cgit.cgi?url=$1&$2 last;
+            uwsgi_modifier1 9;
+            uwsgi_param CGIT_CONFIG /srv/http/aurweb/conf/cgitrc.proto;
+            uwsgi_pass cgit;
+        }
+
+        # Static archive assets.
+        location ~ \.gz$ {
+            types { application/gzip text/plain }
+            default_type text/plain;
+            add_header Content-Encoding gzip;
+            expires 5m;
+        }
+
+        # For everything else, proxy the http request to (guni|uvi|hyper)corn.
+        # The ASGI server application should allow this request's IP to be
+        # forwarded via the headers used below.
+        # https://docs.gunicorn.org/en/stable/settings.html#forwarded-allow-ips
+        location / {
+            proxy_pass http://127.0.0.1:8000;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Protocol ssl;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Ssl on;
         }
     }
-
-    Ensure to enable the pdo_mysql extension in php.ini.
 
 3) Optionally copy conf/config.defaults to /etc/aurweb/. Create or copy
    /etc/aurweb/config (this is expected to contain all configuration settings
    if the defaults file does not exist) and adjust the configuration (pay
    attention to disable_http_login, enable_maintenance and aur_location).
 
-4) Install Python modules and dependencies:
+4) Install system-wide dependencies:
 
-    # pacman -S python-mysql-connector python-pygit2 python-srcinfo python-sqlalchemy \
-                python-bleach python-markdown python-alembic python-jinja \
-                python-itsdangerous python-authlib python-httpx hypercorn \
-                python-orjson
-    # python3 setup.py install
+    # pacman -S git gpgme cgit curl openssh uwsgi uwsgi-plugin-cgi \
+        python-poetry
 
-5) Create a new MySQL database and a user and import the aurweb SQL schema:
-
-    $ python -m aurweb.initdb
-
-6) Create a new user:
+5) Create a new user:
 
     # useradd -U -d /srv/http/aurweb -c 'AUR user' aur
+    # su - aur
 
-7) Initialize the Git repository:
+6a) Install Python dependencies via poetry:
+
+    # Install the package and scripts as the aur user.
+    $ poetry install
+
+6b) Setup Services
+
+aurweb utilizes the following systemd services:
+- mariadb
+- redis (optional, requires [options] cache 'redis')
+- `examples/aurweb.service`
+
+6c) Setup Cron
+
+Using [cronie](https://archlinux.org/packages/core/x86_64/cronie/):
+
+    # su - aur
+    $ crontab -e
+
+The following crontab file uses every script meant to be run on an
+interval:
+
+    AUR_CONFIG='/etc/aurweb/config'
+    */5 * * * * bash -c 'poetry run aurweb-mkpkglists --extended'
+    */2 * * * * bash -c 'poetry run aurweb-aurblup'
+    */2 * * * * bash -c 'poetry run aurweb-pkgmaint'
+    */2 * * * * bash -c 'poetry run aurweb-usermaint'
+    */2 * * * * bash -c 'poetry run aurweb-popupdate'
+    */12 * * * * bash -c 'poetry run aurweb-tuvotereminder'
+
+7) Create a new database and a user and import the aurweb SQL schema:
+
+    $ poetry run python -m aurweb.initdb
+
+8) Initialize the Git repository:
 
     # mkdir /srv/http/aurweb/aur.git/
     # cd /srv/http/aurweb/aur.git/
@@ -69,19 +140,26 @@ read the instructions below.
     # git config --local transfer.hideRefs '^refs/'
     # git config --local --add transfer.hideRefs '!refs/'
     # git config --local --add transfer.hideRefs '!HEAD'
-    # ln -s /usr/local/bin/aurweb-git-update hooks/update
     # chown -R aur .
+
+Link to `aurweb-git-update` poetry wrapper provided at
+`examples/aurweb-git-update.sh` which should be installed
+somewhere as executable.
+
+    # ln -s /path/to/aurweb-git-update.sh hooks/update
 
    It is recommended to read doc/git-interface.txt for more information on the
    administration of the package Git repository.
 
-8) Configure sshd(8) for the AUR. Add the following lines at the end of your
-   sshd_config(5) and restart the sshd. Note that OpenSSH 6.9 or newer is
-   needed!
+9) Configure sshd(8) for the AUR. Add the following lines at the end of your
+   sshd_config(5) and restart the sshd.
+
+If using a virtualenv, copy `examples/aurweb-git-auth.sh` to a location
+and call it below:
 
     Match User aur
         PasswordAuthentication no
-        AuthorizedKeysCommand /usr/local/bin/aurweb-git-auth "%t" "%k"
+        AuthorizedKeysCommand /path/to/aurweb-git-auth.sh "%t" "%k"
         AuthorizedKeysCommandUser aur
         AcceptEnv AUR_OVERWRITE
 
@@ -100,8 +178,17 @@ read the instructions below.
 
    Sample systemd unit files for fcgiwrap can be found under conf/.
 
-10) If you want memcache to cache MySQL data.
+10) If you want Redis to cache data.
 
-    # pacman -S php-memcached
+    # pacman -S redis
+    # systemctl enable --now redis
 
-    And edit the configuration file to enabled memcache caching.
+    And edit the configuration file to enabled redis caching
+    (`[options] cache = redis`).
+
+11) Start `aurweb.service`.
+
+An example systemd unit has been included at `examples/aurweb.service`.
+This unit can be used to manage the aurweb asgi backend. By default,
+it is configured to use `poetry` as the `aur` user; this should be
+configured as needed.

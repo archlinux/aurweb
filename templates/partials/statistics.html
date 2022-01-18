@@ -1,0 +1,27 @@
+<div id="my-stats" class="widget box">
+    <h3>{{ "My Statistics" | tr }}</h3>
+
+    {% set bases = request.user.maintained_bases %}
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <a href="/packages/?SeB=m&K={{ request.user.Username }}">
+                        {{ "Packages" | tr }}
+                    </a>
+                </td>
+                <td>{{ bases.count() }}</td>
+            </tr>
+            {% set out_of_date_packages = bases | out_of_date %}
+            <tr>
+                <td>
+                    <a href="/packages/?SeB=m&outdated=on&K={{ request.user.Username }}">
+                        {{ "Out of Date" | tr }}
+                    </a>
+                </td>
+                <td>{{ out_of_date_packages.count() }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

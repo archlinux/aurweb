@@ -1,0 +1,13 @@
+#!/bin/sh
+# This script is used by sharness tests hosted in our `test`
+# directory. We require a concrete script to make using this easily,
+# because we often call `env` in those tests.
+#
+# The purpose of this script is to allow sharness tests to gather
+# Python coverage when calling scripts within `aurweb`.
+#
+TOPLEVEL=$(dirname "$0")/../..
+
+# Define a COVERAGE_FILE in our root directory.
+COVERAGE_FILE="$TOPLEVEL/.coverage" \
+coverage run -L --source="$TOPLEVEL/aurweb" --append "$@"

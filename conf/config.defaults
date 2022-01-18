@@ -2,9 +2,10 @@
 backend = mysql
 host = localhost
 socket = /var/run/mysqld/mysqld.sock
+;port = 3306
 name = AUR
 user = aur
-password = aur
+;password = aur
 
 [options]
 username_min_len = 3
@@ -21,6 +22,7 @@ aur_location = https://aur.archlinux.org
 git_clone_uri_anon = https://aur.archlinux.org/%s.git
 git_clone_uri_priv = ssh://aur@aur.archlinux.org/%s.git
 max_rpc_results = 5000
+max_search_results = 2500
 max_depends = 1000
 aur_request_ml = aur-requests@lists.archlinux.org
 request_idle_time = 1209600
@@ -33,19 +35,29 @@ commit_uri = /cgit/aur.git/commit/?h=%s&id=%s
 snapshot_uri = /cgit/aur.git/snapshot/%s.tar.gz
 enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
-render-comment-cmd = /usr/local/bin/aurweb-rendercomment
-localedir = /srv/http/aurweb/aur.git/web/locale/
-# memcache or apc
+render-comment-cmd = /usr/bin/aurweb-rendercomment
+localedir = /srv/http/aurweb/web/locale/
+; memcache, apc, or redis
+; memcache/apc are supported in PHP, redis is supported in Python.
 cache = none
 cache_pkginfo_ttl = 86400
 memcache_servers = 127.0.0.1:11211
+salt_rounds = 12
+redis_address = redis://localhost
+; Toggles traceback display in templates/errors/500.html.
+traceback = 0
 
 [ratelimit]
 request_limit = 4000
 window_length = 86400
+; Force-utilize cache for ratelimiting. In FastAPI, forced cache (1)
+; will cause the ratelimit path to use a real or fake Redis instance
+; depending on the configured options.cache setting. Otherwise,
+; cache will be ignored and the database will be used.
+cache = 1
 
 [notifications]
-notify-cmd = /usr/local/bin/aurweb-notify
+notify-cmd = /usr/bin/aurweb-notify
 sendmail =
 smtp-server = localhost
 smtp-port = 25
@@ -55,6 +67,9 @@ smtp-user =
 smtp-password =
 sender = notify@aur.archlinux.org
 reply-to = noreply@aur.archlinux.org
+; Administration email which will receive notifications about
+; various server details like uncaught exceptions.
+postmaster = admin@example.org
 
 [fingerprints]
 Ed25519 = SHA256:HQ03dn6EasJHNDlt51KpQpFkT3yBX83x7BoIkA1iv2k
@@ -66,7 +81,7 @@ RSA = SHA256:Ju+yWiMb/2O+gKQ9RJCDqvRg7l+Q95KFAeqM5sr6l2s
 ; https://github.com/openssh/openssh-portable/blob/master/PROTOCOL.u2f
 valid-keytypes = ssh-rsa ssh-dss ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-ed25519 sk-ecdsa-sha2-nistp256@openssh.com sk-ecdsa-sha2-nistp256-cert-v01@openssh.com sk-ssh-ed25519@openssh.com sk-ssh-ed25519-cert-v01@openssh.com
 username-regex = [a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$
-git-serve-cmd = /usr/local/bin/aurweb-git-serve
+git-serve-cmd = /usr/bin/aurweb-git-serve
 ssh-options = restrict
 
 [sso]
@@ -81,7 +96,7 @@ session_secret =
 repo-path = /srv/http/aurweb/aur.git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
 git-shell-cmd = /usr/bin/git-shell
-git-update-cmd = /usr/local/bin/aurweb-git-update
+git-update-cmd = /usr/bin/aurweb-git-update
 ssh-cmdline = ssh aur@aur.archlinux.org
 
 [update]
@@ -90,11 +105,32 @@ max-blob-size = 256000
 [aurblup]
 db-path = /srv/http/aurweb/aurblup/
 sync-dbs = core extra community multilib testing community-testing
-server = ftp://mirrors.kernel.org/archlinux/%s/os/x86_64
+server = https://mirrors.kernel.org/archlinux/%s/os/x86_64
 
 [mkpkglists]
+archivedir = /srv/http/aurweb/web/html
 packagesfile = /srv/http/aurweb/web/html/packages.gz
 packagesmetafile = /srv/http/aurweb/web/html/packages-meta-v1.json.gz
 packagesmetaextfile = /srv/http/aurweb/web/html/packages-meta-ext-v1.json.gz
 pkgbasefile = /srv/http/aurweb/web/html/pkgbase.gz
 userfile = /srv/http/aurweb/web/html/users.gz
+
+[devel]
+; commit_url is a format string used to produce a link to a commit hash.
+commit_url = https://gitlab.archlinux.org/archlinux/aurweb/-/commits/%s
+
+; If commit_hash is configured, a link to the commit based on commit_url
+; will be displayed in aurweb's footer with the release version.
+; This allows us to diagnose which commit a particular instance is on
+; during testing of development branches.
+; Example deployment configuration step:
+; sed -r "s/^;?(commit_hash) =.*$/\1 = $(git rev-parse HEAD)/" config
+;commit_hash = 1234567
+
+[tuvotereminder]
+; Offsets used to determine when TUs should be reminded about
+; votes that they should make.
+; Reminders will be sent out for all votes that a TU has not yet
+; voted on based on `now + range_start <= End <= now + range_end`.
+range_start = 500
+range_end = 172800
