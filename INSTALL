@@ -179,8 +179,10 @@ and call it below:
 
    Sample systemd unit files for fcgiwrap can be found under conf/.
 
-10) If you want memcache to cache MySQL data.
+10) If you want Redis to cache data.
 
-    # pacman -S php-memcached
+    # pacman -S redis
+    # systemctl enable --now redis
 
-    And edit the configuration file to enabled memcache caching.
+    And edit the configuration file to enabled redis caching
+    (`[options] cache = redis`).
