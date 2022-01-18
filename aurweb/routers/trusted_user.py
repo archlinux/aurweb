@@ -1,5 +1,4 @@
 import html
-import re
 import typing
 
 from http import HTTPStatus
@@ -291,21 +290,18 @@ async def trusted_user_addvote_post(request: Request,
     duration, quorum = ADDVOTE_SPECIFICS.get(type)
     timestamp = time.utcnow()
 
-    # TODO: Review this. Is this even necessary?
-    # Remove <script> and <style> tags.
-    agenda = re.sub(r'<[/]?script.*>', '', agenda)
-    agenda = re.sub(r'<[/]?style.*>', '', agenda)
-
+    # Active TU types we filter for.
     types = {TRUSTED_USER_ID, TRUSTED_USER_AND_DEV_ID}
-    active_tus = db.query(User).filter(
-        and_(User.Suspended == 0,
-             User.InactivityTS.isnot(None),
-             User.AccountTypeID.in_(types))
-    ).count()
 
     # Create a new TUVoteInfo (proposal)!
     with db.begin():
-        voteinfo = db.create(models.TUVoteInfo, User=user, Agenda=agenda,
+        active_tus = db.query(User).filter(
+            and_(User.Suspended == 0,
+                 User.InactivityTS.isnot(None),
+                 User.AccountTypeID.in_(types))
+        ).count()
+        voteinfo = db.create(models.TUVoteInfo, User=user,
+                             Agenda=html.escape(agenda),
                              Submitted=timestamp, End=(timestamp + duration),
                              Quorum=quorum, ActiveTUs=active_tus,
                              Submitter=request.user)
