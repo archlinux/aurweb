@@ -8,8 +8,9 @@ from sqlalchemy import and_, literal, orm
 
 import aurweb.config as config
 
-from aurweb import db, defaults, models, util
+from aurweb import db, defaults, models
 from aurweb.exceptions import RPCError
+from aurweb.filters import number_format
 from aurweb.packages.search import RPCSearch
 
 TYPE_MAPPING = {
@@ -124,7 +125,7 @@ class RPC:
         # Produce RPC API compatible Popularity: If zero, it's an integer
         # 0, otherwise, it's formatted to the 6th decimal place.
         pop = package.Popularity
-        pop = 0 if not pop else float(util.number_format(pop, 6))
+        pop = 0 if not pop else float(number_format(pop, 6))
 
         snapshot_uri = config.get("options", "snapshot_uri")
         return {

@@ -1,50 +1,26 @@
 import copy
 import functools
-import math
 import os
 import zoneinfo
 
 from datetime import datetime
 from http import HTTPStatus
 from typing import Callable
-from urllib.parse import quote_plus
 
 import jinja2
 
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 
-import aurweb.auth.creds
 import aurweb.config
 
-from aurweb import captcha, cookies, l10n, time, util
+from aurweb import cookies, l10n, time
 
 # Prepare jinja2 objects.
 _loader = jinja2.FileSystemLoader(os.path.join(
     aurweb.config.get("options", "aurwebdir"), "templates"))
 _env = jinja2.Environment(loader=_loader, autoescape=True,
                           extensions=["jinja2.ext.i18n"])
-
-# Add t{r,n} translation filters.
-_env.filters["tr"] = l10n.tr
-_env.filters["tn"] = l10n.tn
-
-# Utility filters.
-_env.filters["dt"] = util.timestamp_to_datetime
-_env.filters["as_timezone"] = util.as_timezone
-_env.filters["extend_query"] = util.extend_query
-_env.filters["urlencode"] = util.to_qs
-_env.filters["quote_plus"] = quote_plus
-_env.filters["get_vote"] = util.get_vote
-_env.filters["number_format"] = util.number_format
-_env.filters["ceil"] = math.ceil
-
-# Add captcha filters.
-_env.filters["captcha_salt"] = captcha.captcha_salt_filter
-_env.filters["captcha_cmdline"] = captcha.captcha_cmdline_filter
-
-# Add account utility filters.
-_env.filters["account_url"] = util.account_url
 
 
 def register_filter(name: str) -> Callable:
@@ -65,8 +41,6 @@ def register_filter(name: str) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
-        if name in _env.filters:
-            raise KeyError(f"Jinja already has a filter named '{name}'")
         _env.filters[name] = wrapper
         return wrapper
     return decorator
@@ -88,6 +62,7 @@ def register_function(name: str) -> Callable:
 
 def make_context(request: Request, title: str, next: str = None):
     """ Create a context for a jinja2 TemplateResponse. """
+    import aurweb.auth.creds
 
     commit_url = aurweb.config.get_with_fallback("devel", "commit_url", None)
     commit_hash = aurweb.config.get_with_fallback("devel", "commit_hash", None)

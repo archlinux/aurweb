@@ -31,7 +31,7 @@ from sqlalchemy import literal, orm
 
 import aurweb.config
 
-from aurweb import db, logging, models, util
+from aurweb import db, filters, logging, models, util
 from aurweb.benchmark import Benchmark
 from aurweb.models import Package, PackageBase, User
 
@@ -264,7 +264,7 @@ def _main():
     with gzip.open(USERS, "wt") as f:
         f.writelines([f"{user.Username}\n" for i, user in enumerate(query)])
 
-    seconds = util.number_format(bench.end(), 4)
+    seconds = filters.number_format(bench.end(), 4)
     logger.info(f"Completed in {seconds} seconds.")
 
 

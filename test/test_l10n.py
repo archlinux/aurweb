@@ -1,5 +1,5 @@
 """ Test our l10n module. """
-from aurweb import l10n
+from aurweb import filters, l10n
 from aurweb.testing.requests import Request
 
 
@@ -43,8 +43,10 @@ def test_tn_filter():
     request.cookies["AURLANG"] = "en"
     context = {"language": "en", "request": request}
 
-    translated = l10n.tn(context, 1, "%d package found.", "%d packages found.")
+    translated = filters.tn(context, 1, "%d package found.",
+                            "%d packages found.")
     assert translated == "%d package found."
 
-    translated = l10n.tn(context, 2, "%d package found.", "%d packages found.")
+    translated = filters.tn(context, 2, "%d package found.",
+                            "%d packages found.")
     assert translated == "%d packages found."

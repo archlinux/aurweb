@@ -13,7 +13,7 @@ from starlette.requests import HTTPConnection
 
 import aurweb.config
 
-from aurweb import db, l10n, util
+from aurweb import db, filters, l10n, util
 from aurweb.models import Session, User
 from aurweb.models.account_type import ACCOUNT_TYPE_ID
 
@@ -166,7 +166,7 @@ def _auth_required(auth_goal: bool = True):
                     raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                                         detail=_("Bad Referer header."))
                 url = referer[len(aur) - 1:]
-            url = "/login?" + util.urlencode({"next": url})
+            url = "/login?" + filters.urlencode({"next": url})
             return RedirectResponse(url, status_code=int(HTTPStatus.SEE_OTHER))
         return wrapper
 

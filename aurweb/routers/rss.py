@@ -4,7 +4,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import Response
 from feedgen.feed import FeedGenerator
 
-from aurweb import db, util
+from aurweb import db, filters
 from aurweb.models import Package, PackageBase
 
 router = APIRouter()
@@ -39,8 +39,8 @@ def make_rss_feed(request: Request, packages: list,
         entry.description(pkg.Description or str())
 
         attr = getattr(pkg.PackageBase, date_attr)
-        dt = util.timestamp_to_datetime(attr)
-        dt = util.as_timezone(dt, request.user.Timezone)
+        dt = filters.timestamp_to_datetime(attr)
+        dt = filters.as_timezone(dt, request.user.Timezone)
         entry.pubDate(dt.strftime("%Y-%m-%d %H:%M:%S%z"))
 
         entry.source(f"{base}")

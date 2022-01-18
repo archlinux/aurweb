@@ -13,6 +13,7 @@ from sqlalchemy import and_, or_
 
 import aurweb.config
 import aurweb.db
+import aurweb.filters
 import aurweb.l10n
 
 from aurweb import db, l10n, logging
@@ -160,7 +161,7 @@ class ServerErrorNotification(Notification):
 
     def get_body(self, lang: str) -> str:
         """ A forcibly English email body. """
-        dt = aurweb.util.timestamp_to_datetime(self._utc)
+        dt = aurweb.filters.timestamp_to_datetime(self._utc)
         dts = dt.strftime("%Y-%m-%d %H:%M")
         return (f"Traceback ID: {self._tb_id}\n"
                 f"Location: {aur_location}\n"

@@ -19,7 +19,9 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
+import aurweb.captcha  # noqa: F401
 import aurweb.config
+import aurweb.filters  # noqa: F401
 import aurweb.logging
 import aurweb.pkgbase.util as pkgbaseutil
 

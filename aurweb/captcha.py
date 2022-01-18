@@ -5,6 +5,7 @@ from jinja2 import pass_context
 
 from aurweb.db import query
 from aurweb.models import User
+from aurweb.templates import register_filter
 
 
 def get_captcha_salts():
@@ -41,6 +42,7 @@ def get_captcha_answer(token):
     return hashlib.md5((text + "\n").encode()).hexdigest()[:6]
 
 
+@register_filter("captcha_salt")
 @pass_context
 def captcha_salt_filter(context):
     """ Returns the most recent CAPTCHA salt in the list of salts. """
@@ -48,6 +50,7 @@ def captcha_salt_filter(context):
     return salts[0]
 
 
+@register_filter("captcha_cmdline")
 @pass_context
 def captcha_cmdline_filter(context, salt):
     """ Returns a CAPTCHA challenge for a given salt. """

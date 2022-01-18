@@ -10,7 +10,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import config, db, util
+from aurweb import config, db, filters
 from aurweb.models.account_type import DEVELOPER_ID, AccountType
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
@@ -130,7 +130,7 @@ def test_tu_index_guest(client):
         response = request.get("/tu", allow_redirects=False, headers=headers)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    params = util.urlencode({"next": "/tu"})
+    params = filters.urlencode({"next": "/tu"})
     assert response.headers.get("location") == f"/login?{params}"
 
 

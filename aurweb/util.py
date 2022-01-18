@@ -1,5 +1,4 @@
 import base64
-import copy
 import math
 import re
 import secrets
@@ -8,16 +7,14 @@ import string
 from datetime import datetime
 from distutils.util import strtobool as _strtobool
 from http import HTTPStatus
-from typing import Any, Callable, Dict, Iterable, Tuple
-from urllib.parse import urlencode, urlparse
-from zoneinfo import ZoneInfo
+from typing import Callable, Iterable, Tuple
+from urllib.parse import urlparse
 
 import fastapi
 import pygit2
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
 from fastapi.responses import JSONResponse
-from jinja2 import pass_context
 
 import aurweb.config
 
@@ -105,43 +102,6 @@ def valid_ssh_pubkey(pk):
         return False
 
     return base64.b64encode(base64.b64decode(tokens[1])).decode() == tokens[1]
-
-
-@pass_context
-def account_url(context: Dict[str, Any],
-                user: "aurweb.models.user.User") -> str:
-    base = aurweb.config.get("options", "aur_location")
-    return f"{base}/account/{user.Username}"
-
-
-def timestamp_to_datetime(timestamp: int):
-    return datetime.utcfromtimestamp(int(timestamp))
-
-
-def as_timezone(dt: datetime, timezone: str):
-    return dt.astimezone(tz=ZoneInfo(timezone))
-
-
-def extend_query(query: Dict[str, Any], *additions) -> Dict[str, Any]:
-    """ Add additional key value pairs to query. """
-    q = copy.copy(query)
-    for k, v in list(additions):
-        q[k] = v
-    return q
-
-
-def to_qs(query: Dict[str, Any]) -> str:
-    return urlencode(query, doseq=True)
-
-
-def get_vote(voteinfo, request: fastapi.Request):
-    from aurweb.models import TUVote
-    return voteinfo.tu_votes.filter(TUVote.User == request.user).first()
-
-
-def number_format(value: float, places: int):
-    """ A converter function similar to PHP's number_format. """
-    return f"{value:.{places}f}"
 
 
 def jsonify(obj):

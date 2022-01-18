@@ -1,10 +1,8 @@
 import gettext
-import typing
 
 from collections import OrderedDict
 
 from fastapi import Request
-from jinja2 import pass_context
 
 import aurweb.config
 
@@ -86,28 +84,3 @@ def get_translator_for_request(request: Request):
         return translator.translate(message, lang)
 
     return translate
-
-
-@pass_context
-def tr(context: typing.Any, value: str):
-    """ A translation filter; example: {{ "Hello" | tr("de") }}. """
-    _ = get_translator_for_request(context.get("request"))
-    return _(value)
-
-
-@pass_context
-def tn(context: typing.Dict[str, typing.Any], count: int,
-       singular: str, plural: str) -> str:
-    """ A singular and plural translation filter.
-
-    Example:
-        {{ some_integer | tn("singular %d", "plural %d") }}
-
-    :param context: Response context
-    :param count: The number used to decide singular or plural state
-    :param singular: The singular translation
-    :param plural: The plural translation
-    :return: Translated string
-    """
-    gettext = get_raw_translator_for_request(context.get("request"))
-    return gettext.ngettext(singular, plural, count)
