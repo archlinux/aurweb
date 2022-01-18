@@ -24,9 +24,10 @@ Logging
 -------
 
 Tests also require the `logging.test.conf` logging configuration
-file to be used. To prepare, you can override `logging.conf`:
+file to be used. You can specify the `LOG_CONFIG` environment
+variable to override:
 
-    $ cp -vf logging.test.conf logging.conf
+    $ export LOG_CONFIG=logging.test.conf
 
 `logging.test.conf` enables debug logging for the aurweb package,
 for which we run tests against.
@@ -85,9 +86,10 @@ Run tests from the project root.
 
     $ cd /path/to/aurweb
 
-Ensure you have the proper `AUR_CONFIG` exported:
+Ensure you have the proper `AUR_CONFIG` and `LOG_CONFIG` exported:
 
     $ export AUR_CONFIG=conf/config
+    $ export LOG_CONFIG=logging.test.conf
 
 To run `sharness` shell test suites (requires Arch Linux):
 

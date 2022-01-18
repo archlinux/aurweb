@@ -273,6 +273,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config.sqlite
+      - LOG_CONFIG=logging.test.conf
     entrypoint: /docker/sharness-entrypoint.sh
     command: /docker/scripts/run-sharness.sh
     stdin_open: true
@@ -298,6 +299,7 @@ services:
       - AUR_CONFIG=conf/config
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
       - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
+      - LOG_CONFIG=logging.test.conf
     entrypoint: /docker/test-mysql-entrypoint.sh
     command: /docker/scripts/run-pytests.sh clean
     stdin_open: true
@@ -326,6 +328,7 @@ services:
       - AUR_CONFIG=conf/config
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
       - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
+      - LOG_CONFIG=logging.test.conf
     entrypoint: /docker/test-mysql-entrypoint.sh
     command: /docker/scripts/run-tests.sh
     stdin_open: true

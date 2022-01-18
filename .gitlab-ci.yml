@@ -10,6 +10,7 @@ variables:
   DB_HOST: localhost
   TEST_RECURSION_LIMIT: 10000
   CURRENT_DIR: "$(pwd)"
+  LOG_CONFIG: logging.test.conf
 
 test:
   stage: test
@@ -26,15 +27,14 @@ test:
     - cp -v conf/config.dev conf/config
     - sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
     - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
-    - cp -vf logging.test.conf logging.conf # Put test logging config in place.
     - make -C po all install # Compile translations.
     - make -C doc # Compile asciidoc.
     - make -C test clean # Cleanup coverage.
   script:
     # Run sharness.
-    - make -C test sh # sharness tests use sqlite.
+    - make -C test sh
     # Run pytest.
-    - pytest # Run pytest suites.
+    - pytest
     - make -C test coverage # Produce coverage reports.
     - flake8 --count aurweb # Assert no flake8 violations in aurweb.
     - flake8 --count test # Assert no flake8 violations in test.

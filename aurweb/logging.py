@@ -4,8 +4,11 @@ import os
 
 import aurweb.config
 
+# For testing, users should set LOG_CONFIG=logging.test.conf
+# We test against various debug log output.
 aurwebdir = aurweb.config.get("options", "aurwebdir")
-config_path = os.path.join(aurwebdir, "logging.conf")
+log_config = os.environ.get("LOG_CONFIG", "logging.conf")
+config_path = os.path.join(aurwebdir, log_config)
 
 logging.config.fileConfig(config_path, disable_existing_loggers=False)
 logging.getLogger("root").addHandler(logging.NullHandler())
@@ -19,4 +22,5 @@ def get_logger(name: str) -> logging.Logger:
     :param name: Logger name; typically `__name__`
     :returns: name's logging.Logger
     """
+
     return logging.getLogger(name)
