@@ -1,39 +1,35 @@
 aurweb Test Collection
 ======================
 
-To run all tests, you may run `make check` under `test/` (alternative targets:
-`make pytest`, `make sh`).
+To run all tests, you may run `make -C test sh` and `pytest` within
+the project root:
+
+    $ make -C test sh    # Run Sharness tests.
+    $ poetry run pytest  # Run Pytest suites.
 
 For more control, you may use the `prove` or `pytest` command, which receives a
 directory or a list of files to run, and produces a report.
 
 Each test script is standalone, so you may run them individually. Some tests
-may receive command-line options to help debugging. See for example sharness's
-documentation for shell test scripts:
-https://github.com/chriscool/sharness/blob/master/README.git
+may receive command-line options to help debugging.
 
 Dependencies
 ------------
 
-For all the test to run, the following Arch packages should be installed:
+For all tests to run dependencies provided via `poetry` are required:
 
-- pyalpm
-- python-alembic
-- python-bleach
-- python-markdown
-- python-pygit2
-- python-sqlalchemy
-- python-srcinfo
-- python-coverage
-- python-pytest
-- python-pytest-cov
-- python-pytest-asyncio
-- postfix
-- openssh
+    $ poetry install
 
-Optional (faster testing)
+Logging
+-------
 
-- libeatmydata
+Tests also require the `logging.test.conf` logging configuration
+file to be used. To prepare, you can override `logging.conf`:
+
+    $ cp -vf logging.test.conf logging.conf
+
+`logging.test.conf` enables debug logging for the aurweb package,
+for which we run tests against.
 
 Test Configuration
 ------------------
@@ -52,56 +48,38 @@ repository.
 
     $ sed -i "s;YOUR_AUR_ROOT;/path/to/aurweb;g" conf/config
 
-Now, one must decide a database backend to use; see
-[Test Database](#test-database) for details on configuring
-the different supported backends.
+Test Databases
+--------------
 
-Test Database
--------------
+Python tests create and drop hashed database names based on
+`PYTEST_CURRENT_TEST`. To run tests with a database, the database
+user must have privileges to create and drop their own databases.
+Typically, this is the root user, but can be configured for any
+other user:
 
-Users may choose to configure one of several backends, including:
-`mysql` and `sqlite`. By default, `conf/config.dev` is configured
-for a the `mysql` backend using a test database named `aurweb_test`.
+    GRANT ALL ON *.* TO 'user'@'localhost' WITH GRANT OPTION
 
-Users can initialize an empty MySQL database by performing the following:
+The aurweb platform is intended to use the `mysql` backend, but
+the `sqlite` backend is still used for sharness tests. These tests
+will soon be replaced with pytest suites and `sqlite` removed.
 
-    $ cat conf/config
-    [database]
-    backend = mysql
-    name = aurweb_test
-    user = aur
-    password = aur
-    socket = /var/run/mysqld/mysqld.sock
-    ...
-
-    # mysql -u root -e "CREATE USER 'aur'@'localhost' IDENTIFIED BY 'aur'"
-    # mysql -u root -e "CREATE DATABASE aurweb_test"
-    # mysql -u root -e "GRANT ALL ON aurweb_test.* TO 'aur'@'localhost'"
-    # mysql -u root -e "FLUSH ALL PRIVILEGES"
-
-    $ export AUR_CONFIG=conf/config
-    $ python3 -m aurweb.initdb
-
-Or more lightweight with `sqlite`:
-
-    $ cat $AUR_CONFIG
-    [database]
-    backend = sqlite
-    name = aurweb.sqlite3
-    ...
-
-    $ export AUR_CONFIG=conf/config
-    $ python3 -m aurweb.initdb
-
-After initializing a fresh test database, users can continue on to
-[Running Tests](#running-tests).
+After ensuring you've configured a test database, users can continue
+on to [Running Tests](#running-tests).
 
 Running tests
 -------------
 
-Recommended method of running tests: `make check`.
+Makefile test targets: `sh`, `clean`.
 
-Makefile test targets: `sh`, `pytest`.
+Recommended method of running tests: `pytest`.
+
+Legacy sharness tests: `make -C test sh`.
+
+aurweb is currently going through a refactor where  the majority of
+`sharness` tests have been replaced with `pytest` units. There are
+still a few `sharness` tests around, and they are required to gain
+as much coverage as possible over an entire test run. Users should
+be writing `pytest` units for any new features.
 
 Run tests from the project root.
 
@@ -117,19 +95,11 @@ To run `sharness` shell test suites (requires Arch Linux):
 
 To run `pytest` Python test suites:
 
+    # With poetry-installed aurweb
+    $ poetry run pytest
+
+    # With globally-installed aurweb
     $ pytest
-
-**Note:** For SQLite tests, users may want to use `eatmydata`
-to improve speed:
-
-    $ eatmydata -- make -C test sh
-
-To produce coverage reports related to Python when running tests manually,
-use the following method:
-
-    $ coverage run --append /path/to/python/file.py
-
-**Note:** Sharness test suites (shell) internally run coverage run.
 
 After tests are run, one can produce coverage reports.
 
@@ -159,19 +129,24 @@ Example code:
     import pytest
 
     from aurweb import db
+    from aurweb.models.account_type import USER_ID
     from aurweb.models.user import User
-    from aurweb.testing import setup_test_db
     from aurweb.testing.requests import Request
 
-
+    # We need to use the `db_test` fixture at some point
+    # during our test functions.
     @pytest.fixture(autouse=True)
-    def setup(db_test):
+    def setup(db_test: None) -> None:
         return
 
+    # Or... specify it in a dependency fixture.
     @pytest.fixture
-    def user():
+    def user(db_test: None) -> User:
         with db.begin():
-            user = db.create(User, Passwd="testPassword", ...)
+            user = db.create(User, Username="test",
+                             Email="test@example.org",
+                             Passwd="testPassword",
+                             AccountTypeID=USER_ID)
         yield user
 
     def test_user_login(user: User):
