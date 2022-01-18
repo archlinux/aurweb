@@ -186,3 +186,10 @@ and call it below:
 
     And edit the configuration file to enabled redis caching
     (`[options] cache = redis`).
+
+11) Start `aurweb.service`.
+
+An example systemd unit has been included at `examples/aurweb.service`.
+This unit can be used to manage the aurweb asgi backend. By default,
+it is configured to use `poetry` as the `aur` user; this should be
+configured as needed.
