@@ -67,7 +67,7 @@
                     singular = "%d package found.",
                     plural = "%d packages found.",
                     prefix = "/packages" %}
-                {% include "partials/widgets/pager.html" %}
+                {% include "partials/pager.html" %}
             {% endwith %}
 
             {# Package action form: persists query parameters. #}
@@ -84,7 +84,7 @@
                         singular = "%d package found.",
                         plural = "%d packages found.",
                         prefix = "/packages" %}
-                    {% include "partials/widgets/pager.html" %}
+                    {% include "partials/pager.html" %}
                 {% endwith %}
 
                 {% if request.user.is_authenticated() %}

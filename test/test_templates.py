@@ -142,7 +142,7 @@ def test_pager_no_results():
     """ Test the pager partial with no results. """
     num_packages = 0
     context = pager_context(num_packages)
-    body = base_template("partials/widgets/pager.html").render(context)
+    body = base_template("partials/pager.html").render(context)
 
     root = parse_root(body)
     stats = root.xpath('//div[@class="pkglist-stats"]/p')
@@ -154,7 +154,7 @@ def test_pager():
     """ Test the pager partial with two pages of results. """
     num_packages = 100
     context = pager_context(num_packages)
-    body = base_template("partials/widgets/pager.html").render(context)
+    body = base_template("partials/pager.html").render(context)
 
     root = parse_root(body)
     stats = root.xpath('//div[@class="pkglist-stats"]/p')

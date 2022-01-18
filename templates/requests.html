@@ -8,7 +8,7 @@
         {% if not total %}
             <p>{{ "No requests matched your search criteria." | tr }}</p>
         {% else %}
-            {% include "partials/widgets/pager.html" %}
+            {% include "partials/pager.html" %}
             <table class="results">
                 <thead>
                     <tr>
@@ -121,7 +121,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            {% include "partials/widgets/pager.html" %}
+            {% include "partials/pager.html" %}
         {% endif %}
     </div>
 {% endblock %}
