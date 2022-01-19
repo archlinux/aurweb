@@ -28,11 +28,23 @@ Directory Layout
 * `upgrading`: instructions for upgrading setups from one release to another
 * `web`: PHP-based web interface for the AUR
 
+Documentation
+-------------
+
+| What         | Link                                             |
+|--------------|--------------------------------------------------|
+| Installation | [INSTALL](./INSTALL)                             |
+| Testing      | [test/README.md](./test/README.md)               |
+| Git          | [doc/git-interface.txt](./doc/git-interface.txt) |
+| Maintenance  | [doc/maintenance.txt](./doc/maintenance.txt)     |
+| RPC          | [doc/rpc.txt](./doc/rpc.txt)                     |
+| Docker       | [doc/docker.md](./doc/docker.md)                 |
+
 Links
 -----
 
-* The repository is hosted at https://gitlab.archlinux.org/archlinux/aurweb -- see
-  doc/CodingGuidelines for information on the patch submission process.
+* The repository is hosted at https://gitlab.archlinux.org/archlinux/aurweb
+  -- see doc/CodingGuidelines for information on the patch submission process.
 
 * Bugs can (and should) be submitted to the aurweb bug tracker:
   https://bugs.archlinux.org/index.php?project=2
