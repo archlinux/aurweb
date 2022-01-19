@@ -17,6 +17,10 @@ in need of improvements.
 Getting Started
 ---------------
 
+Install required dependencies:
+
+    # pacman -Syu docker-compose
+
 See [Profiles](#profiles) for details about using the different profiles
 setup for aurweb. The following examples use the [default](#default) profile.
 
