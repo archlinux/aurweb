@@ -108,7 +108,7 @@
     <tr>
         <th>{{ "Maintainer" | tr }}:</th>
         <td>
-            {% if request.user.is_authenticated() and pkgbase.Maintainer %}
+            {% if pkgbase.Maintainer %}
                 <a href="/account/{{ pkgbase.Maintainer.Username }}">
                     {{ pkgbase.Maintainer.Username }}
                 </a>
