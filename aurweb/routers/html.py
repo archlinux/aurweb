@@ -138,9 +138,15 @@ async def index(request: Request):
         packages = db.query(models.Package).join(models.PackageBase)
 
         maintained = packages.join(
-            models.User, models.PackageBase.MaintainerUID == models.User.ID
+            models.PackageComaintainer,
+            models.PackageComaintainer.PackageBaseID == models.PackageBase.ID,
+            isouter=True
+        ).join(
+            models.User,
+            or_(models.PackageBase.MaintainerUID == models.User.ID,
+                models.PackageComaintainer.UsersID == models.User.ID)
         ).filter(
-            models.PackageBase.MaintainerUID == request.user.ID
+            models.User.ID == request.user.ID
         )
 
         # Packages maintained by the user that have been flagged.
