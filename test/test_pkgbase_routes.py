@@ -253,6 +253,31 @@ def test_pkgbase(client: TestClient, package: Package):
         assert pkgs[i].text.strip() == name
 
 
+def test_pkgbase_maintainer(client: TestClient, user: User, maintainer: User,
+                            package: Package):
+    """
+    Test that the Maintainer field is beind displayed correctly.
+
+    Co-maintainers are displayed, if they exist, within a parens after
+    the maintainer.
+    """
+    with db.begin():
+        db.create(PackageComaintainer, User=user,
+                  PackageBase=package.PackageBase,
+                  Priority=1)
+
+    with client as request:
+        resp = request.get(f"/pkgbase/{package.Name}")
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+
+    maint = root.xpath('//table[@id="pkginfo"]/tr[@class="pkgmaint"]/td')[0]
+    maint, comaint = maint.xpath('./a')
+    assert maint.text.strip() == maintainer.Username
+    assert comaint.text.strip() == user.Username
+
+
 def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/voters"
