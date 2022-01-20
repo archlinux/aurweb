@@ -176,6 +176,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
+      - AUR_CONFIG_IMMUTABLE=${AUR_CONFIG_IMMUTABLE:-0}
     entrypoint: /docker/cron-entrypoint.sh
     command: /docker/scripts/run-cron.sh
     depends_on:
