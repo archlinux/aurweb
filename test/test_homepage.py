@@ -37,6 +37,14 @@ def user():
 
 
 @pytest.fixture
+def user2():
+    with db.begin():
+        user = db.create(User, Username="test2", Email="test2@example.org",
+                         Passwd="testPassword", AccountTypeID=USER_ID)
+    yield user
+
+
+@pytest.fixture
 def redis():
     redis = redis_connection()
 
@@ -52,6 +60,17 @@ def redis():
     delete_keys()
     yield redis
     delete_keys()
+
+
+@pytest.fixture
+def package(user: User) -> Package:
+    now = time.utcnow()
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="test-pkg",
+                            Maintainer=user, Packager=user,
+                            SubmittedTS=now, ModifiedTS=now)
+        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+    yield pkg
 
 
 @pytest.fixture
@@ -221,3 +240,36 @@ def test_homepage_dashboard_flagged_packages(redis, packages, user):
     flagged_pkg = root.xpath('//table[@id="flagged-packages"]/tbody/tr').pop(0)
     flagged_name = flagged_pkg.xpath('./td/a').pop(0)
     assert flagged_name.text.strip() == pkg.Name
+
+
+def test_homepage_dashboard_flagged(user: User, user2: User, package: Package):
+    pkgbase = package.PackageBase
+
+    now = time.utcnow()
+    with db.begin():
+        db.create(PackageComaintainer, User=user2,
+                  PackageBase=pkgbase, Priority=1)
+        pkgbase.OutOfDateTS = now - 5
+        pkgbase.Flagger = user
+
+    # Test that a comaintainer viewing the dashboard shows them their
+    # flagged co-maintained packages.
+    comaint_cookies = {"AURSID": user2.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/", cookies=comaint_cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    flagged = root.xpath('//table[@id="flagged-packages"]//tr/td/a')[0]
+    assert flagged.text.strip() == package.Name
+
+    # Test that a maintainer viewing the dashboard shows them their
+    # flagged maintained packages.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/", cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    flagged = root.xpath('//table[@id="flagged-packages"]//tr/td/a')[0]
+    assert flagged.text.strip() == package.Name
