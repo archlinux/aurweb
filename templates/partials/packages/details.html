@@ -105,13 +105,16 @@
             {% endif %}
         </td>
     </tr>
-    <tr>
+    <tr class="pkgmaint">
         <th>{{ "Maintainer" | tr }}:</th>
         <td>
-            {% if request.user.is_authenticated() and pkgbase.Maintainer %}
+            {% if pkgbase.Maintainer %}
                 <a href="/account/{{ pkgbase.Maintainer.Username }}">
                     {{ pkgbase.Maintainer.Username }}
                 </a>
+                {% if comaintainers %}
+                    ({% for co in comaintainers %}<a href="{{ co.User | account_url }}">{{ co.User }}</a>{% endfor %})
+                {% endif %}
             {% else %}
                 {{ pkgbase.Maintainer.Username | default("None" | tr) }}
             {% endif %}
