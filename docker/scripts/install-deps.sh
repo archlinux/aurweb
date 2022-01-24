@@ -5,11 +5,7 @@
 set -eou pipefail
 
 # Update and rollout archlinux-keyring keys.
-pacman-key --init
-pacman-key --updatedb
-pacman-key --populate
-
-pacman -Sy --noconfirm --noprogressbar archlinux-keyring
+pacman -Sy --noconfirm --noprogressbar --cachedir .pkg-cache archlinux-keyring
 
 # Install other OS dependencies.
 pacman -Syu --noconfirm --noprogressbar \

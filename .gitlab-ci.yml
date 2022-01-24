@@ -12,6 +12,20 @@ variables:
   CURRENT_DIR: "$(pwd)"
   LOG_CONFIG: logging.test.conf
 
+lint:
+  variables:
+    # Space-separated list of directories that should be linted.
+    REQUIRES_LINT: "aurweb test migrations"
+  stage: .pre
+  before_script:
+    - pacman -Sy --noconfirm --noprogressbar --cachedir .pkg-cache
+      archlinux-keyring
+    - pacman -Syu --noconfirm --noprogressbar --cachedir .pkg-cache
+      python python-isort flake8
+  script:
+    - bash -c 'flake8 --count $(echo "$REQUIRES_LINT" | xargs); exit $?'
+    - bash -c 'isort --check-only $(echo "$REQUIRES_LINT" | xargs); exit $?'
+
 test:
   stage: test
   tags:
@@ -36,12 +50,6 @@ test:
     # Run pytest.
     - pytest
     - make -C test coverage # Produce coverage reports.
-    - flake8 --count aurweb # Assert no flake8 violations in aurweb.
-    - flake8 --count test # Assert no flake8 violations in test.
-    - flake8 --count migrations # Assert no flake8 violations in migrations.
-    - isort --check-only aurweb # Assert no isort violations in aurweb.
-    - isort --check-only test # Assert no flake8 violations in test.
-    - isort --check-only migrations # Assert no flake8 violations in migrations.
   coverage: '/TOTAL.*\s+(\d+\%)/'
   artifacts:
     reports:
