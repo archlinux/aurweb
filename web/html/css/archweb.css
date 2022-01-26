@@ -13,9 +13,16 @@
  */
 
 /* container for the entire bar */
+
+[dir="rtl"] html {
+    direction: rtl;
+}
 #archnavbar { min-height: 40px !important; padding: 10px 15px !important; background: #333 !important; border-bottom: 5px #08c solid !important; }
+
+[dir="rtl"] #archnavbarlogo { float: right !important; }
 #archnavbarlogo { float: left !important; margin: 0 !important; padding: 0 !important; height: 40px !important; width: 190px !important; background: url('archnavbar/archlogo.png') no-repeat !important; }
 @media (-webkit-min-device-pixel-ratio: 1.2), (min--moz-device-pixel-ratio: 1.2), (-o-min-device-pixel-ratio: 2/1) {
+    [dir="rtl"] #archnavbarlogo { float: right !important;}
 	#archnavbarlogo { float: left !important; margin: 0 !important; padding: 0 !important; height: 40px !important; width: 190px !important; background: url(archnavbar/archlogo.svg) no-repeat !important;background-size:100% !important; 
 	}
 }
@@ -27,7 +34,9 @@
 #archnavbarlogo a { display: block !important; height: 40px !important; width: 190px !important; }
 
 /* display the list inline, float it to the right and style it */
+[dir="rtl"] #archnavbarlist {text-align: left !important;}
 #archnavbarlist { display: block !important; list-style: none !important; margin: 0 !important; padding: 0 !important; font-size: 0px !important; text-align: right !important; }
+[dir="rtl"] #archnavbarlist li { padding: 14px 0px 0px 15px; }
 #archnavbarlist li { display: inline-block !important; font-size: 14px !important; font-family: sans-serif !important; line-height: 14px !important; padding: 14px 15px 0px !important; }
 
 /* style the links */
@@ -54,6 +63,11 @@ body {
 
 p {
     margin: .33em 0 1em;
+}
+
+[dir="rtl"] ol,
+[dir="rtl"] ul {
+    padding-right: 2em;
 }
 
 ol,
@@ -152,6 +166,10 @@ a {
     }
 
 /* special anchor elements */
+[dir="rtl"] a.headerlink {
+    padding-right: 0.5em;
+}
+
 a.headerlink {
     visibility: hidden;
     padding-left: 0.5em;
@@ -184,10 +202,18 @@ h5 {
 }
 
 /* general layout */
+[dir="rtl"] #content {
+    text-align: right;
+}
+
 #content {
     width: 95%;
     margin: 0 auto;
     text-align: left;
+}
+
+[dir="rtl"] #content-left-wrapper {
+    float: right;
 }
 
 #content-left-wrapper {
@@ -195,8 +221,17 @@ h5 {
     width: 100%; /* req to keep content above sidebar in source code */
 }
 
+[dir="rtl"] #content-left {
+    margin: 0 0 0 340px;
+}
+
 #content-left {
     margin: 0 340px 0 0;
+}
+
+[dir="rtl"] #content-right {
+    float: right;
+    margin-right: -300px;
 }
 
 #content-right {
@@ -247,6 +282,11 @@ table {
     table .wrap {
         white-space: normal;
     }
+
+[dir="rtl"] th,
+[dir="rtl"] td {
+    text-align: right;
+}
 
 th,
 td {
@@ -305,6 +345,7 @@ dl {
         border-top: 1px dotted #bbb;
     }
 
+    [dir="rtl"] dl dt {float: right; padding-left: 15px;}
     dl dt {
         color: #333;
         float:left;
@@ -392,6 +433,10 @@ form ul.errorlist {
 }
 
 /* JS sorting via tablesorter */
+[dir="rtl"] table th.tablesorter-header {
+    padding-left: 20px;
+    background-position: center left ;
+}
 table th.tablesorter-header {
     padding-right: 20px;
     background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
@@ -424,6 +469,9 @@ table thead th.sorter-false {
  */
 
 /* home: introduction */
+[dir="rtl"] #intro p.readmore {
+    text-align: left;
+}
 #intro p.readmore {
     margin: -0.5em 0 0 0;
     font-size: .9em;
@@ -435,6 +483,9 @@ table thead th.sorter-false {
     margin-top: 1.5em;
 }
 
+    [dir="rtl"] #news h3 {
+        float: right;
+    }
     #news h3 {
         float: left;
         padding-bottom: .5em
@@ -508,6 +559,7 @@ h3 span.arrow {
         padding: 0.1em 0;
     }
 
+    [dir="rtl"] #pkgsearch input {float: left;}
     #pkgsearch input {
         width: 10em;
         float: right;
@@ -516,6 +568,8 @@ h3 span.arrow {
         background: #fff;
         border: 1px solid #09c;
     }
+
+    [dir="rtl"] .pkgsearch-typeahead {right:0;float:right;text-align: right;}
 
     .pkgsearch-typeahead {
         position: absolute;
@@ -551,24 +605,33 @@ h3 span.arrow {
     #pkg-updates .more {
         font-weight: normal;
     }
-
+    [dir="rtl"] #pkg-updates .rss-icon {
+        float: left;}
     #pkg-updates .rss-icon {
         float: right;
         margin: -2em 0 0 0;
     }
 
+    [dir="rtl"] #pkg-updates .rss-icon.latest {
+        margin-left: 1em;
+    }
     #pkg-updates .rss-icon.latest {
         margin-right: 1em;
     }
 
     #pkg-updates table {
         margin: 0;
+        direction: ltr;
     }
 
     #pkg-updates td.pkg-name {
         white-space: normal;
+        text-align: left;
     }
 
+    [dir="rtl"] #pkg-updates td.pkg-arch {
+        text-align: left;
+    }
     #pkg-updates td.pkg-arch {
         text-align: right;
     }
@@ -583,6 +646,10 @@ h3 span.arrow {
     }
 
 /* home: sidebar navigation */
+[dir="rtl"] #nav-sidebar ul {
+    margin: 0.5em 1em 0.5em 0;
+}
+
 #nav-sidebar ul {
     list-style: none;
     margin: 0.5em 0 0.5em 1em;
@@ -600,6 +667,11 @@ div.widget {
 }
 
 /* feeds page */
+[dir="rtl"] #rss-feeds .rss {
+    padding-left: 20px;
+    background: url(rss.png) top left no-repeat;
+}
+
 #rss-feeds .rss {
     padding-right: 20px;
     background: url(rss.png) top right no-repeat;
@@ -617,6 +689,9 @@ div.widget {
 }
 
 /* news: article list */
+[dir="rtl"] .news-nav {
+    float: left;
+}
 .news-nav {
     float: right;
     margin-top: -2.2em;
@@ -648,6 +723,9 @@ div.news-article .article-info {
 }
 
 /* todolists: list */
+[dir="rtl"] .todolist-nav {
+    float: left;
+}
 .todolist-nav {
     float: right;
     margin-top: -2.2em;
@@ -679,8 +757,10 @@ table.results {
     font-size: 0.846em;
     border-top: 1px dotted #999;
     border-bottom: 1px dotted #999;
+    direction: ltr;
 }
 
+    [dir="rtl"] .results th {text-align: center; direction:rtl;}
     .results th {
         padding: 0.5em 1em 0.25em 0.25em;
         border-bottom: 1px solid #999;
@@ -690,6 +770,7 @@ table.results {
 
     .results td {
         padding: .3em 1em .3em 3px;
+        text-align: left;
     }
 
     .results .flagged {
@@ -710,15 +791,25 @@ table.results {
     font-size: 0.85em;
 }
 
+[dir="rtl"] #pkglist-results .pkglist-nav {
+    float: left;
+}
 #pkglist-results .pkglist-nav {
     float: right;
     margin-top: -2.2em;
+}
+
+[dir="rtl"] .pkglist-nav .prev {
+    margin-left: 1em;
 }
 
 .pkglist-nav .prev {
     margin-right: 1em;
 }
 
+[dir="rtl"] .pkglist-nav .next {
+    margin-left: 1em;
+}
 .pkglist-nav .next {
     margin-right: 1em;
 }
@@ -732,7 +823,10 @@ table.results {
     font-size: 1em;
     margin-top: 0;
 }
-
+[dir="rtl"] .filter-criteria div {
+    float: right;
+    margin-left: 1.65em;
+}
 .filter-criteria div {
     float: left;
     margin-right: 1.65em;
@@ -750,6 +844,9 @@ table.results {
 }
 
 /* pkgdetails: details links that float on the right */
+[dir="rtl"] #pkgdetails #detailslinks {
+    float: right;
+}
 #pkgdetails #detailslinks {
     float: right;
 }
@@ -783,6 +880,10 @@ table.results {
 #pkgdetails #pkginfo {
     width: auto;
 }
+
+[dir="rtl"] #pkgdetails td {
+        padding: 0.25em 1.5em 0.25em 0;
+    }
 
     #pkgdetails #pkginfo td {
         padding: 0.25em 0 0.25em 1.5em;
@@ -826,10 +927,17 @@ table.results {
     padding: 0;
 }
 
+[dir="rtl"] #pkgdetails #metadata li {
+    padding-right: 0.5em;
+}
+
 #pkgdetails #metadata li {
     padding-left: 0.5em;
 }
 
+[dir="rtl"] #pkgdetails #metadata p {
+    padding-right: 0.5em;
+}
 #pkgdetails #metadata p {
     padding-left: 0.5em;
 }
@@ -842,6 +950,11 @@ table.results {
     clear: both;
 }
 
+[dir="rtl"] #pkgdetails #pkgdeps {
+    float: right;
+    margin-left: 2%;
+
+}
 #pkgdetails #pkgdeps {
     float: left;
     width: 48%;
@@ -857,6 +970,11 @@ table.results {
 #pkgdetails #metadata .dep-desc {
     font-style: italic;
 }
+
+[dir="rtl"] #pkgdetails #pkgreqs {
+    float: right;
+}
+
 #pkgdetails #pkgreqs {
     float: left;
     width: 50%;
@@ -922,7 +1040,9 @@ table td.country {
     min-width: 640px;
     margin: 0 auto;
 }
-
+    .arch-bio-entry td.pic {
+        padding-left: 15px;
+        }
     .arch-bio-entry td.pic {
         vertical-align: top;
         padding-right: 15px;
@@ -942,6 +1062,10 @@ table td.country {
     .arch-bio-entry table.bio {
         margin-bottom: 2em;
     }
+        [dir="rtl"] .arch-bio-entry table.bio th {
+            text-align: left;
+            padding-left: 0.5em;
+        }
 
         .arch-bio-entry table.bio th {
             color: #666;
@@ -990,6 +1114,7 @@ table.dash-stats .key {
 }
 
 /* dev dashboard: admin actions (add news items, todo list, etc) */
+[dir="rtl"] ul.admin-actions {float: left;}
 ul.admin-actions {
     float: right;
     list-style: none;

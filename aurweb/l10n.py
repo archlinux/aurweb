@@ -40,6 +40,9 @@ SUPPORTED_LANGUAGES = OrderedDict({
 })
 
 
+RIGHT_TO_LEFT_LANGUAGES = ("he", "ar")
+
+
 class Translator:
     def __init__(self):
         self._localedir = aurweb.config.get('options', 'localedir')

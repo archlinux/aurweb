@@ -69,12 +69,14 @@ def make_context(request: Request, title: str, next: str = None):
         commit_hash = commit_hash[:7]
 
     timezone = time.get_request_timezone(request)
+    language = l10n.get_request_language(request)
     return {
         "request": request,
         "commit_url": commit_url,
         "commit_hash": commit_hash,
-        "language": l10n.get_request_language(request),
+        "language": language,
         "languages": l10n.SUPPORTED_LANGUAGES,
+        "rtl": language in l10n.RIGHT_TO_LEFT_LANGUAGES,
         "timezone": timezone,
         "timezones": time.SUPPORTED_TIMEZONES,
         "title": title,

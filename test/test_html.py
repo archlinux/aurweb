@@ -132,6 +132,25 @@ def test_metrics(client: TestClient):
     assert resp.headers.get("Content-Type").startswith("text/plain")
 
 
+def test_rtl(client: TestClient):
+    responses = {}
+    expected = [
+        [],
+        [],
+        ['rtl'],
+        ['rtl']
+    ]
+    with client as request:
+        responses["default"] = request.get("/")
+        responses["de"] = request.get("/", cookies={"AURLANG": "de"})
+        responses["he"] = request.get("/", cookies={"AURLANG": "he"})
+        responses["ar"] = request.get("/", cookies={"AURLANG": "ar"})
+    for i, (lang, resp) in enumerate(responses.items()):
+        assert resp.status_code == int(HTTPStatus.OK)
+        t = parse_root(resp.text)
+        assert t.xpath('//html/@dir') == expected[i]
+
+
 def test_404_with_valid_pkgbase(client: TestClient, pkgbase: PackageBase):
     """ Test HTTPException with status_code == 404 and valid pkgbase. """
     endpoint = f"/{pkgbase.Name}"

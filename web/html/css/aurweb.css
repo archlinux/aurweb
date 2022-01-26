@@ -8,6 +8,9 @@
     background: url('archnavbar/aurlogo.png') !important;
 }
 
+[dir="rtl"] #lang_sub {
+	float: left;
+  }
 #lang_sub {
   float: right;
 }
@@ -41,8 +44,15 @@
 	text-overflow: ellipsis;
 }
 
+[dir="rtl"] #pkg-updates td.pkg-date {
+	text-align:left;
+}
 #pkg-updates td.pkg-date {
 	text-align:right;
+}
+
+[dir="rtl"] .keyword:link, .keyword:visited {
+	float: right;
 }
 
 .keyword:link, .keyword:visited {
@@ -93,6 +103,11 @@
 	color: #999;
 }
 
+[dir="rtl"] .delete-comment-form, .undelete-comment-form, .pin-comment-form, .edit-comment {
+	float: left;
+	margin-right: 8px;
+}
+
 .delete-comment-form, .undelete-comment-form, .pin-comment-form, .edit-comment {
 	float: right;
 	margin-left: 8px;
@@ -119,6 +134,10 @@
 	-webkit-filter: none;
 	filter: none;
 	opacity: 1;
+}
+
+[dir="rtl"] .ajax-loader {
+	float: left;
 }
 
 .ajax-loader {
