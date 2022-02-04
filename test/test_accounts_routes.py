@@ -152,6 +152,18 @@ def test_post_passreset_user(client: TestClient, user: User):
     assert response.headers.get("location") == "/passreset?step=confirm"
 
 
+def test_post_passreset_user_suspended(client: TestClient, user: User):
+    with db.begin():
+        user.Suspended = True
+
+    with client as request:
+        response = request.post("/passreset", data={"user": TEST_USERNAME})
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+    errors = get_errors(response.text)
+    expected = "Invalid e-mail."
+    assert errors[0].text.strip() == expected
+
+
 def test_post_passreset_resetkey(client: TestClient, user: User):
     with db.begin():
         user.session = Session(UsersID=user.ID, SessionID="blah",
@@ -439,18 +451,6 @@ def test_post_register_error_mismatched_confirm(client: TestClient):
 def test_post_register_error_invalid_email(client: TestClient):
     with client as request:
         response = post_register(request, E="bad@email")
-
-    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
-
-    content = response.content.decode()
-    assert "The email address is invalid." in content
-
-
-def test_post_register_error_undeliverable_email(client: TestClient):
-    with client as request:
-        # At the time of writing, webchat.freenode.net does not contain
-        # mx records; if it ever does, it'll break this test.
-        response = post_register(request, E="email@bad.c")
 
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
