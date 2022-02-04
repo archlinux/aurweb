@@ -152,6 +152,18 @@ def test_post_passreset_user(client: TestClient, user: User):
     assert response.headers.get("location") == "/passreset?step=confirm"
 
 
+def test_post_passreset_user_suspended(client: TestClient, user: User):
+    with db.begin():
+        user.Suspended = True
+
+    with client as request:
+        response = request.post("/passreset", data={"user": TEST_USERNAME})
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+    errors = get_errors(response.text)
+    expected = "Invalid e-mail."
+    assert errors[0].text.strip() == expected
+
+
 def test_post_passreset_resetkey(client: TestClient, user: User):
     with db.begin():
         user.session = Session(UsersID=user.ID, SessionID="blah",

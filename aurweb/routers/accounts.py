@@ -43,18 +43,19 @@ async def passreset_post(request: Request,
     context = await make_variable_context(request, "Password Reset")
 
     # The user parameter being required, we can match against
-    user = db.query(models.User, or_(models.User.Username == user,
-                                     models.User.Email == user)).first()
-    if not user:
+    criteria = or_(models.User.Username == user, models.User.Email == user)
+    db_user = db.query(models.User,
+                       and_(criteria, models.User.Suspended == 0)).first()
+    if db_user is None:
         context["errors"] = ["Invalid e-mail."]
         return render_template(request, "passreset.html", context,
                                status_code=HTTPStatus.NOT_FOUND)
 
-    db.refresh(user)
+    db.refresh(db_user)
     if resetkey:
         context["resetkey"] = resetkey
 
-        if not user.ResetKey or resetkey != user.ResetKey:
+        if not db_user.ResetKey or resetkey != db_user.ResetKey:
             context["errors"] = ["Invalid e-mail."]
             return render_template(request, "passreset.html", context,
                                    status_code=HTTPStatus.NOT_FOUND)
@@ -83,10 +84,10 @@ async def passreset_post(request: Request,
         # We got to this point; everything matched up. Update the password
         # and remove the ResetKey.
         with db.begin():
-            user.ResetKey = str()
-            if user.session:
-                db.delete(user.session)
-            user.update_password(password)
+            db_user.ResetKey = str()
+            if db_user.session:
+                db.delete(db_user.session)
+            db_user.update_password(password)
 
         # Render ?step=complete.
         return RedirectResponse(url="/passreset?step=complete",
@@ -95,9 +96,9 @@ async def passreset_post(request: Request,
     # If we got here, we continue with issuing a resetkey for the user.
     resetkey = generate_resetkey()
     with db.begin():
-        user.ResetKey = resetkey
+        db_user.ResetKey = resetkey
 
-    ResetKeyNotification(user.ID).send()
+    ResetKeyNotification(db_user.ID).send()
 
     # Render ?step=confirm.
     return RedirectResponse(url="/passreset?step=confirm",
