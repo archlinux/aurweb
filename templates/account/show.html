@@ -62,12 +62,14 @@
                                             </td>
                                         {% endif %}
                                     </tr>
+                                    {% if user.RegistrationTS %}
                                     <tr>
                                         <th>{% trans %}Registration date{% endtrans %}:</th>
                                         <td>
                                             {{ user.RegistrationTS.strftime("%Y-%m-%d") }}
                                         </td>
                                     </tr>
+                                    {% endif %}
                                     {% if login_ts %}
                                         <tr>
                                             <th>{% trans %}Last Login{% endtrans %}:</th>
