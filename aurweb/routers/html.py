@@ -179,7 +179,9 @@ async def index(request: Request):
         ).limit(50).all()
 
         # Packages that the request user maintains or comaintains.
-        context["packages"] = maintained.order_by(
+        context["packages"] = maintained.filter(
+            models.User.ID == models.PackageBase.MaintainerUID
+        ).order_by(
             models.PackageBase.ModifiedTS.desc(), models.Package.Name.desc()
         ).limit(50).all()
 
