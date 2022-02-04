@@ -446,18 +446,6 @@ def test_post_register_error_invalid_email(client: TestClient):
     assert "The email address is invalid." in content
 
 
-def test_post_register_error_undeliverable_email(client: TestClient):
-    with client as request:
-        # At the time of writing, webchat.freenode.net does not contain
-        # mx records; if it ever does, it'll break this test.
-        response = post_register(request, E="email@bad.c")
-
-    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
-
-    content = response.content.decode()
-    assert "The email address is invalid." in content
-
-
 def test_post_register_invalid_backup_email(client: TestClient):
     with client as request:
         response = post_register(request, BE="bad@email")

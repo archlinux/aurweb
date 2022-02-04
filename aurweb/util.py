@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 import fastapi
 import pygit2
 
-from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
+from email_validator import EmailSyntaxError, validate_email
 from fastapi.responses import JSONResponse
 
 import aurweb.config
@@ -51,10 +51,8 @@ def valid_username(username):
 
 def valid_email(email):
     try:
-        validate_email(email)
-    except EmailUndeliverableError:
-        return False
-    except EmailNotValidError:
+        validate_email(email, check_deliverability=False)
+    except EmailSyntaxError:
         return False
     return True
 
