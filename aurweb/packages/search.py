@@ -120,11 +120,12 @@ class PackageSearch:
 
     def _search_by_comaintainer(self, keywords: str) -> orm.Query:
         self._join_user()
-        exists_subq = db.query(PackageComaintainer).join(User).filter(
-            and_(PackageComaintainer.PackageBaseID == PackageBase.ID,
-                 User.Username == keywords)
-        ).exists()
-        self.query = self.query.filter(db.query(exists_subq).scalar_subquery())
+        user = db.query(User).filter(User.Username == keywords).first()
+        uid = 0 if not user else user.ID
+        self.query = self.query.join(
+            PackageComaintainer,
+            PackageComaintainer.PackageBaseID == PackageBase.ID
+        ).filter(PackageComaintainer.UsersID == uid)
         return self
 
     def _search_by_co_or_maintainer(self, keywords: str) -> orm.Query:
