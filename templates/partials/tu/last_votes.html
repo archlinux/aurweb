@@ -18,10 +18,10 @@
             {% else %}
                 {% for vote in votes %}
                     <tr>
-                        <td>{{ vote.User.Username }}</td>
+                        <td>{{ vote.Username }}</td>
                         <td>
-                            <a href="/tu/{{ vote.VoteID }}">
-                                {{ vote.VoteID }}
+                            <a href="/tu/{{ vote.LastVote }}">
+                                {{ vote.LastVote }}
                             </a>
                         </td>
                     </tr>
