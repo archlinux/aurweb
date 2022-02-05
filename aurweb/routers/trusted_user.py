@@ -118,7 +118,7 @@ def render_proposal(request: Request, context: dict, proposal: int,
     context["voters"] = voters.all()
 
     total = voteinfo.total_votes()
-    participation = (total / voteinfo.ActiveTUs) if total else 0
+    participation = (total / voteinfo.ActiveTUs) if voteinfo.ActiveTUs else 0
     context["participation"] = participation
 
     accepted = (voteinfo.Yes > voteinfo.ActiveTUs / 2) or \
