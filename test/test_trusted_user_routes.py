@@ -251,6 +251,7 @@ def test_tu_index(client, tu_user):
 
     # Check to see the rows match up to our user and related vote.
     username, vote_id = rows[0]
+    username = username.xpath("./a")[0]
     vote_id = vote_id.xpath("./a")[0]
     assert username.text.strip() == tu_user.Username
     assert int(vote_id.text.strip()) == vote_records[1].ID
@@ -464,6 +465,7 @@ def test_tu_index_last_votes(client, tu_user, user):
 
     last_vote = rows[0]
     user, vote_id = last_vote.xpath("./td")
+    user = user.xpath("./a")[0]
     vote_id = vote_id.xpath("./a")[0]
 
     assert user.text.strip() == tu_user.Username
