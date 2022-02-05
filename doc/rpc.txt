@@ -5,7 +5,7 @@ Package Search
 --------------
 
 Package searches can be performed by issuing HTTP GET requests of the form
-+/rpc/?v=5&type=search&by=_field_&arg=_keywords_+ where _keywords_ is the
++/rpc?v=5&type=search&by=_field_&arg=_keywords_+ where _keywords_ is the
 search argument and _field_ is one of the following values:
 
 * `name` (search by package name only)
@@ -25,25 +25,25 @@ Package Details
 ---------------
 
 Package information can be obtained by issuing HTTP GET requests of the form
-+/rpc/?v=5&type=info&arg[]=_pkg1_&arg[]=_pkg2_&...+ where _pkg1_, _pkg2_, ...
++/rpc?v=5&type=info&arg[]=_pkg1_&arg[]=_pkg2_&...+ where _pkg1_, _pkg2_, ...
 are the names of packages to retrieve package details for.
 
 Examples
 --------
 
 `search`::
-  `/rpc/?v=5&type=search&arg=foobar`
+  `/rpc?v=5&type=search&arg=foobar`
 `search` by maintainer::
-  `/rpc/?v=5&type=search&by=maintainer&arg=john`
+  `/rpc?v=5&type=search&by=maintainer&arg=john`
 `search` packages that have _boost_ as `makedepends`::
-  `/rpc/?v=5&type=search&by=makedepends&arg=boost`
+  `/rpc?v=5&type=search&by=makedepends&arg=boost`
 `search` with callback::
-  `/rpc/?v=5&type=search&arg=foobar&callback=jsonp1192244621103`
+  `/rpc?v=5&type=search&arg=foobar&callback=jsonp1192244621103`
 `search` with API Version 6 for packages containing `cookie` AND `milk`::
-  `/rpc/?v=6&type=search&arg=cookie%20milk`
+  `/rpc?v=6&type=search&arg=cookie%20milk`
 `search` with API Version 6 for packages containing `cookie milk`::
-  `/rpc/?v=6&type=search&arg="cookie milk"`
+  `/rpc?v=6&type=search&arg="cookie milk"`
 `info`::
-  `/rpc/?v=5&type=info&arg[]=foobar`
+  `/rpc?v=5&type=info&arg[]=foobar`
 `info` with multiple packages::
-  `/rpc/?v=5&type=info&arg[]=foo&arg[]=bar`
+  `/rpc?v=5&type=info&arg[]=foo&arg[]=bar`
