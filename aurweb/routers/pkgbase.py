@@ -78,7 +78,7 @@ async def pkgbase_voters(request: Request, name: str) -> Response:
 async def pkgbase_flag_comment(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
-    if pkgbase.Flagger is None:
+    if pkgbase.OutOfDateTS is None:
         return RedirectResponse(f"/pkgbase/{name}",
                                 status_code=HTTPStatus.SEE_OTHER)
 
@@ -120,7 +120,7 @@ async def pkgbase_flag_get(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
-    if not has_cred or pkgbase.Flagger is not None:
+    if not has_cred or pkgbase.OutOfDateTS is not None:
         return RedirectResponse(f"/pkgbase/{name}",
                                 status_code=HTTPStatus.SEE_OTHER)
 
@@ -144,7 +144,7 @@ async def pkgbase_flag_post(request: Request, name: str,
                                status_code=HTTPStatus.BAD_REQUEST)
 
     has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
-    if has_cred and not pkgbase.Flagger:
+    if has_cred and not pkgbase.OutOfDateTS:
         now = time.utcnow()
         with db.begin():
             pkgbase.OutOfDateTS = now
