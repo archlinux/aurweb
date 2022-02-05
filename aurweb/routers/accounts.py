@@ -265,7 +265,7 @@ async def account_register_post(request: Request,
                                     "options", "default_lang")),
                                 TZ: str = Form(default=aurweb.config.get(
                                     "options", "default_timezone")),
-                                PK: str = Form(default=None),   # SSH PubKey
+                                PK: str = Form(default=str()),   # SSH PubKey
                                 CN: bool = Form(default=False),
                                 UN: bool = Form(default=False),
                                 ON: bool = Form(default=False),
@@ -273,6 +273,8 @@ async def account_register_post(request: Request,
                                 captcha_salt: str = Form(...)):
     context = await make_variable_context(request, "Register")
     args = dict(await request.form())
+    args["K"] = args.get("K", str()).replace(" ", "")
+    K = args.get("K")
 
     context = make_account_form_context(context, request, None, args)
     ok, errors = process_account_form(request, request.user, args)
@@ -399,6 +401,8 @@ async def account_edit_post(request: Request,
     context["user"] = db.refresh(user)
 
     args = dict(await request.form())
+    args["K"] = args.get("K", str()).replace(" ", "")
+
     context = make_account_form_context(context, request, user, args)
     ok, errors = process_account_form(request, user, args)
 

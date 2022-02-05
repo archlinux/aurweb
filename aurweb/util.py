@@ -71,7 +71,6 @@ def valid_password(password):
 
 
 def valid_pgp_fingerprint(fp):
-    fp = fp.replace(" ", "")
     try:
         # Attempt to convert the fingerprint to an int via base16.
         # If it can't, it's not a hex string.
