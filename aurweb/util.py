@@ -7,7 +7,7 @@ import string
 from datetime import datetime
 from distutils.util import strtobool as _strtobool
 from http import HTTPStatus
-from typing import Callable, Iterable, Tuple
+from typing import Callable, Iterable, Tuple, Union
 from urllib.parse import urlparse
 
 import fastapi
@@ -133,9 +133,9 @@ def sanitize_params(offset: str, per_page: str) -> Tuple[int, int]:
     return (offset, per_page)
 
 
-def strtobool(value: str) -> bool:
+def strtobool(value: Union[str, bool]) -> bool:
     if isinstance(value, str):
-        return _strtobool(value)
+        return _strtobool(value or "False")
     return value
 
 
