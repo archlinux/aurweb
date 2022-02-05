@@ -804,7 +804,7 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     pkgbase = package.PackageBase
 
     # We shouldn't have flagged the package yet; assert so.
-    assert pkgbase.Flagger is None
+    assert pkgbase.OutOfDateTS is None
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/flag"

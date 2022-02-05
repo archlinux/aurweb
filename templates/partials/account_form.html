@@ -105,7 +105,11 @@
                 {% trans %}Hide Email Address{% endtrans %}:
             </label>
 
-            <input id="id_hide" type="checkbox" name="H" value="{{ H }}">
+            <input id="id_hide" type="checkbox" name="H"
+                {% if hide_email %}
+                    checked="checked"
+                {% endif %}
+            >
         </p>
         <p>
             <em>{{ "If you do not hide your email address, it is "

@@ -79,6 +79,20 @@ def test_login_logout(client: TestClient, user: User):
     assert "AURSID" not in response.cookies
 
 
+def test_login_email(client: TestClient, user: user):
+    post_data = {
+        "user": user.Email,
+        "passwd": "testPassword",
+        "next": "/"
+    }
+
+    with client as request:
+        resp = request.post("/login", data=post_data,
+                            allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert "AURSID" in resp.cookies
+
+
 def mock_getboolean(a, b):
     if a == "options" and b == "disable_http_login":
         return True

@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
+from sqlalchemy import or_
 
 import aurweb.config
 
@@ -43,7 +44,9 @@ async def login_post(request: Request,
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                             detail=_("Bad Referer header."))
 
-    user = db.query(User).filter(User.Username == user).first()
+    user = db.query(User).filter(
+        or_(User.Username == user, User.Email == user)
+    ).first()
     if not user:
         return await login_template(request, next,
                                     errors=["Bad username or password."])
