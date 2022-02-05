@@ -276,6 +276,9 @@ async def account_register_post(request: Request,
     args["K"] = args.get("K", str()).replace(" ", "")
     K = args.get("K")
 
+    # Force "H" into a boolean.
+    args["H"] = H = (args.get("H", str()) == "on")
+
     context = make_account_form_context(context, request, None, args)
     ok, errors = process_account_form(request, request.user, args)
     if not ok:
