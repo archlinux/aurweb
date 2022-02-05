@@ -61,12 +61,16 @@ def dep_extra_desc(dep: models.PackageDependency) -> str:
 
 @register_filter("pkgname_link")
 def pkgname_link(pkgname: str) -> str:
+    record = db.query(Package).filter(
+        Package.Name == pkgname).exists()
+    if db.query(record).scalar():
+        return f"/packages/{pkgname}"
+
     official = db.query(OfficialProvider).filter(
         OfficialProvider.Name == pkgname).exists()
     if db.query(official).scalar():
         base = "/".join([OFFICIAL_BASE, "packages"])
         return f"{base}/?q={pkgname}"
-    return f"/packages/{pkgname}"
 
 
 @register_filter("package_link")
@@ -98,17 +102,10 @@ def get_pkg_or_base(
     :raises HTTPException: With status code 404 if record doesn't exist
     :return: {Package,PackageBase} instance
     """
-    provider = db.query(models.OfficialProvider).filter(
-        models.OfficialProvider.Name == name).first()
-    if provider:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
-
     with db.begin():
         instance = db.query(cls).filter(cls.Name == name).first()
-
     if not instance:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
-
     return instance
 
 

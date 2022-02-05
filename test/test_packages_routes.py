@@ -203,21 +203,6 @@ def test_package_not_found(client: TestClient):
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_package_official_not_found(client: TestClient, package: Package):
-    """ When a Package has a matching OfficialProvider record, it is not
-    hosted on AUR, but in the official repositories. Getting a package
-    with this kind of record should return a status code 404. """
-    with db.begin():
-        db.create(OfficialProvider,
-                  Name=package.Name,
-                  Repo="core",
-                  Provides=package.Name)
-
-    with client as request:
-        resp = request.get(package_endpoint(package))
-    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
-
-
 def test_package(client: TestClient, package: Package):
     """ Test a single / packages / {name} route. """
 
