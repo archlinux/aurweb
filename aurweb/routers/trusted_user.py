@@ -5,7 +5,7 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, func, or_
 
 from aurweb import db, l10n, logging, models, time
 from aurweb.auth import creds, requires_auth
@@ -80,18 +80,21 @@ async def trusted_user(request: Request,
         if past_by == "asc" else past_votes.all()
     context["past_off"] = past_off
 
-    # TODO
-    # We order last votes by TUVote.VoteID and User.Username.
-    # This is really bad. We should add a Created column to
-    # TUVote of type Timestamp and order by that instead.
-    last_votes_by_tu = db.query(models.TUVote).filter(
+    last_vote = func.max(models.TUVote.VoteID).label("LastVote")
+    last_votes_by_tu = db.query(models.TUVote).join(
+        models.User
+    ).join(models.TUVoteInfo).filter(
         and_(models.TUVote.VoteID == models.TUVoteInfo.ID,
+             models.User.ID == models.TUVote.UserID,
              models.TUVoteInfo.End <= ts,
-             models.TUVote.UserID == models.User.ID,
              or_(models.User.AccountTypeID == 2,
                  models.User.AccountTypeID == 4))
-    ).group_by(models.User.ID).order_by(
-        models.TUVote.VoteID.desc(), models.User.Username.asc())
+    ).with_entities(
+        models.TUVote.UserID,
+        func.max(models.TUVote.VoteID).label("LastVote"),
+        models.User.Username
+    ).group_by(models.TUVote.UserID).order_by(
+        last_vote.desc(), models.User.Username.asc())
     context["last_votes_by_tu"] = last_votes_by_tu.all()
 
     context["current_by_next"] = "asc" if current_by == "desc" else "desc"

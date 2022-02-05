@@ -18,10 +18,14 @@
             {% else %}
                 {% for vote in votes %}
                     <tr>
-                        <td>{{ vote.User.Username }}</td>
                         <td>
-                            <a href="/tu/{{ vote.VoteID }}">
-                                {{ vote.VoteID }}
+                            <a href="/account/{{ vote.Username }}">
+                                {{ vote.Username }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/tu/{{ vote.LastVote }}">
+                                {{ vote.LastVote }}
                             </a>
                         </td>
                     </tr>
