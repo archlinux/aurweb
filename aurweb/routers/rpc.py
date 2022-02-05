@@ -65,6 +65,8 @@ def parse_args(request: Request):
 JSONP_EXPR = re.compile(r'^[a-zA-Z0-9()_.]{1,128}$')
 
 
+@router.get("/rpc.php/")  # Temporary! Remove on 03/04
+@router.get("/rpc.php")  # Temporary! Remove on 03/04
 @router.get("/rpc/")
 @router.get("/rpc")
 async def rpc(request: Request,
