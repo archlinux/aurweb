@@ -145,11 +145,13 @@ async def pkgbase_flag_post(request: Request, name: str,
 
     has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
     if has_cred and not pkgbase.OutOfDateTS:
+        notif = notify.FlagNotification(request.user.ID, pkgbase.ID)
         now = time.utcnow()
         with db.begin():
             pkgbase.OutOfDateTS = now
             pkgbase.Flagger = request.user
             pkgbase.FlaggerComment = comments
+        notif.send()
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)

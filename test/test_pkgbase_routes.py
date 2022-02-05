@@ -836,6 +836,9 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     assert pkgbase.Flagger == user
     assert pkgbase.FlaggerComment == "Test"
 
+    # Should've gotten a FlagNotification.
+    assert Email.count() == 1
+
     # Now, let's check the /pkgbase/{name}/flag-comment route.
     flag_comment_endpoint = f"/pkgbase/{pkgbase.Name}/flag-comment"
     with client as request:
