@@ -57,7 +57,7 @@
                                             <td>
                                                 {{
                                                     "Inactive since %s" | tr
-                                                    | format(inactive_ds.strftime("%Y-%m-%d %H:%M"))
+                                                    | format(datetime_display(inactive_ds))
                                                 }}
                                             </td>
                                         {% endif %}
@@ -66,15 +66,14 @@
                                     <tr>
                                         <th>{% trans %}Registration date{% endtrans %}:</th>
                                         <td>
-                                            {{ user.RegistrationTS.strftime("%Y-%m-%d") }}
+                                            {{ date_display(user.RegistrationTS) }}
                                         </td>
                                     </tr>
                                     {% endif %}
                                     {% if login_ts %}
                                         <tr>
                                             <th>{% trans %}Last Login{% endtrans %}:</th>
-                                            {% set login_ds = login_ts | dt | as_timezone(timezone) %}
-                                            <td>{{ login_ds.strftime("%Y-%m-%d") }}</td>
+                                            <td>{{ date_display(login_ts) }}</td>
                                         </tr>
                                     {% endif %}
                                     <tr>

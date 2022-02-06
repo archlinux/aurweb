@@ -16,7 +16,7 @@ from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
 from aurweb.testing.requests import Request
 
-DATETIME_REGEX = r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+DATETIME_REGEX = r'^[0-9]{4}-[0-9]{2}-[0-9]{2} \(.+\)$'
 PARTICIPATION_REGEX = r'^1?[0-9]{2}[%]$'  # 0% - 100%
 
 
@@ -523,7 +523,7 @@ def test_tu_running_proposal(client: TestClient,
 
     submitted = details.xpath(
         './div[contains(@class, "submitted")]/text()')[0]
-    assert re.match(r'^Submitted: \d{4}-\d{2}-\d{2} \d{2}:\d{2} by$',
+    assert re.match(r'^Submitted: \d{4}-\d{2}-\d{2} \d{2}:\d{2} \(.+\) by$',
                     submitted.strip()) is not None
     submitter = details.xpath('./div[contains(@class, "submitted")]/a')[0]
     assert submitter.text.strip() == tu_user.Username
@@ -534,7 +534,7 @@ def test_tu_running_proposal(client: TestClient,
     assert end_label.strip() == "End:"
 
     end_datetime = end.xpath("./strong/text()")[0]
-    assert re.match(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$',
+    assert re.match(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2} \(.+\)$',
                     end_datetime.strip()) is not None
 
     # We have not voted yet. Assert that our voting form is shown.

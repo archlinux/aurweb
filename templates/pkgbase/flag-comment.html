@@ -21,7 +21,7 @@
                 "following reason:"
                 | tr | format("<strong>", username, "</strong>",
                               "<strong>", pkgbase.Name, "</strong>",
-                              "<strong>", flagged_at.strftime("%Y-%m-%d"), "</strong>")
+                              "<strong>", date_display(pkgbase.OutOfDateTS), "</strong>")
                 | safe
             }}
         </p>

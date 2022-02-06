@@ -47,15 +47,8 @@
                             <a href="/tu/{{ result.ID }}">{{ agenda }}</a>
                         </td>
 
-                        <!-- Convert result.Submitted (timestamp) to datetime,
-                        then apply the request's timezone to it. -->
-                        {% set submitted = result.Submitted | dt | as_timezone(timezone) %}
-                        <td>{{ submitted.strftime("%Y-%m-%d") }}</td>
-
-                        <!-- Convert result.End (timestamp) to datetime,
-                        then apply the request's timezone to it. -->
-                        {% set end = result.End | dt | as_timezone(timezone) %}
-                        <td>{{ end.strftime("%Y-%m-%d") }}</td>
+                        <td>{{ date_display(result.Submitted) }}</td>
+                        <td>{{ date_display(result.End) }}</td>
 
                         <td>
                             {% if not result.User %}

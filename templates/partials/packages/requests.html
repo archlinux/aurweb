@@ -40,7 +40,7 @@
                         {{ request.User.Username }}
                     </a>
                 </td>
-                <td>{{ requested.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>{{ datetime_display(request.RequestTS) }}</td>
                 <td>{{ request.status_display() | tr }}</td>
             </tr>
         {% endfor %}

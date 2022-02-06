@@ -258,7 +258,7 @@ def check_package_details(content: str, pkg: Package) -> None:
     assert pop.text.strip() == number_format(0, 6)
 
     # Check First Submitted
-    date_fmt = "%Y-%m-%d %H:%M"
+    date_fmt = "%Y-%m-%d %H:%M (%Z)"
     i += 1
     first_submitted = rows[i].xpath("./td")[0]
     converted_dt = as_timezone(to_dt(pkg.PackageBase.SubmittedTS), "UTC")

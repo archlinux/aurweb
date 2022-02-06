@@ -150,14 +150,12 @@
         <td>{{ pkgbase.Popularity | number_format(6 if pkgbase.Popularity <= 0.2 else 2) }}</td>
     </tr>
     <tr>
-        {% set submitted = pkgbase.SubmittedTS | dt | as_timezone(timezone) %}
         <th>{{ "First Submitted" | tr }}:</th>
-        <td>{{ "%s" | format(submitted.strftime("%Y-%m-%d %H:%M")) }}</td>
+        <td>{{ datetime_display(pkgbase.SubmittedTS) }}</td>
     </tr>
     <tr>
         <th>{{ "Last Updated" | tr }}:</th>
-        {% set updated = pkgbase.ModifiedTS | dt | as_timezone(timezone) %}
-        <td>{{ "%s" | format(updated.strftime("%Y-%m-%d %H:%M")) }}</td>
+        <td>{{ datetime_display(pkgbase.ModifiedTS) }}</td>
     </tr>
 </table>
 

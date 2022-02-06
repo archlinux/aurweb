@@ -17,8 +17,7 @@
                             {{ pkg_vote.User.Username }}
                         </a>
 
-                        {% set voted_at = pkg_vote.VoteTS | dt | as_timezone(timezone) %}
-                        ({{ voted_at.strftime("%Y-%m-%d %H:%M") }})
+                        ({{ datetime_display(pkg_vote.VoteTS) }})
                     </li>
                 {% endfor %}
             </ul>
