@@ -17,7 +17,7 @@
                     username,
                     comment.ID
                 ),
-                commented_at.strftime("%Y-%m-%d %H:%M"),
+                datetime_display(comment.CommentTS),
                 "</a>"
             ) | safe
         }}
@@ -25,7 +25,7 @@
             {% set edited_on = comment.EditedTS | dt | as_timezone(timezone) %}
             <span class="edited">
                 ({{ "edited on %s by %s" | tr
-                | format(edited_on.strftime('%Y-%m-%d %H:%M'),
+                | format(datetime_display(comment.EditedTS),
                 '<a href="/account/%s">%s</a>' | format(
                 comment.Editor.Username, comment.Editor.Username))
                 | safe

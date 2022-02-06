@@ -2,7 +2,7 @@ import copy
 import math
 
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Dict, Union
 from urllib.parse import quote_plus, urlencode
 from zoneinfo import ZoneInfo
 
@@ -148,3 +148,25 @@ def _quote_plus(*args, **kwargs) -> str:
 @register_filter("ceil")
 def ceil(*args, **kwargs) -> int:
     return math.ceil(*args, **kwargs)
+
+
+@register_function("date_strftime")
+@pass_context
+def date_strftime(context: Dict[str, Any], dt: Union[int, datetime], fmt: str) \
+        -> str:
+    if isinstance(dt, int):
+        dt = timestamp_to_datetime(dt)
+    tz = context.get("timezone")
+    return as_timezone(dt, tz).strftime(fmt)
+
+
+@register_function("date_display")
+@pass_context
+def date_display(context: Dict[str, Any], dt: Union[int, datetime]) -> str:
+    return date_strftime(context, dt, "%Y-%m-%d (%Z)")
+
+
+@register_function("datetime_display")
+@pass_context
+def datetime_display(context: Dict[str, Any], dt: Union[int, datetime]) -> str:
+    return date_strftime(context, dt, "%Y-%m-%d %H:%M (%Z)")

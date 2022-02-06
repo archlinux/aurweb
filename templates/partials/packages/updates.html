@@ -24,8 +24,7 @@
                         </a>
                     </td>
                     <td class="pkg-date">
-                        {% set modified = pkg.PackageBase.ModifiedTS | dt | as_timezone(timezone) %}
-                        {{ modified.strftime("%Y-%m-%d %H:%M") }}
+                        {{ datetime_display(pkg.PackageBase.ModifiedTS) }}
                     </td>
                 </tr>
             {% endfor %}

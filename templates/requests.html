@@ -60,8 +60,7 @@
                                 {% endif %}
                             >
                                 {# Date #}
-                                {% set date = result.RequestTS | dt | as_timezone(timezone) %}
-                                {{ date.strftime("%Y-%m-%d %H:%M") }}
+                                {{ datetime_display(result.RequestTS) }}
                             </td>
                             <td>
                                 {# Status #}
