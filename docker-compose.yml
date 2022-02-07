@@ -237,6 +237,7 @@ services:
       cron:
         condition: service_started
     volumes:
+      - archives:/var/lib/aurweb/archives
       - mariadb_run:/var/run/mysqld
     ports:
       - "127.0.0.1:18000:8000"

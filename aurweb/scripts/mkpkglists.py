@@ -20,9 +20,13 @@ on the following, right-hand side fields are added to each item.
 
 import gzip
 import os
+import re
+import shutil
 import sys
+import tempfile
 
 from collections import defaultdict
+from subprocess import PIPE, Popen
 from typing import Any, Dict
 
 import orjson
@@ -36,15 +40,6 @@ from aurweb.benchmark import Benchmark
 from aurweb.models import Package, PackageBase, User
 
 logger = logging.get_logger("aurweb.scripts.mkpkglists")
-
-archivedir = aurweb.config.get("mkpkglists", "archivedir")
-os.makedirs(archivedir, exist_ok=True)
-
-PACKAGES = aurweb.config.get('mkpkglists', 'packagesfile')
-META = aurweb.config.get('mkpkglists', 'packagesmetafile')
-META_EXT = aurweb.config.get('mkpkglists', 'packagesmetaextfile')
-PKGBASE = aurweb.config.get('mkpkglists', 'pkgbasefile')
-USERS = aurweb.config.get('mkpkglists', 'userfile')
 
 
 TYPE_MAP = {
@@ -175,6 +170,15 @@ def as_dict(package: Package) -> Dict[str, Any]:
 
 
 def _main():
+    archivedir = aurweb.config.get("mkpkglists", "archivedir")
+    os.makedirs(archivedir, exist_ok=True)
+
+    PACKAGES = aurweb.config.get('mkpkglists', 'packagesfile')
+    META = aurweb.config.get('mkpkglists', 'packagesmetafile')
+    META_EXT = aurweb.config.get('mkpkglists', 'packagesmetaextfile')
+    PKGBASE = aurweb.config.get('mkpkglists', 'pkgbasefile')
+    USERS = aurweb.config.get('mkpkglists', 'userfile')
+
     bench = Benchmark()
     logger.info("Started re-creating archives, wait a while...")
 
@@ -204,9 +208,14 @@ def _main():
     # Produce packages-meta-v1.json.gz
     output = list()
     snapshot_uri = aurweb.config.get("options", "snapshot_uri")
+
+    tmpdir = tempfile.mkdtemp()
+    tmp_packages = os.path.join(tmpdir, os.path.basename(PACKAGES))
+    tmp_meta = os.path.join(tmpdir, os.path.basename(META))
+    tmp_metaext = os.path.join(tmpdir, os.path.basename(META_EXT))
     gzips = {
-        "packages": gzip.open(PACKAGES, "wt"),
-        "meta": gzip.open(META, "wb"),
+        "packages": gzip.open(tmp_packages, "wt"),
+        "meta": gzip.open(tmp_meta, "wb"),
     }
 
     # Append list opening to the metafile.
@@ -215,7 +224,7 @@ def _main():
     # Produce packages.gz + packages-meta-ext-v1.json.gz
     extended = False
     if len(sys.argv) > 1 and sys.argv[1] in EXTENDED_FIELD_HANDLERS:
-        gzips["meta_ext"] = gzip.open(META_EXT, "wb")
+        gzips["meta_ext"] = gzip.open(tmp_metaext, "wb")
         # Append list opening to the meta_ext file.
         gzips.get("meta_ext").write(b"[\n")
         f = EXTENDED_FIELD_HANDLERS.get(sys.argv[1])
@@ -258,14 +267,41 @@ def _main():
     # Produce pkgbase.gz
     query = db.query(PackageBase.Name).filter(
         PackageBase.PackagerUID.isnot(None)).all()
-    with gzip.open(PKGBASE, "wt") as f:
+    tmp_pkgbase = os.path.join(tmpdir, os.path.basename(PKGBASE))
+    with gzip.open(tmp_pkgbase, "wt") as f:
         f.writelines([f"{base.Name}\n" for i, base in enumerate(query)])
 
     # Produce users.gz
     query = db.query(User.Username).all()
-    with gzip.open(USERS, "wt") as f:
+    tmp_users = os.path.join(tmpdir, os.path.basename(USERS))
+    with gzip.open(tmp_users, "wt") as f:
         f.writelines([f"{user.Username}\n" for i, user in enumerate(query)])
 
+    files = [
+        (tmp_packages, PACKAGES),
+        (tmp_meta, META),
+        (tmp_pkgbase, PKGBASE),
+        (tmp_users, USERS),
+    ]
+    if len(sys.argv) > 1 and sys.argv[1] in EXTENDED_FIELD_HANDLERS:
+        files.append((tmp_metaext, META_EXT))
+
+    for src, dst in files:
+        proc = Popen(["cksum", "-a", "sha256", src], stdout=PIPE)
+        out, _ = proc.communicate()
+        assert proc.returncode == 0
+
+        base = os.path.basename(src)
+        checksum = re.sub(r"SHA256 \(.+\)", f"SHA256 ({base})", out.decode())
+
+        checksum_file = f"{dst}.sha256"
+        with open(checksum_file, "w") as f:
+            f.write(checksum)
+
+        # Move the new archive into its rightful place.
+        shutil.move(src, dst)
+
+    os.removedirs(tmpdir)
     seconds = filters.number_format(bench.end(), 4)
     logger.info(f"Completed in {seconds} seconds.")
 
