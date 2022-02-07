@@ -7,7 +7,7 @@ from urllib.parse import unquote
 
 import orjson
 
-from fastapi import APIRouter, Query, Request, Response
+from fastapi import APIRouter, Form, Query, Request, Response
 from fastapi.responses import JSONResponse
 
 from aurweb import defaults
@@ -65,20 +65,13 @@ def parse_args(request: Request):
 JSONP_EXPR = re.compile(r'^[a-zA-Z0-9()_.]{1,128}$')
 
 
-@router.get("/rpc.php/")  # Temporary! Remove on 03/04
-@router.get("/rpc.php")  # Temporary! Remove on 03/04
-@router.get("/rpc/")
-@router.get("/rpc")
-async def rpc(request: Request,
-              v: Optional[int] = Query(default=None),
-              type: Optional[str] = Query(default=None),
-              by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
-              arg: Optional[str] = Query(default=None),
-              args: Optional[List[str]] = Query(default=[], alias="arg[]"),
-              callback: Optional[str] = Query(default=None)):
-
-    if not request.url.query:
-        return documentation()
+async def rpc_request(request: Request,
+                      v: Optional[int] = None,
+                      type: Optional[str] = None,
+                      by: Optional[str] = defaults.RPC_SEARCH_BY,
+                      arg: Optional[str] = None,
+                      args: Optional[List[str]] = [],
+                      callback: Optional[str] = None):
 
     # Create a handle to our RPC class.
     rpc = RPC(version=v, type=type)
@@ -100,7 +93,14 @@ async def rpc(request: Request,
 
     # Prepare list of arguments for input. If 'arg' was given, it'll
     # be a list with one element.
-    arguments = parse_args(request)
+    arguments = []
+    if request.url.query:
+        arguments = parse_args(request)
+    else:
+        if arg:
+            arguments.append(arg)
+        arguments += args
+
     data = rpc.handle(by=by, args=arguments)
 
     # Serialize `data` into JSON in a sorted fashion. This way, our
@@ -128,3 +128,33 @@ async def rpc(request: Request,
         content = f"/**/{callback}({content.decode()})"
 
     return Response(content, headers=headers)
+
+
+@router.get("/rpc.php/")  # Temporary! Remove on 03/04
+@router.get("/rpc.php")  # Temporary! Remove on 03/04
+@router.get("/rpc/")
+@router.get("/rpc")
+async def rpc(request: Request,
+              v: Optional[int] = Query(default=None),
+              type: Optional[str] = Query(default=None),
+              by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
+              arg: Optional[str] = Query(default=None),
+              args: Optional[List[str]] = Query(default=[], alias="arg[]"),
+              callback: Optional[str] = Query(default=None)):
+    if not request.url.query:
+        return documentation()
+    return await rpc_request(request, v, type, by, arg, args, callback)
+
+
+@router.get("/rpc.php/")  # Temporary! Remove on 03/04
+@router.get("/rpc.php")  # Temporary! Remove on 03/04
+@router.post("/rpc/")
+@router.post("/rpc")
+async def rpc_post(request: Request,
+                   v: Optional[int] = Form(default=None),
+                   type: Optional[str] = Form(default=None),
+                   by: Optional[str] = Form(default=defaults.RPC_SEARCH_BY),
+                   arg: Optional[str] = Form(default=None),
+                   args: Optional[List[str]] = Form(default=[], alias="arg[]"),
+                   callback: Optional[str] = Form(default=None)):
+    return await rpc_request(request, v, type, by, arg, args, callback)

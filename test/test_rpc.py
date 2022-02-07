@@ -782,3 +782,16 @@ def test_rpc_jsonp_callback(client: TestClient):
         response = request.get("/rpc", params=params)
     assert response.headers.get("content-type") == "application/json"
     assert response.json().get("error") == "Invalid callback name."
+
+
+def test_rpc_post(client: TestClient, packages: List[Package]):
+    data = {
+        "v": 5,
+        "type": "info",
+        "arg": "big-chungus",
+        "arg[]": ["chungy-chungus"]
+    }
+    with client as request:
+        resp = request.post("/rpc", data=data)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert resp.json().get("resultcount") == 2
