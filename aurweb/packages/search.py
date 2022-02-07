@@ -222,14 +222,9 @@ class PackageSearch:
         ordering = self.FULL_SORT_ORDER.get(ordering)
         return callback(ordering)
 
-    def count(self, limit: int) -> int:
-        """
-        Return internal query's count up to `limit`.
-
-        :param limit: Upper bound
-        :return: Database count up to `limit`
-        """
-        return self.query.limit(limit).count()
+    def count(self) -> int:
+        """ Return internal query's count. """
+        return self.query.count()
 
     def results(self) -> orm.Query:
         """ Return internal query. """

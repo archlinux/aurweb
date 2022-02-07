@@ -31,7 +31,10 @@ async def packages_get(request: Request, context: Dict[str, Any],
         request.query_params.get("O", defaults.O),
         request.query_params.get("PP", defaults.PP))
     context["O"] = offset
-    context["PP"] = per_page
+
+    # Limit PP to options.max_search_results
+    max_search_results = aurweb.config.getint("options", "max_search_results")
+    context["PP"] = per_page = min(per_page, max_search_results)
 
     # Query search by.
     search_by = context["SeB"] = request.query_params.get("SeB", "nd")
@@ -56,8 +59,7 @@ async def packages_get(request: Request, context: Dict[str, Any],
     # Collect search result count here; we've applied our keywords.
     # Including more query operations below, like ordering, will
     # increase the amount of time required to collect a count.
-    limit = config.getint("options", "max_search_results")
-    num_packages = search.count(limit)
+    num_packages = search.count()
 
     flagged = request.query_params.get("outdated", None)
     if flagged:
