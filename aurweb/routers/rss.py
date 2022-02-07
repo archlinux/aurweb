@@ -27,7 +27,7 @@ def make_rss_feed(request: Request, packages: list,
     feed.link(href=base, rel="alternate")
     feed.link(href=f"{base}/rss", rel="self")
     feed.image(title="AUR Newest Packages",
-               url=f"{base}/css/archnavbar/aurlogo.png",
+               url=f"{base}/static/css/archnavbar/aurlogo.png",
                link=base,
                description="AUR Newest Packages Feed")
 
