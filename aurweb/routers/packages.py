@@ -52,9 +52,14 @@ async def packages_get(request: Request, context: Dict[str, Any],
     # This means that for any sentences separated by spaces,
     # they are used as if they were ANDed.
     keywords = context["K"] = request.query_params.get("K", str())
+
     keywords = keywords.split(" ")
-    for keyword in keywords:
-        search.search_by(search_by, keyword)
+    if search_by == "k":
+        # If we're searchin by keywords, supply a set of keywords.
+        search.search_by(search_by, set(keywords))
+    else:
+        for keyword in keywords:
+            search.search_by(search_by, keyword)
 
     # Collect search result count here; we've applied our keywords.
     # Including more query operations below, like ordering, will

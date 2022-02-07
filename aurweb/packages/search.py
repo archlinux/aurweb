@@ -1,3 +1,5 @@
+from typing import Set
+
 from sqlalchemy import and_, case, or_, orm
 
 from aurweb import db, models
@@ -59,17 +61,24 @@ class PackageSearch:
             "l": self._sort_by_last_modified
         }
 
-        self._joined = False
+        self._joined_user = False
+        self._joined_keywords = False
 
     def _join_user(self, outer: bool = True) -> orm.Query:
         """ Centralized joining of a package base's maintainer. """
-        if not self._joined:
+        if not self._joined_user:
             self.query = self.query.join(
                 User,
                 User.ID == PackageBase.MaintainerUID,
                 isouter=outer
             )
-            self._joined = True
+            self._joined_user = True
+            return self.query
+
+    def _join_keywords(self) -> orm.Query:
+        if not self._joined_keywords:
+            self.query = self.query.join(PackageKeyword)
+            self._joined_keywords = True
             return self.query
 
     def _search_by_namedesc(self, keywords: str) -> orm.Query:
@@ -100,11 +109,12 @@ class PackageSearch:
         self.query = self.query.filter(PackageBase.Name == keywords)
         return self
 
-    def _search_by_keywords(self, keywords: str) -> orm.Query:
+    def _search_by_keywords(self, keywords: Set[str]) -> orm.Query:
         self._join_user()
-        self.query = self.query.join(PackageKeyword).filter(
-            PackageKeyword.Keyword == keywords
-        )
+        self._join_keywords()
+        self.query = self.query.filter(
+            PackageKeyword.Keyword.in_(keywords)
+        ).group_by(Package.Name)
         return self
 
     def _search_by_maintainer(self, keywords: str) -> orm.Query:
