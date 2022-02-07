@@ -36,7 +36,7 @@
                         <a href="/pkgbase/{{ pkgbase.Name }}/flag-comment">
                             {{
                             "Flagged out-of-date (%s)"
-                            | tr | format(date_strftime(package.PackageBase.OutOfDateTS, "%Y-%m-%d"))
+                            | tr | format(date_strftime(pkgbase.OutOfDateTS, "%Y-%m-%d"))
                             }}
                         </a>
                     </span>
