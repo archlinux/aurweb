@@ -113,7 +113,7 @@ async def packages_get(request: Request, context: Dict[str, Any],
         models.User.Username.label("Maintainer"),
         models.PackageVote.PackageBaseID.label("Voted"),
         models.PackageNotification.PackageBaseID.label("Notify")
-    )
+    ).group_by(models.Package.Name)
 
     packages = results.limit(per_page).offset(offset)
     context["packages"] = packages
