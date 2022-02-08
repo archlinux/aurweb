@@ -9,6 +9,9 @@ body = """
 {% if version %}\
 Release {{ version }} - {{ timestamp | date(format="%Y-%m-%d") }}
 ---------------------------
+{% else %}\
+Changelog (untagged)
+---------------------------
 {% endif %}\
 {% for group, commits in commits | group_by(attribute="group") %}
 {{ group | lower }}:\
