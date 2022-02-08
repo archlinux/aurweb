@@ -10,7 +10,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from aurweb import config, db, filters, time
-from aurweb.models.account_type import DEVELOPER_ID, AccountType
+from aurweb.models.account_type import DEVELOPER_ID, TRUSTED_USER_ID, AccountType
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
@@ -95,6 +95,16 @@ def tu_user():
                             RealName="Test TU", Passwd="testPassword",
                             AccountType=tu_type)
     yield tu_user
+
+
+@pytest.fixture
+def tu_user2():
+    with db.begin():
+        tu_user2 = db.create(User, Username="test_tu2",
+                             Email="test_tu2@example.org",
+                             RealName="Test TU 2", Passwd="testPassword",
+                             AccountTypeID=TRUSTED_USER_ID)
+    yield tu_user2
 
 
 @pytest.fixture
@@ -435,7 +445,8 @@ def test_tu_index_sorting(client, tu_user):
         ])
 
 
-def test_tu_index_last_votes(client, tu_user, user):
+def test_tu_index_last_votes(client: TestClient, tu_user: User, tu_user2: User,
+                             user: User):
     ts = time.utcnow()
 
     with db.begin():
@@ -445,12 +456,14 @@ def test_tu_index_last_votes(client, tu_user, user):
                              Submitted=(ts - 1000),
                              End=(ts - 5),
                              Yes=1,
+                             No=1,
                              ActiveTUs=1,
                              Quorum=0.0,
                              Submitter=tu_user)
 
         # Create a vote on it from tu_user.
         db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+        db.create(TUVote, VoteInfo=voteinfo, User=tu_user2)
 
     # Now, check that tu_user got populated in the .last-votes table.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
@@ -461,15 +474,17 @@ def test_tu_index_last_votes(client, tu_user, user):
     root = parse_root(response.text)
     table = get_table(root, "last-votes")
     rows = get_table_rows(table)
-    assert len(rows) == 1
+    assert len(rows) == 2
 
     last_vote = rows[0]
-    user, vote_id = last_vote.xpath("./td")
-    user = user.xpath("./a")[0]
-    vote_id = vote_id.xpath("./a")[0]
-
+    user, vote_id = last_vote.xpath("./td/a")
     assert user.text.strip() == tu_user.Username
     assert int(vote_id.text.strip()) == voteinfo.ID
+
+    last_vote = rows[1]
+    user, vote_id = last_vote.xpath("./td/a")
+    assert int(vote_id.text.strip()) == voteinfo.ID
+    assert user.text.strip() == tu_user2.Username
 
 
 def test_tu_proposal_not_found(client, tu_user):
