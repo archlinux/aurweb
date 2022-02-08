@@ -37,7 +37,7 @@ LOCALES = ${MOFILES:.mo=}
 
 UPDATEPOFILES = ${POFILES:.po=.po-update}
 
-MSGID_BUGS_ADDRESS = https://bugs.archlinux.org/index.php?project=2
+MSGID_BUGS_ADDRESS = https://gitlab.archlinux.org/archlinux/aurweb/-/issues
 
 all: ${MOFILES}
 
