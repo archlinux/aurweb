@@ -2,6 +2,7 @@ import copy
 import typing
 
 from http import HTTPStatus
+from typing import Any, Dict
 
 from fastapi import APIRouter, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -105,7 +106,8 @@ async def passreset_post(request: Request,
                             status_code=HTTPStatus.SEE_OTHER)
 
 
-def process_account_form(request: Request, user: models.User, args: dict):
+def process_account_form(request: Request, user: models.User,
+                         args: Dict[str, Any]):
     """ Process an account form. All fields are optional and only checks
     requirements in the case they are present.
 
@@ -193,8 +195,8 @@ def make_account_form_context(context: dict,
         context["pgp"] = args.get("K", user.PGPKey or str())
         context["lang"] = args.get("L", user.LangPreference)
         context["tz"] = args.get("TZ", user.Timezone)
-        ssh_pk = user.ssh_pub_key.PubKey if user.ssh_pub_key else str()
-        context["ssh_pk"] = args.get("PK", ssh_pk)
+        ssh_pks = [pk.PubKey for pk in user.ssh_pub_keys]
+        context["ssh_pks"] = args.get("PK", ssh_pks)
         context["cn"] = args.get("CN", user.CommentNotify)
         context["un"] = args.get("UN", user.UpdateNotify)
         context["on"] = args.get("ON", user.OwnershipNotify)
@@ -212,7 +214,7 @@ def make_account_form_context(context: dict,
         context["pgp"] = args.get("K", str())
         context["lang"] = args.get("L", context.get("language"))
         context["tz"] = args.get("TZ", context.get("timezone"))
-        context["ssh_pk"] = args.get("PK", str())
+        context["ssh_pks"] = args.get("PK", str())
         context["cn"] = args.get("CN", True)
         context["un"] = args.get("UN", False)
         context["on"] = args.get("ON", True)
@@ -314,16 +316,13 @@ async def account_register_post(request: Request,
     # PK mismatches the existing user's SSHPubKey.PubKey.
     if PK:
         # Get the second element in the PK, which is the actual key.
-        pubkey = PK.strip().rstrip()
-        parts = pubkey.split(" ")
-        if len(parts) == 3:
-            # Remove the host part.
-            pubkey = parts[0] + " " + parts[1]
-        fingerprint = get_fingerprint(pubkey)
-        with db.begin():
-            user.ssh_pub_key = models.SSHPubKey(UserID=user.ID,
-                                                PubKey=pubkey,
-                                                Fingerprint=fingerprint)
+        keys = util.parse_ssh_keys(PK.strip())
+        for k in keys:
+            pk = " ".join(k)
+            fprint = get_fingerprint(pk)
+            with db.begin():
+                db.create(models.SSHPubKey, UserID=user.ID,
+                          PubKey=pk, Fingerprint=fprint)
 
     # Send a reset key notification to the new user.
     WelcomeNotification(user.ID).send()
@@ -408,6 +407,9 @@ async def account_edit_post(request: Request,
 
     context = make_account_form_context(context, request, user, args)
     ok, errors = process_account_form(request, user, args)
+
+    if PK:
+        context["ssh_pks"] = [PK]
 
     if not passwd:
         context["errors"] = ["Invalid password."]

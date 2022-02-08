@@ -107,14 +107,16 @@ def invalid_pgp_key(K: str = str(), **kwargs) -> None:
 
 def invalid_ssh_pubkey(PK: str = str(), user: models.User = None,
                        _: l10n.Translator = None, **kwargs) -> None:
-    if PK:
-        invalid_exc = ValidationError(["The SSH public key is invalid."])
-        if not util.valid_ssh_pubkey(PK):
-            raise invalid_exc
+    if not PK:
+        return
 
-        fingerprint = get_fingerprint(PK.strip().rstrip())
-        if not fingerprint:
-            raise invalid_exc
+    try:
+        keys = util.parse_ssh_keys(PK.strip())
+    except ValueError as exc:
+        raise ValidationError([str(exc)])
+
+    for prefix, key in keys:
+        fingerprint = get_fingerprint(f"{prefix} {key}")
 
         exists = db.query(models.SSHPubKey).filter(
             and_(models.SSHPubKey.UserID != user.ID,

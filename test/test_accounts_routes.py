@@ -577,10 +577,13 @@ def test_post_register_error_ssh_pubkey_taken(client: TestClient, user: User):
         # Read in the public key, then delete the temp dir we made.
         pk = open(f"{tmpdir}/test.ssh.pub").read().rstrip()
 
+    prefix, key, loc = pk.split()
+    norm_pk = prefix + " " + key
+
     # Take the sha256 fingerprint of the ssh public key, create it.
-    fp = get_fingerprint(pk)
+    fp = get_fingerprint(norm_pk)
     with db.begin():
-        create(SSHPubKey, UserID=user.ID, PubKey=pk, Fingerprint=fp)
+        create(SSHPubKey, UserID=user.ID, PubKey=norm_pk, Fingerprint=fp)
 
     with client as request:
         response = post_register(request, PK=pk)
@@ -1080,22 +1083,16 @@ def test_post_account_edit_missing_ssh_pubkey(client: TestClient, user: User):
 def test_post_account_edit_invalid_ssh_pubkey(client: TestClient, user: User):
     pubkey = "ssh-rsa fake key"
 
-    request = Request()
-    sid = user.login(request, "testPassword")
-
-    post_data = {
+    data = {
         "U": "test",
         "E": "test@example.org",
-        "P": "newPassword",
-        "C": "newPassword",
         "PK": pubkey,
         "passwd": "testPassword"
     }
-
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        response = request.post("/account/test/edit", cookies={
-            "AURSID": sid
-        }, data=post_data, allow_redirects=False)
+        response = request.post("/account/test/edit", data=data,
+                                cookies=cookies, allow_redirects=False)
 
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 

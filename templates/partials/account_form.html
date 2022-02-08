@@ -262,7 +262,7 @@
 
             <!-- Only set PK auto-fill when we've got a NewAccount form. -->
             <textarea id="id_ssh" name="PK"
-                      rows="5" cols="30">{{ ssh_pk }}</textarea>
+                      rows="5" cols="30">{{ ssh_pks | join("\n") }}</textarea>
         </p>
     </fieldset>
 

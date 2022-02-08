@@ -1,3 +1,5 @@
+from subprocess import PIPE, Popen
+
 import pytest
 
 from aurweb import db
@@ -61,8 +63,12 @@ def test_pubkey_cs(user: User):
 
 
 def test_pubkey_fingerprint():
-    assert get_fingerprint(TEST_SSH_PUBKEY) is not None
+    proc = Popen(["ssh-keygen", "-l", "-f", "-"], stdin=PIPE, stdout=PIPE)
+    out, _ = proc.communicate(TEST_SSH_PUBKEY.encode())
+    expected = out.decode().split()[1].split(":", 1)[1]
+    assert get_fingerprint(TEST_SSH_PUBKEY) == expected
 
 
 def test_pubkey_invalid_fingerprint():
-    assert get_fingerprint("ssh-rsa fake and invalid") is None
+    with pytest.raises(ValueError):
+        get_fingerprint("invalid-prefix some-fake-content")
