@@ -81,17 +81,18 @@ async def trusted_user(request: Request,
     context["past_off"] = past_off
 
     last_vote = func.max(models.TUVote.VoteID).label("LastVote")
-    last_votes_by_tu = db.query(models.TUVote).join(
-        models.User
-    ).join(models.TUVoteInfo).filter(
+    last_votes_by_tu = db.query(models.TUVote).join(models.User).join(
+        models.TUVoteInfo,
+        models.TUVoteInfo.ID == models.TUVote.VoteID
+    ).filter(
         and_(models.TUVote.VoteID == models.TUVoteInfo.ID,
              models.User.ID == models.TUVote.UserID,
-             models.TUVoteInfo.End <= ts,
+             models.TUVoteInfo.End < ts,
              or_(models.User.AccountTypeID == 2,
                  models.User.AccountTypeID == 4))
     ).with_entities(
         models.TUVote.UserID,
-        func.max(models.TUVote.VoteID).label("LastVote"),
+        last_vote,
         models.User.Username
     ).group_by(models.TUVote.UserID).order_by(
         last_vote.desc(), models.User.Username.asc())
