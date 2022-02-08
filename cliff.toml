@@ -13,7 +13,7 @@ Release {{ version }} - {{ timestamp | date(format="%Y-%m-%d") }}
 {% for group, commits in commits | group_by(attribute="group") %}
 {{ group | lower }}:\
 {% for commit in commits %}
-- {{ commit.id | truncate(length=8, end="") }}: {{ commit.message }}\
+- {{ commit.id | truncate(length=8, end="") }}: {% if commit.scope %}({{ commit.scope }}) {% endif %}{{ commit.message }}\
 {% endfor %}
 {% endfor %}\n
 """
