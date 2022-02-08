@@ -1,4 +1,3 @@
-import base64
 import math
 import re
 import secrets
@@ -7,7 +6,8 @@ import string
 from datetime import datetime
 from distutils.util import strtobool as _strtobool
 from http import HTTPStatus
-from typing import Callable, Iterable, Tuple, Union
+from subprocess import PIPE, Popen
+from typing import Callable, Iterable, List, Tuple, Union
 from urllib.parse import urlparse
 
 import fastapi
@@ -80,25 +80,6 @@ def valid_pgp_fingerprint(fp):
 
     # Check the length; must be 40 hexadecimal digits.
     return len(fp) == 40
-
-
-def valid_ssh_pubkey(pk):
-    valid_prefixes = aurweb.config.get("auth", "valid-keytypes")
-    valid_prefixes = set(valid_prefixes.split(" "))
-
-    has_valid_prefix = False
-    for prefix in valid_prefixes:
-        if "%s " % prefix in pk:
-            has_valid_prefix = True
-            break
-    if not has_valid_prefix:
-        return False
-
-    tokens = pk.strip().rstrip().split(" ")
-    if len(tokens) < 2:
-        return False
-
-    return base64.b64encode(base64.b64decode(tokens[1])).decode() == tokens[1]
 
 
 def jsonify(obj):
@@ -191,3 +172,29 @@ async def error_or_result(next: Callable, *args, **kwargs) \
         status_code = HTTPStatus.INTERNAL_SERVER_ERROR
         return JSONResponse({"error": str(exc)}, status_code=status_code)
     return response
+
+
+def parse_ssh_key(string: str) -> Tuple[str, str]:
+    """ Parse an SSH public key. """
+    invalid_exc = ValueError("The SSH public key is invalid.")
+    parts = re.sub(r'\s\s+', ' ', string.strip()).split()
+    if len(parts) < 2:
+        raise invalid_exc
+
+    prefix, key = parts[:2]
+    prefixes = set(aurweb.config.get("auth", "valid-keytypes").split(" "))
+    if prefix not in prefixes:
+        raise invalid_exc
+
+    proc = Popen(["ssh-keygen", "-l", "-f", "-"], stdin=PIPE, stdout=PIPE,
+                 stderr=PIPE)
+    out, _ = proc.communicate(f"{prefix} {key}".encode())
+    if proc.returncode:
+        raise invalid_exc
+
+    return (prefix, key)
+
+
+def parse_ssh_keys(string: str) -> List[Tuple[str, str]]:
+    """ Parse a list of SSH public keys. """
+    return [parse_ssh_key(e) for e in string.splitlines()]

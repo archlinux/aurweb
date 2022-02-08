@@ -53,4 +53,4 @@ def test_adduser_ssh_pk():
               "--ssh-pubkey", TEST_SSH_PUBKEY])
     test = db.query(User).filter(User.Username == "test").first()
     assert test is not None
-    assert TEST_SSH_PUBKEY.startswith(test.ssh_pub_key.PubKey)
+    assert TEST_SSH_PUBKEY.startswith(test.ssh_pub_keys.first().PubKey)

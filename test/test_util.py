@@ -60,3 +60,53 @@ def test_valid_homepage():
     assert not util.valid_homepage("https://[google.com/broken-ipv6")
 
     assert not util.valid_homepage("gopher://gopher.hprc.utoronto.ca/")
+
+
+def test_parse_ssh_key():
+    # Test a valid key.
+    pk = """ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyN\
+TYAAABBBEURnkiY6JoLyqDE8Li1XuAW+LHmkmLDMW/GL5wY7k4/A+Ta7bjA3MOKrF9j4EuUTvCuNX\
+ULxvpfSqheTFWZc+g="""
+    prefix, key = util.parse_ssh_key(pk)
+    e_prefix, e_key = pk.split()
+    assert prefix == e_prefix
+    assert key == e_key
+
+    # Test an invalid key with just one word in it.
+    with pytest.raises(ValueError):
+        util.parse_ssh_key("ssh-rsa")
+
+    # Test a valid key with extra words in it (after the PK).
+    pk = pk + " blah blah"
+    prefix, key = util.parse_ssh_key(pk)
+    assert prefix == e_prefix
+    assert key == e_key
+
+    # Test an invalid prefix.
+    with pytest.raises(ValueError):
+        util.parse_ssh_key("invalid-prefix fake-content")
+
+
+def test_parse_ssh_keys():
+    pks = """ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyN\
+TYAAABBBEURnkiY6JoLyqDE8Li1XuAW+LHmkmLDMW/GL5wY7k4/A+Ta7bjA3MOKrF9j4EuUTvCuNX\
+ULxvpfSqheTFWZc+g=
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDmqEapFMh/ajPHnm1dBweYPeLOUjC0Ydp6uw7rB\
+S5KCggUVQR8WfIm+sRYTj2+smGsK6zHMBjFnbzvV11vnMqcnY+Sa4LhIAdwkbt/b8HlGaLj1hCWSh\
+a5b5/noeK7L+CECGHdvfJhpxBbhq38YEdFnCGbslk/4NriNcUp/DO81CXb1RzJ9GBFH8ivPW1mbe9\
+YbxDwGimZZslg0OZu9UzoAT6xEGyiZsqJkTMbRp1ZYIOv9jHCJxRuxxuN3fzxyT3xE69+vhq2/NJX\
+8aRsxGPL9G/XKcaYGS6y6LW4quIBCz/XsTZfx1GmkQeZPYHH8FeE+XC/+toXL/kamxdOQKFYEEpWK\
+vTNJCD6JtMClxbIXW9q74nNqG+2SD/VQNMUz/505TK1PbY/4uyFfq5HquHJXQVCBll03FRerNHH2N\
+schFne6BFHpa48PCoZNH45wLjFXwUyrGU1HrNqh6ZPdRfBTrTOkgs+BKBxGNeV45aYUPu/cFBSPcB\
+fRSo6OFcejKc="""
+    keys = util.parse_ssh_keys(pks)
+    assert len(keys) == 2
+
+    pfx1, key1, pfx2, key2 = pks.split()
+    k1, k2 = keys
+
+    assert pfx1 == k1[0]
+    assert key1 == k1[1]
+
+    assert pfx2 == k2[0]
+    assert key2 == k2[1]

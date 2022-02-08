@@ -183,14 +183,14 @@ def test_user_has_credential(user: User):
 
 
 def test_user_ssh_pub_key(user: User):
-    assert user.ssh_pub_key is None
+    assert user.ssh_pub_keys.first() is None
 
     with db.begin():
         ssh_pub_key = db.create(SSHPubKey, UserID=user.ID,
                                 Fingerprint="testFingerprint",
                                 PubKey="testPubKey")
 
-    assert user.ssh_pub_key == ssh_pub_key
+    assert user.ssh_pub_keys.first() == ssh_pub_key
 
 
 def test_user_credential_types(user: User):
