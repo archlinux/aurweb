@@ -63,6 +63,7 @@ class PackageSearch:
 
         self._joined_user = False
         self._joined_keywords = False
+        self._joined_comaint = False
 
     def _join_user(self, outer: bool = True) -> orm.Query:
         """ Centralized joining of a package base's maintainer. """
@@ -73,13 +74,23 @@ class PackageSearch:
                 isouter=outer
             )
             self._joined_user = True
-            return self.query
+        return self.query
 
     def _join_keywords(self) -> orm.Query:
         if not self._joined_keywords:
             self.query = self.query.join(PackageKeyword)
             self._joined_keywords = True
-            return self.query
+        return self.query
+
+    def _join_comaint(self, isouter: bool = False) -> orm.Query:
+        if not self._joined_comaint:
+            self.query = self.query.join(
+                PackageComaintainer,
+                PackageComaintainer.PackageBaseID == PackageBase.ID,
+                isouter=isouter
+            )
+            self._joined_comaint = True
+        return self.query
 
     def _search_by_namedesc(self, keywords: str) -> orm.Query:
         self._join_user()
@@ -102,6 +113,7 @@ class PackageSearch:
     def _search_by_pkgbase(self, keywords: str) -> orm.Query:
         self._join_user()
         self.query = self.query.filter(PackageBase.Name.like(f"%{keywords}%"))
+
         return self
 
     def _search_by_exact_pkgbase(self, keywords: str) -> orm.Query:
@@ -112,9 +124,7 @@ class PackageSearch:
     def _search_by_keywords(self, keywords: Set[str]) -> orm.Query:
         self._join_user()
         self._join_keywords()
-        self.query = self.query.filter(
-            PackageKeyword.Keyword.in_(keywords)
-        ).group_by(Package.Name)
+        self.query = self.query.filter(PackageKeyword.Keyword.in_(keywords))
         return self
 
     def _search_by_maintainer(self, keywords: str) -> orm.Query:
@@ -130,25 +140,20 @@ class PackageSearch:
 
     def _search_by_comaintainer(self, keywords: str) -> orm.Query:
         self._join_user()
+        self._join_comaint()
         user = db.query(User).filter(User.Username == keywords).first()
         uid = 0 if not user else user.ID
-        self.query = self.query.join(
-            PackageComaintainer,
-            PackageComaintainer.PackageBaseID == PackageBase.ID
-        ).filter(PackageComaintainer.UsersID == uid)
+        self.query = self.query.filter(PackageComaintainer.UsersID == uid)
         return self
 
     def _search_by_co_or_maintainer(self, keywords: str) -> orm.Query:
         self._join_user()
-
+        self._join_comaint(True)
         user = db.query(User).filter(User.Username == keywords).first()
         uid = 0 if not user else user.ID
-        self.query = self.query.join(
-            PackageComaintainer,
-            PackageComaintainer.PackageBaseID == PackageBase.ID,
-            isouter=True
-        ).filter(or_(PackageComaintainer.UsersID == uid, User.ID == uid))
-
+        self.query = self.query.filter(
+            or_(PackageComaintainer.UsersID == uid, User.ID == uid)
+        )
         return self
 
     def _search_by_submitter(self, keywords: str) -> orm.Query:
@@ -323,4 +328,6 @@ class RPCSearch(PackageSearch):
         return result
 
     def results(self) -> orm.Query:
-        return self.query.filter(models.PackageBase.PackagerUID.isnot(None))
+        return self.query.filter(
+            models.PackageBase.PackagerUID.isnot(None)
+        )
