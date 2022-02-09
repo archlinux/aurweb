@@ -12,6 +12,7 @@ from fastapi.testclient import TestClient
 from aurweb import asgi, config, db, defaults, time
 from aurweb.models import Package, PackageBase, PackageRequest, User
 from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
+from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
@@ -501,6 +502,11 @@ def test_merge_autorequest(client: TestClient, user: User, tu_user: User,
 def test_orphan_request(client: TestClient, user: User, tu_user: User,
                         pkgbase: PackageBase, pkgreq: PackageRequest):
     """ Test the standard orphan request route. """
+    user2 = create_user("user2", "user2@example.org")
+    with db.begin():
+        db.create(PackageComaintainer, User=user2,
+                  PackageBase=pkgbase, Priority=1)
+
     idle_time = config.getint("options", "request_idle_time")
     now = time.utcnow()
     with db.begin():
@@ -515,6 +521,12 @@ def test_orphan_request(client: TestClient, user: User, tu_user: User,
         resp = request.post(endpoint, data=data, cookies=tu_user.cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+    # We should have unset the maintainer.
+    assert pkgbase.Maintainer is None
+
+    # We should have removed the comaintainers.
+    assert not pkgbase.comaintainers.all()
 
     # Ensure that `pkgreq`.ClosureComment was left alone when specified.
     assert pkgreq.ClosureComment == comments

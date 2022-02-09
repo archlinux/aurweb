@@ -71,6 +71,7 @@ def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
         notifs += handle_request(request, ORPHAN_ID, pkgbase)
         with db.begin():
             pkgbase.Maintainer = None
+            db.delete_all(pkgbase.comaintainers)
 
     util.apply_all(notifs, lambda n: n.send())
 
