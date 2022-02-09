@@ -510,7 +510,8 @@ async def pkgbase_unflag(request: Request, name: str):
 
 @router.get("/pkgbase/{name}/disown")
 @requires_auth
-async def pkgbase_disown_get(request: Request, name: str):
+async def pkgbase_disown_get(request: Request, name: str,
+                             next: str = Query(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     has_cred = request.user.has_credential(creds.PKGBASE_DISOWN,
@@ -521,6 +522,7 @@ async def pkgbase_disown_get(request: Request, name: str):
 
     context = templates.make_context(request, "Disown Package")
     context["pkgbase"] = pkgbase
+    context["next"] = next or "/pkgbase/{name}"
     return render_template(request, "pkgbase/disown.html", context)
 
 
@@ -528,7 +530,8 @@ async def pkgbase_disown_get(request: Request, name: str):
 @requires_auth
 async def pkgbase_disown_post(request: Request, name: str,
                               comments: str = Form(default=str()),
-                              confirm: bool = Form(default=False)):
+                              confirm: bool = Form(default=False),
+                              next: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     has_cred = request.user.has_credential(creds.PKGBASE_DISOWN,
@@ -555,8 +558,10 @@ async def pkgbase_disown_post(request: Request, name: str,
         return render_template(request, "pkgbase/disown.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
-    return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=HTTPStatus.SEE_OTHER)
+    if not next:
+        next = f"/pkgbase/{name}"
+
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/adopt")
@@ -645,10 +650,12 @@ async def pkgbase_comaintainers_post(request: Request, name: str,
 
 @router.get("/pkgbase/{name}/request")
 @requires_auth
-async def pkgbase_request(request: Request, name: str):
+async def pkgbase_request(request: Request, name: str,
+                          next: str = Query(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
     context = await make_variable_context(request, "Submit Request")
     context["pkgbase"] = pkgbase
+    context["next"] = next or f"/pkgbase/{name}"
     return render_template(request, "pkgbase/request.html", context)
 
 
@@ -657,7 +664,8 @@ async def pkgbase_request(request: Request, name: str):
 async def pkgbase_request_post(request: Request, name: str,
                                type: str = Form(...),
                                merge_into: str = Form(default=None),
-                               comments: str = Form(default=str())):
+                               comments: str = Form(default=str()),
+                               next: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     # Create our render context.
@@ -734,13 +742,15 @@ async def pkgbase_request_post(request: Request, name: str,
 
 @router.get("/pkgbase/{name}/delete")
 @requires_auth
-async def pkgbase_delete_get(request: Request, name: str):
+async def pkgbase_delete_get(request: Request, name: str,
+                             next: str = Query(default=str())):
     if not request.user.has_credential(creds.PKGBASE_DELETE):
         return RedirectResponse(f"/pkgbase/{name}",
                                 status_code=HTTPStatus.SEE_OTHER)
 
     context = templates.make_context(request, "Package Deletion")
     context["pkgbase"] = get_pkg_or_base(name, PackageBase)
+    context["next"] = next or "/packages"
     return render_template(request, "pkgbase/delete.html", context)
 
 
@@ -748,7 +758,8 @@ async def pkgbase_delete_get(request: Request, name: str):
 @requires_auth
 async def pkgbase_delete_post(request: Request, name: str,
                               confirm: bool = Form(default=False),
-                              comments: str = Form(default=str())):
+                              comments: str = Form(default=str()),
+                              next: str = Form(default="/packages")):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     if not request.user.has_credential(creds.PKGBASE_DELETE):
@@ -776,7 +787,7 @@ async def pkgbase_delete_post(request: Request, name: str,
     notifs = actions.pkgbase_delete_instance(
         request, pkgbase, comments=comments)
     util.apply_all(notifs, lambda n: n.send())
-    return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/pkgbase/{name}/merge")

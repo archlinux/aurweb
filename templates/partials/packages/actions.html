@@ -102,13 +102,13 @@
                 </li>
             {% endif %}
             <li>
-                <a href="/pkgbase/{{ pkgbase.Name }}/request">
+                <a href="/pkgbase/{{ pkgbase.Name }}/request?{{ {'next': '/pkgbase/%s' | format(pkgbase.Name)} | urlencode }}">
                     {{ "Submit Request" | tr }}
                 </a>
             </li>
             {% if request.user.has_credential(creds.PKGBASE_DELETE) %}
                 <li>
-                    <a href="/pkgbase/{{ pkgbase.Name }}/delete">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/delete?next=/packages">
                         {{ "Delete Package" | tr }}
                     </a>
                 </li>
@@ -131,7 +131,7 @@
                 </li>
             {% elif request.user.has_credential(creds.PKGBASE_DISOWN, approved=[pkgbase.Maintainer]) %}
                 <li>
-                    <a href="/pkgbase/{{ pkgbase.Name }}/disown">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/disown?{{ {'next': '/pkgbase/%s' | format(pkgbase.Name)} | urlencode }}">
                         {{ "Disown Package" | tr }}
                     </a>
                 </li>

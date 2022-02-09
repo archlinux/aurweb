@@ -45,6 +45,7 @@
 
         <form action="/pkgbase/{{ pkgbase.Name }}/delete" method="post">
             <fieldset>
+                <input type="hidden" name="next" value="{{ next }}" />
 
                 <p>
                     <label for="id_comments">{{ "Comments" | tr }}:</label>
