@@ -153,6 +153,12 @@ def test_archive_sig(client: TestClient):
     assert resp.text == hash_value
 
 
+def test_archive_sig_404(client: TestClient):
+    with client as request:
+        resp = request.get("/blah.gz.sha256")
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
 def test_metrics(client: TestClient):
     with client as request:
         resp = request.get("/metrics")
