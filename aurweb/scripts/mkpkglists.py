@@ -19,14 +19,14 @@ on the following, right-hand side fields are added to each item.
 """
 
 import gzip
+import hashlib
+import io
 import os
-import re
 import shutil
 import sys
 import tempfile
 
 from collections import defaultdict
-from subprocess import PIPE, Popen
 from typing import Any, Dict
 
 import orjson
@@ -169,6 +169,14 @@ def as_dict(package: Package) -> Dict[str, Any]:
     }
 
 
+def sha256sum(file_path: str) -> str:
+    hash = hashlib.sha256()
+    with open(file_path, "rb") as f:
+        while chunk := f.read(io.DEFAULT_BUFFER_SIZE):
+            hash.update(chunk)
+    return hash.hexdigest()
+
+
 def _main():
     archivedir = aurweb.config.get("mkpkglists", "archivedir")
     os.makedirs(archivedir, exist_ok=True)
@@ -287,16 +295,13 @@ def _main():
         files.append((tmp_metaext, META_EXT))
 
     for src, dst in files:
-        proc = Popen(["cksum", "-a", "sha256", src], stdout=PIPE)
-        out, _ = proc.communicate()
-        assert proc.returncode == 0
-
+        checksum = sha256sum(src)
         base = os.path.basename(src)
-        checksum = re.sub(r"SHA256 \(.+\)", f"SHA256 ({base})", out.decode())
+        checksum_formatted = f"SHA256 ({base}) = {checksum}"
 
         checksum_file = f"{dst}.sha256"
         with open(checksum_file, "w") as f:
-            f.write(checksum)
+            f.write(checksum_formatted)
 
         # Move the new archive into its rightful place.
         shutil.move(src, dst)
