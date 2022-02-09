@@ -71,7 +71,10 @@ computations and clean up the database:
   within the last 24 hours but never populated.
 
 * aurweb-mkpkglists generates the package list files; it takes an optional
-  --extended flag, which additionally produces multiinfo metadata.
+  --extended flag, which additionally produces multiinfo metadata. It also
+  generates {archive.gz}.sha256 files that should be located within
+  mkpkglists.archivedir which contain a SHA-256 hash of their matching
+  .gz counterpart.
 
 * aurweb-usermaint removes the last login IP address of all users that did not
   login within the past seven days.
