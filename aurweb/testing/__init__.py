@@ -62,7 +62,3 @@ def setup_test_db(*args):
         aurweb.db.get_session().execute(f"DELETE FROM {table}")
     aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 1")
     aurweb.db.get_session().expunge_all()
-
-
-def noop(*args, **kwargs) -> None:
-    return

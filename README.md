@@ -47,7 +47,7 @@ Links
   -- see doc/CodingGuidelines for information on the patch submission process.
 
 * Bugs can (and should) be submitted to the aurweb bug tracker:
-  https://bugs.archlinux.org/index.php?project=2
+  https://gitlab.archlinux.org/archlinux/aurweb/-/issues/new?issuable_template=Bug
 
 * Questions, comments, and patches related to aurweb can be sent to the AUR
   development mailing list: aur-dev@archlinux.org -- mailing list archives:

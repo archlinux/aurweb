@@ -213,6 +213,19 @@ async def index(request: Request):
     return render_template(request, "index.html", context)
 
 
+@router.get("/{archive}.sha256")
+async def archive_sha256(request: Request, archive: str):
+    archivedir = aurweb.config.get("mkpkglists", "archivedir")
+    hashfile = os.path.join(archivedir, f"{archive}.sha256")
+    if not os.path.exists(hashfile):
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
+
+    with open(hashfile) as f:
+        hash_value = f.read()
+    headers = {"Content-Type": "text/plain"}
+    return Response(hash_value, headers=headers)
+
+
 @router.get("/metrics")
 async def metrics(request: Request):
     registry = CollectorRegistry()

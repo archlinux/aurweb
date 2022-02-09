@@ -1,5 +1,10 @@
 """ A test suite used to test HTML renders in different cases. """
+import hashlib
+import os
+import tempfile
+
 from http import HTTPStatus
+from unittest import mock
 
 import fastapi
 import pytest
@@ -7,7 +12,7 @@ import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
-from aurweb import asgi, db
+from aurweb import asgi, config, db
 from aurweb.models import PackageBase
 from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
 from aurweb.models.user import User
@@ -123,6 +128,35 @@ def test_get_successes():
 """
     successes = get_successes(html)
     assert successes[0].text.strip() == "Test"
+
+
+def test_archive_sig(client: TestClient):
+    hash_value = hashlib.sha256(b'test').hexdigest()
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        packages_sha256 = os.path.join(tmpdir, "packages.gz.sha256")
+        with open(packages_sha256, "w") as f:
+            f.write(hash_value)
+
+        config_get = config.get
+
+        def mock_config(section: str, key: str):
+            if key == "archivedir":
+                return tmpdir
+            return config_get(section, key)
+
+        with mock.patch("aurweb.config.get", side_effect=mock_config):
+            with client as request:
+                resp = request.get("/packages.gz.sha256")
+
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert resp.text == hash_value
+
+
+def test_archive_sig_404(client: TestClient):
+    with client as request:
+        resp = request.get("/blah.gz.sha256")
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
 def test_metrics(client: TestClient):
