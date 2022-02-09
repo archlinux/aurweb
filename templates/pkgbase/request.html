@@ -27,6 +27,8 @@
         <form id="request-form" action="/pkgbase/{{ pkgbase.Name }}/request"
               method="post">
             <fieldset>
+                <input type="hidden" name="next" value="{{ next }}" />
+
                 <p>
                     <label for="id_type">{{ "Request type" | tr }}:</label>
                     <select id="id_type" name="type">
