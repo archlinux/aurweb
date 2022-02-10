@@ -274,7 +274,8 @@ class RPC:
         ]
 
         # Union all subqueries together.
-        query = subqueries[0].union_all(*subqueries[1:])
+        max_results = config.getint("options", "max_rpc_results")
+        query = subqueries[0].union_all(*subqueries[1:]).limit(max_results)
 
         # Store our extra information in a class-wise dictionary,
         # which contains package id -> extra info dict mappings.
