@@ -15,6 +15,7 @@ import aurweb.models.package_request
 
 from aurweb import cookies, db, models, time, util
 from aurweb.cache import db_count_cache
+from aurweb.exceptions import handle_form_exceptions
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.models.package_request import PENDING_ID
 from aurweb.packages.util import query_notified, query_voted, updated_packages
@@ -31,6 +32,7 @@ async def favicon(request: Request):
 
 
 @router.post("/language", response_class=RedirectResponse)
+@handle_form_exceptions
 async def language(request: Request,
                    set_lang: str = Form(...),
                    next: str = Form(...),

@@ -8,7 +8,7 @@ import aurweb.filters  # noqa: F401
 
 from aurweb import config, db, defaults, logging, models, util
 from aurweb.auth import creds, requires_auth
-from aurweb.exceptions import InvariantError
+from aurweb.exceptions import InvariantError, handle_form_exceptions
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.packages import util as pkgutil
 from aurweb.packages.search import PackageSearch
@@ -416,6 +416,7 @@ PACKAGE_ACTIONS = {
 
 
 @router.post("/packages")
+@handle_form_exceptions
 @requires_auth
 async def packages_post(request: Request,
                         IDs: List[int] = Form(default=[]),

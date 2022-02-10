@@ -67,9 +67,24 @@ smtp-user =
 smtp-password =
 sender = notify@aur.archlinux.org
 reply-to = noreply@aur.archlinux.org
-; Administration email which will receive notifications about
+
+; Gitlab instance base URL. We use this instance to report
+; server errors in the form of confidential issues (see error-project).
+gitlab-instance = https://gitlab.archlinux.org
+
+; Project URI which will received confidential issues about
 ; various server details like uncaught exceptions.
-postmaster = admin@example.org
+; Errors reported will be filed using the 'triage' label, and so
+; the 'triage' label must exist in any project URI given.
+;
+; - must be a valid project URI on notifications.error-repository
+; - must contain a 'triage' label
+;
+error-project = set-me
+
+; Gitlab access token with API privileges to post
+; notifications.error-project issues.
+error-token = set-me
 
 [fingerprints]
 Ed25519 = SHA256:HQ03dn6EasJHNDlt51KpQpFkT3yBX83x7BoIkA1iv2k

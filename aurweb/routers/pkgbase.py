@@ -6,7 +6,7 @@ from sqlalchemy import and_
 
 from aurweb import config, db, l10n, logging, templates, time, util
 from aurweb.auth import creds, requires_auth
-from aurweb.exceptions import InvariantError, ValidationError
+from aurweb.exceptions import InvariantError, ValidationError, handle_form_exceptions
 from aurweb.models import PackageBase
 from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_keyword import PackageKeyword
@@ -88,6 +88,7 @@ async def pkgbase_flag_comment(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/keywords")
+@handle_form_exceptions
 async def pkgbase_keywords(request: Request, name: str,
                            keywords: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -130,6 +131,7 @@ async def pkgbase_flag_get(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/flag")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_flag_post(request: Request, name: str,
                             comments: str = Form(default=str())):
@@ -158,6 +160,7 @@ async def pkgbase_flag_post(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/comments")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_comments_post(
         request: Request, name: str,
@@ -254,6 +257,7 @@ async def pkgbase_comment_edit(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_comment_post(
         request: Request, name: str, id: int,
@@ -294,6 +298,7 @@ async def pkgbase_comment_post(
 
 
 @router.post("/pkgbase/{name}/comments/{id}/pin")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_comment_pin(request: Request, name: str, id: int,
                               next: str = Form(default=None)):
@@ -328,6 +333,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}/unpin")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_comment_unpin(request: Request, name: str, id: int,
                                 next: str = Form(default=None)):
@@ -361,6 +367,7 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}/delete")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_comment_delete(request: Request, name: str, id: int,
                                  next: str = Form(default=None)):
@@ -400,6 +407,7 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}/undelete")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_comment_undelete(request: Request, name: str, id: int,
                                    next: str = Form(default=None)):
@@ -438,6 +446,7 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/vote")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_vote(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -462,6 +471,7 @@ async def pkgbase_vote(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/unvote")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_unvote(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -482,6 +492,7 @@ async def pkgbase_unvote(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/notify")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_notify(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -491,6 +502,7 @@ async def pkgbase_notify(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/unnotify")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_unnotify(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -500,6 +512,7 @@ async def pkgbase_unnotify(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/unflag")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_unflag(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -527,6 +540,7 @@ async def pkgbase_disown_get(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/disown")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_disown_post(request: Request, name: str,
                               comments: str = Form(default=str()),
@@ -565,6 +579,7 @@ async def pkgbase_disown_post(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/adopt")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_adopt_post(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -607,6 +622,7 @@ async def pkgbase_comaintainers(request: Request, name: str) -> Response:
 
 
 @router.post("/pkgbase/{name}/comaintainers")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_comaintainers_post(request: Request, name: str,
                                      users: str = Form(default=str())) \
@@ -660,6 +676,7 @@ async def pkgbase_request(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/request")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_request_post(request: Request, name: str,
                                type: str = Form(...),
@@ -755,6 +772,7 @@ async def pkgbase_delete_get(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/delete")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_delete_post(request: Request, name: str,
                               confirm: bool = Form(default=False),
@@ -819,6 +837,7 @@ async def pkgbase_merge_get(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/merge")
+@handle_form_exceptions
 @requires_auth
 async def pkgbase_merge_post(request: Request, name: str,
                              into: str = Form(default=str()),

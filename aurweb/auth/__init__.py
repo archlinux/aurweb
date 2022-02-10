@@ -33,6 +33,8 @@ class AnonymousUser:
     makes a request against FastAPI. """
     # Stub attributes used to mimic a real user.
     ID = 0
+    Username = "N/A"
+    Email = "N/A"
 
     class AccountType:
         """ A stubbed AccountType static class. In here, we use an ID

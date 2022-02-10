@@ -8,6 +8,7 @@ import aurweb.config
 
 from aurweb import cookies, db, time
 from aurweb.auth import requires_auth, requires_guest
+from aurweb.exceptions import handle_form_exceptions
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import User
 from aurweb.templates import make_variable_context, render_template
@@ -29,6 +30,7 @@ async def login_get(request: Request, next: str = "/"):
 
 
 @router.post("/login", response_class=HTMLResponse)
+@handle_form_exceptions
 @requires_guest
 async def login_post(request: Request,
                      next: str = Form(...),
@@ -82,6 +84,7 @@ async def login_post(request: Request,
 
 
 @router.post("/logout")
+@handle_form_exceptions
 @requires_auth
 async def logout(request: Request, next: str = Form(default="/")):
     if request.user.is_authenticated():

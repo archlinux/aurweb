@@ -9,6 +9,7 @@ from sqlalchemy import and_, func, or_
 
 from aurweb import db, l10n, logging, models, time
 from aurweb.auth import creds, requires_auth
+from aurweb.exceptions import handle_form_exceptions
 from aurweb.models import User
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.templates import make_context, make_variable_context, render_template
@@ -173,6 +174,7 @@ async def trusted_user_proposal(request: Request, proposal: int):
 
 
 @router.post("/tu/{proposal}")
+@handle_form_exceptions
 @requires_auth
 async def trusted_user_proposal_post(request: Request, proposal: int,
                                      decision: str = Form(...)):
@@ -245,6 +247,7 @@ async def trusted_user_addvote(request: Request, user: str = str(),
 
 
 @router.post("/addvote")
+@handle_form_exceptions
 @requires_auth
 async def trusted_user_addvote_post(request: Request,
                                     user: str = Form(default=str()),
