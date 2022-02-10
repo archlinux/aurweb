@@ -795,3 +795,34 @@ def test_rpc_post(client: TestClient, packages: List[Package]):
         resp = request.post("/rpc", data=data)
     assert resp.status_code == int(HTTPStatus.OK)
     assert resp.json().get("resultcount") == 2
+
+
+def test_rpc_too_many_search_results(client: TestClient,
+                                     packages: List[Package]):
+    config_getint = config.getint
+
+    def mock_config(section: str, key: str):
+        if key == "max_rpc_results":
+            return 1
+        return config_getint(section, key)
+
+    params = {"v": 5, "type": "search", "arg": "chungus"}
+    with mock.patch("aurweb.config.getint", side_effect=mock_config):
+        with client as request:
+            resp = request.get("/rpc", params=params)
+    assert resp.json().get("error") == "Too many package results."
+
+
+def test_rpc_too_many_info_results(client: TestClient, packages: List[Package]):
+    config_getint = config.getint
+
+    def mock_config(section: str, key: str):
+        if key == "max_rpc_results":
+            return 1
+        return config_getint(section, key)
+
+    params = {"v": 5, "type": "info", "arg[]": [p.Name for p in packages]}
+    with mock.patch("aurweb.config.getint", side_effect=mock_config):
+        with client as request:
+            resp = request.get("/rpc", params=params)
+    assert resp.json().get("error") == "Too many package results."

@@ -275,7 +275,11 @@ class RPC:
 
         # Union all subqueries together.
         max_results = config.getint("options", "max_rpc_results")
-        query = subqueries[0].union_all(*subqueries[1:]).limit(max_results)
+        query = subqueries[0].union_all(*subqueries[1:]).limit(
+            max_results + 1).all()
+
+        if len(query) > max_results:
+            raise RPCError("Too many package results.")
 
         # Store our extra information in a class-wise dictionary,
         # which contains package id -> extra info dict mappings.
@@ -307,7 +311,11 @@ class RPC:
         search.search_by(by, arg)
 
         max_results = config.getint("options", "max_rpc_results")
-        results = self._entities(search.results()).limit(max_results)
+        results = self._entities(search.results()).limit(max_results + 1).all()
+
+        if len(results) > max_results:
+            raise RPCError("Too many package results.")
+
         return self._assemble_json_data(results, self._get_json_data)
 
     def _handle_msearch_type(self, args: List[str] = [], **kwargs)\
