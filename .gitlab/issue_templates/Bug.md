@@ -6,7 +6,7 @@ bugs with user-uploaded packages.
 
 To work out a bug you have found in a user-uploaded package, contact
 the package's maintainer first. If you receive no response, file the
-relevent package request against it so TUs can deal with cleanup.
+relevant package request against it so TUs can deal with cleanup.
 
 - [ ] I confirm that this is an issue with aurweb's code and not a
       user-uploaded package.
