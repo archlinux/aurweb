@@ -11,6 +11,7 @@ from fastapi import APIRouter, Form, Query, Request, Response
 from fastapi.responses import JSONResponse
 
 from aurweb import defaults
+from aurweb.exceptions import handle_form_exceptions
 from aurweb.ratelimit import check_ratelimit
 from aurweb.rpc import RPC, documentation
 
@@ -150,6 +151,7 @@ async def rpc(request: Request,
 @router.get("/rpc.php")  # Temporary! Remove on 03/04
 @router.post("/rpc/")
 @router.post("/rpc")
+@handle_form_exceptions
 async def rpc_post(request: Request,
                    v: Optional[int] = Form(default=None),
                    type: Optional[str] = Form(default=None),

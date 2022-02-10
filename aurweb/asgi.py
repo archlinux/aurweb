@@ -9,6 +9,8 @@ import typing
 
 from urllib.parse import quote_plus
 
+import requests
+
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -33,7 +35,6 @@ from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
 from aurweb.redis import redis_connection
 from aurweb.routers import APP_ROUTES
-from aurweb.scripts import notify
 from aurweb.templates import make_context, render_template
 
 logger = logging.get_logger(__name__)
@@ -109,6 +110,10 @@ async def internal_server_error(request: Request, exc: Exception) -> Response:
     :param request: FastAPI Request
     :return: Rendered 500.html template with status_code 500
     """
+    repo = aurweb.config.get("notifications", "gitlab-instance")
+    project = aurweb.config.get("notifications", "error-project")
+    token = aurweb.config.get("notifications", "error-token")
+
     context = make_context(request, "Internal Server Error")
 
     # Print out the exception via `traceback` and store the value
@@ -120,38 +125,79 @@ async def internal_server_error(request: Request, exc: Exception) -> Response:
 
     # Produce a SHA1 hash of the traceback string.
     tb_hash = hashlib.sha1(tb.encode()).hexdigest()
-
-    # Use the first 7 characters of the sha1 for the traceback id.
-    # We will use this to log and include in the notification.
     tb_id = tb_hash[:7]
 
     redis = redis_connection()
-    pipe = redis.pipeline()
     key = f"tb:{tb_hash}"
-    pipe.get(key)
-    retval, = pipe.execute()
+    retval = redis.get(key)
     if not retval:
         # Expire in one hour; this is just done to make sure we
         # don't infinitely store these values, but reduce the number
         # of automated reports (notification below). At this time of
         # writing, unexpected exceptions are not common, thus this
         # will not produce a large memory footprint in redis.
+        pipe = redis.pipeline()
         pipe.set(key, tb)
-        pipe.expire(key, 3600)
+        pipe.expire(key, 86400)  # One day.
         pipe.execute()
 
         # Send out notification about it.
-        notif = notify.ServerErrorNotification(
-            tb_id, context.get("version"), context.get("utcnow"))
-        notif.send()
+        if "set-me" not in (project, token):
+            proj = quote_plus(project)
+            endp = f"{repo}/api/v4/projects/{proj}/issues"
 
-        retval = tb
+            base = f"{request.url.scheme}://{request.url.netloc}"
+            title = f"Traceback [{tb_id}]: {base}{request.url.path}"
+            desc = [
+                "DISCLAIMER",
+                "----------",
+                "**This issue is confidential** and should be sanitized "
+                "before sharing with users or developers. Please ensure "
+                "you've completed the following tasks:",
+                "- [ ] I have removed any sensitive data and "
+                "the description history.",
+                "",
+                "Exception Details",
+                "-----------------",
+                f"- Route: `{request.url.path}`",
+                f"- User: `{request.user.Username}`",
+                f"- Email: `{request.user.Email}`",
+            ]
+
+            # Add method-specific information to the description.
+            if request.method.lower() == "get":
+                # get
+                if request.url.query:
+                    desc = desc + [f"- Query: `{request.url.query}`"]
+                desc += ["", f"```{tb}```"]
+            else:
+                # post
+                form_data = str(dict(request.state.form_data))
+                desc = desc + [
+                    f"- Data: `{form_data}`"
+                ] + ["", f"```{tb}```"]
+
+            headers = {"Authorization": f"Bearer {token}"}
+            data = {
+                "title": title,
+                "description": "\n".join(desc),
+                "labels": ["triage"],
+                "confidential": True,
+            }
+            logger.info(endp)
+            resp = requests.post(endp, json=data, headers=headers)
+            if resp.status_code != http.HTTPStatus.CREATED:
+                logger.error(
+                    f"Unable to report exception to {repo}: {resp.text}")
+        else:
+            logger.warning("Unable to report an exception found due to "
+                           "unset notifications.error-{{project,token}}")
+
+        # Log details about the exception traceback.
+        logger.error(f"FATAL[{tb_id}]: An unexpected exception has occurred.")
+        logger.error(tb)
     else:
         retval = retval.decode()
-
-    # Log details about the exception traceback.
-    logger.error(f"FATAL[{tb_id}]: An unexpected exception has occurred.")
-    logger.error(retval)
 
     return render_template(request, "errors/500.html", context,
                            status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR)

@@ -1,4 +1,8 @@
-from typing import Any
+import functools
+
+from typing import Any, Callable
+
+import fastapi
 
 
 class AurwebException(Exception):
@@ -90,3 +94,19 @@ class ValidationError(AurwebException):
 
 class InvariantError(AurwebException):
     pass
+
+
+def handle_form_exceptions(route: Callable) -> fastapi.Response:
+    """
+    A decorator required when fastapi POST routes are defined.
+
+    This decorator populates fastapi's `request.state` with a `form_data`
+    attribute, which is then used to report form data when exceptions
+    are caught and reported.
+    """
+
+    @functools.wraps(route)
+    async def wrapper(request: fastapi.Request, *args, **kwargs):
+        request.state.form_data = await request.form()
+        return await route(request, *args, **kwargs)
+    return wrapper

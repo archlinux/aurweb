@@ -2,6 +2,7 @@ import http
 import os
 import re
 
+from typing import Callable
 from unittest import mock
 
 import fastapi
@@ -14,13 +15,39 @@ import aurweb.asgi
 import aurweb.config
 import aurweb.redis
 
-from aurweb.testing.email import Email
+from aurweb.exceptions import handle_form_exceptions
 from aurweb.testing.requests import Request
 
 
 @pytest.fixture
 def setup(db_test, email_test):
-    return
+    aurweb.redis.redis_connection().flushall()
+    yield
+    aurweb.redis.redis_connection().flushall()
+
+
+@pytest.fixture
+def mock_glab_request(monkeypatch):
+    def wrapped(return_value=None, side_effect=None):
+        def what_to_return(*args, **kwargs):
+            if side_effect:
+                return side_effect  # pragma: no cover
+            return return_value
+        monkeypatch.setattr("requests.post", what_to_return)
+    return wrapped
+
+
+def mock_glab_config(project: str = "test/project", token: str = "test-token"):
+    config_get = aurweb.config.get
+
+    def wrapper(section: str, key: str) -> str:
+        if section == "notifications":
+            if key == "error-project":
+                return project
+            elif key == "error-token":
+                return token
+        return config_get(section, key)
+    return wrapper
 
 
 @pytest.mark.asyncio
@@ -77,8 +104,8 @@ async def test_asgi_app_unsupported_backends():
             await aurweb.asgi.app_startup()
 
 
-def test_internal_server_error(setup: None,
-                               caplog: pytest.LogCaptureFixture):
+@pytest.fixture
+def use_traceback():
     config_getboolean = aurweb.config.getboolean
 
     def mock_getboolean(section: str, key: str) -> bool:
@@ -86,34 +113,100 @@ def test_internal_server_error(setup: None,
             return True
         return config_getboolean(section, key)
 
+    with mock.patch("aurweb.config.getboolean", side_effect=mock_getboolean):
+        yield
+
+
+class FakeResponse:
+    def __init__(self, status_code: int = 201, text: str = "{}"):
+        self.status_code = status_code
+        self.text = text
+
+
+def test_internal_server_error_bad_glab(setup: None, use_traceback: None,
+                                        mock_glab_request: Callable,
+                                        caplog: pytest.LogCaptureFixture):
     @aurweb.asgi.app.get("/internal_server_error")
     async def internal_server_error(request: fastapi.Request):
         raise ValueError("test exception")
 
-    with mock.patch("aurweb.config.getboolean", side_effect=mock_getboolean):
+    with mock.patch("aurweb.config.get", side_effect=mock_glab_config()):
         with TestClient(app=aurweb.asgi.app) as request:
+            mock_glab_request(FakeResponse(status_code=404))
             resp = request.get("/internal_server_error")
     assert resp.status_code == int(http.HTTPStatus.INTERNAL_SERVER_ERROR)
 
-    # Let's assert that a notification was sent out to the postmaster.
-    assert Email.count() == 1
+    expr = r"ERROR.*Unable to report exception to"
+    assert re.search(expr, caplog.text)
 
-    aur_location = aurweb.config.get("options", "aur_location")
-    email = Email(1)
-    assert f"Location: {aur_location}" in email.body
-    assert "Traceback ID:" in email.body
-    assert "Version:" in email.body
-    assert "Datetime:" in email.body
-    assert f"[1] {aur_location}" in email.body
+    expr = r"FATAL\[.{7}\]"
+    assert re.search(expr, caplog.text)
+
+
+def test_internal_server_error_no_token(setup: None, use_traceback: None,
+                                        mock_glab_request: Callable,
+                                        caplog: pytest.LogCaptureFixture):
+    @aurweb.asgi.app.get("/internal_server_error")
+    async def internal_server_error(request: fastapi.Request):
+        raise ValueError("test exception")
+
+    mock_get = mock_glab_config(token="set-me")
+    with mock.patch("aurweb.config.get", side_effect=mock_get):
+        with TestClient(app=aurweb.asgi.app) as request:
+            mock_glab_request(FakeResponse())
+            resp = request.get("/internal_server_error")
+    assert resp.status_code == int(http.HTTPStatus.INTERNAL_SERVER_ERROR)
+
+    expr = r"WARNING.*Unable to report an exception found"
+    assert re.search(expr, caplog.text)
+
+    expr = r"FATAL\[.{7}\]"
+    assert re.search(expr, caplog.text)
+
+
+def test_internal_server_error(setup: None, use_traceback: None,
+                               mock_glab_request: Callable,
+                               caplog: pytest.LogCaptureFixture):
+    @aurweb.asgi.app.get("/internal_server_error")
+    async def internal_server_error(request: fastapi.Request):
+        raise ValueError("test exception")
+
+    with mock.patch("aurweb.config.get", side_effect=mock_glab_config()):
+        with TestClient(app=aurweb.asgi.app) as request:
+            mock_glab_request(FakeResponse())
+            # Test with a ?query=string to cover the request.url.query path.
+            resp = request.get("/internal_server_error?query=string")
+    assert resp.status_code == int(http.HTTPStatus.INTERNAL_SERVER_ERROR)
 
     # Assert that the exception got logged with with its traceback id.
     expr = r"FATAL\[.{7}\]"
     assert re.search(expr, caplog.text)
 
-    # Let's do it again; no email should be sent the next time,
-    # since the hash is stored in redis.
-    with mock.patch("aurweb.config.getboolean", side_effect=mock_getboolean):
+    # Let's do it again to exercise the cached path.
+    caplog.clear()
+    with mock.patch("aurweb.config.get", side_effect=mock_glab_config()):
         with TestClient(app=aurweb.asgi.app) as request:
+            mock_glab_request(FakeResponse())
             resp = request.get("/internal_server_error")
     assert resp.status_code == int(http.HTTPStatus.INTERNAL_SERVER_ERROR)
-    assert Email.count() == 1
+    assert "FATAL" not in caplog.text
+
+
+def test_internal_server_error_post(setup: None, use_traceback: None,
+                                    mock_glab_request: Callable,
+                                    caplog: pytest.LogCaptureFixture):
+    @aurweb.asgi.app.post("/internal_server_error")
+    @handle_form_exceptions
+    async def internal_server_error(request: fastapi.Request):
+        raise ValueError("test exception")
+
+    data = {"some": "data"}
+    with mock.patch("aurweb.config.get", side_effect=mock_glab_config()):
+        with TestClient(app=aurweb.asgi.app) as request:
+            mock_glab_request(FakeResponse())
+            # Test with a ?query=string to cover the request.url.query path.
+            resp = request.post("/internal_server_error", data=data)
+    assert resp.status_code == int(http.HTTPStatus.INTERNAL_SERVER_ERROR)
+
+    expr = r"FATAL\[.{7}\]"
+    assert re.search(expr, caplog.text)

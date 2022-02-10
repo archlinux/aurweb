@@ -6,6 +6,7 @@ from sqlalchemy import case
 
 from aurweb import db, defaults, time, util
 from aurweb.auth import creds, requires_auth
+from aurweb.exceptions import handle_form_exceptions
 from aurweb.models import PackageRequest, User
 from aurweb.models.package_request import PENDING_ID, REJECTED_ID
 from aurweb.requests.util import get_pkgreq_by_id
@@ -63,6 +64,7 @@ async def request_close(request: Request, id: int):
 
 
 @router.post("/requests/{id}/close")
+@handle_form_exceptions
 @requires_auth
 async def request_close_post(request: Request, id: int,
                              comments: str = Form(default=str())):

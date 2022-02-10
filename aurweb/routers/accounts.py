@@ -13,7 +13,7 @@ import aurweb.config
 from aurweb import cookies, db, l10n, logging, models, util
 from aurweb.auth import account_type_required, requires_auth, requires_guest
 from aurweb.captcha import get_captcha_salts
-from aurweb.exceptions import ValidationError
+from aurweb.exceptions import ValidationError, handle_form_exceptions
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import account_type as at
 from aurweb.models.ssh_pub_key import get_fingerprint
@@ -35,6 +35,7 @@ async def passreset(request: Request):
 
 
 @router.post("/passreset", response_class=HTMLResponse)
+@handle_form_exceptions
 @requires_guest
 async def passreset_post(request: Request,
                          user: str = Form(...),
@@ -253,6 +254,7 @@ async def account_register(request: Request,
 
 
 @router.post("/register", response_class=HTMLResponse)
+@handle_form_exceptions
 @requires_guest
 async def account_register_post(request: Request,
                                 U: str = Form(default=str()),  # Username
@@ -369,6 +371,7 @@ async def account_edit(request: Request, username: str):
 
 
 @router.post("/account/{username}/edit", response_class=HTMLResponse)
+@handle_form_exceptions
 @requires_auth
 async def account_edit_post(request: Request,
                             username: str,
@@ -492,6 +495,7 @@ async def accounts(request: Request):
 
 
 @router.post("/accounts")
+@handle_form_exceptions
 @requires_auth
 @account_type_required({at.TRUSTED_USER,
                         at.DEVELOPER,
@@ -601,6 +605,7 @@ async def terms_of_service(request: Request):
 
 
 @router.post("/tos")
+@handle_form_exceptions
 @requires_auth
 async def terms_of_service_post(request: Request,
                                 accept: bool = Form(default=False)):
