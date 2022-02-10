@@ -1,3 +1,15 @@
+### Checklist
+
+This bug template is meant to provide bug issues for code existing in
+the aurweb repository. This bug template is **not meant** to handle
+bugs with user-uploaded packages.
+
+To work out a bug you have found in a user-uploaded package, contact
+the package's maintainer first. If you receive no response, file the
+relevent package request against it so TUs can deal with cleanup.
+
+- [ ] I confirm that this is an issue with aurweb's code and not a
+      user-uploaded package.
 - [ ] I have described the bug in complete detail in the
       [Description](#description) section.
 - [ ] I have specified steps in the [Reproduction](#reproduction) section.
