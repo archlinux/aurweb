@@ -160,7 +160,7 @@ def test_config_main_set_invalid_value():
     assert stderr.getvalue().strip() == expected
 
 
-@ mock.patch("aurweb.config.save", side_effect=noop)
+@mock.patch("aurweb.config.save", side_effect=noop)
 def test_config_main_set_unknown_section(save: None):
     stderr = io.StringIO()
 
