@@ -52,3 +52,11 @@ class PackageComment(Base):
 
         if self.RenderedComment is None:
             self.RenderedComment = str()
+
+    def maintainers(self):
+        return list(filter(
+            lambda e: e is not None,
+            [self.PackageBase.Maintainer] + [
+                c.User for c in self.PackageBase.comaintainers
+            ]
+        ))

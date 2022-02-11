@@ -114,7 +114,7 @@
                 </a>
                 {% set len = comaintainers | length %}
                 {% if comaintainers %}
-                    ({% for co in comaintainers %}<a href="{{ co.User | account_url }}">{{ co.User }}</a>{% if loop.index < len %}, {% endif %}{% endfor %})
+                    ({% for co in comaintainers %}<a href="{{ co | account_url }}">{{ co }}</a>{% if loop.index < len %}, {% endif %}{% endfor %})
                 {% endif %}
             {% else %}
                 {{ pkgbase.Maintainer.Username | default("None" | tr) }}

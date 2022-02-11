@@ -47,13 +47,13 @@
 
     {% endif %}
 
-    {% if request.user.has_credential(creds.COMMENT_PIN, approved=[comment.PackageBase.Maintainer]) %}
+    {% if request.user.has_credential(creds.COMMENT_PIN, approved=comment.maintainers()) %}
         {% if comment.PinnedTS %}
             <form class="pin-comment-form"
                   method="post"
                   action="/pkgbase/{{ comment.PackageBase.Name }}/comments/{{ comment.ID }}/unpin"
             >
-                <fieldset style="display:inline;">
+                <fieldset style="display: inline;">
                     <input type="hidden" name="next" value="{{ request.url.path }}" />
                     <input type="image"
                            class="pin-comment"

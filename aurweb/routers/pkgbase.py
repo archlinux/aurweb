@@ -318,7 +318,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int,
     comment = get_pkgbase_comment(pkgbase, id)
 
     has_cred = request.user.has_credential(creds.COMMENT_PIN,
-                                           approved=[pkgbase.Maintainer])
+                                           approved=comment.maintainers())
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
@@ -353,7 +353,7 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int,
     comment = get_pkgbase_comment(pkgbase, id)
 
     has_cred = request.user.has_credential(creds.COMMENT_PIN,
-                                           approved=[pkgbase.Maintainer])
+                                           approved=comment.maintainers())
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
