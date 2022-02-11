@@ -370,6 +370,12 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
     - GET /pkgbase/{name}/comments/{id}/form
         - Tested against a comment created with the POST route
     """
+    with db.begin():
+        user.CommentNotify = 1
+        db.create(PackageNotification,
+                  PackageBase=package.PackageBase,
+                  User=user)
+
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments"
@@ -379,6 +385,9 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
             "enable_notifications": True
         }, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # user should've gotten a CommentNotification email.
+    assert Email.count() == 1
 
     expected_prefix = f"/pkgbase/{pkgbasename}"
     prefix_len = len(expected_prefix)

@@ -187,6 +187,9 @@ async def pkgbase_comments_post(
                       PackageBase=pkgbase)
     update_comment_render_fastapi(comment)
 
+    notif = notify.CommentNotification(request.user.ID, pkgbase.ID, comment.ID)
+    notif.send()
+
     # Redirect to the pkgbase page.
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}#comment-{comment.ID}",
                             status_code=HTTPStatus.SEE_OTHER)
