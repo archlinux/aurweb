@@ -25,9 +25,11 @@ def make_context(request: Request, pkgbase: PackageBase) -> Dict[str, Any]:
     context["git_clone_uri_anon"] = config.get("options", "git_clone_uri_anon")
     context["git_clone_uri_priv"] = config.get("options", "git_clone_uri_priv")
     context["pkgbase"] = pkgbase
-    context["comaintainers"] = pkgbase.comaintainers.order_by(
-        PackageComaintainer.Priority.asc()
-    ).all()
+    context["comaintainers"] = [
+        c.User for c in pkgbase.comaintainers.order_by(
+            PackageComaintainer.Priority.asc()
+        ).all()
+    ]
     context["packages_count"] = pkgbase.packages.count()
     context["keywords"] = pkgbase.keywords
     context["comments"] = pkgbase.comments.order_by(

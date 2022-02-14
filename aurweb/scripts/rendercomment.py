@@ -2,6 +2,7 @@
 
 import sys
 
+from urllib.parse import quote_plus
 from xml.etree.ElementTree import Element
 
 import bleach
@@ -72,13 +73,16 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
     def handleMatch(self, m, data):
         oid = m.group(1)
         if oid not in self._repo:
-            # Unkwown OID; preserve the orginal text.
+            # Unknown OID; preserve the orginal text.
             return (None, None, None)
 
         el = Element('a')
         commit_uri = aurweb.config.get("options", "commit_uri")
         prefixlen = util.git_search(self._repo, oid)
-        el.set('href', commit_uri % (self._head, oid[:prefixlen]))
+        el.set('href', commit_uri % (
+            quote_plus(self._head),
+            quote_plus(oid[:prefixlen])
+        ))
         el.text = markdown.util.AtomicString(oid[:prefixlen])
         return (el, m.start(0), m.end(0))
 

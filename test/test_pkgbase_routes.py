@@ -534,6 +534,35 @@ def test_pkgbase_comment_undelete_not_found(client: TestClient,
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
+def test_pkgbase_comment_pin_as_co(client: TestClient, package: Package,
+                                   comment: PackageComment):
+    comaint = create_user("comaint1")
+
+    with db.begin():
+        db.create(PackageComaintainer, PackageBase=package.PackageBase,
+                  User=comaint, Priority=1)
+
+    # Pin the comment.
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/pin"
+    cookies = {"AURSID": comaint.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Assert that PinnedTS got set.
+    assert comment.PinnedTS > 0
+
+    # Unpin the comment we just pinned.
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/unpin"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Let's assert that PinnedTS was unset.
+    assert comment.PinnedTS == 0
+
+
 def test_pkgbase_comment_pin(client: TestClient,
                              maintainer: User,
                              package: Package,

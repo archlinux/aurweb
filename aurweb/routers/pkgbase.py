@@ -39,14 +39,17 @@ async def pkgbase(request: Request, name: str) -> Response:
     # Get the PackageBase.
     pkgbase = get_pkg_or_base(name, PackageBase)
 
-    # If this is not a split package, redirect to /packages/{name}.
-    if pkgbase.packages.count() == 1:
-        return RedirectResponse(f"/packages/{name}",
+    # Redirect to /packages if there's only one related Package
+    # and its name matches its PackageBase.
+    packages = pkgbase.packages.all()
+    pkg = packages[0]
+    if len(packages) == 1 and pkg.Name == pkgbase.Name:
+        return RedirectResponse(f"/packages/{pkg.Name}",
                                 status_code=int(HTTPStatus.SEE_OTHER))
 
     # Add our base information.
     context = pkgbaseutil.make_context(request, pkgbase)
-    context["packages"] = pkgbase.packages.all()
+    context["packages"] = packages
 
     return render_template(request, "pkgbase/index.html", context)
 
@@ -318,7 +321,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int,
     comment = get_pkgbase_comment(pkgbase, id)
 
     has_cred = request.user.has_credential(creds.COMMENT_PIN,
-                                           approved=[pkgbase.Maintainer])
+                                           approved=comment.maintainers())
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
@@ -353,7 +356,7 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int,
     comment = get_pkgbase_comment(pkgbase, id)
 
     has_cred = request.user.has_credential(creds.COMMENT_PIN,
-                                           approved=[pkgbase.Maintainer])
+                                           approved=comment.maintainers())
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
