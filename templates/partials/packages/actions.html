@@ -6,21 +6,21 @@
         <h4>{{ "Package Actions" | tr }}</h4>
         <ul class="small">
             <li>
-                <a href="/cgit/aur.git/tree/PKGBUILD?h={{ pkgbase.Name }}">
+                <a href="{{ config.get('options', 'source_file_uri') | format("PKGBUILD", pkgbase.Name | quote_plus) }}">
                     {{ "View PKGBUILD" | tr }}
                 </a>
                 /
-                <a href="/cgit/aur.git/log/?h={{ pkgbase.Name }}">
+                <a href="{{ config.get('options', 'log_uri') | format(pkgbase.Name | quote_plus) }}">
                     {{ "View Changes" | tr }}
                 </a>
             </li>
             <li>
-                <a href="/cgit/aur.git/snapshot/{{ pkgbase.Name }}.tar.gz">
+                <a href="{{ config.get('options', 'snapshot_uri') | format(pkgbase.Name | quote_plus) }}">
                     {{ "Download snapshot" | tr }}
                 </a>
             </li>
             <li>
-                <a href="https://wiki.archlinux.org/title/Special:Search?search={{ pkgbase.Name }}">
+                <a href="https://wiki.archlinux.org/title/Special:Search?{{ { 'search': pkgbase.Name } | urlencode }}">
                     {{ "Search wiki" | tr }}
                 </a>
             </li>
