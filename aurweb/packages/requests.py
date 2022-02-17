@@ -201,9 +201,11 @@ def handle_request(request: Request, reqtype_id: int,
     # This is done to increase tracking of actions occurring
     # through the website.
     if not to_accept:
+        utcnow = time.utcnow()
         with db.begin():
             pkgreq = db.create(PackageRequest,
                                ReqTypeID=reqtype_id,
+                               RequestTS=utcnow,
                                User=request.user,
                                PackageBase=pkgbase,
                                PackageBaseName=pkgbase.Name,
