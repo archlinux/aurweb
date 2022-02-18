@@ -1,3 +1,5 @@
+{% set reverse_order = "d" if SO == "a" else "a" %}
+
 <table {% if table_id %}id="{{ table_id }}"{% endif %} class="results">
     <thead>
         <tr>
@@ -5,9 +7,10 @@
                 <th></th>
             {% endif %}
             <th>
-                {% set order = SO %}
                 {% if SB == "n" %}
-                    {% set order = "d" if order == "a" else "a" %}
+                    {% set order = reverse_order %}
+                {% else %}
+                    {% set order = SO %}
                 {% endif %}
                 <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'n'), ('SO', order)) | urlencode }}">
                     {{ "Name" | tr }}
@@ -15,35 +18,39 @@
             </th>
             <th>{{ "Version" | tr }}</th>
             <th>
-                {% set order = SO %}
                 {% if SB == "v" %}
-                    {% set order = "d" if order == "a" else "a" %}
+                    {% set order = reverse_order %}
+                {% else %}
+                    {% set order = SO %}
                 {% endif %}
                 <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'v'), ('SO', order)) | urlencode }}">
                     {{ "Votes" | tr }}
                 </a>
             </th>
             <th>
-                {% set order = SO %}
                 {% if SB == "p" %}
-                    {% set order = "d" if order == "a" else "a" %}
+                    {% set order = reverse_order %}
+                {% else %}
+                    {% set order = SO %}
                 {% endif %}
                 <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'p'), ('SO', order)) | urlencode }}">{{ "Popularity" | tr }}</a><span title="{{ 'Popularity is calculated as the sum of all votes with each vote being weighted with a factor of %.2f per day since its creation.' | format(0.98) }}" class="hover-help"><sup>?</sup></span>
             </th>
             {% if request.user.is_authenticated() %}
                 <th>
-                    {% set order = SO %}
                     {% if SB == "w" %}
-                        {% set order = "d" if order == "a" else "a" %}
+                        {% set order = reverse_order %}
+                    {% else %}
+                        {% set order = SO %}
                     {% endif %}
                     <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'w'), ('SO', order)) | urlencode }}">
                         {{ "Voted" | tr }}
                     </a>
                 </th>
                 <th>
-                    {% set order = SO %}
                     {% if SB == "o" %}
-                        {% set order = "d" if order == "a" else "a" %}
+                        {% set order = reverse_order %}
+                    {% else %}
+                        {% set order = SO %}
                     {% endif %}
                     <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'o'), ('SO', order)) | urlencode }}">
                         {{ "Notify" | tr }}
@@ -52,13 +59,14 @@
             {% endif %}
             <th>{{ "Description" | tr }}</th>
             <th>
+                {% if SB == "m" %}
+                    {% set order = reverse_order %}
+                {% else %}
                     {% set order = SO %}
-                    {% if SB == "m" %}
-                        {% set order = "d" if order == "a" else "a" %}
-                    {% endif %}
-                    <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'm'), ('SO', order)) | urlencode }}">
-                        {{ "Maintainer" | tr }}
-                    </a>
+                {% endif %}
+                <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'm'), ('SO', order)) | urlencode }}">
+                    {{ "Maintainer" | tr }}
+                </a>
             </th>
         </tr>
     </thead>
