@@ -61,11 +61,6 @@ async def packages_get(request: Request, context: Dict[str, Any],
         for keyword in keywords:
             search.search_by(search_by, keyword)
 
-    # Collect search result count here; we've applied our keywords.
-    # Including more query operations below, like ordering, will
-    # increase the amount of time required to collect a count.
-    num_packages = search.count()
-
     flagged = request.query_params.get("outdated", None)
     if flagged:
         # If outdated was given, set it up in the context.
@@ -90,7 +85,12 @@ async def packages_get(request: Request, context: Dict[str, Any],
         search.query = search.query.filter(
             models.PackageBase.MaintainerUID.is_(None))
 
-    # Apply user-specified specified sort column and ordering.
+    # Collect search result count here; we've applied our keywords.
+    # Including more query operations below, like ordering, will
+    # increase the amount of time required to collect a count.
+    num_packages = search.count()
+
+    # Apply user-specified sort column and ordering.
     search.sort_by(sort_by, sort_order)
 
     # Insert search results into the context.
