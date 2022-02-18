@@ -40,7 +40,7 @@ async def packages_get(request: Request, context: Dict[str, Any],
     search_by = context["SeB"] = request.query_params.get("SeB", "nd")
 
     # Query sort by.
-    sort_by = context["SB"] = request.query_params.get("SB", "p")
+    sort_by = request.query_params.get("SB", None)
 
     # Query sort order.
     sort_order = request.query_params.get("SO", None)
@@ -60,11 +60,6 @@ async def packages_get(request: Request, context: Dict[str, Any],
     else:
         for keyword in keywords:
             search.search_by(search_by, keyword)
-
-    # Collect search result count here; we've applied our keywords.
-    # Including more query operations below, like ordering, will
-    # increase the amount of time required to collect a count.
-    num_packages = search.count()
 
     flagged = request.query_params.get("outdated", None)
     if flagged:
@@ -90,15 +85,13 @@ async def packages_get(request: Request, context: Dict[str, Any],
         search.query = search.query.filter(
             models.PackageBase.MaintainerUID.is_(None))
 
-    # Apply user-specified specified sort column and ordering.
-    search.sort_by(sort_by, sort_order)
+    # Collect search result count here; we've applied our keywords.
+    # Including more query operations below, like ordering, will
+    # increase the amount of time required to collect a count.
+    num_packages = search.count()
 
-    # If no SO was given, default the context SO to 'a' (Ascending).
-    # By default, if no SO is given, the search should sort by 'd'
-    # (Descending), but display "Ascending" for the Sort order select.
-    if sort_order is None:
-        sort_order = "a"
-    context["SO"] = sort_order
+    # Apply user-specified sort column and ordering.
+    search.sort_by(sort_by, sort_order)
 
     # Insert search results into the context.
     results = search.results().with_entities(

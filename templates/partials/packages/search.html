@@ -34,6 +34,9 @@
             </div>
             <div>
                 <label for="id_sort_by">{{ "Sort by" | tr }}</label>
+                {% if not SB %}
+                    {% set SB = 'p' %}
+                {% endif %}
                 <select name='SB'>
                     <option value='n' {% if SB == "n" %}selected{% endif %}>{{ "Name" | tr }}</option>
                     <option value='v' {% if SB == "v" %}selected{% endif %}>{{ "Votes" | tr }}</option>
@@ -46,6 +49,9 @@
             </div>
             <div>
                 <label for="id_order_by">{{ "Sort order" | tr }}</label>
+                {% if not SO %}
+                    {% set SO = 'd' %}
+                {% endif %}
                 <select name='SO'>
                     <option value='a' {% if SO == "a" %}selected{% endif %}>{{ "Ascending" | tr }}</option>
                     <option value='d' {% if SO == "d" %}selected{% endif %}>{{ "Descending" | tr }}</option>
