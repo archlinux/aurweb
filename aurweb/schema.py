@@ -269,7 +269,7 @@ PackageVotes = Table(
     'PackageVotes', metadata,
     Column('UsersID', ForeignKey('Users.ID', ondelete='CASCADE'), nullable=False),
     Column('PackageBaseID', ForeignKey('PackageBases.ID', ondelete='CASCADE'), nullable=False),
-    Column('VoteTS', BIGINT(unsigned=True)),
+    Column('VoteTS', BIGINT(unsigned=True), nullable=False),
     Index('VoteUsersIDPackageID', 'UsersID', 'PackageBaseID', unique=True),
     Index('VotesPackageBaseID', 'PackageBaseID'),
     Index('VotesUsersID', 'UsersID'),
