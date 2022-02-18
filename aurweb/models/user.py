@@ -135,6 +135,10 @@ class User(Base):
                         if last_updated and last_updated < now_ts:
                             self.session.SessionID = generate_unique_sid()
                         self.session.LastUpdateTS = now_ts
+
+                    # Unset InactivityTS, we've logged in!
+                    self.InactivityTS = 0
+
                     break
             except IntegrityError as exc_:
                 exc = exc_
