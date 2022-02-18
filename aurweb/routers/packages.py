@@ -15,7 +15,7 @@ from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base
 from aurweb.pkgbase import actions as pkgbase_actions
 from aurweb.pkgbase import util as pkgbaseutil
-from aurweb.templates import make_context, render_template
+from aurweb.templates import make_context, make_variable_context, render_template
 
 logger = logging.get_logger(__name__)
 router = APIRouter()
@@ -125,7 +125,7 @@ async def packages_get(request: Request, context: Dict[str, Any],
 
 @router.get("/packages")
 async def packages(request: Request) -> Response:
-    context = make_context(request, "Packages")
+    context = await make_variable_context(request, "Packages")
     return await packages_get(request, context)
 
 
