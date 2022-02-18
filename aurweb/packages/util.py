@@ -138,20 +138,20 @@ def updated_packages(limit: int = 0,
         # If we already have a cache, deserialize it and return.
         return orjson.loads(packages)
 
-    query = db.query(models.Package).join(models.PackageBase).filter(
-        models.PackageBase.PackagerUID.isnot(None)
-    ).order_by(
-        models.PackageBase.ModifiedTS.desc()
-    )
+    with db.begin():
+        query = db.query(models.Package).join(models.PackageBase).filter(
+            models.PackageBase.PackagerUID.isnot(None)
+        ).order_by(
+            models.PackageBase.ModifiedTS.desc()
+        )
 
-    if limit:
-        query = query.limit(limit)
+        if limit:
+            query = query.limit(limit)
 
     packages = []
     for pkg in query:
         # For each Package returned by the query, append a dict
         # containing Package columns we're interested in.
-        db.refresh(pkg)
         packages.append({
             "Name": pkg.Name,
             "Version": pkg.Version,
