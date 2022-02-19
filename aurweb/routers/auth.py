@@ -46,12 +46,18 @@ async def login_post(request: Request,
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                             detail=_("Bad Referer header."))
 
-    user = db.query(User).filter(
-        or_(User.Username == user, User.Email == user)
-    ).first()
+    with db.begin():
+        user = db.query(User).filter(
+            or_(User.Username == user, User.Email == user)
+        ).first()
+
     if not user:
         return await login_template(request, next,
                                     errors=["Bad username or password."])
+
+    if user.Suspended:
+        return await login_template(request, next,
+                                    errors=["Account Suspended"])
 
     cookie_timeout = cookies.timeout(remember_me)
     sid = user.login(request, passwd, cookie_timeout)

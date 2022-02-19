@@ -14,6 +14,7 @@ from aurweb.asgi import app
 from aurweb.models.account_type import USER_ID
 from aurweb.models.session import Session
 from aurweb.models.user import User
+from aurweb.testing.html import get_errors
 
 # Some test global constants.
 TEST_USERNAME = "test"
@@ -77,6 +78,21 @@ def test_login_logout(client: TestClient, user: User):
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     assert "AURSID" not in response.cookies
+
+
+def test_login_suspended(client: TestClient, user: User):
+    with db.begin():
+        user.Suspended = 1
+
+    data = {
+        "user": user.Username,
+        "passwd": "testPassword",
+        "next": "/"
+    }
+    with client as request:
+        resp = request.post("/login", data=data)
+    errors = get_errors(resp.text)
+    assert errors[0].text.strip() == "Account Suspended"
 
 
 def test_login_email(client: TestClient, user: user):
