@@ -16,6 +16,8 @@ import random
 import sys
 import time
 
+from datetime import datetime
+
 import bcrypt
 
 LOG_LEVEL = logging.DEBUG  # logging level. set to logging.INFO to reduce output
@@ -203,7 +205,7 @@ for u in user_keys:
 
 log.debug("Number of developers: %d" % len(developers))
 log.debug("Number of trusted users: %d" % len(trustedusers))
-log.debug("Number of users: %d" % (MAX_USERS-len(developers)-len(trustedusers)))
+log.debug("Number of users: %d" % (MAX_USERS - len(developers) - len(trustedusers)))
 log.debug("Number of packages: %d" % MAX_PKGS)
 
 log.debug("Gathering text from fortune file...")
@@ -244,26 +246,27 @@ for p in list(seen_pkgs.keys()):
     #
     num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
     for i in range(0, num_comments):
-        now = NOW + random.randrange(400, 86400*3)
+        now = NOW + random.randrange(400, 86400 * 3)
         s = ("INSERT INTO PackageComments (PackageBaseID, UsersID,"
              " Comments, RenderedComment, CommentTS) VALUES (%d, %d, '%s', '', %d);\n")
         s = s % (seen_pkgs[p], genUID(), genFortune(), now)
         out.write(s)
 
 # Cast votes
-#
+utcnow = int(datetime.utcnow().timestamp())
+
 track_votes = {}
 log.debug("Casting votes for packages.")
 for u in user_keys:
-    num_votes = random.randrange(int(len(seen_pkgs)*VOTING[0]),
-                                 int(len(seen_pkgs)*VOTING[1]))
+    num_votes = random.randrange(int(len(seen_pkgs) * VOTING[0]),
+                                 int(len(seen_pkgs) * VOTING[1]))
     pkgvote = {}
     for v in range(num_votes):
         pkg = random.randrange(1, len(seen_pkgs) + 1)
         if pkg not in pkgvote:
-            s = ("INSERT INTO PackageVotes (UsersID, PackageBaseID)"
-                 " VALUES (%d, %d);\n")
-            s = s % (seen_users[u], pkg)
+            s = ("INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS)"
+                 " VALUES (%d, %d, %d);\n")
+            s = s % (seen_users[u], pkg, utcnow)
             pkgvote[pkg] = 1
             if pkg not in track_votes:
                 track_votes[pkg] = 0
@@ -318,14 +321,14 @@ for p in seen_pkgs_keys:
 #
 log.debug("Creating SQL statements for trusted user proposals.")
 count = 0
-for t in range(0, OPEN_PROPOSALS+CLOSE_PROPOSALS):
+for t in range(0, OPEN_PROPOSALS + CLOSE_PROPOSALS):
     now = int(time.time())
     if count < CLOSE_PROPOSALS:
-        start = now - random.randrange(3600*24*7, 3600*24*21)
-        end = now - random.randrange(0, 3600*24*7)
+        start = now - random.randrange(3600 * 24 * 7, 3600 * 24 * 21)
+        end = now - random.randrange(0, 3600 * 24 * 7)
     else:
         start = now
-        end = now + random.randrange(3600*24, 3600*24*7)
+        end = now + random.randrange(3600 * 24, 3600 * 24 * 7)
     if count % 5 == 0:  # Don't make the vote about anyone once in a while
         user = ""
     else:
