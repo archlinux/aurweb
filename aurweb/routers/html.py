@@ -13,7 +13,7 @@ from sqlalchemy import and_, case, or_
 import aurweb.config
 import aurweb.models.package_request
 
-from aurweb import cookies, db, models, time, util
+from aurweb import cookies, db, logging, models, time, util
 from aurweb.cache import db_count_cache
 from aurweb.exceptions import handle_form_exceptions
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
@@ -21,6 +21,7 @@ from aurweb.models.package_request import PENDING_ID
 from aurweb.packages.util import query_notified, query_voted, updated_packages
 from aurweb.templates import make_context, render_template
 
+logger = logging.get_logger(__name__)
 router = APIRouter()
 
 
@@ -230,9 +231,12 @@ async def archive_sha256(request: Request, archive: str):
 
 @router.get("/metrics")
 async def metrics(request: Request):
+    if not os.environ.get("PROMETHEUS_MULTIPROC_DIR", None):
+        return Response("Prometheus metrics are not enabled.",
+                        status_code=HTTPStatus.SERVICE_UNAVAILABLE)
+
     registry = CollectorRegistry()
-    if os.environ.get("PROMETHEUS_MULTIPROC_DIR", None):  # pragma: no cover
-        multiprocess.MultiProcessCollector(registry)
+    multiprocess.MultiProcessCollector(registry)
     data = generate_latest(registry)
     headers = {
         "Content-Type": CONTENT_TYPE_LATEST,
