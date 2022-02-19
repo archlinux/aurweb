@@ -95,24 +95,28 @@ async def pkgbase_flag_comment(request: Request, name: str):
 async def pkgbase_keywords(request: Request, name: str,
                            keywords: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
-    keywords = set(keywords.split(" "))
+
+    # Lowercase all keywords. Our database table is case insensitive,
+    # and providing CI duplicates of keywords is erroneous.
+    keywords = set(k.lower() for k in keywords.split(" "))
 
     # Delete all keywords which are not supplied by the user.
-    other_keywords = pkgbase.keywords.filter(
-        ~PackageKeyword.Keyword.in_(keywords))
-    other_keyword_strings = [kwd.Keyword for kwd in other_keywords]
-
-    existing_keywords = set(
-        kwd.Keyword for kwd in
-        pkgbase.keywords.filter(
-            ~PackageKeyword.Keyword.in_(other_keyword_strings))
-    )
     with db.begin():
+        other_keywords = pkgbase.keywords.filter(
+            ~PackageKeyword.Keyword.in_(keywords))
+        other_keyword_strings = set(
+            kwd.Keyword.lower() for kwd in other_keywords)
+
+        existing_keywords = set(
+            kwd.Keyword.lower() for kwd in
+            pkgbase.keywords.filter(
+                ~PackageKeyword.Keyword.in_(other_keyword_strings))
+        )
+
         db.delete_all(other_keywords)
-        for keyword in keywords.difference(existing_keywords):
-            db.create(PackageKeyword,
-                      PackageBase=pkgbase,
-                      Keyword=keyword)
+        new_keywords = keywords.difference(existing_keywords)
+        for keyword in new_keywords:
+            db.create(PackageKeyword, PackageBase=pkgbase, Keyword=keyword)
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)
