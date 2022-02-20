@@ -160,10 +160,21 @@ def test_archive_sig_404(client: TestClient):
 
 
 def test_metrics(client: TestClient):
-    with client as request:
-        resp = request.get("/metrics")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        env = {"PROMETHEUS_MULTIPROC_DIR": tmpdir}
+        with mock.patch.dict(os.environ, env):
+            with client as request:
+                resp = request.get("/metrics")
     assert resp.status_code == int(HTTPStatus.OK)
     assert resp.headers.get("Content-Type").startswith("text/plain")
+
+
+def test_disabled_metrics(client: TestClient):
+    env = {"PROMETHEUS_MULTIPROC_DIR": str()}
+    with mock.patch.dict(os.environ, env):
+        with client as request:
+            resp = request.get("/metrics")
+    assert resp.status_code == int(HTTPStatus.SERVICE_UNAVAILABLE)
 
 
 def test_rtl(client: TestClient):

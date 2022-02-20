@@ -916,13 +916,13 @@ def test_post_account_edit_error_invalid_password(client: TestClient,
     assert "Invalid password." in content
 
 
-def test_post_account_edit_inactivity_unauthorized(client: TestClient,
-                                                   user: User):
+def test_post_account_edit_suspend_unauthorized(client: TestClient,
+                                                user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     post_data = {
         "U": "test",
         "E": "test@example.org",
-        "J": True,
+        "S": True,
         "passwd": "testPassword"
     }
     with client as request:

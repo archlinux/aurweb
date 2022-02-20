@@ -74,6 +74,10 @@ async def app_startup():
     if not session_secret:
         raise Exception("[fastapi] session_secret must not be empty")
 
+    if not os.environ.get("PROMETHEUS_MULTIPROC_DIR", None):
+        logger.warning("$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics "
+                       "endpoint is disabled.")
+
     app.mount("/static/css",
               StaticFiles(directory="web/html/css"),
               name="static_css")

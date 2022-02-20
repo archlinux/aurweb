@@ -104,6 +104,17 @@ async def test_asgi_app_unsupported_backends():
             await aurweb.asgi.app_startup()
 
 
+@pytest.mark.asyncio
+async def test_asgi_app_disabled_metrics(caplog: pytest.LogCaptureFixture):
+    env = {"PROMETHEUS_MULTIPROC_DIR": str()}
+    with mock.patch.dict(os.environ, env):
+        await aurweb.asgi.app_startup()
+
+    expected = ("$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics "
+                "endpoint is disabled.")
+    assert expected in caplog.text
+
+
 @pytest.fixture
 def use_traceback():
     config_getboolean = aurweb.config.getboolean
