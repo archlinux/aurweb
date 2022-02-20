@@ -19,11 +19,11 @@ def simple(U: str = str(), E: str = str(), H: bool = False,
         user.Username = U or user.Username
         user.Email = E or user.Email
         user.HideEmail = strtobool(H)
-        user.BackupEmail = BE or user.BackupEmail
-        user.RealName = R or user.RealName
-        user.Homepage = HP or user.Homepage
-        user.IRCNick = I or user.IRCNick
-        user.PGPKey = K or user.PGPKey
+        user.BackupEmail = user.BackupEmail if BE is None else BE
+        user.RealName = user.RealName if R is None else R
+        user.Homepage = user.Homepage if HP is None else HP
+        user.IRCNick = user.IRCNick if I is None else I
+        user.PGPKey = user.PGPKey if K is None else K
         user.Suspended = strtobool(S)
         user.InactivityTS = now * int(strtobool(J))
         user.CommentNotify = strtobool(CN)
