@@ -15,6 +15,7 @@ from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_to
 from aurweb.exceptions import ValidationError
 from aurweb.models.account_type import ACCOUNT_TYPE_NAME
 from aurweb.models.ssh_pub_key import get_fingerprint
+from aurweb.util import strtobool
 
 logger = logging.get_logger(__name__)
 
@@ -26,9 +27,9 @@ def invalid_fields(E: str = str(), U: str = str(), **kwargs) -> None:
 
 def invalid_suspend_permission(request: Request = None,
                                user: models.User = None,
-                               J: bool = False,
+                               S: str = "False",
                                **kwargs) -> None:
-    if not request.user.is_elevated() and J != bool(user.InactivityTS):
+    if not request.user.is_elevated() and strtobool(S) != bool(user.Suspended):
         raise ValidationError([
             "You do not have permission to suspend accounts."])
 
