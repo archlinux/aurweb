@@ -37,3 +37,14 @@ With a running cluster, execute the following in a new terminal:
 ```sh
 docker compose run test
 ```
+
+### Querying the RPC
+
+The Fast (Python) API runs on Port 8444, while the legacy PHP version runs
+on 8443. You can query one like so:
+
+```sh
+curl -k "https://localhost:8444/rpc/?v=5&type=search&arg=python"
+```
+
+`-k` bypasses local certificate issues that `curl` will otherwise complain about.
