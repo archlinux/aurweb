@@ -12,7 +12,7 @@ from aurweb.models.package_vote import PackageVote
 
 
 class PackageSearch:
-    """ A Package search query builder. """
+    """A Package search query builder."""
 
     # A constant mapping of short to full name sort orderings.
     FULL_SORT_ORDER = {"d": "desc", "a": "asc"}
@@ -24,14 +24,18 @@ class PackageSearch:
         if self.user:
             self.query = self.query.join(
                 PackageVote,
-                and_(PackageVote.PackageBaseID == PackageBase.ID,
-                     PackageVote.UsersID == self.user.ID),
-                isouter=True
+                and_(
+                    PackageVote.PackageBaseID == PackageBase.ID,
+                    PackageVote.UsersID == self.user.ID,
+                ),
+                isouter=True,
             ).join(
                 PackageNotification,
-                and_(PackageNotification.PackageBaseID == PackageBase.ID,
-                     PackageNotification.UserID == self.user.ID),
-                isouter=True
+                and_(
+                    PackageNotification.PackageBaseID == PackageBase.ID,
+                    PackageNotification.UserID == self.user.ID,
+                ),
+                isouter=True,
             )
 
         self.ordering = "d"
@@ -47,7 +51,7 @@ class PackageSearch:
             "m": self._search_by_maintainer,
             "c": self._search_by_comaintainer,
             "M": self._search_by_co_or_maintainer,
-            "s": self._search_by_submitter
+            "s": self._search_by_submitter,
         }
 
         # Setup SB (Sort By) callbacks.
@@ -58,7 +62,7 @@ class PackageSearch:
             "w": self._sort_by_voted,
             "o": self._sort_by_notify,
             "m": self._sort_by_maintainer,
-            "l": self._sort_by_last_modified
+            "l": self._sort_by_last_modified,
         }
 
         self._joined_user = False
@@ -66,12 +70,10 @@ class PackageSearch:
         self._joined_comaint = False
 
     def _join_user(self, outer: bool = True) -> orm.Query:
-        """ Centralized joining of a package base's maintainer. """
+        """Centralized joining of a package base's maintainer."""
         if not self._joined_user:
             self.query = self.query.join(
-                User,
-                User.ID == PackageBase.MaintainerUID,
-                isouter=outer
+                User, User.ID == PackageBase.MaintainerUID, isouter=outer
             )
             self._joined_user = True
         return self.query
@@ -87,7 +89,7 @@ class PackageSearch:
             self.query = self.query.join(
                 PackageComaintainer,
                 PackageComaintainer.PackageBaseID == PackageBase.ID,
-                isouter=isouter
+                isouter=isouter,
             )
             self._joined_comaint = True
         return self.query
@@ -95,8 +97,10 @@ class PackageSearch:
     def _search_by_namedesc(self, keywords: str) -> orm.Query:
         self._join_user()
         self.query = self.query.filter(
-            or_(Package.Name.like(f"%{keywords}%"),
-                Package.Description.like(f"%{keywords}%"))
+            or_(
+                Package.Name.like(f"%{keywords}%"),
+                Package.Description.like(f"%{keywords}%"),
+            )
         )
         return self
 
@@ -132,8 +136,7 @@ class PackageSearch:
         self._join_user()
         if keywords:
             self.query = self.query.filter(
-                and_(User.Username == keywords,
-                     User.ID == PackageBase.MaintainerUID)
+                and_(User.Username == keywords, User.ID == PackageBase.MaintainerUID)
             )
         else:
             self.query = self.query.filter(PackageBase.MaintainerUID.is_(None))
@@ -197,8 +200,7 @@ class PackageSearch:
         # in terms of performance. We should improve this; there's no
         # reason it should take _longer_.
         column = getattr(
-            case([(models.PackageVote.UsersID == self.user.ID, 1)], else_=0),
-            order
+            case([(models.PackageVote.UsersID == self.user.ID, 1)], else_=0), order
         )
         name = getattr(models.Package.Name, order)
         self.query = self.query.order_by(column(), name())
@@ -209,9 +211,8 @@ class PackageSearch:
         # in terms of performance. We should improve this; there's no
         # reason it should take _longer_.
         column = getattr(
-            case([(models.PackageNotification.UserID == self.user.ID, 1)],
-                 else_=0),
-            order
+            case([(models.PackageNotification.UserID == self.user.ID, 1)], else_=0),
+            order,
         )
         name = getattr(models.Package.Name, order)
         self.query = self.query.order_by(column(), name())
@@ -239,16 +240,16 @@ class PackageSearch:
         return callback(ordering)
 
     def count(self) -> int:
-        """ Return internal query's count. """
+        """Return internal query's count."""
         return self.query.count()
 
     def results(self) -> orm.Query:
-        """ Return internal query. """
+        """Return internal query."""
         return self.query
 
 
 class RPCSearch(PackageSearch):
-    """ A PackageSearch-derived RPC package search query builder.
+    """A PackageSearch-derived RPC package search query builder.
 
     With RPC search, we need a subset of PackageSearch's handlers,
     with a few additional handlers added. So, within the RPCSearch
@@ -270,52 +271,60 @@ class RPCSearch(PackageSearch):
         # We keep: "nd", "n" and "m". We also overlay four new by params
         # on top: "depends", "makedepends", "optdepends" and "checkdepends".
         self.search_by_cb = {
-            k: v for k, v in self.search_by_cb.items()
+            k: v
+            for k, v in self.search_by_cb.items()
             if k not in RPCSearch.keys_removed
         }
-        self.search_by_cb.update({
-            "depends": self._search_by_depends,
-            "makedepends": self._search_by_makedepends,
-            "optdepends": self._search_by_optdepends,
-            "checkdepends": self._search_by_checkdepends
-        })
+        self.search_by_cb.update(
+            {
+                "depends": self._search_by_depends,
+                "makedepends": self._search_by_makedepends,
+                "optdepends": self._search_by_optdepends,
+                "checkdepends": self._search_by_checkdepends,
+            }
+        )
 
         # We always want an optional Maintainer in the RPC.
         self._join_user()
 
     def _join_depends(self, dep_type_id: int) -> orm.Query:
-        """ Join Package with PackageDependency and filter results
+        """Join Package with PackageDependency and filter results
         based on `dep_type_id`.
 
         :param dep_type_id: DependencyType ID
         :returns: PackageDependency-joined orm.Query
         """
         self.query = self.query.join(models.PackageDependency).filter(
-            models.PackageDependency.DepTypeID == dep_type_id)
+            models.PackageDependency.DepTypeID == dep_type_id
+        )
         return self.query
 
     def _search_by_depends(self, keywords: str) -> "RPCSearch":
         self.query = self._join_depends(DEPENDS_ID).filter(
-            models.PackageDependency.DepName == keywords)
+            models.PackageDependency.DepName == keywords
+        )
         return self
 
     def _search_by_makedepends(self, keywords: str) -> "RPCSearch":
         self.query = self._join_depends(MAKEDEPENDS_ID).filter(
-            models.PackageDependency.DepName == keywords)
+            models.PackageDependency.DepName == keywords
+        )
         return self
 
     def _search_by_optdepends(self, keywords: str) -> "RPCSearch":
         self.query = self._join_depends(OPTDEPENDS_ID).filter(
-            models.PackageDependency.DepName == keywords)
+            models.PackageDependency.DepName == keywords
+        )
         return self
 
     def _search_by_checkdepends(self, keywords: str) -> "RPCSearch":
         self.query = self._join_depends(CHECKDEPENDS_ID).filter(
-            models.PackageDependency.DepName == keywords)
+            models.PackageDependency.DepName == keywords
+        )
         return self
 
     def search_by(self, by: str, keywords: str) -> "RPCSearch":
-        """ Override inherited search_by. In this override, we reduce the
+        """Override inherited search_by. In this override, we reduce the
         scope of what we handle within this function. We do not set `by`
         to a default of "nd" in the RPC, as the RPC returns an error when
         incorrect `by` fields are specified.
@@ -329,6 +338,4 @@ class RPCSearch(PackageSearch):
         return result
 
     def results(self) -> orm.Query:
-        return self.query.filter(
-            models.PackageBase.PackagerUID.isnot(None)
-        )
+        return self.query.filter(models.PackageBase.PackagerUID.isnot(None))
