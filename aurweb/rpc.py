@@ -202,7 +202,12 @@ class RPC:
             models.User.ID == models.PackageBase.MaintainerUID,
             isouter=True
         ).filter(models.Package.Name.in_(args))
-        packages = self._entities(packages)
+
+        max_results = config.getint("options", "max_rpc_results")
+        packages = self._entities(packages).limit(max_results + 1)
+
+        if packages.count() > max_results:
+            raise RPCError("Too many package results.")
 
         ids = {pkg.ID for pkg in packages}
 
@@ -274,12 +279,7 @@ class RPC:
         ]
 
         # Union all subqueries together.
-        max_results = config.getint("options", "max_rpc_results")
-        query = subqueries[0].union_all(*subqueries[1:]).limit(
-            max_results + 1).all()
-
-        if len(query) > max_results:
-            raise RPCError("Too many package results.")
+        query = subqueries[0].union_all(*subqueries[1:]).all()
 
         # Store our extra information in a class-wise dictionary,
         # which contains package id -> extra info dict mappings.

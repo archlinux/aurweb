@@ -15,6 +15,7 @@ import aurweb.models.relation_type as rt
 
 from aurweb import asgi, config, db, rpc, scripts, time
 from aurweb.models.account_type import USER_ID
+from aurweb.models.dependency_type import DEPENDS_ID
 from aurweb.models.license import License
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -23,6 +24,7 @@ from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_vote import PackageVote
+from aurweb.models.relation_type import PROVIDES_ID
 from aurweb.models.user import User
 from aurweb.redis import redis_connection
 
@@ -814,6 +816,16 @@ def test_rpc_too_many_search_results(client: TestClient,
 
 
 def test_rpc_too_many_info_results(client: TestClient, packages: List[Package]):
+    # Make many of these packages depend and rely on each other.
+    # This way, we can test to see that the exceeded limit stays true
+    # regardless of the number of related records.
+    with db.begin():
+        for i in range(len(packages) - 1):
+            db.create(PackageDependency, DepTypeID=DEPENDS_ID,
+                      Package=packages[i], DepName=packages[i + 1].Name)
+            db.create(PackageRelation, RelTypeID=PROVIDES_ID,
+                      Package=packages[i], RelName=packages[i + 1].Name)
+
     config_getint = config.getint
 
     def mock_config(section: str, key: str):
