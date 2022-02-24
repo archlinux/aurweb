@@ -16,7 +16,7 @@ systemctl start docker.service
 The main image - `aurweb` - must be built manually:
 
 ```sh
-docker compose build aurweb-image
+docker compose build
 ```
 
 ### Starting and Stopping the Services
@@ -37,6 +37,21 @@ With a running cluster, execute the following in a new terminal:
 ```sh
 docker compose run test
 ```
+
+### Generating Dummy Data
+
+Before you can make meaningful queries to the cluster, it needs some data.
+Luckily such data can be generated. First, `docker ps` to discover the ID of the
+container running the FastAPI. Then:
+
+```sh
+docker exec -it <id> /bin/bash
+./scheme/gendummydata.py dummy.sql
+mysql aurweb < dummy.sql
+```
+
+The generation script may prompt you to install other Arch packages before it
+can proceed.
 
 ### Querying the RPC
 
