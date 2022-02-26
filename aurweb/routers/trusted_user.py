@@ -220,7 +220,6 @@ async def trusted_user_proposal_post(request: Request, proposal: int,
 
     with db.begin():
         vote = db.create(models.TUVote, User=request.user, VoteInfo=voteinfo)
-        voteinfo.ActiveTUs += 1
 
     context["error"] = "You've already voted for this proposal."
     return render_proposal(request, context, proposal, voteinfo, voters, vote)

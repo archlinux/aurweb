@@ -650,7 +650,6 @@ def test_tu_proposal_vote(client, proposal):
 
     # Store the current related values.
     yes = voteinfo.Yes
-    active_tus = voteinfo.ActiveTUs
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
@@ -661,7 +660,6 @@ def test_tu_proposal_vote(client, proposal):
 
     # Check that the proposal record got updated.
     assert voteinfo.Yes == yes + 1
-    assert voteinfo.ActiveTUs == active_tus + 1
 
     # Check that the new TUVote exists.
     vote = db.query(TUVote, TUVote.VoteInfo == voteinfo,
