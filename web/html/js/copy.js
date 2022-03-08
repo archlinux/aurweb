@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-	document.querySelector('.copy').addEventListener('click', function(e) {
-		e.preventDefault();
-		navigator.clipboard.writeText(event.target.text);
-	});
+    let elements = document.querySelectorAll('.copy');
+    elements.forEach(function(el) {
+        el.addEventListener('click', function(e) {
+            e.preventDefault();
+            navigator.clipboard.writeText(e.target.text);
+        });
+    });
 });
