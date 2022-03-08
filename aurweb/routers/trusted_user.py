@@ -220,7 +220,6 @@ async def trusted_user_proposal_post(request: Request, proposal: int,
 
     with db.begin():
         vote = db.create(models.TUVote, User=request.user, VoteInfo=voteinfo)
-        voteinfo.ActiveTUs += 1
 
     context["error"] = "You've already voted for this proposal."
     return render_proposal(request, context, proposal, voteinfo, voters, vote)
@@ -275,8 +274,10 @@ async def trusted_user_addvote_post(request: Request,
             context["error"] = "Username does not exist."
             return render_addvote(context, HTTPStatus.NOT_FOUND)
 
+        utcnow = time.utcnow()
         voteinfo = db.query(models.TUVoteInfo).filter(
-            models.TUVoteInfo.User == user).count()
+            and_(models.TUVoteInfo.User == user,
+                 models.TUVoteInfo.End > utcnow)).count()
         if voteinfo:
             _ = l10n.get_translator_for_request(request)
             context["error"] = _(
