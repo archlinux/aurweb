@@ -309,9 +309,9 @@ endif;
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-	document.querySelector('.copy').addEventListener('click', function(e) {
+	document.querySelectorAll('.copy').addEventListener('click', function(e) {
 		e.preventDefault();
-		navigator.clipboard.writeText(event.target.text);
+		navigator.clipboard.writeText(e.target.text);
 	});
 });
 </script>
