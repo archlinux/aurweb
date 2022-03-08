@@ -8,7 +8,7 @@
 #
 [tool.poetry]
 name = "aurweb"
-version = "v6.0.21"
+version = "v6.0.22"
 license = "GPL-2.0-only"
 description = "Source code for the Arch User Repository's website"
 homepage = "https://aur.archlinux.org"
