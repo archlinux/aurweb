@@ -551,6 +551,14 @@ def test_rpc_suggest_pkgbase(client: TestClient, packages: List[Package]):
     data = response.json()
     assert data == []
 
+    # Test that suggestions are only given based on the beginning
+    # of the keyword string.
+    params["arg"] = "ther-pkg"
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data == []
+
 
 def test_rpc_suggest(client: TestClient, packages: List[Package]):
     params = {"v": 5, "type": "suggest", "arg": "other"}
@@ -568,6 +576,14 @@ def test_rpc_suggest(client: TestClient, packages: List[Package]):
 
     # Test no arg supplied.
     del params["arg"]
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data == []
+
+    # Test that suggestions are only given based on the beginning
+    # of the keyword string.
+    params["arg"] = "ther-pkg"
     with client as request:
         response = request.get("/rpc", params=params)
     data = response.json()
