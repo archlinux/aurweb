@@ -267,6 +267,48 @@ def test_tu_index(client, tu_user):
     assert int(vote_id.text.strip()) == vote_records[1].ID
 
 
+def test_tu_stats(client: TestClient, tu_user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/tu", cookies=cookies, allow_redirects=False)
+    assert response.status_code == HTTPStatus.OK
+
+    root = parse_root(response.text)
+    stats = root.xpath('//table[@class="no-width"]')[0]
+    rows = stats.xpath("./tbody/tr")
+
+    # We have one trusted user.
+    total = rows[0]
+    label, count = total.xpath("./td")
+    assert int(count.text.strip()) == 1
+
+    # And we have one active TU.
+    active = rows[1]
+    label, count = active.xpath("./td")
+    assert int(count.text.strip()) == 1
+
+    with db.begin():
+        tu_user.InactivityTS = time.utcnow()
+
+    with client as request:
+        response = request.get("/tu", cookies=cookies, allow_redirects=False)
+    assert response.status_code == HTTPStatus.OK
+
+    root = parse_root(response.text)
+    stats = root.xpath('//table[@class="no-width"]')[0]
+    rows = stats.xpath("./tbody/tr")
+
+    # We have one trusted user.
+    total = rows[0]
+    label, count = total.xpath("./td")
+    assert int(count.text.strip()) == 1
+
+    # But we have no more active TUs.
+    active = rows[1]
+    label, count = active.xpath("./td")
+    assert int(count.text.strip()) == 0
+
+
 def test_tu_index_table_paging(client, tu_user):
     ts = time.utcnow()
 
@@ -515,6 +557,8 @@ def test_tu_proposal_unauthorized(client: TestClient, user: User,
 def test_tu_running_proposal(client: TestClient,
                              proposal: Tuple[User, User, TUVoteInfo]):
     tu_user, user, voteinfo = proposal
+    with db.begin():
+        voteinfo.ActiveTUs = 1
 
     # Initiate an authenticated GET request to /tu/{proposal_id}.
     proposal_id = voteinfo.ID
@@ -535,6 +579,11 @@ def test_tu_running_proposal(client: TestClient,
     username = details.xpath(
         './div[contains(@class, "user")]/strong/a/text()')[0]
     assert username.strip() == user.Username
+
+    active = details.xpath('./div[contains(@class, "field")]')[1]
+    content = active.text.strip()
+    assert "Active Trusted Users assigned:" in content
+    assert "1" in content
 
     submitted = details.xpath(
         './div[contains(@class, "submitted")]/text()')[0]
