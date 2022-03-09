@@ -399,10 +399,7 @@ class ComaintainershipEventNotification(Notification):
         self._pkgbase = db.query(PackageBase.Name).filter(
             PackageBase.ID == pkgbase_id).first().Name
 
-        user = db.query(User).filter(
-            and_(User.ID == uid,
-                 User.Suspended == 0)
-        ).with_entities(
+        user = db.query(User).filter(User.ID == uid).with_entities(
             User.Email,
             User.LangPreference
         ).first()

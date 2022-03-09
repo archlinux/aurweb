@@ -299,6 +299,21 @@ You were removed from the co-maintainer list of {pkgbase.Name} [1].
     assert email.body == expected
 
 
+def test_suspended_ownership_change(user: User, pkgbases: List[PackageBase]):
+    with db.begin():
+        user.Suspended = 1
+
+    pkgbase = pkgbases[0]
+    notif = notify.ComaintainerAddNotification(user.ID, pkgbase.ID)
+    notif.send()
+    assert Email.count() == 1
+
+    Email.reset()  # Clear the Email pool
+    notif = notify.ComaintainerRemoveNotification(user.ID, pkgbase.ID)
+    notif.send()
+    assert Email.count() == 1
+
+
 def test_delete(user: User, user2: User, pkgbases: List[PackageBase]):
     pkgbase = pkgbases[0]
     notif = notify.DeleteNotification(user2.ID, pkgbase.ID)
