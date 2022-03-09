@@ -332,7 +332,7 @@ class RPC:
             models.PackageBase
         ).filter(
             and_(models.PackageBase.PackagerUID.isnot(None),
-                 models.Package.Name.like(f"%{arg}%"))
+                 models.Package.Name.like(f"{arg}%"))
         ).order_by(models.Package.Name.asc()).limit(20)
         return [pkg.Name for pkg in packages]
 
@@ -341,9 +341,10 @@ class RPC:
         if not args:
             return []
 
+        arg = args[0]
         packages = db.query(models.PackageBase.Name).filter(
             and_(models.PackageBase.PackagerUID.isnot(None),
-                 models.PackageBase.Name.like(f"%{args[0]}%"))
+                 models.PackageBase.Name.like(f"{arg}%"))
         ).order_by(models.PackageBase.Name.asc()).limit(20)
         return [pkg.Name for pkg in packages]
 
