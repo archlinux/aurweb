@@ -38,6 +38,15 @@ class Email:
             self._parse()
 
     @staticmethod
+    def reset() -> None:
+        # Cleanup all email files for this test suite.
+        prefix = Email.email_prefix(suite=True)
+        files = os.listdir(Email.TEST_DIR)
+        for file in files:
+            if file.startswith(prefix):
+                os.remove(os.path.join(Email.TEST_DIR, file))
+
+    @staticmethod
     def email_prefix(suite: bool = False) -> str:
         """
         Get the email prefix.
