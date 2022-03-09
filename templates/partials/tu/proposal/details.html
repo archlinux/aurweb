@@ -21,6 +21,11 @@
         </strong>
     </div>
 
+    <div class="field">
+        {{ "Active" | tr }} {{ "Trusted Users" | tr }} {{ "assigned" | tr }}:
+        {{ voteinfo.ActiveTUs }}
+    </div>
+
     {% set submitter = voteinfo.Submitter.Username %}
     {% set submitter_uri = "/account/%s" | format(submitter) %}
     {% set submitter = '<a href="%s">%s</a>' | format(submitter_uri, submitter) %}

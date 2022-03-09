@@ -2,6 +2,7 @@ import html
 import typing
 
 from http import HTTPStatus
+from typing import Any, Dict
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
@@ -33,6 +34,21 @@ ADDVOTE_SPECIFICS = {
 }
 
 
+def populate_trusted_user_counts(context: Dict[str, Any]) -> None:
+    tu_query = db.query(User).filter(
+        or_(User.AccountTypeID == TRUSTED_USER_ID,
+            User.AccountTypeID == TRUSTED_USER_AND_DEV_ID)
+    )
+    context["trusted_user_count"] = tu_query.count()
+
+    # In case any records have a None InactivityTS.
+    active_tu_query = tu_query.filter(
+        or_(User.InactivityTS.is_(None),
+            User.InactivityTS == 0)
+    )
+    context["active_trusted_user_count"] = active_tu_query.count()
+
+
 @router.get("/tu")
 @requires_auth
 async def trusted_user(request: Request,
@@ -40,6 +56,8 @@ async def trusted_user(request: Request,
                        cby: str = "desc",  # current by
                        poff: int = 0,  # past offset
                        pby: str = "desc"):  # past by
+    """ Proposal listings. """
+
     if not request.user.has_credential(creds.TU_LIST_VOTES):
         return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
 
@@ -101,6 +119,8 @@ async def trusted_user(request: Request,
 
     context["current_by_next"] = "asc" if current_by == "desc" else "desc"
     context["past_by_next"] = "asc" if past_by == "desc" else "desc"
+
+    populate_trusted_user_counts(context)
 
     context["q"] = {
         "coff": current_off,

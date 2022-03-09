@@ -1,6 +1,22 @@
 {% extends "partials/layout.html" %}
 
 {% block pageContent %}
+    <div class="box">
+        <h2>{{ "Statistics" | tr }}</h2>
+        <table class="no-width">
+            <tbody>
+                <tr>
+                    <td class="text-right">{{ "Total" | tr }} {{ "Trusted Users" | tr }}:</td>
+                    <td>{{ trusted_user_count }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{ "Active" | tr }} {{ "Trusted Users" | tr }}:</td>
+                    <td>{{ active_trusted_user_count }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     {%
         with table_class = "current-votes",
         total_votes = current_votes_count,
