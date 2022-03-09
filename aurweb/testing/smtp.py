@@ -36,6 +36,9 @@ class FakeSMTP:
     def quit(self) -> None:
         self.quit_count += 1
 
+    def __call__(self, *args, **kwargs) -> "FakeSMTP":
+        return self
+
 
 class FakeSMTP_SSL(FakeSMTP):
     """ A fake version of smtplib.SMTP_SSL used for testing. """

@@ -547,18 +547,18 @@ def test_smtp(user: User):
     with db.begin():
         user.ResetKey = "12345678901234567890123456789012"
 
-    SMTP = FakeSMTP()
+    smtp = FakeSMTP()
 
     get = "aurweb.config.get"
     getboolean = "aurweb.config.getboolean"
     with mock.patch(get, side_effect=mock_smtp_config(str)):
         with mock.patch(getboolean, side_effect=mock_smtp_config(bool)):
-            with mock.patch("smtplib.SMTP", side_effect=lambda a, b: SMTP):
+            with mock.patch("smtplib.SMTP", side_effect=smtp):
                 config.rehash()
                 notif = notify.WelcomeNotification(user.ID)
                 notif.send()
     config.rehash()
-    assert len(SMTP.emails) == 1
+    assert len(smtp.emails) == 1
 
 
 def mock_smtp_starttls_config(cls):
@@ -586,25 +586,25 @@ def test_smtp_starttls(user: User):
         user.ResetKey = "12345678901234567890123456789012"
         user.BackupEmail = "backup@example.org"
 
-    SMTP = FakeSMTP()
+    smtp = FakeSMTP()
 
     get = "aurweb.config.get"
     getboolean = "aurweb.config.getboolean"
     with mock.patch(get, side_effect=mock_smtp_starttls_config(str)):
         with mock.patch(
                 getboolean, side_effect=mock_smtp_starttls_config(bool)):
-            with mock.patch("smtplib.SMTP", side_effect=lambda a, b: SMTP):
+            with mock.patch("smtplib.SMTP", side_effect=smtp):
                 notif = notify.WelcomeNotification(user.ID)
                 notif.send()
-    assert SMTP.starttls_enabled
-    assert SMTP.user
-    assert SMTP.passwd
+    assert smtp.starttls_enabled
+    assert smtp.user
+    assert smtp.passwd
 
-    assert len(SMTP.emails) == 2
-    to = SMTP.emails[0][1]
+    assert len(smtp.emails) == 2
+    to = smtp.emails[0][1]
     assert to == [user.Email]
 
-    to = SMTP.emails[1][1]
+    to = smtp.emails[1][1]
     assert to == [user.BackupEmail]
 
 
@@ -629,19 +629,19 @@ def test_smtp_ssl(user: User):
     with db.begin():
         user.ResetKey = "12345678901234567890123456789012"
 
-    SMTP = FakeSMTP_SSL()
+    smtp = FakeSMTP_SSL()
 
     get = "aurweb.config.get"
     getboolean = "aurweb.config.getboolean"
     with mock.patch(get, side_effect=mock_smtp_ssl_config(str)):
         with mock.patch(getboolean, side_effect=mock_smtp_ssl_config(bool)):
-            with mock.patch("smtplib.SMTP_SSL", side_effect=lambda a, b: SMTP):
+            with mock.patch("smtplib.SMTP_SSL", side_effect=smtp):
                 notif = notify.WelcomeNotification(user.ID)
                 notif.send()
-    assert len(SMTP.emails) == 1
-    assert SMTP.use_ssl
-    assert SMTP.user
-    assert SMTP.passwd
+    assert len(smtp.emails) == 1
+    assert smtp.use_ssl
+    assert smtp.user
+    assert smtp.passwd
 
 
 def test_notification_defaults():
@@ -655,6 +655,7 @@ def test_notification_oserror(user: User, caplog: pytest.LogCaptureFixture):
     """ Try sending a notification with a bad SMTP configuration. """
     caplog.set_level(ERROR)
     config_get = config.get
+    config_getint = config.getint
 
     mocked_options = {
         "sendmail": str(),
@@ -662,8 +663,9 @@ def test_notification_oserror(user: User, caplog: pytest.LogCaptureFixture):
         "smtp-port": "587",
         "smtp-user": "notify@server.xyz",
         "smtp-password": "notify_server_xyz",
+        "smtp-timeout": 1,
         "sender": "notify@server.xyz",
-        "reply-to": "no-reply@server.xyz"
+        "reply-to": "no-reply@server.xyz",
     }
 
     def mock_config_get(section: str, key: str) -> str:
@@ -672,9 +674,16 @@ def test_notification_oserror(user: User, caplog: pytest.LogCaptureFixture):
                 return mocked_options.get(key)
         return config_get(section, key)
 
+    def mock_config_getint(section: str, key: str) -> str:
+        if section == "notifications":
+            if key in mocked_options:
+                return mocked_options.get(key)
+        return config_getint(section, key)
+
     notif = notify.WelcomeNotification(user.ID)
-    with mock.patch("aurweb.config.get", side_effect=mock_config_get):
-        notif.send()
+    with mock.patch("aurweb.config.getint", side_effect=mock_config_getint):
+        with mock.patch("aurweb.config.get", side_effect=mock_config_get):
+            notif.send()
 
     expected = "Unable to emit notification due to an OSError"
     assert expected in caplog.text

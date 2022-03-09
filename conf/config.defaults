@@ -65,6 +65,7 @@ smtp-use-ssl = 0
 smtp-use-starttls = 0
 smtp-user =
 smtp-password =
+smtp-timeout = 60
 sender = notify@aur.archlinux.org
 reply-to = noreply@aur.archlinux.org
 

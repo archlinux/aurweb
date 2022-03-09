@@ -104,7 +104,10 @@ class Notification:
                     False: smtplib.SMTP,
                     True: smtplib.SMTP_SSL,
                 }
-                server = classes[use_ssl](server_addr, server_port)
+                smtp_timeout = aurweb.config.getint("notifications",
+                                                    "smtp-timeout")
+                server = classes[use_ssl](server_addr, server_port,
+                                          timeout=smtp_timeout)
 
                 if use_starttls:
                     server.ehlo()
