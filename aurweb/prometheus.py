@@ -60,6 +60,9 @@ def http_requests_total() -> Callable[[Info], None]:
                      labelnames=("method", "path", "status"))
 
     def instrumentation(info: Info) -> None:
+        if info.request.method.lower() in ("head", "options"):  # pragma: no cover
+            return
+
         scope = info.request.scope
 
         # Taken from https://github.com/stephenhillier/starlette_exporter
@@ -70,8 +73,8 @@ def http_requests_total() -> Callable[[Info], None]:
         if not (scope.get("endpoint", None) and scope.get("router", None)):
             return None
 
-        root_path = scope.get("root_path", "")
-        app = scope.get("app", {})
+        root_path = scope.get("root_path", str())
+        app = scope.get("app", dict())
 
         if hasattr(app, "root_path"):
             app_root_path = getattr(app, "root_path")
@@ -102,6 +105,9 @@ def http_api_requests_total() -> Callable[[Info], None]:
         labelnames=("type", "status"))
 
     def instrumentation(info: Info) -> None:
+        if info.request.method.lower() in ("head", "options"):  # pragma: no cover
+            return
+
         if info.request.url.path.rstrip("/") == "/rpc":
             type = info.request.query_params.get("type", "None")
             if info.response:
