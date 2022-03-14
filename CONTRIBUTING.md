@@ -31,7 +31,7 @@ Test patches that increase coverage in the codebase are always welcome.
 
 ### Coding Style
 
-We use the `flake8` and `isort` tools to manage PEP-8 coherenace and
+We use the `flake8` and `isort` tools to manage PEP-8 coherence and
 import ordering in this project.
 
 There are plugins for editors or IDEs which automate this process. Some
