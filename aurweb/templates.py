@@ -100,6 +100,8 @@ async def make_variable_context(request: Request, title: str, next: str = None):
     for k, v in to_copy.items():
         context[k] = v
 
+    context["q"] = dict(request.query_params)
+
     return context
 
 

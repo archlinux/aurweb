@@ -2338,3 +2338,11 @@ msgstr ""
 #: templates/partials/tu/proposal/details.html
 msgid "assigned"
 msgstr ""
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr ""
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr ""
