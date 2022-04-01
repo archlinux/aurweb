@@ -47,7 +47,6 @@ python = ">=3.9,<3.11"
 
 # poetry-dynamic-versioning is used to produce tool.poetry.version
 # based on git tags.
-poetry-dynamic-versioning = "^0.13.1"
 
 # General
 aiofiles = "^0.7.0"
