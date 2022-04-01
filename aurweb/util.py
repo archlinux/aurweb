@@ -4,7 +4,6 @@ import secrets
 import string
 
 from datetime import datetime
-from distutils.util import strtobool as _strtobool
 from http import HTTPStatus
 from subprocess import PIPE, Popen
 from typing import Callable, Iterable, List, Tuple, Union
@@ -114,9 +113,9 @@ def sanitize_params(offset: str, per_page: str) -> Tuple[int, int]:
 
 
 def strtobool(value: Union[str, bool]) -> bool:
-    if isinstance(value, str):
-        return _strtobool(value or "False")
-    return value
+    if not value:
+        return False
+    return str(value).lower() in ("y", "yes", "t", "true", "on", "1")
 
 
 def file_hash(filepath: str, hash_function: Callable) -> str:
