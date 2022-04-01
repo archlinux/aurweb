@@ -276,6 +276,51 @@ def test_package(client: TestClient, package: Package):
     assert conflicts[0].text.strip() == ", ".join(expected)
 
 
+def paged_depends_required(client: TestClient, package: Package):
+    maint = package.PackageBase.Maintainer
+    new_pkgs = []
+
+    with db.begin():
+        # Create 25 new packages that'll be used to depend on our package.
+        for i in range(26):
+            base = db.create(PackageBase, Name=f"new_pkg{i}", Maintainer=maint)
+            new_pkgs.append(db.create(Package, Name=base.Name))
+
+        # Create 25 deps.
+        for i in range(25):
+            create_package_dep(package, f"dep_{i}")
+
+    with db.begin():
+        # Create depends on this package so we get some required by listings.
+        for new_pkg in new_pkgs:
+            create_package_dep(new_pkg, package.Name)
+
+    with client as request:
+        resp = request.get(package_endpoint(package))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Test depends show link.
+    assert "Show 5 more" in resp.text
+
+    # Test required by show more link, we added 26 packages.
+    assert "Show 6 more" in resp.text
+
+    # Follow both links at the same time.
+    with client as request:
+        resp = request.get(
+            package_endpoint(package),
+            params={
+                "all_deps": True,
+                "all_reqs": True,
+            }
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # We're should see everything and have no link.
+    assert "Show 5 more" not in resp.text
+    assert "Show 6 more" not in resp.text
+
+
 def test_package_comments(client: TestClient, user: User, package: Package):
     now = (time.utcnow())
     with db.begin():

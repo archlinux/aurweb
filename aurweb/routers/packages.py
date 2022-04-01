@@ -2,7 +2,7 @@ from collections import defaultdict
 from http import HTTPStatus
 from typing import Any, Dict, List
 
-from fastapi import APIRouter, Form, Request, Response
+from fastapi import APIRouter, Form, Query, Request, Response
 
 import aurweb.filters  # noqa: F401
 
@@ -33,7 +33,7 @@ async def packages_get(request: Request, context: Dict[str, Any],
     context["O"] = offset
 
     # Limit PP to options.max_search_results
-    max_search_results = aurweb.config.getint("options", "max_search_results")
+    max_search_results = config.getint("options", "max_search_results")
     context["PP"] = per_page = min(per_page, max_search_results)
 
     # Query search by.
@@ -123,7 +123,22 @@ async def packages(request: Request) -> Response:
 
 
 @router.get("/packages/{name}")
-async def package(request: Request, name: str) -> Response:
+async def package(request: Request, name: str,
+                  all_deps: bool = Query(default=False),
+                  all_reqs: bool = Query(default=False)) -> Response:
+    """
+    Get a package by name.
+
+    By default, we limit the number of depends and requires results
+    to 20. To bypass this and load all of them, which should be triggered
+    via a "Show more" link near the limited listing.
+
+    :param name: Package.Name
+    :param all_deps: Boolean indicating whether we should load all depends
+    :param all_reqs: Boolean indicating whether we should load all requires
+    :return: FastAPI Response
+    """
+
     # Get the Package.
     pkg = get_pkg_or_base(name, models.Package)
     pkgbase = pkg.PackageBase
@@ -139,23 +154,41 @@ async def package(request: Request, name: str) -> Response:
             rels_data["r"].append(rel)
 
     # Add our base information.
-    context = pkgbaseutil.make_context(request, pkgbase)
+    context = await pkgbaseutil.make_variable_context(request, pkgbase)
+
+    context.update(
+        {
+            "all_deps": all_deps,
+            "all_reqs": all_reqs
+        }
+    )
+
     context["package"] = pkg
 
     # Package sources.
     context["sources"] = pkg.package_sources.order_by(
         models.PackageSource.Source.asc()).all()
 
+    # Listing metadata.
+    context["max_listing"] = max_listing = 20
+
     # Package dependencies.
-    max_depends = config.getint("options", "max_depends")
-    context["dependencies"] = pkg.package_dependencies.order_by(
+    deps = pkg.package_dependencies.order_by(
         models.PackageDependency.DepTypeID.asc(),
         models.PackageDependency.DepName.asc()
-    ).limit(max_depends).all()
+    )
+    context["depends_count"] = deps.count()
+    if not all_deps:
+        deps = deps.limit(max_listing)
+    context["dependencies"] = deps.all()
 
     # Package requirements (other packages depend on this one).
-    context["required_by"] = pkgutil.pkg_required(
-        pkg.Name, [p.RelName for p in rels_data.get("p", [])], max_depends)
+    reqs = pkgutil.pkg_required(
+        pkg.Name, [p.RelName for p in rels_data.get("p", [])])
+    context["reqs_count"] = reqs.count()
+    if not all_reqs:
+        reqs = reqs.limit(max_listing)
+    context["required_by"] = reqs.all()
 
     context["licenses"] = pkg.package_licenses
 

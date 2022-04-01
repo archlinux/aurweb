@@ -11,16 +11,25 @@ from aurweb.models.package_request import PENDING_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.scripts import notify
 from aurweb.templates import make_context as _make_context
+from aurweb.templates import make_variable_context as _make_variable_context
 
 
-def make_context(request: Request, pkgbase: PackageBase) -> Dict[str, Any]:
+async def make_variable_context(request: Request, pkgbase: PackageBase) \
+        -> Dict[str, Any]:
+    ctx = await _make_variable_context(request, pkgbase.Name)
+    return make_context(request, pkgbase, ctx)
+
+
+def make_context(request: Request, pkgbase: PackageBase,
+                 context: Dict[str, Any] = None) -> Dict[str, Any]:
     """ Make a basic context for package or pkgbase.
 
     :param request: FastAPI request
     :param pkgbase: PackageBase instance
     :return: A pkgbase context without specific differences
     """
-    context = _make_context(request, pkgbase.Name)
+    if not context:
+        context = _make_context(request, pkgbase.Name)
 
     context["git_clone_uri_anon"] = config.get("options", "git_clone_uri_anon")
     context["git_clone_uri_priv"] = config.get("options", "git_clone_uri_priv")

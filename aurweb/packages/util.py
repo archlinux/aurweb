@@ -214,7 +214,7 @@ def query_notified(query: List[models.Package],
     return output
 
 
-def pkg_required(pkgname: str, provides: List[str], limit: int) \
+def pkg_required(pkgname: str, provides: List[str]) \
         -> List[PackageDependency]:
     """
     Get dependencies that match a string in `[pkgname] + provides`.
@@ -227,8 +227,8 @@ def pkg_required(pkgname: str, provides: List[str], limit: int) \
     targets = set([pkgname] + provides)
     query = db.query(PackageDependency).join(Package).filter(
         PackageDependency.DepName.in_(targets)
-    ).order_by(Package.Name.asc()).limit(limit)
-    return query.all()
+    ).order_by(Package.Name.asc())
+    return query
 
 
 @register_filter("source_uri")
