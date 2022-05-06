@@ -3,8 +3,8 @@ import argparse
 import alembic.command
 import alembic.config
 
+import aurweb.aur_logging
 import aurweb.db
-import aurweb.logging
 import aurweb.schema
 
 

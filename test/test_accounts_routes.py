@@ -11,7 +11,7 @@ from fastapi.testclient import TestClient
 
 import aurweb.config
 import aurweb.models.account_type as at
-from aurweb import captcha, db, logging, time
+from aurweb import aur_logging, captcha, db, time
 from aurweb.asgi import app
 from aurweb.db import create, query
 from aurweb.models.accepted_term import AcceptedTerm
@@ -31,7 +31,7 @@ from aurweb.models.user import User
 from aurweb.testing.html import get_errors
 from aurweb.testing.requests import Request
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 # Some test global constants.
 TEST_USERNAME = "test"

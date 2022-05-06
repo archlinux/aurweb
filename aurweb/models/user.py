@@ -10,12 +10,12 @@ from sqlalchemy.orm import backref, relationship
 import aurweb.config
 import aurweb.models.account_type
 import aurweb.schema
-from aurweb import db, logging, schema, time, util
+from aurweb import aur_logging, db, schema, time, util
 from aurweb.models.account_type import AccountType as _AccountType
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 SALT_ROUNDS_DEFAULT = 12
 

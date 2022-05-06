@@ -3,13 +3,13 @@ from unittest import mock
 import pytest
 from redis.client import Pipeline
 
-from aurweb import config, db, logging
+from aurweb import aur_logging, config, db
+from aurweb.aur_redis import redis_connection
 from aurweb.models import ApiRateLimit
 from aurweb.ratelimit import check_ratelimit
-from aurweb.redis import redis_connection
 from aurweb.testing.requests import Request
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 @pytest.fixture(autouse=True)

@@ -7,7 +7,7 @@ from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import and_, func, or_
 
-from aurweb import db, l10n, logging, models, time
+from aurweb import aur_logging, db, l10n, models, time
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import handle_form_exceptions
 from aurweb.models import User
@@ -15,7 +15,7 @@ from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 # Some TU route specific constants.
 ITEMS_PER_PAGE = 10  # Paged table size.

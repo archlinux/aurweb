@@ -5,9 +5,9 @@ from prometheus_fastapi_instrumentator import Instrumentator
 from prometheus_fastapi_instrumentator.metrics import Info
 from starlette.routing import Match, Route
 
-from aurweb import logging
+from aurweb import aur_logging
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 _instrumentator = Instrumentator()
 
 

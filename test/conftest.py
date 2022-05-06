@@ -52,12 +52,12 @@ from sqlalchemy.orm import scoped_session
 
 import aurweb.config
 import aurweb.db
-from aurweb import initdb, logging, testing
+from aurweb import aur_logging, initdb, testing
 from aurweb.testing.email import Email
 from aurweb.testing.filelock import FileLock
 from aurweb.testing.git import GitRepository
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 # Synchronization lock for database setup.
 setup_lock = Lock()

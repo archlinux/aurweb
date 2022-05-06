@@ -22,19 +22,18 @@ from starlette.middleware.sessions import SessionMiddleware
 import aurweb.captcha  # noqa: F401
 import aurweb.config
 import aurweb.filters  # noqa: F401
-import aurweb.logging
 import aurweb.pkgbase.util as pkgbaseutil
-from aurweb import logging, prometheus, util
+from aurweb import aur_logging, prometheus, util
+from aurweb.aur_redis import redis_connection
 from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
 from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
-from aurweb.redis import redis_connection
 from aurweb.routers import APP_ROUTES
 from aurweb.templates import make_context, render_template
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 # Setup the FastAPI app.
 app = FastAPI()

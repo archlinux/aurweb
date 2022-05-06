@@ -9,10 +9,10 @@ import markdown
 import pygit2
 
 import aurweb.config
-from aurweb import db, logging, util
+from aurweb import aur_logging, db, util
 from aurweb.models import PackageComment
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 class LinkifyExtension(markdown.extensions.Extension):

@@ -15,9 +15,9 @@ from email_validator import EmailSyntaxError, validate_email
 from fastapi.responses import JSONResponse
 
 import aurweb.config
-from aurweb import defaults, logging
+from aurweb import aur_logging, defaults
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 def make_random_string(length: int) -> str:

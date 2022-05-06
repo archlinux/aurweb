@@ -1,6 +1,6 @@
-from aurweb import logging
+from aurweb import aur_logging
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 def test_logging(caplog):

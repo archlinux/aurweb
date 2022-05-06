@@ -10,6 +10,7 @@ from redis.client import Pipeline
 import aurweb.models.dependency_type as dt
 import aurweb.models.relation_type as rt
 from aurweb import asgi, config, db, rpc, scripts, time
+from aurweb.aur_redis import redis_connection
 from aurweb.models.account_type import USER_ID
 from aurweb.models.dependency_type import DEPENDS_ID
 from aurweb.models.license import License
@@ -22,7 +23,6 @@ from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID
 from aurweb.models.user import User
-from aurweb.redis import redis_connection
 
 
 @pytest.fixture

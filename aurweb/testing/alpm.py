@@ -4,10 +4,10 @@ import re
 import shutil
 import subprocess
 
-from aurweb import logging, util
+from aurweb import aur_logging, util
 from aurweb.templates import base_template
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 class AlpmDatabase:

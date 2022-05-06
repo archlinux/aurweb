@@ -2,14 +2,14 @@ from unittest import mock
 
 import pytest
 
-from aurweb import config, db, logging, time
+from aurweb import aur_logging, config, db, time
 from aurweb.models import Package, PackageBase, PackageComment, User
 from aurweb.models.account_type import USER_ID
 from aurweb.scripts import rendercomment
 from aurweb.scripts.rendercomment import update_comment_render
 from aurweb.testing.git import GitRepository
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 aur_location = config.get("options", "aur_location")
 
 

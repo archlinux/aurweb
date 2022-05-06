@@ -4,7 +4,7 @@ from fastapi import APIRouter, Form, HTTPException, Query, Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import and_
 
-from aurweb import config, db, l10n, logging, templates, time, util
+from aurweb import aur_logging, config, db, l10n, templates, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import InvariantError, ValidationError, handle_form_exceptions
 from aurweb.models import PackageBase
@@ -21,7 +21,7 @@ from aurweb.scripts import notify, popupdate
 from aurweb.scripts.rendercomment import update_comment_render_fastapi
 from aurweb.templates import make_variable_context, render_template
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 router = APIRouter()
 
 

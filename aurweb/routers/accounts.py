@@ -8,7 +8,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import and_, or_
 
 import aurweb.config
-from aurweb import cookies, db, l10n, logging, models, util
+from aurweb import aur_logging, cookies, db, l10n, models, util
 from aurweb.auth import account_type_required, creds, requires_auth, requires_guest
 from aurweb.captcha import get_captcha_salts
 from aurweb.exceptions import ValidationError, handle_form_exceptions
@@ -22,7 +22,7 @@ from aurweb.users import update, validate
 from aurweb.users.util import get_user_by_name
 
 router = APIRouter()
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 @router.get("/passreset", response_class=HTMLResponse)

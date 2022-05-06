@@ -4,9 +4,9 @@ from typing import Callable
 
 from posix_ipc import O_CREAT, Semaphore
 
-from aurweb import logging
+from aurweb import aur_logging
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 def default_on_create(path):

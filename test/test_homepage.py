@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 
 from aurweb import db, time
 from aurweb.asgi import app
+from aurweb.aur_redis import redis_connection
 from aurweb.models.account_type import USER_ID
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -14,7 +15,6 @@ from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_request import PackageRequest
 from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
-from aurweb.redis import redis_connection
 from aurweb.testing.html import parse_root
 from aurweb.testing.requests import Request
 

@@ -7,11 +7,11 @@ from fastapi import HTTPException
 from sqlalchemy import orm
 
 from aurweb import config, db, models
+from aurweb.aur_redis import redis_connection
 from aurweb.models import Package
 from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_relation import PackageRelation
-from aurweb.redis import redis_connection
 from aurweb.templates import register_filter
 
 Providers = list[Union[PackageRelation, OfficialProvider]]

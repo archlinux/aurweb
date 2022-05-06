@@ -9,7 +9,7 @@ when encountering invalid criteria and return silently otherwise.
 from fastapi import Request
 from sqlalchemy import and_
 
-from aurweb import config, db, l10n, logging, models, time, util
+from aurweb import aur_logging, config, db, l10n, models, time, util
 from aurweb.auth import creds
 from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_token
 from aurweb.exceptions import ValidationError
@@ -17,7 +17,7 @@ from aurweb.models.account_type import ACCOUNT_TYPE_NAME
 from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.util import strtobool
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 def invalid_fields(E: str = str(), U: str = str(), **kwargs) -> None:

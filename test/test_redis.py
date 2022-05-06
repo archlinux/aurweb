@@ -3,11 +3,11 @@ from unittest import mock
 import pytest
 
 import aurweb.config
-from aurweb.redis import redis_connection
+from aurweb.aur_redis import redis_connection
 
 
 @pytest.fixture
-def rediss():
+def redis():
     """Create a RedisStub."""
 
     def mock_get(section, key):
@@ -21,20 +21,20 @@ def rediss():
     yield redis
 
 
-def test_redis_stub(rediss):
+def test_redis_stub(redis):
     # We don't yet have a test key set.
-    assert rediss.get("test") is None
+    assert redis.get("test") is None
 
     # Set the test key to abc.
-    rediss.set("test", "abc")
-    assert rediss.get("test").decode() == "abc"
+    redis.set("test", "abc")
+    assert redis.get("test").decode() == "abc"
 
     # Test expire.
-    rediss.expire("test", 0)
-    assert rediss.get("test") is None
+    redis.expire("test", 0)
+    assert redis.get("test") is None
 
     # Now, set the test key again and use delete() on it.
-    rediss.set("test", "abc")
-    assert rediss.get("test").decode() == "abc"
-    rediss.delete("test")
-    assert rediss.get("test") is None
+    redis.set("test", "abc")
+    assert redis.get("test").decode() == "abc"
+    redis.delete("test")
+    assert redis.get("test") is None

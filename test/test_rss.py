@@ -4,14 +4,14 @@ import lxml.etree
 import pytest
 from fastapi.testclient import TestClient
 
-from aurweb import db, logging, time
+from aurweb import aur_logging, db, time
 from aurweb.asgi import app
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.user import User
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 @pytest.fixture(autouse=True)

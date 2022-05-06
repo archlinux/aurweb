@@ -1,6 +1,6 @@
 from fastapi import Request
 
-from aurweb import db, logging, util
+from aurweb import aur_logging, db, util
 from aurweb.auth import creds
 from aurweb.models import PackageBase, User
 from aurweb.models.package_comaintainer import PackageComaintainer
@@ -10,7 +10,7 @@ from aurweb.packages.requests import handle_request, update_closure_comment
 from aurweb.pkgbase import util as pkgbaseutil
 from aurweb.scripts import notify, popupdate
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 @db.retry_deadlock

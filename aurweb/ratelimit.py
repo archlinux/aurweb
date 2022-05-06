@@ -1,11 +1,11 @@
 from fastapi import Request
 from redis.client import Pipeline
 
-from aurweb import config, db, logging, time
+from aurweb import aur_logging, config, db, time
+from aurweb.aur_redis import redis_connection
 from aurweb.models import ApiRateLimit
-from aurweb.redis import redis_connection
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 
 def _update_ratelimit_redis(request: Request, pipeline: Pipeline):

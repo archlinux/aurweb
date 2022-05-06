@@ -10,17 +10,17 @@ from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 import aurweb.asgi
+import aurweb.aur_redis
 import aurweb.config
-import aurweb.redis
 from aurweb.exceptions import handle_form_exceptions
 from aurweb.testing.requests import Request
 
 
 @pytest.fixture
 def setup(db_test, email_test):
-    aurweb.redis.redis_connection().flushall()
+    aurweb.aur_redis.redis_connection().flushall()
     yield
-    aurweb.redis.redis_connection().flushall()
+    aurweb.aur_redis.redis_connection().flushall()
 
 
 @pytest.fixture

@@ -13,7 +13,7 @@ import aurweb.config
 import aurweb.db
 import aurweb.filters
 import aurweb.l10n
-from aurweb import db, logging
+from aurweb import aur_logging, db
 from aurweb.models import PackageBase, User
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
@@ -22,7 +22,7 @@ from aurweb.models.package_request import PackageRequest
 from aurweb.models.request_type import RequestType
 from aurweb.models.tu_vote import TUVote
 
-logger = logging.get_logger(__name__)
+logger = aur_logging.get_logger(__name__)
 
 aur_location = aurweb.config.get("options", "aur_location")
 

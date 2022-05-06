@@ -32,11 +32,11 @@ import orjson
 from sqlalchemy import literal, orm
 
 import aurweb.config
-from aurweb import db, filters, logging, models, util
+from aurweb import aur_logging, db, filters, models, util
 from aurweb.benchmark import Benchmark
 from aurweb.models import Package, PackageBase, User
 
-logger = logging.get_logger("aurweb.scripts.mkpkglists")
+logger = aur_logging.get_logger("aurweb.scripts.mkpkglists")
 
 
 TYPE_MAP = {
