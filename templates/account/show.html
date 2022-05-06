@@ -25,7 +25,11 @@
                                     <tr>
                                         <th>{% trans %}Email Address{% endtrans %}:</th>
                                         <td>
+                                        {% if not user.HideEmail %}
                                             <a href="mailto:{{ user.Email }}">{{ user.Email }}</a>
+                                        {% else %}
+                                            <span><em>&lt;{% trans %}hidden{% endtrans %}&gt;</em></span>
+                                        {% endif %}
                                         </td>
                                     </tr>
                                     <tr>
