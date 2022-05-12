@@ -8,7 +8,7 @@
 #
 [tool.poetry]
 name = "aurweb"
-version = "v6.0.27"
+version = "v6.0.28"
 license = "GPL-2.0-only"
 description = "Source code for the Arch User Repository's website"
 homepage = "https://aur.archlinux.org"
@@ -47,7 +47,6 @@ python = ">=3.9,<3.11"
 
 # poetry-dynamic-versioning is used to produce tool.poetry.version
 # based on git tags.
-poetry-dynamic-versioning = "^0.13.1"
 
 # General
 aiofiles = "^0.7.0"
@@ -81,7 +80,6 @@ SQLAlchemy = "^1.4.26"
 uvicorn = "^0.15.0"
 gunicorn = "^20.1.0"
 Hypercorn = "^0.11.2"
-mysql-connector = "^2.2.9"
 prometheus-fastapi-instrumentator = "^5.7.1"
 pytest-xdist = "^2.4.0"
 filelock = "^3.3.2"
