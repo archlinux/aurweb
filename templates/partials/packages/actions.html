@@ -41,6 +41,7 @@
                         </a>
                     </span>
                 </li>
+                {% if request.user.has_credential(creds.PKGBASE_UNFLAG, approved=unflaggers) %}
                 <li>
                     <form action="/pkgbase/{{ pkgbase.Name }}/unflag" method="post">
                         <input class="button text-button"
@@ -50,6 +51,7 @@
                         />
                     </form>
                 </li>
+                {% endif %}
             {% endif %}
             <li>
                 {% if not voted %}

@@ -38,8 +38,8 @@ def pkgbase_unnotify_instance(request: Request, pkgbase: PackageBase) -> None:
 
 
 def pkgbase_unflag_instance(request: Request, pkgbase: PackageBase) -> None:
-    has_cred = request.user.has_credential(
-        creds.PKGBASE_UNFLAG, approved=[pkgbase.Flagger, pkgbase.Maintainer])
+    has_cred = request.user.has_credential(creds.PKGBASE_UNFLAG, approved=[
+                                           pkgbase.Flagger, pkgbase.Maintainer] + [c.User for c in pkgbase.comaintainers])
     if has_cred:
         with db.begin():
             pkgbase.OutOfDateTS = None

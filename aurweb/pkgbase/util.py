@@ -39,6 +39,9 @@ def make_context(request: Request, pkgbase: PackageBase,
             PackageComaintainer.Priority.asc()
         ).all()
     ]
+    context["unflaggers"] = context["comaintainers"].copy()
+    context["unflaggers"].append(pkgbase.Maintainer)
+
     context["packages_count"] = pkgbase.packages.count()
     context["keywords"] = pkgbase.keywords
     context["comments"] = pkgbase.comments.order_by(
