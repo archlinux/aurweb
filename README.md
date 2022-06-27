@@ -44,7 +44,7 @@ Links
 -----
 
 * The repository is hosted at https://gitlab.archlinux.org/archlinux/aurweb
-  -- see doc/CodingGuidelines for information on the patch submission process.
+  -- see [CONTRIBUTING.md](./CONTRIBUTING.md) for information on the patch submission process.
 
 * Bugs can (and should) be submitted to the aurweb bug tracker:
   https://gitlab.archlinux.org/archlinux/aurweb/-/issues/new?issuable_template=Bug
