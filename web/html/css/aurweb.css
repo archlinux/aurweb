@@ -125,13 +125,11 @@
 }
 
 .rss-icon, .delete-comment, .undelete-comment, .edit-comment, .pin-comment {
-	-webkit-filter: grayscale(100%);
 	filter: grayscale(100%);
 	opacity: 0.6;
 }
 
 .rss-icon:hover, .delete-comment:hover, .undelete-comment:hover, .edit-comment:hover, .pin-comment:hover {
-	-webkit-filter: none;
 	filter: none;
 	opacity: 1;
 }
@@ -277,9 +275,6 @@ div.box form.link button {
 pre.traceback {
     /* https://css-tricks.com/snippets/css/make-pre-text-wrap/ */
     white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
     word-wrap: break-all;
 }
 
