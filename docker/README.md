@@ -46,6 +46,7 @@ container running the FastAPI. Then:
 
 ```sh
 docker exec -it <id> /bin/bash
+pacman -S words fortune-mod
 ./schema/gendummydata.py dummy.sql
 mysql aurweb < dummy.sql
 ```
