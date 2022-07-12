@@ -8,7 +8,12 @@ from aurweb import db, defaults, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import handle_form_exceptions
 from aurweb.models import PackageRequest
-from aurweb.models.package_request import PENDING_ID, REJECTED_ID
+from aurweb.models.package_request import (
+    ACCEPTED_ID,
+    CLOSED_ID,
+    PENDING_ID,
+    REJECTED_ID,
+)
 from aurweb.requests.util import get_pkgreq_by_id
 from aurweb.scripts import notify
 from aurweb.templates import make_context, render_template
@@ -22,26 +27,59 @@ async def requests(
     request: Request,
     O: int = Query(default=defaults.O),
     PP: int = Query(default=defaults.PP),
+    filter_pending: bool = False,
+    filter_closed: bool = False,
+    filter_accepted: bool = False,
+    filter_rejected: bool = False,
 ):
     context = make_context(request, "Requests")
 
     context["q"] = dict(request.query_params)
 
+    if len(dict(request.query_params)) == 0:
+        filter_pending = True
+
     O, PP = util.sanitize_params(O, PP)
     context["O"] = O
     context["PP"] = PP
+    context["filter_pending"] = filter_pending
+    context["filter_closed"] = filter_closed
+    context["filter_accepted"] = filter_accepted
+    context["filter_rejected"] = filter_rejected
 
     # A PackageRequest query
     query = db.query(PackageRequest)
 
+    # Requests statistics
+    context["total_requests"] = query.count()
+    pending_count = 0 + query.filter(PackageRequest.Status == PENDING_ID).count()
+    context["pending_requests"] = pending_count
+    closed_count = 0 + query.filter(PackageRequest.Status == CLOSED_ID).count()
+    context["closed_requests"] = closed_count
+    accepted_count = 0 + query.filter(PackageRequest.Status == ACCEPTED_ID).count()
+    context["accepted_requests"] = accepted_count
+    rejected_count = 0 + query.filter(PackageRequest.Status == REJECTED_ID).count()
+    context["rejected_requests"] = rejected_count
+
+    # Apply filters
+    in_filters = []
+    if filter_pending:
+        in_filters.append(PENDING_ID)
+    if filter_closed:
+        in_filters.append(CLOSED_ID)
+    if filter_accepted:
+        in_filters.append(ACCEPTED_ID)
+    if filter_rejected:
+        in_filters.append(REJECTED_ID)
+    filtered = query.filter(PackageRequest.Status.in_(in_filters))
     # If the request user is not elevated (TU or Dev), then
     # filter PackageRequests which are owned by the request user.
     if not request.user.is_elevated():
-        query = query.filter(PackageRequest.UsersID == request.user.ID)
+        filtered = filtered.filter(PackageRequest.UsersID == request.user.ID)
 
-    context["total"] = query.count()
+    context["total"] = filtered.count()
     context["results"] = (
-        query.order_by(
+        filtered.order_by(
             # Order primarily by the Status column being PENDING_ID,
             # and secondarily by RequestTS; both in descending order.
             case([(PackageRequest.Status == PENDING_ID, 1)], else_=0).desc(),

@@ -717,6 +717,10 @@ def test_requests(
                 "O": 0,  # Page 1
                 "SeB": "nd",
                 "SB": "n",
+                "filter_pending": True,
+                "filter_closed": True,
+                "filter_accepted": True,
+                "filter_rejected": True,
             },
             cookies=cookies,
         )
@@ -732,7 +736,17 @@ def test_requests(
 
     # Request page 2 of the requests page.
     with client as request:
-        resp = request.get("/requests", params={"O": 50}, cookies=cookies)  # Page 2
+        resp = request.get(
+            "/requests",
+            params={
+                "O": 50,
+                "filter_pending": True,
+                "filter_closed": True,
+                "filter_accepted": True,
+                "filter_rejected": True,
+            },
+            cookies=cookies,
+        )  # Page 2
     assert resp.status_code == int(HTTPStatus.OK)
 
     assert "‹ Previous" in resp.text

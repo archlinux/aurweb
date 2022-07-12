@@ -4,6 +4,65 @@
 {% set plural = "%d package requests found." %}
 
 {% block pageContent %}
+    <div class="box">
+        <h2>{{ "Requests" | tr }}</h2>
+        <h3>{{ "Total Statistics" | tr }}</h3>
+        <table class="no-width">
+            <tbody>
+            <tr>
+                <td>{{ "Total" | tr }}:</td>
+                <td>{{ total_requests }}</td>
+            </tr>
+            <tr>
+                <td>{{ "Pending" | tr }}:</td>
+                <td>{{ pending_requests }}</td>
+            </tr>
+            <tr>
+                <td>{{ "Closed" | tr }}:</td>
+                <td>{{ closed_requests }}</td>
+            </tr>
+            <tr>
+                <td>{{ "Accepted" | tr }}:</td>
+                <td>{{ accepted_requests }}</td>
+            </tr>
+            <tr>
+                <td>{{ "Rejected" | tr }}:</td>
+                <td>{{ rejected_requests }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>{{ "Filters" | tr }}</h3>
+        <div class="box filter-criteria">
+            <form id="todolist_filter" method="get" action="/requests">
+                <fieldset>
+                    <legend>{{ "Select filter criteria" | tr }}</legend>
+                    <div>
+                        <label for="id_filter_pending" title="Pending">{{ "Pending" | tr }}</label>
+                        <input type="checkbox" name="filter_pending" id="id_filter_pending" value="True" {{ "checked" if
+                        filter_pending == true }}/>
+                    </div>
+                    <div>
+                        <label for="id_filter_closed" title="Closed">{{ "Closed" | tr }}</label>
+                        <input type="checkbox" name="filter_closed" id="id_filter_closed" value="True" {{ "checked" if
+                        filter_closed == true }}/>
+                    </div>
+                    <div>
+                        <label for="id_filter_accepted" title="Accepted">{{ "Accepted" | tr }}</label>
+                        <input type="checkbox" name="filter_accepted" id="id_filter_accepted" value="True" {{ "checked" if
+                        filter_accepted == true }}/>
+                    </div>
+                    <div>
+                        <label for="id_filter_rejected" title="Rejected">{{ "Rejected" | tr }}</label>
+                        <input type="checkbox" name="filter_rejected" id="id_filter_rejected" value="True" {{ "checked" if
+                        filter_rejected == true }}/>
+                    </div>
+                    <div>
+                        <button type='submit' class='button' name='submit' value='Filter'>{{ "Filter" | tr }}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
     <div id="pkglist-results" class="box">
         {% if not total %}
             <p>{{ "No requests matched your search criteria." | tr }}</p>
