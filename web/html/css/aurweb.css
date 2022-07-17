@@ -278,11 +278,6 @@ pre.traceback {
     word-wrap: break-all;
 }
 
-/* A text aligning alias. */
-.text-right {
-    text-align: right;
-}
-
 /* By default, tables use 100% width, which we do not always want. */
 table.no-width {
     width: auto;
