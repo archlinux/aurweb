@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from fastapi import Request
 from sqlalchemy import and_
@@ -15,13 +15,13 @@ from aurweb.templates import make_variable_context as _make_variable_context
 
 
 async def make_variable_context(request: Request, pkgbase: PackageBase) \
-        -> Dict[str, Any]:
+        -> dict[str, Any]:
     ctx = await _make_variable_context(request, pkgbase.Name)
     return make_context(request, pkgbase, ctx)
 
 
 def make_context(request: Request, pkgbase: PackageBase,
-                 context: Dict[str, Any] = None) -> Dict[str, Any]:
+                 context: dict[str, Any] = None) -> dict[str, Any]:
     """ Make a basic context for package or pkgbase.
 
     :param request: FastAPI request
@@ -89,7 +89,7 @@ def remove_comaintainer(comaint: PackageComaintainer) \
     return notif
 
 
-def remove_comaintainers(pkgbase: PackageBase, usernames: List[str]) -> None:
+def remove_comaintainers(pkgbase: PackageBase, usernames: list[str]) -> None:
     """
     Remove comaintainers from `pkgbase`.
 
@@ -163,7 +163,7 @@ def add_comaintainer(pkgbase: PackageBase, comaintainer: User) \
 
 
 def add_comaintainers(request: Request, pkgbase: PackageBase,
-                      usernames: List[str]) -> None:
+                      usernames: list[str]) -> None:
     """
     Add comaintainers to `pkgbase`.
 

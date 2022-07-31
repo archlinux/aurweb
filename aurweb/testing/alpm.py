@@ -4,8 +4,6 @@ import re
 import shutil
 import subprocess
 
-from typing import List
-
 from aurweb import logging, util
 from aurweb.templates import base_template
 
@@ -38,7 +36,7 @@ class AlpmDatabase:
         return pkgdir
 
     def add(self, pkgname: str, pkgver: str, arch: str,
-            provides: List[str] = []) -> None:
+            provides: list[str] = []) -> None:
         context = {
             "pkgname": pkgname,
             "pkgver": pkgver,

@@ -2,7 +2,7 @@ import html
 import typing
 
 from http import HTTPStatus
-from typing import Any, Dict
+from typing import Any
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
@@ -34,7 +34,7 @@ ADDVOTE_SPECIFICS = {
 }
 
 
-def populate_trusted_user_counts(context: Dict[str, Any]) -> None:
+def populate_trusted_user_counts(context: dict[str, Any]) -> None:
     tu_query = db.query(User).filter(
         or_(User.AccountTypeID == TRUSTED_USER_ID,
             User.AccountTypeID == TRUSTED_USER_AND_DEV_ID)

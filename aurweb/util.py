@@ -6,7 +6,7 @@ import string
 from datetime import datetime
 from http import HTTPStatus
 from subprocess import PIPE, Popen
-from typing import Callable, Iterable, List, Tuple, Union
+from typing import Callable, Iterable, Tuple, Union
 from urllib.parse import urlparse
 
 import fastapi
@@ -194,6 +194,6 @@ def parse_ssh_key(string: str) -> Tuple[str, str]:
     return (prefix, key)
 
 
-def parse_ssh_keys(string: str) -> List[Tuple[str, str]]:
+def parse_ssh_keys(string: str) -> list[Tuple[str, str]]:
     """ Parse a list of SSH public keys. """
     return [parse_ssh_key(e) for e in string.splitlines()]

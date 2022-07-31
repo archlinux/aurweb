@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import Request
 
 from aurweb import db, logging, util
@@ -86,7 +84,7 @@ def pkgbase_adopt_instance(request: Request, pkgbase: PackageBase) -> None:
 
 def pkgbase_delete_instance(request: Request, pkgbase: PackageBase,
                             comments: str = str()) \
-        -> List[notify.Notification]:
+        -> list[notify.Notification]:
     notifs = handle_request(request, DELETION_ID, pkgbase) + [
         notify.DeleteNotification(request.user.ID, pkgbase.ID)
     ]

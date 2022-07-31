@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Optional
 
 from prometheus_client import Counter
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -19,7 +19,7 @@ def instrumentator():
 # Their license is included in LICENSES/starlette_exporter.
 # The code has been modified to remove child route checks
 # (since we don't have any) and to stay within an 80-width limit.
-def get_matching_route_path(scope: Dict[Any, Any], routes: List[Route],
+def get_matching_route_path(scope: dict[Any, Any], routes: list[Route],
                             route_name: Optional[str] = None) -> str:
     """
     Find a matching route and return its original path string

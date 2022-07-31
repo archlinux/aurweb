@@ -1,7 +1,6 @@
 import re
 
 from http import HTTPStatus
-from typing import List
 from unittest import mock
 
 import orjson
@@ -62,7 +61,7 @@ def user3() -> User:
 
 
 @pytest.fixture
-def packages(user: User, user2: User, user3: User) -> List[Package]:
+def packages(user: User, user2: User, user3: User) -> list[Package]:
     output = []
 
     # Create package records used in our tests.
@@ -123,7 +122,7 @@ def packages(user: User, user2: User, user3: User) -> List[Package]:
 
 
 @pytest.fixture
-def depends(packages: List[Package]) -> List[PackageDependency]:
+def depends(packages: list[Package]) -> list[PackageDependency]:
     output = []
 
     with db.begin():
@@ -162,7 +161,7 @@ def depends(packages: List[Package]) -> List[PackageDependency]:
 
 
 @pytest.fixture
-def relations(user: User, packages: List[Package]) -> List[PackageRelation]:
+def relations(user: User, packages: list[Package]) -> list[PackageRelation]:
     output = []
 
     with db.begin():
@@ -241,9 +240,9 @@ def test_rpc_documentation_missing():
 
 def test_rpc_singular_info(client: TestClient,
                            user: User,
-                           packages: List[Package],
-                           depends: List[PackageDependency],
-                           relations: List[PackageRelation]):
+                           packages: list[Package],
+                           depends: list[PackageDependency],
+                           relations: list[PackageRelation]):
     # Define expected response.
     pkg = packages[0]
     expected_data = {
@@ -310,7 +309,7 @@ def test_rpc_nonexistent_package(client: TestClient):
     assert response_data["resultcount"] == 0
 
 
-def test_rpc_multiinfo(client: TestClient, packages: List[Package]):
+def test_rpc_multiinfo(client: TestClient, packages: list[Package]):
     # Make dummy request.
     request_packages = ["big-chungus", "chungy-chungus"]
     with client as request:
@@ -328,7 +327,7 @@ def test_rpc_multiinfo(client: TestClient, packages: List[Package]):
     assert request_packages == []
 
 
-def test_rpc_mixedargs(client: TestClient, packages: List[Package]):
+def test_rpc_mixedargs(client: TestClient, packages: list[Package]):
     # Make dummy request.
     response1_packages = ["gluggly-chungus"]
     response2_packages = ["gluggly-chungus", "chungy-chungus"]
@@ -361,9 +360,9 @@ def test_rpc_mixedargs(client: TestClient, packages: List[Package]):
 
 
 def test_rpc_no_dependencies_omits_key(client: TestClient, user: User,
-                                       packages: List[Package],
-                                       depends: List[PackageDependency],
-                                       relations: List[PackageRelation]):
+                                       packages: list[Package],
+                                       depends: list[PackageDependency],
+                                       relations: list[PackageRelation]):
     """
     This makes sure things like 'MakeDepends' get removed from JSON strings
     when they don't have set values.
@@ -517,7 +516,7 @@ def test_rpc_no_args(client: TestClient):
     assert expected_data == response_data
 
 
-def test_rpc_no_maintainer(client: TestClient, packages: List[Package]):
+def test_rpc_no_maintainer(client: TestClient, packages: list[Package]):
     # Make dummy request.
     with client as request:
         response = request.get("/rpc", params={
@@ -531,7 +530,7 @@ def test_rpc_no_maintainer(client: TestClient, packages: List[Package]):
     assert response_data["results"][0]["Maintainer"] is None
 
 
-def test_rpc_suggest_pkgbase(client: TestClient, packages: List[Package]):
+def test_rpc_suggest_pkgbase(client: TestClient, packages: list[Package]):
     params = {"v": 5, "type": "suggest-pkgbase", "arg": "big"}
     with client as request:
         response = request.get("/rpc", params=params)
@@ -560,7 +559,7 @@ def test_rpc_suggest_pkgbase(client: TestClient, packages: List[Package]):
     assert data == []
 
 
-def test_rpc_suggest(client: TestClient, packages: List[Package]):
+def test_rpc_suggest(client: TestClient, packages: list[Package]):
     params = {"v": 5, "type": "suggest", "arg": "other"}
     with client as request:
         response = request.get("/rpc", params=params)
@@ -600,7 +599,7 @@ def mock_config_getint(section: str, key: str):
 
 @mock.patch("aurweb.config.getint", side_effect=mock_config_getint)
 def test_rpc_ratelimit(getint: mock.MagicMock, client: TestClient,
-                       pipeline: Pipeline, packages: List[Package]):
+                       pipeline: Pipeline, packages: list[Package]):
     params = {"v": 5, "type": "suggest-pkgbase", "arg": "big"}
 
     for i in range(4):
@@ -626,7 +625,7 @@ def test_rpc_ratelimit(getint: mock.MagicMock, client: TestClient,
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_rpc_etag(client: TestClient, packages: List[Package]):
+def test_rpc_etag(client: TestClient, packages: list[Package]):
     params = {"v": 5, "type": "suggest-pkgbase", "arg": "big"}
 
     with client as request:
@@ -647,7 +646,7 @@ def test_rpc_search_arg_too_small(client: TestClient):
     assert response.json().get("error") == "Query arg too small."
 
 
-def test_rpc_search(client: TestClient, packages: List[Package]):
+def test_rpc_search(client: TestClient, packages: list[Package]):
     params = {"v": 5, "type": "search", "arg": "big"}
     with client as request:
         response = request.get("/rpc", params=params)
@@ -673,7 +672,7 @@ def test_rpc_search(client: TestClient, packages: List[Package]):
     assert response.json().get("error") == "No request type/data specified."
 
 
-def test_rpc_msearch(client: TestClient, user: User, packages: List[Package]):
+def test_rpc_msearch(client: TestClient, user: User, packages: list[Package]):
     params = {"v": 5, "type": "msearch", "arg": user.Username}
     with client as request:
         response = request.get("/rpc", params=params)
@@ -709,8 +708,8 @@ def test_rpc_msearch(client: TestClient, user: User, packages: List[Package]):
     assert result.get("Name") == "big-chungus"
 
 
-def test_rpc_search_depends(client: TestClient, packages: List[Package],
-                            depends: List[PackageDependency]):
+def test_rpc_search_depends(client: TestClient, packages: list[Package],
+                            depends: list[PackageDependency]):
     params = {
         "v": 5, "type": "search", "by": "depends", "arg": "chungus-depends"
     }
@@ -722,8 +721,8 @@ def test_rpc_search_depends(client: TestClient, packages: List[Package],
     assert result.get("Name") == packages[0].Name
 
 
-def test_rpc_search_makedepends(client: TestClient, packages: List[Package],
-                                depends: List[PackageDependency]):
+def test_rpc_search_makedepends(client: TestClient, packages: list[Package],
+                                depends: list[PackageDependency]):
     params = {
         "v": 5,
         "type": "search",
@@ -738,8 +737,8 @@ def test_rpc_search_makedepends(client: TestClient, packages: List[Package],
     assert result.get("Name") == packages[0].Name
 
 
-def test_rpc_search_optdepends(client: TestClient, packages: List[Package],
-                               depends: List[PackageDependency]):
+def test_rpc_search_optdepends(client: TestClient, packages: list[Package],
+                               depends: list[PackageDependency]):
     params = {
         "v": 5,
         "type": "search",
@@ -754,8 +753,8 @@ def test_rpc_search_optdepends(client: TestClient, packages: List[Package],
     assert result.get("Name") == packages[0].Name
 
 
-def test_rpc_search_checkdepends(client: TestClient, packages: List[Package],
-                                 depends: List[PackageDependency]):
+def test_rpc_search_checkdepends(client: TestClient, packages: list[Package],
+                                 depends: list[PackageDependency]):
     params = {
         "v": 5,
         "type": "search",
@@ -802,7 +801,7 @@ def test_rpc_jsonp_callback(client: TestClient):
     assert response.json().get("error") == "Invalid callback name."
 
 
-def test_rpc_post(client: TestClient, packages: List[Package]):
+def test_rpc_post(client: TestClient, packages: list[Package]):
     data = {
         "v": 5,
         "type": "info",
@@ -816,7 +815,7 @@ def test_rpc_post(client: TestClient, packages: List[Package]):
 
 
 def test_rpc_too_many_search_results(client: TestClient,
-                                     packages: List[Package]):
+                                     packages: list[Package]):
     config_getint = config.getint
 
     def mock_config(section: str, key: str):
@@ -831,7 +830,7 @@ def test_rpc_too_many_search_results(client: TestClient,
     assert resp.json().get("error") == "Too many package results."
 
 
-def test_rpc_too_many_info_results(client: TestClient, packages: List[Package]):
+def test_rpc_too_many_info_results(client: TestClient, packages: list[Package]):
     # Make many of these packages depend and rely on each other.
     # This way, we can test to see that the exceeded limit stays true
     # regardless of the number of related records.

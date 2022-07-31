@@ -17,7 +17,7 @@ import sys
 import tempfile
 import time
 
-from typing import Iterable, List
+from typing import Iterable
 
 import aurweb.config
 import aurweb.schema
@@ -204,8 +204,8 @@ def start():
 """)
 
 
-def _kill_children(children: Iterable, exceptions: List[Exception] = []) \
-        -> List[Exception]:
+def _kill_children(children: Iterable, exceptions: list[Exception] = []) \
+        -> list[Exception]:
     """
     Kill each process found in `children`.
 
@@ -223,8 +223,8 @@ def _kill_children(children: Iterable, exceptions: List[Exception] = []) \
     return exceptions
 
 
-def _wait_for_children(children: Iterable, exceptions: List[Exception] = []) \
-        -> List[Exception]:
+def _wait_for_children(children: Iterable, exceptions: list[Exception] = []) \
+        -> list[Exception]:
     """
     Wait for each process to end found in `children`.
 

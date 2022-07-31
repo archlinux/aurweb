@@ -1,6 +1,6 @@
 import hashlib
 
-from typing import List, Set
+from typing import Set
 
 import bcrypt
 
@@ -149,7 +149,7 @@ class User(Base):
         return self.session.SessionID
 
     def has_credential(self, credential: Set[int],
-                       approved: List["User"] = list()):
+                       approved: list["User"] = list()):
         from aurweb.auth.creds import has_credential
         return has_credential(self, credential, approved)
 

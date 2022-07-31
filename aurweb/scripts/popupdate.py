@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from typing import List
-
 from sqlalchemy import and_, func
 from sqlalchemy.sql.functions import coalesce
 from sqlalchemy.sql.functions import sum as _sum
@@ -10,7 +8,7 @@ from aurweb import db, time
 from aurweb.models import PackageBase, PackageVote
 
 
-def run_variable(pkgbases: List[PackageBase] = []) -> None:
+def run_variable(pkgbases: list[PackageBase] = []) -> None:
     """
     Update popularity on a list of PackageBases.
 

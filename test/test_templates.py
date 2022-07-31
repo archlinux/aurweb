@@ -1,6 +1,6 @@
 import re
 
-from typing import Any, Dict
+from typing import Any
 
 import pytest
 
@@ -126,7 +126,7 @@ def test_commit_hash():
     assert commit_hash not in render
 
 
-def pager_context(num_packages: int) -> Dict[str, Any]:
+def pager_context(num_packages: int) -> dict[str, Any]:
     return {
         "request": Request(),
         "singular": "%d package found.",

@@ -1,5 +1,3 @@
-from typing import List
-
 import pytest
 
 from aurweb import db, time
@@ -22,7 +20,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def packages(user: User) -> List[Package]:
+def packages(user: User) -> list[Package]:
     output = []
 
     now = time.utcnow()
@@ -37,14 +35,14 @@ def packages(user: User) -> List[Package]:
     yield output
 
 
-def test_pkgmaint_noop(packages: List[Package]):
+def test_pkgmaint_noop(packages: list[Package]):
     assert len(packages) == 5
     pkgmaint.main()
     packages = db.query(Package).all()
     assert len(packages) == 5
 
 
-def test_pkgmaint(packages: List[Package]):
+def test_pkgmaint(packages: list[Package]):
     assert len(packages) == 5
 
     # Modify the first package so it's out of date and gets deleted.

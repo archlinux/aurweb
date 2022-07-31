@@ -1,7 +1,6 @@
 import re
 
 from http import HTTPStatus
-from typing import List
 from unittest import mock
 
 import pytest
@@ -176,7 +175,7 @@ def comment(user: User, package: Package) -> PackageComment:
 
 
 @pytest.fixture
-def packages(maintainer: User) -> List[Package]:
+def packages(maintainer: User) -> list[Package]:
     """ Yield 55 packages named pkg_0 .. pkg_54. """
     packages_ = []
     now = time.utcnow()
@@ -197,7 +196,7 @@ def packages(maintainer: User) -> List[Package]:
 
 
 @pytest.fixture
-def requests(user: User, packages: List[Package]) -> List[PackageRequest]:
+def requests(user: User, packages: list[Package]) -> list[PackageRequest]:
     pkgreqs = []
     deletion_type = db.query(RequestType).filter(
         RequestType.ID == DELETION_ID

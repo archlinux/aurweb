@@ -1,5 +1,3 @@
-from typing import Dict
-
 import aurweb.config
 
 
@@ -35,8 +33,8 @@ class Request:
                  user: User = User(),
                  authenticated: bool = False,
                  method: str = "GET",
-                 headers: Dict[str, str] = dict(),
-                 cookies: Dict[str, str] = dict()) -> "Request":
+                 headers: dict[str, str] = dict(),
+                 cookies: dict[str, str] = dict()) -> "Request":
         self.user = user
         self.user.authenticated = authenticated
 

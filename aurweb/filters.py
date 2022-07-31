@@ -2,7 +2,7 @@ import copy
 import math
 
 from datetime import datetime
-from typing import Any, Dict, Union
+from typing import Any, Union
 from urllib.parse import quote_plus, urlencode
 from zoneinfo import ZoneInfo
 
@@ -19,7 +19,7 @@ from aurweb.templates import register_filter, register_function
 
 @register_filter("pager_nav")
 @pass_context
-def pager_nav(context: Dict[str, Any],
+def pager_nav(context: dict[str, Any],
               page: int, total: int, prefix: str) -> str:
     page = int(page)  # Make sure this is an int.
 
@@ -71,7 +71,7 @@ def do_round(f: float) -> int:
 
 @register_filter("tr")
 @pass_context
-def tr(context: Dict[str, Any], value: str):
+def tr(context: dict[str, Any], value: str):
     """ A translation filter; example: {{ "Hello" | tr("de") }}. """
     _ = l10n.get_translator_for_request(context.get("request"))
     return _(value)
@@ -79,7 +79,7 @@ def tr(context: Dict[str, Any], value: str):
 
 @register_filter("tn")
 @pass_context
-def tn(context: Dict[str, Any], count: int,
+def tn(context: dict[str, Any], count: int,
        singular: str, plural: str) -> str:
     """ A singular and plural translation filter.
 
@@ -107,7 +107,7 @@ def as_timezone(dt: datetime, timezone: str):
 
 
 @register_filter("extend_query")
-def extend_query(query: Dict[str, Any], *additions) -> Dict[str, Any]:
+def extend_query(query: dict[str, Any], *additions) -> dict[str, Any]:
     """ Add additional key value pairs to query. """
     q = copy.copy(query)
     for k, v in list(additions):
@@ -116,7 +116,7 @@ def extend_query(query: Dict[str, Any], *additions) -> Dict[str, Any]:
 
 
 @register_filter("urlencode")
-def to_qs(query: Dict[str, Any]) -> str:
+def to_qs(query: dict[str, Any]) -> str:
     return urlencode(query, doseq=True)
 
 
@@ -134,7 +134,7 @@ def number_format(value: float, places: int):
 
 @register_filter("account_url")
 @pass_context
-def account_url(context: Dict[str, Any],
+def account_url(context: dict[str, Any],
                 user: "aurweb.models.user.User") -> str:
     base = aurweb.config.get("options", "aur_location")
     return f"{base}/account/{user.Username}"
@@ -152,7 +152,7 @@ def ceil(*args, **kwargs) -> int:
 
 @register_function("date_strftime")
 @pass_context
-def date_strftime(context: Dict[str, Any], dt: Union[int, datetime], fmt: str) \
+def date_strftime(context: dict[str, Any], dt: Union[int, datetime], fmt: str) \
         -> str:
     if isinstance(dt, int):
         dt = timestamp_to_datetime(dt)
@@ -162,11 +162,11 @@ def date_strftime(context: Dict[str, Any], dt: Union[int, datetime], fmt: str) \
 
 @register_function("date_display")
 @pass_context
-def date_display(context: Dict[str, Any], dt: Union[int, datetime]) -> str:
+def date_display(context: dict[str, Any], dt: Union[int, datetime]) -> str:
     return date_strftime(context, dt, "%Y-%m-%d (%Z)")
 
 
 @register_function("datetime_display")
 @pass_context
-def datetime_display(context: Dict[str, Any], dt: Union[int, datetime]) -> str:
+def datetime_display(context: dict[str, Any], dt: Union[int, datetime]) -> str:
     return date_strftime(context, dt, "%Y-%m-%d %H:%M (%Z)")

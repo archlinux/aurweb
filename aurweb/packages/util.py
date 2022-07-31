@@ -1,6 +1,6 @@
 from collections import defaultdict
 from http import HTTPStatus
-from typing import Dict, List, Tuple, Union
+from typing import Tuple, Union
 
 import orjson
 
@@ -15,7 +15,7 @@ from aurweb.models.package_relation import PackageRelation
 from aurweb.redis import redis_connection
 from aurweb.templates import register_filter
 
-Providers = List[Union[PackageRelation, OfficialProvider]]
+Providers = list[Union[PackageRelation, OfficialProvider]]
 
 
 def dep_extra_with_arch(dep: models.PackageDependency, annotation: str) -> str:
@@ -123,7 +123,7 @@ def out_of_date(packages: orm.Query) -> orm.Query:
 
 
 def updated_packages(limit: int = 0,
-                     cache_ttl: int = 600) -> List[models.Package]:
+                     cache_ttl: int = 600) -> list[models.Package]:
     """ Return a list of valid Package objects ordered by their
     ModifiedTS column in descending order from cache, after setting
     the cache when no key yet exists.
@@ -168,8 +168,8 @@ def updated_packages(limit: int = 0,
     return packages
 
 
-def query_voted(query: List[models.Package],
-                user: models.User) -> Dict[int, bool]:
+def query_voted(query: list[models.Package],
+                user: models.User) -> dict[int, bool]:
     """ Produce a dictionary of package base ID keys to boolean values,
     which indicate whether or not the package base has a vote record
     related to user.
@@ -191,8 +191,8 @@ def query_voted(query: List[models.Package],
     return output
 
 
-def query_notified(query: List[models.Package],
-                   user: models.User) -> Dict[int, bool]:
+def query_notified(query: list[models.Package],
+                   user: models.User) -> dict[int, bool]:
     """ Produce a dictionary of package base ID keys to boolean values,
     which indicate whether or not the package base has a notification
     record related to user.
@@ -214,8 +214,8 @@ def query_notified(query: List[models.Package],
     return output
 
 
-def pkg_required(pkgname: str, provides: List[str]) \
-        -> List[PackageDependency]:
+def pkg_required(pkgname: str, provides: list[str]) \
+        -> list[PackageDependency]:
     """
     Get dependencies that match a string in `[pkgname] + provides`.
 

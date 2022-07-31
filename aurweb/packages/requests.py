@@ -1,4 +1,4 @@
-from typing import List, Optional, Set
+from typing import Optional, Set
 
 from fastapi import Request
 from sqlalchemy import and_, orm
@@ -139,7 +139,7 @@ def close_pkgreq(pkgreq: PackageRequest, closer: User,
 
 def handle_request(request: Request, reqtype_id: int,
                    pkgbase: PackageBase,
-                   target: PackageBase = None) -> List[notify.Notification]:
+                   target: PackageBase = None) -> list[notify.Notification]:
     """
     Handle package requests before performing an action.
 
@@ -158,7 +158,7 @@ def handle_request(request: Request, reqtype_id: int,
     :param pkgbase: PackageBase which the request is about
     :param target: Optional target to merge into
     """
-    notifs: List[notify.Notification] = []
+    notifs: list[notify.Notification] = []
 
     # If it's an orphan request, perform further verification
     # regarding existing requests.
@@ -187,13 +187,13 @@ def handle_request(request: Request, reqtype_id: int,
             PackageRequest.MergeBaseName == target.Name)
 
     # Build an accept list out of `accept_query`.
-    to_accept: List[PackageRequest] = accept_query.all()
+    to_accept: list[PackageRequest] = accept_query.all()
     accepted_ids: Set[int] = set(p.ID for p in to_accept)
 
     # Build a reject list out of `query` filtered by IDs not found
     # in `to_accept`. That is, unmatched records of the same base
     # query properties.
-    to_reject: List[PackageRequest] = query.filter(
+    to_reject: list[PackageRequest] = query.filter(
         ~PackageRequest.ID.in_(accepted_ids)
     ).all()
 

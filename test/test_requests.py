@@ -2,7 +2,6 @@ import re
 
 from http import HTTPStatus
 from logging import DEBUG
-from typing import List
 
 import pytest
 
@@ -91,7 +90,7 @@ def maintainer() -> User:
 
 
 @pytest.fixture
-def packages(maintainer: User) -> List[Package]:
+def packages(maintainer: User) -> list[Package]:
     """ Yield 55 packages named pkg_0 .. pkg_54. """
     packages_ = []
     now = time.utcnow()
@@ -112,7 +111,7 @@ def packages(maintainer: User) -> List[Package]:
 
 
 @pytest.fixture
-def requests(user: User, packages: List[Package]) -> List[PackageRequest]:
+def requests(user: User, packages: list[Package]) -> list[PackageRequest]:
     pkgreqs = []
     with db.begin():
         for i in range(55):
@@ -660,8 +659,8 @@ def test_requests_unauthorized(client: TestClient):
 
 def test_requests(client: TestClient,
                   tu_user: User,
-                  packages: List[Package],
-                  requests: List[PackageRequest]):
+                  packages: list[Package],
+                  requests: list[PackageRequest]):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         resp = request.get("/requests", params={
@@ -697,7 +696,7 @@ def test_requests(client: TestClient,
 
 
 def test_requests_selfmade(client: TestClient, user: User,
-                           requests: List[PackageRequest]):
+                           requests: list[PackageRequest]):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         resp = request.get("/requests", cookies=cookies)

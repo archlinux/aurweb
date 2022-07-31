@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from aurweb import db
 from aurweb.exceptions import ValidationError
@@ -7,7 +7,7 @@ from aurweb.models import PackageBase
 
 def request(pkgbase: PackageBase,
             type: str, comments: str, merge_into: str,
-            context: Dict[str, Any]) -> None:
+            context: dict[str, Any]) -> None:
     if not comments:
         raise ValidationError(["The comment field must not be empty."])
 

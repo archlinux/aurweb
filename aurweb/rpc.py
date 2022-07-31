@@ -1,7 +1,7 @@
 import os
 
 from collections import defaultdict
-from typing import Any, Callable, Dict, List, NewType, Union
+from typing import Any, Callable, NewType, Union
 
 from fastapi.responses import HTMLResponse
 from sqlalchemy import and_, literal, orm
@@ -24,7 +24,7 @@ TYPE_MAPPING = {
 }
 
 DataGenerator = NewType("DataGenerator",
-                        Callable[[models.Package], Dict[str, Any]])
+                        Callable[[models.Package], dict[str, Any]])
 
 
 def documentation():
@@ -86,7 +86,7 @@ class RPC:
         self.version = version
         self.type = RPC.TYPE_ALIASES.get(type, type)
 
-    def error(self, message: str) -> Dict[str, Any]:
+    def error(self, message: str) -> dict[str, Any]:
         return {
             "version": self.version,
             "results": [],
@@ -95,7 +95,7 @@ class RPC:
             "error": message
         }
 
-    def _verify_inputs(self, by: str = [], args: List[str] = []) -> None:
+    def _verify_inputs(self, by: str = [], args: list[str] = []) -> None:
         if self.version is None:
             raise RPCError("Please specify an API version.")
 
@@ -111,11 +111,11 @@ class RPC:
         if self.type not in RPC.EXPOSED_TYPES:
             raise RPCError("Incorrect request type specified.")
 
-    def _enforce_args(self, args: List[str]) -> None:
+    def _enforce_args(self, args: list[str]) -> None:
         if not args:
             raise RPCError("No request type/data specified.")
 
-    def _get_json_data(self, package: models.Package) -> Dict[str, Any]:
+    def _get_json_data(self, package: models.Package) -> dict[str, Any]:
         """ Produce dictionary data of one Package that can be JSON-serialized.
 
         :param package: Package instance
@@ -146,7 +146,7 @@ class RPC:
             "LastModified": package.ModifiedTS
         }
 
-    def _get_info_json_data(self, package: models.Package) -> Dict[str, Any]:
+    def _get_info_json_data(self, package: models.Package) -> dict[str, Any]:
         data = self._get_json_data(package)
 
         # All info results have _at least_ an empty list of
@@ -163,9 +163,9 @@ class RPC:
 
         return data
 
-    def _assemble_json_data(self, packages: List[models.Package],
+    def _assemble_json_data(self, packages: list[models.Package],
                             data_generator: DataGenerator) \
-            -> List[Dict[str, Any]]:
+            -> list[dict[str, Any]]:
         """
         Assemble JSON data out of a list of packages.
 
@@ -192,8 +192,8 @@ class RPC:
             models.User.Username.label("Maintainer"),
         ).group_by(models.Package.ID)
 
-    def _handle_multiinfo_type(self, args: List[str] = [], **kwargs) \
-            -> List[Dict[str, Any]]:
+    def _handle_multiinfo_type(self, args: list[str] = [], **kwargs) \
+            -> list[dict[str, Any]]:
         self._enforce_args(args)
         args = set(args)
 
@@ -296,7 +296,7 @@ class RPC:
         return self._assemble_json_data(packages, self._get_info_json_data)
 
     def _handle_search_type(self, by: str = defaults.RPC_SEARCH_BY,
-                            args: List[str] = []) -> List[Dict[str, Any]]:
+                            args: list[str] = []) -> list[dict[str, Any]]:
         # If `by` isn't maintainer and we don't have any args, raise an error.
         # In maintainer's case, return all orphans if there are no args,
         # so we need args to pass through to the handler without errors.
@@ -318,12 +318,12 @@ class RPC:
 
         return self._assemble_json_data(results, self._get_json_data)
 
-    def _handle_msearch_type(self, args: List[str] = [], **kwargs)\
-            -> List[Dict[str, Any]]:
+    def _handle_msearch_type(self, args: list[str] = [], **kwargs)\
+            -> list[dict[str, Any]]:
         return self._handle_search_type(by="m", args=args)
 
-    def _handle_suggest_type(self, args: List[str] = [], **kwargs)\
-            -> List[str]:
+    def _handle_suggest_type(self, args: list[str] = [], **kwargs)\
+            -> list[str]:
         if not args:
             return []
 
@@ -336,8 +336,8 @@ class RPC:
         ).order_by(models.Package.Name.asc()).limit(20)
         return [pkg.Name for pkg in packages]
 
-    def _handle_suggest_pkgbase_type(self, args: List[str] = [], **kwargs)\
-            -> List[str]:
+    def _handle_suggest_pkgbase_type(self, args: list[str] = [], **kwargs)\
+            -> list[str]:
         if not args:
             return []
 
@@ -351,16 +351,16 @@ class RPC:
     def _is_suggestion(self) -> bool:
         return self.type.startswith("suggest")
 
-    def _handle_callback(self, by: str, args: List[str])\
-            -> Union[List[Dict[str, Any]], List[str]]:
+    def _handle_callback(self, by: str, args: list[str])\
+            -> Union[list[dict[str, Any]], list[str]]:
         # Get a handle to our callback and trap an RPCError with
         # an empty list of results based on callback's execution.
         callback = getattr(self, f"_handle_{self.type.replace('-', '_')}_type")
         results = callback(by=by, args=args)
         return results
 
-    def handle(self, by: str = defaults.RPC_SEARCH_BY, args: List[str] = [])\
-            -> Union[List[Dict[str, Any]], Dict[str, Any]]:
+    def handle(self, by: str = defaults.RPC_SEARCH_BY, args: list[str] = [])\
+            -> Union[list[dict[str, Any]], dict[str, Any]]:
         """ Request entrypoint. A router should pass v, type and args
         to this function and expect an output dictionary to be returned.
 

@@ -1,5 +1,3 @@
-from typing import List
-
 from sqlalchemy import and_, literal
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
@@ -60,7 +58,7 @@ class PackageDependency(Base):
             _OfficialProvider.Name == self.DepName).exists()
         return db.query(pkg).scalar() or db.query(official).scalar()
 
-    def provides(self) -> List[PackageRelation]:
+    def provides(self) -> list[PackageRelation]:
         from aurweb.models.relation_type import PROVIDES_ID
 
         rels = db.query(PackageRelation).join(_Package).filter(

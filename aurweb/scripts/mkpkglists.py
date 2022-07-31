@@ -27,7 +27,7 @@ import sys
 import tempfile
 
 from collections import defaultdict
-from typing import Any, Dict
+from typing import Any
 
 import orjson
 
@@ -151,7 +151,7 @@ EXTENDED_FIELD_HANDLERS = {
 }
 
 
-def as_dict(package: Package) -> Dict[str, Any]:
+def as_dict(package: Package) -> dict[str, Any]:
     return {
         "ID": package.ID,
         "Name": package.Name,

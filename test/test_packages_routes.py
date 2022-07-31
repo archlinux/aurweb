@@ -1,7 +1,6 @@
 import re
 
 from http import HTTPStatus
-from typing import List
 from unittest import mock
 
 import pytest
@@ -177,7 +176,7 @@ def comment(user: User, package: Package) -> PackageComment:
 
 
 @pytest.fixture
-def packages(maintainer: User) -> List[Package]:
+def packages(maintainer: User) -> list[Package]:
     """ Yield 55 packages named pkg_0 .. pkg_54. """
     packages_ = []
     now = time.utcnow()
@@ -521,7 +520,7 @@ def test_package_dependencies(client: TestClient, maintainer: User,
     assert broken_node.text.strip() == broken_dep.DepName
 
 
-def test_packages(client: TestClient, packages: List[Package]):
+def test_packages(client: TestClient, packages: list[Package]):
     with client as request:
         response = request.get("/packages", params={
             "SeB": "X",  # "X" isn't valid, defaults to "nd"
@@ -550,7 +549,7 @@ def test_packages_empty(client: TestClient):
     assert results[0].text.strip() == expected
 
 
-def test_packages_search_by_name(client: TestClient, packages: List[Package]):
+def test_packages_search_by_name(client: TestClient, packages: list[Package]):
     with client as request:
         response = request.get("/packages", params={
             "SeB": "n",
@@ -565,7 +564,7 @@ def test_packages_search_by_name(client: TestClient, packages: List[Package]):
 
 
 def test_packages_search_by_exact_name(client: TestClient,
-                                       packages: List[Package]):
+                                       packages: list[Package]):
     with client as request:
         response = request.get("/packages", params={
             "SeB": "N",
@@ -594,7 +593,7 @@ def test_packages_search_by_exact_name(client: TestClient,
 
 
 def test_packages_search_by_pkgbase(client: TestClient,
-                                    packages: List[Package]):
+                                    packages: list[Package]):
     with client as request:
         response = request.get("/packages", params={
             "SeB": "b",
@@ -609,7 +608,7 @@ def test_packages_search_by_pkgbase(client: TestClient,
 
 
 def test_packages_search_by_exact_pkgbase(client: TestClient,
-                                          packages: List[Package]):
+                                          packages: list[Package]):
     with client as request:
         response = request.get("/packages", params={
             "SeB": "B",
@@ -634,7 +633,7 @@ def test_packages_search_by_exact_pkgbase(client: TestClient,
 
 
 def test_packages_search_by_keywords(client: TestClient,
-                                     packages: List[Package]):
+                                     packages: list[Package]):
     # None of our packages have keywords, so this query should return nothing.
     with client as request:
         response = request.get("/packages", params={
@@ -791,7 +790,7 @@ def test_packages_search_by_submitter(client: TestClient,
     assert len(rows) == 1
 
 
-def test_packages_sort_by_name(client: TestClient, packages: List[Package]):
+def test_packages_sort_by_name(client: TestClient, packages: list[Package]):
     with client as request:
         response = request.get("/packages", params={
             "SB": "n",  # Name
@@ -820,7 +819,7 @@ def test_packages_sort_by_name(client: TestClient, packages: List[Package]):
 
 def test_packages_sort_by_votes(client: TestClient,
                                 maintainer: User,
-                                packages: List[Package]):
+                                packages: list[Package]):
     # Set the first package's NumVotes to 1.
     with db.begin():
         packages[0].PackageBase.NumVotes = 1
@@ -855,7 +854,7 @@ def test_packages_sort_by_votes(client: TestClient,
 
 def test_packages_sort_by_popularity(client: TestClient,
                                      maintainer: User,
-                                     packages: List[Package]):
+                                     packages: list[Package]):
     # Set the first package's Popularity to 0.50.
     with db.begin():
         packages[0].PackageBase.Popularity = "0.50"
@@ -875,7 +874,7 @@ def test_packages_sort_by_popularity(client: TestClient,
 
 def test_packages_sort_by_voted(client: TestClient,
                                 maintainer: User,
-                                packages: List[Package]):
+                                packages: list[Package]):
     now = time.utcnow()
     with db.begin():
         db.create(PackageVote, PackageBase=packages[0].PackageBase,
@@ -902,7 +901,7 @@ def test_packages_sort_by_voted(client: TestClient,
 
 def test_packages_sort_by_notify(client: TestClient,
                                  maintainer: User,
-                                 packages: List[Package]):
+                                 packages: list[Package]):
     db.create(PackageNotification,
               PackageBase=packages[0].PackageBase,
               User=maintainer)
@@ -970,7 +969,7 @@ def test_packages_sort_by_maintainer(client: TestClient,
 
 
 def test_packages_sort_by_last_modified(client: TestClient,
-                                        packages: List[Package]):
+                                        packages: list[Package]):
     now = time.utcnow()
     # Set the first package's ModifiedTS to be 1000 seconds before now.
     package = packages[0]
@@ -996,7 +995,7 @@ def test_packages_sort_by_last_modified(client: TestClient,
 
 
 def test_packages_flagged(client: TestClient, maintainer: User,
-                          packages: List[Package]):
+                          packages: list[Package]):
     package = packages[0]
 
     now = time.utcnow()
@@ -1029,7 +1028,7 @@ def test_packages_flagged(client: TestClient, maintainer: User,
     assert len(rows) == 50
 
 
-def test_packages_orphans(client: TestClient, packages: List[Package]):
+def test_packages_orphans(client: TestClient, packages: list[Package]):
     package = packages[0]
     with db.begin():
         package.PackageBase.Maintainer = None

@@ -2,7 +2,6 @@ import gzip
 import json
 import os
 
-from typing import List
 from unittest import mock
 
 import py
@@ -47,7 +46,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def packages(user: User) -> List[Package]:
+def packages(user: User) -> list[Package]:
     output = []
     with db.begin():
         lic = db.create(License, Name="GPL")
@@ -89,7 +88,7 @@ def config_mock(tmpdir: py.path.local) -> None:
     config.rehash()
 
 
-def test_mkpkglists(tmpdir: py.path.local, config_mock: None, user: User, packages: List[Package]):
+def test_mkpkglists(tmpdir: py.path.local, config_mock: None, user: User, packages: list[Package]):
     from aurweb.scripts import mkpkglists
     mkpkglists.main()
 
@@ -168,7 +167,7 @@ def test_mkpkglists_extended_empty(config_mock: None):
 
 @mock.patch("sys.argv", ["mkpkglists", "--extended"])
 def test_mkpkglists_extended(config_mock: None, user: User,
-                             packages: List[Package]):
+                             packages: list[Package]):
     from aurweb.scripts import mkpkglists
     mkpkglists.main()
 

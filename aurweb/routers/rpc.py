@@ -2,7 +2,7 @@ import hashlib
 import re
 
 from http import HTTPStatus
-from typing import List, Optional
+from typing import Optional
 from urllib.parse import unquote
 
 import orjson
@@ -71,7 +71,7 @@ async def rpc_request(request: Request,
                       type: Optional[str] = None,
                       by: Optional[str] = defaults.RPC_SEARCH_BY,
                       arg: Optional[str] = None,
-                      args: Optional[List[str]] = [],
+                      args: Optional[list[str]] = [],
                       callback: Optional[str] = None):
 
     # Create a handle to our RPC class.
@@ -140,7 +140,7 @@ async def rpc(request: Request,
               type: Optional[str] = Query(default=None),
               by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
               arg: Optional[str] = Query(default=None),
-              args: Optional[List[str]] = Query(default=[], alias="arg[]"),
+              args: Optional[list[str]] = Query(default=[], alias="arg[]"),
               callback: Optional[str] = Query(default=None)):
     if not request.url.query:
         return documentation()
@@ -157,6 +157,6 @@ async def rpc_post(request: Request,
                    type: Optional[str] = Form(default=None),
                    by: Optional[str] = Form(default=defaults.RPC_SEARCH_BY),
                    arg: Optional[str] = Form(default=None),
-                   args: Optional[List[str]] = Form(default=[], alias="arg[]"),
+                   args: Optional[list[str]] = Form(default=[], alias="arg[]"),
                    callback: Optional[str] = Form(default=None)):
     return await rpc_request(request, v, type, by, arg, args, callback)

@@ -2,7 +2,7 @@ import copy
 import typing
 
 from http import HTTPStatus
-from typing import Any, Dict
+from typing import Any
 
 from fastapi import APIRouter, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -108,7 +108,7 @@ async def passreset_post(request: Request,
 
 
 def process_account_form(request: Request, user: models.User,
-                         args: Dict[str, Any]):
+                         args: dict[str, Any]):
     """ Process an account form. All fields are optional and only checks
     requirements in the case they are present.
 

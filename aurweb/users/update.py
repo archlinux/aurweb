@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from fastapi import Request
 
@@ -34,7 +34,7 @@ def simple(U: str = str(), E: str = str(), H: bool = False,
 def language(L: str = str(),
              request: Request = None,
              user: models.User = None,
-             context: Dict[str, Any] = {},
+             context: dict[str, Any] = {},
              **kwargs) -> None:
     if L and L != user.LangPreference:
         with db.begin():
@@ -45,7 +45,7 @@ def language(L: str = str(),
 def timezone(TZ: str = str(),
              request: Request = None,
              user: models.User = None,
-             context: Dict[str, Any] = {},
+             context: dict[str, Any] = {},
              **kwargs) -> None:
     if TZ and TZ != user.Timezone:
         with db.begin():
@@ -95,7 +95,7 @@ def account_type(T: int = None,
 def password(P: str = str(),
              request: Request = None,
              user: models.User = None,
-             context: Dict[str, Any] = {},
+             context: dict[str, Any] = {},
              **kwargs) -> None:
     if P and not user.valid_password(P):
         # Remove the fields we consumed for passwords.

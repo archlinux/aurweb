@@ -1,6 +1,6 @@
 from collections import defaultdict
 from http import HTTPStatus
-from typing import Any, Dict, List
+from typing import Any
 
 from fastapi import APIRouter, Form, Query, Request, Response
 
@@ -21,7 +21,7 @@ logger = logging.get_logger(__name__)
 router = APIRouter()
 
 
-async def packages_get(request: Request, context: Dict[str, Any],
+async def packages_get(request: Request, context: dict[str, Any],
                        status_code: HTTPStatus = HTTPStatus.OK):
     # Query parameters used in this request.
     context["q"] = dict(request.query_params)
@@ -210,7 +210,7 @@ async def package(request: Request, name: str,
     return render_template(request, "packages/show.html", context)
 
 
-async def packages_unflag(request: Request, package_ids: List[int] = [],
+async def packages_unflag(request: Request, package_ids: list[int] = [],
                           **kwargs):
     if not package_ids:
         return (False, ["You did not select any packages to unflag."])
@@ -236,7 +236,7 @@ async def packages_unflag(request: Request, package_ids: List[int] = [],
     return (True, ["The selected packages have been unflagged."])
 
 
-async def packages_notify(request: Request, package_ids: List[int] = [],
+async def packages_notify(request: Request, package_ids: list[int] = [],
                           **kwargs):
     # In cases where we encounter errors with the request, we'll
     # use this error tuple as a return value.
@@ -275,7 +275,7 @@ async def packages_notify(request: Request, package_ids: List[int] = [],
     return (True, ["The selected packages' notifications have been enabled."])
 
 
-async def packages_unnotify(request: Request, package_ids: List[int] = [],
+async def packages_unnotify(request: Request, package_ids: list[int] = [],
                             **kwargs):
     if not package_ids:
         # TODO: This error does not yet have a translation.
@@ -312,7 +312,7 @@ async def packages_unnotify(request: Request, package_ids: List[int] = [],
     return (True, ["The selected packages' notifications have been removed."])
 
 
-async def packages_adopt(request: Request, package_ids: List[int] = [],
+async def packages_adopt(request: Request, package_ids: list[int] = [],
                          confirm: bool = False, **kwargs):
     if not package_ids:
         return (False, ["You did not select any packages to adopt."])
@@ -345,8 +345,8 @@ async def packages_adopt(request: Request, package_ids: List[int] = [],
     return (True, ["The selected packages have been adopted."])
 
 
-def disown_all(request: Request, pkgbases: List[models.PackageBase]) \
-        -> List[str]:
+def disown_all(request: Request, pkgbases: list[models.PackageBase]) \
+        -> list[str]:
     errors = []
     for pkgbase in pkgbases:
         try:
@@ -356,7 +356,7 @@ def disown_all(request: Request, pkgbases: List[models.PackageBase]) \
     return errors
 
 
-async def packages_disown(request: Request, package_ids: List[int] = [],
+async def packages_disown(request: Request, package_ids: list[int] = [],
                           confirm: bool = False, **kwargs):
     if not package_ids:
         return (False, ["You did not select any packages to disown."])
@@ -390,7 +390,7 @@ async def packages_disown(request: Request, package_ids: List[int] = [],
     return (True, ["The selected packages have been disowned."])
 
 
-async def packages_delete(request: Request, package_ids: List[int] = [],
+async def packages_delete(request: Request, package_ids: list[int] = [],
                           confirm: bool = False, merge_into: str = str(),
                           **kwargs):
     if not package_ids:
@@ -430,7 +430,7 @@ async def packages_delete(request: Request, package_ids: List[int] = [],
 
 # A mapping of action string -> callback functions used within the
 # `packages_post` route below. We expect any action callback to
-# return a tuple in the format: (succeeded: bool, message: List[str]).
+# return a tuple in the format: (succeeded: bool, message: list[str]).
 PACKAGE_ACTIONS = {
     "unflag": packages_unflag,
     "notify": packages_notify,
@@ -445,7 +445,7 @@ PACKAGE_ACTIONS = {
 @handle_form_exceptions
 @requires_auth
 async def packages_post(request: Request,
-                        IDs: List[int] = Form(default=[]),
+                        IDs: list[int] = Form(default=[]),
                         action: str = Form(default=str()),
                         confirm: bool = Form(default=False)):
 

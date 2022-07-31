@@ -1,5 +1,4 @@
 from logging import ERROR
-from typing import List
 from unittest import mock
 
 import pytest
@@ -46,7 +45,7 @@ def user2() -> User:
 
 
 @pytest.fixture
-def pkgbases(user: User) -> List[PackageBase]:
+def pkgbases(user: User) -> list[PackageBase]:
     now = time.utcnow()
 
     output = []
@@ -62,7 +61,7 @@ def pkgbases(user: User) -> List[PackageBase]:
 
 
 @pytest.fixture
-def pkgreq(user2: User, pkgbases: List[PackageBase]):
+def pkgreq(user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     with db.begin():
         pkgreq_ = db.create(PackageRequest, PackageBase=pkgbase,
@@ -74,7 +73,7 @@ def pkgreq(user2: User, pkgbases: List[PackageBase]):
 
 
 @pytest.fixture
-def packages(pkgbases: List[PackageBase]) -> List[Package]:
+def packages(pkgbases: list[PackageBase]) -> list[Package]:
     output = []
     with db.begin():
         for i, pkgbase in enumerate(pkgbases):
@@ -85,7 +84,7 @@ def packages(pkgbases: List[PackageBase]) -> List[Package]:
 
 
 def test_out_of_date(user: User, user1: User, user2: User,
-                     pkgbases: List[PackageBase]):
+                     pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     # Create two comaintainers. We'll pass the maintainer uid to
     # FlagNotification, so we should expect to get two emails.
@@ -162,7 +161,7 @@ link does not work, try copying and pasting it into your browser.
     assert email.body == expected
 
 
-def test_comment(user: User, user2: User, pkgbases: List[PackageBase]):
+def test_comment(user: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
 
     with db.begin():
@@ -194,7 +193,7 @@ please go to the package page [2] and select "Disable notifications".
     assert expected == email.body
 
 
-def test_update(user: User, user2: User, pkgbases: List[PackageBase]):
+def test_update(user: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     with db.begin():
         user.UpdateNotify = 1
@@ -221,7 +220,7 @@ please go to the package page [2] and select "Disable notifications".
     assert expected == email.body
 
 
-def test_adopt(user: User, user2: User, pkgbases: List[PackageBase]):
+def test_adopt(user: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     notif = notify.AdoptNotification(user2.ID, pkgbase.ID)
     notif.send()
@@ -241,7 +240,7 @@ The package {pkgbase.Name} [1] was adopted by {user2.Username} [2].
     assert email.body == expected
 
 
-def test_disown(user: User, user2: User, pkgbases: List[PackageBase]):
+def test_disown(user: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     notif = notify.DisownNotification(user2.ID, pkgbase.ID)
     notif.send()
@@ -261,7 +260,7 @@ The package {pkgbase.Name} [1] was disowned by {user2.Username} [2].
     assert email.body == expected
 
 
-def test_comaintainer_addition(user: User, pkgbases: List[PackageBase]):
+def test_comaintainer_addition(user: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     notif = notify.ComaintainerAddNotification(user.ID, pkgbase.ID)
     notif.send()
@@ -280,7 +279,7 @@ You were added to the co-maintainer list of {pkgbase.Name} [1].
     assert email.body == expected
 
 
-def test_comaintainer_removal(user: User, pkgbases: List[PackageBase]):
+def test_comaintainer_removal(user: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     notif = notify.ComaintainerRemoveNotification(user.ID, pkgbase.ID)
     notif.send()
@@ -299,7 +298,7 @@ You were removed from the co-maintainer list of {pkgbase.Name} [1].
     assert email.body == expected
 
 
-def test_suspended_ownership_change(user: User, pkgbases: List[PackageBase]):
+def test_suspended_ownership_change(user: User, pkgbases: list[PackageBase]):
     with db.begin():
         user.Suspended = 1
 
@@ -314,7 +313,7 @@ def test_suspended_ownership_change(user: User, pkgbases: List[PackageBase]):
     assert Email.count() == 1
 
 
-def test_delete(user: User, user2: User, pkgbases: List[PackageBase]):
+def test_delete(user: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     notif = notify.DeleteNotification(user2.ID, pkgbase.ID)
     notif.send()
@@ -336,7 +335,7 @@ You will no longer receive notifications about this package.
     assert email.body == expected
 
 
-def test_merge(user: User, user2: User, pkgbases: List[PackageBase]):
+def test_merge(user: User, user2: User, pkgbases: list[PackageBase]):
     source, target = pkgbases[:2]
     notif = notify.DeleteNotification(user2.ID, source.ID, target.ID)
     notif.send()
@@ -361,7 +360,7 @@ please go to [3] and click "Disable notifications".
     assert email.body == expected
 
 
-def set_tu(users: List[User]) -> User:
+def set_tu(users: list[User]) -> User:
     with db.begin():
         for user in users:
             user.AccountTypeID = TRUSTED_USER_ID
@@ -369,7 +368,7 @@ def set_tu(users: List[User]) -> User:
 
 def test_open_close_request(user: User, user2: User,
                             pkgreq: PackageRequest,
-                            pkgbases: List[PackageBase]):
+                            pkgbases: list[PackageBase]):
     set_tu([user])
     pkgbase = pkgbases[0]
 
@@ -432,7 +431,7 @@ Request #{pkgreq.ID} has been rejected by {user2.Username} [1].
 
 def test_close_request_comaintainer_cc(user: User, user2: User,
                                        pkgreq: PackageRequest,
-                                       pkgbases: List[PackageBase]):
+                                       pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     with db.begin():
         db.create(models.PackageComaintainer, PackageBase=pkgbase,
@@ -449,7 +448,7 @@ def test_close_request_comaintainer_cc(user: User, user2: User,
 
 def test_close_request_closure_comment(user: User, user2: User,
                                        pkgreq: PackageRequest,
-                                       pkgbases: List[PackageBase]):
+                                       pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     with db.begin():
         pkgreq.ClosureComment = "This is a test closure comment."

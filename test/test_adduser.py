@@ -1,4 +1,3 @@
-from typing import List
 from unittest import mock
 
 import pytest
@@ -21,7 +20,7 @@ def setup(db_test):
     return
 
 
-def run_main(args: List[str] = []):
+def run_main(args: list[str] = []):
     with mock.patch("sys.argv", ["aurweb-adduser"] + args):
         adduser.main()
 
