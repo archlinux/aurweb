@@ -1396,3 +1396,33 @@ def test_pkgbase_keywords(client: TestClient, user: User, package: Package):
     expected = ["abc", "test"]
     for i, keyword in enumerate(keywords):
         assert keyword.text.strip() == expected[i]
+
+
+def test_pkgbase_empty_keywords(client: TestClient, user: User, package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}"
+    with client as request:
+        resp = request.get(endpoint)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    keywords = root.xpath('//a[@class="keyword"]')
+    assert len(keywords) == 0
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    post_endpoint = f"{endpoint}/keywords"
+    with client as request:
+        resp = request.post(post_endpoint, data={
+            "keywords": "abc test     foo bar    "
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    with client as request:
+        resp = request.get(resp.headers.get("location"))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    keywords = root.xpath('//a[@class="keyword"]')
+    assert len(keywords) == 4
+    expected = ["abc", "bar", "foo", "test"]
+    for i, keyword in enumerate(keywords):
+        assert keyword.text.strip() == expected[i]

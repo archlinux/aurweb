@@ -98,7 +98,7 @@ async def pkgbase_keywords(request: Request, name: str,
 
     # Lowercase all keywords. Our database table is case insensitive,
     # and providing CI duplicates of keywords is erroneous.
-    keywords = set(k.lower() for k in keywords.split(" "))
+    keywords = set(k.lower() for k in keywords.split())
 
     # Delete all keywords which are not supplied by the user.
     with db.begin():
