@@ -33,6 +33,14 @@
                 <span class="text">{{ "Latest Comments" | tr }}</span>
                 <span class="arrow"></span>
             </h3>
+            {% set page = ((O / PP) | int) %}
+            {% set pages = ((comments_total / PP) | ceil) %}
+
+            {% if pages > 1 %}
+            <p class="comments-header-nav">
+                {{ page | pager_nav(comments_total, prefix) | safe }}
+            <p>
+            {% endif %}
         </div>
         {% for comment in comments.all() %}
             {% include "partials/packages/comment.html" %}

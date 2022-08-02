@@ -6,6 +6,9 @@ O = 0
 # Default [P]er [P]age
 PP = 50
 
+# Default Comments Per Page
+COMMENTS_PER_PAGE = 10
+
 # A whitelist of valid PP values
 PP_WHITELIST = {50, 100, 250}
 
