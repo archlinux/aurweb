@@ -272,9 +272,9 @@ def test_pkgbase_maintainer(client: TestClient, user: User, maintainer: User,
     root = parse_root(resp.text)
 
     maint = root.xpath('//table[@id="pkginfo"]/tr[@class="pkgmaint"]/td')[0]
-    maint, comaint = maint.xpath('./a')
-    assert maint.text.strip() == maintainer.Username
-    assert comaint.text.strip() == user.Username
+    maint, comaint = maint.text.strip().split()
+    assert maint == maintainer.Username
+    assert comaint == f'({user.Username})'
 
 
 def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):

@@ -108,7 +108,7 @@
     <tr class="pkgmaint">
         <th>{{ "Maintainer" | tr }}:</th>
         <td>
-            {% if pkgbase.Maintainer %}
+            {% if request.user.is_authenticated() and pkgbase.Maintainer %}
                 <a href="/account/{{ pkgbase.Maintainer.Username }}">
                     {{ pkgbase.Maintainer.Username }}
                 </a>
@@ -118,6 +118,9 @@
                 {% endif %}
             {% else %}
                 {{ pkgbase.Maintainer.Username | default("None" | tr) }}
+                {% if comaintainers %}
+		     ({{ comaintainers|join(', ') }})
+                {% endif %}
             {% endif %}
         </td>
     </tr>
