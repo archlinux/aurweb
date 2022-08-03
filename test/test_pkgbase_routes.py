@@ -99,6 +99,18 @@ def maintainer() -> User:
 
 
 @pytest.fixture
+def comaintainer() -> User:
+    """ Yield a specific User used to maintain packages. """
+    account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
+    with db.begin():
+        comaintainer = db.create(User, Username="test_comaintainer",
+                                 Email="test_comaintainer@example.org",
+                                 Passwd="testPassword",
+                                 AccountType=account_type)
+    yield comaintainer
+
+
+@pytest.fixture
 def tu_user():
     tu_type = db.query(AccountType,
                        AccountType.AccountType == "Trusted User").first()
@@ -1037,16 +1049,47 @@ def test_pkgbase_disown_as_sole_maintainer(client: TestClient,
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
-def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
-                        package: Package):
-    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
-    user_cookies = {"AURSID": user.login(Request(), "testPassword")}
+def test_pkgbase_disown_as_maint_with_comaint(client: TestClient,
+                                              user: User,
+                                              maintainer: User,
+                                              package: Package):
+    """ When disowning as a maintainer, the lowest priority comaintainer
+    is promoted to maintainer. """
     pkgbase = package.PackageBase
-    endpoint = f"/pkgbase/{pkgbase.Name}/disown"
+    endp = f"/pkgbase/{pkgbase.Name}/disown"
+    post_data = {"confirm": True}
 
     with db.begin():
         db.create(PackageComaintainer,
+                  PackageBase=pkgbase,
                   User=user,
+                  Priority=1)
+
+    maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endp, data=post_data, cookies=maint_cookies,
+                            allow_redirects=True)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    package = db.refresh(package)
+    pkgbase = package.PackageBase
+
+    assert pkgbase.Maintainer == user
+    assert pkgbase.comaintainers.count() == 0
+
+
+def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
+                        comaintainer: User, package: Package):
+    maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    comaint_cookies = {"AURSID": comaintainer.login(Request(), "testPassword")}
+    user_cookies = {"AURSID": user.login(Request(), "testPassword")}
+    pkgbase = package.PackageBase
+    pkgbase_endp = f"/pkgbase/{pkgbase.Name}"
+    endpoint = f"{pkgbase_endp}/disown"
+
+    with db.begin():
+        db.create(PackageComaintainer,
+                  User=comaintainer,
                   PackageBase=pkgbase,
                   Priority=1)
 
@@ -1056,24 +1099,50 @@ def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
                            allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
+    # GET as a comaintainer.
+    with client as request:
+        resp = request.get(endpoint, cookies=comaint_cookies,
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Ensure that the comaintainer can see "Disown Package" link
+    with client as request:
+        resp = request.get(pkgbase_endp, cookies=comaint_cookies)
+    assert "Disown Package" in resp.text
+
     # GET as the maintainer.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        resp = request.get(endpoint, cookies=maint_cookies)
     assert resp.status_code == int(HTTPStatus.OK)
+
+    # Ensure that the maintainer can see "Disown Package" link
+    with client as request:
+        resp = request.get(pkgbase_endp, cookies=maint_cookies)
+    assert "Disown Package" in resp.text
 
     # POST as a normal user, which is rejected for lack of credentials.
     with client as request:
         resp = request.post(endpoint, cookies=user_cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
+    # POST as the comaintainer without "confirm".
+    with client as request:
+        resp = request.post(endpoint, cookies=comaint_cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
     # POST as the maintainer without "confirm".
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        resp = request.post(endpoint, cookies=maint_cookies)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    # POST as the comaintainer with "confirm".
+    with client as request:
+        resp = request.post(endpoint, data={"confirm": True}, cookies=comaint_cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # POST as the maintainer with "confirm".
     with client as request:
-        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+        resp = request.post(endpoint, data={"confirm": True}, cookies=maint_cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
@@ -1190,7 +1259,6 @@ def test_pkgbase_delete_with_request(client: TestClient, tu_user: User,
 
 def test_packages_post_unknown_action(client: TestClient, user: User,
                                       package: Package):
-
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         resp = request.post("/packages", data={"action": "unknown"},
@@ -1199,7 +1267,6 @@ def test_packages_post_unknown_action(client: TestClient, user: User,
 
 
 def test_packages_post_error(client: TestClient, user: User, package: Package):
-
     async def stub_action(request: Request, **kwargs):
         return (False, ["Some error."])
 
@@ -1217,7 +1284,6 @@ def test_packages_post_error(client: TestClient, user: User, package: Package):
 
 
 def test_packages_post(client: TestClient, user: User, package: Package):
-
     async def stub_action(request: Request, **kwargs):
         return (True, ["Some success."])
 

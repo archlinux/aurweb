@@ -545,15 +545,18 @@ async def pkgbase_disown_get(request: Request, name: str,
                              next: str = Query(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
+    comaints = {c.User for c in pkgbase.comaintainers}
+    approved = [pkgbase.Maintainer] + list(comaints)
     has_cred = request.user.has_credential(creds.PKGBASE_DISOWN,
-                                           approved=[pkgbase.Maintainer])
+                                           approved=approved)
     if not has_cred:
-        return RedirectResponse(f"/pkgbase/{name}",
-                                HTTPStatus.SEE_OTHER)
+        return RedirectResponse(f"/pkgbase/{name}", HTTPStatus.SEE_OTHER)
 
     context = templates.make_context(request, "Disown Package")
     context["pkgbase"] = pkgbase
     context["next"] = next or "/pkgbase/{name}"
+    context["is_maint"] = request.user == pkgbase.Maintainer
+    context["is_comaint"] = request.user in comaints
     return render_template(request, "pkgbase/disown.html", context)
 
 
@@ -566,8 +569,10 @@ async def pkgbase_disown_post(request: Request, name: str,
                               next: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
+    comaints = {c.User for c in pkgbase.comaintainers}
+    approved = [pkgbase.Maintainer] + list(comaints)
     has_cred = request.user.has_credential(creds.PKGBASE_DISOWN,
-                                           approved=[pkgbase.Maintainer])
+                                           approved=approved)
     if not has_cred:
         return RedirectResponse(f"/pkgbase/{name}",
                                 HTTPStatus.SEE_OTHER)
@@ -580,8 +585,9 @@ async def pkgbase_disown_post(request: Request, name: str,
         return render_template(request, "pkgbase/disown.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
-    with db.begin():
-        update_closure_comment(pkgbase, ORPHAN_ID, comments)
+    if request.user != pkgbase.Maintainer and request.user not in comaints:
+        with db.begin():
+            update_closure_comment(pkgbase, ORPHAN_ID, comments)
 
     try:
         actions.pkgbase_disown_instance(request, pkgbase)
@@ -862,7 +868,6 @@ async def pkgbase_merge_post(request: Request, name: str,
                              comments: str = Form(default=str()),
                              confirm: bool = Form(default=False),
                              next: str = Form(default=str())):
-
     pkgbase = get_pkg_or_base(name, PackageBase)
     context = await make_variable_context(request, "Package Merging")
     context["pkgbase"] = pkgbase

@@ -131,7 +131,7 @@
                         />
                     </form>
                 </li>
-            {% elif request.user.has_credential(creds.PKGBASE_DISOWN, approved=[pkgbase.Maintainer]) %}
+            {% elif request.user.has_credential(creds.PKGBASE_DISOWN, approved=[pkgbase.Maintainer] + comaintainers) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/disown?{{ {'next': '/pkgbase/%s' | format(pkgbase.Name)} | urlencode }}">
                         {{ "Disown Package" | tr }}

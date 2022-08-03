@@ -50,6 +50,12 @@ def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
     notifs = [notify.DisownNotification(disowner.ID, pkgbase.ID)]
 
     is_maint = disowner == pkgbase.Maintainer
+
+    comaint = pkgbase.comaintainers.filter(
+        PackageComaintainer.User == disowner
+    ).one_or_none()
+    is_comaint = comaint is not None
+
     if is_maint:
         with db.begin():
             # Comaintainer with the lowest Priority value; next-in-line.
@@ -63,6 +69,11 @@ def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
             else:
                 # Otherwise, just orphan the package completely.
                 pkgbase.Maintainer = None
+    elif is_comaint:
+        # This disown request is from a Comaintainer
+        with db.begin():
+            notif = pkgbaseutil.remove_comaintainer(comaint)
+            notifs.append(notif)
     elif request.user.has_credential(creds.PKGBASE_DISOWN):
         # Otherwise, the request user performing this disownage is a
         # Trusted User and we treat it like a standard orphan request.
