@@ -46,7 +46,7 @@ def make_context(request: Request, pkgbase: PackageBase,
         ).all()
     ]
     context["unflaggers"] = context["comaintainers"].copy()
-    context["unflaggers"].append(pkgbase.Maintainer)
+    context["unflaggers"].extend([pkgbase.Maintainer, pkgbase.Flagger])
 
     context["packages_count"] = pkgbase.packages.count()
     context["keywords"] = pkgbase.keywords
