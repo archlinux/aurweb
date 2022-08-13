@@ -31,6 +31,16 @@ docker-compose
    Python: https://localhost:8444/
    PHP: https://localhost:8443/
 
+5) [Optionally] populate the database with dummy data:
+
+    $ docker-compose up mariadb
+    $ docker-compose exec mariadb  /bin/sh
+    # pacman -S --noconfirm words fortune-mod
+    # poetry run schema/gendummydata.py dummy_data.sql
+    # mysql -uaur -paur aurweb < dummy_data.sql
+
+Inspect `dummy_data.sql` for test credentials. Passwords match usernames.
+
 Bare Metal
 ----------
 
