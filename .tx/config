@@ -1,7 +1,8 @@
 [main]
 host = https://www.transifex.com
 
-[aurweb.aurwebpot]
+[o:lfleischer:p:aurweb:r:aurwebpot]
 file_filter = po/<lang>.po
 source_file = po/aurweb.pot
 source_lang = en
+
