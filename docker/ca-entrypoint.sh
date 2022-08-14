@@ -89,33 +89,25 @@ step_cert_request() {
     chmod 666 /data/${1}.*.pem
 }
 
-if [ ! -f $DATA_ROOT_CA ]; then
+if [ ! -d /root/.step/config ]; then
+    # Remove existing certs.
+    rm -vf /data/localhost.{cert,key}.pem /data/root_ca.crt
+
     setup_step_ca
     install_step_ca
+
+    start_step_ca
+    for host in $DATA_CERT_HOSTS; do
+        step_cert_request $host /data/${host}.cert.pem /data/${host}.key.pem
+    done
+    kill_step_ca
+
+    echo -n "WARN: Your certificates are being regenerated to resolve "
+    echo -n "an inconsistent step-ca state. You will need to re-import "
+    echo "the root CA certificate into your browser."
+else
+    exec "$@"
 fi
-
-# For all hosts separated by spaces in $DATA_CERT_HOSTS, perform a check
-# for their existence in /data and react accordingly.
-for host in $DATA_CERT_HOSTS; do
-    if [ -f /data/${host}.cert.pem ] && [ -f /data/${host}.key.pem ]; then
-        # Found an override. Move on to running the service after
-        # printing a notification to the user.
-        echo "Found '${host}.{cert,key}.pem' override, skipping..."
-        echo -n "Note: If you need to regenerate certificates, run "
-        echo '`rm -f data/*.{cert,key}.pem` before starting this service.'
-        exec "$@"
-    else
-        # Otherwise, we had a missing cert or key, so remove both.
-        rm -f /data/${host}.cert.pem
-        rm -f /data/${host}.key.pem
-    fi
-done
-
-start_step_ca
-for host in $DATA_CERT_HOSTS; do
-    step_cert_request $host /data/${host}.cert.pem /data/${host}.key.pem
-done
-kill_step_ca
 
 # Set permissions to /data to rwx for everybody.
 chmod 777 /data
