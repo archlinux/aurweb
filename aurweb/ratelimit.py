@@ -94,7 +94,7 @@ def check_ratelimit(request: Request):
     # valid cache value will be returned which must be converted
     # to an int. Otherwise, use the database record returned
     # by update_ratelimit.
-    if not config.getboolean("ratelimit", "cache"):
+    if not config.getboolean("ratelimit", "cache") or requests is None:
         # If we got nothing from pipeline.get, we did not use
         # the Redis path of logic: use the DB record's count.
         requests = record.Requests
