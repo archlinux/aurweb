@@ -87,7 +87,6 @@ SSHPubKeys = Table(
     Column('UserID', ForeignKey('Users.ID', ondelete='CASCADE'), nullable=False),
     Column('Fingerprint', String(44), primary_key=True),
     Column('PubKey', String(4096), nullable=False),
-    Index('SSHPubKeysPubKey', 'PubKey'),
     mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
 )
 
