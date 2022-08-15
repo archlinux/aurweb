@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import Request
 from sqlalchemy import and_
 
-from aurweb import config, db, l10n, util
+from aurweb import config, db, defaults, l10n, util
 from aurweb.models import PackageBase, User
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
@@ -31,6 +31,12 @@ def make_context(request: Request, pkgbase: PackageBase,
     if not context:
         context = _make_context(request, pkgbase.Name)
 
+    # Per page and offset.
+    offset, per_page = util.sanitize_params(
+        request.query_params.get("O", defaults.O),
+        request.query_params.get("PP", defaults.COMMENTS_PER_PAGE))
+    context["O"] = offset
+    context["PP"] = per_page
     context["git_clone_uri_anon"] = config.get("options", "git_clone_uri_anon")
     context["git_clone_uri_priv"] = config.get("options", "git_clone_uri_priv")
     context["pkgbase"] = pkgbase
@@ -44,9 +50,12 @@ def make_context(request: Request, pkgbase: PackageBase,
 
     context["packages_count"] = pkgbase.packages.count()
     context["keywords"] = pkgbase.keywords
+    context["comments_total"] = pkgbase.comments.order_by(
+        PackageComment.CommentTS.desc()
+    ).count()
     context["comments"] = pkgbase.comments.order_by(
         PackageComment.CommentTS.desc()
-    )
+    ).limit(per_page).offset(offset)
     context["pinned_comments"] = pkgbase.comments.filter(
         PackageComment.PinnedTS != 0
     ).order_by(PackageComment.CommentTS.desc())
