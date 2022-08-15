@@ -282,7 +282,8 @@ def test_package_details(user: User, package: Package):
         "git_clone_uri_anon": GIT_CLONE_URI_ANON,
         "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
         "pkgbase": package.PackageBase,
-        "pkg": package
+        "pkg": package,
+        "comaintainers": [],
     })
 
     base = base_template("partials/packages/details.html")
@@ -316,6 +317,7 @@ def test_package_details_filled(user: User, package: Package):
         "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
         "pkgbase": package.PackageBase,
         "pkg": package,
+        "comaintainers": [],
         "licenses": package.package_licenses,
         "provides": package.package_relations.filter(
             PackageRelation.RelTypeID == PROVIDES_ID),

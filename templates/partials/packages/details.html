@@ -33,10 +33,10 @@
             </td>
         </tr>
     {% endif %}
-    {% if pkgbase.keywords.count() or request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer]) %}
+    {% if pkgbase.keywords.count() or request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer] + comaintainers) %}
         <tr>
             <th>{{ "Keywords" | tr }}:</th>
-            {% if request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer]) %}
+            {% if request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer] + comaintainers) %}
             <td>
                 <form method="post"
                       action="/pkgbase/{{ pkgbase.Name }}/keywords"

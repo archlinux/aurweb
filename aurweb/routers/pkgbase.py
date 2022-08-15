@@ -96,6 +96,12 @@ async def pkgbase_keywords(request: Request, name: str,
                            keywords: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
+    approved = [pkgbase.Maintainer] + [c.User for c in pkgbase.comaintainers]
+    has_cred = creds.has_credential(request.user, creds.PKGBASE_SET_KEYWORDS,
+                                    approved=approved)
+    if not has_cred:
+        return Response(status_code=HTTPStatus.UNAUTHORIZED)
+
     # Lowercase all keywords. Our database table is case insensitive,
     # and providing CI duplicates of keywords is erroneous.
     keywords = set(k.lower() for k in keywords.split())

@@ -1378,7 +1378,8 @@ def test_pkgbase_keywords(client: TestClient, user: User, package: Package):
     keywords = root.xpath('//a[@class="keyword"]')
     assert len(keywords) == 0
 
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    maint = package.PackageBase.Maintainer
+    cookies = {"AURSID": maint.login(Request(), "testPassword")}
     post_endpoint = f"{endpoint}/keywords"
     with client as request:
         resp = request.post(post_endpoint, data={
@@ -1408,7 +1409,8 @@ def test_pkgbase_empty_keywords(client: TestClient, user: User, package: Package
     keywords = root.xpath('//a[@class="keyword"]')
     assert len(keywords) == 0
 
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    maint = package.PackageBase.Maintainer
+    cookies = {"AURSID": maint.login(Request(), "testPassword")}
     post_endpoint = f"{endpoint}/keywords"
     with client as request:
         resp = request.post(post_endpoint, data={
@@ -1426,3 +1428,16 @@ def test_pkgbase_empty_keywords(client: TestClient, user: User, package: Package
     expected = ["abc", "bar", "foo", "test"]
     for i, keyword in enumerate(keywords):
         assert keyword.text.strip() == expected[i]
+
+
+def test_unauthorized_pkgbase_keywords(client: TestClient, package: Package):
+    with db.begin():
+        user = db.create(User, Username="random_user", Email="random_user",
+                         Passwd="testPassword")
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        pkgbase = package.PackageBase
+        endp = f"/pkgbase/{pkgbase.Name}/keywords"
+        response = request.post(endp, cookies=cookies)
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
