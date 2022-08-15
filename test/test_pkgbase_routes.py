@@ -467,6 +467,22 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
     assert "form" in data
 
 
+def test_pkgbase_comment_edit_unauthorized(client: TestClient,
+                                           user: User,
+                                           maintainer: User,
+                                           package: Package,
+                                           comment: PackageComment):
+    pkgbase = package.PackageBase
+
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        endp = f"/pkgbase/{pkgbase.Name}/comments/{comment.ID}"
+        response = request.post(endp, data={
+            "comment": "abcd im trying to change this comment."
+        }, cookies=cookies)
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
+
+
 def test_pkgbase_comment_delete(client: TestClient,
                                 maintainer: User,
                                 user: User,

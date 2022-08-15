@@ -286,6 +286,8 @@ async def pkgbase_comment_post(
 
     if not comment:
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST)
+    elif request.user.ID != db_comment.UsersID:
+        raise HTTPException(status_code=HTTPStatus.UNAUTHORIZED)
 
     # If the provided comment is different than the record's version,
     # update the db record.
