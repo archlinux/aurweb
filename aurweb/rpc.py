@@ -138,7 +138,7 @@ class RPC:
             "Version": package.Version,
             "Description": package.Description,
             "URL": package.URL,
-            "URLPath": snapshot_uri % package.Name,
+            "URLPath": snapshot_uri % package.PackageBaseName,
             "NumVotes": package.NumVotes,
             "Popularity": pop,
             "OutOfDate": package.OutOfDateTS,

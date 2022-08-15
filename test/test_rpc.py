@@ -297,6 +297,28 @@ def test_rpc_singular_info(client: TestClient,
     assert response_data == expected_data
 
 
+def test_rpc_split_package_urlpath(client: TestClient, user: User):
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="pkg",
+                            Maintainer=user, Packager=user)
+        pkgs = [
+            db.create(Package, PackageBase=pkgbase, Name="pkg_1"),
+            db.create(Package, PackageBase=pkgbase, Name="pkg_2"),
+        ]
+
+    with client as request:
+        response = request.get("/rpc", params={
+            "v": 5,
+            "type": "info",
+            "arg": [pkgs[0].Name],
+        })
+
+    data = orjson.loads(response.text)
+    snapshot_uri = config.get("options", "snapshot_uri")
+    urlpath = data.get("results")[0].get("URLPath")
+    assert urlpath == (snapshot_uri % pkgbase.Name)
+
+
 def test_rpc_nonexistent_package(client: TestClient):
     # Make dummy request.
     with client as request:
