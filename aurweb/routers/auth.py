@@ -6,7 +6,7 @@ from sqlalchemy import or_
 
 import aurweb.config
 
-from aurweb import cookies, db, time
+from aurweb import cookies, db
 from aurweb.auth import requires_auth, requires_guest
 from aurweb.exceptions import handle_form_exceptions
 from aurweb.l10n import get_translator_for_request
@@ -65,15 +65,11 @@ async def login_post(request: Request,
         return await login_template(request, next,
                                     errors=["Bad username or password."])
 
-    login_timeout = aurweb.config.getint("options", "login_timeout")
-
-    expires_at = int(time.utcnow() + max(cookie_timeout, login_timeout))
-
     response = RedirectResponse(url=next,
                                 status_code=HTTPStatus.SEE_OTHER)
 
     secure = aurweb.config.getboolean("options", "disable_http_login")
-    response.set_cookie("AURSID", sid, expires=expires_at,
+    response.set_cookie("AURSID", sid, max_age=cookie_timeout,
                         secure=secure, httponly=secure,
                         samesite=cookies.samesite())
     response.set_cookie("AURTZ", user.Timezone,
@@ -83,7 +79,6 @@ async def login_post(request: Request,
                         secure=secure, httponly=secure,
                         samesite=cookies.samesite())
     response.set_cookie("AURREMEMBER", remember_me,
-                        expires=expires_at,
                         secure=secure, httponly=secure,
                         samesite=cookies.samesite())
     return response
