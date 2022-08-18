@@ -17,7 +17,7 @@ in the following ways:
 - `options.disable_http_login: 0`
     - [Samesite=LAX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#samesite_attribute), Max-Age
 - `options.disable_http_login: 1`
-    - [Samesite=LAX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#samesite_attribute), [Secure, HttpOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies)
+    - [Samesite=LAX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#samesite_attribute), [Secure, HttpOnly](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies), Max-Age
 
 ### Max-Age
 
