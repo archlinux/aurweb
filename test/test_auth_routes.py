@@ -109,14 +109,52 @@ def test_login_email(client: TestClient, user: user):
     assert "AURSID" in resp.cookies
 
 
-def mock_getboolean(a, b):
-    if a == "options" and b == "disable_http_login":
-        return True
-    return bool(aurweb.config.get(a, b))
+def mock_getboolean(**overrided_configs):
+    mocked_config = {
+        tuple(config.split("__")): value
+        for config, value in overrided_configs.items()
+    }
+
+    def side_effect(*args):
+        return mocked_config.get(args, bool(aurweb.config.get(*args)))
+
+    return side_effect
 
 
-@mock.patch("aurweb.config.getboolean", side_effect=mock_getboolean)
-def test_secure_login(getboolean: bool, client: TestClient, user: User):
+@mock.patch(
+    "aurweb.config.getboolean",
+    side_effect=mock_getboolean(options__disable_http_login=False)
+)
+def test_insecure_login(getboolean: mock.Mock, client: TestClient, user: User):
+    post_data = {
+        "user": user.Username,
+        "passwd": "testPassword",
+        "next": "/"
+    }
+
+    # Perform a login request with the data matching our user.
+    with client as request:
+        response = request.post("/login", data=post_data,
+                                allow_redirects=False)
+
+    # Make sure we got the expected status out of it.
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Let's check what we got in terms of cookies for AURSID.
+    # Make sure that a secure cookie got passed to us.
+    cookie = next(c for c in response.cookies if c.name == "AURSID")
+    assert cookie.secure is False
+    assert cookie.has_nonstandard_attr("HttpOnly") is False
+    assert cookie.has_nonstandard_attr("SameSite") is True
+    assert cookie.get_nonstandard_attr("SameSite") == "lax"
+    assert cookie.value is not None and len(cookie.value) > 0
+
+
+@mock.patch(
+    "aurweb.config.getboolean",
+    side_effect=mock_getboolean(options__disable_http_login=True)
+)
+def test_secure_login(getboolean: mock.Mock, client: TestClient, user: User):
     """ In this test, we check to verify the course of action taken
     by starlette when providing secure=True to a response cookie.
     This is achieved by mocking aurweb.config.getboolean to return
@@ -154,7 +192,7 @@ def test_secure_login(getboolean: bool, client: TestClient, user: User):
     assert cookie.secure is True
     assert cookie.has_nonstandard_attr("HttpOnly") is True
     assert cookie.has_nonstandard_attr("SameSite") is True
-    assert cookie.get_nonstandard_attr("SameSite") == "strict"
+    assert cookie.get_nonstandard_attr("SameSite") == "lax"
     assert cookie.value is not None and len(cookie.value) > 0
 
     # Let's make sure we actually have a session relationship

@@ -5,15 +5,13 @@ from aurweb import config
 
 
 def samesite() -> str:
-    """ Produce cookie SameSite value based on options.disable_http_login.
+    """ Produce cookie SameSite value.
 
-    When options.disable_http_login is True, "strict" is returned. Otherwise,
-    "lax" is returned.
+    Currently this is hard-coded to return "lax"
 
-    :returns "strict" if options.disable_http_login else "lax"
+    :returns "lax"
     """
-    secure = config.getboolean("options", "disable_http_login")
-    return "strict" if secure else "lax"
+    return "lax"
 
 
 def timeout(extended: bool) -> int:
