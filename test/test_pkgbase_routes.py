@@ -1457,3 +1457,52 @@ def test_unauthorized_pkgbase_keywords(client: TestClient, package: Package):
         endp = f"/pkgbase/{pkgbase.Name}/keywords"
         response = request.post(endp, cookies=cookies)
     assert response.status_code == HTTPStatus.UNAUTHORIZED
+
+
+def test_independent_user_unflag(client: TestClient, user: User,
+                                 package: Package):
+    with db.begin():
+        flagger = db.create(User, Username="test_flagger",
+                            Email="test_flagger@example.com",
+                            Passwd="testPassword")
+
+    pkgbase = package.PackageBase
+    cookies = {"AURSID": flagger.login(Request(), "testPassword")}
+    with client as request:
+        endp = f"/pkgbase/{pkgbase.Name}/flag"
+        response = request.post(endp, data={
+            "comments": "This thing needs a flag!"
+        }, cookies=cookies, allow_redirects=True)
+    assert response.status_code == HTTPStatus.OK
+
+    # At this point, we've flagged it as `flagger`.
+    # Now, we should be able to view the "Unflag package" link on the package
+    # page when browsing as that `flagger` user.
+    with client as request:
+        endp = f"/pkgbase/{pkgbase.Name}"
+        response = request.get(endp, cookies=cookies, allow_redirects=True)
+    assert response.status_code == HTTPStatus.OK
+
+    # Assert that the "Unflag package" link appears in the DOM.
+    root = parse_root(response.text)
+    elems = root.xpath('//input[@name="do_UnFlag"]')
+    assert len(elems) == 1
+
+    # Now, unflag the package by "clicking" the "Unflag package" link.
+    with client as request:
+        endp = f"/pkgbase/{pkgbase.Name}/unflag"
+        response = request.post(endp, cookies=cookies, allow_redirects=True)
+    assert response.status_code == HTTPStatus.OK
+
+    # For the last time, let's check the GET response. The package should
+    # not show as flagged anymore, and thus the "Unflag package" link
+    # should be missing.
+    with client as request:
+        endp = f"/pkgbase/{pkgbase.Name}"
+        response = request.get(endp, cookies=cookies, allow_redirects=True)
+    assert response.status_code == HTTPStatus.OK
+
+    # Assert that the "Unflag package" link does not appear in the DOM.
+    root = parse_root(response.text)
+    elems = root.xpath('//input[@name="do_UnFlag"]')
+    assert len(elems) == 0
