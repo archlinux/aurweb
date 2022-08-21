@@ -13,18 +13,16 @@ variables:
   LOG_CONFIG: logging.test.conf
 
 lint:
-  variables:
-    # Space-separated list of directories that should be linted.
-    REQUIRES_LINT: "aurweb test migrations"
   stage: .pre
   before_script:
     - pacman -Sy --noconfirm --noprogressbar --cachedir .pkg-cache
       archlinux-keyring
     - pacman -Syu --noconfirm --noprogressbar --cachedir .pkg-cache
-      python python-isort flake8
+      git python python-pre-commit
   script:
-    - bash -c 'flake8 --count $(echo "$REQUIRES_LINT" | xargs); exit $?'
-    - bash -c 'isort --check-only $(echo "$REQUIRES_LINT" | xargs); exit $?'
+    # https://github.com/pre-commit/pre-commit/issues/2178#issuecomment-1002163763
+    - export SETUPTOOLS_USE_DISTUTILS=stdlib
+    - pre-commit run -a
 
 test:
   stage: test
