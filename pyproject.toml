@@ -1,3 +1,11 @@
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+combine_as_imports = true
+
+
 # Poetry build configuration for the aurweb project.
 #
 # Dependencies:
@@ -89,8 +97,6 @@ fastapi = "^0.71.0"
 srcinfo = "^0.0.8"
 
 [tool.poetry.dev-dependencies]
-flake8 = "^4.0.1"
-isort = "^5.9.3"
 coverage = "^6.0.2"
 pytest = "^6.2.5"
 pytest-asyncio = "^0.16.0"
