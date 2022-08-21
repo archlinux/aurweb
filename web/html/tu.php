@@ -120,4 +120,3 @@ else {
 }
 
 html_footer(AURWEB_VERSION);
-

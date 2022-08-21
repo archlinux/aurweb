@@ -12,20 +12,28 @@ class PackageBase(Base):
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     Flagger = relationship(
-        _User, backref=backref("flagged_bases", lazy="dynamic"),
-        foreign_keys=[__table__.c.FlaggerUID])
+        _User,
+        backref=backref("flagged_bases", lazy="dynamic"),
+        foreign_keys=[__table__.c.FlaggerUID],
+    )
 
     Submitter = relationship(
-        _User, backref=backref("submitted_bases", lazy="dynamic"),
-        foreign_keys=[__table__.c.SubmitterUID])
+        _User,
+        backref=backref("submitted_bases", lazy="dynamic"),
+        foreign_keys=[__table__.c.SubmitterUID],
+    )
 
     Maintainer = relationship(
-        _User, backref=backref("maintained_bases", lazy="dynamic"),
-        foreign_keys=[__table__.c.MaintainerUID])
+        _User,
+        backref=backref("maintained_bases", lazy="dynamic"),
+        foreign_keys=[__table__.c.MaintainerUID],
+    )
 
     Packager = relationship(
-        _User, backref=backref("package_bases", lazy="dynamic"),
-        foreign_keys=[__table__.c.PackagerUID])
+        _User,
+        backref=backref("package_bases", lazy="dynamic"),
+        foreign_keys=[__table__.c.PackagerUID],
+    )
 
     # A set used to check for floatable values.
     TO_FLOAT = {"Popularity"}
@@ -37,7 +45,8 @@ class PackageBase(Base):
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="PackageBases.Name",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         # If no SubmittedTS/ModifiedTS is provided on creation, set them
         # here to the current utc timestamp.

@@ -2,26 +2,26 @@ import os
 import re
 import sqlite3
 import tempfile
-
 from unittest import mock
 
 import pytest
 
 import aurweb.config
 import aurweb.initdb
-
 from aurweb import db
 from aurweb.models.account_type import AccountType
 
 
 class Args:
-    """ Stub arguments used for running aurweb.initdb. """
+    """Stub arguments used for running aurweb.initdb."""
+
     use_alembic = True
     verbose = True
 
 
 class DBCursor:
-    """ A fake database cursor object used in tests. """
+    """A fake database cursor object used in tests."""
+
     items = []
 
     def execute(self, *args, **kwargs):
@@ -33,7 +33,8 @@ class DBCursor:
 
 
 class DBConnection:
-    """ A fake database connection object used in tests. """
+    """A fake database connection object used in tests."""
+
     @staticmethod
     def cursor():
         return DBCursor()
@@ -44,7 +45,7 @@ class DBConnection:
 
 
 def make_temp_config(*replacements):
-    """ Generate a temporary config file with a set of replacements.
+    """Generate a temporary config file with a set of replacements.
 
     :param *replacements: A variable number of tuple regex replacement pairs
     :return: A tuple containing (temp directory, temp config file)
@@ -85,13 +86,16 @@ def make_temp_config(*replacements):
 
 
 def make_temp_sqlite_config():
-    return make_temp_config((r"backend = .*", "backend = sqlite"),
-                            (r"name = .*", "name = /tmp/aurweb.sqlite3"))
+    return make_temp_config(
+        (r"backend = .*", "backend = sqlite"),
+        (r"name = .*", "name = /tmp/aurweb.sqlite3"),
+    )
 
 
 def make_temp_mysql_config():
-    return make_temp_config((r"backend = .*", "backend = mysql"),
-                            (r"name = .*", "name = aurweb_test"))
+    return make_temp_config(
+        (r"backend = .*", "backend = mysql"), (r"name = .*", "name = aurweb_test")
+    )
 
 
 @pytest.fixture(autouse=True)
@@ -150,7 +154,7 @@ def test_sqlalchemy_unknown_backend():
 
 
 def test_db_connects_without_fail():
-    """ This only tests the actual config supplied to pytest. """
+    """This only tests the actual config supplied to pytest."""
     db.connect()
 
 

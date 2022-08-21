@@ -21,16 +21,19 @@ class OfficialProvider(Base):
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="OfficialProviders.Name",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.Repo:
             raise IntegrityError(
                 statement="Column Repo cannot be null.",
                 orig="OfficialProviders.Repo",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.Provides:
             raise IntegrityError(
                 statement="Column Provides cannot be null.",
                 orig="OfficialProviders.Provides",
-                params=("NULL"))
+                params=("NULL"),
+            )

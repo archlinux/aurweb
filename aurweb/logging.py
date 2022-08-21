@@ -15,7 +15,7 @@ logging.getLogger("root").addHandler(logging.NullHandler())
 
 
 def get_logger(name: str) -> logging.Logger:
-    """ A logging.getLogger wrapper. Importing this function and
+    """A logging.getLogger wrapper. Importing this function and
     using it to get a module-local logger ensures that logging.conf
     initialization is performed wherever loggers are used.
 

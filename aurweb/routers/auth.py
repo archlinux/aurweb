@@ -5,7 +5,6 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import or_
 
 import aurweb.config
-
 from aurweb import cookies, db
 from aurweb.auth import requires_auth, requires_guest
 from aurweb.exceptions import handle_form_exceptions
@@ -17,7 +16,7 @@ router = APIRouter()
 
 
 async def login_template(request: Request, next: str, errors: list = None):
-    """ Provide login-specific template context to render_template. """
+    """Provide login-specific template context to render_template."""
     context = await make_variable_context(request, "Login", next)
     context["errors"] = errors
     context["url_base"] = f"{request.url.scheme}://{request.url.netloc}"
@@ -32,55 +31,73 @@ async def login_get(request: Request, next: str = "/"):
 @router.post("/login", response_class=HTMLResponse)
 @handle_form_exceptions
 @requires_guest
-async def login_post(request: Request,
-                     next: str = Form(...),
-                     user: str = Form(default=str()),
-                     passwd: str = Form(default=str()),
-                     remember_me: bool = Form(default=False)):
+async def login_post(
+    request: Request,
+    next: str = Form(...),
+    user: str = Form(default=str()),
+    passwd: str = Form(default=str()),
+    remember_me: bool = Form(default=False),
+):
     # TODO: Once the Origin header gets broader adoption, this code can be
     # slightly simplified to use it.
     login_path = aurweb.config.get("options", "aur_location") + "/login"
     referer = request.headers.get("Referer")
     if not referer or not referer.startswith(login_path):
         _ = get_translator_for_request(request)
-        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
-                            detail=_("Bad Referer header."))
+        raise HTTPException(
+            status_code=HTTPStatus.BAD_REQUEST, detail=_("Bad Referer header.")
+        )
 
     with db.begin():
-        user = db.query(User).filter(
-            or_(User.Username == user, User.Email == user)
-        ).first()
+        user = (
+            db.query(User)
+            .filter(or_(User.Username == user, User.Email == user))
+            .first()
+        )
 
     if not user:
-        return await login_template(request, next,
-                                    errors=["Bad username or password."])
+        return await login_template(request, next, errors=["Bad username or password."])
 
     if user.Suspended:
-        return await login_template(request, next,
-                                    errors=["Account Suspended"])
+        return await login_template(request, next, errors=["Account Suspended"])
 
     cookie_timeout = cookies.timeout(remember_me)
     sid = user.login(request, passwd, cookie_timeout)
     if not sid:
-        return await login_template(request, next,
-                                    errors=["Bad username or password."])
+        return await login_template(request, next, errors=["Bad username or password."])
 
-    response = RedirectResponse(url=next,
-                                status_code=HTTPStatus.SEE_OTHER)
+    response = RedirectResponse(url=next, status_code=HTTPStatus.SEE_OTHER)
 
     secure = aurweb.config.getboolean("options", "disable_http_login")
-    response.set_cookie("AURSID", sid, max_age=cookie_timeout,
-                        secure=secure, httponly=secure,
-                        samesite=cookies.samesite())
-    response.set_cookie("AURTZ", user.Timezone,
-                        secure=secure, httponly=secure,
-                        samesite=cookies.samesite())
-    response.set_cookie("AURLANG", user.LangPreference,
-                        secure=secure, httponly=secure,
-                        samesite=cookies.samesite())
-    response.set_cookie("AURREMEMBER", remember_me,
-                        secure=secure, httponly=secure,
-                        samesite=cookies.samesite())
+    response.set_cookie(
+        "AURSID",
+        sid,
+        max_age=cookie_timeout,
+        secure=secure,
+        httponly=secure,
+        samesite=cookies.samesite(),
+    )
+    response.set_cookie(
+        "AURTZ",
+        user.Timezone,
+        secure=secure,
+        httponly=secure,
+        samesite=cookies.samesite(),
+    )
+    response.set_cookie(
+        "AURLANG",
+        user.LangPreference,
+        secure=secure,
+        httponly=secure,
+        samesite=cookies.samesite(),
+    )
+    response.set_cookie(
+        "AURREMEMBER",
+        remember_me,
+        secure=secure,
+        httponly=secure,
+        samesite=cookies.samesite(),
+    )
     return response
 
 
@@ -93,8 +110,7 @@ async def logout(request: Request, next: str = Form(default="/")):
 
     # Use 303 since we may be handling a post request, that'll get it
     # to redirect to a get request.
-    response = RedirectResponse(url=next,
-                                status_code=HTTPStatus.SEE_OTHER)
+    response = RedirectResponse(url=next, status_code=HTTPStatus.SEE_OTHER)
     response.delete_cookie("AURSID")
     response.delete_cookie("AURTZ")
     return response

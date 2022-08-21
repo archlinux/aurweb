@@ -12,8 +12,7 @@ def setup(db_test):
 def test_dependency_types():
     dep_types = ["depends", "makedepends", "checkdepends", "optdepends"]
     for dep_type in dep_types:
-        dependency_type = query(DependencyType,
-                                DependencyType.Name == dep_type).first()
+        dependency_type = query(DependencyType, DependencyType.Name == dep_type).first()
         assert dependency_type is not None
 
 

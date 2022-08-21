@@ -16,10 +16,12 @@ class Term(Base):
             raise IntegrityError(
                 statement="Column Description cannot be null.",
                 orig="Terms.Description",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.URL:
             raise IntegrityError(
                 statement="Column URL cannot be null.",
                 orig="Terms.URL",
-                params=("NULL"))
+                params=("NULL"),
+            )

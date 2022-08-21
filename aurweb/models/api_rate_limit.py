@@ -16,10 +16,12 @@ class ApiRateLimit(Base):
             raise IntegrityError(
                 statement="Column Requests cannot be null.",
                 orig="ApiRateLimit.Requests",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if self.WindowStart is None:
             raise IntegrityError(
                 statement="Column WindowStart cannot be null.",
                 orig="ApiRateLimit.WindowStart",
-                params=("NULL"))
+                params=("NULL"),
+            )

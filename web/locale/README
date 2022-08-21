@@ -3,4 +3,3 @@ edit any of these files manually. Update the corresponding portable object
 files in "po/" instead and run following commands to rebuild all ".mo" files:
 
 	make install
-

@@ -5,7 +5,6 @@ import email
 import os
 import re
 import sys
-
 from typing import TextIO
 
 
@@ -28,6 +27,7 @@ class Email:
         print(email.headers)
 
     """
+
     TEST_DIR = "test-emails"
 
     def __init__(self, serial: int = 1, autoparse: bool = True):
@@ -61,7 +61,7 @@ class Email:
         value = os.environ.get("PYTEST_CURRENT_TEST", "email").split(" ")[0]
         if suite:
             value = value.split(":")[0]
-        return re.sub(r'(\/|\.|,|:)', "_", value)
+        return re.sub(r"(\/|\.|,|:)", "_", value)
 
     @staticmethod
     def count() -> int:
@@ -159,6 +159,6 @@ class Email:
             lines += [
                 f"== Email #{i + 1} ==",
                 email.glue(),
-                f"== End of Email #{i + 1}"
+                f"== End of Email #{i + 1}",
             ]
         print("\n".join(lines), file=file)

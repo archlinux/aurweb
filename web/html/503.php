@@ -12,4 +12,3 @@ html_header( __("Service Unavailable") );
 
 <?php
 html_footer(AURWEB_VERSION);
-

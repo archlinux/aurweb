@@ -31,8 +31,13 @@ def setup(db_test, git: GitRepository):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         Passwd=str(), AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
@@ -40,24 +45,32 @@ def user() -> User:
 def pkgbase(user: User) -> PackageBase:
     now = time.utcnow()
     with db.begin():
-        pkgbase = db.create(PackageBase, Packager=user, Name="pkgbase_0",
-                            SubmittedTS=now, ModifiedTS=now)
+        pkgbase = db.create(
+            PackageBase,
+            Packager=user,
+            Name="pkgbase_0",
+            SubmittedTS=now,
+            ModifiedTS=now,
+        )
     yield pkgbase
 
 
 @pytest.fixture
 def package(pkgbase: PackageBase) -> Package:
     with db.begin():
-        package = db.create(Package, PackageBase=pkgbase,
-                            Name=pkgbase.Name, Version="1.0")
+        package = db.create(
+            Package, PackageBase=pkgbase, Name=pkgbase.Name, Version="1.0"
+        )
     yield package
 
 
-def create_comment(user: User, pkgbase: PackageBase, comments: str,
-                   render: bool = True):
+def create_comment(
+    user: User, pkgbase: PackageBase, comments: str, render: bool = True
+):
     with db.begin():
-        comment = db.create(PackageComment, User=user,
-                            PackageBase=pkgbase, Comments=comments)
+        comment = db.create(
+            PackageComment, User=user, PackageBase=pkgbase, Comments=comments
+        )
     if render:
         update_comment_render(comment)
     return comment
@@ -86,8 +99,7 @@ def test_rendercomment_main(user: User, pkgbase: PackageBase):
 def test_markdown_conversion(user: User, pkgbase: PackageBase):
     text = "*Hello* [world](https://aur.archlinux.org)!"
     comment = create_comment(user, pkgbase, text)
-    expected = ('<p><em>Hello</em> '
-                '<a href="https://aur.archlinux.org">world</a>!</p>')
+    expected = "<p><em>Hello</em> " '<a href="https://aur.archlinux.org">world</a>!</p>'
     assert comment.RenderedComment == expected
 
 
@@ -109,7 +121,7 @@ Visit [Arch Linux][arch].
 [arch]: https://www.archlinux.org/\
 """
     comment = create_comment(user, pkgbase, text)
-    expected = '''\
+    expected = """\
 <p>Visit <a href="https://www.archlinux.org/#_test_">\
 https://www.archlinux.org/#_test_</a>.
 Visit <em><a href="https://www.archlinux.org/">https://www.archlinux.org/</a></em>.
@@ -117,7 +129,7 @@ Visit <a href="https://www.archlinux.org/">https://www.archlinux.org/</a>.
 Visit <code>https://www.archlinux.org/</code>.
 Visit <a href="https://www.archlinux.org/">Arch Linux</a>.
 Visit <a href="https://www.archlinux.org/">Arch Linux</a>.</p>\
-'''
+"""
     assert comment.RenderedComment == expected
 
 

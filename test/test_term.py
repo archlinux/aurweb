@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -13,8 +12,9 @@ def setup(db_test):
 
 def test_term_creation():
     with db.begin():
-        term = db.create(Term, Description="Term description",
-                         URL="https://fake_url.io")
+        term = db.create(
+            Term, Description="Term description", URL="https://fake_url.io"
+        )
     assert bool(term.ID)
     assert term.Description == "Term description"
     assert term.URL == "https://fake_url.io"

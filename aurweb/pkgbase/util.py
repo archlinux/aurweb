@@ -10,19 +10,23 @@ from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_request import PENDING_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.scripts import notify
-from aurweb.templates import make_context as _make_context
-from aurweb.templates import make_variable_context as _make_variable_context
+from aurweb.templates import (
+    make_context as _make_context,
+    make_variable_context as _make_variable_context,
+)
 
 
-async def make_variable_context(request: Request, pkgbase: PackageBase) \
-        -> dict[str, Any]:
+async def make_variable_context(
+    request: Request, pkgbase: PackageBase
+) -> dict[str, Any]:
     ctx = await _make_variable_context(request, pkgbase.Name)
     return make_context(request, pkgbase, ctx)
 
 
-def make_context(request: Request, pkgbase: PackageBase,
-                 context: dict[str, Any] = None) -> dict[str, Any]:
-    """ Make a basic context for package or pkgbase.
+def make_context(
+    request: Request, pkgbase: PackageBase, context: dict[str, Any] = None
+) -> dict[str, Any]:
+    """Make a basic context for package or pkgbase.
 
     :param request: FastAPI request
     :param pkgbase: PackageBase instance
@@ -34,14 +38,16 @@ def make_context(request: Request, pkgbase: PackageBase,
     # Per page and offset.
     offset, per_page = util.sanitize_params(
         request.query_params.get("O", defaults.O),
-        request.query_params.get("PP", defaults.COMMENTS_PER_PAGE))
+        request.query_params.get("PP", defaults.COMMENTS_PER_PAGE),
+    )
     context["O"] = offset
     context["PP"] = per_page
     context["git_clone_uri_anon"] = config.get("options", "git_clone_uri_anon")
     context["git_clone_uri_priv"] = config.get("options", "git_clone_uri_priv")
     context["pkgbase"] = pkgbase
     context["comaintainers"] = [
-        c.User for c in pkgbase.comaintainers.order_by(
+        c.User
+        for c in pkgbase.comaintainers.order_by(
             PackageComaintainer.Priority.asc()
         ).all()
     ]
@@ -53,9 +59,11 @@ def make_context(request: Request, pkgbase: PackageBase,
     context["comments_total"] = pkgbase.comments.order_by(
         PackageComment.CommentTS.desc()
     ).count()
-    context["comments"] = pkgbase.comments.order_by(
-        PackageComment.CommentTS.desc()
-    ).limit(per_page).offset(offset)
+    context["comments"] = (
+        pkgbase.comments.order_by(PackageComment.CommentTS.desc())
+        .limit(per_page)
+        .offset(offset)
+    )
     context["pinned_comments"] = pkgbase.comments.filter(
         PackageComment.PinnedTS != 0
     ).order_by(PackageComment.CommentTS.desc())
@@ -70,15 +78,15 @@ def make_context(request: Request, pkgbase: PackageBase,
     ).scalar()
 
     context["requests"] = pkgbase.requests.filter(
-        and_(PackageRequest.Status == PENDING_ID,
-             PackageRequest.ClosedTS.is_(None))
+        and_(PackageRequest.Status == PENDING_ID, PackageRequest.ClosedTS.is_(None))
     ).count()
 
     return context
 
 
-def remove_comaintainer(comaint: PackageComaintainer) \
-        -> notify.ComaintainerRemoveNotification:
+def remove_comaintainer(
+    comaint: PackageComaintainer,
+) -> notify.ComaintainerRemoveNotification:
     """
     Remove a PackageComaintainer.
 
@@ -107,9 +115,9 @@ def remove_comaintainers(pkgbase: PackageBase, usernames: list[str]) -> None:
     """
     notifications = []
     with db.begin():
-        comaintainers = pkgbase.comaintainers.join(User).filter(
-            User.Username.in_(usernames)
-        ).all()
+        comaintainers = (
+            pkgbase.comaintainers.join(User).filter(User.Username.in_(usernames)).all()
+        )
         notifications = [
             notify.ComaintainerRemoveNotification(co.User.ID, pkgbase.ID)
             for co in comaintainers
@@ -133,23 +141,23 @@ def latest_priority(pkgbase: PackageBase) -> int:
     """
 
     # Order comaintainers related to pkgbase by Priority DESC.
-    record = pkgbase.comaintainers.order_by(
-        PackageComaintainer.Priority.desc()).first()
+    record = pkgbase.comaintainers.order_by(PackageComaintainer.Priority.desc()).first()
 
     # Use Priority column if record exists, otherwise 0.
     return record.Priority if record else 0
 
 
 class NoopComaintainerNotification:
-    """ A noop notification stub used as an error-state return value. """
+    """A noop notification stub used as an error-state return value."""
 
     def send(self) -> None:
-        """ noop """
+        """noop"""
         return
 
 
-def add_comaintainer(pkgbase: PackageBase, comaintainer: User) \
-        -> notify.ComaintainerAddNotification:
+def add_comaintainer(
+    pkgbase: PackageBase, comaintainer: User
+) -> notify.ComaintainerAddNotification:
     """
     Add a new comaintainer to `pkgbase`.
 
@@ -165,14 +173,19 @@ def add_comaintainer(pkgbase: PackageBase, comaintainer: User) \
     new_prio = latest_priority(pkgbase) + 1
 
     with db.begin():
-        db.create(PackageComaintainer, PackageBase=pkgbase,
-                  User=comaintainer, Priority=new_prio)
+        db.create(
+            PackageComaintainer,
+            PackageBase=pkgbase,
+            User=comaintainer,
+            Priority=new_prio,
+        )
 
     return notify.ComaintainerAddNotification(comaintainer.ID, pkgbase.ID)
 
 
-def add_comaintainers(request: Request, pkgbase: PackageBase,
-                      usernames: list[str]) -> None:
+def add_comaintainers(
+    request: Request, pkgbase: PackageBase, usernames: list[str]
+) -> None:
     """
     Add comaintainers to `pkgbase`.
 
@@ -216,7 +229,6 @@ def rotate_comaintainers(pkgbase: PackageBase) -> None:
 
     :param pkgbase: PackageBase instance
     """
-    comaintainers = pkgbase.comaintainers.order_by(
-        PackageComaintainer.Priority.asc())
+    comaintainers = pkgbase.comaintainers.order_by(PackageComaintainer.Priority.asc())
     for i, comaint in enumerate(comaintainers):
         comaint.Priority = i + 1

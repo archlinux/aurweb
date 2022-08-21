@@ -39,12 +39,10 @@ ahead of each function takes too long when compared to this method.
 """
 import os
 import pathlib
-
 from multiprocessing import Lock
 
 import py
 import pytest
-
 from posix_ipc import O_CREAT, Semaphore
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
@@ -54,7 +52,6 @@ from sqlalchemy.orm import scoped_session
 
 import aurweb.config
 import aurweb.db
-
 from aurweb import initdb, logging, testing
 from aurweb.testing.email import Email
 from aurweb.testing.filelock import FileLock
@@ -78,13 +75,10 @@ def test_engine() -> Engine:
     unix_socket = aurweb.config.get_with_fallback("database", "socket", None)
     kwargs = {
         "username": aurweb.config.get("database", "user"),
-        "password": aurweb.config.get_with_fallback(
-            "database", "password", None),
+        "password": aurweb.config.get_with_fallback("database", "password", None),
         "host": aurweb.config.get("database", "host"),
         "port": aurweb.config.get_with_fallback("database", "port", None),
-        "query": {
-            "unix_socket": unix_socket
-        }
+        "query": {"unix_socket": unix_socket},
     }
 
     backend = aurweb.config.get("database", "backend")
@@ -99,6 +93,7 @@ class AlembicArgs:
     This structure is needed to pass conftest-specific arguments
     to initdb.run duration database creation.
     """
+
     verbose = False
     use_alembic = True
 
@@ -156,7 +151,7 @@ def setup_email():
 
 @pytest.fixture(scope="module")
 def setup_database(tmp_path_factory: pathlib.Path, worker_id: str) -> None:
-    """ Create and drop a database for the suite this fixture is used in. """
+    """Create and drop a database for the suite this fixture is used in."""
     engine = test_engine()
     dbname = aurweb.db.name()
 

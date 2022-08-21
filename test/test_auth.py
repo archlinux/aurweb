@@ -1,11 +1,15 @@
 import fastapi
 import pytest
-
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import config, db, time
-from aurweb.auth import AnonymousUser, BasicAuthBackend, _auth_required, account_type_required
+from aurweb.auth import (
+    AnonymousUser,
+    BasicAuthBackend,
+    _auth_required,
+    account_type_required,
+)
 from aurweb.models.account_type import USER, USER_ID
 from aurweb.models.session import Session
 from aurweb.models.user import User
@@ -20,9 +24,14 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.com",
-                         RealName="Test User", Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.com",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
@@ -55,8 +64,7 @@ async def test_auth_backend_invalid_user_id():
     # Create a new session with a fake user id.
     now_ts = time.utcnow()
     with pytest.raises(IntegrityError):
-        Session(UsersID=666, SessionID="realSession",
-                LastUpdateTS=now_ts + 5)
+        Session(UsersID=666, SessionID="realSession", LastUpdateTS=now_ts + 5)
 
 
 @pytest.mark.asyncio
@@ -65,8 +73,9 @@ async def test_basic_auth_backend(user: User, backend: BasicAuthBackend):
     # equal the real_user.
     now_ts = time.utcnow()
     with db.begin():
-        db.create(Session, UsersID=user.ID, SessionID="realSession",
-                  LastUpdateTS=now_ts + 5)
+        db.create(
+            Session, UsersID=user.ID, SessionID="realSession", LastUpdateTS=now_ts + 5
+        )
 
     request = Request()
     request.cookies["AURSID"] = "realSession"
@@ -76,7 +85,7 @@ async def test_basic_auth_backend(user: User, backend: BasicAuthBackend):
 
 @pytest.mark.asyncio
 async def test_expired_session(backend: BasicAuthBackend, user: User):
-    """ Login, expire the session manually, then authenticate. """
+    """Login, expire the session manually, then authenticate."""
     # First, build a Request with a logged  in user.
     request = Request()
     request.user = user
@@ -115,8 +124,8 @@ async def test_auth_required_redirection_bad_referrer():
 
 
 def test_account_type_required():
-    """ This test merely asserts that a few different paths
-    do not raise exceptions. """
+    """This test merely asserts that a few different paths
+    do not raise exceptions."""
     # This one shouldn't raise.
     account_type_required({USER})
 
@@ -125,7 +134,7 @@ def test_account_type_required():
 
     # But this one should! We have no "FAKE" key.
     with pytest.raises(KeyError):
-        account_type_required({'FAKE'})
+        account_type_required({"FAKE"})
 
 
 def test_is_trusted_user():

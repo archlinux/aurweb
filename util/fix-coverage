@@ -48,9 +48,8 @@ def main():
         files[i] = path
 
     for _, i in enumerate(files.keys()):
-        new_path = re.sub(r'^/aurweb', aurwebdir, files[i])
-        cursor.execute("UPDATE file SET path = ? WHERE id = ?", (
-            new_path, i))
+        new_path = re.sub(r"^/aurweb", aurwebdir, files[i])
+        cursor.execute("UPDATE file SET path = ? WHERE id = ?", (new_path, i))
 
     db.commit()
     db.close()

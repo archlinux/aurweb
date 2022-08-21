@@ -2,13 +2,11 @@
 import hashlib
 import os
 import tempfile
-
 from http import HTTPStatus
 from unittest import mock
 
 import fastapi
 import pytest
-
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
@@ -33,8 +31,13 @@ def client() -> TestClient:
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         Passwd="testPassword", AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
@@ -53,12 +56,7 @@ def pkgbase(user: User) -> PackageBase:
 
 
 def test_archdev_navbar(client: TestClient):
-    expected = [
-        "AUR Home",
-        "Packages",
-        "Register",
-        "Login"
-    ]
+    expected = ["AUR Home", "Packages", "Register", "Login"]
     with client as request:
         resp = request.get("/")
     assert resp.status_code == int(HTTPStatus.OK)
@@ -70,13 +68,7 @@ def test_archdev_navbar(client: TestClient):
 
 
 def test_archdev_navbar_authenticated(client: TestClient, user: User):
-    expected = [
-        "Dashboard",
-        "Packages",
-        "Requests",
-        "My Account",
-        "Logout"
-    ]
+    expected = ["Dashboard", "Packages", "Requests", "My Account", "Logout"]
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         resp = request.get("/", cookies=cookies)
@@ -88,8 +80,7 @@ def test_archdev_navbar_authenticated(client: TestClient, user: User):
         assert item.text.strip() == expected[i]
 
 
-def test_archdev_navbar_authenticated_tu(client: TestClient,
-                                         trusted_user: User):
+def test_archdev_navbar_authenticated_tu(client: TestClient, trusted_user: User):
     expected = [
         "Dashboard",
         "Packages",
@@ -97,7 +88,7 @@ def test_archdev_navbar_authenticated_tu(client: TestClient,
         "Accounts",
         "My Account",
         "Trusted User",
-        "Logout"
+        "Logout",
     ]
     cookies = {"AURSID": trusted_user.login(Request(), "testPassword")}
     with client as request:
@@ -131,7 +122,7 @@ def test_get_successes():
 
 
 def test_archive_sig(client: TestClient):
-    hash_value = hashlib.sha256(b'test').hexdigest()
+    hash_value = hashlib.sha256(b"test").hexdigest()
 
     with tempfile.TemporaryDirectory() as tmpdir:
         packages_sha256 = os.path.join(tmpdir, "packages.gz.sha256")
@@ -179,12 +170,7 @@ def test_disabled_metrics(client: TestClient):
 
 def test_rtl(client: TestClient):
     responses = {}
-    expected = [
-        [],
-        [],
-        ['rtl'],
-        ['rtl']
-    ]
+    expected = [[], [], ["rtl"], ["rtl"]]
     with client as request:
         responses["default"] = request.get("/")
         responses["de"] = request.get("/", cookies={"AURLANG": "de"})
@@ -193,11 +179,11 @@ def test_rtl(client: TestClient):
     for i, (lang, resp) in enumerate(responses.items()):
         assert resp.status_code == int(HTTPStatus.OK)
         t = parse_root(resp.text)
-        assert t.xpath('//html/@dir') == expected[i]
+        assert t.xpath("//html/@dir") == expected[i]
 
 
 def test_404_with_valid_pkgbase(client: TestClient, pkgbase: PackageBase):
-    """ Test HTTPException with status_code == 404 and valid pkgbase. """
+    """Test HTTPException with status_code == 404 and valid pkgbase."""
     endpoint = f"/{pkgbase.Name}"
     with client as request:
         response = request.get(endpoint)
@@ -209,7 +195,7 @@ def test_404_with_valid_pkgbase(client: TestClient, pkgbase: PackageBase):
 
 
 def test_404(client: TestClient):
-    """ Test HTTPException with status_code == 404 without a valid pkgbase. """
+    """Test HTTPException with status_code == 404 without a valid pkgbase."""
     with client as request:
         response = request.get("/nonexistentroute")
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
@@ -221,7 +207,8 @@ def test_404(client: TestClient):
 
 
 def test_503(client: TestClient):
-    """ Test HTTPException with status_code == 503 (Service Unavailable). """
+    """Test HTTPException with status_code == 503 (Service Unavailable)."""
+
     @asgi.app.get("/raise-503")
     async def raise_503(request: fastapi.Request):
         raise HTTPException(status_code=HTTPStatus.SERVICE_UNAVAILABLE)

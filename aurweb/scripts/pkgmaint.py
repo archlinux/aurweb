@@ -11,8 +11,8 @@ def _main():
     limit_to = time.utcnow() - 86400
 
     query = db.query(PackageBase).filter(
-        and_(PackageBase.SubmittedTS < limit_to,
-             PackageBase.PackagerUID.is_(None)))
+        and_(PackageBase.SubmittedTS < limit_to, PackageBase.PackagerUID.is_(None))
+    )
     db.delete_all(query)
 
 
@@ -22,5 +22,5 @@ def main():
         _main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

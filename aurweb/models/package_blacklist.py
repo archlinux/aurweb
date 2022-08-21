@@ -16,4 +16,5 @@ class PackageBlacklist(Base):
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="PackageBlacklist.Name",
-                params=("NULL"))
+                params=("NULL"),
+            )

@@ -1,6 +1,5 @@
 import configparser
 import os
-
 from typing import Any
 
 # Publicly visible version of aurweb. This is used to display
@@ -15,8 +14,8 @@ def _get_parser():
     global _parser
 
     if not _parser:
-        path = os.environ.get('AUR_CONFIG', '/etc/aurweb/config')
-        defaults = os.environ.get('AUR_CONFIG_DEFAULTS', path + '.defaults')
+        path = os.environ.get("AUR_CONFIG", "/etc/aurweb/config")
+        defaults = os.environ.get("AUR_CONFIG_DEFAULTS", path + ".defaults")
 
         _parser = configparser.RawConfigParser()
         _parser.optionxform = lambda option: option
@@ -29,7 +28,7 @@ def _get_parser():
 
 
 def rehash():
-    """ Globally rehash the configuration parser. """
+    """Globally rehash the configuration parser."""
     global _parser
     _parser = None
     _get_parser()

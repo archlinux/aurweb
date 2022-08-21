@@ -1,20 +1,17 @@
 import http
 import os
 import re
-
 from typing import Callable
 from unittest import mock
 
 import fastapi
 import pytest
-
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 import aurweb.asgi
 import aurweb.config
 import aurweb.redis
-
 from aurweb.exceptions import handle_form_exceptions
 from aurweb.testing.requests import Request
 
@@ -33,7 +30,9 @@ def mock_glab_request(monkeypatch):
             if side_effect:
                 return side_effect  # pragma: no cover
             return return_value
+
         monkeypatch.setattr("requests.post", what_to_return)
+
     return wrapped
 
 
@@ -47,13 +46,14 @@ def mock_glab_config(project: str = "test/project", token: str = "test-token"):
             elif key == "error-token":
                 return token
         return config_get(section, key)
+
     return wrapper
 
 
 @pytest.mark.asyncio
 async def test_asgi_startup_session_secret_exception(monkeypatch):
-    """ Test that we get an IOError on app_startup when we cannot
-    connect to options.redis_address. """
+    """Test that we get an IOError on app_startup when we cannot
+    connect to options.redis_address."""
 
     redis_addr = aurweb.config.get("options", "redis_address")
 
@@ -110,8 +110,9 @@ async def test_asgi_app_disabled_metrics(caplog: pytest.LogCaptureFixture):
     with mock.patch.dict(os.environ, env):
         await aurweb.asgi.app_startup()
 
-    expected = ("$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics "
-                "endpoint is disabled.")
+    expected = (
+        "$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics " "endpoint is disabled."
+    )
     assert expected in caplog.text
 
 
@@ -134,9 +135,12 @@ class FakeResponse:
         self.text = text
 
 
-def test_internal_server_error_bad_glab(setup: None, use_traceback: None,
-                                        mock_glab_request: Callable,
-                                        caplog: pytest.LogCaptureFixture):
+def test_internal_server_error_bad_glab(
+    setup: None,
+    use_traceback: None,
+    mock_glab_request: Callable,
+    caplog: pytest.LogCaptureFixture,
+):
     @aurweb.asgi.app.get("/internal_server_error")
     async def internal_server_error(request: fastapi.Request):
         raise ValueError("test exception")
@@ -154,9 +158,12 @@ def test_internal_server_error_bad_glab(setup: None, use_traceback: None,
     assert re.search(expr, caplog.text)
 
 
-def test_internal_server_error_no_token(setup: None, use_traceback: None,
-                                        mock_glab_request: Callable,
-                                        caplog: pytest.LogCaptureFixture):
+def test_internal_server_error_no_token(
+    setup: None,
+    use_traceback: None,
+    mock_glab_request: Callable,
+    caplog: pytest.LogCaptureFixture,
+):
     @aurweb.asgi.app.get("/internal_server_error")
     async def internal_server_error(request: fastapi.Request):
         raise ValueError("test exception")
@@ -175,9 +182,12 @@ def test_internal_server_error_no_token(setup: None, use_traceback: None,
     assert re.search(expr, caplog.text)
 
 
-def test_internal_server_error(setup: None, use_traceback: None,
-                               mock_glab_request: Callable,
-                               caplog: pytest.LogCaptureFixture):
+def test_internal_server_error(
+    setup: None,
+    use_traceback: None,
+    mock_glab_request: Callable,
+    caplog: pytest.LogCaptureFixture,
+):
     @aurweb.asgi.app.get("/internal_server_error")
     async def internal_server_error(request: fastapi.Request):
         raise ValueError("test exception")
@@ -203,9 +213,12 @@ def test_internal_server_error(setup: None, use_traceback: None,
     assert "FATAL" not in caplog.text
 
 
-def test_internal_server_error_post(setup: None, use_traceback: None,
-                                    mock_glab_request: Callable,
-                                    caplog: pytest.LogCaptureFixture):
+def test_internal_server_error_post(
+    setup: None,
+    use_traceback: None,
+    mock_glab_request: Callable,
+    caplog: pytest.LogCaptureFixture,
+):
     @aurweb.asgi.app.post("/internal_server_error")
     @handle_form_exceptions
     async def internal_server_error(request: fastapi.Request):

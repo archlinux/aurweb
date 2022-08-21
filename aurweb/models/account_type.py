@@ -16,7 +16,7 @@ ACCOUNT_TYPE_ID = {
     USER: USER_ID,
     TRUSTED_USER: TRUSTED_USER_ID,
     DEVELOPER: DEVELOPER_ID,
-    TRUSTED_USER_AND_DEV: TRUSTED_USER_AND_DEV_ID
+    TRUSTED_USER_AND_DEV: TRUSTED_USER_AND_DEV_ID,
 }
 
 # Reversed ACCOUNT_TYPE_ID mapping.
@@ -24,7 +24,8 @@ ACCOUNT_TYPE_NAME = {v: k for k, v in ACCOUNT_TYPE_ID.items()}
 
 
 class AccountType(Base):
-    """ An ORM model of a single AccountTypes record. """
+    """An ORM model of a single AccountTypes record."""
+
     __table__ = schema.AccountTypes
     __tablename__ = __table__.name
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
@@ -36,5 +37,4 @@ class AccountType(Base):
         return str(self.AccountType)
 
     def __repr__(self):
-        return "<AccountType(ID='%s', AccountType='%s')>" % (
-            self.ID, str(self))
+        return "<AccountType(ID='%s', AccountType='%s')>" % (self.ID, str(self))

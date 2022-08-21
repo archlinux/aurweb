@@ -1,10 +1,8 @@
 import json
-
 from http import HTTPStatus
 
 import fastapi
 import pytest
-
 from fastapi.responses import JSONResponse
 
 from aurweb import filters, util
@@ -18,7 +16,7 @@ def test_round():
 
 
 def test_git_search():
-    """ Test that git_search matches the full commit if necessary. """
+    """Test that git_search matches the full commit if necessary."""
     commit_hash = "0123456789abcdef"
     repo = {commit_hash}
     prefixlen = util.git_search(repo, commit_hash)
@@ -26,7 +24,7 @@ def test_git_search():
 
 
 def test_git_search_double_commit():
-    """ Test that git_search matches a shorter prefix length. """
+    """Test that git_search matches a shorter prefix length."""
     commit_hash = "0123456789abcdef"
     repo = {commit_hash[:13]}
     # Locate the shortest prefix length that matches commit_hash.
@@ -36,7 +34,6 @@ def test_git_search_double_commit():
 
 @pytest.mark.asyncio
 async def test_error_or_result():
-
     async def route(request: fastapi.Request):
         raise RuntimeError("No response returned.")
 

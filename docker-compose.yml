@@ -43,7 +43,7 @@ services:
     healthcheck:
       test: "bash /docker/health/memcached.sh"
       interval: 3s
- 
+
   redis:
     image: aurweb:latest
     init: true

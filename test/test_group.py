@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db

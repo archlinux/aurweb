@@ -1,6 +1,5 @@
 import hashlib
 import json
-
 from datetime import datetime, timedelta
 
 import bcrypt
@@ -9,10 +8,14 @@ import pytest
 import aurweb.auth
 import aurweb.config
 import aurweb.models.account_type as at
-
 from aurweb import db
 from aurweb.auth import creds
-from aurweb.models.account_type import DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, USER_ID
+from aurweb.models.account_type import (
+    DEVELOPER_ID,
+    TRUSTED_USER_AND_DEV_ID,
+    TRUSTED_USER_ID,
+    USER_ID,
+)
 from aurweb.models.ban import Ban
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -31,10 +34,14 @@ def setup(db_test):
 
 def create_user(username: str, account_type_id: int):
     with db.begin():
-        user = db.create(User, Username=username,
-                         Email=f"{username}@example.org",
-                         RealName=username.title(), Passwd="testPassword",
-                         AccountTypeID=account_type_id)
+        user = db.create(
+            User,
+            Username=username,
+            Email=f"{username}@example.org",
+            RealName=username.title(),
+            Passwd="testPassword",
+            AccountTypeID=account_type_id,
+        )
     return user
 
 
@@ -71,7 +78,7 @@ def package(user: User) -> Package:
 
 
 def test_user_login_logout(user: User):
-    """ Test creating a user and reading its columns. """
+    """Test creating a user and reading its columns."""
     # Assert that make_user created a valid user.
     assert bool(user.ID)
 
@@ -89,8 +96,7 @@ def test_user_login_logout(user: User):
     assert user.is_authenticated()
 
     # Expect that User session relationships work right.
-    user_session = db.query(Session,
-                            Session.UsersID == user.ID).first()
+    user_session = db.query(Session, Session.UsersID == user.ID).first()
     assert user_session == user.session
     assert user.session.SessionID == sid
     assert user.session.User == user
@@ -111,8 +117,10 @@ def test_user_login_logout(user: User):
     assert result.is_authenticated()
 
     # Test out user string functions.
-    assert repr(user) == f"<User(ID='{user.ID}', " + \
-        "AccountType='User', Username='test')>"
+    assert (
+        repr(user)
+        == f"<User(ID='{user.ID}', " + "AccountType='User', Username='test')>"
+    )
 
     # Test logout.
     user.logout(request)
@@ -145,9 +153,7 @@ def test_user_login_suspended(user: User):
 def test_legacy_user_authentication(user: User):
     with db.begin():
         user.Salt = bcrypt.gensalt().decode()
-        user.Passwd = hashlib.md5(
-            f"{user.Salt}testPassword".encode()
-        ).hexdigest()
+        user.Passwd = hashlib.md5(f"{user.Salt}testPassword".encode()).hexdigest()
 
     assert not user.valid_password("badPassword")
     assert user.valid_password("testPassword")
@@ -160,8 +166,12 @@ def test_user_login_with_outdated_sid(user: User):
     # Make a session with a LastUpdateTS 5 seconds ago, causing
     # user.login to update it with a new sid.
     with db.begin():
-        db.create(Session, UsersID=user.ID, SessionID="stub",
-                  LastUpdateTS=datetime.utcnow().timestamp() - 5)
+        db.create(
+            Session,
+            UsersID=user.ID,
+            SessionID="stub",
+            LastUpdateTS=datetime.utcnow().timestamp() - 5,
+        )
     sid = user.login(Request(), "testPassword")
     assert sid and user.is_authenticated()
     assert sid != "stub"
@@ -186,9 +196,12 @@ def test_user_ssh_pub_key(user: User):
     assert user.ssh_pub_keys.first() is None
 
     with db.begin():
-        ssh_pub_key = db.create(SSHPubKey, UserID=user.ID,
-                                Fingerprint="testFingerprint",
-                                PubKey="testPubKey")
+        ssh_pub_key = db.create(
+            SSHPubKey,
+            UserID=user.ID,
+            Fingerprint="testFingerprint",
+            PubKey="testPubKey",
+        )
 
     assert user.ssh_pub_keys.first() == ssh_pub_key
 
@@ -283,8 +296,9 @@ def test_user_packages(user: User, package: Package):
     assert package in user.packages()
 
 
-def test_can_edit_user(user: User, tu_user: User, dev_user: User,
-                       tu_and_dev_user: User):
+def test_can_edit_user(
+    user: User, tu_user: User, dev_user: User, tu_and_dev_user: User
+):
     # User can edit.
     assert user.can_edit_user(user)
 

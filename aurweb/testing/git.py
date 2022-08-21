@@ -1,6 +1,5 @@
 import os
 import shlex
-
 from subprocess import PIPE, Popen
 from typing import Tuple
 

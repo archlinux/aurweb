@@ -1,10 +1,8 @@
 import re
-
 from http import HTTPStatus
 from unittest.mock import patch
 
 import pytest
-
 from fastapi.testclient import TestClient
 
 from aurweb import db, time
@@ -31,16 +29,26 @@ def setup(db_test):
 @pytest.fixture
 def user():
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         Passwd="testPassword", AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def user2():
     with db.begin():
-        user = db.create(User, Username="test2", Email="test2@example.org",
-                         Passwd="testPassword", AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test2",
+            Email="test2@example.org",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
@@ -50,10 +58,17 @@ def redis():
 
     def delete_keys():
         # Cleanup keys if they exist.
-        for key in ("package_count", "orphan_count", "user_count",
-                    "trusted_user_count", "seven_days_old_added",
-                    "seven_days_old_updated", "year_old_updated",
-                    "never_updated", "package_updates"):
+        for key in (
+            "package_count",
+            "orphan_count",
+            "user_count",
+            "trusted_user_count",
+            "seven_days_old_added",
+            "seven_days_old_updated",
+            "year_old_updated",
+            "never_updated",
+            "package_updates",
+        ):
             if redis.get(key) is not None:
                 redis.delete(key)
 
@@ -66,16 +81,21 @@ def redis():
 def package(user: User) -> Package:
     now = time.utcnow()
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="test-pkg",
-                            Maintainer=user, Packager=user,
-                            SubmittedTS=now, ModifiedTS=now)
+        pkgbase = db.create(
+            PackageBase,
+            Name="test-pkg",
+            Maintainer=user,
+            Packager=user,
+            SubmittedTS=now,
+            ModifiedTS=now,
+        )
         pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
     yield pkg
 
 
 @pytest.fixture
 def packages(user):
-    """ Yield a list of num_packages Package objects maintained by user. """
+    """Yield a list of num_packages Package objects maintained by user."""
     num_packages = 50  # Tunable
 
     # For i..num_packages, create a package named pkg_{i}.
@@ -83,9 +103,14 @@ def packages(user):
     now = time.utcnow()
     with db.begin():
         for i in range(num_packages):
-            pkgbase = db.create(PackageBase, Name=f"pkg_{i}",
-                                Maintainer=user, Packager=user,
-                                SubmittedTS=now, ModifiedTS=now)
+            pkgbase = db.create(
+                PackageBase,
+                Name=f"pkg_{i}",
+                Maintainer=user,
+                Packager=user,
+                SubmittedTS=now,
+                ModifiedTS=now,
+            )
             pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
             pkgs.append(pkg)
             now += 1
@@ -99,9 +124,9 @@ def test_homepage():
     assert response.status_code == int(HTTPStatus.OK)
 
 
-@patch('aurweb.util.get_ssh_fingerprints')
+@patch("aurweb.util.get_ssh_fingerprints")
 def test_homepage_ssh_fingerprints(get_ssh_fingerprints_mock):
-    fingerprints = {'Ed25519': "SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4"}
+    fingerprints = {"Ed25519": "SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4"}
     get_ssh_fingerprints_mock.return_value = fingerprints
 
     with client as request:
@@ -110,17 +135,23 @@ def test_homepage_ssh_fingerprints(get_ssh_fingerprints_mock):
     for key, value in fingerprints.items():
         assert key in response.content.decode()
         assert value in response.content.decode()
-    assert 'The following SSH fingerprints are used for the AUR' in response.content.decode()
+    assert (
+        "The following SSH fingerprints are used for the AUR"
+        in response.content.decode()
+    )
 
 
-@patch('aurweb.util.get_ssh_fingerprints')
+@patch("aurweb.util.get_ssh_fingerprints")
 def test_homepage_no_ssh_fingerprints(get_ssh_fingerprints_mock):
     get_ssh_fingerprints_mock.return_value = {}
 
     with client as request:
         response = request.get("/")
 
-    assert 'The following SSH fingerprints are used for the AUR' not in response.content.decode()
+    assert (
+        "The following SSH fingerprints are used for the AUR"
+        not in response.content.decode()
+    )
 
 
 def test_homepage_stats(redis, packages):
@@ -131,20 +162,20 @@ def test_homepage_stats(redis, packages):
     root = parse_root(response.text)
 
     expectations = [
-        ("Packages", r'\d+'),
-        ("Orphan Packages", r'\d+'),
-        ("Packages added in the past 7 days", r'\d+'),
-        ("Packages updated in the past 7 days", r'\d+'),
-        ("Packages updated in the past year", r'\d+'),
-        ("Packages never updated", r'\d+'),
-        ("Registered Users", r'\d+'),
-        ("Trusted Users", r'\d+')
+        ("Packages", r"\d+"),
+        ("Orphan Packages", r"\d+"),
+        ("Packages added in the past 7 days", r"\d+"),
+        ("Packages updated in the past 7 days", r"\d+"),
+        ("Packages updated in the past year", r"\d+"),
+        ("Packages never updated", r"\d+"),
+        ("Registered Users", r"\d+"),
+        ("Trusted Users", r"\d+"),
     ]
 
     stats = root.xpath('//div[@id="pkg-stats"]//tr')
     for i, expected in enumerate(expectations):
         expected_key, expected_regex = expected
-        key, value = stats[i].xpath('./td')
+        key, value = stats[i].xpath("./td")
         assert key.text.strip() == expected_key
         assert re.match(expected_regex, value.text.strip())
 
@@ -165,7 +196,7 @@ def test_homepage_updates(redis, packages):
     expectations = [f"pkg_{i}" for i in range(50 - 1, 50 - 1 - 15, -1)]
     updates = root.xpath('//div[@id="pkg-updates"]/table/tbody/tr')
     for i, expected in enumerate(expectations):
-        pkgname = updates[i].xpath('./td/a').pop(0)
+        pkgname = updates[i].xpath("./td/a").pop(0)
         assert pkgname.text.strip() == expected
 
 
@@ -173,9 +204,9 @@ def test_homepage_dashboard(redis, packages, user):
     # Create Comaintainer records for all of the packages.
     with db.begin():
         for pkg in packages:
-            db.create(PackageComaintainer,
-                      PackageBase=pkg.PackageBase,
-                      User=user, Priority=1)
+            db.create(
+                PackageComaintainer, PackageBase=pkg.PackageBase, User=user, Priority=1
+            )
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -189,16 +220,18 @@ def test_homepage_dashboard(redis, packages, user):
     expectations = [f"pkg_{i}" for i in range(50 - 1, 0, -1)]
     my_packages = root.xpath('//table[@id="my-packages"]/tbody/tr')
     for i, expected in enumerate(expectations):
-        name, version, votes, pop, voted, notify, desc, maint \
-            = my_packages[i].xpath('./td')
-        assert name.xpath('./a').pop(0).text.strip() == expected
+        name, version, votes, pop, voted, notify, desc, maint = my_packages[i].xpath(
+            "./td"
+        )
+        assert name.xpath("./a").pop(0).text.strip() == expected
 
     # Do the same for the Comaintained Packages table.
     my_packages = root.xpath('//table[@id="comaintained-packages"]/tbody/tr')
     for i, expected in enumerate(expectations):
-        name, version, votes, pop, voted, notify, desc, maint \
-            = my_packages[i].xpath('./td')
-        assert name.xpath('./a').pop(0).text.strip() == expected
+        name, version, votes, pop, voted, notify, desc, maint = my_packages[i].xpath(
+            "./td"
+        )
+        assert name.xpath("./a").pop(0).text.strip() == expected
 
 
 def test_homepage_dashboard_requests(redis, packages, user):
@@ -207,11 +240,16 @@ def test_homepage_dashboard_requests(redis, packages, user):
     pkg = packages[0]
     reqtype = db.query(RequestType, RequestType.ID == DELETION_ID).first()
     with db.begin():
-        pkgreq = db.create(PackageRequest, PackageBase=pkg.PackageBase,
-                           PackageBaseName=pkg.PackageBase.Name,
-                           User=user, Comments=str(),
-                           ClosureComment=str(), RequestTS=now,
-                           RequestType=reqtype)
+        pkgreq = db.create(
+            PackageRequest,
+            PackageBase=pkg.PackageBase,
+            PackageBaseName=pkg.PackageBase.Name,
+            User=user,
+            Comments=str(),
+            ClosureComment=str(),
+            RequestTS=now,
+            RequestType=reqtype,
+        )
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -220,7 +258,7 @@ def test_homepage_dashboard_requests(redis, packages, user):
 
     root = parse_root(response.text)
     request = root.xpath('//table[@id="pkgreq-results"]/tbody/tr').pop(0)
-    pkgname = request.xpath('./td/a').pop(0)
+    pkgname = request.xpath("./td/a").pop(0)
     assert pkgname.text.strip() == pkgreq.PackageBaseName
 
 
@@ -238,7 +276,7 @@ def test_homepage_dashboard_flagged_packages(redis, packages, user):
     # Check to see that the package showed up in the Flagged Packages table.
     root = parse_root(response.text)
     flagged_pkg = root.xpath('//table[@id="flagged-packages"]/tbody/tr').pop(0)
-    flagged_name = flagged_pkg.xpath('./td/a').pop(0)
+    flagged_name = flagged_pkg.xpath("./td/a").pop(0)
     assert flagged_name.text.strip() == pkg.Name
 
 
@@ -247,8 +285,7 @@ def test_homepage_dashboard_flagged(user: User, user2: User, package: Package):
 
     now = time.utcnow()
     with db.begin():
-        db.create(PackageComaintainer, User=user2,
-                  PackageBase=pkgbase, Priority=1)
+        db.create(PackageComaintainer, User=user2, PackageBase=pkgbase, Priority=1)
         pkgbase.OutOfDateTS = now - 5
         pkgbase.Flagger = user
 

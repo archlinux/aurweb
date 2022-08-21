@@ -1,5 +1,4 @@
 import functools
-
 from typing import Any, Callable
 
 import fastapi
@@ -19,61 +18,61 @@ class BannedException(AurwebException):
 
 class PermissionDeniedException(AurwebException):
     def __init__(self, user):
-        msg = 'permission denied: {:s}'.format(user)
+        msg = "permission denied: {:s}".format(user)
         super(PermissionDeniedException, self).__init__(msg)
 
 
 class BrokenUpdateHookException(AurwebException):
     def __init__(self, cmd):
-        msg = 'broken update hook: {:s}'.format(cmd)
+        msg = "broken update hook: {:s}".format(cmd)
         super(BrokenUpdateHookException, self).__init__(msg)
 
 
 class InvalidUserException(AurwebException):
     def __init__(self, user):
-        msg = 'unknown user: {:s}'.format(user)
+        msg = "unknown user: {:s}".format(user)
         super(InvalidUserException, self).__init__(msg)
 
 
 class InvalidPackageBaseException(AurwebException):
     def __init__(self, pkgbase):
-        msg = 'package base not found: {:s}'.format(pkgbase)
+        msg = "package base not found: {:s}".format(pkgbase)
         super(InvalidPackageBaseException, self).__init__(msg)
 
 
 class InvalidRepositoryNameException(AurwebException):
     def __init__(self, pkgbase):
-        msg = 'invalid repository name: {:s}'.format(pkgbase)
+        msg = "invalid repository name: {:s}".format(pkgbase)
         super(InvalidRepositoryNameException, self).__init__(msg)
 
 
 class PackageBaseExistsException(AurwebException):
     def __init__(self, pkgbase):
-        msg = 'package base already exists: {:s}'.format(pkgbase)
+        msg = "package base already exists: {:s}".format(pkgbase)
         super(PackageBaseExistsException, self).__init__(msg)
 
 
 class InvalidReasonException(AurwebException):
     def __init__(self, reason):
-        msg = 'invalid reason: {:s}'.format(reason)
+        msg = "invalid reason: {:s}".format(reason)
         super(InvalidReasonException, self).__init__(msg)
 
 
 class InvalidCommentException(AurwebException):
     def __init__(self, comment):
-        msg = 'comment is too short: {:s}'.format(comment)
+        msg = "comment is too short: {:s}".format(comment)
         super(InvalidCommentException, self).__init__(msg)
 
 
 class AlreadyVotedException(AurwebException):
     def __init__(self, comment):
-        msg = 'already voted for package base: {:s}'.format(comment)
+        msg = "already voted for package base: {:s}".format(comment)
         super(AlreadyVotedException, self).__init__(msg)
 
 
 class NotVotedException(AurwebException):
     def __init__(self, comment):
-        msg = 'missing vote for package base: {:s}'.format(comment)
+        msg = "missing vote for package base: {:s}".format(comment)
         super(NotVotedException, self).__init__(msg)
 
 
@@ -109,4 +108,5 @@ def handle_form_exceptions(route: Callable) -> fastapi.Response:
     async def wrapper(request: fastapi.Request, *args, **kwargs):
         request.state.form_data = await request.form()
         return await route(request, *args, **kwargs)
+
     return wrapper

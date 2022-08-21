@@ -12,8 +12,10 @@ class Session(Base):
     __mapper_args__ = {"primary_key": [__table__.c.UsersID]}
 
     User = relationship(
-        _User, backref=backref("session", uselist=False),
-        foreign_keys=[__table__.c.UsersID])
+        _User,
+        backref=backref("session", uselist=False),
+        foreign_keys=[__table__.c.UsersID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -29,10 +31,13 @@ class Session(Base):
         user_exists = db.query(_User).filter(_User.ID == uid).exists()
         if not db.query(user_exists).scalar():
             raise IntegrityError(
-                statement=("Foreign key UsersID cannot be null and "
-                           "must be a valid user's ID."),
+                statement=(
+                    "Foreign key UsersID cannot be null and "
+                    "must be a valid user's ID."
+                ),
                 orig="Sessions.UsersID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
 
 def generate_unique_sid():

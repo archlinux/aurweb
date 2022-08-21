@@ -3,11 +3,9 @@
 import re
 
 import pyalpm
-
 from sqlalchemy import and_
 
 import aurweb.config
-
 from aurweb import db, util
 from aurweb.models import OfficialProvider
 
@@ -18,8 +16,8 @@ def _main(force: bool = False):
     repomap = dict()
 
     db_path = aurweb.config.get("aurblup", "db-path")
-    sync_dbs = aurweb.config.get('aurblup', 'sync-dbs').split(' ')
-    server = aurweb.config.get('aurblup', 'server')
+    sync_dbs = aurweb.config.get("aurblup", "sync-dbs").split(" ")
+    server = aurweb.config.get("aurblup", "server")
 
     h = pyalpm.Handle("/", db_path)
     for sync_db in sync_dbs:
@@ -35,28 +33,35 @@ def _main(force: bool = False):
             providers.add((pkg.name, pkg.name))
             repomap[(pkg.name, pkg.name)] = repo.name
             for provision in pkg.provides:
-                provisionname = re.sub(r'(<|=|>).*', '', provision)
+                provisionname = re.sub(r"(<|=|>).*", "", provision)
                 providers.add((pkg.name, provisionname))
                 repomap[(pkg.name, provisionname)] = repo.name
 
     with db.begin():
         old_providers = set(
-            db.query(OfficialProvider).with_entities(
+            db.query(OfficialProvider)
+            .with_entities(
                 OfficialProvider.Name.label("Name"),
-                OfficialProvider.Provides.label("Provides")
-            ).distinct().order_by("Name").all()
+                OfficialProvider.Provides.label("Provides"),
+            )
+            .distinct()
+            .order_by("Name")
+            .all()
         )
 
         for name, provides in old_providers.difference(providers):
-            db.delete_all(db.query(OfficialProvider).filter(
-                and_(OfficialProvider.Name == name,
-                     OfficialProvider.Provides == provides)
-            ))
+            db.delete_all(
+                db.query(OfficialProvider).filter(
+                    and_(
+                        OfficialProvider.Name == name,
+                        OfficialProvider.Provides == provides,
+                    )
+                )
+            )
 
         for name, provides in providers.difference(old_providers):
             repo = repomap.get((name, provides))
-            db.create(OfficialProvider, Name=name,
-                      Repo=repo, Provides=provides)
+            db.create(OfficialProvider, Name=name, Repo=repo, Provides=provides)
 
 
 def main(force: bool = False):
@@ -64,5 +69,5 @@ def main(force: bool = False):
     _main(force)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

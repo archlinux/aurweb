@@ -1,7 +1,6 @@
 from unittest import mock
 
 import pytest
-
 from redis.client import Pipeline
 
 from aurweb import config, db, logging
@@ -49,6 +48,7 @@ def mock_config_getboolean(return_value: int = 0):
         if section == "ratelimit" and key == "cache":
             return return_value
         return config_getboolean(section, key)
+
     return fn
 
 
@@ -60,17 +60,22 @@ def mock_config_get(return_value: str = "none"):
         if section == "options" and key == "cache":
             return return_value
         return config_get(section, key)
+
     return fn
 
 
 @mock.patch("aurweb.config.getint", side_effect=mock_config_getint)
 @mock.patch("aurweb.config.getboolean", side_effect=mock_config_getboolean(1))
 @mock.patch("aurweb.config.get", side_effect=mock_config_get("none"))
-def test_ratelimit_redis(get: mock.MagicMock, getboolean: mock.MagicMock,
-                         getint: mock.MagicMock, pipeline: Pipeline):
-    """ This test will only cover aurweb.ratelimit's Redis
+def test_ratelimit_redis(
+    get: mock.MagicMock,
+    getboolean: mock.MagicMock,
+    getint: mock.MagicMock,
+    pipeline: Pipeline,
+):
+    """This test will only cover aurweb.ratelimit's Redis
     path if a real Redis server is configured. Otherwise,
-    it'll use the database. """
+    it'll use the database."""
 
     # We'll need a Request for everything here.
     request = Request()
@@ -96,8 +101,12 @@ def test_ratelimit_redis(get: mock.MagicMock, getboolean: mock.MagicMock,
 @mock.patch("aurweb.config.getint", side_effect=mock_config_getint)
 @mock.patch("aurweb.config.getboolean", side_effect=mock_config_getboolean(0))
 @mock.patch("aurweb.config.get", side_effect=mock_config_get("none"))
-def test_ratelimit_db(get: mock.MagicMock, getboolean: mock.MagicMock,
-                      getint: mock.MagicMock, pipeline: Pipeline):
+def test_ratelimit_db(
+    get: mock.MagicMock,
+    getboolean: mock.MagicMock,
+    getint: mock.MagicMock,
+    pipeline: Pipeline,
+):
 
     # We'll need a Request for everything here.
     request = Request()

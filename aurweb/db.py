@@ -1,15 +1,14 @@
 # Supported database drivers.
-DRIVERS = {
-    "mysql": "mysql+mysqldb"
-}
+DRIVERS = {"mysql": "mysql+mysqldb"}
 
 
 def make_random_value(table: str, column: str, length: int):
-    """ Generate a unique, random value for a string column in a table.
+    """Generate a unique, random value for a string column in a table.
 
     :return: A unique string that is not in the database
     """
     import aurweb.util
+
     string = aurweb.util.make_random_string(length)
     while query(table).filter(column == string).first():
         string = aurweb.util.make_random_string(length)
@@ -37,8 +36,7 @@ def test_name() -> str:
 
     import aurweb.config
 
-    db = os.environ.get("PYTEST_CURRENT_TEST",
-                        aurweb.config.get("database", "name"))
+    db = os.environ.get("PYTEST_CURRENT_TEST", aurweb.config.get("database", "name"))
     return db.split(":")[0]
 
 
@@ -57,6 +55,7 @@ def name() -> str:
         return dbname
 
     import hashlib
+
     sha1 = hashlib.sha1(dbname.encode()).hexdigest()
 
     return "db" + sha1
@@ -67,7 +66,7 @@ _sessions = dict()
 
 
 def get_session(engine=None):
-    """ Return aurweb.db's global session. """
+    """Return aurweb.db's global session."""
     dbname = name()
 
     global _sessions
@@ -78,7 +77,8 @@ def get_session(engine=None):
             engine = get_engine()
 
         Session = scoped_session(
-            sessionmaker(autocommit=True, autoflush=False, bind=engine))
+            sessionmaker(autocommit=True, autoflush=False, bind=engine)
+        )
         _sessions[dbname] = Session()
 
     return _sessions.get(dbname)
@@ -138,25 +138,26 @@ def delete(model) -> None:
 
 
 def delete_all(iterable) -> None:
-    """ Delete each instance found in `iterable`. """
+    """Delete each instance found in `iterable`."""
     import aurweb.util
+
     session_ = get_session()
     aurweb.util.apply_all(iterable, session_.delete)
 
 
 def rollback() -> None:
-    """ Rollback the database session. """
+    """Rollback the database session."""
     get_session().rollback()
 
 
 def add(model):
-    """ Add `model` to the database session. """
+    """Add `model` to the database session."""
     get_session().add(model)
     return model
 
 
 def begin():
-    """ Begin an SQLAlchemy SessionTransaction. """
+    """Begin an SQLAlchemy SessionTransaction."""
     return get_session().begin()
 
 
@@ -167,62 +168,62 @@ def get_sqlalchemy_url():
     :return: sqlalchemy.engine.url.URL
     """
     import sqlalchemy
-
     from sqlalchemy.engine.url import URL
 
     import aurweb.config
 
     constructor = URL
 
-    parts = sqlalchemy.__version__.split('.')
+    parts = sqlalchemy.__version__.split(".")
     major = int(parts[0])
     minor = int(parts[1])
     if major == 1 and minor >= 4:  # pragma: no cover
         constructor = URL.create
 
-    aur_db_backend = aurweb.config.get('database', 'backend')
-    if aur_db_backend == 'mysql':
+    aur_db_backend = aurweb.config.get("database", "backend")
+    if aur_db_backend == "mysql":
         param_query = {}
         port = aurweb.config.get_with_fallback("database", "port", None)
         if not port:
-            param_query["unix_socket"] = aurweb.config.get(
-                "database", "socket")
+            param_query["unix_socket"] = aurweb.config.get("database", "socket")
 
         return constructor(
             DRIVERS.get(aur_db_backend),
-            username=aurweb.config.get('database', 'user'),
-            password=aurweb.config.get_with_fallback('database', 'password',
-                                                     fallback=None),
-            host=aurweb.config.get('database', 'host'),
+            username=aurweb.config.get("database", "user"),
+            password=aurweb.config.get_with_fallback(
+                "database", "password", fallback=None
+            ),
+            host=aurweb.config.get("database", "host"),
             database=name(),
             port=port,
-            query=param_query
+            query=param_query,
         )
-    elif aur_db_backend == 'sqlite':
+    elif aur_db_backend == "sqlite":
         return constructor(
-            'sqlite',
-            database=aurweb.config.get('database', 'name'),
+            "sqlite",
+            database=aurweb.config.get("database", "name"),
         )
     else:
-        raise ValueError('unsupported database backend')
+        raise ValueError("unsupported database backend")
 
 
 def sqlite_regexp(regex, item) -> bool:  # pragma: no cover
-    """ Method which mimics SQL's REGEXP for SQLite. """
+    """Method which mimics SQL's REGEXP for SQLite."""
     import re
+
     return bool(re.search(regex, str(item)))
 
 
 def setup_sqlite(engine) -> None:  # pragma: no cover
-    """ Perform setup for an SQLite engine. """
+    """Perform setup for an SQLite engine."""
     from sqlalchemy import event
 
     @event.listens_for(engine, "connect")
     def do_begin(conn, record):
         import functools
+
         create_deterministic_function = functools.partial(
-            conn.create_function,
-            deterministic=True
+            conn.create_function, deterministic=True
         )
         create_deterministic_function("REGEXP", 2, sqlite_regexp)
 
@@ -256,11 +257,9 @@ def get_engine(dbname: str = None, echo: bool = False):
         if is_sqlite:  # pragma: no cover
             connect_args["check_same_thread"] = False
 
-        kwargs = {
-            "echo": echo,
-            "connect_args": connect_args
-        }
+        kwargs = {"echo": echo, "connect_args": connect_args}
         from sqlalchemy import create_engine
+
         _engines[dbname] = create_engine(get_sqlalchemy_url(), **kwargs)
 
         if is_sqlite:  # pragma: no cover
@@ -281,7 +280,7 @@ def pop_engine(dbname: str) -> None:
 
 
 def kill_engine() -> None:
-    """ Close the current session and dispose of the engine. """
+    """Close the current session and dispose of the engine."""
     dbname = name()
 
     session = get_session()
@@ -317,6 +316,7 @@ class ConnectionExecutor:
             self._paramstyle = "format"
         elif backend == "sqlite":
             import sqlite3
+
             self._paramstyle = sqlite3.paramstyle
 
     def paramstyle(self):
@@ -325,12 +325,12 @@ class ConnectionExecutor:
     def execute(self, query, params=()):  # pragma: no cover
         # TODO: SQLite support has been removed in FastAPI. It remains
         # here to fund its support for PHP until it is removed.
-        if self._paramstyle in ('format', 'pyformat'):
-            query = query.replace('%', '%%').replace('?', '%s')
-        elif self._paramstyle == 'qmark':
+        if self._paramstyle in ("format", "pyformat"):
+            query = query.replace("%", "%%").replace("?", "%s")
+        elif self._paramstyle == "qmark":
             pass
         else:
-            raise ValueError('unsupported paramstyle')
+            raise ValueError("unsupported paramstyle")
 
         cur = self._conn.cursor()
         cur.execute(query, params)
@@ -350,32 +350,35 @@ class Connection:
 
     def __init__(self):
         import aurweb.config
-        aur_db_backend = aurweb.config.get('database', 'backend')
 
-        if aur_db_backend == 'mysql':
+        aur_db_backend = aurweb.config.get("database", "backend")
+
+        if aur_db_backend == "mysql":
             import MySQLdb
-            aur_db_host = aurweb.config.get('database', 'host')
+
+            aur_db_host = aurweb.config.get("database", "host")
             aur_db_name = name()
-            aur_db_user = aurweb.config.get('database', 'user')
-            aur_db_pass = aurweb.config.get_with_fallback(
-                'database', 'password', str())
-            aur_db_socket = aurweb.config.get('database', 'socket')
-            self._conn = MySQLdb.connect(host=aur_db_host,
-                                         user=aur_db_user,
-                                         passwd=aur_db_pass,
-                                         db=aur_db_name,
-                                         unix_socket=aur_db_socket)
-        elif aur_db_backend == 'sqlite':  # pragma: no cover
+            aur_db_user = aurweb.config.get("database", "user")
+            aur_db_pass = aurweb.config.get_with_fallback("database", "password", str())
+            aur_db_socket = aurweb.config.get("database", "socket")
+            self._conn = MySQLdb.connect(
+                host=aur_db_host,
+                user=aur_db_user,
+                passwd=aur_db_pass,
+                db=aur_db_name,
+                unix_socket=aur_db_socket,
+            )
+        elif aur_db_backend == "sqlite":  # pragma: no cover
             # TODO: SQLite support has been removed in FastAPI. It remains
             # here to fund its support for PHP until it is removed.
             import math
             import sqlite3
 
-            aur_db_name = aurweb.config.get('database', 'name')
+            aur_db_name = aurweb.config.get("database", "name")
             self._conn = sqlite3.connect(aur_db_name)
             self._conn.create_function("POWER", 2, math.pow)
         else:
-            raise ValueError('unsupported database backend')
+            raise ValueError("unsupported database backend")
 
         self._conn = ConnectionExecutor(self._conn, aur_db_backend)
 

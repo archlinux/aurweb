@@ -8,12 +8,23 @@ from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.util import strtobool
 
 
-def simple(U: str = str(), E: str = str(), H: bool = False,
-           BE: str = str(), R: str = str(), HP: str = str(),
-           I: str = str(), K: str = str(), J: bool = False,
-           CN: bool = False, UN: bool = False, ON: bool = False,
-           S: bool = False, user: models.User = None,
-           **kwargs) -> None:
+def simple(
+    U: str = str(),
+    E: str = str(),
+    H: bool = False,
+    BE: str = str(),
+    R: str = str(),
+    HP: str = str(),
+    I: str = str(),
+    K: str = str(),
+    J: bool = False,
+    CN: bool = False,
+    UN: bool = False,
+    ON: bool = False,
+    S: bool = False,
+    user: models.User = None,
+    **kwargs,
+) -> None:
     now = time.utcnow()
     with db.begin():
         user.Username = U or user.Username
@@ -31,22 +42,26 @@ def simple(U: str = str(), E: str = str(), H: bool = False,
         user.OwnershipNotify = strtobool(ON)
 
 
-def language(L: str = str(),
-             request: Request = None,
-             user: models.User = None,
-             context: dict[str, Any] = {},
-             **kwargs) -> None:
+def language(
+    L: str = str(),
+    request: Request = None,
+    user: models.User = None,
+    context: dict[str, Any] = {},
+    **kwargs,
+) -> None:
     if L and L != user.LangPreference:
         with db.begin():
             user.LangPreference = L
         context["language"] = L
 
 
-def timezone(TZ: str = str(),
-             request: Request = None,
-             user: models.User = None,
-             context: dict[str, Any] = {},
-             **kwargs) -> None:
+def timezone(
+    TZ: str = str(),
+    request: Request = None,
+    user: models.User = None,
+    context: dict[str, Any] = {},
+    **kwargs,
+) -> None:
     if TZ and TZ != user.Timezone:
         with db.begin():
             user.Timezone = TZ
@@ -67,8 +82,7 @@ def ssh_pubkey(PK: str = str(), user: models.User = None, **kwargs) -> None:
 
     with db.begin():
         # Delete any existing keys we can't find.
-        to_remove = user.ssh_pub_keys.filter(
-            ~SSHPubKey.Fingerprint.in_(fprints))
+        to_remove = user.ssh_pub_keys.filter(~SSHPubKey.Fingerprint.in_(fprints))
         db.delete_all(to_remove)
 
         # For each key, if it does not yet exist, create it.
@@ -79,24 +93,27 @@ def ssh_pubkey(PK: str = str(), user: models.User = None, **kwargs) -> None:
             ).exists()
             if not db.query(exists).scalar():
                 # No public key exists, create one.
-                db.create(models.SSHPubKey, UserID=user.ID,
-                          PubKey=" ".join([prefix, key]),
-                          Fingerprint=fprints[i])
+                db.create(
+                    models.SSHPubKey,
+                    UserID=user.ID,
+                    PubKey=" ".join([prefix, key]),
+                    Fingerprint=fprints[i],
+                )
 
 
-def account_type(T: int = None,
-                 user: models.User = None,
-                 **kwargs) -> None:
+def account_type(T: int = None, user: models.User = None, **kwargs) -> None:
     if T is not None and (T := int(T)) != user.AccountTypeID:
         with db.begin():
             user.AccountTypeID = T
 
 
-def password(P: str = str(),
-             request: Request = None,
-             user: models.User = None,
-             context: dict[str, Any] = {},
-             **kwargs) -> None:
+def password(
+    P: str = str(),
+    request: Request = None,
+    user: models.User = None,
+    context: dict[str, Any] = {},
+    **kwargs,
+) -> None:
     if P and not user.valid_password(P):
         # Remove the fields we consumed for passwords.
         context["P"] = context["C"] = str()

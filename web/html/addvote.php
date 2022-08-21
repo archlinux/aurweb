@@ -114,4 +114,3 @@ if (has_credential(CRED_TU_ADD_VOTE)) {
 }
 
 html_footer(AURWEB_VERSION);
-

@@ -13,12 +13,16 @@ class AcceptedTerm(Base):
     __mapper_args__ = {"primary_key": [__table__.c.TermsID]}
 
     User = relationship(
-        _User, backref=backref("accepted_terms", lazy="dynamic"),
-        foreign_keys=[__table__.c.UsersID])
+        _User,
+        backref=backref("accepted_terms", lazy="dynamic"),
+        foreign_keys=[__table__.c.UsersID],
+    )
 
     Term = relationship(
-        _Term, backref=backref("accepted_terms", lazy="dynamic"),
-        foreign_keys=[__table__.c.TermsID])
+        _Term,
+        backref=backref("accepted_terms", lazy="dynamic"),
+        foreign_keys=[__table__.c.TermsID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -27,10 +31,12 @@ class AcceptedTerm(Base):
             raise IntegrityError(
                 statement="Foreign key UsersID cannot be null.",
                 orig="AcceptedTerms.UserID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.Term and not self.TermsID:
             raise IntegrityError(
                 statement="Foreign key TermID cannot be null.",
                 orig="AcceptedTerms.TermID",
-                params=("NULL"))
+                params=("NULL"),
+            )

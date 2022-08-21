@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-# 
+#
 # Translators:
 # Angel Velasquez <angvp@archlinux.org>, 2011
 # juantascon <juantascon@gmail.com>, 2011

@@ -1,14 +1,11 @@
 import re
-
 from http import HTTPStatus
 from unittest import mock
 
 import pytest
-
 from fastapi.testclient import TestClient
 
 import aurweb.config
-
 from aurweb import db, time
 from aurweb.asgi import app
 from aurweb.models.account_type import USER_ID
@@ -42,39 +39,41 @@ def client() -> TestClient:
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username=TEST_USERNAME, Email=TEST_EMAIL,
-                         RealName="Test User", Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username=TEST_USERNAME,
+            Email=TEST_EMAIL,
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 def test_login_logout(client: TestClient, user: User):
-    post_data = {
-        "user": "test",
-        "passwd": "testPassword",
-        "next": "/"
-    }
+    post_data = {"user": "test", "passwd": "testPassword", "next": "/"}
 
     with client as request:
         # First, let's test get /login.
         response = request.get("/login")
         assert response.status_code == int(HTTPStatus.OK)
 
-        response = request.post("/login", data=post_data,
-                                allow_redirects=False)
+        response = request.post("/login", data=post_data, allow_redirects=False)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
         # Simulate following the redirect location from above's response.
         response = request.get(response.headers.get("location"))
         assert response.status_code == int(HTTPStatus.OK)
 
-        response = request.post("/logout", data=post_data,
-                                allow_redirects=False)
+        response = request.post("/logout", data=post_data, allow_redirects=False)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-        response = request.post("/logout", data=post_data, cookies={
-            "AURSID": response.cookies.get("AURSID")
-        }, allow_redirects=False)
+        response = request.post(
+            "/logout",
+            data=post_data,
+            cookies={"AURSID": response.cookies.get("AURSID")},
+            allow_redirects=False,
+        )
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     assert "AURSID" not in response.cookies
@@ -84,11 +83,7 @@ def test_login_suspended(client: TestClient, user: User):
     with db.begin():
         user.Suspended = 1
 
-    data = {
-        "user": user.Username,
-        "passwd": "testPassword",
-        "next": "/"
-    }
+    data = {"user": user.Username, "passwd": "testPassword", "next": "/"}
     with client as request:
         resp = request.post("/login", data=data)
     errors = get_errors(resp.text)
@@ -96,23 +91,17 @@ def test_login_suspended(client: TestClient, user: User):
 
 
 def test_login_email(client: TestClient, user: user):
-    post_data = {
-        "user": user.Email,
-        "passwd": "testPassword",
-        "next": "/"
-    }
+    post_data = {"user": user.Email, "passwd": "testPassword", "next": "/"}
 
     with client as request:
-        resp = request.post("/login", data=post_data,
-                            allow_redirects=False)
+        resp = request.post("/login", data=post_data, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert "AURSID" in resp.cookies
 
 
 def mock_getboolean(**overrided_configs):
     mocked_config = {
-        tuple(config.split("__")): value
-        for config, value in overrided_configs.items()
+        tuple(config.split("__")): value for config, value in overrided_configs.items()
     }
 
     def side_effect(*args):
@@ -123,19 +112,14 @@ def mock_getboolean(**overrided_configs):
 
 @mock.patch(
     "aurweb.config.getboolean",
-    side_effect=mock_getboolean(options__disable_http_login=False)
+    side_effect=mock_getboolean(options__disable_http_login=False),
 )
 def test_insecure_login(getboolean: mock.Mock, client: TestClient, user: User):
-    post_data = {
-        "user": user.Username,
-        "passwd": "testPassword",
-        "next": "/"
-    }
+    post_data = {"user": user.Username, "passwd": "testPassword", "next": "/"}
 
     # Perform a login request with the data matching our user.
     with client as request:
-        response = request.post("/login", data=post_data,
-                                allow_redirects=False)
+        response = request.post("/login", data=post_data, allow_redirects=False)
 
     # Make sure we got the expected status out of it.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
@@ -152,17 +136,17 @@ def test_insecure_login(getboolean: mock.Mock, client: TestClient, user: User):
 
 @mock.patch(
     "aurweb.config.getboolean",
-    side_effect=mock_getboolean(options__disable_http_login=True)
+    side_effect=mock_getboolean(options__disable_http_login=True),
 )
 def test_secure_login(getboolean: mock.Mock, client: TestClient, user: User):
-    """ In this test, we check to verify the course of action taken
+    """In this test, we check to verify the course of action taken
     by starlette when providing secure=True to a response cookie.
     This is achieved by mocking aurweb.config.getboolean to return
     True (or 1) when looking for `options.disable_http_login`.
     When we receive a response with `disable_http_login` enabled,
     we check the fields in cookies received for the secure and
     httponly fields, in addition to the rest of the fields given
-    on such a request. """
+    on such a request."""
 
     # Create a local TestClient here since we mocked configuration.
     # client = TestClient(app)
@@ -172,16 +156,11 @@ def test_secure_login(getboolean: mock.Mock, client: TestClient, user: User):
     # client.headers.update(TEST_REFERER)
 
     # Data used for our upcoming http post request.
-    post_data = {
-        "user": user.Username,
-        "passwd": "testPassword",
-        "next": "/"
-    }
+    post_data = {"user": user.Username, "passwd": "testPassword", "next": "/"}
 
     # Perform a login request with the data matching our user.
     with client as request:
-        response = request.post("/login", data=post_data,
-                                allow_redirects=False)
+        response = request.post("/login", data=post_data, allow_redirects=False)
 
     # Make sure we got the expected status out of it.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
@@ -203,16 +182,11 @@ def test_secure_login(getboolean: mock.Mock, client: TestClient, user: User):
 
 
 def test_authenticated_login(client: TestClient, user: User):
-    post_data = {
-        "user": user.Username,
-        "passwd": "testPassword",
-        "next": "/"
-    }
+    post_data = {"user": user.Username, "passwd": "testPassword", "next": "/"}
 
     with client as request:
         # Try to login.
-        response = request.post("/login", data=post_data,
-                                allow_redirects=False)
+        response = request.post("/login", data=post_data, allow_redirects=False)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
         assert response.headers.get("location") == "/"
 
@@ -220,8 +194,9 @@ def test_authenticated_login(client: TestClient, user: User):
         # when requesting GET /login as an authenticated user.
         # Now, let's verify that we receive 403 Forbidden when we
         # try to get /login as an authenticated user.
-        response = request.get("/login", cookies=response.cookies,
-                               allow_redirects=False)
+        response = request.get(
+            "/login", cookies=response.cookies, allow_redirects=False
+        )
         assert response.status_code == int(HTTPStatus.OK)
         assert "Logged-in as: <strong>test</strong>" in response.text
 
@@ -236,10 +211,7 @@ def test_unauthenticated_logout_unauthorized(client: TestClient):
 
 
 def test_login_missing_username(client: TestClient):
-    post_data = {
-        "passwd": "testPassword",
-        "next": "/"
-    }
+    post_data = {"passwd": "testPassword", "next": "/"}
 
     with client as request:
         response = request.post("/login", data=post_data)
@@ -256,17 +228,15 @@ def test_login_remember_me(client: TestClient, user: User):
         "user": "test",
         "passwd": "testPassword",
         "next": "/",
-        "remember_me": True
+        "remember_me": True,
     }
 
     with client as request:
-        response = request.post("/login", data=post_data,
-                                allow_redirects=False)
+        response = request.post("/login", data=post_data, allow_redirects=False)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert "AURSID" in response.cookies
 
-    cookie_timeout = aurweb.config.getint(
-        "options", "persistent_cookie_timeout")
+    cookie_timeout = aurweb.config.getint("options", "persistent_cookie_timeout")
     now_ts = time.utcnow()
     session = db.query(Session).filter(Session.UsersID == user.ID).first()
 
@@ -280,7 +250,7 @@ def test_login_incorrect_password_remember_me(client: TestClient, user: User):
         "user": "test",
         "passwd": "badPassword",
         "next": "/",
-        "remember_me": "on"
+        "remember_me": "on",
     }
 
     with client as request:
@@ -295,10 +265,7 @@ def test_login_incorrect_password_remember_me(client: TestClient, user: User):
 
 
 def test_login_missing_password(client: TestClient):
-    post_data = {
-        "user": "test",
-        "next": "/"
-    }
+    post_data = {"user": "test", "next": "/"}
 
     with client as request:
         response = request.post("/login", data=post_data)
@@ -310,11 +277,7 @@ def test_login_missing_password(client: TestClient):
 
 
 def test_login_incorrect_password(client: TestClient):
-    post_data = {
-        "user": "test",
-        "passwd": "badPassword",
-        "next": "/"
-    }
+    post_data = {"user": "test", "passwd": "badPassword", "next": "/"}
 
     with client as request:
         response = request.post("/login", data=post_data)
@@ -350,8 +313,9 @@ def test_login_bad_referer(client: TestClient):
     assert "AURSID" not in response.cookies
 
 
-def test_generate_unique_sid_exhausted(client: TestClient, user: User,
-                                       caplog: pytest.LogCaptureFixture):
+def test_generate_unique_sid_exhausted(
+    client: TestClient, user: User, caplog: pytest.LogCaptureFixture
+):
     """
     In this test, we mock up generate_unique_sid() to infinitely return
     the same SessionID given to `user`. Within that mocking, we try
@@ -364,13 +328,17 @@ def test_generate_unique_sid_exhausted(client: TestClient, user: User,
     now = time.utcnow()
     with db.begin():
         # Create a second user; we'll login with this one.
-        user2 = db.create(User, Username="test2", Email="test2@example.org",
-                          ResetKey="testReset", Passwd="testPassword",
-                          AccountTypeID=USER_ID)
+        user2 = db.create(
+            User,
+            Username="test2",
+            Email="test2@example.org",
+            ResetKey="testReset",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
 
         # Create a session with ID == "testSession" for `user`.
-        db.create(Session, User=user, SessionID="testSession",
-                  LastUpdateTS=now)
+        db.create(Session, User=user, SessionID="testSession", LastUpdateTS=now)
 
     # Mock out generate_unique_sid; always return "testSession" which
     # causes us to eventually error out and raise an internal error.

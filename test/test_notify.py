@@ -23,24 +23,39 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         Passwd=str(), AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def user1() -> User:
     with db.begin():
-        user1 = db.create(User, Username="user1", Email="user1@example.org",
-                          Passwd=str(), AccountTypeID=USER_ID)
+        user1 = db.create(
+            User,
+            Username="user1",
+            Email="user1@example.org",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user1
 
 
 @pytest.fixture
 def user2() -> User:
     with db.begin():
-        user2 = db.create(User, Username="user2", Email="user2@example.org",
-                          Passwd=str(), AccountTypeID=USER_ID)
+        user2 = db.create(
+            User,
+            Username="user2",
+            Email="user2@example.org",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user2
 
 
@@ -52,11 +67,15 @@ def pkgbases(user: User) -> list[PackageBase]:
     with db.begin():
         for i in range(5):
             output.append(
-                db.create(PackageBase, Name=f"pkgbase_{i}",
-                          Maintainer=user, SubmittedTS=now,
-                          ModifiedTS=now))
-            db.create(models.PackageNotification, PackageBase=output[-1],
-                      User=user)
+                db.create(
+                    PackageBase,
+                    Name=f"pkgbase_{i}",
+                    Maintainer=user,
+                    SubmittedTS=now,
+                    ModifiedTS=now,
+                )
+            )
+            db.create(models.PackageNotification, PackageBase=output[-1], User=user)
     yield output
 
 
@@ -64,11 +83,15 @@ def pkgbases(user: User) -> list[PackageBase]:
 def pkgreq(user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     with db.begin():
-        pkgreq_ = db.create(PackageRequest, PackageBase=pkgbase,
-                            PackageBaseName=pkgbase.Name, User=user2,
-                            ReqTypeID=ORPHAN_ID,
-                            Comments="This is a request test comment.",
-                            ClosureComment=str())
+        pkgreq_ = db.create(
+            PackageRequest,
+            PackageBase=pkgbase,
+            PackageBaseName=pkgbase.Name,
+            User=user2,
+            ReqTypeID=ORPHAN_ID,
+            Comments="This is a request test comment.",
+            ClosureComment=str(),
+        )
     yield pkgreq_
 
 
@@ -78,21 +101,24 @@ def packages(pkgbases: list[PackageBase]) -> list[Package]:
     with db.begin():
         for i, pkgbase in enumerate(pkgbases):
             output.append(
-                db.create(Package, PackageBase=pkgbase,
-                          Name=f"pkg_{i}", Version=f"{i}.0"))
+                db.create(
+                    Package, PackageBase=pkgbase, Name=f"pkg_{i}", Version=f"{i}.0"
+                )
+            )
     yield output
 
 
-def test_out_of_date(user: User, user1: User, user2: User,
-                     pkgbases: list[PackageBase]):
+def test_out_of_date(user: User, user1: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     # Create two comaintainers. We'll pass the maintainer uid to
     # FlagNotification, so we should expect to get two emails.
     with db.begin():
-        db.create(models.PackageComaintainer,
-                  PackageBase=pkgbase, User=user1, Priority=1)
-        db.create(models.PackageComaintainer,
-                  PackageBase=pkgbase, User=user2, Priority=2)
+        db.create(
+            models.PackageComaintainer, PackageBase=pkgbase, User=user1, Priority=1
+        )
+        db.create(
+            models.PackageComaintainer, PackageBase=pkgbase, User=user2, Priority=2
+        )
 
     # Send the notification for pkgbases[0].
     notif = notify.FlagNotification(user.ID, pkgbases[0].ID)
@@ -165,8 +191,12 @@ def test_comment(user: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
 
     with db.begin():
-        comment = db.create(models.PackageComment, PackageBase=pkgbase,
-                            User=user2, Comments="This is a test comment.")
+        comment = db.create(
+            models.PackageComment,
+            PackageBase=pkgbase,
+            User=user2,
+            Comments="This is a test comment.",
+        )
     rendercomment.update_comment_render_fastapi(comment)
 
     notif = notify.CommentNotification(user2.ID, pkgbase.ID, comment.ID)
@@ -366,15 +396,16 @@ def set_tu(users: list[User]) -> User:
             user.AccountTypeID = TRUSTED_USER_ID
 
 
-def test_open_close_request(user: User, user2: User,
-                            pkgreq: PackageRequest,
-                            pkgbases: list[PackageBase]):
+def test_open_close_request(
+    user: User, user2: User, pkgreq: PackageRequest, pkgbases: list[PackageBase]
+):
     set_tu([user])
     pkgbase = pkgbases[0]
 
     # Send an open request notification.
     notif = notify.RequestOpenNotification(
-        user2.ID, pkgreq.ID, pkgreq.RequestType.Name, pkgbase.ID)
+        user2.ID, pkgreq.ID, pkgreq.RequestType.Name, pkgbase.ID
+    )
     notif.send()
     assert Email.count() == 1
 
@@ -420,22 +451,24 @@ Request #{pkgreq.ID} has been rejected by {user2.Username} [1].
     email = Email(3).parse()
     assert email.headers.get("To") == aur_request_ml
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
-    expected = (f"[PRQ#{pkgreq.ID}] Orphan Request for "
-                f"{pkgbase.Name} Accepted")
+    expected = f"[PRQ#{pkgreq.ID}] Orphan Request for " f"{pkgbase.Name} Accepted"
     assert email.headers.get("Subject") == expected
 
-    expected = (f"Request #{pkgreq.ID} has been accepted automatically "
-                "by the Arch User Repository\npackage request system.")
+    expected = (
+        f"Request #{pkgreq.ID} has been accepted automatically "
+        "by the Arch User Repository\npackage request system."
+    )
     assert email.body == expected
 
 
-def test_close_request_comaintainer_cc(user: User, user2: User,
-                                       pkgreq: PackageRequest,
-                                       pkgbases: list[PackageBase]):
+def test_close_request_comaintainer_cc(
+    user: User, user2: User, pkgreq: PackageRequest, pkgbases: list[PackageBase]
+):
     pkgbase = pkgbases[0]
     with db.begin():
-        db.create(models.PackageComaintainer, PackageBase=pkgbase,
-                  User=user2, Priority=1)
+        db.create(
+            models.PackageComaintainer, PackageBase=pkgbase, User=user2, Priority=1
+        )
 
     notif = notify.RequestCloseNotification(0, pkgreq.ID, "accepted")
     notif.send()
@@ -446,9 +479,9 @@ def test_close_request_comaintainer_cc(user: User, user2: User,
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
 
 
-def test_close_request_closure_comment(user: User, user2: User,
-                                       pkgreq: PackageRequest,
-                                       pkgbases: list[PackageBase]):
+def test_close_request_closure_comment(
+    user: User, user2: User, pkgreq: PackageRequest, pkgbases: list[PackageBase]
+):
     pkgbase = pkgbases[0]
     with db.begin():
         pkgreq.ClosureComment = "This is a test closure comment."
@@ -496,7 +529,7 @@ ends in less than 48 hours.
 
 
 def test_notify_main(user: User):
-    """ Test TU vote reminder through aurweb.notify.main(). """
+    """Test TU vote reminder through aurweb.notify.main()."""
     set_tu([user])
 
     vote_id = 1
@@ -539,6 +572,7 @@ def mock_smtp_config(cls):
             elif key == "smtp-password":
                 return cls()
         return cls(config_get(section, key))
+
     return _mock_smtp_config
 
 
@@ -574,6 +608,7 @@ def mock_smtp_starttls_config(cls):
             elif key == "smtp-password":
                 return cls("password")
         return cls(config_get(section, key))
+
     return _mock_smtp_starttls_config
 
 
@@ -590,8 +625,7 @@ def test_smtp_starttls(user: User):
     get = "aurweb.config.get"
     getboolean = "aurweb.config.getboolean"
     with mock.patch(get, side_effect=mock_smtp_starttls_config(str)):
-        with mock.patch(
-                getboolean, side_effect=mock_smtp_starttls_config(bool)):
+        with mock.patch(getboolean, side_effect=mock_smtp_starttls_config(bool)):
             with mock.patch("smtplib.SMTP", side_effect=smtp):
                 notif = notify.WelcomeNotification(user.ID)
                 notif.send()
@@ -621,6 +655,7 @@ def mock_smtp_ssl_config(cls):
             elif key == "smtp-password":
                 return cls("password")
         return cls(config_get(section, key))
+
     return _mock_smtp_ssl_config
 
 
@@ -651,7 +686,7 @@ def test_notification_defaults():
 
 
 def test_notification_oserror(user: User, caplog: pytest.LogCaptureFixture):
-    """ Try sending a notification with a bad SMTP configuration. """
+    """Try sending a notification with a bad SMTP configuration."""
     caplog.set_level(ERROR)
     config_get = config.get
     config_getint = config.getint

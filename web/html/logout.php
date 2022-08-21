@@ -29,4 +29,3 @@ if (isset($_COOKIE["AURSID"])) {
 }
 
 header("Location: $redirect_uri");
-

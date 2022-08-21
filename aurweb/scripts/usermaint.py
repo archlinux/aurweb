@@ -9,14 +9,16 @@ from aurweb.models import User
 def _main():
     limit_to = time.utcnow() - 86400 * 7
 
-    update_ = update(User).where(
-        User.LastLogin < limit_to
-    ).values(LastLoginIPAddress=None)
+    update_ = (
+        update(User).where(User.LastLogin < limit_to).values(LastLoginIPAddress=None)
+    )
     db.get_session().execute(update_)
 
-    update_ = update(User).where(
-        User.LastSSHLogin < limit_to
-    ).values(LastSSHLoginIPAddress=None)
+    update_ = (
+        update(User)
+        .where(User.LastSSHLogin < limit_to)
+        .values(LastSSHLoginIPAddress=None)
+    )
     db.get_session().execute(update_)
 
 
@@ -26,5 +28,5 @@ def main():
         _main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

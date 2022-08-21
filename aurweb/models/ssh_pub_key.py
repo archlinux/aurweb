@@ -12,16 +12,17 @@ class SSHPubKey(Base):
     __mapper_args__ = {"primary_key": [__table__.c.Fingerprint]}
 
     User = relationship(
-        "User", backref=backref("ssh_pub_keys", lazy="dynamic"),
-        foreign_keys=[__table__.c.UserID])
+        "User",
+        backref=backref("ssh_pub_keys", lazy="dynamic"),
+        foreign_keys=[__table__.c.UserID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
 
 def get_fingerprint(pubkey: str) -> str:
-    proc = Popen(["ssh-keygen", "-l", "-f", "-"], stdin=PIPE, stdout=PIPE,
-                 stderr=PIPE)
+    proc = Popen(["ssh-keygen", "-l", "-f", "-"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
     out, _ = proc.communicate(pubkey.encode())
     if proc.returncode:
         raise ValueError("The SSH public key is invalid.")

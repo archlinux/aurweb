@@ -16,5 +16,5 @@ class RequestType(Base):
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     def name_display(self) -> str:
-        """ Return the Name column with its first char capitalized. """
+        """Return the Name column with its first char capitalized."""
         return self.Name.title()

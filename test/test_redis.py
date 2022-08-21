@@ -3,13 +3,13 @@ from unittest import mock
 import pytest
 
 import aurweb.config
-
 from aurweb.redis import redis_connection
 
 
 @pytest.fixture
 def rediss():
-    """ Create a RedisStub. """
+    """Create a RedisStub."""
+
     def mock_get(section, key):
         return "none"
 

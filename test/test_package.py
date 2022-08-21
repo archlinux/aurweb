@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy import and_
 from sqlalchemy.exc import IntegrityError
 
@@ -20,20 +19,28 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def package(user: User) -> Package:
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="beautiful-package",
-                            Maintainer=user)
-        package = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name,
-                            Description="Test description.",
-                            URL="https://test.package")
+        pkgbase = db.create(PackageBase, Name="beautiful-package", Maintainer=user)
+        package = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name=pkgbase.Name,
+            Description="Test description.",
+            URL="https://test.package",
+        )
     yield package
 
 
@@ -48,21 +55,28 @@ def test_package(package: Package):
         package.Version = "1.2.3"
 
     # Make sure it got updated in the database.
-    record = db.query(Package).filter(
-        and_(Package.ID == package.ID,
-             Package.Version == "1.2.3")
-    ).first()
+    record = (
+        db.query(Package)
+        .filter(and_(Package.ID == package.ID, Package.Version == "1.2.3"))
+        .first()
+    )
     assert record is not None
 
 
 def test_package_null_pkgbase_raises():
     with pytest.raises(IntegrityError):
-        Package(Name="some-package", Description="Some description.",
-                URL="https://some.package")
+        Package(
+            Name="some-package",
+            Description="Some description.",
+            URL="https://some.package",
+        )
 
 
 def test_package_null_name_raises(package: Package):
     pkgbase = package.PackageBase
     with pytest.raises(IntegrityError):
-        Package(PackageBase=pkgbase, Description="Some description.",
-                URL="https://some.package")
+        Package(
+            PackageBase=pkgbase,
+            Description="Some description.",
+            URL="https://some.package",
+        )

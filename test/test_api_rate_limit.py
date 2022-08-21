@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -13,8 +12,7 @@ def setup(db_test):
 
 def test_api_rate_key_creation():
     with db.begin():
-        rate = db.create(ApiRateLimit, IP="127.0.0.1", Requests=10,
-                         WindowStart=1)
+        rate = db.create(ApiRateLimit, IP="127.0.0.1", Requests=10, WindowStart=1)
     assert rate.IP == "127.0.0.1"
     assert rate.Requests == 10
     assert rate.WindowStart == 1

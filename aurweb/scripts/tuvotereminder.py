@@ -3,12 +3,11 @@
 from sqlalchemy import and_
 
 import aurweb.config
-
 from aurweb import db, time
 from aurweb.models import TUVoteInfo
 from aurweb.scripts import notify
 
-notify_cmd = aurweb.config.get('notifications', 'notify-cmd')
+notify_cmd = aurweb.config.get("notifications", "notify-cmd")
 
 
 def main():
@@ -23,13 +22,12 @@ def main():
     filter_to = now + end
 
     query = db.query(TUVoteInfo.ID).filter(
-        and_(TUVoteInfo.End >= filter_from,
-             TUVoteInfo.End <= filter_to)
+        and_(TUVoteInfo.End >= filter_from, TUVoteInfo.End <= filter_to)
     )
     for voteinfo in query:
         notif = notify.TUVoteReminderNotification(voteinfo.ID)
         notif.send()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

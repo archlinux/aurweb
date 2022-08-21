@@ -25,16 +25,13 @@ import os
 import shutil
 import sys
 import tempfile
-
 from collections import defaultdict
 from typing import Any
 
 import orjson
-
 from sqlalchemy import literal, orm
 
 import aurweb.config
-
 from aurweb import db, filters, logging, models, util
 from aurweb.benchmark import Benchmark
 from aurweb.models import Package, PackageBase, User
@@ -90,65 +87,68 @@ def get_extended_dict(query: orm.Query):
 def get_extended_fields():
     subqueries = [
         # PackageDependency
-        db.query(
-            models.PackageDependency
-        ).join(models.DependencyType).with_entities(
+        db.query(models.PackageDependency)
+        .join(models.DependencyType)
+        .with_entities(
             models.PackageDependency.PackageID.label("ID"),
             models.DependencyType.Name.label("Type"),
             models.PackageDependency.DepName.label("Name"),
-            models.PackageDependency.DepCondition.label("Cond")
-        ).distinct().order_by("Name"),
-
+            models.PackageDependency.DepCondition.label("Cond"),
+        )
+        .distinct()
+        .order_by("Name"),
         # PackageRelation
-        db.query(
-            models.PackageRelation
-        ).join(models.RelationType).with_entities(
+        db.query(models.PackageRelation)
+        .join(models.RelationType)
+        .with_entities(
             models.PackageRelation.PackageID.label("ID"),
             models.RelationType.Name.label("Type"),
             models.PackageRelation.RelName.label("Name"),
-            models.PackageRelation.RelCondition.label("Cond")
-        ).distinct().order_by("Name"),
-
+            models.PackageRelation.RelCondition.label("Cond"),
+        )
+        .distinct()
+        .order_by("Name"),
         # Groups
-        db.query(models.PackageGroup).join(
-            models.Group,
-            models.PackageGroup.GroupID == models.Group.ID
-        ).with_entities(
+        db.query(models.PackageGroup)
+        .join(models.Group, models.PackageGroup.GroupID == models.Group.ID)
+        .with_entities(
             models.PackageGroup.PackageID.label("ID"),
             literal("Groups").label("Type"),
             models.Group.Name.label("Name"),
-            literal(str()).label("Cond")
-        ).distinct().order_by("Name"),
-
+            literal(str()).label("Cond"),
+        )
+        .distinct()
+        .order_by("Name"),
         # Licenses
-        db.query(models.PackageLicense).join(
-            models.License,
-            models.PackageLicense.LicenseID == models.License.ID
-        ).with_entities(
+        db.query(models.PackageLicense)
+        .join(models.License, models.PackageLicense.LicenseID == models.License.ID)
+        .with_entities(
             models.PackageLicense.PackageID.label("ID"),
             literal("License").label("Type"),
             models.License.Name.label("Name"),
-            literal(str()).label("Cond")
-        ).distinct().order_by("Name"),
-
+            literal(str()).label("Cond"),
+        )
+        .distinct()
+        .order_by("Name"),
         # Keywords
-        db.query(models.PackageKeyword).join(
-            models.Package,
-            Package.PackageBaseID == models.PackageKeyword.PackageBaseID
-        ).with_entities(
+        db.query(models.PackageKeyword)
+        .join(
+            models.Package, Package.PackageBaseID == models.PackageKeyword.PackageBaseID
+        )
+        .with_entities(
             models.Package.ID.label("ID"),
             literal("Keywords").label("Type"),
             models.PackageKeyword.Keyword.label("Name"),
-            literal(str()).label("Cond")
-        ).distinct().order_by("Name")
+            literal(str()).label("Cond"),
+        )
+        .distinct()
+        .order_by("Name"),
     ]
     query = subqueries[0].union_all(*subqueries[1:])
     return get_extended_dict(query)
 
 
-EXTENDED_FIELD_HANDLERS = {
-    "--extended": get_extended_fields
-}
+EXTENDED_FIELD_HANDLERS = {"--extended": get_extended_fields}
 
 
 def as_dict(package: Package) -> dict[str, Any]:
@@ -181,37 +181,38 @@ def _main():
     archivedir = aurweb.config.get("mkpkglists", "archivedir")
     os.makedirs(archivedir, exist_ok=True)
 
-    PACKAGES = aurweb.config.get('mkpkglists', 'packagesfile')
-    META = aurweb.config.get('mkpkglists', 'packagesmetafile')
-    META_EXT = aurweb.config.get('mkpkglists', 'packagesmetaextfile')
-    PKGBASE = aurweb.config.get('mkpkglists', 'pkgbasefile')
-    USERS = aurweb.config.get('mkpkglists', 'userfile')
+    PACKAGES = aurweb.config.get("mkpkglists", "packagesfile")
+    META = aurweb.config.get("mkpkglists", "packagesmetafile")
+    META_EXT = aurweb.config.get("mkpkglists", "packagesmetaextfile")
+    PKGBASE = aurweb.config.get("mkpkglists", "pkgbasefile")
+    USERS = aurweb.config.get("mkpkglists", "userfile")
 
     bench = Benchmark()
     logger.info("Started re-creating archives, wait a while...")
 
-    query = db.query(Package).join(
-        PackageBase,
-        PackageBase.ID == Package.PackageBaseID
-    ).join(
-        User,
-        PackageBase.MaintainerUID == User.ID,
-        isouter=True
-    ).filter(PackageBase.PackagerUID.isnot(None)).with_entities(
-        Package.ID,
-        Package.Name,
-        PackageBase.ID.label("PackageBaseID"),
-        PackageBase.Name.label("PackageBase"),
-        Package.Version,
-        Package.Description,
-        Package.URL,
-        PackageBase.NumVotes,
-        PackageBase.Popularity,
-        PackageBase.OutOfDateTS.label("OutOfDate"),
-        User.Username.label("Maintainer"),
-        PackageBase.SubmittedTS.label("FirstSubmitted"),
-        PackageBase.ModifiedTS.label("LastModified")
-    ).distinct().order_by("Name")
+    query = (
+        db.query(Package)
+        .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
+        .join(User, PackageBase.MaintainerUID == User.ID, isouter=True)
+        .filter(PackageBase.PackagerUID.isnot(None))
+        .with_entities(
+            Package.ID,
+            Package.Name,
+            PackageBase.ID.label("PackageBaseID"),
+            PackageBase.Name.label("PackageBase"),
+            Package.Version,
+            Package.Description,
+            Package.URL,
+            PackageBase.NumVotes,
+            PackageBase.Popularity,
+            PackageBase.OutOfDateTS.label("OutOfDate"),
+            User.Username.label("Maintainer"),
+            PackageBase.SubmittedTS.label("FirstSubmitted"),
+            PackageBase.ModifiedTS.label("LastModified"),
+        )
+        .distinct()
+        .order_by("Name")
+    )
 
     # Produce packages-meta-v1.json.gz
     output = list()
@@ -252,7 +253,7 @@ def _main():
         # We stream out package json objects line per line, so
         # we also need to include the ',' character at the end
         # of package lines (excluding the last package).
-        suffix = b",\n" if i < n else b'\n'
+        suffix = b",\n" if i < n else b"\n"
 
         # Write out to packagesmetafile
         output.append(item)
@@ -273,8 +274,7 @@ def _main():
     util.apply_all(gzips.values(), lambda gz: gz.close())
 
     # Produce pkgbase.gz
-    query = db.query(PackageBase.Name).filter(
-        PackageBase.PackagerUID.isnot(None)).all()
+    query = db.query(PackageBase.Name).filter(PackageBase.PackagerUID.isnot(None)).all()
     tmp_pkgbase = os.path.join(tmpdir, os.path.basename(PKGBASE))
     with gzip.open(tmp_pkgbase, "wt") as f:
         f.writelines([f"{base.Name}\n" for i, base in enumerate(query)])
@@ -317,5 +317,5 @@ def main():
         _main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

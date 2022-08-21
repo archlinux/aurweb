@@ -1,5 +1,4 @@
 import py
-
 from _pytest.logging import LogCaptureFixture
 
 from aurweb.testing.filelock import FileLock

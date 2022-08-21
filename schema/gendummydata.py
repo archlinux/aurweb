@@ -15,27 +15,26 @@ import os
 import random
 import sys
 import time
-
 from datetime import datetime
 
 import bcrypt
 
 LOG_LEVEL = logging.DEBUG  # logging level. set to logging.INFO to reduce output
 SEED_FILE = "/usr/share/dict/words"
-USER_ID = 5            # Users.ID of first bogus user
-PKG_ID = 1             # Packages.ID of first package
+USER_ID = 5  # Users.ID of first bogus user
+PKG_ID = 1  # Packages.ID of first package
 # how many users to 'register'
 MAX_USERS = int(os.environ.get("MAX_USERS", 38000))
-MAX_DEVS = .1          # what percentage of MAX_USERS are Developers
-MAX_TUS = .2           # what percentage of MAX_USERS are Trusted Users
+MAX_DEVS = 0.1  # what percentage of MAX_USERS are Developers
+MAX_TUS = 0.2  # what percentage of MAX_USERS are Trusted Users
 # how many packages to load
 MAX_PKGS = int(os.environ.get("MAX_PKGS", 32000))
-PKG_DEPS = (1, 15)     # min/max depends a package has
-PKG_RELS = (1, 5)      # min/max relations a package has
-PKG_SRC = (1, 3)       # min/max sources a package has
-PKG_CMNTS = (1, 5)     # min/max number of comments a package has
+PKG_DEPS = (1, 15)  # min/max depends a package has
+PKG_RELS = (1, 5)  # min/max relations a package has
+PKG_SRC = (1, 3)  # min/max sources a package has
+PKG_CMNTS = (1, 5)  # min/max number of comments a package has
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
-VOTING = (0, .001)     # percentage range for package voting
+VOTING = (0, 0.001)  # percentage range for package voting
 # number of open trusted user proposals
 OPEN_PROPOSALS = int(os.environ.get("OPEN_PROPOSALS", 15))
 # number of closed trusted user proposals
@@ -113,10 +112,10 @@ if not len(contents) - MAX_USERS > MAX_PKGS:
 
 
 def normalize(unicode_data):
-    """ We only accept ascii for usernames. Also use this to normalize
+    """We only accept ascii for usernames. Also use this to normalize
     package names; our database utf8mb4 collations compare with Unicode
-    Equivalence. """
-    return unicode_data.encode('ascii', 'ignore').decode('ascii')
+    Equivalence."""
+    return unicode_data.encode("ascii", "ignore").decode("ascii")
 
 
 # select random usernames
@@ -196,10 +195,12 @@ for u in user_keys:
     # "{salt}{username}"
     to_hash = f"{salt}{u}"
 
-    h = hashlib.new('md5')
+    h = hashlib.new("md5")
     h.update(to_hash.encode())
-    s = ("INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd, Salt)"
-         " VALUES (%d, %d, '%s', '%s@example.com', '%s', '%s');\n")
+    s = (
+        "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd, Salt)"
+        " VALUES (%d, %d, '%s', '%s@example.com', '%s', '%s');\n"
+    )
     s = s % (seen_users[u], account_type, u, u, h.hexdigest(), salt)
     out.write(s)
 
@@ -230,13 +231,17 @@ for p in list(seen_pkgs.keys()):
 
     uuid = genUID()  # the submitter/user
 
-    s = ("INSERT INTO PackageBases (ID, Name, FlaggerComment, SubmittedTS, ModifiedTS, "
-         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', '', %d, %d, %d, %s, %s);\n")
+    s = (
+        "INSERT INTO PackageBases (ID, Name, FlaggerComment, SubmittedTS, ModifiedTS, "
+        "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', '', %d, %d, %d, %s, %s);\n"
+    )
     s = s % (seen_pkgs[p], p, NOW, NOW, uuid, muid, puid)
     out.write(s)
 
-    s = ("INSERT INTO Packages (ID, PackageBaseID, Name, Version) VALUES "
-         "(%d, %d, '%s', '%s');\n")
+    s = (
+        "INSERT INTO Packages (ID, PackageBaseID, Name, Version) VALUES "
+        "(%d, %d, '%s', '%s');\n"
+    )
     s = s % (seen_pkgs[p], seen_pkgs[p], p, genVersion())
     out.write(s)
 
@@ -247,8 +252,10 @@ for p in list(seen_pkgs.keys()):
     num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
     for i in range(0, num_comments):
         now = NOW + random.randrange(400, 86400 * 3)
-        s = ("INSERT INTO PackageComments (PackageBaseID, UsersID,"
-             " Comments, RenderedComment, CommentTS) VALUES (%d, %d, '%s', '', %d);\n")
+        s = (
+            "INSERT INTO PackageComments (PackageBaseID, UsersID,"
+            " Comments, RenderedComment, CommentTS) VALUES (%d, %d, '%s', '', %d);\n"
+        )
         s = s % (seen_pkgs[p], genUID(), genFortune(), now)
         out.write(s)
 
@@ -258,14 +265,17 @@ utcnow = int(datetime.utcnow().timestamp())
 track_votes = {}
 log.debug("Casting votes for packages.")
 for u in user_keys:
-    num_votes = random.randrange(int(len(seen_pkgs) * VOTING[0]),
-                                 int(len(seen_pkgs) * VOTING[1]))
+    num_votes = random.randrange(
+        int(len(seen_pkgs) * VOTING[0]), int(len(seen_pkgs) * VOTING[1])
+    )
     pkgvote = {}
     for v in range(num_votes):
         pkg = random.randrange(1, len(seen_pkgs) + 1)
         if pkg not in pkgvote:
-            s = ("INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS)"
-                 " VALUES (%d, %d, %d);\n")
+            s = (
+                "INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS)"
+                " VALUES (%d, %d, %d);\n"
+            )
             s = s % (seen_users[u], pkg, utcnow)
             pkgvote[pkg] = 1
             if pkg not in track_votes:
@@ -310,9 +320,12 @@ for p in seen_pkgs_keys:
         src_file = user_keys[random.randrange(0, len(user_keys))]
         src = "%s%s.%s/%s/%s-%s.tar.gz" % (
             RANDOM_URL[random.randrange(0, len(RANDOM_URL))],
-            p, RANDOM_TLDS[random.randrange(0, len(RANDOM_TLDS))],
+            p,
+            RANDOM_TLDS[random.randrange(0, len(RANDOM_TLDS))],
             RANDOM_LOCS[random.randrange(0, len(RANDOM_LOCS))],
-            src_file, genVersion())
+            src_file,
+            genVersion(),
+        )
         s = "INSERT INTO PackageSources(PackageID, Source) VALUES (%d, '%s');\n"
         s = s % (seen_pkgs[p], src)
         out.write(s)
@@ -334,8 +347,10 @@ for t in range(0, OPEN_PROPOSALS + CLOSE_PROPOSALS):
     else:
         user = user_keys[random.randrange(0, len(user_keys))]
     suid = trustedusers[random.randrange(0, len(trustedusers))]
-    s = ("INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End,"
-         " Quorum, SubmitterID) VALUES ('%s', '%s', %d, %d, 0.0, %d);\n")
+    s = (
+        "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End,"
+        " Quorum, SubmitterID) VALUES ('%s', '%s', %d, %d, 0.0, %d);\n"
+    )
     s = s % (genFortune(), user, start, end, suid)
     out.write(s)
     count += 1

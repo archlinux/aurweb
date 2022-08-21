@@ -50,12 +50,12 @@ def parse_args():
     actions = ["get", "set", "unset"]
     parser = argparse.ArgumentParser(
         description="aurweb configuration tool",
-        formatter_class=lambda prog: fmt_cls(prog=prog, max_help_position=80))
+        formatter_class=lambda prog: fmt_cls(prog=prog, max_help_position=80),
+    )
     parser.add_argument("action", choices=actions, help="script action")
     parser.add_argument("section", help="config section")
     parser.add_argument("option", help="config option")
-    parser.add_argument("value", nargs="?", default=0,
-                        help="config option value")
+    parser.add_argument("value", nargs="?", default=0, help="config option value")
     return parser.parse_args()
 
 

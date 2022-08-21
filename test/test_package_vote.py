@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db, time
@@ -17,9 +16,14 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd=str(),
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
@@ -34,8 +38,7 @@ def test_package_vote_creation(user: User, pkgbase: PackageBase):
     ts = time.utcnow()
 
     with db.begin():
-        package_vote = db.create(PackageVote, User=user,
-                                 PackageBase=pkgbase, VoteTS=ts)
+        package_vote = db.create(PackageVote, User=user, PackageBase=pkgbase, VoteTS=ts)
     assert bool(package_vote)
     assert package_vote.User == user
     assert package_vote.PackageBase == pkgbase

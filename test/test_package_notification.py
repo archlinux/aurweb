@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -16,8 +15,13 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd="testPassword")
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+        )
     yield user
 
 
@@ -31,7 +35,8 @@ def pkgbase(user: User) -> PackageBase:
 def test_package_notification_creation(user: User, pkgbase: PackageBase):
     with db.begin():
         package_notification = db.create(
-            PackageNotification, User=user, PackageBase=pkgbase)
+            PackageNotification, User=user, PackageBase=pkgbase
+        )
     assert bool(package_notification)
     assert package_notification.User == user
     assert package_notification.PackageBase == pkgbase

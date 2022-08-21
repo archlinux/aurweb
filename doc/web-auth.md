@@ -108,4 +108,3 @@ The following list of steps describes exactly how this verification works:
 - `options.disable_http_login: 1`
 - `options.login_timeout: <default_provided_in_config.defaults>`
 - `options.persistent_cookie_timeout: <default_provided_in_config.defaults>`
-

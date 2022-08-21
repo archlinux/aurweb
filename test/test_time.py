@@ -1,5 +1,4 @@
 import aurweb.config
-
 from aurweb.testing.requests import Request
 from aurweb.time import get_request_timezone, tz_offset
 

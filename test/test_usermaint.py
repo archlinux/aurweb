@@ -14,13 +14,18 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         Passwd="testPassword", AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 def test_usermaint_noop(user: User):
-    """ Last[SSH]Login isn't expired in this test: usermaint is noop. """
+    """Last[SSH]Login isn't expired in this test: usermaint is noop."""
 
     now = time.utcnow()
     with db.begin():

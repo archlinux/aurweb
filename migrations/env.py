@@ -2,7 +2,6 @@ import logging
 import logging.config
 
 import sqlalchemy
-
 from alembic import context
 
 import aurweb.db
@@ -69,9 +68,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

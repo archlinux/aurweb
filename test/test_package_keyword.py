@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -17,24 +16,27 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def pkgbase(user: User) -> PackageBase:
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="beautiful-package",
-                            Maintainer=user)
+        pkgbase = db.create(PackageBase, Name="beautiful-package", Maintainer=user)
     yield pkgbase
 
 
 def test_package_keyword(pkgbase: PackageBase):
     with db.begin():
-        pkg_keyword = db.create(PackageKeyword, PackageBase=pkgbase,
-                                Keyword="test")
+        pkg_keyword = db.create(PackageKeyword, PackageBase=pkgbase, Keyword="test")
     assert pkg_keyword in pkgbase.keywords
     assert pkgbase == pkg_keyword.PackageBase
 

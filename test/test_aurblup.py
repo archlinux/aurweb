@@ -1,5 +1,4 @@
 import tempfile
-
 from unittest import mock
 
 import py
@@ -32,7 +31,7 @@ def setup(db_test, alpm_db: AlpmDatabase, tempdir: py.path.local) -> None:
             if key == "db-path":
                 return alpm_db.local
             elif key == "server":
-                return f'file://{alpm_db.remote}'
+                return f"file://{alpm_db.remote}"
             elif key == "sync-dbs":
                 return alpm_db.repo
         return value
@@ -51,8 +50,7 @@ def test_aurblup(alpm_db: AlpmDatabase):
 
     # Test that the package got added to the database.
     for name in ("pkg", "pkg2"):
-        pkg = db.query(OfficialProvider).filter(
-            OfficialProvider.Name == name).first()
+        pkg = db.query(OfficialProvider).filter(OfficialProvider.Name == name).first()
         assert pkg is not None
 
     # Test that we can remove the package.
@@ -62,11 +60,9 @@ def test_aurblup(alpm_db: AlpmDatabase):
     aurblup.main(True)
 
     # Expect that the database got updated accordingly.
-    pkg = db.query(OfficialProvider).filter(
-        OfficialProvider.Name == "pkg").first()
+    pkg = db.query(OfficialProvider).filter(OfficialProvider.Name == "pkg").first()
     assert pkg is None
-    pkg2 = db.query(OfficialProvider).filter(
-        OfficialProvider.Name == "pkg2").first()
+    pkg2 = db.query(OfficialProvider).filter(OfficialProvider.Name == "pkg2").first()
     assert pkg2 is not None
 
 
@@ -78,14 +74,16 @@ def test_aurblup_cleanup(alpm_db: AlpmDatabase):
     # Now, let's insert an OfficialPackage that doesn't exist,
     # then exercise the old provider deletion path.
     with db.begin():
-        db.create(OfficialProvider, Name="fake package",
-                  Repo="test", Provides="package")
+        db.create(
+            OfficialProvider, Name="fake package", Repo="test", Provides="package"
+        )
 
     # Run aurblup again.
     aurblup.main()
 
     # Expect that the fake package got deleted because it's
     # not in alpm_db anymore.
-    providers = db.query(OfficialProvider).filter(
-        OfficialProvider.Name == "fake package").all()
+    providers = (
+        db.query(OfficialProvider).filter(OfficialProvider.Name == "fake package").all()
+    )
     assert len(providers) == 0

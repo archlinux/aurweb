@@ -12,9 +12,10 @@ class Package(Base):
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     PackageBase = relationship(
-        _PackageBase, backref=backref("packages", lazy="dynamic",
-                                      cascade="all, delete"),
-        foreign_keys=[__table__.c.PackageBaseID])
+        _PackageBase,
+        backref=backref("packages", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.PackageBaseID],
+    )
 
     # No Package instances are official packages.
     is_official = False
@@ -26,10 +27,12 @@ class Package(Base):
             raise IntegrityError(
                 statement="Foreign key PackageBaseID cannot be null.",
                 orig="Packages.PackageBaseID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if self.Name is None:
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="Packages.Name",
-                params=("NULL"))
+                params=("NULL"),
+            )

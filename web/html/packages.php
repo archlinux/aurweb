@@ -171,4 +171,3 @@ if (isset($pkgid)) {
 }
 
 html_footer(AURWEB_VERSION);
-

@@ -14,15 +14,15 @@ logger = logging.get_logger(__name__)
 
 
 def pkgbase_notify_instance(request: Request, pkgbase: PackageBase) -> None:
-    notif = db.query(pkgbase.notifications.filter(
-        PackageNotification.UserID == request.user.ID
-    ).exists()).scalar()
+    notif = db.query(
+        pkgbase.notifications.filter(
+            PackageNotification.UserID == request.user.ID
+        ).exists()
+    ).scalar()
     has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
     if has_cred and not notif:
         with db.begin():
-            db.create(PackageNotification,
-                      PackageBase=pkgbase,
-                      User=request.user)
+            db.create(PackageNotification, PackageBase=pkgbase, User=request.user)
 
 
 def pkgbase_unnotify_instance(request: Request, pkgbase: PackageBase) -> None:
@@ -36,8 +36,11 @@ def pkgbase_unnotify_instance(request: Request, pkgbase: PackageBase) -> None:
 
 
 def pkgbase_unflag_instance(request: Request, pkgbase: PackageBase) -> None:
-    has_cred = request.user.has_credential(creds.PKGBASE_UNFLAG, approved=[
-                                           pkgbase.Flagger, pkgbase.Maintainer] + [c.User for c in pkgbase.comaintainers])
+    has_cred = request.user.has_credential(
+        creds.PKGBASE_UNFLAG,
+        approved=[pkgbase.Flagger, pkgbase.Maintainer]
+        + [c.User for c in pkgbase.comaintainers],
+    )
     if has_cred:
         with db.begin():
             pkgbase.OutOfDateTS = None
@@ -93,9 +96,9 @@ def pkgbase_adopt_instance(request: Request, pkgbase: PackageBase) -> None:
     notif.send()
 
 
-def pkgbase_delete_instance(request: Request, pkgbase: PackageBase,
-                            comments: str = str()) \
-        -> list[notify.Notification]:
+def pkgbase_delete_instance(
+    request: Request, pkgbase: PackageBase, comments: str = str()
+) -> list[notify.Notification]:
     notifs = handle_request(request, DELETION_ID, pkgbase) + [
         notify.DeleteNotification(request.user.ID, pkgbase.ID)
     ]
@@ -107,8 +110,9 @@ def pkgbase_delete_instance(request: Request, pkgbase: PackageBase,
     return notifs
 
 
-def pkgbase_merge_instance(request: Request, pkgbase: PackageBase,
-                           target: PackageBase, comments: str = str()) -> None:
+def pkgbase_merge_instance(
+    request: Request, pkgbase: PackageBase, target: PackageBase, comments: str = str()
+) -> None:
     pkgbasename = str(pkgbase.Name)
 
     # Create notifications.
@@ -144,8 +148,10 @@ def pkgbase_merge_instance(request: Request, pkgbase: PackageBase,
         db.delete(pkgbase)
 
     # Log this out for accountability purposes.
-    logger.info(f"Trusted User '{request.user.Username}' merged "
-                f"'{pkgbasename}' into '{target.Name}'.")
+    logger.info(
+        f"Trusted User '{request.user.Username}' merged "
+        f"'{pkgbasename}' into '{target.Name}'."
+    )
 
     # Send notifications.
     util.apply_all(notifs, lambda n: n.send())

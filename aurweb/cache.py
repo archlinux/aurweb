@@ -2,9 +2,10 @@ from redis import Redis
 from sqlalchemy import orm
 
 
-async def db_count_cache(redis: Redis, key: str, query: orm.Query,
-                         expire: int = None) -> int:
-    """ Store and retrieve a query.count() via redis cache.
+async def db_count_cache(
+    redis: Redis, key: str, query: orm.Query, expire: int = None
+) -> int:
+    """Store and retrieve a query.count() via redis cache.
 
     :param redis: Redis handle
     :param key: Redis key

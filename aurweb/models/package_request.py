@@ -25,26 +25,34 @@ class PackageRequest(Base):
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     RequestType = relationship(
-        _RequestType, backref=backref("package_requests", lazy="dynamic"),
-        foreign_keys=[__table__.c.ReqTypeID])
+        _RequestType,
+        backref=backref("package_requests", lazy="dynamic"),
+        foreign_keys=[__table__.c.ReqTypeID],
+    )
 
     User = relationship(
-        _User, backref=backref("package_requests", lazy="dynamic"),
-        foreign_keys=[__table__.c.UsersID])
+        _User,
+        backref=backref("package_requests", lazy="dynamic"),
+        foreign_keys=[__table__.c.UsersID],
+    )
 
     PackageBase = relationship(
-        _PackageBase, backref=backref("requests", lazy="dynamic"),
-        foreign_keys=[__table__.c.PackageBaseID])
+        _PackageBase,
+        backref=backref("requests", lazy="dynamic"),
+        foreign_keys=[__table__.c.PackageBaseID],
+    )
 
     Closer = relationship(
-        _User, backref=backref("closed_requests", lazy="dynamic"),
-        foreign_keys=[__table__.c.ClosedUID])
+        _User,
+        backref=backref("closed_requests", lazy="dynamic"),
+        foreign_keys=[__table__.c.ClosedUID],
+    )
 
     STATUS_DISPLAY = {
         PENDING_ID: PENDING,
         CLOSED_ID: CLOSED,
         ACCEPTED_ID: ACCEPTED,
-        REJECTED_ID: REJECTED
+        REJECTED_ID: REJECTED,
     }
 
     def __init__(self, **kwargs):
@@ -54,38 +62,44 @@ class PackageRequest(Base):
             raise IntegrityError(
                 statement="Foreign key ReqTypeID cannot be null.",
                 orig="PackageRequests.ReqTypeID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.PackageBase and not self.PackageBaseID:
             raise IntegrityError(
                 statement="Foreign key PackageBaseID cannot be null.",
                 orig="PackageRequests.PackageBaseID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.PackageBaseName:
             raise IntegrityError(
                 statement="Column PackageBaseName cannot be null.",
                 orig="PackageRequests.PackageBaseName",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.User and not self.UsersID:
             raise IntegrityError(
                 statement="Foreign key UsersID cannot be null.",
                 orig="PackageRequests.UsersID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if self.Comments is None:
             raise IntegrityError(
                 statement="Column Comments cannot be null.",
                 orig="PackageRequests.Comments",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if self.ClosureComment is None:
             raise IntegrityError(
                 statement="Column ClosureComment cannot be null.",
                 orig="PackageRequests.ClosureComment",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
     def status_display(self) -> str:
-        """ Return a display string for the Status column. """
+        """Return a display string for the Status column."""
         return self.STATUS_DISPLAY[self.Status]

@@ -1,10 +1,8 @@
 import re
-
 from http import HTTPStatus
 from unittest import mock
 
 import pytest
-
 from fastapi.testclient import TestClient
 from sqlalchemy import and_
 
@@ -33,30 +31,24 @@ def package_endpoint(package: Package) -> str:
 
 
 def create_package(pkgname: str, maintainer: User) -> Package:
-    pkgbase = db.create(PackageBase,
-                        Name=pkgname,
-                        Maintainer=maintainer)
+    pkgbase = db.create(PackageBase, Name=pkgname, Maintainer=maintainer)
     return db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase)
 
 
-def create_package_dep(package: Package, depname: str,
-                       dep_type_name: str = "depends") -> PackageDependency:
-    dep_type = db.query(DependencyType,
-                        DependencyType.Name == dep_type_name).first()
-    return db.create(PackageDependency,
-                     DependencyType=dep_type,
-                     Package=package,
-                     DepName=depname)
+def create_package_dep(
+    package: Package, depname: str, dep_type_name: str = "depends"
+) -> PackageDependency:
+    dep_type = db.query(DependencyType, DependencyType.Name == dep_type_name).first()
+    return db.create(
+        PackageDependency, DependencyType=dep_type, Package=package, DepName=depname
+    )
 
 
-def create_package_rel(package: Package,
-                       relname: str) -> PackageRelation:
-    rel_type = db.query(RelationType,
-                        RelationType.ID == PROVIDES_ID).first()
-    return db.create(PackageRelation,
-                     RelationType=rel_type,
-                     Package=package,
-                     RelName=relname)
+def create_package_rel(package: Package, relname: str) -> PackageRelation:
+    rel_type = db.query(RelationType, RelationType.ID == PROVIDES_ID).first()
+    return db.create(
+        PackageRelation, RelationType=rel_type, Package=package, RelName=relname
+    )
 
 
 @pytest.fixture(autouse=True)
@@ -66,76 +58,88 @@ def setup(db_test):
 
 @pytest.fixture
 def client() -> TestClient:
-    """ Yield a FastAPI TestClient. """
+    """Yield a FastAPI TestClient."""
     yield TestClient(app=asgi.app)
 
 
 def create_user(username: str) -> User:
     with db.begin():
-        user = db.create(User, Username=username,
-                         Email=f"{username}@example.org",
-                         Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username=username,
+            Email=f"{username}@example.org",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     return user
 
 
 @pytest.fixture
 def user() -> User:
-    """ Yield a user. """
+    """Yield a user."""
     user = create_user("test")
     yield user
 
 
 @pytest.fixture
 def maintainer() -> User:
-    """ Yield a specific User used to maintain packages. """
+    """Yield a specific User used to maintain packages."""
     account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
     with db.begin():
-        maintainer = db.create(User, Username="test_maintainer",
-                               Email="test_maintainer@example.org",
-                               Passwd="testPassword",
-                               AccountType=account_type)
+        maintainer = db.create(
+            User,
+            Username="test_maintainer",
+            Email="test_maintainer@example.org",
+            Passwd="testPassword",
+            AccountType=account_type,
+        )
     yield maintainer
 
 
 @pytest.fixture
 def comaintainer() -> User:
-    """ Yield a specific User used to maintain packages. """
+    """Yield a specific User used to maintain packages."""
     account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
     with db.begin():
-        comaintainer = db.create(User, Username="test_comaintainer",
-                                 Email="test_comaintainer@example.org",
-                                 Passwd="testPassword",
-                                 AccountType=account_type)
+        comaintainer = db.create(
+            User,
+            Username="test_comaintainer",
+            Email="test_comaintainer@example.org",
+            Passwd="testPassword",
+            AccountType=account_type,
+        )
     yield comaintainer
 
 
 @pytest.fixture
 def tu_user():
-    tu_type = db.query(AccountType,
-                       AccountType.AccountType == "Trusted User").first()
+    tu_type = db.query(AccountType, AccountType.AccountType == "Trusted User").first()
     with db.begin():
-        tu_user = db.create(User, Username="test_tu",
-                            Email="test_tu@example.org",
-                            RealName="Test TU", Passwd="testPassword",
-                            AccountType=tu_type)
+        tu_user = db.create(
+            User,
+            Username="test_tu",
+            Email="test_tu@example.org",
+            RealName="Test TU",
+            Passwd="testPassword",
+            AccountType=tu_type,
+        )
     yield tu_user
 
 
 @pytest.fixture
 def package(maintainer: User) -> Package:
-    """ Yield a Package created by user. """
+    """Yield a Package created by user."""
     now = time.utcnow()
     with db.begin():
-        pkgbase = db.create(PackageBase,
-                            Name="test-package",
-                            Maintainer=maintainer,
-                            Packager=maintainer,
-                            Submitter=maintainer,
-                            ModifiedTS=now)
-        package = db.create(Package,
-                            PackageBase=pkgbase,
-                            Name=pkgbase.Name)
+        pkgbase = db.create(
+            PackageBase,
+            Name="test-package",
+            Maintainer=maintainer,
+            Packager=maintainer,
+            Submitter=maintainer,
+            ModifiedTS=now,
+        )
+        package = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
     yield package
 
 
@@ -146,29 +150,34 @@ def pkgbase(package: Package) -> PackageBase:
 
 @pytest.fixture
 def target(maintainer: User) -> PackageBase:
-    """ Merge target. """
+    """Merge target."""
     now = time.utcnow()
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="target-package",
-                            Maintainer=maintainer,
-                            Packager=maintainer,
-                            Submitter=maintainer,
-                            ModifiedTS=now)
+        pkgbase = db.create(
+            PackageBase,
+            Name="target-package",
+            Maintainer=maintainer,
+            Packager=maintainer,
+            Submitter=maintainer,
+            ModifiedTS=now,
+        )
         db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
     yield pkgbase
 
 
 @pytest.fixture
 def pkgreq(user: User, pkgbase: PackageBase) -> PackageRequest:
-    """ Yield a PackageRequest related to `pkgbase`. """
+    """Yield a PackageRequest related to `pkgbase`."""
     with db.begin():
-        pkgreq = db.create(PackageRequest,
-                           ReqTypeID=DELETION_ID,
-                           User=user,
-                           PackageBase=pkgbase,
-                           PackageBaseName=pkgbase.Name,
-                           Comments=f"Deletion request for {pkgbase.Name}",
-                           ClosureComment=str())
+        pkgreq = db.create(
+            PackageRequest,
+            ReqTypeID=DELETION_ID,
+            User=user,
+            PackageBase=pkgbase,
+            PackageBaseName=pkgbase.Name,
+            Comments=f"Deletion request for {pkgbase.Name}",
+            ClosureComment=str(),
+        )
     yield pkgreq
 
 
@@ -177,31 +186,33 @@ def comment(user: User, package: Package) -> PackageComment:
     pkgbase = package.PackageBase
     now = time.utcnow()
     with db.begin():
-        comment = db.create(PackageComment,
-                            User=user,
-                            PackageBase=pkgbase,
-                            Comments="Test comment.",
-                            RenderedComment=str(),
-                            CommentTS=now)
+        comment = db.create(
+            PackageComment,
+            User=user,
+            PackageBase=pkgbase,
+            Comments="Test comment.",
+            RenderedComment=str(),
+            CommentTS=now,
+        )
     yield comment
 
 
 @pytest.fixture
 def packages(maintainer: User) -> list[Package]:
-    """ Yield 55 packages named pkg_0 .. pkg_54. """
+    """Yield 55 packages named pkg_0 .. pkg_54."""
     packages_ = []
     now = time.utcnow()
     with db.begin():
         for i in range(55):
-            pkgbase = db.create(PackageBase,
-                                Name=f"pkg_{i}",
-                                Maintainer=maintainer,
-                                Packager=maintainer,
-                                Submitter=maintainer,
-                                ModifiedTS=now)
-            package = db.create(Package,
-                                PackageBase=pkgbase,
-                                Name=f"pkg_{i}")
+            pkgbase = db.create(
+                PackageBase,
+                Name=f"pkg_{i}",
+                Maintainer=maintainer,
+                Packager=maintainer,
+                Submitter=maintainer,
+                ModifiedTS=now,
+            )
+            package = db.create(Package, PackageBase=pkgbase, Name=f"pkg_{i}")
             packages_.append(package)
 
     yield packages_
@@ -210,18 +221,18 @@ def packages(maintainer: User) -> list[Package]:
 @pytest.fixture
 def requests(user: User, packages: list[Package]) -> list[PackageRequest]:
     pkgreqs = []
-    deletion_type = db.query(RequestType).filter(
-        RequestType.ID == DELETION_ID
-    ).first()
+    deletion_type = db.query(RequestType).filter(RequestType.ID == DELETION_ID).first()
     with db.begin():
         for i in range(55):
-            pkgreq = db.create(PackageRequest,
-                               RequestType=deletion_type,
-                               User=user,
-                               PackageBase=packages[i].PackageBase,
-                               PackageBaseName=packages[i].Name,
-                               Comments=f"Deletion request for pkg_{i}",
-                               ClosureComment=str())
+            pkgreq = db.create(
+                PackageRequest,
+                RequestType=deletion_type,
+                User=user,
+                PackageBase=packages[i].PackageBase,
+                PackageBaseName=packages[i].Name,
+                Comments=f"Deletion request for pkg_{i}",
+                ClosureComment=str(),
+            )
             pkgreqs.append(pkgreq)
     yield pkgreqs
 
@@ -234,21 +245,18 @@ def test_pkgbase_not_found(client: TestClient):
 
 def test_pkgbase_redirect(client: TestClient, package: Package):
     with client as request:
-        resp = request.get(f"/pkgbase/{package.Name}",
-                           allow_redirects=False)
+        resp = request.get(f"/pkgbase/{package.Name}", allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/packages/{package.Name}"
 
 
 def test_pkgbase(client: TestClient, package: Package):
     with db.begin():
-        second = db.create(Package, Name="second-pkg",
-                           PackageBase=package.PackageBase)
+        second = db.create(Package, Name="second-pkg", PackageBase=package.PackageBase)
 
     expected = [package.Name, second.Name]
     with client as request:
-        resp = request.get(f"/pkgbase/{package.Name}",
-                           allow_redirects=False)
+        resp = request.get(f"/pkgbase/{package.Name}", allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -264,8 +272,9 @@ def test_pkgbase(client: TestClient, package: Package):
         assert pkgs[i].text.strip() == name
 
 
-def test_pkgbase_maintainer(client: TestClient, user: User, maintainer: User,
-                            package: Package):
+def test_pkgbase_maintainer(
+    client: TestClient, user: User, maintainer: User, package: Package
+):
     """
     Test that the Maintainer field is beind displayed correctly.
 
@@ -273,9 +282,9 @@ def test_pkgbase_maintainer(client: TestClient, user: User, maintainer: User,
     the maintainer.
     """
     with db.begin():
-        db.create(PackageComaintainer, User=user,
-                  PackageBase=package.PackageBase,
-                  Priority=1)
+        db.create(
+            PackageComaintainer, User=user, PackageBase=package.PackageBase, Priority=1
+        )
 
     with client as request:
         resp = request.get(f"/pkgbase/{package.Name}")
@@ -286,7 +295,7 @@ def test_pkgbase_maintainer(client: TestClient, user: User, maintainer: User,
     maint = root.xpath('//table[@id="pkginfo"]/tr[@class="pkgmaint"]/td')[0]
     maint, comaint = maint.text.strip().split()
     assert maint == maintainer.Username
-    assert comaint == f'({user.Username})'
+    assert comaint == f"({user.Username})"
 
 
 def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):
@@ -309,8 +318,7 @@ def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):
     assert rows[0].text.strip() == tu_user.Username
 
 
-def test_pkgbase_voters_unauthorized(client: TestClient, user: User,
-                                     package: Package):
+def test_pkgbase_voters_unauthorized(client: TestClient, user: User, package: Package):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/voters"
 
@@ -324,25 +332,30 @@ def test_pkgbase_voters_unauthorized(client: TestClient, user: User,
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
 
-def test_pkgbase_comment_not_found(client: TestClient, maintainer: User,
-                                   package: Package):
+def test_pkgbase_comment_not_found(
+    client: TestClient, maintainer: User, package: Package
+):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     comment_id = 12345  # A non-existing comment.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/comments/{comment_id}"
     with client as request:
-        resp = request.post(endpoint, data={
-            "comment": "Failure"
-        }, cookies=cookies)
+        resp = request.post(endpoint, data={"comment": "Failure"}, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_pkgbase_comment_form_unauthorized(client: TestClient, user: User,
-                                           maintainer: User, package: Package):
+def test_pkgbase_comment_form_unauthorized(
+    client: TestClient, user: User, maintainer: User, package: Package
+):
     now = time.utcnow()
     with db.begin():
-        comment = db.create(PackageComment, PackageBase=package.PackageBase,
-                            User=maintainer, Comments="Test",
-                            RenderedComment=str(), CommentTS=now)
+        comment = db.create(
+            PackageComment,
+            PackageBase=package.PackageBase,
+            User=maintainer,
+            Comments="Test",
+            RenderedComment=str(),
+            CommentTS=now,
+        )
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     pkgbasename = package.PackageBase.Name
@@ -352,8 +365,9 @@ def test_pkgbase_comment_form_unauthorized(client: TestClient, user: User,
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-def test_pkgbase_comment_form_not_found(client: TestClient, maintainer: User,
-                                        package: Package):
+def test_pkgbase_comment_form_not_found(
+    client: TestClient, maintainer: User, package: Package
+):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     comment_id = 12345  # A non-existing comment.
     pkgbasename = package.PackageBase.Name
@@ -363,8 +377,9 @@ def test_pkgbase_comment_form_not_found(client: TestClient, maintainer: User,
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_pkgbase_comments_missing_comment(client: TestClient, maintainer: User,
-                                          package: Package):
+def test_pkgbase_comments_missing_comment(
+    client: TestClient, maintainer: User, package: Package
+):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/comments"
     with client as request:
@@ -372,9 +387,10 @@ def test_pkgbase_comments_missing_comment(client: TestClient, maintainer: User,
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
-def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
-                          package: Package):
-    """ This test includes tests against the following routes:
+def test_pkgbase_comments(
+    client: TestClient, maintainer: User, user: User, package: Package
+):
+    """This test includes tests against the following routes:
     - POST /pkgbase/{name}/comments
     - GET /pkgbase/{name} (to check comments)
         - Tested against a comment created with the POST route
@@ -383,18 +399,17 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
     """
     with db.begin():
         user.CommentNotify = 1
-        db.create(PackageNotification,
-                  PackageBase=package.PackageBase,
-                  User=user)
+        db.create(PackageNotification, PackageBase=package.PackageBase, User=user)
 
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments"
     with client as request:
-        resp = request.post(endpoint, data={
-            "comment": "Test comment.",
-            "enable_notifications": True
-        }, cookies=cookies)
+        resp = request.post(
+            endpoint,
+            data={"comment": "Test comment.", "enable_notifications": True},
+            cookies=cookies,
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # user should've gotten a CommentNotification email.
@@ -438,10 +453,11 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
     comment_id = int(headers[0].attrib["id"].split("-")[-1])
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}"
     with client as request:
-        resp = request.post(endpoint, data={
-            "comment": "Edited comment.",
-            "enable_notifications": True
-        }, cookies=cookies)
+        resp = request.post(
+            endpoint,
+            data={"comment": "Edited comment.", "enable_notifications": True},
+            cookies=cookies,
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     with client as request:
@@ -479,27 +495,33 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
     assert "form" in data
 
 
-def test_pkgbase_comment_edit_unauthorized(client: TestClient,
-                                           user: User,
-                                           maintainer: User,
-                                           package: Package,
-                                           comment: PackageComment):
+def test_pkgbase_comment_edit_unauthorized(
+    client: TestClient,
+    user: User,
+    maintainer: User,
+    package: Package,
+    comment: PackageComment,
+):
     pkgbase = package.PackageBase
 
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
         endp = f"/pkgbase/{pkgbase.Name}/comments/{comment.ID}"
-        response = request.post(endp, data={
-            "comment": "abcd im trying to change this comment."
-        }, cookies=cookies)
+        response = request.post(
+            endp,
+            data={"comment": "abcd im trying to change this comment."},
+            cookies=cookies,
+        )
     assert response.status_code == HTTPStatus.UNAUTHORIZED
 
 
-def test_pkgbase_comment_delete(client: TestClient,
-                                maintainer: User,
-                                user: User,
-                                package: Package,
-                                comment: PackageComment):
+def test_pkgbase_comment_delete(
+    client: TestClient,
+    maintainer: User,
+    user: User,
+    package: Package,
+    comment: PackageComment,
+):
     # Test the unauthorized case of comment deletion.
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     pkgbasename = package.PackageBase.Name
@@ -524,10 +546,9 @@ def test_pkgbase_comment_delete(client: TestClient,
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
-def test_pkgbase_comment_delete_unauthorized(client: TestClient,
-                                             maintainer: User,
-                                             package: Package,
-                                             comment: PackageComment):
+def test_pkgbase_comment_delete_unauthorized(
+    client: TestClient, maintainer: User, package: Package, comment: PackageComment
+):
     # Test the unauthorized case of comment deletion.
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     pkgbasename = package.PackageBase.Name
@@ -537,9 +558,9 @@ def test_pkgbase_comment_delete_unauthorized(client: TestClient,
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-def test_pkgbase_comment_delete_not_found(client: TestClient,
-                                          maintainer: User,
-                                          package: Package):
+def test_pkgbase_comment_delete_not_found(
+    client: TestClient, maintainer: User, package: Package
+):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     comment_id = 12345  # Non-existing comment.
     pkgbasename = package.PackageBase.Name
@@ -549,9 +570,9 @@ def test_pkgbase_comment_delete_not_found(client: TestClient,
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_pkgbase_comment_undelete_not_found(client: TestClient,
-                                            maintainer: User,
-                                            package: Package):
+def test_pkgbase_comment_undelete_not_found(
+    client: TestClient, maintainer: User, package: Package
+):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     comment_id = 12345  # Non-existing comment.
     pkgbasename = package.PackageBase.Name
@@ -561,13 +582,18 @@ def test_pkgbase_comment_undelete_not_found(client: TestClient,
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_pkgbase_comment_pin_as_co(client: TestClient, package: Package,
-                                   comment: PackageComment):
+def test_pkgbase_comment_pin_as_co(
+    client: TestClient, package: Package, comment: PackageComment
+):
     comaint = create_user("comaint1")
 
     with db.begin():
-        db.create(PackageComaintainer, PackageBase=package.PackageBase,
-                  User=comaint, Priority=1)
+        db.create(
+            PackageComaintainer,
+            PackageBase=package.PackageBase,
+            User=comaint,
+            Priority=1,
+        )
 
     # Pin the comment.
     pkgbasename = package.PackageBase.Name
@@ -590,10 +616,9 @@ def test_pkgbase_comment_pin_as_co(client: TestClient, package: Package,
     assert comment.PinnedTS == 0
 
 
-def test_pkgbase_comment_pin(client: TestClient,
-                             maintainer: User,
-                             package: Package,
-                             comment: PackageComment):
+def test_pkgbase_comment_pin(
+    client: TestClient, maintainer: User, package: Package, comment: PackageComment
+):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     comment_id = comment.ID
     pkgbasename = package.PackageBase.Name
@@ -617,10 +642,9 @@ def test_pkgbase_comment_pin(client: TestClient,
     assert comment.PinnedTS == 0
 
 
-def test_pkgbase_comment_pin_unauthorized(client: TestClient,
-                                          user: User,
-                                          package: Package,
-                                          comment: PackageComment):
+def test_pkgbase_comment_pin_unauthorized(
+    client: TestClient, user: User, package: Package, comment: PackageComment
+):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     comment_id = comment.ID
     pkgbasename = package.PackageBase.Name
@@ -630,10 +654,9 @@ def test_pkgbase_comment_pin_unauthorized(client: TestClient,
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-def test_pkgbase_comment_unpin_unauthorized(client: TestClient,
-                                            user: User,
-                                            package: Package,
-                                            comment: PackageComment):
+def test_pkgbase_comment_unpin_unauthorized(
+    client: TestClient, user: User, package: Package, comment: PackageComment
+):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     comment_id = comment.ID
     pkgbasename = package.PackageBase.Name
@@ -651,8 +674,7 @@ def test_pkgbase_comaintainers_not_found(client: TestClient, maintainer: User):
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_pkgbase_comaintainers_post_not_found(client: TestClient,
-                                              maintainer: User):
+def test_pkgbase_comaintainers_post_not_found(client: TestClient, maintainer: User):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     endpoint = "/pkgbase/fake/comaintainers"
     with client as request:
@@ -660,8 +682,9 @@ def test_pkgbase_comaintainers_post_not_found(client: TestClient,
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_pkgbase_comaintainers_unauthorized(client: TestClient, user: User,
-                                            package: Package):
+def test_pkgbase_comaintainers_unauthorized(
+    client: TestClient, user: User, package: Package
+):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -671,9 +694,9 @@ def test_pkgbase_comaintainers_unauthorized(client: TestClient, user: User,
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
 
-def test_pkgbase_comaintainers_post_unauthorized(client: TestClient,
-                                                 user: User,
-                                                 package: Package):
+def test_pkgbase_comaintainers_post_unauthorized(
+    client: TestClient, user: User, package: Package
+):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -683,16 +706,16 @@ def test_pkgbase_comaintainers_post_unauthorized(client: TestClient,
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
 
-def test_pkgbase_comaintainers_post_invalid_user(client: TestClient,
-                                                 maintainer: User,
-                                                 package: Package):
+def test_pkgbase_comaintainers_post_invalid_user(
+    client: TestClient, maintainer: User, package: Package
+):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, data={
-            "users": "\nfake\n"
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            endpoint, data={"users": "\nfake\n"}, cookies=cookies, allow_redirects=False
+        )
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -700,8 +723,9 @@ def test_pkgbase_comaintainers_post_invalid_user(client: TestClient,
     assert error.text.strip() == "Invalid user name: fake"
 
 
-def test_pkgbase_comaintainers(client: TestClient, user: User,
-                               maintainer: User, package: Package):
+def test_pkgbase_comaintainers(
+    client: TestClient, user: User, maintainer: User, package: Package
+):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
@@ -709,17 +733,23 @@ def test_pkgbase_comaintainers(client: TestClient, user: User,
     # Start off by adding user as a comaintainer to package.
     # The maintainer username given should be ignored.
     with client as request:
-        resp = request.post(endpoint, data={
-            "users": f"\n{user.Username}\n{maintainer.Username}\n"
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            endpoint,
+            data={"users": f"\n{user.Username}\n{maintainer.Username}\n"},
+            cookies=cookies,
+            allow_redirects=False,
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
     # Do it again to exercise the last_priority bump path.
     with client as request:
-        resp = request.post(endpoint, data={
-            "users": f"\n{user.Username}\n{maintainer.Username}\n"
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            endpoint,
+            data={"users": f"\n{user.Username}\n{maintainer.Username}\n"},
+            cookies=cookies,
+            allow_redirects=False,
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
@@ -736,9 +766,9 @@ def test_pkgbase_comaintainers(client: TestClient, user: User,
 
     # Finish off by removing all the comaintainers.
     with client as request:
-        resp = request.post(endpoint, data={
-            "users": str()
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            endpoint, data={"users": str()}, cookies=cookies, allow_redirects=False
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
@@ -774,15 +804,15 @@ def test_pkgbase_request(client: TestClient, user: User, package: Package):
 def test_pkgbase_request_post_not_found(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post("/pkgbase/fake/request", data={
-            "type": "fake"
-        }, cookies=cookies)
+        resp = request.post(
+            "/pkgbase/fake/request", data={"type": "fake"}, cookies=cookies
+        )
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_pkgbase_request_post_invalid_type(client: TestClient,
-                                           user: User,
-                                           package: Package):
+def test_pkgbase_request_post_invalid_type(
+    client: TestClient, user: User, package: Package
+):
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -790,16 +820,20 @@ def test_pkgbase_request_post_invalid_type(client: TestClient,
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
-def test_pkgbase_request_post_no_comment_error(client: TestClient,
-                                               user: User,
-                                               package: Package):
+def test_pkgbase_request_post_no_comment_error(
+    client: TestClient, user: User, package: Package
+):
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, data={
-            "type": "deletion",
-            "comments": ""  # An empty comment field causes an error.
-        }, cookies=cookies)
+        resp = request.post(
+            endpoint,
+            data={
+                "type": "deletion",
+                "comments": "",  # An empty comment field causes an error.
+            },
+            cookies=cookies,
+        )
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -808,17 +842,22 @@ def test_pkgbase_request_post_no_comment_error(client: TestClient,
     assert error.text.strip() == expected
 
 
-def test_pkgbase_request_post_merge_not_found_error(client: TestClient,
-                                                    user: User,
-                                                    package: Package):
+def test_pkgbase_request_post_merge_not_found_error(
+    client: TestClient, user: User, package: Package
+):
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, data={
-            "type": "merge",
-            "merge_into": "fake",  # There is no PackageBase.Name "fake"
-            "comments": "We want to merge this."
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            endpoint,
+            data={
+                "type": "merge",
+                "merge_into": "fake",  # There is no PackageBase.Name "fake"
+                "comments": "We want to merge this.",
+            },
+            cookies=cookies,
+            allow_redirects=False,
+        )
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -827,17 +866,22 @@ def test_pkgbase_request_post_merge_not_found_error(client: TestClient,
     assert error.text.strip() == expected
 
 
-def test_pkgbase_request_post_merge_no_merge_into_error(client: TestClient,
-                                                        user: User,
-                                                        package: Package):
+def test_pkgbase_request_post_merge_no_merge_into_error(
+    client: TestClient, user: User, package: Package
+):
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, data={
-            "type": "merge",
-            "merge_into": "",  # There is no PackageBase.Name "fake"
-            "comments": "We want to merge this."
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            endpoint,
+            data={
+                "type": "merge",
+                "merge_into": "",  # There is no PackageBase.Name "fake"
+                "comments": "We want to merge this.",
+            },
+            cookies=cookies,
+            allow_redirects=False,
+        )
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -846,16 +890,22 @@ def test_pkgbase_request_post_merge_no_merge_into_error(client: TestClient,
     assert error.text.strip() == expected
 
 
-def test_pkgbase_request_post_merge_self_error(client: TestClient, user: User,
-                                               package: Package):
+def test_pkgbase_request_post_merge_self_error(
+    client: TestClient, user: User, package: Package
+):
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, data={
-            "type": "merge",
-            "merge_into": package.PackageBase.Name,
-            "comments": "We want to merge this."
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            endpoint,
+            data={
+                "type": "merge",
+                "merge_into": package.PackageBase.Name,
+                "comments": "We want to merge this.",
+            },
+            cookies=cookies,
+            allow_redirects=False,
+        )
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -864,8 +914,9 @@ def test_pkgbase_request_post_merge_self_error(client: TestClient, user: User,
     assert error.text.strip() == expected
 
 
-def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
-                      package: Package):
+def test_pkgbase_flag(
+    client: TestClient, user: User, maintainer: User, package: Package
+):
     pkgbase = package.PackageBase
 
     # We shouldn't have flagged the package yet; assert so.
@@ -882,8 +933,9 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     # Now, let's check the /pkgbase/{name}/flag-comment route.
     flag_comment_endpoint = f"/pkgbase/{pkgbase.Name}/flag-comment"
     with client as request:
-        resp = request.get(flag_comment_endpoint, cookies=cookies,
-                           allow_redirects=False)
+        resp = request.get(
+            flag_comment_endpoint, cookies=cookies, allow_redirects=False
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
@@ -894,9 +946,7 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
 
     # Flag it with a valid comment.
     with client as request:
-        resp = request.post(endpoint, data={
-            "comments": "Test"
-        }, cookies=cookies)
+        resp = request.post(endpoint, data={"comments": "Test"}, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert pkgbase.Flagger == user
     assert pkgbase.FlaggerComment == "Test"
@@ -907,8 +957,9 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     # Now, let's check the /pkgbase/{name}/flag-comment route.
     flag_comment_endpoint = f"/pkgbase/{pkgbase.Name}/flag-comment"
     with client as request:
-        resp = request.get(flag_comment_endpoint, cookies=cookies,
-                           allow_redirects=False)
+        resp = request.get(
+            flag_comment_endpoint, cookies=cookies, allow_redirects=False
+        )
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Now try to perform a get; we should be redirected because
@@ -918,10 +969,13 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     with db.begin():
-        user2 = db.create(User, Username="test2",
-                          Email="test2@example.org",
-                          Passwd="testPassword",
-                          AccountType=user.AccountType)
+        user2 = db.create(
+            User,
+            Username="test2",
+            Email="test2@example.org",
+            Passwd="testPassword",
+            AccountType=user.AccountType,
+        )
 
     # Now, test that the 'user2' user can't unflag it, because they
     # didn't flag it to begin with.
@@ -941,9 +995,9 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
 
     # Flag it again.
     with client as request:
-        resp = request.post(f"/pkgbase/{pkgbase.Name}/flag", data={
-            "comments": "Test"
-        }, cookies=cookies)
+        resp = request.post(
+            f"/pkgbase/{pkgbase.Name}/flag", data={"comments": "Test"}, cookies=cookies
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Now, unflag it for real.
@@ -961,16 +1015,17 @@ def test_pkgbase_flag_vcs(client: TestClient, user: User, package: Package):
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(f"/pkgbase/{package.PackageBase.Name}/flag",
-                           cookies=cookies)
+        resp = request.get(f"/pkgbase/{package.PackageBase.Name}/flag", cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
 
-    expected = ("This seems to be a VCS package. Please do "
-                "<strong>not</strong> flag it out-of-date if the package "
-                "version in the AUR does not match the most recent commit. "
-                "Flagging this package should only be done if the sources "
-                "moved or changes in the PKGBUILD are required because of "
-                "recent upstream changes.")
+    expected = (
+        "This seems to be a VCS package. Please do "
+        "<strong>not</strong> flag it out-of-date if the package "
+        "version in the AUR does not match the most recent commit. "
+        "Flagging this package should only be done if the sources "
+        "moved or changes in the PKGBUILD are required because of "
+        "recent upstream changes."
+    )
     assert expected in resp.text
 
 
@@ -978,9 +1033,7 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
     pkgbase = package.PackageBase
 
     # We have no notif record yet; assert that.
-    notif = pkgbase.notifications.filter(
-        PackageNotification.UserID == user.ID
-    ).first()
+    notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
     assert notif is None
 
     # Enable notifications.
@@ -990,9 +1043,7 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    notif = pkgbase.notifications.filter(
-        PackageNotification.UserID == user.ID
-    ).first()
+    notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
     assert notif is not None
 
     # Disable notifications.
@@ -1001,9 +1052,7 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    notif = pkgbase.notifications.filter(
-        PackageNotification.UserID == user.ID
-    ).first()
+    notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
     assert notif is None
 
 
@@ -1036,9 +1085,9 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
     assert pkgbase.NumVotes == 0
 
 
-def test_pkgbase_disown_as_sole_maintainer(client: TestClient,
-                                           maintainer: User,
-                                           package: Package):
+def test_pkgbase_disown_as_sole_maintainer(
+    client: TestClient, maintainer: User, package: Package
+):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/disown"
@@ -1049,26 +1098,23 @@ def test_pkgbase_disown_as_sole_maintainer(client: TestClient,
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
-def test_pkgbase_disown_as_maint_with_comaint(client: TestClient,
-                                              user: User,
-                                              maintainer: User,
-                                              package: Package):
-    """ When disowning as a maintainer, the lowest priority comaintainer
-    is promoted to maintainer. """
+def test_pkgbase_disown_as_maint_with_comaint(
+    client: TestClient, user: User, maintainer: User, package: Package
+):
+    """When disowning as a maintainer, the lowest priority comaintainer
+    is promoted to maintainer."""
     pkgbase = package.PackageBase
     endp = f"/pkgbase/{pkgbase.Name}/disown"
     post_data = {"confirm": True}
 
     with db.begin():
-        db.create(PackageComaintainer,
-                  PackageBase=pkgbase,
-                  User=user,
-                  Priority=1)
+        db.create(PackageComaintainer, PackageBase=pkgbase, User=user, Priority=1)
 
     maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endp, data=post_data, cookies=maint_cookies,
-                            allow_redirects=True)
+        resp = request.post(
+            endp, data=post_data, cookies=maint_cookies, allow_redirects=True
+        )
     assert resp.status_code == int(HTTPStatus.OK)
 
     package = db.refresh(package)
@@ -1078,8 +1124,13 @@ def test_pkgbase_disown_as_maint_with_comaint(client: TestClient,
     assert pkgbase.comaintainers.count() == 0
 
 
-def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
-                        comaintainer: User, package: Package):
+def test_pkgbase_disown(
+    client: TestClient,
+    user: User,
+    maintainer: User,
+    comaintainer: User,
+    package: Package,
+):
     maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     comaint_cookies = {"AURSID": comaintainer.login(Request(), "testPassword")}
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -1088,21 +1139,18 @@ def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
     endpoint = f"{pkgbase_endp}/disown"
 
     with db.begin():
-        db.create(PackageComaintainer,
-                  User=comaintainer,
-                  PackageBase=pkgbase,
-                  Priority=1)
+        db.create(
+            PackageComaintainer, User=comaintainer, PackageBase=pkgbase, Priority=1
+        )
 
     # GET as a normal user, which is rejected for lack of credentials.
     with client as request:
-        resp = request.get(endpoint, cookies=user_cookies,
-                           allow_redirects=False)
+        resp = request.get(endpoint, cookies=user_cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # GET as a comaintainer.
     with client as request:
-        resp = request.get(endpoint, cookies=comaint_cookies,
-                           allow_redirects=False)
+        resp = request.get(endpoint, cookies=comaint_cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Ensure that the comaintainer can see "Disown Package" link
@@ -1146,8 +1194,9 @@ def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
-def test_pkgbase_adopt(client: TestClient, user: User, tu_user: User,
-                       maintainer: User, package: Package):
+def test_pkgbase_adopt(
+    client: TestClient, user: User, tu_user: User, maintainer: User, package: Package
+):
     # Unset the maintainer as if package is orphaned.
     with db.begin():
         package.PackageBase.Maintainer = None
@@ -1165,22 +1214,19 @@ def test_pkgbase_adopt(client: TestClient, user: User, tu_user: User,
     # Try to adopt it when it already has a maintainer; nothing changes.
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, cookies=user_cookies,
-                            allow_redirects=False)
+        resp = request.post(endpoint, cookies=user_cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert package.PackageBase.Maintainer == maintainer
 
     # Steal the package as a TU.
     tu_cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, cookies=tu_cookies,
-                            allow_redirects=False)
+        resp = request.post(endpoint, cookies=tu_cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert package.PackageBase.Maintainer == tu_user
 
 
-def test_pkgbase_delete_unauthorized(client: TestClient, user: User,
-                                     package: Package):
+def test_pkgbase_delete_unauthorized(client: TestClient, user: User, package: Package):
     pkgbase = package.PackageBase
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/delete"
@@ -1219,9 +1265,7 @@ def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Let's assert that the package base record got removed.
-    record = db.query(PackageBase).filter(
-        PackageBase.Name == pkgbase.Name
-    ).first()
+    record = db.query(PackageBase).filter(PackageBase.Name == pkgbase.Name).first()
     assert record is None
 
     # Two emails should've been sent out; an autogenerated
@@ -1234,9 +1278,9 @@ def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
     assert re.match(expr, subject)
 
 
-def test_pkgbase_delete_with_request(client: TestClient, tu_user: User,
-                                     pkgbase: PackageBase,
-                                     pkgreq: PackageRequest):
+def test_pkgbase_delete_with_request(
+    client: TestClient, tu_user: User, pkgbase: PackageBase, pkgreq: PackageRequest
+):
     # TODO: Test that a previously existing request gets Accepted when
     # a TU deleted the package.
 
@@ -1257,12 +1301,15 @@ def test_pkgbase_delete_with_request(client: TestClient, tu_user: User,
     assert re.match(expr, email.headers.get("Subject"))
 
 
-def test_packages_post_unknown_action(client: TestClient, user: User,
-                                      package: Package):
+def test_packages_post_unknown_action(client: TestClient, user: User, package: Package):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post("/packages", data={"action": "unknown"},
-                            cookies=cookies, allow_redirects=False)
+        resp = request.post(
+            "/packages",
+            data={"action": "unknown"},
+            cookies=cookies,
+            allow_redirects=False,
+        )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
@@ -1274,8 +1321,12 @@ def test_packages_post_error(client: TestClient, user: User, package: Package):
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
         cookies = {"AURSID": user.login(Request(), "testPassword")}
         with client as request:
-            resp = request.post("/packages", data={"action": "stub"},
-                                cookies=cookies, allow_redirects=False)
+            resp = request.post(
+                "/packages",
+                data={"action": "stub"},
+                cookies=cookies,
+                allow_redirects=False,
+            )
         assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
         errors = get_errors(resp.text)
@@ -1291,8 +1342,12 @@ def test_packages_post(client: TestClient, user: User, package: Package):
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
         cookies = {"AURSID": user.login(Request(), "testPassword")}
         with client as request:
-            resp = request.post("/packages", data={"action": "stub"},
-                                cookies=cookies, allow_redirects=False)
+            resp = request.post(
+                "/packages",
+                data={"action": "stub"},
+                cookies=cookies,
+                allow_redirects=False,
+            )
         assert resp.status_code == int(HTTPStatus.OK)
 
         errors = get_successes(resp.text)
@@ -1300,8 +1355,7 @@ def test_packages_post(client: TestClient, user: User, package: Package):
         assert errors[0].text.strip() == expected
 
 
-def test_pkgbase_merge_unauthorized(client: TestClient, user: User,
-                                    package: Package):
+def test_pkgbase_merge_unauthorized(client: TestClient, user: User, package: Package):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
@@ -1318,8 +1372,9 @@ def test_pkgbase_merge(client: TestClient, tu_user: User, package: Package):
     assert not get_errors(resp.text)
 
 
-def test_pkgbase_merge_post_unauthorized(client: TestClient, user: User,
-                                         package: Package):
+def test_pkgbase_merge_post_unauthorized(
+    client: TestClient, user: User, package: Package
+):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
@@ -1327,54 +1382,62 @@ def test_pkgbase_merge_post_unauthorized(client: TestClient, user: User,
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-def test_pkgbase_merge_post_unconfirmed(client: TestClient, tu_user: User,
-                                        package: Package):
+def test_pkgbase_merge_post_unconfirmed(
+    client: TestClient, tu_user: User, package: Package
+):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
-    expected = ("The selected packages have not been deleted, "
-                "check the confirmation checkbox.")
+    expected = (
+        "The selected packages have not been deleted, "
+        "check the confirmation checkbox."
+    )
     assert errors[0].text.strip() == expected
 
 
-def test_pkgbase_merge_post_invalid_into(client: TestClient, tu_user: User,
-                                         package: Package):
+def test_pkgbase_merge_post_invalid_into(
+    client: TestClient, tu_user: User, package: Package
+):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.post(endpoint, data={
-            "into": "not_real",
-            "confirm": True
-        }, cookies=cookies)
+        resp = request.post(
+            endpoint, data={"into": "not_real", "confirm": True}, cookies=cookies
+        )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "Cannot find package to merge votes and comments into."
     assert errors[0].text.strip() == expected
 
 
-def test_pkgbase_merge_post_self_invalid(client: TestClient, tu_user: User,
-                                         package: Package):
+def test_pkgbase_merge_post_self_invalid(
+    client: TestClient, tu_user: User, package: Package
+):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.post(endpoint, data={
-            "into": package.PackageBase.Name,
-            "confirm": True
-        }, cookies=cookies)
+        resp = request.post(
+            endpoint,
+            data={"into": package.PackageBase.Name, "confirm": True},
+            cookies=cookies,
+        )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "Cannot merge a package base with itself."
     assert errors[0].text.strip() == expected
 
 
-def test_pkgbase_merge_post(client: TestClient, tu_user: User,
-                            package: Package,
-                            pkgbase: PackageBase,
-                            target: PackageBase,
-                            pkgreq: PackageRequest):
+def test_pkgbase_merge_post(
+    client: TestClient,
+    tu_user: User,
+    package: Package,
+    pkgbase: PackageBase,
+    target: PackageBase,
+    pkgreq: PackageRequest,
+):
     pkgname = package.Name
     pkgbasename = pkgbase.Name
 
@@ -1401,9 +1464,9 @@ def test_pkgbase_merge_post(client: TestClient, tu_user: User,
     # Comment on the package.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/comments"
     with client as request:
-        resp = request.post(endpoint, data={
-            "comment": "Test comment."
-        }, cookies=cookies)
+        resp = request.post(
+            endpoint, data={"comment": "Test comment."}, cookies=cookies
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Save these relationships for later comparison.
@@ -1414,10 +1477,9 @@ def test_pkgbase_merge_post(client: TestClient, tu_user: User,
     # Merge the package into target.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.post(endpoint, data={
-            "into": target.Name,
-            "confirm": True
-        }, cookies=cookies)
+        resp = request.post(
+            endpoint, data={"into": target.Name, "confirm": True}, cookies=cookies
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     loc = resp.headers.get("location")
     assert loc == f"/pkgbase/{target.Name}"
@@ -1442,11 +1504,17 @@ def test_pkgbase_merge_post(client: TestClient, tu_user: User,
     assert pkgreq.Closer is not None
 
     # A PackageRequest is always created when merging this way.
-    pkgreq = db.query(PackageRequest).filter(
-        and_(PackageRequest.ReqTypeID == MERGE_ID,
-             PackageRequest.PackageBaseName == pkgbasename,
-             PackageRequest.MergeBaseName == target.Name)
-    ).first()
+    pkgreq = (
+        db.query(PackageRequest)
+        .filter(
+            and_(
+                PackageRequest.ReqTypeID == MERGE_ID,
+                PackageRequest.PackageBaseName == pkgbasename,
+                PackageRequest.MergeBaseName == target.Name,
+            )
+        )
+        .first()
+    )
     assert pkgreq is not None
 
 
@@ -1464,9 +1532,9 @@ def test_pkgbase_keywords(client: TestClient, user: User, package: Package):
     cookies = {"AURSID": maint.login(Request(), "testPassword")}
     post_endpoint = f"{endpoint}/keywords"
     with client as request:
-        resp = request.post(post_endpoint, data={
-            "keywords": "abc test"
-        }, cookies=cookies)
+        resp = request.post(
+            post_endpoint, data={"keywords": "abc test"}, cookies=cookies
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     with client as request:
@@ -1495,9 +1563,11 @@ def test_pkgbase_empty_keywords(client: TestClient, user: User, package: Package
     cookies = {"AURSID": maint.login(Request(), "testPassword")}
     post_endpoint = f"{endpoint}/keywords"
     with client as request:
-        resp = request.post(post_endpoint, data={
-            "keywords": "abc test     foo bar    "
-        }, cookies=cookies)
+        resp = request.post(
+            post_endpoint,
+            data={"keywords": "abc test     foo bar    "},
+            cookies=cookies,
+        )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     with client as request:
@@ -1514,8 +1584,9 @@ def test_pkgbase_empty_keywords(client: TestClient, user: User, package: Package
 
 def test_unauthorized_pkgbase_keywords(client: TestClient, package: Package):
     with db.begin():
-        user = db.create(User, Username="random_user", Email="random_user",
-                         Passwd="testPassword")
+        user = db.create(
+            User, Username="random_user", Email="random_user", Passwd="testPassword"
+        )
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -1525,20 +1596,25 @@ def test_unauthorized_pkgbase_keywords(client: TestClient, package: Package):
     assert response.status_code == HTTPStatus.UNAUTHORIZED
 
 
-def test_independent_user_unflag(client: TestClient, user: User,
-                                 package: Package):
+def test_independent_user_unflag(client: TestClient, user: User, package: Package):
     with db.begin():
-        flagger = db.create(User, Username="test_flagger",
-                            Email="test_flagger@example.com",
-                            Passwd="testPassword")
+        flagger = db.create(
+            User,
+            Username="test_flagger",
+            Email="test_flagger@example.com",
+            Passwd="testPassword",
+        )
 
     pkgbase = package.PackageBase
     cookies = {"AURSID": flagger.login(Request(), "testPassword")}
     with client as request:
         endp = f"/pkgbase/{pkgbase.Name}/flag"
-        response = request.post(endp, data={
-            "comments": "This thing needs a flag!"
-        }, cookies=cookies, allow_redirects=True)
+        response = request.post(
+            endp,
+            data={"comments": "This thing needs a flag!"},
+            cookies=cookies,
+            allow_redirects=True,
+        )
     assert response.status_code == HTTPStatus.OK
 
     # At this point, we've flagged it as `flagger`.

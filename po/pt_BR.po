@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-# 
+#
 # Translators:
 # Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011
 # Fábio Nogueira <deb.user.ba@gmail.com>, 2016

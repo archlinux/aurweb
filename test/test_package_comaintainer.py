@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -17,9 +16,14 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
@@ -32,8 +36,9 @@ def pkgbase(user: User) -> PackageBase:
 
 def test_package_comaintainer_creation(user: User, pkgbase: PackageBase):
     with db.begin():
-        package_comaintainer = db.create(PackageComaintainer, User=user,
-                                         PackageBase=pkgbase, Priority=5)
+        package_comaintainer = db.create(
+            PackageComaintainer, User=user, PackageBase=pkgbase, Priority=5
+        )
     assert bool(package_comaintainer)
     assert package_comaintainer.User == user
     assert package_comaintainer.PackageBase == pkgbase
@@ -50,7 +55,6 @@ def test_package_comaintainer_null_pkgbase_raises(user: User):
         PackageComaintainer(User=user, Priority=1)
 
 
-def test_package_comaintainer_null_priority_raises(user: User,
-                                                   pkgbase: PackageBase):
+def test_package_comaintainer_null_priority_raises(user: User, pkgbase: PackageBase):
     with pytest.raises(IntegrityError):
         PackageComaintainer(User=user, PackageBase=pkgbase)

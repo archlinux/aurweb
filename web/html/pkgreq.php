@@ -81,4 +81,3 @@ if (isset($base_id)) {
 }
 
 html_footer(AURWEB_VERSION);
-

@@ -1,17 +1,14 @@
 import re
-
 from http import HTTPStatus
 from unittest import mock
 
 import orjson
 import pytest
-
 from fastapi.testclient import TestClient
 from redis.client import Pipeline
 
 import aurweb.models.dependency_type as dt
 import aurweb.models.relation_type as rt
-
 from aurweb import asgi, config, db, rpc, scripts, time
 from aurweb.models.account_type import USER_ID
 from aurweb.models.dependency_type import DEPENDS_ID
@@ -36,27 +33,42 @@ def client() -> TestClient:
 @pytest.fixture
 def user(db_test) -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User 1", Passwd=str(),
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User 1",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def user2() -> User:
     with db.begin():
-        user = db.create(User, Username="user2", Email="user2@example.org",
-                         RealName="Test User 2", Passwd=str(),
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="user2",
+            Email="user2@example.org",
+            RealName="Test User 2",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def user3() -> User:
     with db.begin():
-        user = db.create(User, Username="user3", Email="user3@example.org",
-                         RealName="Test User 3", Passwd=str(),
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="user3",
+            Email="user3@example.org",
+            RealName="Test User 3",
+            Passwd=str(),
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
@@ -66,39 +78,64 @@ def packages(user: User, user2: User, user3: User) -> list[Package]:
 
     # Create package records used in our tests.
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="big-chungus",
-                            Maintainer=user, Packager=user)
-        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name,
-                        Description="Bunny bunny around bunny",
-                        URL="https://example.com/")
+        pkgbase = db.create(
+            PackageBase, Name="big-chungus", Maintainer=user, Packager=user
+        )
+        pkg = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name=pkgbase.Name,
+            Description="Bunny bunny around bunny",
+            URL="https://example.com/",
+        )
         output.append(pkg)
 
-        pkgbase = db.create(PackageBase, Name="chungy-chungus",
-                            Maintainer=user, Packager=user)
-        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name,
-                        Description="Wubby wubby on wobba wuubu",
-                        URL="https://example.com/")
+        pkgbase = db.create(
+            PackageBase, Name="chungy-chungus", Maintainer=user, Packager=user
+        )
+        pkg = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name=pkgbase.Name,
+            Description="Wubby wubby on wobba wuubu",
+            URL="https://example.com/",
+        )
         output.append(pkg)
 
-        pkgbase = db.create(PackageBase, Name="gluggly-chungus",
-                            Maintainer=user, Packager=user)
-        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name,
-                        Description="glurrba glurrba gur globba",
-                        URL="https://example.com/")
+        pkgbase = db.create(
+            PackageBase, Name="gluggly-chungus", Maintainer=user, Packager=user
+        )
+        pkg = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name=pkgbase.Name,
+            Description="glurrba glurrba gur globba",
+            URL="https://example.com/",
+        )
         output.append(pkg)
 
-        pkgbase = db.create(PackageBase, Name="fugly-chungus",
-                            Maintainer=user, Packager=user)
+        pkgbase = db.create(
+            PackageBase, Name="fugly-chungus", Maintainer=user, Packager=user
+        )
 
         desc = "A Package belonging to a PackageBase with another name."
-        pkg = db.create(Package, PackageBase=pkgbase, Name="other-pkg",
-                        Description=desc, URL="https://example.com")
+        pkg = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name="other-pkg",
+            Description=desc,
+            URL="https://example.com",
+        )
         output.append(pkg)
 
         pkgbase = db.create(PackageBase, Name="woogly-chungus")
-        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name,
-                        Description="wuggla woblabeloop shemashmoop",
-                        URL="https://example.com/")
+        pkg = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name=pkgbase.Name,
+            Description="wuggla woblabeloop shemashmoop",
+            URL="https://example.com/",
+        )
         output.append(pkg)
 
     # Setup a few more related records on the first package:
@@ -108,14 +145,15 @@ def packages(user: User, user2: User, user3: User) -> list[Package]:
         db.create(PackageLicense, Package=output[0], License=lic)
 
         for keyword in ["big-chungus", "smol-chungus", "sizeable-chungus"]:
-            db.create(PackageKeyword,
-                      PackageBase=output[0].PackageBase,
-                      Keyword=keyword)
+            db.create(
+                PackageKeyword, PackageBase=output[0].PackageBase, Keyword=keyword
+            )
 
         now = time.utcnow()
         for user_ in [user, user2, user3]:
-            db.create(PackageVote, User=user_,
-                      PackageBase=output[0].PackageBase, VoteTS=now)
+            db.create(
+                PackageVote, User=user_, PackageBase=output[0].PackageBase, VoteTS=now
+            )
     scripts.popupdate.run_single(output[0].PackageBase)
 
     yield output
@@ -126,35 +164,45 @@ def depends(packages: list[Package]) -> list[PackageDependency]:
     output = []
 
     with db.begin():
-        dep = db.create(PackageDependency,
-                        Package=packages[0],
-                        DepTypeID=dt.DEPENDS_ID,
-                        DepName="chungus-depends")
+        dep = db.create(
+            PackageDependency,
+            Package=packages[0],
+            DepTypeID=dt.DEPENDS_ID,
+            DepName="chungus-depends",
+        )
         output.append(dep)
 
-        dep = db.create(PackageDependency,
-                        Package=packages[1],
-                        DepTypeID=dt.DEPENDS_ID,
-                        DepName="chungy-depends")
+        dep = db.create(
+            PackageDependency,
+            Package=packages[1],
+            DepTypeID=dt.DEPENDS_ID,
+            DepName="chungy-depends",
+        )
         output.append(dep)
 
-        dep = db.create(PackageDependency,
-                        Package=packages[0],
-                        DepTypeID=dt.OPTDEPENDS_ID,
-                        DepName="chungus-optdepends",
-                        DepCondition="=50")
+        dep = db.create(
+            PackageDependency,
+            Package=packages[0],
+            DepTypeID=dt.OPTDEPENDS_ID,
+            DepName="chungus-optdepends",
+            DepCondition="=50",
+        )
         output.append(dep)
 
-        dep = db.create(PackageDependency,
-                        Package=packages[0],
-                        DepTypeID=dt.MAKEDEPENDS_ID,
-                        DepName="chungus-makedepends")
+        dep = db.create(
+            PackageDependency,
+            Package=packages[0],
+            DepTypeID=dt.MAKEDEPENDS_ID,
+            DepName="chungus-makedepends",
+        )
         output.append(dep)
 
-        dep = db.create(PackageDependency,
-                        Package=packages[0],
-                        DepTypeID=dt.CHECKDEPENDS_ID,
-                        DepName="chungus-checkdepends")
+        dep = db.create(
+            PackageDependency,
+            Package=packages[0],
+            DepTypeID=dt.CHECKDEPENDS_ID,
+            DepName="chungus-checkdepends",
+        )
         output.append(dep)
 
     yield output
@@ -165,30 +213,38 @@ def relations(user: User, packages: list[Package]) -> list[PackageRelation]:
     output = []
 
     with db.begin():
-        rel = db.create(PackageRelation,
-                        Package=packages[0],
-                        RelTypeID=rt.CONFLICTS_ID,
-                        RelName="chungus-conflicts")
+        rel = db.create(
+            PackageRelation,
+            Package=packages[0],
+            RelTypeID=rt.CONFLICTS_ID,
+            RelName="chungus-conflicts",
+        )
         output.append(rel)
 
-        rel = db.create(PackageRelation,
-                        Package=packages[1],
-                        RelTypeID=rt.CONFLICTS_ID,
-                        RelName="chungy-conflicts")
+        rel = db.create(
+            PackageRelation,
+            Package=packages[1],
+            RelTypeID=rt.CONFLICTS_ID,
+            RelName="chungy-conflicts",
+        )
         output.append(rel)
 
-        rel = db.create(PackageRelation,
-                        Package=packages[0],
-                        RelTypeID=rt.PROVIDES_ID,
-                        RelName="chungus-provides",
-                        RelCondition="<=200")
+        rel = db.create(
+            PackageRelation,
+            Package=packages[0],
+            RelTypeID=rt.PROVIDES_ID,
+            RelName="chungus-provides",
+            RelCondition="<=200",
+        )
         output.append(rel)
 
-        rel = db.create(PackageRelation,
-                        Package=packages[0],
-                        RelTypeID=rt.REPLACES_ID,
-                        RelName="chungus-replaces",
-                        RelCondition="<=200")
+        rel = db.create(
+            PackageRelation,
+            Package=packages[0],
+            RelTypeID=rt.REPLACES_ID,
+            RelName="chungus-replaces",
+            RelCondition="<=200",
+        )
         output.append(rel)
 
     # Finally, yield the packages.
@@ -238,51 +294,54 @@ def test_rpc_documentation_missing():
     config.rehash()
 
 
-def test_rpc_singular_info(client: TestClient,
-                           user: User,
-                           packages: list[Package],
-                           depends: list[PackageDependency],
-                           relations: list[PackageRelation]):
+def test_rpc_singular_info(
+    client: TestClient,
+    user: User,
+    packages: list[Package],
+    depends: list[PackageDependency],
+    relations: list[PackageRelation],
+):
     # Define expected response.
     pkg = packages[0]
     expected_data = {
         "version": 5,
-        "results": [{
-            "Name": pkg.Name,
-            "Version": pkg.Version,
-            "Description": pkg.Description,
-            "URL": pkg.URL,
-            "PackageBase": pkg.PackageBase.Name,
-            "NumVotes": pkg.PackageBase.NumVotes,
-            "Popularity": float(pkg.PackageBase.Popularity),
-            "OutOfDate": None,
-            "Maintainer": user.Username,
-            "URLPath": f"/cgit/aur.git/snapshot/{pkg.Name}.tar.gz",
-            "Depends": ["chungus-depends"],
-            "OptDepends": ["chungus-optdepends=50"],
-            "MakeDepends": ["chungus-makedepends"],
-            "CheckDepends": ["chungus-checkdepends"],
-            "Conflicts": ["chungus-conflicts"],
-            "Provides": ["chungus-provides<=200"],
-            "Replaces": ["chungus-replaces<=200"],
-            "License": [pkg.package_licenses.first().License.Name],
-            "Keywords": [
-                "big-chungus",
-                "sizeable-chungus",
-                "smol-chungus"
-            ]
-        }],
+        "results": [
+            {
+                "Name": pkg.Name,
+                "Version": pkg.Version,
+                "Description": pkg.Description,
+                "URL": pkg.URL,
+                "PackageBase": pkg.PackageBase.Name,
+                "NumVotes": pkg.PackageBase.NumVotes,
+                "Popularity": float(pkg.PackageBase.Popularity),
+                "OutOfDate": None,
+                "Maintainer": user.Username,
+                "URLPath": f"/cgit/aur.git/snapshot/{pkg.Name}.tar.gz",
+                "Depends": ["chungus-depends"],
+                "OptDepends": ["chungus-optdepends=50"],
+                "MakeDepends": ["chungus-makedepends"],
+                "CheckDepends": ["chungus-checkdepends"],
+                "Conflicts": ["chungus-conflicts"],
+                "Provides": ["chungus-provides<=200"],
+                "Replaces": ["chungus-replaces<=200"],
+                "License": [pkg.package_licenses.first().License.Name],
+                "Keywords": ["big-chungus", "sizeable-chungus", "smol-chungus"],
+            }
+        ],
         "resultcount": 1,
-        "type": "multiinfo"
+        "type": "multiinfo",
     }
 
     # Make dummy request.
     with client as request:
-        resp = request.get("/rpc", params={
-            "v": 5,
-            "type": "info",
-            "arg": ["chungy-chungus", "big-chungus"],
-        })
+        resp = request.get(
+            "/rpc",
+            params={
+                "v": 5,
+                "type": "info",
+                "arg": ["chungy-chungus", "big-chungus"],
+            },
+        )
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(resp.text)
@@ -299,19 +358,21 @@ def test_rpc_singular_info(client: TestClient,
 
 def test_rpc_split_package_urlpath(client: TestClient, user: User):
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="pkg",
-                            Maintainer=user, Packager=user)
+        pkgbase = db.create(PackageBase, Name="pkg", Maintainer=user, Packager=user)
         pkgs = [
             db.create(Package, PackageBase=pkgbase, Name="pkg_1"),
             db.create(Package, PackageBase=pkgbase, Name="pkg_2"),
         ]
 
     with client as request:
-        response = request.get("/rpc", params={
-            "v": 5,
-            "type": "info",
-            "arg": [pkgs[0].Name],
-        })
+        response = request.get(
+            "/rpc",
+            params={
+                "v": 5,
+                "type": "info",
+                "arg": [pkgs[0].Name],
+            },
+        )
 
     data = orjson.loads(response.text)
     snapshot_uri = config.get("options", "snapshot_uri")
@@ -335,9 +396,9 @@ def test_rpc_multiinfo(client: TestClient, packages: list[Package]):
     # Make dummy request.
     request_packages = ["big-chungus", "chungy-chungus"]
     with client as request:
-        response = request.get("/rpc", params={
-            "v": 5, "type": "info", "arg[]": request_packages
-        })
+        response = request.get(
+            "/rpc", params={"v": 5, "type": "info", "arg[]": request_packages}
+        )
 
     # Load request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -357,13 +418,15 @@ def test_rpc_mixedargs(client: TestClient, packages: list[Package]):
     with client as request:
         # Supply all of the args in the url to enforce ordering.
         response1 = request.get(
-            "/rpc?v=5&arg[]=big-chungus&arg=gluggly-chungus&type=info")
+            "/rpc?v=5&arg[]=big-chungus&arg=gluggly-chungus&type=info"
+        )
     assert response1.status_code == int(HTTPStatus.OK)
 
     with client as request:
         response2 = request.get(
             "/rpc?v=5&arg=big-chungus&arg[]=gluggly-chungus"
-            "&type=info&arg[]=chungy-chungus")
+            "&type=info&arg[]=chungy-chungus"
+        )
     assert response1.status_code == int(HTTPStatus.OK)
 
     # Load request response into Python dictionary.
@@ -381,42 +444,47 @@ def test_rpc_mixedargs(client: TestClient, packages: list[Package]):
         assert i == []
 
 
-def test_rpc_no_dependencies_omits_key(client: TestClient, user: User,
-                                       packages: list[Package],
-                                       depends: list[PackageDependency],
-                                       relations: list[PackageRelation]):
+def test_rpc_no_dependencies_omits_key(
+    client: TestClient,
+    user: User,
+    packages: list[Package],
+    depends: list[PackageDependency],
+    relations: list[PackageRelation],
+):
     """
     This makes sure things like 'MakeDepends' get removed from JSON strings
     when they don't have set values.
     """
     pkg = packages[1]
     expected_response = {
-        'version': 5,
-        'results': [{
-            'Name': pkg.Name,
-            'Version': pkg.Version,
-            'Description': pkg.Description,
-            'URL': pkg.URL,
-            'PackageBase': pkg.PackageBase.Name,
-            'NumVotes': pkg.PackageBase.NumVotes,
-            'Popularity': int(pkg.PackageBase.Popularity),
-            'OutOfDate': None,
-            'Maintainer': user.Username,
-            'URLPath': '/cgit/aur.git/snapshot/chungy-chungus.tar.gz',
-            'Depends': ['chungy-depends'],
-            'Conflicts': ['chungy-conflicts'],
-            'License': [],
-            'Keywords': []
-        }],
-        'resultcount': 1,
-        'type': 'multiinfo'
+        "version": 5,
+        "results": [
+            {
+                "Name": pkg.Name,
+                "Version": pkg.Version,
+                "Description": pkg.Description,
+                "URL": pkg.URL,
+                "PackageBase": pkg.PackageBase.Name,
+                "NumVotes": pkg.PackageBase.NumVotes,
+                "Popularity": int(pkg.PackageBase.Popularity),
+                "OutOfDate": None,
+                "Maintainer": user.Username,
+                "URLPath": "/cgit/aur.git/snapshot/chungy-chungus.tar.gz",
+                "Depends": ["chungy-depends"],
+                "Conflicts": ["chungy-conflicts"],
+                "License": [],
+                "Keywords": [],
+            }
+        ],
+        "resultcount": 1,
+        "type": "multiinfo",
     }
 
     # Make dummy request.
     with client as request:
-        response = request.get("/rpc", params={
-            "v": 5, "type": "info", "arg": "chungy-chungus"
-        })
+        response = request.get(
+            "/rpc", params={"v": 5, "type": "info", "arg": "chungy-chungus"}
+        )
     response_data = orjson.loads(response.content.decode())
 
     # Remove inconsistent keys.
@@ -429,18 +497,18 @@ def test_rpc_no_dependencies_omits_key(client: TestClient, user: User,
 def test_rpc_bad_type(client: TestClient):
     # Define expected response.
     expected_data = {
-        'version': 5,
-        'results': [],
-        'resultcount': 0,
-        'type': 'error',
-        'error': 'Incorrect request type specified.'
+        "version": 5,
+        "results": [],
+        "resultcount": 0,
+        "type": "error",
+        "error": "Incorrect request type specified.",
     }
 
     # Make dummy request.
     with client as request:
-        response = request.get("/rpc", params={
-            "v": 5, "type": "invalid-type", "arg": "big-chungus"
-        })
+        response = request.get(
+            "/rpc", params={"v": 5, "type": "invalid-type", "arg": "big-chungus"}
+        )
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -452,18 +520,18 @@ def test_rpc_bad_type(client: TestClient):
 def test_rpc_bad_version(client: TestClient):
     # Define expected response.
     expected_data = {
-        'version': 0,
-        'resultcount': 0,
-        'results': [],
-        'type': 'error',
-        'error': 'Invalid version specified.'
+        "version": 0,
+        "resultcount": 0,
+        "results": [],
+        "type": "error",
+        "error": "Invalid version specified.",
     }
 
     # Make dummy request.
     with client as request:
-        response = request.get("/rpc", params={
-            "v": 0, "type": "info", "arg": "big-chungus"
-        })
+        response = request.get(
+            "/rpc", params={"v": 0, "type": "info", "arg": "big-chungus"}
+        )
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -475,19 +543,16 @@ def test_rpc_bad_version(client: TestClient):
 def test_rpc_no_version(client: TestClient):
     # Define expected response.
     expected_data = {
-        'version': None,
-        'resultcount': 0,
-        'results': [],
-        'type': 'error',
-        'error': 'Please specify an API version.'
+        "version": None,
+        "resultcount": 0,
+        "results": [],
+        "type": "error",
+        "error": "Please specify an API version.",
     }
 
     # Make dummy request.
     with client as request:
-        response = request.get("/rpc", params={
-            "type": "info",
-            "arg": "big-chungus"
-        })
+        response = request.get("/rpc", params={"type": "info", "arg": "big-chungus"})
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -499,11 +564,11 @@ def test_rpc_no_version(client: TestClient):
 def test_rpc_no_type(client: TestClient):
     # Define expected response.
     expected_data = {
-        'version': 5,
-        'results': [],
-        'resultcount': 0,
-        'type': 'error',
-        'error': 'No request type/data specified.'
+        "version": 5,
+        "results": [],
+        "resultcount": 0,
+        "type": "error",
+        "error": "No request type/data specified.",
     }
 
     # Make dummy request.
@@ -520,11 +585,11 @@ def test_rpc_no_type(client: TestClient):
 def test_rpc_no_args(client: TestClient):
     # Define expected response.
     expected_data = {
-        'version': 5,
-        'results': [],
-        'resultcount': 0,
-        'type': 'error',
-        'error': 'No request type/data specified.'
+        "version": 5,
+        "results": [],
+        "resultcount": 0,
+        "type": "error",
+        "error": "No request type/data specified.",
     }
 
     # Make dummy request.
@@ -541,9 +606,9 @@ def test_rpc_no_args(client: TestClient):
 def test_rpc_no_maintainer(client: TestClient, packages: list[Package]):
     # Make dummy request.
     with client as request:
-        response = request.get("/rpc", params={
-            "v": 5, "type": "info", "arg": "woogly-chungus"
-        })
+        response = request.get(
+            "/rpc", params={"v": 5, "type": "info", "arg": "woogly-chungus"}
+        )
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -620,8 +685,12 @@ def mock_config_getint(section: str, key: str):
 
 
 @mock.patch("aurweb.config.getint", side_effect=mock_config_getint)
-def test_rpc_ratelimit(getint: mock.MagicMock, client: TestClient,
-                       pipeline: Pipeline, packages: list[Package]):
+def test_rpc_ratelimit(
+    getint: mock.MagicMock,
+    client: TestClient,
+    pipeline: Pipeline,
+    packages: list[Package],
+):
     params = {"v": 5, "type": "suggest-pkgbase", "arg": "big"}
 
     for i in range(4):
@@ -685,7 +754,7 @@ def test_rpc_search(client: TestClient, packages: list[Package]):
     headers = {"If-None-Match": etag}
     response = request.get("/rpc", params=params, headers=headers)
     assert response.status_code == int(HTTPStatus.NOT_MODIFIED)
-    assert response.content == b''
+    assert response.content == b""
 
     # No args on non-m by types return an error.
     del params["arg"]
@@ -703,12 +772,7 @@ def test_rpc_msearch(client: TestClient, user: User, packages: list[Package]):
     # user1 maintains 4 packages; assert that we got them all.
     assert data.get("resultcount") == 4
     names = list(sorted(r.get("Name") for r in data.get("results")))
-    expected_results = [
-        "big-chungus",
-        "chungy-chungus",
-        "gluggly-chungus",
-        "other-pkg"
-    ]
+    expected_results = ["big-chungus", "chungy-chungus", "gluggly-chungus", "other-pkg"]
     assert names == expected_results
 
     # Search for a non-existent maintainer, giving us zero packages.
@@ -730,11 +794,10 @@ def test_rpc_msearch(client: TestClient, user: User, packages: list[Package]):
     assert result.get("Name") == "big-chungus"
 
 
-def test_rpc_search_depends(client: TestClient, packages: list[Package],
-                            depends: list[PackageDependency]):
-    params = {
-        "v": 5, "type": "search", "by": "depends", "arg": "chungus-depends"
-    }
+def test_rpc_search_depends(
+    client: TestClient, packages: list[Package], depends: list[PackageDependency]
+):
+    params = {"v": 5, "type": "search", "by": "depends", "arg": "chungus-depends"}
     with client as request:
         response = request.get("/rpc", params=params)
     data = response.json()
@@ -743,13 +806,14 @@ def test_rpc_search_depends(client: TestClient, packages: list[Package],
     assert result.get("Name") == packages[0].Name
 
 
-def test_rpc_search_makedepends(client: TestClient, packages: list[Package],
-                                depends: list[PackageDependency]):
+def test_rpc_search_makedepends(
+    client: TestClient, packages: list[Package], depends: list[PackageDependency]
+):
     params = {
         "v": 5,
         "type": "search",
         "by": "makedepends",
-        "arg": "chungus-makedepends"
+        "arg": "chungus-makedepends",
     }
     with client as request:
         response = request.get("/rpc", params=params)
@@ -759,14 +823,10 @@ def test_rpc_search_makedepends(client: TestClient, packages: list[Package],
     assert result.get("Name") == packages[0].Name
 
 
-def test_rpc_search_optdepends(client: TestClient, packages: list[Package],
-                               depends: list[PackageDependency]):
-    params = {
-        "v": 5,
-        "type": "search",
-        "by": "optdepends",
-        "arg": "chungus-optdepends"
-    }
+def test_rpc_search_optdepends(
+    client: TestClient, packages: list[Package], depends: list[PackageDependency]
+):
+    params = {"v": 5, "type": "search", "by": "optdepends", "arg": "chungus-optdepends"}
     with client as request:
         response = request.get("/rpc", params=params)
     data = response.json()
@@ -775,13 +835,14 @@ def test_rpc_search_optdepends(client: TestClient, packages: list[Package],
     assert result.get("Name") == packages[0].Name
 
 
-def test_rpc_search_checkdepends(client: TestClient, packages: list[Package],
-                                 depends: list[PackageDependency]):
+def test_rpc_search_checkdepends(
+    client: TestClient, packages: list[Package], depends: list[PackageDependency]
+):
     params = {
         "v": 5,
         "type": "search",
         "by": "checkdepends",
-        "arg": "chungus-checkdepends"
+        "arg": "chungus-checkdepends",
     }
     with client as request:
         response = request.get("/rpc", params=params)
@@ -799,21 +860,16 @@ def test_rpc_incorrect_by(client: TestClient):
 
 
 def test_rpc_jsonp_callback(client: TestClient):
-    """ Test the callback parameter.
+    """Test the callback parameter.
 
     For end-to-end verification, the `examples/jsonp.html` file can be
     used to submit jsonp callback requests to the RPC.
     """
-    params = {
-        "v": 5,
-        "type": "search",
-        "arg": "big",
-        "callback": "jsonCallback"
-    }
+    params = {"v": 5, "type": "search", "arg": "big", "callback": "jsonCallback"}
     with client as request:
         response = request.get("/rpc", params=params)
     assert response.headers.get("content-type") == "text/javascript"
-    assert re.search(r'^/\*\*/jsonCallback\(.*\)$', response.text) is not None
+    assert re.search(r"^/\*\*/jsonCallback\(.*\)$", response.text) is not None
 
     # Test an invalid callback name; we get an application/json error.
     params["callback"] = "jsonCallback!"
@@ -824,20 +880,14 @@ def test_rpc_jsonp_callback(client: TestClient):
 
 
 def test_rpc_post(client: TestClient, packages: list[Package]):
-    data = {
-        "v": 5,
-        "type": "info",
-        "arg": "big-chungus",
-        "arg[]": ["chungy-chungus"]
-    }
+    data = {"v": 5, "type": "info", "arg": "big-chungus", "arg[]": ["chungy-chungus"]}
     with client as request:
         resp = request.post("/rpc", data=data)
     assert resp.status_code == int(HTTPStatus.OK)
     assert resp.json().get("resultcount") == 2
 
 
-def test_rpc_too_many_search_results(client: TestClient,
-                                     packages: list[Package]):
+def test_rpc_too_many_search_results(client: TestClient, packages: list[Package]):
     config_getint = config.getint
 
     def mock_config(section: str, key: str):
@@ -858,10 +908,18 @@ def test_rpc_too_many_info_results(client: TestClient, packages: list[Package]):
     # regardless of the number of related records.
     with db.begin():
         for i in range(len(packages) - 1):
-            db.create(PackageDependency, DepTypeID=DEPENDS_ID,
-                      Package=packages[i], DepName=packages[i + 1].Name)
-            db.create(PackageRelation, RelTypeID=PROVIDES_ID,
-                      Package=packages[i], RelName=packages[i + 1].Name)
+            db.create(
+                PackageDependency,
+                DepTypeID=DEPENDS_ID,
+                Package=packages[i],
+                DepName=packages[i + 1].Name,
+            )
+            db.create(
+                PackageRelation,
+                RelTypeID=PROVIDES_ID,
+                Package=packages[i],
+                RelName=packages[i + 1].Name,
+            )
 
     config_getint = config.getint
 

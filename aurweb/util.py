@@ -2,7 +2,6 @@ import math
 import re
 import secrets
 import string
-
 from datetime import datetime
 from http import HTTPStatus
 from subprocess import PIPE, Popen
@@ -11,12 +10,10 @@ from urllib.parse import urlparse
 
 import fastapi
 import pygit2
-
 from email_validator import EmailSyntaxError, validate_email
 from fastapi.responses import JSONResponse
 
 import aurweb.config
-
 from aurweb import defaults, logging
 
 logger = logging.get_logger(__name__)
@@ -24,15 +21,15 @@ logger = logging.get_logger(__name__)
 
 def make_random_string(length: int) -> str:
     alphanumerics = string.ascii_lowercase + string.digits
-    return ''.join([secrets.choice(alphanumerics) for i in range(length)])
+    return "".join([secrets.choice(alphanumerics) for i in range(length)])
 
 
 def make_nonce(length: int = 8):
-    """ Generate a single random nonce. Here, token_hex generates a hex
+    """Generate a single random nonce. Here, token_hex generates a hex
     string of 2 hex characters per byte, where the length give is
     nbytes. This means that to get our proper string length, we need to
     cut it in half and truncate off any remaining (in the case that
-    length was uneven). """
+    length was uneven)."""
     return secrets.token_hex(math.ceil(length / 2))[:length]
 
 
@@ -45,7 +42,7 @@ def valid_username(username):
     # Check that username contains: one or more alphanumeric
     # characters, an optional separator of '.', '-' or '_', followed
     # by alphanumeric characters.
-    return re.match(r'^[a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$', username)
+    return re.match(r"^[a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$", username)
 
 
 def valid_email(email):
@@ -82,7 +79,7 @@ def valid_pgp_fingerprint(fp):
 
 
 def jsonify(obj):
-    """ Perform a conversion on obj if it's needed. """
+    """Perform a conversion on obj if it's needed."""
     if isinstance(obj, datetime):
         obj = int(obj.timestamp())
     return obj
@@ -151,8 +148,7 @@ def git_search(repo: pygit2.Repository, commit_hash: str) -> int:
     return prefixlen
 
 
-async def error_or_result(next: Callable, *args, **kwargs) \
-        -> fastapi.Response:
+async def error_or_result(next: Callable, *args, **kwargs) -> fastapi.Response:
     """
     Try to return a response from `next`.
 
@@ -174,9 +170,9 @@ async def error_or_result(next: Callable, *args, **kwargs) \
 
 
 def parse_ssh_key(string: str) -> Tuple[str, str]:
-    """ Parse an SSH public key. """
+    """Parse an SSH public key."""
     invalid_exc = ValueError("The SSH public key is invalid.")
-    parts = re.sub(r'\s\s+', ' ', string.strip()).split()
+    parts = re.sub(r"\s\s+", " ", string.strip()).split()
     if len(parts) < 2:
         raise invalid_exc
 
@@ -185,8 +181,7 @@ def parse_ssh_key(string: str) -> Tuple[str, str]:
     if prefix not in prefixes:
         raise invalid_exc
 
-    proc = Popen(["ssh-keygen", "-l", "-f", "-"], stdin=PIPE, stdout=PIPE,
-                 stderr=PIPE)
+    proc = Popen(["ssh-keygen", "-l", "-f", "-"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
     out, _ = proc.communicate(f"{prefix} {key}".encode())
     if proc.returncode:
         raise invalid_exc
@@ -195,5 +190,5 @@ def parse_ssh_key(string: str) -> Tuple[str, str]:
 
 
 def parse_ssh_keys(string: str) -> list[Tuple[str, str]]:
-    """ Parse a list of SSH public keys. """
+    """Parse a list of SSH public keys."""
     return [parse_ssh_key(e) for e in string.splitlines()]

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-# 
+#
 # Translators:
 # safa1996alfulaij <safa1996alfulaij@gmail.com>, 2015
 # صفا الفليج <safaalfulaij@hotmail.com>, 2015-2016

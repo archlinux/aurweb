@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -13,10 +12,12 @@ def setup(db_test):
 
 def test_official_provider_creation():
     with db.begin():
-        oprovider = db.create(OfficialProvider,
-                              Name="some-name",
-                              Repo="some-repo",
-                              Provides="some-provides")
+        oprovider = db.create(
+            OfficialProvider,
+            Name="some-name",
+            Repo="some-repo",
+            Provides="some-provides",
+        )
     assert bool(oprovider.ID)
     assert oprovider.Name == "some-name"
     assert oprovider.Repo == "some-repo"
@@ -24,19 +25,23 @@ def test_official_provider_creation():
 
 
 def test_official_provider_cs():
-    """ Test case sensitivity of the database table. """
+    """Test case sensitivity of the database table."""
     with db.begin():
-        oprovider = db.create(OfficialProvider,
-                              Name="some-name",
-                              Repo="some-repo",
-                              Provides="some-provides")
+        oprovider = db.create(
+            OfficialProvider,
+            Name="some-name",
+            Repo="some-repo",
+            Provides="some-provides",
+        )
     assert bool(oprovider.ID)
 
     with db.begin():
-        oprovider_cs = db.create(OfficialProvider,
-                                 Name="SOME-NAME",
-                                 Repo="SOME-REPO",
-                                 Provides="SOME-PROVIDES")
+        oprovider_cs = db.create(
+            OfficialProvider,
+            Name="SOME-NAME",
+            Repo="SOME-REPO",
+            Provides="SOME-PROVIDES",
+        )
     assert bool(oprovider_cs.ID)
 
     assert oprovider.ID != oprovider_cs.ID

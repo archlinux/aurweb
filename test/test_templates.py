@@ -1,21 +1,23 @@
 import re
-
 from typing import Any
 
 import pytest
 
 import aurweb.filters  # noqa: F401
-
 from aurweb import config, db, templates, time
-from aurweb.filters import as_timezone, number_format
-from aurweb.filters import timestamp_to_datetime as to_dt
+from aurweb.filters import as_timezone, number_format, timestamp_to_datetime as to_dt
 from aurweb.models import Package, PackageBase, User
 from aurweb.models.account_type import USER_ID
 from aurweb.models.license import License
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.relation_type import PROVIDES_ID, REPLACES_ID
-from aurweb.templates import base_template, make_context, register_filter, register_function
+from aurweb.templates import (
+    base_template,
+    make_context,
+    register_filter,
+    register_function,
+)
 from aurweb.testing.html import parse_root
 from aurweb.testing.requests import Request
 
@@ -35,19 +37,20 @@ def function():
 
 def create_user(username: str) -> User:
     with db.begin():
-        user = db.create(User, Username=username,
-                         Email=f"{username}@example.org",
-                         Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username=username,
+            Email=f"{username}@example.org",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     return user
 
 
-def create_pkgrel(package: Package, reltype_id: int, relname: str) \
-        -> PackageRelation:
-    return db.create(PackageRelation,
-                     Package=package,
-                     RelTypeID=reltype_id,
-                     RelName=relname)
+def create_pkgrel(package: Package, reltype_id: int, relname: str) -> PackageRelation:
+    return db.create(
+        PackageRelation, Package=package, RelTypeID=reltype_id, RelName=relname
+    )
 
 
 @pytest.fixture
@@ -60,8 +63,13 @@ def user(db_test) -> User:
 def pkgbase(user: User) -> PackageBase:
     now = time.utcnow()
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="test-pkg", Maintainer=user,
-                            SubmittedTS=now, ModifiedTS=now)
+        pkgbase = db.create(
+            PackageBase,
+            Name="test-pkg",
+            Maintainer=user,
+            SubmittedTS=now,
+            ModifiedTS=now,
+        )
     yield pkgbase
 
 
@@ -79,9 +87,10 @@ def create_license(pkg: Package, license_name: str) -> PackageLicense:
 
 
 def test_register_function_exists_key_error():
-    """ Most instances of register_filter are tested through module
-    imports or template renders, so we only test failures here. """
+    """Most instances of register_filter are tested through module
+    imports or template renders, so we only test failures here."""
     with pytest.raises(KeyError):
+
         @register_function("function")
         def some_func():
             pass
@@ -93,8 +102,9 @@ def test_commit_hash():
     commit_hash = "abcdefg"
     long_commit_hash = commit_hash + "1234567"
 
-    def config_get_with_fallback(section: str, option: str,
-                                 fallback: str = None) -> str:
+    def config_get_with_fallback(
+        section: str, option: str, fallback: str = None
+    ) -> str:
         if section == "devel" and option == "commit_hash":
             return long_commit_hash
         return config.original_get_with_fallback(section, option, fallback)
@@ -134,12 +144,12 @@ def pager_context(num_packages: int) -> dict[str, Any]:
         "prefix": "/packages",
         "total": num_packages,
         "O": 0,
-        "PP": 50
+        "PP": 50,
     }
 
 
 def test_pager_no_results():
-    """ Test the pager partial with no results. """
+    """Test the pager partial with no results."""
     num_packages = 0
     context = pager_context(num_packages)
     body = base_template("partials/pager.html").render(context)
@@ -151,7 +161,7 @@ def test_pager_no_results():
 
 
 def test_pager():
-    """ Test the pager partial with two pages of results. """
+    """Test the pager partial with two pages of results."""
     num_packages = 100
     context = pager_context(num_packages)
     body = base_template("partials/pager.html").render(context)
@@ -274,17 +284,19 @@ def check_package_details(content: str, pkg: Package) -> None:
 
 
 def test_package_details(user: User, package: Package):
-    """ Test package details with most fields populated, but not all. """
+    """Test package details with most fields populated, but not all."""
     request = Request(user=user, authenticated=True)
     context = make_context(request, "Test Details")
-    context.update({
-        "request": request,
-        "git_clone_uri_anon": GIT_CLONE_URI_ANON,
-        "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
-        "pkgbase": package.PackageBase,
-        "pkg": package,
-        "comaintainers": [],
-    })
+    context.update(
+        {
+            "request": request,
+            "git_clone_uri_anon": GIT_CLONE_URI_ANON,
+            "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
+            "pkgbase": package.PackageBase,
+            "pkg": package,
+            "comaintainers": [],
+        }
+    )
 
     base = base_template("partials/packages/details.html")
     body = base.render(context, show_package_details=True)
@@ -292,7 +304,7 @@ def test_package_details(user: User, package: Package):
 
 
 def test_package_details_filled(user: User, package: Package):
-    """ Test package details with all fields populated. """
+    """Test package details with all fields populated."""
 
     pkgbase = package.PackageBase
     with db.begin():
@@ -311,19 +323,23 @@ def test_package_details_filled(user: User, package: Package):
 
     request = Request(user=user, authenticated=True)
     context = make_context(request, "Test Details")
-    context.update({
-        "request": request,
-        "git_clone_uri_anon": GIT_CLONE_URI_ANON,
-        "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
-        "pkgbase": package.PackageBase,
-        "pkg": package,
-        "comaintainers": [],
-        "licenses": package.package_licenses,
-        "provides": package.package_relations.filter(
-            PackageRelation.RelTypeID == PROVIDES_ID),
-        "replaces": package.package_relations.filter(
-            PackageRelation.RelTypeID == REPLACES_ID),
-    })
+    context.update(
+        {
+            "request": request,
+            "git_clone_uri_anon": GIT_CLONE_URI_ANON,
+            "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
+            "pkgbase": package.PackageBase,
+            "pkg": package,
+            "comaintainers": [],
+            "licenses": package.package_licenses,
+            "provides": package.package_relations.filter(
+                PackageRelation.RelTypeID == PROVIDES_ID
+            ),
+            "replaces": package.package_relations.filter(
+                PackageRelation.RelTypeID == REPLACES_ID
+            ),
+        }
+    )
 
     base = base_template("partials/packages/details.html")
     body = base.render(context, show_package_details=True)

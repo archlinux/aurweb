@@ -10,19 +10,19 @@ from aurweb.models.user import User as _User
 class PackageComaintainer(Base):
     __table__ = schema.PackageComaintainers
     __tablename__ = __table__.name
-    __mapper_args__ = {
-        "primary_key": [__table__.c.UsersID, __table__.c.PackageBaseID]
-    }
+    __mapper_args__ = {"primary_key": [__table__.c.UsersID, __table__.c.PackageBaseID]}
 
     User = relationship(
-        _User, backref=backref("comaintained", lazy="dynamic",
-                               cascade="all, delete"),
-        foreign_keys=[__table__.c.UsersID])
+        _User,
+        backref=backref("comaintained", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.UsersID],
+    )
 
     PackageBase = relationship(
-        _PackageBase, backref=backref("comaintainers", lazy="dynamic",
-                                      cascade="all, delete"),
-        foreign_keys=[__table__.c.PackageBaseID])
+        _PackageBase,
+        backref=backref("comaintainers", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.PackageBaseID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -31,16 +31,19 @@ class PackageComaintainer(Base):
             raise IntegrityError(
                 statement="Foreign key UsersID cannot be null.",
                 orig="PackageComaintainers.UsersID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.PackageBase and not self.PackageBaseID:
             raise IntegrityError(
                 statement="Foreign key PackageBaseID cannot be null.",
                 orig="PackageComaintainers.PackageBaseID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.Priority:
             raise IntegrityError(
                 statement="Column Priority cannot be null.",
                 orig="PackageComaintainers.Priority",
-                params=("NULL"))
+                params=("NULL"),
+            )

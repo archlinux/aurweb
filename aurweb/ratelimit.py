@@ -38,8 +38,7 @@ def _update_ratelimit_db(request: Request):
     now = time.utcnow()
     time_to_delete = now - window_length
 
-    records = db.query(ApiRateLimit).filter(
-        ApiRateLimit.WindowStart < time_to_delete)
+    records = db.query(ApiRateLimit).filter(ApiRateLimit.WindowStart < time_to_delete)
     with db.begin():
         db.delete_all(records)
 
@@ -47,9 +46,7 @@ def _update_ratelimit_db(request: Request):
     record = db.query(ApiRateLimit, ApiRateLimit.IP == host).first()
     with db.begin():
         if not record:
-            record = db.create(ApiRateLimit,
-                               WindowStart=now,
-                               IP=host, Requests=1)
+            record = db.create(ApiRateLimit, WindowStart=now, IP=host, Requests=1)
         else:
             record.Requests += 1
 
@@ -58,7 +55,7 @@ def _update_ratelimit_db(request: Request):
 
 
 def update_ratelimit(request: Request, pipeline: Pipeline):
-    """ Update the ratelimit stored in Redis or the database depending
+    """Update the ratelimit stored in Redis or the database depending
     on AUR_CONFIG's [options] cache setting.
 
     This Redis-capable function is slightly different than most. If Redis
@@ -75,7 +72,7 @@ def update_ratelimit(request: Request, pipeline: Pipeline):
 
 
 def check_ratelimit(request: Request):
-    """ Increment and check to see if request has exceeded their rate limit.
+    """Increment and check to see if request has exceeded their rate limit.
 
     :param request: FastAPI request
     :returns: True if the request host has exceeded the rate limit else False

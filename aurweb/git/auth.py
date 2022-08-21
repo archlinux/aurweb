@@ -9,12 +9,12 @@ import aurweb.db
 
 
 def format_command(env_vars, command, ssh_opts, ssh_key):
-    environment = ''
+    environment = ""
     for key, var in env_vars.items():
-        environment += '{}={} '.format(key, shlex.quote(var))
+        environment += "{}={} ".format(key, shlex.quote(var))
 
     command = shlex.quote(command)
-    command = '{}{}'.format(environment, command)
+    command = "{}{}".format(environment, command)
 
     # The command is being substituted into an authorized_keys line below,
     # so we need to escape the double quotes.
@@ -24,10 +24,10 @@ def format_command(env_vars, command, ssh_opts, ssh_key):
 
 
 def main():
-    valid_keytypes = aurweb.config.get('auth', 'valid-keytypes').split()
-    username_regex = aurweb.config.get('auth', 'username-regex')
-    git_serve_cmd = aurweb.config.get('auth', 'git-serve-cmd')
-    ssh_opts = aurweb.config.get('auth', 'ssh-options')
+    valid_keytypes = aurweb.config.get("auth", "valid-keytypes").split()
+    username_regex = aurweb.config.get("auth", "username-regex")
+    git_serve_cmd = aurweb.config.get("auth", "git-serve-cmd")
+    ssh_opts = aurweb.config.get("auth", "ssh-options")
 
     keytype = sys.argv[1]
     keytext = sys.argv[2]
@@ -36,11 +36,13 @@ def main():
 
     conn = aurweb.db.Connection()
 
-    cur = conn.execute("SELECT Users.Username, Users.AccountTypeID FROM Users "
-                       "INNER JOIN SSHPubKeys ON SSHPubKeys.UserID = Users.ID "
-                       "WHERE SSHPubKeys.PubKey = ? AND Users.Suspended = 0 "
-                       "AND NOT Users.Passwd = ''",
-                       (keytype + " " + keytext,))
+    cur = conn.execute(
+        "SELECT Users.Username, Users.AccountTypeID FROM Users "
+        "INNER JOIN SSHPubKeys ON SSHPubKeys.UserID = Users.ID "
+        "WHERE SSHPubKeys.PubKey = ? AND Users.Suspended = 0 "
+        "AND NOT Users.Passwd = ''",
+        (keytype + " " + keytext,),
+    )
 
     row = cur.fetchone()
     if not row or cur.fetchone():
@@ -51,13 +53,13 @@ def main():
         exit(1)
 
     env_vars = {
-        'AUR_USER': user,
-        'AUR_PRIVILEGED': '1' if account_type > 1 else '0',
+        "AUR_USER": user,
+        "AUR_PRIVILEGED": "1" if account_type > 1 else "0",
     }
-    key = keytype + ' ' + keytext
+    key = keytype + " " + keytext
 
     print(format_command(env_vars, git_serve_cmd, ssh_opts, key))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

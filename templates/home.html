@@ -5,7 +5,7 @@
             | tr
             | format('<a href="https://wiki.archlinux.org/title/AUR_User_Guidelines">', "</a>",
                      '<a href="https://wiki.archlinux.org/title/AUR_Trusted_User_Guidelines">', "</a>")
-            | safe 
+            | safe
         }}
         {{ "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!"
             | tr
@@ -61,7 +61,7 @@
             {% trans %}The following SSH fingerprints are used for the AUR:{% endtrans %}
         <p>
         <ul>
-        {% for keytype in ssh_fingerprints %} 
+        {% for keytype in ssh_fingerprints %}
             <li><code>{{ keytype }}</code>: <code>{{ ssh_fingerprints[keytype] }}</code>
         {% endfor %}
     </ul>
@@ -85,7 +85,7 @@
            | tr
            | format('<a href="https://gitlab.archlinux.org/archlinux/aurweb/-/issues">', "</a>",
                     "<strong>", "</strong>")
-           | safe 
+           | safe
         }}
         </p>
     </div>

@@ -19,8 +19,9 @@ def instrumentator():
 # Their license is included in LICENSES/starlette_exporter.
 # The code has been modified to remove child route checks
 # (since we don't have any) and to stay within an 80-width limit.
-def get_matching_route_path(scope: dict[Any, Any], routes: list[Route],
-                            route_name: Optional[str] = None) -> str:
+def get_matching_route_path(
+    scope: dict[Any, Any], routes: list[Route], route_name: Optional[str] = None
+) -> str:
     """
     Find a matching route and return its original path string
 
@@ -34,7 +35,7 @@ def get_matching_route_path(scope: dict[Any, Any], routes: list[Route],
         if match == Match.FULL:
             route_name = route.path
 
-            '''
+            """
             # This path exists in the original function's code, but we
             # don't need it (currently), so it's been removed to avoid
             # useless test coverage.
@@ -47,7 +48,7 @@ def get_matching_route_path(scope: dict[Any, Any], routes: list[Route],
                     route_name = None
                 else:
                     route_name += child_route_name
-            '''
+            """
 
             return route_name
         elif match == Match.PARTIAL and route_name is None:
@@ -55,9 +56,11 @@ def get_matching_route_path(scope: dict[Any, Any], routes: list[Route],
 
 
 def http_requests_total() -> Callable[[Info], None]:
-    metric = Counter("http_requests_total",
-                     "Number of HTTP requests.",
-                     labelnames=("method", "path", "status"))
+    metric = Counter(
+        "http_requests_total",
+        "Number of HTTP requests.",
+        labelnames=("method", "path", "status"),
+    )
 
     def instrumentation(info: Info) -> None:
         if info.request.method.lower() in ("head", "options"):  # pragma: no cover
@@ -79,13 +82,13 @@ def http_requests_total() -> Callable[[Info], None]:
         if hasattr(app, "root_path"):
             app_root_path = getattr(app, "root_path")
             if root_path.startswith(app_root_path):
-                root_path = root_path[len(app_root_path):]
+                root_path = root_path[len(app_root_path) :]
 
         base_scope = {
             "type": scope.get("type"),
             "path": root_path + scope.get("path"),
             "path_params": scope.get("path_params", {}),
-            "method": scope.get("method")
+            "method": scope.get("method"),
         }
 
         method = scope.get("method")
@@ -102,7 +105,8 @@ def http_api_requests_total() -> Callable[[Info], None]:
     metric = Counter(
         "http_api_requests",
         "Number of times an RPC API type has been requested.",
-        labelnames=("type", "status"))
+        labelnames=("type", "status"),
+    )
 
     def instrumentation(info: Info) -> None:
         if info.request.method.lower() in ("head", "options"):  # pragma: no cover

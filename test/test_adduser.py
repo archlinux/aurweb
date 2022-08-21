@@ -3,16 +3,17 @@ from unittest import mock
 import pytest
 
 import aurweb.models.account_type as at
-
 from aurweb import db
 from aurweb.models import User
 from aurweb.scripts import adduser
 from aurweb.testing.requests import Request
 
-TEST_SSH_PUBKEY = ("ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAI"
-                   "bmlzdHAyNTYAAABBBEURnkiY6JoLyqDE8Li1XuAW+LHmkmLDMW/GL5wY"
-                   "7k4/A+Ta7bjA3MOKrF9j4EuUTvCuNXULxvpfSqheTFWZc+g= "
-                   "kevr@volcano")
+TEST_SSH_PUBKEY = (
+    "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAI"
+    "bmlzdHAyNTYAAABBBEURnkiY6JoLyqDE8Li1XuAW+LHmkmLDMW/GL5wY"
+    "7k4/A+Ta7bjA3MOKrF9j4EuUTvCuNXULxvpfSqheTFWZc+g= "
+    "kevr@volcano"
+)
 
 
 @pytest.fixture(autouse=True)
@@ -38,18 +39,36 @@ def test_adduser():
 
 
 def test_adduser_tu():
-    run_main([
-        "-u", "test", "-e", "test@example.org", "-p", "abcd1234",
-        "-t", at.TRUSTED_USER
-    ])
+    run_main(
+        [
+            "-u",
+            "test",
+            "-e",
+            "test@example.org",
+            "-p",
+            "abcd1234",
+            "-t",
+            at.TRUSTED_USER,
+        ]
+    )
     test = db.query(User).filter(User.Username == "test").first()
     assert test is not None
     assert test.AccountTypeID == at.TRUSTED_USER_ID
 
 
 def test_adduser_ssh_pk():
-    run_main(["-u", "test", "-e", "test@example.org", "-p", "abcd1234",
-              "--ssh-pubkey", TEST_SSH_PUBKEY])
+    run_main(
+        [
+            "-u",
+            "test",
+            "-e",
+            "test@example.org",
+            "-p",
+            "abcd1234",
+            "--ssh-pubkey",
+            TEST_SSH_PUBKEY,
+        ]
+    )
     test = db.query(User).filter(User.Username == "test").first()
     assert test is not None
     assert TEST_SSH_PUBKEY.startswith(test.ssh_pub_keys.first().PubKey)

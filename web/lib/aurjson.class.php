@@ -708,4 +708,3 @@ class AurJSON {
 		return json_encode($output);
 	}
 }
-

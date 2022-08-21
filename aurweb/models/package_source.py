@@ -9,17 +9,13 @@ from aurweb.models.package import Package as _Package
 class PackageSource(Base):
     __table__ = schema.PackageSources
     __tablename__ = __table__.name
-    __mapper_args__ = {
-        "primary_key": [
-            __table__.c.PackageID,
-            __table__.c.Source
-        ]
-    }
+    __mapper_args__ = {"primary_key": [__table__.c.PackageID, __table__.c.Source]}
 
     Package = relationship(
-        _Package, backref=backref("package_sources", lazy="dynamic",
-                                  cascade="all, delete"),
-        foreign_keys=[__table__.c.PackageID])
+        _Package,
+        backref=backref("package_sources", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.PackageID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -28,7 +24,8 @@ class PackageSource(Base):
             raise IntegrityError(
                 statement="Foreign key PackageID cannot be null.",
                 orig="PackageSources.PackageID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.Source:
             self.Source = "/dev/null"

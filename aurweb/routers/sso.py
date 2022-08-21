@@ -1,11 +1,9 @@
 import time
 import uuid
-
 from http import HTTPStatus
 from urllib.parse import urlencode
 
 import fastapi
-
 from authlib.integrations.starlette_client import OAuth, OAuthError
 from fastapi import Depends, HTTPException
 from fastapi.responses import RedirectResponse
@@ -14,7 +12,6 @@ from starlette.requests import Request
 
 import aurweb.config
 import aurweb.db
-
 from aurweb import util
 from aurweb.l10n import get_translator_for_request
 from aurweb.schema import Bans, Sessions, Users
@@ -43,14 +40,18 @@ async def login(request: Request, redirect: str = None):
     The `redirect` argument is a query parameter specifying the post-login
     redirect URL.
     """
-    authenticate_url = aurweb.config.get("options", "aur_location") + "/sso/authenticate"
+    authenticate_url = (
+        aurweb.config.get("options", "aur_location") + "/sso/authenticate"
+    )
     if redirect:
         authenticate_url = authenticate_url + "?" + urlencode([("redirect", redirect)])
     return await oauth.sso.authorize_redirect(request, authenticate_url, prompt="login")
 
 
 def is_account_suspended(conn, user_id):
-    row = conn.execute(select([Users.c.Suspended]).where(Users.c.ID == user_id)).fetchone()
+    row = conn.execute(
+        select([Users.c.Suspended]).where(Users.c.ID == user_id)
+    ).fetchone()
     return row is not None and bool(row[0])
 
 
@@ -60,23 +61,27 @@ def open_session(request, conn, user_id):
     """
     if is_account_suspended(conn, user_id):
         _ = get_translator_for_request(request)
-        raise HTTPException(status_code=HTTPStatus.FORBIDDEN,
-                            detail=_('Account suspended'))
+        raise HTTPException(
+            status_code=HTTPStatus.FORBIDDEN, detail=_("Account suspended")
+        )
         # TODO This is a terrible message because it could imply the attempt at
         #      logging in just caused the suspension.
 
     sid = uuid.uuid4().hex
-    conn.execute(Sessions.insert().values(
-        UsersID=user_id,
-        SessionID=sid,
-        LastUpdateTS=time.time(),
-    ))
+    conn.execute(
+        Sessions.insert().values(
+            UsersID=user_id,
+            SessionID=sid,
+            LastUpdateTS=time.time(),
+        )
+    )
 
     # Update user’s last login information.
-    conn.execute(Users.update()
-                      .where(Users.c.ID == user_id)
-                      .values(LastLogin=int(time.time()),
-                              LastLoginIPAddress=request.client.host))
+    conn.execute(
+        Users.update()
+        .where(Users.c.ID == user_id)
+        .values(LastLogin=int(time.time()), LastLoginIPAddress=request.client.host)
+    )
 
     return sid
 
@@ -98,7 +103,9 @@ def is_aur_url(url):
 
 
 @router.get("/sso/authenticate")
-async def authenticate(request: Request, redirect: str = None, conn=Depends(aurweb.db.connect)):
+async def authenticate(
+    request: Request, redirect: str = None, conn=Depends(aurweb.db.connect)
+):
     """
     Receive an OpenID Connect ID token, validate it, then process it to create
     an new AUR session.
@@ -107,9 +114,12 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
         _ = get_translator_for_request(request)
         raise HTTPException(
             status_code=HTTPStatus.FORBIDDEN,
-            detail=_('The login form is currently disabled for your IP address, '
-                     'probably due to sustained spam attacks. Sorry for the '
-                     'inconvenience.'))
+            detail=_(
+                "The login form is currently disabled for your IP address, "
+                "probably due to sustained spam attacks. Sorry for the "
+                "inconvenience."
+            ),
+        )
 
     try:
         token = await oauth.sso.authorize_access_token(request)
@@ -120,30 +130,41 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
         _ = get_translator_for_request(request)
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
-            detail=_('Bad OAuth token. Please retry logging in from the start.'))
+            detail=_("Bad OAuth token. Please retry logging in from the start."),
+        )
 
     sub = user.get("sub")  # this is the SSO account ID in JWT terminology
     if not sub:
         _ = get_translator_for_request(request)
-        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
-                            detail=_("JWT is missing its `sub` field."))
+        raise HTTPException(
+            status_code=HTTPStatus.BAD_REQUEST,
+            detail=_("JWT is missing its `sub` field."),
+        )
 
-    aur_accounts = conn.execute(select([Users.c.ID]).where(Users.c.SSOAccountID == sub)) \
-                       .fetchall()
+    aur_accounts = conn.execute(
+        select([Users.c.ID]).where(Users.c.SSOAccountID == sub)
+    ).fetchall()
     if not aur_accounts:
         return "Sorry, we don’t seem to know you Sir " + sub
     elif len(aur_accounts) == 1:
         sid = open_session(request, conn, aur_accounts[0][Users.c.ID])
-        response = RedirectResponse(redirect if redirect and is_aur_url(redirect) else "/")
+        response = RedirectResponse(
+            redirect if redirect and is_aur_url(redirect) else "/"
+        )
         secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
-        response.set_cookie(key="AURSID", value=sid, httponly=True,
-                            secure=secure_cookies)
+        response.set_cookie(
+            key="AURSID", value=sid, httponly=True, secure=secure_cookies
+        )
         if "id_token" in token:
             # We save the id_token for the SSO logout. It’s not too important
             # though, so if we can’t find it, we can live without it.
-            response.set_cookie(key="SSO_ID_TOKEN", value=token["id_token"],
-                                path="/sso/", httponly=True,
-                                secure=secure_cookies)
+            response.set_cookie(
+                key="SSO_ID_TOKEN",
+                value=token["id_token"],
+                path="/sso/",
+                httponly=True,
+                secure=secure_cookies,
+            )
         return util.add_samesite_fields(response, "strict")
     else:
         # We’ve got a severe integrity violation.
@@ -165,8 +186,12 @@ async def logout(request: Request):
         return RedirectResponse("/")
 
     metadata = await oauth.sso.load_server_metadata()
-    query = urlencode({'post_logout_redirect_uri': aurweb.config.get('options', 'aur_location'),
-                       'id_token_hint': id_token})
-    response = RedirectResponse(metadata["end_session_endpoint"] + '?' + query)
+    query = urlencode(
+        {
+            "post_logout_redirect_uri": aurweb.config.get("options", "aur_location"),
+            "id_token_hint": id_token,
+        }
+    )
+    response = RedirectResponse(metadata["end_session_endpoint"] + "?" + query)
     response.delete_cookie("SSO_ID_TOKEN", path="/sso/")
     return response

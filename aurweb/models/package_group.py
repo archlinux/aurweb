@@ -10,19 +10,19 @@ from aurweb.models.package import Package as _Package
 class PackageGroup(Base):
     __table__ = schema.PackageGroups
     __tablename__ = __table__.name
-    __mapper_args__ = {
-        "primary_key": [__table__.c.PackageID, __table__.c.GroupID]
-    }
+    __mapper_args__ = {"primary_key": [__table__.c.PackageID, __table__.c.GroupID]}
 
     Package = relationship(
-        _Package, backref=backref("package_groups", lazy="dynamic",
-                                  cascade="all, delete"),
-        foreign_keys=[__table__.c.PackageID])
+        _Package,
+        backref=backref("package_groups", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.PackageID],
+    )
 
     Group = relationship(
-        _Group, backref=backref("package_groups", lazy="dynamic",
-                                cascade="all, delete"),
-        foreign_keys=[__table__.c.GroupID])
+        _Group,
+        backref=backref("package_groups", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.GroupID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -31,10 +31,12 @@ class PackageGroup(Base):
             raise IntegrityError(
                 statement="Primary key PackageID cannot be null.",
                 orig="PackageGroups.PackageID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.Group and not self.GroupID:
             raise IntegrityError(
                 statement="Primary key GroupID cannot be null.",
                 orig="PackageGroups.GroupID",
-                params=("NULL"))
+                params=("NULL"),
+            )

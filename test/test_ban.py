@@ -1,9 +1,7 @@
 import warnings
-
 from datetime import datetime, timedelta
 
 import pytest
-
 from sqlalchemy import exc as sa_exc
 
 from aurweb import db

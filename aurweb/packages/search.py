@@ -4,7 +4,12 @@ from sqlalchemy import and_, case, or_, orm
 
 from aurweb import db, models
 from aurweb.models import Package, PackageBase, User
-from aurweb.models.dependency_type import CHECKDEPENDS_ID, DEPENDS_ID, MAKEDEPENDS_ID, OPTDEPENDS_ID
+from aurweb.models.dependency_type import (
+    CHECKDEPENDS_ID,
+    DEPENDS_ID,
+    MAKEDEPENDS_ID,
+    OPTDEPENDS_ID,
+)
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification

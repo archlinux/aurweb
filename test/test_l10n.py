@@ -4,13 +4,13 @@ from aurweb.testing.requests import Request
 
 
 def test_translator():
-    """ Test creating l10n translation tools. """
+    """Test creating l10n translation tools."""
     de_home = l10n.translator.translate("Home", "de")
     assert de_home == "Startseite"
 
 
 def test_get_request_language():
-    """ First, tests default_lang, then tests a modified AURLANG cookie. """
+    """First, tests default_lang, then tests a modified AURLANG cookie."""
     request = Request()
     assert l10n.get_request_language(request) == "en"
 
@@ -19,18 +19,17 @@ def test_get_request_language():
 
 
 def test_get_raw_translator_for_request():
-    """ Make sure that get_raw_translator_for_request is giving us
-    the translator we expect. """
+    """Make sure that get_raw_translator_for_request is giving us
+    the translator we expect."""
     request = Request()
     request.cookies["AURLANG"] = "de"
     translator = l10n.get_raw_translator_for_request(request)
-    assert translator.gettext("Home") == \
-        l10n.translator.translate("Home", "de")
+    assert translator.gettext("Home") == l10n.translator.translate("Home", "de")
 
 
 def test_get_translator_for_request():
-    """ Make sure that get_translator_for_request is giving us back
-    our expected translation function. """
+    """Make sure that get_translator_for_request is giving us back
+    our expected translation function."""
     request = Request()
     request.cookies["AURLANG"] = "de"
 
@@ -43,10 +42,8 @@ def test_tn_filter():
     request.cookies["AURLANG"] = "en"
     context = {"language": "en", "request": request}
 
-    translated = filters.tn(context, 1, "%d package found.",
-                            "%d packages found.")
+    translated = filters.tn(context, 1, "%d package found.", "%d packages found.")
     assert translated == "%d package found."
 
-    translated = filters.tn(context, 2, "%d package found.",
-                            "%d packages found.")
+    translated = filters.tn(context, 2, "%d package found.", "%d packages found.")
     assert translated == "%d packages found."

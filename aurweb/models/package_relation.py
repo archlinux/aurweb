@@ -19,13 +19,16 @@ class PackageRelation(Base):
     }
 
     Package = relationship(
-        _Package, backref=backref("package_relations", lazy="dynamic",
-                                  cascade="all, delete"),
-        foreign_keys=[__table__.c.PackageID])
+        _Package,
+        backref=backref("package_relations", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.PackageID],
+    )
 
     RelationType = relationship(
-        _RelationType, backref=backref("package_relations", lazy="dynamic"),
-        foreign_keys=[__table__.c.RelTypeID])
+        _RelationType,
+        backref=backref("package_relations", lazy="dynamic"),
+        foreign_keys=[__table__.c.RelTypeID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -34,16 +37,19 @@ class PackageRelation(Base):
             raise IntegrityError(
                 statement="Foreign key PackageID cannot be null.",
                 orig="PackageRelations.PackageID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.RelationType and not self.RelTypeID:
             raise IntegrityError(
                 statement="Foreign key RelTypeID cannot be null.",
                 orig="PackageRelations.RelTypeID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.RelName:
             raise IntegrityError(
                 statement="Column RelName cannot be null.",
                 orig="PackageRelations.RelName",
-                params=("NULL"))
+                params=("NULL"),
+            )

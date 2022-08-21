@@ -1,25 +1,22 @@
 import functools
-
 from http import HTTPStatus
 from typing import Callable
 
 import fastapi
-
 from fastapi import HTTPException
 from fastapi.responses import RedirectResponse
 from starlette.authentication import AuthCredentials, AuthenticationBackend
 from starlette.requests import HTTPConnection
 
 import aurweb.config
-
 from aurweb import db, filters, l10n, time, util
 from aurweb.models import Session, User
 from aurweb.models.account_type import ACCOUNT_TYPE_ID
 
 
 class StubQuery:
-    """ Acts as a stubbed version of an orm.Query. Typically used
-    to masquerade fake records for an AnonymousUser. """
+    """Acts as a stubbed version of an orm.Query. Typically used
+    to masquerade fake records for an AnonymousUser."""
 
     def filter(self, *args):
         return StubQuery()
@@ -29,19 +26,21 @@ class StubQuery:
 
 
 class AnonymousUser:
-    """ A stubbed User class used when an unauthenticated User
-    makes a request against FastAPI. """
+    """A stubbed User class used when an unauthenticated User
+    makes a request against FastAPI."""
+
     # Stub attributes used to mimic a real user.
     ID = 0
     Username = "N/A"
     Email = "N/A"
 
     class AccountType:
-        """ A stubbed AccountType static class. In here, we use an ID
+        """A stubbed AccountType static class. In here, we use an ID
         and AccountType which do not exist in our constant records.
         All records primary keys (AccountType.ID) should be non-zero,
         so using a zero here means that we'll never match against a
-        real AccountType. """
+        real AccountType."""
+
         ID = 0
         AccountType = "Anonymous"
 
@@ -104,11 +103,11 @@ class BasicAuthBackend(AuthenticationBackend):
             return unauthenticated
 
         timeout = aurweb.config.getint("options", "login_timeout")
-        remembered = ("AURREMEMBER" in conn.cookies
-                      and bool(conn.cookies.get("AURREMEMBER")))
+        remembered = "AURREMEMBER" in conn.cookies and bool(
+            conn.cookies.get("AURREMEMBER")
+        )
         if remembered:
-            timeout = aurweb.config.getint("options",
-                                           "persistent_cookie_timeout")
+            timeout = aurweb.config.getint("options", "persistent_cookie_timeout")
 
         # If no session with sid and a LastUpdateTS now or later exists.
         now_ts = time.utcnow()
@@ -160,40 +159,45 @@ def _auth_required(auth_goal: bool = True):
             # page itself is not directly possible (e.g. submitting a form).
             if request.method in ("GET", "HEAD"):
                 url = request.url.path
-            elif (referer := request.headers.get("Referer")):
+            elif referer := request.headers.get("Referer"):
                 aur = aurweb.config.get("options", "aur_location") + "/"
                 if not referer.startswith(aur):
                     _ = l10n.get_translator_for_request(request)
-                    raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
-                                        detail=_("Bad Referer header."))
-                url = referer[len(aur) - 1:]
+                    raise HTTPException(
+                        status_code=HTTPStatus.BAD_REQUEST,
+                        detail=_("Bad Referer header."),
+                    )
+                url = referer[len(aur) - 1 :]
             url = "/login?" + filters.urlencode({"next": url})
             return RedirectResponse(url, status_code=int(HTTPStatus.SEE_OTHER))
+
         return wrapper
 
     return decorator
 
 
 def requires_auth(func: Callable) -> Callable:
-    """ Require an authenticated session for a particular route. """
+    """Require an authenticated session for a particular route."""
 
     @functools.wraps(func)
     async def wrapper(*args, **kwargs):
         return await _auth_required(True)(func)(*args, **kwargs)
+
     return wrapper
 
 
 def requires_guest(func: Callable) -> Callable:
-    """ Require a guest (unauthenticated) session for a particular route. """
+    """Require a guest (unauthenticated) session for a particular route."""
 
     @functools.wraps(func)
     async def wrapper(*args, **kwargs):
         return await _auth_required(False)(func)(*args, **kwargs)
+
     return wrapper
 
 
 def account_type_required(one_of: set):
-    """ A decorator that can be used on FastAPI routes to dictate
+    """A decorator that can be used on FastAPI routes to dictate
     that a user belongs to one of the types defined in one_of.
 
     This decorator should be run after an @auth_required(True) is
@@ -211,18 +215,15 @@ def account_type_required(one_of: set):
     :return: Return the FastAPI function this decorator wraps.
     """
     # Convert any account type string constants to their integer IDs.
-    one_of = {
-        ACCOUNT_TYPE_ID[atype]
-        for atype in one_of
-        if isinstance(atype, str)
-    }
+    one_of = {ACCOUNT_TYPE_ID[atype] for atype in one_of if isinstance(atype, str)}
 
     def decorator(func):
         @functools.wraps(func)
         async def wrapper(request: fastapi.Request, *args, **kwargs):
             if request.user.AccountTypeID not in one_of:
-                return RedirectResponse("/",
-                                        status_code=int(HTTPStatus.SEE_OTHER))
+                return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
             return await func(request, *args, **kwargs)
+
         return wrapper
+
     return decorator

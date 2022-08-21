@@ -27,18 +27,23 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def pubkey(user: User) -> SSHPubKey:
     with db.begin():
-        pubkey = db.create(SSHPubKey, User=user,
-                           Fingerprint="testFingerprint",
-                           PubKey="testPubKey")
+        pubkey = db.create(
+            SSHPubKey, User=user, Fingerprint="testFingerprint", PubKey="testPubKey"
+        )
     yield pubkey
 
 
@@ -50,11 +55,11 @@ def test_pubkey(user: User, pubkey: SSHPubKey):
 
 
 def test_pubkey_cs(user: User):
-    """ Test case sensitivity of the database table. """
+    """Test case sensitivity of the database table."""
     with db.begin():
-        pubkey_cs = db.create(SSHPubKey, User=user,
-                              Fingerprint="TESTFINGERPRINT",
-                              PubKey="TESTPUBKEY")
+        pubkey_cs = db.create(
+            SSHPubKey, User=user, Fingerprint="TESTFINGERPRINT", PubKey="TESTPUBKEY"
+        )
 
     assert pubkey_cs.Fingerprint == "TESTFINGERPRINT"
     assert pubkey_cs.Fingerprint != "testFingerprint"

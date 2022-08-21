@@ -6,16 +6,16 @@ class Benchmark:
         self.start()
 
     def _timestamp(self) -> float:
-        """ Generate a timestamp. """
+        """Generate a timestamp."""
         return float(datetime.utcnow().timestamp())
 
     def start(self) -> int:
-        """ Start a benchmark. """
+        """Start a benchmark."""
         self.current = self._timestamp()
         return self.current
 
     def end(self):
-        """ Return the diff between now - start(). """
+        """Return the diff between now - start()."""
         n = self._timestamp() - self.current
         self.current = float(0)
         return n

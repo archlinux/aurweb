@@ -2,7 +2,6 @@ import configparser
 import io
 import os
 import re
-
 from unittest import mock
 
 import py
@@ -35,6 +34,7 @@ def mock_config_get():
             if option == "salt_rounds":
                 return "666"
         return config_get(section, option)
+
     return _mock_config_get
 
 
@@ -59,7 +59,7 @@ def test_config_main_get_unknown_section(get: str):
             main()
 
     # With an invalid section, we should get a usage error.
-    expected = r'^error: no section found$'
+    expected = r"^error: no section found$"
     assert re.match(expected, stderr.getvalue().strip())
 
 
@@ -140,8 +140,7 @@ def test_config_main_set_immutable():
     args = ["aurweb-config", "set", "options", "salt_rounds", "666"]
     with mock.patch.dict(os.environ, {"AUR_CONFIG_IMMUTABLE": "1"}):
         with mock.patch("sys.argv", args):
-            with mock.patch("aurweb.config.set_option",
-                            side_effect=mock_set_option):
+            with mock.patch("aurweb.config.set_option", side_effect=mock_set_option):
                 main()
 
     expected = None
@@ -170,8 +169,7 @@ def test_config_main_set_unknown_section(save: None):
     args = ["aurweb-config", "set", "options", "salt_rounds", "666"]
     with mock.patch("sys.argv", args):
         with mock.patch("sys.stderr", stderr):
-            with mock.patch("aurweb.config.set_option",
-                            side_effect=mock_set_option):
+            with mock.patch("aurweb.config.set_option", side_effect=mock_set_option):
                 main()
 
     assert stderr.getvalue().strip() == "error: no section found"

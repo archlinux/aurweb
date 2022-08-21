@@ -1,5 +1,4 @@
 import zoneinfo
-
 from collections import OrderedDict
 from datetime import datetime
 from urllib.parse import unquote
@@ -11,7 +10,7 @@ import aurweb.config
 
 
 def tz_offset(name: str):
-    """ Get a timezone offset in the form "+00:00" by its name.
+    """Get a timezone offset in the form "+00:00" by its name.
 
     Example: tz_offset('America/Los_Angeles')
 
@@ -24,7 +23,7 @@ def tz_offset(name: str):
     offset = dt.utcoffset().total_seconds() / 60 / 60
 
     # Prefix the offset string with a - or +.
-    offset_string = '-' if offset < 0 else '+'
+    offset_string = "-" if offset < 0 else "+"
 
     # Remove any negativity from the offset. We want a good offset. :)
     offset = abs(offset)
@@ -42,19 +41,25 @@ def tz_offset(name: str):
     return offset_string
 
 
-SUPPORTED_TIMEZONES = OrderedDict({
-    # Flatten out the list of tuples into an OrderedDict.
-    timezone: offset for timezone, offset in sorted([
-        # Comprehend a list of tuples (timezone, offset display string)
-        # and sort them by (offset, timezone).
-        (tz, "(UTC%s) %s" % (tz_offset(tz), tz))
-        for tz in zoneinfo.available_timezones()
-    ], key=lambda element: (tz_offset(element[0]), element[0]))
-})
+SUPPORTED_TIMEZONES = OrderedDict(
+    {
+        # Flatten out the list of tuples into an OrderedDict.
+        timezone: offset
+        for timezone, offset in sorted(
+            [
+                # Comprehend a list of tuples (timezone, offset display string)
+                # and sort them by (offset, timezone).
+                (tz, "(UTC%s) %s" % (tz_offset(tz), tz))
+                for tz in zoneinfo.available_timezones()
+            ],
+            key=lambda element: (tz_offset(element[0]), element[0]),
+        )
+    }
+)
 
 
 def get_request_timezone(request: Request):
-    """ Get a request's timezone by its AURTZ cookie. We use the
+    """Get a request's timezone by its AURTZ cookie. We use the
     configuration's [options] default_timezone otherwise.
 
     @param request FastAPI request

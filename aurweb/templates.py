@@ -1,28 +1,27 @@
 import copy
 import functools
 import os
-
 from http import HTTPStatus
 from typing import Callable
 
 import jinja2
-
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 
 import aurweb.config
-
 from aurweb import cookies, l10n, time
 
 # Prepare jinja2 objects.
-_loader = jinja2.FileSystemLoader(os.path.join(
-    aurweb.config.get("options", "aurwebdir"), "templates"))
-_env = jinja2.Environment(loader=_loader, autoescape=True,
-                          extensions=["jinja2.ext.i18n"])
+_loader = jinja2.FileSystemLoader(
+    os.path.join(aurweb.config.get("options", "aurwebdir"), "templates")
+)
+_env = jinja2.Environment(
+    loader=_loader, autoescape=True, extensions=["jinja2.ext.i18n"]
+)
 
 
 def register_filter(name: str) -> Callable:
-    """ A decorator that can be used to register a filter.
+    """A decorator that can be used to register a filter.
 
     Example
         @register_filter("some_filter")
@@ -35,31 +34,36 @@ def register_filter(name: str) -> Callable:
     :param name: Filter name
     :return: Callable used for filter
     """
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
+
         _env.filters[name] = wrapper
         return wrapper
+
     return decorator
 
 
 def register_function(name: str) -> Callable:
-    """ A decorator that can be used to register a function.
-    """
+    """A decorator that can be used to register a function."""
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
+
         if name in _env.globals:
             raise KeyError(f"Jinja already has a function named '{name}'")
         _env.globals[name] = wrapper
         return wrapper
+
     return decorator
 
 
 def make_context(request: Request, title: str, next: str = None):
-    """ Create a context for a jinja2 TemplateResponse. """
+    """Create a context for a jinja2 TemplateResponse."""
     import aurweb.auth.creds
 
     commit_url = aurweb.config.get_with_fallback("devel", "commit_url", None)
@@ -85,17 +89,19 @@ def make_context(request: Request, title: str, next: str = None):
         "config": aurweb.config,
         "creds": aurweb.auth.creds,
         "next": next if next else request.url.path,
-        "version": os.environ.get("COMMIT_HASH", aurweb.config.AURWEB_VERSION)
+        "version": os.environ.get("COMMIT_HASH", aurweb.config.AURWEB_VERSION),
     }
 
 
 async def make_variable_context(request: Request, title: str, next: str = None):
-    """ Make a context with variables provided by the user
-    (query params via GET or form data via POST). """
+    """Make a context with variables provided by the user
+    (query params via GET or form data via POST)."""
     context = make_context(request, title, next)
-    to_copy = dict(request.query_params) \
-        if request.method.lower() == "get" \
+    to_copy = (
+        dict(request.query_params)
+        if request.method.lower() == "get"
         else dict(await request.form())
+    )
 
     for k, v in to_copy.items():
         context[k] = v
@@ -111,7 +117,7 @@ def base_template(path: str):
 
 
 def render_raw_template(request: Request, path: str, context: dict):
-    """ Render a Jinja2 multi-lingual template with some context. """
+    """Render a Jinja2 multi-lingual template with some context."""
     # Create a deep copy of our jinja2 _environment. The _environment in
     # total by itself is 48 bytes large (according to sys.getsizeof).
     # This is done so we can install gettext translations on the template
@@ -126,11 +132,10 @@ def render_raw_template(request: Request, path: str, context: dict):
     return template.render(context)
 
 
-def render_template(request: Request,
-                    path: str,
-                    context: dict,
-                    status_code: HTTPStatus = HTTPStatus.OK):
-    """ Render a template as an HTMLResponse. """
+def render_template(
+    request: Request, path: str, context: dict, status_code: HTTPStatus = HTTPStatus.OK
+):
+    """Render a template as an HTMLResponse."""
     rendered = render_raw_template(request, path, context)
     response = HTMLResponse(rendered, status_code=int(status_code))
 

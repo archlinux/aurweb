@@ -1,12 +1,10 @@
 import hashlib
 import re
-
 from http import HTTPStatus
 from typing import Optional
 from urllib.parse import unquote
 
 import orjson
-
 from fastapi import APIRouter, Form, Query, Request, Response
 from fastapi.responses import JSONResponse
 
@@ -19,7 +17,7 @@ router = APIRouter()
 
 
 def parse_args(request: Request):
-    """ Handle legacy logic of 'arg' and 'arg[]' query parameter handling.
+    """Handle legacy logic of 'arg' and 'arg[]' query parameter handling.
 
     When 'arg' appears as the last argument given to the query string,
     that argument is used by itself as one single argument, regardless
@@ -39,9 +37,7 @@ def parse_args(request: Request):
     # Create a list of (key, value) pairs of the given 'arg' and 'arg[]'
     # query parameters from last to first.
     query = list(reversed(unquote(request.url.query).split("&")))
-    parts = [
-        e.split("=", 1) for e in query if e.startswith(("arg=", "arg[]="))
-    ]
+    parts = [e.split("=", 1) for e in query if e.startswith(("arg=", "arg[]="))]
 
     args = []
     if parts:
@@ -63,24 +59,28 @@ def parse_args(request: Request):
     return args
 
 
-JSONP_EXPR = re.compile(r'^[a-zA-Z0-9()_.]{1,128}$')
+JSONP_EXPR = re.compile(r"^[a-zA-Z0-9()_.]{1,128}$")
 
 
-async def rpc_request(request: Request,
-                      v: Optional[int] = None,
-                      type: Optional[str] = None,
-                      by: Optional[str] = defaults.RPC_SEARCH_BY,
-                      arg: Optional[str] = None,
-                      args: Optional[list[str]] = [],
-                      callback: Optional[str] = None):
+async def rpc_request(
+    request: Request,
+    v: Optional[int] = None,
+    type: Optional[str] = None,
+    by: Optional[str] = defaults.RPC_SEARCH_BY,
+    arg: Optional[str] = None,
+    args: Optional[list[str]] = [],
+    callback: Optional[str] = None,
+):
 
     # Create a handle to our RPC class.
     rpc = RPC(version=v, type=type)
 
     # If ratelimit was exceeded, return a 429 Too Many Requests.
     if check_ratelimit(request):
-        return JSONResponse(rpc.error("Rate limit reached"),
-                            status_code=int(HTTPStatus.TOO_MANY_REQUESTS))
+        return JSONResponse(
+            rpc.error("Rate limit reached"),
+            status_code=int(HTTPStatus.TOO_MANY_REQUESTS),
+        )
 
     # If `callback` was provided, produce a text/javascript response
     # valid for the jsonp callback. Otherwise, by default, return
@@ -115,15 +115,11 @@ async def rpc_request(request: Request,
 
     # The ETag header expects quotes to surround any identifier.
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
-    headers = {
-        "Content-Type": content_type,
-        "ETag": f'"{etag}"'
-    }
+    headers = {"Content-Type": content_type, "ETag": f'"{etag}"'}
 
     if_none_match = request.headers.get("If-None-Match", str())
-    if if_none_match and if_none_match.strip("\t\n\r\" ") == etag:
-        return Response(headers=headers,
-                        status_code=int(HTTPStatus.NOT_MODIFIED))
+    if if_none_match and if_none_match.strip('\t\n\r" ') == etag:
+        return Response(headers=headers, status_code=int(HTTPStatus.NOT_MODIFIED))
 
     if callback:
         content = f"/**/{callback}({content.decode()})"
@@ -135,13 +131,15 @@ async def rpc_request(request: Request,
 @router.get("/rpc.php")  # Temporary! Remove on 03/04
 @router.get("/rpc/")
 @router.get("/rpc")
-async def rpc(request: Request,
-              v: Optional[int] = Query(default=None),
-              type: Optional[str] = Query(default=None),
-              by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
-              arg: Optional[str] = Query(default=None),
-              args: Optional[list[str]] = Query(default=[], alias="arg[]"),
-              callback: Optional[str] = Query(default=None)):
+async def rpc(
+    request: Request,
+    v: Optional[int] = Query(default=None),
+    type: Optional[str] = Query(default=None),
+    by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
+    arg: Optional[str] = Query(default=None),
+    args: Optional[list[str]] = Query(default=[], alias="arg[]"),
+    callback: Optional[str] = Query(default=None),
+):
     if not request.url.query:
         return documentation()
     return await rpc_request(request, v, type, by, arg, args, callback)
@@ -152,11 +150,13 @@ async def rpc(request: Request,
 @router.post("/rpc/")
 @router.post("/rpc")
 @handle_form_exceptions
-async def rpc_post(request: Request,
-                   v: Optional[int] = Form(default=None),
-                   type: Optional[str] = Form(default=None),
-                   by: Optional[str] = Form(default=defaults.RPC_SEARCH_BY),
-                   arg: Optional[str] = Form(default=None),
-                   args: Optional[list[str]] = Form(default=[], alias="arg[]"),
-                   callback: Optional[str] = Form(default=None)):
+async def rpc_post(
+    request: Request,
+    v: Optional[int] = Form(default=None),
+    type: Optional[str] = Form(default=None),
+    by: Optional[str] = Form(default=defaults.RPC_SEARCH_BY),
+    arg: Optional[str] = Form(default=None),
+    args: Optional[list[str]] = Form(default=[], alias="arg[]"),
+    callback: Optional[str] = Form(default=None),
+):
     return await rpc_request(request, v, type, by, arg, args, callback)

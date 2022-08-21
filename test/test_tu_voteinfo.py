@@ -1,5 +1,4 @@
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db, time
@@ -17,21 +16,29 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = create(User, Username="test", Email="test@example.org",
-                      RealName="Test User", Passwd="testPassword",
-                      AccountTypeID=TRUSTED_USER_ID)
+        user = create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=TRUSTED_USER_ID,
+        )
     yield user
 
 
 def test_tu_voteinfo_creation(user: User):
     ts = time.utcnow()
     with db.begin():
-        tu_voteinfo = create(TUVoteInfo,
-                             Agenda="Blah blah.",
-                             User=user.Username,
-                             Submitted=ts, End=ts + 5,
-                             Quorum=0.5,
-                             Submitter=user)
+        tu_voteinfo = create(
+            TUVoteInfo,
+            Agenda="Blah blah.",
+            User=user.Username,
+            Submitted=ts,
+            End=ts + 5,
+            Quorum=0.5,
+            Submitter=user,
+        )
     assert bool(tu_voteinfo.ID)
     assert tu_voteinfo.Agenda == "Blah blah."
     assert tu_voteinfo.User == user.Username
@@ -50,12 +57,15 @@ def test_tu_voteinfo_creation(user: User):
 def test_tu_voteinfo_is_running(user: User):
     ts = time.utcnow()
     with db.begin():
-        tu_voteinfo = create(TUVoteInfo,
-                             Agenda="Blah blah.",
-                             User=user.Username,
-                             Submitted=ts, End=ts + 1000,
-                             Quorum=0.5,
-                             Submitter=user)
+        tu_voteinfo = create(
+            TUVoteInfo,
+            Agenda="Blah blah.",
+            User=user.Username,
+            Submitted=ts,
+            End=ts + 1000,
+            Quorum=0.5,
+            Submitter=user,
+        )
     assert tu_voteinfo.is_running() is True
 
     with db.begin():
@@ -66,12 +76,15 @@ def test_tu_voteinfo_is_running(user: User):
 def test_tu_voteinfo_total_votes(user: User):
     ts = time.utcnow()
     with db.begin():
-        tu_voteinfo = create(TUVoteInfo,
-                             Agenda="Blah blah.",
-                             User=user.Username,
-                             Submitted=ts, End=ts + 1000,
-                             Quorum=0.5,
-                             Submitter=user)
+        tu_voteinfo = create(
+            TUVoteInfo,
+            Agenda="Blah blah.",
+            User=user.Username,
+            Submitted=ts,
+            End=ts + 1000,
+            Quorum=0.5,
+            Submitter=user,
+        )
 
         tu_voteinfo.Yes = 1
         tu_voteinfo.No = 3
@@ -84,65 +97,81 @@ def test_tu_voteinfo_total_votes(user: User):
 def test_tu_voteinfo_null_submitter_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
-            create(TUVoteInfo,
-                   Agenda="Blah blah.",
-                   User=user.Username,
-                   Submitted=0, End=0,
-                   Quorum=0.50)
+            create(
+                TUVoteInfo,
+                Agenda="Blah blah.",
+                User=user.Username,
+                Submitted=0,
+                End=0,
+                Quorum=0.50,
+            )
     rollback()
 
 
 def test_tu_voteinfo_null_agenda_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
-            create(TUVoteInfo,
-                   User=user.Username,
-                   Submitted=0, End=0,
-                   Quorum=0.50,
-                   Submitter=user)
+            create(
+                TUVoteInfo,
+                User=user.Username,
+                Submitted=0,
+                End=0,
+                Quorum=0.50,
+                Submitter=user,
+            )
     rollback()
 
 
 def test_tu_voteinfo_null_user_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
-            create(TUVoteInfo,
-                   Agenda="Blah blah.",
-                   Submitted=0, End=0,
-                   Quorum=0.50,
-                   Submitter=user)
+            create(
+                TUVoteInfo,
+                Agenda="Blah blah.",
+                Submitted=0,
+                End=0,
+                Quorum=0.50,
+                Submitter=user,
+            )
     rollback()
 
 
 def test_tu_voteinfo_null_submitted_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
-            create(TUVoteInfo,
-                   Agenda="Blah blah.",
-                   User=user.Username,
-                   End=0,
-                   Quorum=0.50,
-                   Submitter=user)
+            create(
+                TUVoteInfo,
+                Agenda="Blah blah.",
+                User=user.Username,
+                End=0,
+                Quorum=0.50,
+                Submitter=user,
+            )
     rollback()
 
 
 def test_tu_voteinfo_null_end_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
-            create(TUVoteInfo,
-                   Agenda="Blah blah.",
-                   User=user.Username,
-                   Submitted=0,
-                   Quorum=0.50,
-                   Submitter=user)
+            create(
+                TUVoteInfo,
+                Agenda="Blah blah.",
+                User=user.Username,
+                Submitted=0,
+                Quorum=0.50,
+                Submitter=user,
+            )
     rollback()
 
 
 def test_tu_voteinfo_null_quorum_default(user: User):
     with db.begin():
-        vi = create(TUVoteInfo,
-                    Agenda="Blah blah.",
-                    User=user.Username,
-                    Submitted=0, End=0,
-                    Submitter=user)
+        vi = create(
+            TUVoteInfo,
+            Agenda="Blah blah.",
+            User=user.Username,
+            Submitted=0,
+            End=0,
+            Submitter=user,
+        )
     assert vi.Quorum == 0

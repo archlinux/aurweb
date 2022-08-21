@@ -5,7 +5,7 @@ from aurweb import config
 
 
 def samesite() -> str:
-    """ Produce cookie SameSite value.
+    """Produce cookie SameSite value.
 
     Currently this is hard-coded to return "lax"
 
@@ -15,7 +15,7 @@ def samesite() -> str:
 
 
 def timeout(extended: bool) -> int:
-    """ Produce a session timeout based on `remember_me`.
+    """Produce a session timeout based on `remember_me`.
 
     This method returns one of AUR_CONFIG's options.persistent_cookie_timeout
     and options.login_timeout based on the `extended` argument.
@@ -35,10 +35,14 @@ def timeout(extended: bool) -> int:
     return timeout
 
 
-def update_response_cookies(request: Request, response: Response,
-                            aurtz: str = None, aurlang: str = None,
-                            aursid: str = None) -> Response:
-    """ Update session cookies. This method is particularly useful
+def update_response_cookies(
+    request: Request,
+    response: Response,
+    aurtz: str = None,
+    aurlang: str = None,
+    aursid: str = None,
+) -> Response:
+    """Update session cookies. This method is particularly useful
     when updating a cookie which was already set.
 
     The AURSID cookie's expiration is based on the AURREMEMBER cookie,
@@ -53,14 +57,21 @@ def update_response_cookies(request: Request, response: Response,
     """
     secure = config.getboolean("options", "disable_http_login")
     if aurtz:
-        response.set_cookie("AURTZ", aurtz, secure=secure, httponly=secure,
-                            samesite=samesite())
+        response.set_cookie(
+            "AURTZ", aurtz, secure=secure, httponly=secure, samesite=samesite()
+        )
     if aurlang:
-        response.set_cookie("AURLANG", aurlang, secure=secure, httponly=secure,
-                            samesite=samesite())
+        response.set_cookie(
+            "AURLANG", aurlang, secure=secure, httponly=secure, samesite=samesite()
+        )
     if aursid:
         remember_me = bool(request.cookies.get("AURREMEMBER", False))
-        response.set_cookie("AURSID", aursid, secure=secure, httponly=secure,
-                            max_age=timeout(remember_me),
-                            samesite=samesite())
+        response.set_cookie(
+            "AURSID",
+            aursid,
+            secure=secure,
+            httponly=secure,
+            max_age=timeout(remember_me),
+            samesite=samesite(),
+        )
     return response

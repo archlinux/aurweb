@@ -22,7 +22,7 @@ def test_number_format():
 
 
 def test_extend_query():
-    """ Test extension of a query via extend_query. """
+    """Test extension of a query via extend_query."""
     query = {"a": "b"}
     extended = filters.extend_query(query, ("a", "c"), ("b", "d"))
     assert extended.get("a") == "c"
@@ -30,7 +30,7 @@ def test_extend_query():
 
 
 def test_to_qs():
-    """ Test conversion from a query dictionary to a query string. """
+    """Test conversion from a query dictionary to a query string."""
     query = {"a": "b", "c": [1, 2, 3]}
     qs = filters.to_qs(query)
     assert qs == "a=b&c=1&c=2&c=3"

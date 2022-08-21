@@ -16,4 +16,5 @@ class License(Base):
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="Licenses.Name",
-                params=("NULL"))
+                params=("NULL"),
+            )

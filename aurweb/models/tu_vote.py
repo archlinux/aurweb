@@ -10,17 +10,19 @@ from aurweb.models.user import User as _User
 class TUVote(Base):
     __table__ = schema.TU_Votes
     __tablename__ = __table__.name
-    __mapper_args__ = {
-        "primary_key": [__table__.c.VoteID, __table__.c.UserID]
-    }
+    __mapper_args__ = {"primary_key": [__table__.c.VoteID, __table__.c.UserID]}
 
     VoteInfo = relationship(
-        _TUVoteInfo, backref=backref("tu_votes", lazy="dynamic"),
-        foreign_keys=[__table__.c.VoteID])
+        _TUVoteInfo,
+        backref=backref("tu_votes", lazy="dynamic"),
+        foreign_keys=[__table__.c.VoteID],
+    )
 
     User = relationship(
-        _User, backref=backref("tu_votes", lazy="dynamic"),
-        foreign_keys=[__table__.c.UserID])
+        _User,
+        backref=backref("tu_votes", lazy="dynamic"),
+        foreign_keys=[__table__.c.UserID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -29,10 +31,12 @@ class TUVote(Base):
             raise IntegrityError(
                 statement="Foreign key VoteID cannot be null.",
                 orig="TU_Votes.VoteID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.User and not self.UserID:
             raise IntegrityError(
                 statement="Foreign key UserID cannot be null.",
                 orig="TU_Votes.UserID",
-                params=("NULL"))
+                params=("NULL"),
+            )

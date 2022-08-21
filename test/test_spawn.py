@@ -1,6 +1,5 @@
 import os
 import tempfile
-
 from typing import Tuple
 from unittest import mock
 
@@ -8,26 +7,21 @@ import pytest
 
 import aurweb.config
 import aurweb.spawn
-
 from aurweb.exceptions import AurwebException
 
 # Some os.environ overrides we use in this suite.
-TEST_ENVIRONMENT = {
-    "PHP_NGINX_PORT": "8001",
-    "FASTAPI_NGINX_PORT": "8002"
-}
+TEST_ENVIRONMENT = {"PHP_NGINX_PORT": "8001", "FASTAPI_NGINX_PORT": "8002"}
 
 
 class FakeProcess:
-    """ Fake a subprocess.Popen return object. """
+    """Fake a subprocess.Popen return object."""
 
     returncode = 0
-    stdout = b''
-    stderr = b''
+    stdout = b""
+    stderr = b""
 
     def __init__(self, *args, **kwargs):
-        """ We need this constructor to remain compatible with Popen. """
-        pass
+        """We need this constructor to remain compatible with Popen."""
 
     def communicate(self) -> Tuple[bytes, bytes]:
         return (self.stdout, self.stderr)
@@ -40,10 +34,9 @@ class FakeProcess:
 
 
 class MockFakeProcess:
-    """ FakeProcess construction helper to be used in mocks. """
+    """FakeProcess construction helper to be used in mocks."""
 
-    def __init__(self, return_code: int = 0, stdout: bytes = b'',
-                 stderr: bytes = b''):
+    def __init__(self, return_code: int = 0, stdout: bytes = b"", stderr: bytes = b""):
         self.returncode = return_code
         self.stdout = stdout
         self.stderr = stderr
@@ -101,7 +94,7 @@ def test_spawn_generate_nginx_config():
         f'listen {php_host}:{TEST_ENVIRONMENT.get("PHP_NGINX_PORT")}',
         f"proxy_pass http://{php_address}",
         f'listen {fastapi_host}:{TEST_ENVIRONMENT.get("FASTAPI_NGINX_PORT")}',
-        f"proxy_pass http://{fastapi_address}"
+        f"proxy_pass http://{fastapi_address}",
     ]
     for expected in expected_content:
         assert expected in nginx_config

@@ -17,4 +17,3 @@ print __("Hi, this is worth reading!")."<br />\n";
 
 
 html_footer(AURWEB_VERSION);
-

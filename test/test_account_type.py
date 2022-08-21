@@ -22,26 +22,30 @@ def account_type() -> AccountType:
 
 
 def test_account_type(account_type):
-    """ Test creating an AccountType, and reading its columns. """
+    """Test creating an AccountType, and reading its columns."""
     # Make sure it got db.created and was given an ID.
     assert bool(account_type.ID)
 
     # Next, test our string functions.
     assert str(account_type) == "TestUser"
-    assert repr(account_type) == \
-        "<AccountType(ID='%s', AccountType='TestUser')>" % (
-        account_type.ID)
+    assert repr(account_type) == "<AccountType(ID='%s', AccountType='TestUser')>" % (
+        account_type.ID
+    )
 
-    record = db.query(AccountType,
-                      AccountType.AccountType == "TestUser").first()
+    record = db.query(AccountType, AccountType.AccountType == "TestUser").first()
     assert account_type == record
 
 
 def test_user_account_type_relationship(account_type):
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd="testPassword",
-                         AccountType=account_type)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountType=account_type,
+        )
 
     assert user.AccountType == account_type
 

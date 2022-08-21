@@ -1,4 +1,9 @@
-from aurweb.models.account_type import DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, USER_ID
+from aurweb.models.account_type import (
+    DEVELOPER_ID,
+    TRUSTED_USER_AND_DEV_ID,
+    TRUSTED_USER_ID,
+    USER_ID,
+)
 from aurweb.models.user import User
 
 ACCOUNT_CHANGE_TYPE = 1
@@ -30,7 +35,9 @@ TU_LIST_VOTES = 20
 TU_VOTE = 21
 PKGBASE_MERGE = 29
 
-user_developer_or_trusted_user = set([USER_ID, TRUSTED_USER_ID, DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID])
+user_developer_or_trusted_user = set(
+    [USER_ID, TRUSTED_USER_ID, DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID]
+)
 trusted_user_or_dev = set([TRUSTED_USER_ID, DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID])
 developer = set([DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID])
 trusted_user = set([TRUSTED_USER_ID, TRUSTED_USER_AND_DEV_ID])
@@ -67,9 +74,7 @@ cred_filters = {
 }
 
 
-def has_credential(user: User,
-                   credential: int,
-                   approved: list = tuple()):
+def has_credential(user: User, credential: int, approved: list = tuple()):
 
     if user in approved:
         return True

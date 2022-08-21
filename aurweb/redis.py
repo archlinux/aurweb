@@ -1,9 +1,7 @@
 import fakeredis
-
 from redis import ConnectionPool, Redis
 
 import aurweb.config
-
 from aurweb import logging
 
 logger = logging.get_logger(__name__)
@@ -11,7 +9,7 @@ pool = None
 
 
 class FakeConnectionPool:
-    """ A fake ConnectionPool class which holds an internal reference
+    """A fake ConnectionPool class which holds an internal reference
     to a fakeredis handle.
 
     We normally deal with Redis by keeping its ConnectionPool globally

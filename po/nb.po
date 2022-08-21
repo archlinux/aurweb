@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-# 
+#
 # Translators:
 # Alexander F. Rødseth <rodseth@gmail.com>, 2015,2017-2019
 # Alexander F. Rødseth <rodseth@gmail.com>, 2011,2013-2014

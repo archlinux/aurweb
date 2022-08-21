@@ -15,4 +15,5 @@ class Group(Base):
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="Groups.Name",
-                params=("NULL"))
+                params=("NULL"),
+            )

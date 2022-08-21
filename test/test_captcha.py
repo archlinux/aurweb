@@ -11,14 +11,14 @@ def setup(db_test):
 
 
 def test_captcha_salts():
-    """ Make sure we can get some captcha salts. """
+    """Make sure we can get some captcha salts."""
     salts = captcha.get_captcha_salts()
     assert len(salts) == 6
 
 
 def test_captcha_token():
-    """ Make sure getting a captcha salt's token matches up against
-    the first three digits of the md5 hash of the salt. """
+    """Make sure getting a captcha salt's token matches up against
+    the first three digits of the md5 hash of the salt."""
     salts = captcha.get_captcha_salts()
     salt = salts[0]
 
@@ -29,9 +29,9 @@ def test_captcha_token():
 
 
 def test_captcha_challenge_answer():
-    """ Make sure that executing the captcha challenge via shell
+    """Make sure that executing the captcha challenge via shell
     produces the correct result by comparing it against a straight
-    up token conversion. """
+    up token conversion."""
     salts = captcha.get_captcha_salts()
     salt = salts[0]
 
@@ -44,7 +44,7 @@ def test_captcha_challenge_answer():
 
 
 def test_captcha_salt_filter():
-    """ Make sure captcha_salt_filter returns the first salt from
+    """Make sure captcha_salt_filter returns the first salt from
     get_captcha_salts().
 
     Example usage:
@@ -55,7 +55,7 @@ def test_captcha_salt_filter():
 
 
 def test_captcha_cmdline_filter():
-    """ Make sure that the captcha_cmdline filter gives us the
+    """Make sure that the captcha_cmdline filter gives us the
     same challenge that get_captcha_challenge does.
 
     Example usage:

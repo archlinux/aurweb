@@ -10,9 +10,8 @@ from aurweb.models import Package, PackageBase
 router = APIRouter()
 
 
-def make_rss_feed(request: Request, packages: list,
-                  date_attr: str):
-    """ Create an RSS Feed string for some packages.
+def make_rss_feed(request: Request, packages: list, date_attr: str):
+    """Create an RSS Feed string for some packages.
 
     :param request: A FastAPI request
     :param packages: A list of packages to add to the RSS feed
@@ -26,10 +25,12 @@ def make_rss_feed(request: Request, packages: list,
     base = f"{request.url.scheme}://{request.url.netloc}"
     feed.link(href=base, rel="alternate")
     feed.link(href=f"{base}/rss", rel="self")
-    feed.image(title="AUR Newest Packages",
-               url=f"{base}/static/css/archnavbar/aurlogo.png",
-               link=base,
-               description="AUR Newest Packages Feed")
+    feed.image(
+        title="AUR Newest Packages",
+        url=f"{base}/static/css/archnavbar/aurlogo.png",
+        link=base,
+        description="AUR Newest Packages Feed",
+    )
 
     for pkg in packages:
         entry = feed.add_entry(order="append")
@@ -53,8 +54,12 @@ def make_rss_feed(request: Request, packages: list,
 
 @router.get("/rss/")
 async def rss(request: Request):
-    packages = db.query(Package).join(PackageBase).order_by(
-        PackageBase.SubmittedTS.desc()).limit(100)
+    packages = (
+        db.query(Package)
+        .join(PackageBase)
+        .order_by(PackageBase.SubmittedTS.desc())
+        .limit(100)
+    )
     feed = make_rss_feed(request, packages, "SubmittedTS")
 
     response = Response(feed, media_type="application/rss+xml")
@@ -69,8 +74,12 @@ async def rss(request: Request):
 
 @router.get("/rss/modified")
 async def rss_modified(request: Request):
-    packages = db.query(Package).join(PackageBase).order_by(
-        PackageBase.ModifiedTS.desc()).limit(100)
+    packages = (
+        db.query(Package)
+        .join(PackageBase)
+        .order_by(PackageBase.ModifiedTS.desc())
+        .limit(100)
+    )
     feed = make_rss_feed(request, packages, "ModifiedTS")
 
     response = Response(feed, media_type="application/rss+xml")

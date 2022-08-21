@@ -11,7 +11,7 @@ def setup(db_test):
 
 
 class StubRedis:
-    """ A class which acts as a RedisConnection without using Redis. """
+    """A class which acts as a RedisConnection without using Redis."""
 
     cache = dict()
     expires = dict()
@@ -39,10 +39,13 @@ def redis():
 
 @pytest.mark.asyncio
 async def test_db_count_cache(redis):
-    db.create(User, Username="user1",
-              Email="user1@example.org",
-              Passwd="testPassword",
-              AccountTypeID=USER_ID)
+    db.create(
+        User,
+        Username="user1",
+        Email="user1@example.org",
+        Passwd="testPassword",
+        AccountTypeID=USER_ID,
+    )
 
     query = db.query(User)
 
@@ -57,10 +60,13 @@ async def test_db_count_cache(redis):
 
 @pytest.mark.asyncio
 async def test_db_count_cache_expires(redis):
-    db.create(User, Username="user1",
-              Email="user1@example.org",
-              Passwd="testPassword",
-              AccountTypeID=USER_ID)
+    db.create(
+        User,
+        Username="user1",
+        Email="user1@example.org",
+        Passwd="testPassword",
+        AccountTypeID=USER_ID,
+    )
 
     query = db.query(User)
 

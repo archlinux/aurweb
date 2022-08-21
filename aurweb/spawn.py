@@ -16,18 +16,16 @@ import subprocess
 import sys
 import tempfile
 import time
-
 from typing import Iterable
 
 import aurweb.config
 import aurweb.schema
-
 from aurweb.exceptions import AurwebException
 
 children = []
 temporary_dir = None
 verbosity = 0
-asgi_backend = ''
+asgi_backend = ""
 workers = 1
 
 PHP_BINARY = os.environ.get("PHP_BINARY", "php")
@@ -60,22 +58,21 @@ def validate_php_config() -> None:
     :return: None
     """
     try:
-        proc = subprocess.Popen([PHP_BINARY, "-m"],
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
+        proc = subprocess.Popen(
+            [PHP_BINARY, "-m"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
         out, _ = proc.communicate()
     except FileNotFoundError:
-        raise AurwebException(f"Unable to locate the '{PHP_BINARY}' "
-                              "executable.")
+        raise AurwebException(f"Unable to locate the '{PHP_BINARY}' " "executable.")
 
-    assert proc.returncode == 0, ("Received non-zero error code "
-                                  f"{proc.returncode} from '{PHP_BINARY}'.")
+    assert proc.returncode == 0, (
+        "Received non-zero error code " f"{proc.returncode} from '{PHP_BINARY}'."
+    )
 
     modules = out.decode().splitlines()
     for module in PHP_MODULES:
         if module not in modules:
-            raise AurwebException(
-                f"PHP does not have the '{module}' module enabled.")
+            raise AurwebException(f"PHP does not have the '{module}' module enabled.")
 
 
 def generate_nginx_config():
@@ -91,7 +88,8 @@ def generate_nginx_config():
     config_path = os.path.join(temporary_dir, "nginx.conf")
     config = open(config_path, "w")
     # We double nginx's braces because they conflict with Python's f-strings.
-    config.write(f"""
+    config.write(
+        f"""
         events {{}}
         daemon off;
         error_log /dev/stderr info;
@@ -124,7 +122,8 @@ def generate_nginx_config():
                 }}
             }}
         }}
-    """)
+    """
+    )
     return config_path
 
 
@@ -146,20 +145,23 @@ def start():
         return
     atexit.register(stop)
 
-    if 'AUR_CONFIG' in os.environ:
-        os.environ['AUR_CONFIG'] = os.path.realpath(os.environ['AUR_CONFIG'])
+    if "AUR_CONFIG" in os.environ:
+        os.environ["AUR_CONFIG"] = os.path.realpath(os.environ["AUR_CONFIG"])
 
     try:
         terminal_width = os.get_terminal_size().columns
     except OSError:
         terminal_width = 80
-    print("{ruler}\n"
-          "Spawing PHP and FastAPI, then nginx as a reverse proxy.\n"
-          "Check out {aur_location}\n"
-          "Hit ^C to terminate everything.\n"
-          "{ruler}"
-          .format(ruler=("-" * terminal_width),
-                  aur_location=aurweb.config.get('options', 'aur_location')))
+    print(
+        "{ruler}\n"
+        "Spawing PHP and FastAPI, then nginx as a reverse proxy.\n"
+        "Check out {aur_location}\n"
+        "Hit ^C to terminate everything.\n"
+        "{ruler}".format(
+            ruler=("-" * terminal_width),
+            aur_location=aurweb.config.get("options", "aur_location"),
+        )
+    )
 
     # PHP
     php_address = aurweb.config.get("php", "bind_address")
@@ -168,8 +170,9 @@ def start():
     spawn_child(["php", "-S", php_address, "-t", htmldir])
 
     # FastAPI
-    fastapi_host, fastapi_port = aurweb.config.get(
-        "fastapi", "bind_address").rsplit(":", 1)
+    fastapi_host, fastapi_port = aurweb.config.get("fastapi", "bind_address").rsplit(
+        ":", 1
+    )
 
     # Logging config.
     aurwebdir = aurweb.config.get("options", "aurwebdir")
@@ -178,20 +181,33 @@ def start():
     backend_args = {
         "hypercorn": ["-b", f"{fastapi_host}:{fastapi_port}"],
         "uvicorn": ["--host", fastapi_host, "--port", fastapi_port],
-        "gunicorn": ["--bind", f"{fastapi_host}:{fastapi_port}",
-                     "-k", "uvicorn.workers.UvicornWorker",
-                     "-w", str(workers)]
+        "gunicorn": [
+            "--bind",
+            f"{fastapi_host}:{fastapi_port}",
+            "-k",
+            "uvicorn.workers.UvicornWorker",
+            "-w",
+            str(workers),
+        ],
     }
     backend_args = backend_args.get(asgi_backend)
-    spawn_child([
-        "python", "-m", asgi_backend,
-        "--log-config", fastapi_log_config,
-    ] + backend_args + ["aurweb.asgi:app"])
+    spawn_child(
+        [
+            "python",
+            "-m",
+            asgi_backend,
+            "--log-config",
+            fastapi_log_config,
+        ]
+        + backend_args
+        + ["aurweb.asgi:app"]
+    )
 
     # nginx
     spawn_child(["nginx", "-p", temporary_dir, "-c", generate_nginx_config()])
 
-    print(f"""
+    print(
+        f"""
  > Started nginx.
  >
  >      PHP backend: http://{php_address}
@@ -201,11 +217,13 @@ def start():
  > FastAPI frontend: http://{fastapi_host}:{FASTAPI_NGINX_PORT}
  >
  > Frontends are hosted via nginx and should be preferred.
-""")
+"""
+    )
 
 
-def _kill_children(children: Iterable, exceptions: list[Exception] = []) \
-        -> list[Exception]:
+def _kill_children(
+    children: Iterable, exceptions: list[Exception] = []
+) -> list[Exception]:
     """
     Kill each process found in `children`.
 
@@ -223,8 +241,9 @@ def _kill_children(children: Iterable, exceptions: list[Exception] = []) \
     return exceptions
 
 
-def _wait_for_children(children: Iterable, exceptions: list[Exception] = []) \
-        -> list[Exception]:
+def _wait_for_children(
+    children: Iterable, exceptions: list[Exception] = []
+) -> list[Exception]:
     """
     Wait for each process to end found in `children`.
 
@@ -261,21 +280,31 @@ def stop() -> None:
     exceptions = _wait_for_children(children, exceptions)
     children = []
     if exceptions:
-        raise ProcessExceptions("Errors terminating the child processes:",
-                                exceptions)
+        raise ProcessExceptions("Errors terminating the child processes:", exceptions)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        prog='python -m aurweb.spawn',
-        description='Start aurweb\'s test server.')
-    parser.add_argument('-v', '--verbose', action='count', default=0,
-                        help='increase verbosity')
-    choices = ['hypercorn', 'gunicorn', 'uvicorn']
-    parser.add_argument('-b', '--backend', choices=choices, default='uvicorn',
-                        help='asgi backend used to launch the python server')
-    parser.add_argument("-w", "--workers", default=1, type=int,
-                        help="number of workers to use in gunicorn")
+        prog="python -m aurweb.spawn", description="Start aurweb's test server."
+    )
+    parser.add_argument(
+        "-v", "--verbose", action="count", default=0, help="increase verbosity"
+    )
+    choices = ["hypercorn", "gunicorn", "uvicorn"]
+    parser.add_argument(
+        "-b",
+        "--backend",
+        choices=choices,
+        default="uvicorn",
+        help="asgi backend used to launch the python server",
+    )
+    parser.add_argument(
+        "-w",
+        "--workers",
+        default=1,
+        type=int,
+        help="number of workers to use in gunicorn",
+    )
     args = parser.parse_args()
 
     try:

@@ -1,10 +1,9 @@
 import aurweb.db
-
 from aurweb import models
 
 
 def setup_test_db(*args):
-    """ This function is to be used to setup a test database before
+    """This function is to be used to setup a test database before
     using it. It takes a variable number of table strings, and for
     each table in that set of table strings, it deletes all records.
 

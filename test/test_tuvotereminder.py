@@ -19,8 +19,13 @@ def create_vote(user: User, voteinfo: TUVoteInfo) -> TUVote:
 
 def create_user(username: str, type_id: int):
     with db.begin():
-        user = db.create(User, AccountTypeID=type_id, Username=username,
-                         Email=f"{username}@example.org", Passwd=str())
+        user = db.create(
+            User,
+            AccountTypeID=type_id,
+            Username=username,
+            Email=f"{username}@example.org",
+            Passwd=str(),
+        )
     return user
 
 
@@ -32,9 +37,11 @@ def email_pieces(voteinfo: TUVoteInfo) -> Tuple[str, str]:
     :return: tuple(subject, content)
     """
     subject = f"TU Vote Reminder: Proposal {voteinfo.ID}"
-    content = (f"Please remember to cast your vote on proposal {voteinfo.ID} "
-               f"[1]. The voting period\nends in less than 48 hours.\n\n"
-               f"[1] {aur_location}/tu/?id={voteinfo.ID}")
+    content = (
+        f"Please remember to cast your vote on proposal {voteinfo.ID} "
+        f"[1]. The voting period\nends in less than 48 hours.\n\n"
+        f"[1] {aur_location}/tu/?id={voteinfo.ID}"
+    )
     return (subject, content)
 
 
@@ -58,14 +65,19 @@ def voteinfo(user: User) -> TUVoteInfo:
     now = time.utcnow()
     start = config.getint("tuvotereminder", "range_start")
     with db.begin():
-        voteinfo = db.create(TUVoteInfo, Agenda="Lorem ipsum.",
-                             User=user.Username, End=(now + start + 1),
-                             Quorum=0.00, Submitter=user, Submitted=0)
+        voteinfo = db.create(
+            TUVoteInfo,
+            Agenda="Lorem ipsum.",
+            User=user.Username,
+            End=(now + start + 1),
+            Quorum=0.00,
+            Submitter=user,
+            Submitted=0,
+        )
     yield voteinfo
 
 
-def test_tu_vote_reminders(user: User, user2: User, user3: User,
-                           voteinfo: TUVoteInfo):
+def test_tu_vote_reminders(user: User, user2: User, user3: User, voteinfo: TUVoteInfo):
     reminder.main()
     assert Email.count() == 3
 
@@ -75,7 +87,7 @@ def test_tu_vote_reminders(user: User, user2: User, user3: User,
         # (to, content)
         (user.Email, subject, content),
         (user2.Email, subject, content),
-        (user3.Email, subject, content)
+        (user3.Email, subject, content),
     ]
     for i, element in enumerate(expectations):
         email, subject, content = element
@@ -84,8 +96,9 @@ def test_tu_vote_reminders(user: User, user2: User, user3: User,
         assert emails[i].body == content
 
 
-def test_tu_vote_reminders_only_unvoted(user: User, user2: User, user3: User,
-                                        voteinfo: TUVoteInfo):
+def test_tu_vote_reminders_only_unvoted(
+    user: User, user2: User, user3: User, voteinfo: TUVoteInfo
+):
     # Vote with user2 and user3; leaving only user to be notified.
     create_vote(user2, voteinfo)
     create_vote(user3, voteinfo)

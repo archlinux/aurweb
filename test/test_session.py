@@ -2,7 +2,6 @@
 from unittest import mock
 
 import pytest
-
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db, time
@@ -19,17 +18,23 @@ def setup(db_test):
 @pytest.fixture
 def user() -> User:
     with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         ResetKey="testReset", Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            ResetKey="testReset",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
     yield user
 
 
 @pytest.fixture
 def session(user: User) -> Session:
     with db.begin():
-        session = db.create(Session, User=user, SessionID="testSession",
-                            LastUpdateTS=time.utcnow())
+        session = db.create(
+            Session, User=user, SessionID="testSession", LastUpdateTS=time.utcnow()
+        )
     yield session
 
 
@@ -39,15 +44,21 @@ def test_session(user: User, session: Session):
 
 
 def test_session_cs():
-    """ Test case sensitivity of the database table. """
+    """Test case sensitivity of the database table."""
     with db.begin():
-        user2 = db.create(User, Username="test2", Email="test2@example.org",
-                          ResetKey="testReset2", Passwd="testPassword",
-                          AccountTypeID=USER_ID)
+        user2 = db.create(
+            User,
+            Username="test2",
+            Email="test2@example.org",
+            ResetKey="testReset2",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
 
     with db.begin():
-        session_cs = db.create(Session, User=user2, SessionID="TESTSESSION",
-                               LastUpdateTS=time.utcnow())
+        session_cs = db.create(
+            Session, User=user2, SessionID="TESTSESSION", LastUpdateTS=time.utcnow()
+        )
 
     assert session_cs.SessionID == "TESTSESSION"
     assert session_cs.SessionID != "testSession"

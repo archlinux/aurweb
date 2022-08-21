@@ -13,21 +13,28 @@ class PackageComment(Base):
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     PackageBase = relationship(
-        _PackageBase, backref=backref("comments", lazy="dynamic",
-                                      cascade="all, delete"),
-        foreign_keys=[__table__.c.PackageBaseID])
+        _PackageBase,
+        backref=backref("comments", lazy="dynamic", cascade="all, delete"),
+        foreign_keys=[__table__.c.PackageBaseID],
+    )
 
     User = relationship(
-        _User, backref=backref("package_comments", lazy="dynamic"),
-        foreign_keys=[__table__.c.UsersID])
+        _User,
+        backref=backref("package_comments", lazy="dynamic"),
+        foreign_keys=[__table__.c.UsersID],
+    )
 
     Editor = relationship(
-        _User, backref=backref("edited_comments", lazy="dynamic"),
-        foreign_keys=[__table__.c.EditedUsersID])
+        _User,
+        backref=backref("edited_comments", lazy="dynamic"),
+        foreign_keys=[__table__.c.EditedUsersID],
+    )
 
     Deleter = relationship(
-        _User, backref=backref("deleted_comments", lazy="dynamic"),
-        foreign_keys=[__table__.c.DelUsersID])
+        _User,
+        backref=backref("deleted_comments", lazy="dynamic"),
+        foreign_keys=[__table__.c.DelUsersID],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -36,27 +43,31 @@ class PackageComment(Base):
             raise IntegrityError(
                 statement="Foreign key PackageBaseID cannot be null.",
                 orig="PackageComments.PackageBaseID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if not self.User and not self.UsersID:
             raise IntegrityError(
                 statement="Foreign key UsersID cannot be null.",
                 orig="PackageComments.UsersID",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if self.Comments is None:
             raise IntegrityError(
                 statement="Column Comments cannot be null.",
                 orig="PackageComments.Comments",
-                params=("NULL"))
+                params=("NULL"),
+            )
 
         if self.RenderedComment is None:
             self.RenderedComment = str()
 
     def maintainers(self):
-        return list(filter(
-            lambda e: e is not None,
-            [self.PackageBase.Maintainer] + [
-                c.User for c in self.PackageBase.comaintainers
-            ]
-        ))
+        return list(
+            filter(
+                lambda e: e is not None,
+                [self.PackageBase.Maintainer]
+                + [c.User for c in self.PackageBase.comaintainers],
+            )
+        )
