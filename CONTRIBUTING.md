@@ -31,21 +31,27 @@ Test patches that increase coverage in the codebase are always welcome.
 
 ### Coding Style
 
-We use the `flake8` and `isort` tools to manage PEP-8 coherence and
-import ordering in this project.
+We use `autoflake`, `isort`, `black` and `flake8` to enforce coding style in a
+PEP-8 compliant way. These tools run in GitLab CI using `pre-commit` to verify
+that any pushed code changes comply with this.
+
+To enable the `pre-commit` git hook, install the `pre-commit` package either
+with `pacman` or `pip` and then run `pre-commit install --install-hooks`. This
+will ensure formatting is done before any code is commited to the git
+repository.
 
 There are plugins for editors or IDEs which automate this process. Some
 example plugins:
 
-- [tell-k/vim-autopep8](https://github.com/tell-k/vim-autopep8)
+- [tenfyzhong/autoflake.vim](https://github.com/tenfyzhong/autoflake.vim)
 - [fisadev/vim-isort](https://github.com/fisadev/vim-isort)
+- [psf/black](https://github.com/psf/black)
+- [nvie/vim-flake8](https://github.com/nvie/vim-flake8)
 - [prabirshrestha/vim-lsp](https://github.com/prabirshrestha/vim-lsp)
+- [dense-analysis/ale](https://github.com/dense-analysis/ale)
 
-See `setup.cfg` for flake8 and isort specific rules.
-
-Note: We are planning on switching to [psf/black](https://github.com/psf/black).
-For now, developers should ensure that flake8 and isort passes when submitting
-merge requests or patch sets.
+See `setup.cfg`, `pyproject.toml` and `.pre-commit-config.yaml` for tool
+specific configurations.
 
 ### Development Environment
 
