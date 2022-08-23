@@ -233,7 +233,8 @@ for p in list(seen_pkgs.keys()):
 
     s = (
         "INSERT INTO PackageBases (ID, Name, FlaggerComment, SubmittedTS, ModifiedTS, "
-        "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', '', %d, %d, %d, %s, %s);\n"
+        "SubmitterUID, MaintainerUID, PackagerUID) VALUES "
+        "(%d, '%s', '', %d, %d, %d, %s, %s);\n"
     )
     s = s % (seen_pkgs[p], p, NOW, NOW, uuid, muid, puid)
     out.write(s)
@@ -303,7 +304,10 @@ for p in seen_pkgs_keys:
         deptype = random.randrange(1, 5)
         if deptype == 4:
             dep += ": for " + random.choice(seen_pkgs_keys)
-        s = "INSERT INTO PackageDepends(PackageID, DepTypeID, DepName) VALUES (%d, %d, '%s');\n"
+        s = (
+            "INSERT INTO PackageDepends(PackageID, DepTypeID, DepName) "
+            "VALUES (%d, %d, '%s');\n"
+        )
         s = s % (seen_pkgs[p], deptype, dep)
         out.write(s)
 
@@ -311,7 +315,10 @@ for p in seen_pkgs_keys:
     for i in range(0, num_deps):
         rel = random.choice(seen_pkgs_keys)
         reltype = random.randrange(1, 4)
-        s = "INSERT INTO PackageRelations(PackageID, RelTypeID, RelName) VALUES (%d, %d, '%s');\n"
+        s = (
+            "INSERT INTO PackageRelations(PackageID, RelTypeID, RelName) "
+            "VALUES (%d, %d, '%s');\n"
+        )
         s = s % (seen_pkgs[p], reltype, rel)
         out.write(s)
 
