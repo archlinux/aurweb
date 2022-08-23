@@ -4,6 +4,7 @@ cache:
   paths:
     # For some reason Gitlab CI only supports storing cache/artifacts in a path relative to the build directory
     - .pkg-cache
+    - .venv
 
 variables:
   AUR_CONFIG: conf/config # Default MySQL config setup in before_script.
@@ -31,6 +32,8 @@ test:
   before_script:
     - export PATH="$HOME/.poetry/bin:${PATH}"
     - ./docker/scripts/install-deps.sh
+    - virtualenv -p python3 .venv
+    - source .venv/bin/activate # Enable our virtualenv cache
     - ./docker/scripts/install-python-deps.sh
     - useradd -U -d /aurweb -c 'AUR User' aur
     - ./docker/mariadb-entrypoint.sh
