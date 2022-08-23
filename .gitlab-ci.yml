@@ -5,6 +5,7 @@ cache:
     # For some reason Gitlab CI only supports storing cache/artifacts in a path relative to the build directory
     - .pkg-cache
     - .venv
+    - .pre-commit
 
 variables:
   AUR_CONFIG: conf/config # Default MySQL config setup in before_script.
@@ -23,6 +24,7 @@ lint:
   script:
     # https://github.com/pre-commit/pre-commit/issues/2178#issuecomment-1002163763
     - export SETUPTOOLS_USE_DISTUTILS=stdlib
+    - export XDG_CACHE_HOME=.pre-commit
     - pre-commit run -a
 
 test:
