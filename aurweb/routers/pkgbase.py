@@ -587,6 +587,9 @@ async def pkgbase_disown_post(
 
     context = templates.make_context(request, "Disown Package")
     context["pkgbase"] = pkgbase
+    context["is_maint"] = request.user == pkgbase.Maintainer
+    context["is_comaint"] = request.user in comaints
+
     if not confirm:
         context["errors"] = [
             (
@@ -610,9 +613,7 @@ async def pkgbase_disown_post(
             request, "pkgbase/disown.html", context, status_code=HTTPStatus.BAD_REQUEST
         )
 
-    if not next:
-        next = f"/pkgbase/{name}"
-
+    next = next or f"/pkgbase/{name}"
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
