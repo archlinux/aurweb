@@ -7,7 +7,7 @@ from sqlalchemy import case
 from aurweb import db, defaults, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import handle_form_exceptions
-from aurweb.models import PackageRequest, User
+from aurweb.models import PackageRequest
 from aurweb.models.package_request import PENDING_ID, REJECTED_ID
 from aurweb.requests.util import get_pkgreq_by_id
 from aurweb.scripts import notify
@@ -31,8 +31,8 @@ async def requests(
     context["O"] = O
     context["PP"] = PP
 
-    # A PackageRequest query, with left inner joined User and RequestType.
-    query = db.query(PackageRequest).join(User, User.ID == PackageRequest.UsersID)
+    # A PackageRequest query
+    query = db.query(PackageRequest)
 
     # If the request user is not elevated (TU or Dev), then
     # filter PackageRequests which are owned by the request user.
