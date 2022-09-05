@@ -21,8 +21,7 @@ rm -f /data/.coverage
 cp -v .coverage /data/.coverage
 chmod 666 /data/.coverage
 
-# Run flake8 and isort checks.
+# Run pre-commit checks
 for dir in aurweb test migrations; do
-    flake8 --count $dir
-    isort --check-only $dir
+    pre-commit run -a
 done

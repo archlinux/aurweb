@@ -18,6 +18,6 @@ pacman -Syu --noconfirm --noprogressbar \
     php php-fpm memcached php-memcached python-pip pyalpm \
     python-srcinfo curl libeatmydata cronie python-poetry \
     python-poetry-core step-cli step-ca asciidoc \
-    python-virtualenv
+    python-virtualenv python-pre-commit
 
 exec "$@"
