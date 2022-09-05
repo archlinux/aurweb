@@ -743,6 +743,22 @@ def test_requests(
     assert len(rows) == 5  # There are five records left on the second page.
 
 
+def test_requests_by_deleted_users(
+    client: TestClient, user: User, tu_user: User, pkgreq: PackageRequest
+):
+    with db.begin():
+        db.delete(user)
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/requests", cookies=cookies)
+    assert resp.status_code == HTTPStatus.OK
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
 def test_requests_selfmade(
     client: TestClient, user: User, requests: list[PackageRequest]
 ):
