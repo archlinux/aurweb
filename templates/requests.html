@@ -46,9 +46,13 @@
                             <td class="wrap">{{ result.Comments }}</td>
                             <td>
                                 {# Filed by #}
-                                <a href="/account/{{ result.User.Username }}">
-                                    {{ result.User.Username }}
-                                </a>
+                                {# If the record has an associated User, display a link to that user. #}
+                                {# Otherwise, display nothing (an empty column). #}
+                                {% if result.User %}
+                                    <a href="/account/{{ result.User.Username }}">
+                                        {{ result.User.Username }}
+                                    </a>
+                                {% endif %}
                             </td>
                             {% set idle_time = config_getint("options", "request_idle_time") %}
                             {% set time_delta = (utcnow - result.RequestTS) | int %}
