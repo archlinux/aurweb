@@ -304,6 +304,50 @@ def test_package(client: TestClient, package: Package):
     assert conflicts[0].text.strip() == ", ".join(expected)
 
 
+def test_package_split_description(client: TestClient, user: User):
+
+    with db.begin():
+        pkgbase = db.create(
+            PackageBase,
+            Name="pkgbase",
+            Maintainer=user,
+            Packager=user,
+        )
+
+        pkg_a = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name="pkg_a",
+            Description="pkg_a desc",
+        )
+        pkg_b = db.create(
+            Package,
+            PackageBase=pkgbase,
+            Name="pkg_b",
+            Description="pkg_b desc",
+        )
+
+    # Check pkg_a
+    with client as request:
+        endp = f"/packages/{pkg_a.Name}"
+        resp = request.get(endp)
+    assert resp.status_code == HTTPStatus.OK
+
+    root = parse_root(resp.text)
+    row = root.xpath('//tr[@id="pkg-description"]/td')[0]
+    assert row.text == pkg_a.Description
+
+    # Check pkg_b
+    with client as request:
+        endp = f"/packages/{pkg_b.Name}"
+        resp = request.get(endp)
+    assert resp.status_code == HTTPStatus.OK
+
+    root = parse_root(resp.text)
+    row = root.xpath('//tr[@id="pkg-description"]/td')[0]
+    assert row.text == pkg_b.Description
+
+
 def paged_depends_required(client: TestClient, package: Package):
     maint = package.PackageBase.Maintainer
     new_pkgs = []
