@@ -1,4 +1,3 @@
-{% set pkg = pkgbase.packages.first() %}
 <table id="pkginfo">
     <tr>
         <th>{{ "Git Clone URL" | tr }}:</th>
@@ -20,13 +19,13 @@
         </tr>
         <tr>
             <th>{{ "Description" | tr }}:</th>
-            <td class="wrap">{{ pkg.Description }}</td>
+            <td class="wrap">{{ package.Description }}</td>
         </tr>
         <tr>
             <th>{{ "Upstream URL" | tr }}:</th>
             <td class="wrap">
-                {% if pkg.URL %}
-                    <a href="{{ pkg.URL }}">{{ pkg.URL }}</a>
+                {% if package.URL %}
+                    <a href="{{ package.URL }}">{{ package.URL }}</a>
                 {% else %}
                     {{ "None" | tr }}
                 {% endif %}
