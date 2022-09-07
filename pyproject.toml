@@ -78,7 +78,7 @@ paginate = "^0.5.6"
 # SQL
 alembic = "^1.7.4"
 mysqlclient = "^2.0.3"
-Authlib = "^0.15.5"
+Authlib = "^1.0.0"
 Jinja2 = "^3.0.2"
 Markdown = "^3.3.6"
 Werkzeug = "^2.0.2"
