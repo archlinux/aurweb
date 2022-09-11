@@ -253,10 +253,14 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
     # Add CSP header.
     nonce = request.user.nonce
     csp = "default-src 'self'; "
-    script_hosts = []
+
+    # swagger-ui needs access to cdn.jsdelivr.net javascript
+    script_hosts = ["cdn.jsdelivr.net"]
     csp += f"script-src 'self' 'nonce-{nonce}' " + " ".join(script_hosts)
-    # It's fine if css is inlined.
-    csp += "; style-src 'self' 'unsafe-inline'"
+
+    # swagger-ui needs access to cdn.jsdelivr.net css
+    css_hosts = ["cdn.jsdelivr.net"]
+    csp += "; style-src 'self' 'unsafe-inline' " + " ".join(css_hosts)
     response.headers["Content-Security-Policy"] = csp
 
     # Add XTCO header.
