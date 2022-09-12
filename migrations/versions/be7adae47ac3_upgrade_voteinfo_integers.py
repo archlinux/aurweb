@@ -19,8 +19,8 @@ from alembic import op
 from sqlalchemy.dialects.mysql import INTEGER, TINYINT
 
 # revision identifiers, used by Alembic.
-revision = 'be7adae47ac3'
-down_revision = '56e2ce8e2ffa'
+revision = "be7adae47ac3"
+down_revision = "56e2ce8e2ffa"
 branch_labels = None
 depends_on = None
 
@@ -32,7 +32,7 @@ DOWNGRADE_T = TINYINT(3, unsigned=True)
 
 
 def upgrade():
-    """ Upgrade 'Yes', 'No', 'Abstain' and 'ActiveTUs' to unsigned INTEGER. """
+    """Upgrade 'Yes', 'No', 'Abstain' and 'ActiveTUs' to unsigned INTEGER."""
     op.alter_column("TU_VoteInfo", "Yes", type_=UPGRADE_T)
     op.alter_column("TU_VoteInfo", "No", type_=UPGRADE_T)
     op.alter_column("TU_VoteInfo", "Abstain", type_=UPGRADE_T)

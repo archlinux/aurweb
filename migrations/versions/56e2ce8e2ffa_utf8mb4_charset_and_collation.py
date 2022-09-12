@@ -10,41 +10,41 @@ from alembic import op
 import aurweb.config
 
 # revision identifiers, used by Alembic.
-revision = '56e2ce8e2ffa'
-down_revision = 'ef39fcd6e1cd'
+revision = "56e2ce8e2ffa"
+down_revision = "ef39fcd6e1cd"
 branch_labels = None
 depends_on = None
 
 # Tables affected by charset/collate change
 tables = [
-    ('AccountTypes', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('ApiRateLimit', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('Bans', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('DependencyTypes', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('Groups', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('Licenses', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('OfficialProviders', 'utf8mb4', 'utf8mb4_bin'),
-    ('PackageBases', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('PackageBlacklist', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('PackageComments', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('PackageDepends', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('PackageKeywords', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('PackageRelations', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('PackageRequests', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('PackageSources', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('Packages', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('RelationTypes', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('RequestTypes', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('SSHPubKeys', 'utf8mb4', 'utf8mb4_bin'),
-    ('Sessions', 'utf8mb4', 'utf8mb4_bin'),
-    ('TU_VoteInfo', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('Terms', 'utf8mb4', 'utf8mb4_general_ci'),
-    ('Users', 'utf8mb4', 'utf8mb4_general_ci')
+    ("AccountTypes", "utf8mb4", "utf8mb4_general_ci"),
+    ("ApiRateLimit", "utf8mb4", "utf8mb4_general_ci"),
+    ("Bans", "utf8mb4", "utf8mb4_general_ci"),
+    ("DependencyTypes", "utf8mb4", "utf8mb4_general_ci"),
+    ("Groups", "utf8mb4", "utf8mb4_general_ci"),
+    ("Licenses", "utf8mb4", "utf8mb4_general_ci"),
+    ("OfficialProviders", "utf8mb4", "utf8mb4_bin"),
+    ("PackageBases", "utf8mb4", "utf8mb4_general_ci"),
+    ("PackageBlacklist", "utf8mb4", "utf8mb4_general_ci"),
+    ("PackageComments", "utf8mb4", "utf8mb4_general_ci"),
+    ("PackageDepends", "utf8mb4", "utf8mb4_general_ci"),
+    ("PackageKeywords", "utf8mb4", "utf8mb4_general_ci"),
+    ("PackageRelations", "utf8mb4", "utf8mb4_general_ci"),
+    ("PackageRequests", "utf8mb4", "utf8mb4_general_ci"),
+    ("PackageSources", "utf8mb4", "utf8mb4_general_ci"),
+    ("Packages", "utf8mb4", "utf8mb4_general_ci"),
+    ("RelationTypes", "utf8mb4", "utf8mb4_general_ci"),
+    ("RequestTypes", "utf8mb4", "utf8mb4_general_ci"),
+    ("SSHPubKeys", "utf8mb4", "utf8mb4_bin"),
+    ("Sessions", "utf8mb4", "utf8mb4_bin"),
+    ("TU_VoteInfo", "utf8mb4", "utf8mb4_general_ci"),
+    ("Terms", "utf8mb4", "utf8mb4_general_ci"),
+    ("Users", "utf8mb4", "utf8mb4_general_ci"),
 ]
 
 # Indexes affected by charset/collate change
 # Map of Unique Indexes key = index_name, value = [table_name, column1, column2]
-indexes = {'ProviderNameProvides': ['OfficialProviders', 'Name', 'Provides']}
+indexes = {"ProviderNameProvides": ["OfficialProviders", "Name", "Provides"]}
 
 # Source charset/collation, before this migration is run.
 src_charset = "utf8"
