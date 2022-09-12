@@ -93,7 +93,7 @@ pytest-xdist = "^2.4.0"
 filelock = "^3.3.2"
 posix-ipc = "^1.0.5"
 pyalpm = "^0.10.6"
-fastapi = "^0.71.0"
+fastapi = "^0.83.0"
 srcinfo = "^0.0.8"
 
 [tool.poetry.dev-dependencies]
