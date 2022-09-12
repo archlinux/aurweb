@@ -22,6 +22,4 @@ cp -v .coverage /data/.coverage
 chmod 666 /data/.coverage
 
 # Run pre-commit checks
-for dir in aurweb test migrations; do
-    pre-commit run -a
-done
+pre-commit run -a
