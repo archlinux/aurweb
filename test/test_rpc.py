@@ -1040,3 +1040,19 @@ def test_rpc_openapi_search_post_bad_request(client: TestClient):
     data = resp.json()
     expected = "the 'arg' parameter must be of string type"
     assert data.get("error") == expected
+
+
+def test_rpc_openapi_suggest(client: TestClient, packages: list[Package]):
+    suggestions = {
+        "big": ["big-chungus"],
+        "chungy": ["chungy-chungus"],
+    }
+
+    for term, expected in suggestions.items():
+        with client as request:
+            endp = f"/rpc/v5/suggest/{term}"
+            resp = request.get(endp)
+        assert resp.status_code == HTTPStatus.OK
+
+        data = resp.json()
+        assert data == expected

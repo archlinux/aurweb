@@ -281,3 +281,15 @@ async def rpc_openapi_search_post(
         arg,
         [],
     )
+
+
+@router.get("/rpc/v{version}/suggest/{arg}")
+async def rpc_openapi_suggest(request: Request, version: int, arg: str):
+    return await rpc_request(
+        request,
+        version,
+        "suggest",
+        defaults.RPC_SEARCH_BY,
+        arg,
+        [],
+    )
