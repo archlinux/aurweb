@@ -933,3 +933,98 @@ def test_rpc_too_many_info_results(client: TestClient, packages: list[Package]):
         with client as request:
             resp = request.get("/rpc", params=params)
     assert resp.json().get("error") == "Too many package results."
+
+
+def test_rpc_openapi_info(client: TestClient, packages: list[Package]):
+    pkgname = packages[0].Name
+
+    with client as request:
+        endp = f"/rpc/v5/info/{pkgname}"
+        resp = request.get(endp)
+    assert resp.status_code == HTTPStatus.OK
+
+    data = resp.json()
+    assert data.get("resultcount") == 1
+
+
+def test_rpc_openapi_multiinfo(client: TestClient, packages: list[Package]):
+    pkgname = packages[0].Name
+
+    with client as request:
+        endp = "/rpc/v5/info"
+        resp = request.get(endp, params={"arg[]": [pkgname]})
+    assert resp.status_code == HTTPStatus.OK
+
+    data = resp.json()
+    assert data.get("resultcount") == 1
+
+
+def test_rpc_openapi_multiinfo_post(client: TestClient, packages: list[Package]):
+    pkgname = packages[0].Name
+
+    with client as request:
+        endp = "/rpc/v5/info"
+        resp = request.post(endp, json={"arg": [pkgname]})
+    assert resp.status_code == HTTPStatus.OK
+
+    data = resp.json()
+    assert data.get("resultcount") == 1
+
+
+def test_rpc_openapi_multiinfo_post_bad_request(
+    client: TestClient, packages: list[Package]
+):
+    pkgname = packages[0].Name
+
+    with client as request:
+        endp = "/rpc/v5/info"
+        resp = request.post(endp, json={"arg": pkgname})
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
+
+    data = resp.json()
+    expected = "the 'arg' parameter must be of array type"
+    assert data.get("error") == expected
+
+
+def test_rpc_openapi_search(client: TestClient, packages: list[Package]):
+    pkgname = packages[0].Name
+
+    with client as request:
+        endp = "/rpc/v5/search"
+        resp = request.get(endp, params={"arg": pkgname})
+    assert resp.status_code == HTTPStatus.OK
+
+    data = resp.json()
+    assert data.get("resultcount") == 1
+
+
+def test_rpc_openapi_search_post(client: TestClient, packages: list[Package]):
+    pkgname = packages[0].Name
+
+    with client as request:
+        endp = "/rpc/v5/search"
+        resp = request.post(endp, json={"arg": pkgname})
+    assert resp.status_code == HTTPStatus.OK
+
+    data = resp.json()
+    assert data.get("resultcount") == 1
+
+
+def test_rpc_openapi_search_post_bad_request(client: TestClient):
+    # Test by parameter
+    with client as request:
+        endp = "/rpc/v5/search"
+        resp = request.post(endp, json={"by": 1})
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
+    data = resp.json()
+    expected = "the 'by' parameter must be of string type"
+    assert data.get("error") == expected
+
+    # Test arg parameter
+    with client as request:
+        endp = "/rpc/v5/search"
+        resp = request.post(endp, json={"arg": ["a", "list"]})
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
+    data = resp.json()
+    expected = "the 'arg' parameter must be of string type"
+    assert data.get("error") == expected

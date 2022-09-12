@@ -160,3 +160,107 @@ async def rpc_post(
     callback: Optional[str] = Form(default=None),
 ):
     return await rpc_request(request, v, type, by, arg, args, callback)
+
+
+@router.get("/rpc/v{version}/info/{name}")
+async def rpc_openapi_info(request: Request, version: int, name: str):
+    return await rpc_request(
+        request,
+        version,
+        "info",
+        defaults.RPC_SEARCH_BY,
+        name,
+        [],
+    )
+
+
+@router.get("/rpc/v{version}/info")
+async def rpc_openapi_multiinfo(
+    request: Request,
+    version: int,
+    args: Optional[list[str]] = Query(default=[], alias="arg[]"),
+):
+    arg = args.pop(0) if args else None
+    return await rpc_request(
+        request,
+        version,
+        "info",
+        defaults.RPC_SEARCH_BY,
+        arg,
+        args,
+    )
+
+
+@router.post("/rpc/v{version}/info")
+async def rpc_openapi_multiinfo_post(
+    request: Request,
+    version: int,
+):
+    data = await request.json()
+
+    args = data.get("arg", [])
+    if not isinstance(args, list):
+        rpc = RPC(version, "info")
+        return JSONResponse(
+            rpc.error("the 'arg' parameter must be of array type"),
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+
+    arg = args.pop(0) if args else None
+    return await rpc_request(
+        request,
+        version,
+        "info",
+        defaults.RPC_SEARCH_BY,
+        arg,
+        args,
+    )
+
+
+@router.get("/rpc/v{version}/search")
+async def rpc_openapi_search(
+    request: Request,
+    version: int,
+    by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
+    arg: Optional[str] = Query(default=str()),
+):
+    return await rpc_request(
+        request,
+        version,
+        "search",
+        by,
+        arg,
+        [],
+    )
+
+
+@router.post("/rpc/v{version}/search")
+async def rpc_openapi_search_post(
+    request: Request,
+    version: int,
+):
+    data = await request.json()
+    by = data.get("by", defaults.RPC_SEARCH_BY)
+    if not isinstance(by, str):
+        rpc = RPC(version, "search")
+        return JSONResponse(
+            rpc.error("the 'by' parameter must be of string type"),
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+
+    arg = data.get("arg", str())
+    if not isinstance(arg, str):
+        rpc = RPC(version, "search")
+        return JSONResponse(
+            rpc.error("the 'arg' parameter must be of string type"),
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+
+    return await rpc_request(
+        request,
+        version,
+        "search",
+        by,
+        arg,
+        [],
+    )
