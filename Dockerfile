@@ -2,6 +2,7 @@ FROM archlinux:base-devel
 
 VOLUME /root/.cache/pypoetry/cache
 VOLUME /root/.cache/pypoetry/artifacts
+VOLUME /root/.cache/pre-commit
 
 ENV PATH="/root/.poetry/bin:${PATH}"
 ENV PYTHONPATH=/aurweb
@@ -41,3 +42,6 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
 # Install translations.
 RUN make -C po all install
+
+# Install pre-commit repositories and run lint check.
+RUN pre-commit run -a
