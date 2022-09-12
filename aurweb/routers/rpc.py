@@ -1,3 +1,28 @@
+"""
+RPC API routing module
+
+For legacy route documentation, see https://aur.archlinux.org/rpc
+
+Legacy Routes:
+- GET /rpc
+- POST /rpc
+
+Legacy example (version 5): /rpc?v=5&type=info&arg=my-package
+
+For OpenAPI route documentation, see https://aur.archlinux.org/docs
+
+OpenAPI Routes:
+- GET /rpc/v{version}/info/{arg}
+- GET /rpc/v{version}/info
+- POST /rpc/v{version}/info
+- GET /rpc/v{version}/search/{arg}
+- GET /rpc/v{version}/search
+- POST /rpc/v{version}/search
+- GET /rpc/v{version}/suggest/{arg}
+
+OpenAPI example (version 5): /rpc/v5/info/my-package
+
+"""
 import hashlib
 import re
 from http import HTTPStatus
