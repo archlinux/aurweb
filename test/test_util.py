@@ -44,7 +44,7 @@ async def test_error_or_result():
     assert data.get("error") == "No response returned."
 
     async def good_route(request: fastapi.Request):
-        return JSONResponse()
+        return JSONResponse("{}")
 
     response = await util.error_or_result(good_route, Request())
     assert response.status_code == HTTPStatus.OK
