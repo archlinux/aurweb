@@ -256,7 +256,9 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
 
     # swagger-ui needs access to cdn.jsdelivr.net javascript
     script_hosts = ["cdn.jsdelivr.net"]
-    csp += f"script-src 'self' 'nonce-{nonce}' " + " ".join(script_hosts)
+    csp += f"script-src 'self' 'unsafe-inline' 'nonce-{nonce}' " + " ".join(
+        script_hosts
+    )
 
     # swagger-ui needs access to cdn.jsdelivr.net css
     css_hosts = ["cdn.jsdelivr.net"]
