@@ -217,12 +217,29 @@ async def rpc_openapi_multiinfo_post(
     )
 
 
+@router.get("/rpc/v{version}/search/{arg}")
+async def rpc_openapi_search_arg(
+    request: Request,
+    version: int,
+    arg: str,
+    by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
+):
+    return await rpc_request(
+        request,
+        version,
+        "search",
+        by,
+        arg,
+        [],
+    )
+
+
 @router.get("/rpc/v{version}/search")
 async def rpc_openapi_search(
     request: Request,
     version: int,
-    by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
     arg: Optional[str] = Query(default=str()),
+    by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
 ):
     return await rpc_request(
         request,

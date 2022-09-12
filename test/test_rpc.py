@@ -986,6 +986,18 @@ def test_rpc_openapi_multiinfo_post_bad_request(
     assert data.get("error") == expected
 
 
+def test_rpc_openapi_search_arg(client: TestClient, packages: list[Package]):
+    pkgname = packages[0].Name
+
+    with client as request:
+        endp = f"/rpc/v5/search/{pkgname}"
+        resp = request.get(endp)
+    assert resp.status_code == HTTPStatus.OK
+
+    data = resp.json()
+    assert data.get("resultcount") == 1
+
+
 def test_rpc_openapi_search(client: TestClient, packages: list[Package]):
     pkgname = packages[0].Name
 
