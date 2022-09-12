@@ -99,9 +99,8 @@ def pkgbase_adopt_instance(request: Request, pkgbase: PackageBase) -> None:
 def pkgbase_delete_instance(
     request: Request, pkgbase: PackageBase, comments: str = str()
 ) -> list[notify.Notification]:
-    notifs = handle_request(request, DELETION_ID, pkgbase) + [
-        notify.DeleteNotification(request.user.ID, pkgbase.ID)
-    ]
+    notif = notify.DeleteNotification(request.user.ID, pkgbase.ID)
+    notifs = handle_request(request, DELETION_ID, pkgbase) + [notif]
 
     with db.begin():
         update_closure_comment(pkgbase, DELETION_ID, comments)
