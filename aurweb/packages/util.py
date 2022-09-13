@@ -99,8 +99,7 @@ def get_pkg_or_base(
     :raises HTTPException: With status code 404 if record doesn't exist
     :return: {Package,PackageBase} instance
     """
-    with db.begin():
-        instance = db.query(cls).filter(cls.Name == name).first()
+    instance = db.query(cls).filter(cls.Name == name).first()
     if not instance:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
     return instance
@@ -133,16 +132,15 @@ def updated_packages(limit: int = 0, cache_ttl: int = 600) -> list[models.Packag
         # If we already have a cache, deserialize it and return.
         return orjson.loads(packages)
 
-    with db.begin():
-        query = (
-            db.query(models.Package)
-            .join(models.PackageBase)
-            .filter(models.PackageBase.PackagerUID.isnot(None))
-            .order_by(models.PackageBase.ModifiedTS.desc())
-        )
+    query = (
+        db.query(models.Package)
+        .join(models.PackageBase)
+        .filter(models.PackageBase.PackagerUID.isnot(None))
+        .order_by(models.PackageBase.ModifiedTS.desc())
+    )
 
-        if limit:
-            query = query.limit(limit)
+    if limit:
+        query = query.limit(limit)
 
     packages = []
     for pkg in query:

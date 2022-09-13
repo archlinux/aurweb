@@ -32,6 +32,7 @@ async def passreset(request: Request):
     return render_template(request, "passreset.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/passreset", response_class=HTMLResponse)
 @handle_form_exceptions
 @requires_guest
@@ -260,6 +261,7 @@ async def account_register(
     return render_template(request, "register.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/register", response_class=HTMLResponse)
 @handle_form_exceptions
 @requires_guest
@@ -336,18 +338,15 @@ async def account_register_post(
             AccountType=atype,
         )
 
-    # If a PK was given and either one does not exist or the given
-    # PK mismatches the existing user's SSHPubKey.PubKey.
-    if PK:
-        # Get the second element in the PK, which is the actual key.
-        keys = util.parse_ssh_keys(PK.strip())
-        for k in keys:
-            pk = " ".join(k)
-            fprint = get_fingerprint(pk)
-            with db.begin():
-                db.create(
-                    models.SSHPubKey, UserID=user.ID, PubKey=pk, Fingerprint=fprint
-                )
+        # If a PK was given and either one does not exist or the given
+        # PK mismatches the existing user's SSHPubKey.PubKey.
+        if PK:
+            # Get the second element in the PK, which is the actual key.
+            keys = util.parse_ssh_keys(PK.strip())
+            for k in keys:
+                pk = " ".join(k)
+                fprint = get_fingerprint(pk)
+                db.create(models.SSHPubKey, User=user, PubKey=pk, Fingerprint=fprint)
 
     # Send a reset key notification to the new user.
     WelcomeNotification(user.ID).send()
@@ -458,6 +457,8 @@ async def account_edit_post(
         update.password,
     ]
 
+    # These update functions are all guarded by retry_deadlock;
+    # there's no need to guard this route itself.
     for f in updates:
         f(**args, request=request, user=user, context=context)
 
@@ -633,6 +634,7 @@ async def terms_of_service(request: Request):
     return render_terms_of_service(request, context, accept_needed)
 
 
+@db.async_retry_deadlock
 @router.post("/tos")
 @handle_form_exceptions
 @requires_auth

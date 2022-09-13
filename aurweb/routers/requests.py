@@ -69,6 +69,7 @@ async def request_close(request: Request, id: int):
     return render_template(request, "requests/close.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/requests/{id}/close")
 @handle_form_exceptions
 @requires_auth

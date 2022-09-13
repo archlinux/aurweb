@@ -87,6 +87,7 @@ async def pkgbase_flag_comment(request: Request, name: str):
     return render_template(request, "pkgbase/flag-comment.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/keywords")
 @handle_form_exceptions
 async def pkgbase_keywords(
@@ -139,6 +140,7 @@ async def pkgbase_flag_get(request: Request, name: str):
     return render_template(request, "pkgbase/flag.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/flag")
 @handle_form_exceptions
 @requires_auth
@@ -170,6 +172,7 @@ async def pkgbase_flag_post(
     return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/comments")
 @handle_form_exceptions
 @requires_auth
@@ -279,6 +282,7 @@ async def pkgbase_comment_edit(
     return render_template(request, "pkgbase/comments/edit.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/comments/{id}")
 @handle_form_exceptions
 @requires_auth
@@ -324,6 +328,7 @@ async def pkgbase_comment_post(
     )
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/comments/{id}/pin")
 @handle_form_exceptions
 @requires_auth
@@ -362,6 +367,7 @@ async def pkgbase_comment_pin(
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/comments/{id}/unpin")
 @handle_form_exceptions
 @requires_auth
@@ -399,6 +405,7 @@ async def pkgbase_comment_unpin(
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/comments/{id}/delete")
 @handle_form_exceptions
 @requires_auth
@@ -440,6 +447,7 @@ async def pkgbase_comment_delete(
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/comments/{id}/undelete")
 @handle_form_exceptions
 @requires_auth
@@ -482,6 +490,7 @@ async def pkgbase_comment_undelete(
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/vote")
 @handle_form_exceptions
 @requires_auth
@@ -501,6 +510,7 @@ async def pkgbase_vote(request: Request, name: str):
     return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/unvote")
 @handle_form_exceptions
 @requires_auth
@@ -519,6 +529,7 @@ async def pkgbase_unvote(request: Request, name: str):
     return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/notify")
 @handle_form_exceptions
 @requires_auth
@@ -528,6 +539,7 @@ async def pkgbase_notify(request: Request, name: str):
     return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/unnotify")
 @handle_form_exceptions
 @requires_auth
@@ -537,6 +549,7 @@ async def pkgbase_unnotify(request: Request, name: str):
     return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/unflag")
 @handle_form_exceptions
 @requires_auth
@@ -567,6 +580,7 @@ async def pkgbase_disown_get(
     return render_template(request, "pkgbase/disown.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/disown")
 @handle_form_exceptions
 @requires_auth
@@ -617,6 +631,7 @@ async def pkgbase_disown_post(
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/adopt")
 @handle_form_exceptions
 @requires_auth
@@ -659,6 +674,7 @@ async def pkgbase_comaintainers(request: Request, name: str) -> Response:
     return render_template(request, "pkgbase/comaintainers.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/comaintainers")
 @handle_form_exceptions
 @requires_auth
@@ -715,6 +731,7 @@ async def pkgbase_request(
     return render_template(request, "pkgbase/request.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/request")
 @handle_form_exceptions
 @requires_auth
@@ -817,6 +834,7 @@ async def pkgbase_delete_get(
     return render_template(request, "pkgbase/delete.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/delete")
 @handle_form_exceptions
 @requires_auth
@@ -889,6 +907,7 @@ async def pkgbase_merge_get(
     )
 
 
+@db.async_retry_deadlock
 @router.post("/pkgbase/{name}/merge")
 @handle_form_exceptions
 @requires_auth

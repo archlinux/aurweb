@@ -151,6 +151,7 @@ def close_pkgreq(
     pkgreq.ClosedTS = now
 
 
+@db.retry_deadlock
 def handle_request(
     request: Request, reqtype_id: int, pkgbase: PackageBase, target: PackageBase = None
 ) -> list[notify.Notification]:
@@ -239,15 +240,19 @@ def handle_request(
             to_accept.append(pkgreq)
 
     # Update requests with their new status and closures.
-    with db.begin():
-        util.apply_all(
-            to_accept,
-            lambda p: close_pkgreq(p, request.user, pkgbase, target, ACCEPTED_ID),
-        )
-        util.apply_all(
-            to_reject,
-            lambda p: close_pkgreq(p, request.user, pkgbase, target, REJECTED_ID),
-        )
+    @db.retry_deadlock
+    def retry_closures():
+        with db.begin():
+            util.apply_all(
+                to_accept,
+                lambda p: close_pkgreq(p, request.user, pkgbase, target, ACCEPTED_ID),
+            )
+            util.apply_all(
+                to_reject,
+                lambda p: close_pkgreq(p, request.user, pkgbase, target, REJECTED_ID),
+            )
+
+    retry_closures()
 
     # Create RequestCloseNotifications for all requests involved.
     for pkgreq in to_accept + to_reject:

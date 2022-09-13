@@ -38,17 +38,26 @@ def _update_ratelimit_db(request: Request):
     now = time.utcnow()
     time_to_delete = now - window_length
 
+    @db.retry_deadlock
+    def retry_delete(records: list[ApiRateLimit]) -> None:
+        with db.begin():
+            db.delete_all(records)
+
     records = db.query(ApiRateLimit).filter(ApiRateLimit.WindowStart < time_to_delete)
-    with db.begin():
-        db.delete_all(records)
+    retry_delete(records)
+
+    @db.retry_deadlock
+    def retry_create(record: ApiRateLimit, now: int, host: str) -> ApiRateLimit:
+        with db.begin():
+            if not record:
+                record = db.create(ApiRateLimit, WindowStart=now, IP=host, Requests=1)
+            else:
+                record.Requests += 1
+        return record
 
     host = request.client.host
     record = db.query(ApiRateLimit, ApiRateLimit.IP == host).first()
-    with db.begin():
-        if not record:
-            record = db.create(ApiRateLimit, WindowStart=now, IP=host, Requests=1)
-        else:
-            record.Requests += 1
+    record = retry_create(record, now, host)
 
     logger.debug(record.Requests)
     return record

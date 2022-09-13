@@ -2,7 +2,7 @@ from fastapi import Request
 
 from aurweb import db, logging, util
 from aurweb.auth import creds
-from aurweb.models import PackageBase
+from aurweb.models import PackageBase, User
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
@@ -13,6 +13,12 @@ from aurweb.scripts import notify, popupdate
 logger = logging.get_logger(__name__)
 
 
+@db.retry_deadlock
+def _retry_notify(user: User, pkgbase: PackageBase) -> None:
+    with db.begin():
+        db.create(PackageNotification, PackageBase=pkgbase, User=user)
+
+
 def pkgbase_notify_instance(request: Request, pkgbase: PackageBase) -> None:
     notif = db.query(
         pkgbase.notifications.filter(
@@ -21,8 +27,13 @@ def pkgbase_notify_instance(request: Request, pkgbase: PackageBase) -> None:
     ).scalar()
     has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
     if has_cred and not notif:
-        with db.begin():
-            db.create(PackageNotification, PackageBase=pkgbase, User=request.user)
+        _retry_notify(request.user, pkgbase)
+
+
+@db.retry_deadlock
+def _retry_unnotify(notif: PackageNotification, pkgbase: PackageBase) -> None:
+    with db.begin():
+        db.delete(notif)
 
 
 def pkgbase_unnotify_instance(request: Request, pkgbase: PackageBase) -> None:
@@ -31,8 +42,15 @@ def pkgbase_unnotify_instance(request: Request, pkgbase: PackageBase) -> None:
     ).first()
     has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
     if has_cred and notif:
-        with db.begin():
-            db.delete(notif)
+        _retry_unnotify(notif, pkgbase)
+
+
+@db.retry_deadlock
+def _retry_unflag(pkgbase: PackageBase) -> None:
+    with db.begin():
+        pkgbase.OutOfDateTS = None
+        pkgbase.Flagger = None
+        pkgbase.FlaggerComment = str()
 
 
 def pkgbase_unflag_instance(request: Request, pkgbase: PackageBase) -> None:
@@ -42,20 +60,17 @@ def pkgbase_unflag_instance(request: Request, pkgbase: PackageBase) -> None:
         + [c.User for c in pkgbase.comaintainers],
     )
     if has_cred:
-        with db.begin():
-            pkgbase.OutOfDateTS = None
-            pkgbase.Flagger = None
-            pkgbase.FlaggerComment = str()
+        _retry_unflag(pkgbase)
 
 
-def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
-    disowner = request.user
-    notifs = [notify.DisownNotification(disowner.ID, pkgbase.ID)]
+@db.retry_deadlock
+def _retry_disown(request: Request, pkgbase: PackageBase):
+    notifs: list[notify.Notification] = []
 
-    is_maint = disowner == pkgbase.Maintainer
+    is_maint = request.user == pkgbase.Maintainer
 
     comaint = pkgbase.comaintainers.filter(
-        PackageComaintainer.User == disowner
+        PackageComaintainer.User == request.user
     ).one_or_none()
     is_comaint = comaint is not None
 
@@ -85,15 +100,33 @@ def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
             pkgbase.Maintainer = None
             db.delete_all(pkgbase.comaintainers)
 
+    return notifs
+
+
+def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
+    disowner = request.user
+    notifs = [notify.DisownNotification(disowner.ID, pkgbase.ID)]
+    notifs += _retry_disown(request, pkgbase)
     util.apply_all(notifs, lambda n: n.send())
 
 
-def pkgbase_adopt_instance(request: Request, pkgbase: PackageBase) -> None:
+@db.retry_deadlock
+def _retry_adopt(request: Request, pkgbase: PackageBase) -> None:
     with db.begin():
         pkgbase.Maintainer = request.user
 
+
+def pkgbase_adopt_instance(request: Request, pkgbase: PackageBase) -> None:
+    _retry_adopt(request, pkgbase)
     notif = notify.AdoptNotification(request.user.ID, pkgbase.ID)
     notif.send()
+
+
+@db.retry_deadlock
+def _retry_delete(pkgbase: PackageBase, comments: str) -> None:
+    with db.begin():
+        update_closure_comment(pkgbase, DELETION_ID, comments)
+        db.delete(pkgbase)
 
 
 def pkgbase_delete_instance(
@@ -102,21 +135,13 @@ def pkgbase_delete_instance(
     notif = notify.DeleteNotification(request.user.ID, pkgbase.ID)
     notifs = handle_request(request, DELETION_ID, pkgbase) + [notif]
 
-    with db.begin():
-        update_closure_comment(pkgbase, DELETION_ID, comments)
-        db.delete(pkgbase)
+    _retry_delete(pkgbase, comments)
 
     return notifs
 
 
-def pkgbase_merge_instance(
-    request: Request, pkgbase: PackageBase, target: PackageBase, comments: str = str()
-) -> None:
-    pkgbasename = str(pkgbase.Name)
-
-    # Create notifications.
-    notifs = handle_request(request, MERGE_ID, pkgbase, target)
-
+@db.retry_deadlock
+def _retry_merge(pkgbase: PackageBase, target: PackageBase) -> None:
     # Target votes and notifications sets of user IDs that are
     # looking to be migrated.
     target_votes = set(v.UsersID for v in target.package_votes)
@@ -145,6 +170,20 @@ def pkgbase_merge_instance(
         for pkg in pkgbase.packages:
             db.delete(pkg)
         db.delete(pkgbase)
+
+
+def pkgbase_merge_instance(
+    request: Request,
+    pkgbase: PackageBase,
+    target: PackageBase,
+    comments: str = str(),
+) -> None:
+    pkgbasename = str(pkgbase.Name)
+
+    # Create notifications.
+    notifs = handle_request(request, MERGE_ID, pkgbase, target)
+
+    _retry_merge(pkgbase, target)
 
     # Log this out for accountability purposes.
     logger.info(

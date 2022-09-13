@@ -106,6 +106,7 @@ def remove_comaintainer(
     return notif
 
 
+@db.retry_deadlock
 def remove_comaintainers(pkgbase: PackageBase, usernames: list[str]) -> None:
     """
     Remove comaintainers from `pkgbase`.
@@ -155,6 +156,7 @@ class NoopComaintainerNotification:
         return
 
 
+@db.retry_deadlock
 def add_comaintainer(
     pkgbase: PackageBase, comaintainer: User
 ) -> notify.ComaintainerAddNotification:

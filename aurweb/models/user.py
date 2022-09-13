@@ -151,7 +151,7 @@ class User(Base):
 
         return has_credential(self, credential, approved)
 
-    def logout(self, request: Request):
+    def logout(self, request: Request) -> None:
         self.authenticated = False
         if self.session:
             with db.begin():

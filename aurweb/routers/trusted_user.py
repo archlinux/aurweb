@@ -217,6 +217,7 @@ async def trusted_user_proposal(request: Request, proposal: int):
     return render_proposal(request, context, proposal, voteinfo, voters, vote)
 
 
+@db.async_retry_deadlock
 @router.post("/tu/{proposal}")
 @handle_form_exceptions
 @requires_auth
@@ -267,13 +268,15 @@ async def trusted_user_proposal_post(
             request, context, proposal, voteinfo, voters, vote, status_code=status_code
         )
 
-    if decision in {"Yes", "No", "Abstain"}:
-        # Increment whichever decision was given to us.
-        setattr(voteinfo, decision, getattr(voteinfo, decision) + 1)
-    else:
-        return Response("Invalid 'decision' value.", status_code=HTTPStatus.BAD_REQUEST)
-
     with db.begin():
+        if decision in {"Yes", "No", "Abstain"}:
+            # Increment whichever decision was given to us.
+            setattr(voteinfo, decision, getattr(voteinfo, decision) + 1)
+        else:
+            return Response(
+                "Invalid 'decision' value.", status_code=HTTPStatus.BAD_REQUEST
+            )
+
         vote = db.create(models.TUVote, User=request.user, VoteInfo=voteinfo)
 
     context["error"] = "You've already voted for this proposal."
@@ -301,6 +304,7 @@ async def trusted_user_addvote(
     return render_template(request, "addvote.html", context)
 
 
+@db.async_retry_deadlock
 @router.post("/addvote")
 @handle_form_exceptions
 @requires_auth

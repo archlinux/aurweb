@@ -8,6 +8,7 @@ from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.util import strtobool
 
 
+@db.retry_deadlock
 def simple(
     U: str = str(),
     E: str = str(),
@@ -42,6 +43,7 @@ def simple(
         user.OwnershipNotify = strtobool(ON)
 
 
+@db.retry_deadlock
 def language(
     L: str = str(),
     request: Request = None,
@@ -55,6 +57,7 @@ def language(
         context["language"] = L
 
 
+@db.retry_deadlock
 def timezone(
     TZ: str = str(),
     request: Request = None,
@@ -68,6 +71,7 @@ def timezone(
         context["language"] = TZ
 
 
+@db.retry_deadlock
 def ssh_pubkey(PK: str = str(), user: models.User = None, **kwargs) -> None:
     if not PK:
         # If no pubkey is provided, wipe out any pubkeys the user
@@ -101,12 +105,14 @@ def ssh_pubkey(PK: str = str(), user: models.User = None, **kwargs) -> None:
                 )
 
 
+@db.retry_deadlock
 def account_type(T: int = None, user: models.User = None, **kwargs) -> None:
     if T is not None and (T := int(T)) != user.AccountTypeID:
         with db.begin():
             user.AccountTypeID = T
 
 
+@db.retry_deadlock
 def password(
     P: str = str(),
     request: Request = None,

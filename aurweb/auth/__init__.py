@@ -96,6 +96,7 @@ class AnonymousUser:
 
 
 class BasicAuthBackend(AuthenticationBackend):
+    @db.async_retry_deadlock
     async def authenticate(self, conn: HTTPConnection):
         unauthenticated = (None, AnonymousUser())
         sid = conn.cookies.get("AURSID")
@@ -122,8 +123,7 @@ class BasicAuthBackend(AuthenticationBackend):
         # At this point, we cannot have an invalid user if the record
         # exists, due to ForeignKey constraints in the schema upheld
         # by mysqlclient.
-        with db.begin():
-            user = db.query(User).filter(User.ID == record.UsersID).first()
+        user = db.query(User).filter(User.ID == record.UsersID).first()
         user.nonce = util.make_nonce()
         user.authenticated = True
 

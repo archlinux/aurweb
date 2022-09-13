@@ -161,6 +161,46 @@ def begin():
     return get_session().begin()
 
 
+def retry_deadlock(func):
+    from sqlalchemy.exc import OperationalError
+
+    def wrapper(*args, _i: int = 0, **kwargs):
+        # Retry 10 times, then raise the exception
+        # If we fail before the 10th, recurse into `wrapper`
+        # If we fail on the 10th, continue to throw the exception
+        limit = 10
+        try:
+            return func(*args, **kwargs)
+        except OperationalError as exc:
+            if _i < limit and "Deadlock found" in str(exc):
+                # Retry on deadlock by recursing into `wrapper`
+                return wrapper(*args, _i=_i + 1, **kwargs)
+            # Otherwise, just raise the exception
+            raise exc
+
+    return wrapper
+
+
+def async_retry_deadlock(func):
+    from sqlalchemy.exc import OperationalError
+
+    async def wrapper(*args, _i: int = 0, **kwargs):
+        # Retry 10 times, then raise the exception
+        # If we fail before the 10th, recurse into `wrapper`
+        # If we fail on the 10th, continue to throw the exception
+        limit = 10
+        try:
+            return await func(*args, **kwargs)
+        except OperationalError as exc:
+            if _i < limit and "Deadlock found" in str(exc):
+                # Retry on deadlock by recursing into `wrapper`
+                return await wrapper(*args, _i=_i + 1, **kwargs)
+            # Otherwise, just raise the exception
+            raise exc
+
+    return wrapper
+
+
 def get_sqlalchemy_url():
     """
     Build an SQLAlchemy URL for use with create_engine.

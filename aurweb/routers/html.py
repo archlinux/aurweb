@@ -35,6 +35,7 @@ async def favicon(request: Request):
     return RedirectResponse("/static/images/favicon.ico")
 
 
+@db.async_retry_deadlock
 @router.post("/language", response_class=RedirectResponse)
 @handle_form_exceptions
 async def language(

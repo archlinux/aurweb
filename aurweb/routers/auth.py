@@ -28,6 +28,11 @@ async def login_get(request: Request, next: str = "/"):
     return await login_template(request, next)
 
 
+@db.retry_deadlock
+def _retry_login(request: Request, user: User, passwd: str, cookie_timeout: int) -> str:
+    return user.login(request, passwd, cookie_timeout)
+
+
 @router.post("/login", response_class=HTMLResponse)
 @handle_form_exceptions
 @requires_guest
@@ -48,13 +53,16 @@ async def login_post(
             status_code=HTTPStatus.BAD_REQUEST, detail=_("Bad Referer header.")
         )
 
-    with db.begin():
-        user = (
-            db.query(User)
-            .filter(or_(User.Username == user, User.Email == user))
-            .first()
+    user = (
+        db.query(User)
+        .filter(
+            or_(
+                User.Username == user,
+                User.Email == user,
+            )
         )
-
+        .first()
+    )
     if not user:
         return await login_template(request, next, errors=["Bad username or password."])
 
@@ -62,7 +70,7 @@ async def login_post(
         return await login_template(request, next, errors=["Account Suspended"])
 
     cookie_timeout = cookies.timeout(remember_me)
-    sid = user.login(request, passwd, cookie_timeout)
+    sid = _retry_login(request, user, passwd, cookie_timeout)
     if not sid:
         return await login_template(request, next, errors=["Bad username or password."])
 
@@ -101,12 +109,17 @@ async def login_post(
     return response
 
 
+@db.retry_deadlock
+def _retry_logout(request: Request) -> None:
+    request.user.logout(request)
+
+
 @router.post("/logout")
 @handle_form_exceptions
 @requires_auth
 async def logout(request: Request, next: str = Form(default="/")):
     if request.user.is_authenticated():
-        request.user.logout(request)
+        _retry_logout(request)
 
     # Use 303 since we may be handling a post request, that'll get it
     # to redirect to a get request.
