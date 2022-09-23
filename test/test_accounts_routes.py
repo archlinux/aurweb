@@ -9,6 +9,7 @@ import lxml.html
 import pytest
 from fastapi.testclient import TestClient
 
+import aurweb.config
 import aurweb.models.account_type as at
 from aurweb import captcha, db, logging, time
 from aurweb.asgi import app
@@ -35,6 +36,9 @@ logger = logging.get_logger(__name__)
 # Some test global constants.
 TEST_USERNAME = "test"
 TEST_EMAIL = "test@example.org"
+TEST_REFERER = {
+    "referer": aurweb.config.get("options", "aur_location") + "/login",
+}
 
 
 def make_ssh_pubkey():
@@ -61,7 +65,12 @@ def setup(db_test):
 
 @pytest.fixture
 def client() -> TestClient:
-    yield TestClient(app=app)
+    client = TestClient(app=app)
+
+    # Necessary for forged login CSRF protection on the login route. Set here
+    # instead of only on the necessary requests for convenience.
+    client.headers.update(TEST_REFERER)
+    yield client
 
 
 def create_user(username: str) -> User:
@@ -1003,13 +1012,8 @@ def test_post_account_edit_suspended(client: TestClient, user: User):
 
     # Make sure the user record got updated correctly.
     assert user.Suspended
-
-    post_data.update({"S": False})
-    with client as request:
-        resp = request.post(endpoint, data=post_data, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.OK)
-
-    assert not user.Suspended
+    # Let's make sure the DB got updated properly.
+    assert user.session is None
 
 
 def test_post_account_edit_error_unauthorized(client: TestClient, user: User):
@@ -1260,6 +1264,56 @@ def test_post_account_edit_other_user_type_as_tu(
         f" {TRUSTED_USER}."
     )
     assert expected in caplog.text
+
+
+def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user: User):
+    with db.begin():
+        user = create_user("test3")
+    # Create a session for user
+    sid = user.login(Request(), "testPassword")
+    assert sid is not None
+
+    # `user` needs its own TestClient, to keep its AURSID cookies
+    # apart from `tu_user`s during our testing.
+    user_client = TestClient(app=app)
+    user_client.headers.update(TEST_REFERER)
+
+    # Test that `user` can view their account edit page while logged in.
+    user_cookies = {"AURSID": sid}
+    with client as request:
+        endpoint = f"/account/{user.Username}/edit"
+        resp = request.get(endpoint, cookies=user_cookies, allow_redirects=False)
+    assert resp.status_code == HTTPStatus.OK
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    assert cookies is not None  # This is useless, we create the dict here ^
+    # As a TU, we can see the Account for other users.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+    # As a TU, we can modify other user's account types.
+    data = {
+        "U": user.Username,
+        "E": user.Email,
+        "S": True,
+        "passwd": "testPassword",
+    }
+    with client as request:
+        resp = request.post(endpoint, data=data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Test that `user` no longer has a session.
+    with user_client as request:
+        resp = request.get(endpoint, cookies=user_cookies, allow_redirects=False)
+    assert resp.status_code == HTTPStatus.SEE_OTHER
+
+    # Since user is now suspended, they should not be able to login.
+    data = {"user": user.Username, "passwd": "testPassword", "next": "/"}
+    with user_client as request:
+        resp = request.post("/login", data=data)
+    assert resp.status_code == HTTPStatus.OK
+    errors = get_errors(resp.text)
+    assert errors[0].text.strip() == "Account Suspended"
 
 
 def test_post_account_edit_other_user_type_as_tu_invalid_type(

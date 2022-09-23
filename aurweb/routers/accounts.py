@@ -412,6 +412,7 @@ async def account_edit_post(
     TZ: str = Form(aurweb.config.get("options", "default_timezone")),
     P: str = Form(default=str()),  # New Password
     C: str = Form(default=None),  # Password Confirm
+    S: bool = Form(default=False),  # Suspended
     PK: str = Form(default=None),  # PubKey
     CN: bool = Form(default=False),  # Comment Notify
     UN: bool = Form(default=False),  # Update Notify
@@ -455,6 +456,7 @@ async def account_edit_post(
         update.ssh_pubkey,
         update.account_type,
         update.password,
+        update.suspend,
     ]
 
     # These update functions are all guarded by retry_deadlock;

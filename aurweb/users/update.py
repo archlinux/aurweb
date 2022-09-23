@@ -134,3 +134,19 @@ def password(
             # If the target user is the request user, login with
             # the updated password to update the Session record.
             user.login(request, P, cookies.timeout(remember_me))
+
+
+@db.retry_deadlock
+def suspend(
+    S: bool = False,
+    request: Request = None,
+    user: models.User = None,
+    context: dict[str, Any] = {},
+    **kwargs,
+) -> None:
+    if S and user.session:
+        context["S"] = None
+        with db.begin():
+            db.delete_all(
+                db.query(models.Session).filter(models.Session.UsersID == user.ID)
+            )
