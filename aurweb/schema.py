@@ -155,6 +155,12 @@ PackageBases = Table(
         nullable=False,
         server_default=text("0"),
     ),
+    Column(
+        "PopularityUpdated",
+        TIMESTAMP,
+        nullable=False,
+        server_default=text("'1970-01-01 00:00:01.000000'"),
+    ),
     Column("OutOfDateTS", BIGINT(unsigned=True)),
     Column("FlaggerComment", Text, nullable=False),
     Column("SubmittedTS", BIGINT(unsigned=True), nullable=False),

@@ -3,8 +3,9 @@ from typing import Any
 from fastapi import Request
 from sqlalchemy import and_
 
-from aurweb import config, db, defaults, l10n, util
+from aurweb import config, db, defaults, l10n, time, util
 from aurweb.models import PackageBase, User
+from aurweb.models.package_base import popularity
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_request import PENDING_ID, PackageRequest
@@ -80,6 +81,8 @@ def make_context(
     context["requests"] = pkgbase.requests.filter(
         and_(PackageRequest.Status == PENDING_ID, PackageRequest.ClosedTS.is_(None))
     ).count()
+
+    context["popularity"] = popularity(pkgbase, time.utcnow())
 
     return context
 

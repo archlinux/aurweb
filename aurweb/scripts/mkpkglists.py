@@ -188,6 +188,7 @@ def _main():
     USERS = aurweb.config.get("mkpkglists", "userfile")
 
     bench = Benchmark()
+    logger.warning(f"{sys.argv[0]} is deprecated and will be soon be removed")
     logger.info("Started re-creating archives, wait a while...")
 
     query = (

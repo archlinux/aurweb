@@ -1,6 +1,4 @@
 import os
-import shlex
-from subprocess import PIPE, Popen
 from typing import Tuple
 
 import py
@@ -8,6 +6,7 @@ import py
 from aurweb.models import Package
 from aurweb.templates import base_template
 from aurweb.testing.filelock import FileLock
+from aurweb.util import shell_exec
 
 
 class GitRepository:
@@ -24,10 +23,7 @@ class GitRepository:
         self.file_lock.lock(on_create=self._setup)
 
     def _exec(self, cmdline: str, cwd: str) -> Tuple[int, str, str]:
-        args = shlex.split(cmdline)
-        proc = Popen(args, cwd=cwd, stdout=PIPE, stderr=PIPE)
-        out, err = proc.communicate()
-        return (proc.returncode, out.decode().strip(), err.decode().strip())
+        return shell_exec(cmdline, cwd)
 
     def _exec_repository(self, cmdline: str) -> Tuple[int, str, str]:
         return self._exec(cmdline, cwd=str(self.file_lock.path))

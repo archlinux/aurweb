@@ -1,6 +1,7 @@
 import math
 import re
 import secrets
+import shlex
 import string
 from datetime import datetime
 from http import HTTPStatus
@@ -192,3 +193,10 @@ def parse_ssh_key(string: str) -> Tuple[str, str]:
 def parse_ssh_keys(string: str) -> list[Tuple[str, str]]:
     """Parse a list of SSH public keys."""
     return [parse_ssh_key(e) for e in string.splitlines()]
+
+
+def shell_exec(cmdline: str, cwd: str) -> Tuple[int, str, str]:
+    args = shlex.split(cmdline)
+    proc = Popen(args, cwd=cwd, stdout=PIPE, stderr=PIPE)
+    out, err = proc.communicate()
+    return (proc.returncode, out.decode().strip(), err.decode().strip())

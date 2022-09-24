@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+from datetime import datetime
 
 from sqlalchemy import and_, func
 from sqlalchemy.sql.functions import coalesce, sum as _sum
 
-from aurweb import db, time
+from aurweb import config, db, time
 from aurweb.models import PackageBase, PackageVote
 
 
@@ -46,13 +47,24 @@ def run_variable(pkgbases: list[PackageBase] = []) -> None:
 
         ids = set()
         if pkgbases:
+            # If `pkgbases` were given, we should forcefully update the given
+            # package base records' popularities.
             ids = {pkgbase.ID for pkgbase in pkgbases}
             query = query.filter(PackageBase.ID.in_(ids))
+        else:
+            # Otherwise, we should only update popularities which have exceeded
+            # the popularity interval length.
+            interval = config.getint("git-archive", "popularity-interval")
+            query = query.filter(
+                PackageBase.PopularityUpdated
+                <= datetime.fromtimestamp((now - interval))
+            )
 
         query.update(
             {
                 "NumVotes": votes_subq.scalar_subquery(),
                 "Popularity": pop_subq.scalar_subquery(),
+                "PopularityUpdated": datetime.fromtimestamp(now),
             }
         )
 

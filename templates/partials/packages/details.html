@@ -149,7 +149,7 @@
     </tr>
     <tr>
         <th>{{ "Popularity" | tr }}:</th>
-        <td>{{ pkgbase.Popularity | number_format(6 if pkgbase.Popularity <= 0.2 else 2) }}</td>
+        <td>{{ popularity | number_format(6 if popularity <= 0.2 else 2) }}</td>
     </tr>
     <tr>
         <th>{{ "First Submitted" | tr }}:</th>

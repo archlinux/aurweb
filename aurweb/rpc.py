@@ -6,9 +6,10 @@ from fastapi.responses import HTMLResponse
 from sqlalchemy import and_, literal, orm
 
 import aurweb.config as config
-from aurweb import db, defaults, models
+from aurweb import db, defaults, models, time
 from aurweb.exceptions import RPCError
 from aurweb.filters import number_format
+from aurweb.models.package_base import popularity
 from aurweb.packages.search import RPCSearch
 
 TYPE_MAPPING = {
@@ -120,16 +121,15 @@ class RPC:
         if not args:
             raise RPCError("No request type/data specified.")
 
-    def _get_json_data(self, package: models.Package) -> dict[str, Any]:
+    def get_json_data(self, package: models.Package) -> dict[str, Any]:
         """Produce dictionary data of one Package that can be JSON-serialized.
 
         :param package: Package instance
         :returns: JSON-serializable dictionary
         """
 
-        # Produce RPC API compatible Popularity: If zero, it's an integer
-        # 0, otherwise, it's formatted to the 6th decimal place.
-        pop = package.Popularity
+        # Normalize Popularity for RPC output to 6 decimal precision
+        pop = popularity(package, time.utcnow())
         pop = 0 if not pop else float(number_format(pop, 6))
 
         snapshot_uri = config.get("options", "snapshot_uri")
@@ -151,8 +151,8 @@ class RPC:
             "LastModified": package.ModifiedTS,
         }
 
-    def _get_info_json_data(self, package: models.Package) -> dict[str, Any]:
-        data = self._get_json_data(package)
+    def get_info_json_data(self, package: models.Package) -> dict[str, Any]:
+        data = self.get_json_data(package)
 
         # All info results have _at least_ an empty list of
         # License and Keywords.
@@ -176,7 +176,7 @@ class RPC:
         """
         return [data_generator(pkg) for pkg in packages]
 
-    def _entities(self, query: orm.Query) -> orm.Query:
+    def entities(self, query: orm.Query) -> orm.Query:
         """Select specific RPC columns on `query`."""
         return query.with_entities(
             models.Package.ID,
@@ -188,38 +188,14 @@ class RPC:
             models.PackageBase.Name.label("PackageBaseName"),
             models.PackageBase.NumVotes,
             models.PackageBase.Popularity,
+            models.PackageBase.PopularityUpdated,
             models.PackageBase.OutOfDateTS,
             models.PackageBase.SubmittedTS,
             models.PackageBase.ModifiedTS,
             models.User.Username.label("Maintainer"),
         ).group_by(models.Package.ID)
 
-    def _handle_multiinfo_type(
-        self, args: list[str] = [], **kwargs
-    ) -> list[dict[str, Any]]:
-        self._enforce_args(args)
-        args = set(args)
-
-        packages = (
-            db.query(models.Package)
-            .join(models.PackageBase)
-            .join(
-                models.User,
-                models.User.ID == models.PackageBase.MaintainerUID,
-                isouter=True,
-            )
-            .filter(models.Package.Name.in_(args))
-        )
-
-        max_results = config.getint("options", "max_rpc_results")
-        packages = self._entities(packages).limit(max_results + 1)
-
-        if packages.count() > max_results:
-            raise RPCError("Too many package results.")
-
-        ids = {pkg.ID for pkg in packages}
-
-        # Aliases for 80-width.
+    def subquery(self, ids: set[int]):
         Package = models.Package
         PackageKeyword = models.PackageKeyword
 
@@ -311,7 +287,33 @@ class RPC:
 
             self.extra_info[record.ID][type_].append(name)
 
-        return self._assemble_json_data(packages, self._get_info_json_data)
+    def _handle_multiinfo_type(
+        self, args: list[str] = [], **kwargs
+    ) -> list[dict[str, Any]]:
+        self._enforce_args(args)
+        args = set(args)
+
+        packages = (
+            db.query(models.Package)
+            .join(models.PackageBase)
+            .join(
+                models.User,
+                models.User.ID == models.PackageBase.MaintainerUID,
+                isouter=True,
+            )
+            .filter(models.Package.Name.in_(args))
+        )
+
+        max_results = config.getint("options", "max_rpc_results")
+        packages = self.entities(packages).limit(max_results + 1)
+
+        if packages.count() > max_results:
+            raise RPCError("Too many package results.")
+
+        ids = {pkg.ID for pkg in packages}
+        self.subquery(ids)
+
+        return self._assemble_json_data(packages, self.get_info_json_data)
 
     def _handle_search_type(
         self, by: str = defaults.RPC_SEARCH_BY, args: list[str] = []
@@ -330,12 +332,12 @@ class RPC:
         search.search_by(by, arg)
 
         max_results = config.getint("options", "max_rpc_results")
-        results = self._entities(search.results()).limit(max_results + 1).all()
+        results = self.entities(search.results()).limit(max_results + 1).all()
 
         if len(results) > max_results:
             raise RPCError("Too many package results.")
 
-        return self._assemble_json_data(results, self._get_json_data)
+        return self._assemble_json_data(results, self.get_json_data)
 
     def _handle_msearch_type(
         self, args: list[str] = [], **kwargs

@@ -76,5 +76,11 @@ packagesmetaextfile = /var/lib/aurweb/archives/packages-meta-ext-v1.json.gz
 pkgbasefile = /var/lib/aurweb/archives/pkgbase.gz
 userfile = /var/lib/aurweb/archives/users.gz
 
+[git-archive]
+metadata-repo = metadata.git
+users-repo = users.git
+pkgbases-repo = pkgbases.git
+pkgnames-repo = pkgnames.git
+
 [aurblup]
 db-path = YOUR_AUR_ROOT/aurblup/

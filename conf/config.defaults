@@ -131,6 +131,18 @@ packagesmetaextfile = /srv/http/aurweb/web/html/packages-meta-ext-v1.json.gz
 pkgbasefile = /srv/http/aurweb/web/html/pkgbase.gz
 userfile = /srv/http/aurweb/web/html/users.gz
 
+[git-archive]
+author = git_archive.py
+author-email = no-reply@archlinux.org
+
+; One week worth of seconds (86400 * 7)
+popularity-interval = 604800
+
+metadata-repo = /srv/http/aurweb/metadata.git
+users-repo = /srv/http/aurweb/users.git
+pkgbases-repo = /srv/http/aurweb/pkgbases.git
+pkgnames-repo = /srv/http/aurweb/pkgnames.git
+
 [devel]
 ; commit_url is a format string used to produce a link to a commit hash.
 commit_url = https://gitlab.archlinux.org/archlinux/aurweb/-/commits/%s

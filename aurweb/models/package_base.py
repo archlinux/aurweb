@@ -64,3 +64,13 @@ class PackageBase(Base):
         if key in PackageBase.TO_FLOAT and not isinstance(attr, float):
             return float(attr)
         return attr
+
+
+def popularity_decay(pkgbase: PackageBase, utcnow: int):
+    """Return the delta between now and the last time popularity was updated, in days"""
+    return int((utcnow - pkgbase.PopularityUpdated.timestamp()) / 86400)
+
+
+def popularity(pkgbase: PackageBase, utcnow: int):
+    """Return up-to-date popularity"""
+    return float(pkgbase.Popularity) * (0.98 ** popularity_decay(pkgbase, utcnow))

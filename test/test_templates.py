@@ -9,6 +9,7 @@ from aurweb.filters import as_timezone, number_format, timestamp_to_datetime as 
 from aurweb.models import Package, PackageBase, User
 from aurweb.models.account_type import USER_ID
 from aurweb.models.license import License
+from aurweb.models.package_base import popularity
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.relation_type import PROVIDES_ID, REPLACES_ID
@@ -287,12 +288,14 @@ def test_package_details(user: User, package: Package):
     """Test package details with most fields populated, but not all."""
     request = Request(user=user, authenticated=True)
     context = make_context(request, "Test Details")
+
     context.update(
         {
             "request": request,
             "git_clone_uri_anon": GIT_CLONE_URI_ANON,
             "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
             "pkgbase": package.PackageBase,
+            "popularity": popularity(package.PackageBase, time.utcnow()),
             "package": package,
             "comaintainers": [],
         }
@@ -329,6 +332,7 @@ def test_package_details_filled(user: User, package: Package):
             "git_clone_uri_anon": GIT_CLONE_URI_ANON,
             "git_clone_uri_priv": GIT_CLONE_URI_PRIV,
             "pkgbase": package.PackageBase,
+            "popularity": popularity(package.PackageBase, time.utcnow()),
             "package": package,
             "comaintainers": [],
             "licenses": package.package_licenses,

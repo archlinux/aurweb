@@ -70,20 +70,48 @@ computations and clean up the database:
 * aurweb-pkgmaint automatically removes empty repositories that were created
   within the last 24 hours but never populated.
 
-* aurweb-mkpkglists generates the package list files; it takes an optional
-  --extended flag, which additionally produces multiinfo metadata. It also
-  generates {archive.gz}.sha256 files that should be located within
+* [Deprecated] aurweb-mkpkglists generates the package list files; it takes
+  an optional --extended flag, which additionally produces multiinfo metadata.
+  It also generates {archive.gz}.sha256 files that should be located within
   mkpkglists.archivedir which contain a SHA-256 hash of their matching
   .gz counterpart.
 
 * aurweb-usermaint removes the last login IP address of all users that did not
   login within the past seven days.
 
+* aurweb-git-archive generates Git repository archives based on a --spec.
+  This script is a new generation of aurweb-mkpkglists, which creates and
+  maintains Git repository versions of the archives produced by
+  aurweb-mkpkglists. See doc/git-archive.md for detailed documentation.
+
 These scripts can be installed by running `poetry install` and are
 usually scheduled using Cron. The current setup is:
 
 ----
-*/5 * * * * poetry run aurweb-mkpkglists [--extended]
+# Run aurweb-git-archive --spec metadata directly after
+# aurweb-mkpkglists so that they are executed sequentially, since
+# both scripts are quite heavy. `aurweb-mkpkglists` should be removed
+# from here once its deprecation period has ended.
+*/5 * * * * poetry run aurweb-mkpkglists [--extended] && poetry run aurweb-git-archive --spec metadata
+
+# Update popularity once an hour. This is done to reduce the amount
+# of changes caused by popularity data. Even if a package is otherwise
+# unchanged, popularity is recalculated every 5 minutes via aurweb-popupdate,
+# which causes changes for a large chunk of packages.
+#
+# At this interval, clients can still take advantage of popularity
+# data, but its updates are guarded behind hour-long intervals.
+*/60 * * * * poetry run aurweb-git-archive --spec popularity
+
+# Usernames
+*/5 * * * * poetry run aurweb-git-archive --spec users
+
+# Package base names
+*/5 * * * * poetry run aurweb-git-archive --spec pkgbases
+
+# Package names
+*/5 * * * * poetry run aurweb-git-archive --spec pkgnames
+
 1 */2 * * * poetry run aurweb-popupdate
 2 */2 * * * poetry run aurweb-aurblup
 3 */2 * * * poetry run aurweb-pkgmaint
