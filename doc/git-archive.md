@@ -24,10 +24,10 @@ configurations.
 
 ## Fetch/Update Archives
 
-When a client has not yet fetched any initial archives, they should clone
-the repository:
+When a client has not yet fetched any initial archives, they should
+shallow-clone the repository:
 
-    $ git clone https://aur.archlinux.org/archive.git aurweb-archive
+    $ git clone --depth=1 https://aur.archlinux.org/archive.git aurweb-archive
 
 When updating, the repository is already cloned and changes need to be pulled
 from remote:
