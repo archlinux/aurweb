@@ -94,15 +94,6 @@ usually scheduled using Cron. The current setup is:
 # from here once its deprecation period has ended.
 */5 * * * * poetry run aurweb-mkpkglists [--extended] && poetry run aurweb-git-archive --spec metadata
 
-# Update popularity once an hour. This is done to reduce the amount
-# of changes caused by popularity data. Even if a package is otherwise
-# unchanged, popularity is recalculated every 5 minutes via aurweb-popupdate,
-# which causes changes for a large chunk of packages.
-#
-# At this interval, clients can still take advantage of popularity
-# data, but its updates are guarded behind hour-long intervals.
-*/60 * * * * poetry run aurweb-git-archive --spec popularity
-
 # Usernames
 */5 * * * * poetry run aurweb-git-archive --spec users
 
