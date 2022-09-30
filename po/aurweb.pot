@@ -2346,3 +2346,7 @@ msgstr ""
 #: templates/partials/packages/package_metadata.html
 msgid "dependencies"
 msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr ""

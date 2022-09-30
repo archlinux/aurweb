@@ -13,7 +13,7 @@ class Session(Base):
 
     User = relationship(
         _User,
-        backref=backref("session", uselist=False),
+        backref=backref("session", cascade="all, delete", uselist=False),
         foreign_keys=[__table__.c.UsersID],
     )
 

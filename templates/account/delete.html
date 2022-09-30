@@ -1,0 +1,43 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Accounts" | tr }}</h2>
+
+        {% include "partials/error.html" %}
+
+        <p>
+        {{
+        "You can use this form to permanently delete the AUR account %s%s%s."
+        | tr | format("<strong>", name, "</strong>") | safe
+        }}
+        </p>
+
+        <p>
+        {{
+        "%sWARNING%s: This action cannot be undone."
+        | tr | format("<strong>", "</strong>") | safe
+        }}
+        </p>
+
+
+        <form id="edit-profile-form" action="{{ '/account/%s/delete' | format(name) }}" method="post">
+            <fieldset>
+                <p>
+                    <label for="id_passwd">{{ "Password" | tr }}:</label>
+                    <input id="id_passwd" type="password" size="30" name="passwd">
+                </p>
+                <p>
+                    <label class="confirmation">
+                        <input type="checkbox" name="confirm">
+                        {{ "Confirm deletion" | tr }}
+                    </label>
+                </p>
+                <p>
+                    <button class="button" type="submit">{{ "Delete" | tr }}</button>
+                </p>
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}

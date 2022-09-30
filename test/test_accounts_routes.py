@@ -1949,3 +1949,106 @@ def test_accounts_unauthorized(client: TestClient, user: User):
         resp = request.get("/accounts", cookies=cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/"
+
+
+def test_account_delete_self_unauthorized(client: TestClient, tu_user: User):
+    with db.begin():
+        user = create_user("some_user")
+        user2 = create_user("user2")
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/account/{user2.Username}/delete"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
+
+        resp = request.post(endpoint, cookies=cookies)
+        assert resp.status_code == HTTPStatus.UNAUTHORIZED
+
+    # But a TU does have access
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with TestClient(app=app) as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == HTTPStatus.OK
+
+
+def test_account_delete_self_not_found(client: TestClient, user: User):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = "/account/non-existent-user/delete"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+        assert resp.status_code == HTTPStatus.NOT_FOUND
+
+        resp = request.post(endpoint, cookies=cookies)
+        assert resp.status_code == HTTPStatus.NOT_FOUND
+
+
+def test_account_delete_self(client: TestClient, user: User):
+    username = user.Username
+
+    # Confirm that we can view our own account deletion page
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/account/{username}/delete"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == HTTPStatus.OK
+
+    # The checkbox must be checked
+    with client as request:
+        resp = request.post(
+            endpoint,
+            data={"passwd": "fakePassword", "confirm": False},
+            cookies=cookies,
+        )
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
+    errors = get_errors(resp.text)
+    assert (
+        errors[0].text.strip()
+        == "The account has not been deleted, check the confirmation checkbox."
+    )
+
+    # The correct password must be supplied
+    with client as request:
+        resp = request.post(
+            endpoint,
+            data={"passwd": "fakePassword", "confirm": True},
+            cookies=cookies,
+        )
+    assert resp.status_code == HTTPStatus.BAD_REQUEST
+    errors = get_errors(resp.text)
+    assert errors[0].text.strip() == "Invalid password."
+
+    # Supply everything correctly and delete ourselves
+    with client as request:
+        resp = request.post(
+            endpoint,
+            data={"passwd": "testPassword", "confirm": True},
+            cookies=cookies,
+        )
+    assert resp.status_code == HTTPStatus.SEE_OTHER
+
+    # Check that our User record no longer exists in the database
+    record = db.query(User).filter(User.Username == username).first()
+    assert record is None
+
+
+def test_account_delete_as_tu(client: TestClient, tu_user: User):
+    with db.begin():
+        user = create_user("user2")
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    username = user.Username
+    endpoint = f"/account/{username}/delete"
+
+    # Delete the user
+    with client as request:
+        resp = request.post(
+            endpoint,
+            data={"passwd": "testPassword", "confirm": True},
+            cookies=cookies,
+        )
+    assert resp.status_code == HTTPStatus.SEE_OTHER
+
+    # Check that our User record no longer exists in the database
+    record = db.query(User).filter(User.Username == username).first()
+    assert record is None

@@ -3,13 +3,13 @@ import typing
 from http import HTTPStatus
 from typing import Any
 
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import and_, or_
 
 import aurweb.config
 from aurweb import cookies, db, l10n, logging, models, util
-from aurweb.auth import account_type_required, requires_auth, requires_guest
+from aurweb.auth import account_type_required, creds, requires_auth, requires_guest
 from aurweb.captcha import get_captcha_salts
 from aurweb.exceptions import ValidationError, handle_form_exceptions
 from aurweb.l10n import get_translator_for_request
@@ -596,6 +596,78 @@ async def accounts_post(
     context["users"] = util.apply_all(users, db.refresh)
 
     return render_template(request, "account/index.html", context)
+
+
+@router.get("/account/{name}/delete")
+@requires_auth
+async def account_delete(request: Request, name: str):
+    user = db.query(models.User).filter(models.User.Username == name).first()
+    if not user:
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
+
+    has_cred = request.user.has_credential(creds.ACCOUNT_EDIT, approved=[user])
+    if not has_cred:
+        _ = l10n.get_translator_for_request(request)
+        raise HTTPException(
+            detail=_("You do not have permission to edit this account."),
+            status_code=HTTPStatus.UNAUTHORIZED,
+        )
+
+    context = make_context(request, "Accounts")
+    context["name"] = name
+    return render_template(request, "account/delete.html", context)
+
+
+@db.async_retry_deadlock
+@router.post("/account/{name}/delete")
+@handle_form_exceptions
+@requires_auth
+async def account_delete_post(
+    request: Request,
+    name: str,
+    passwd: str = Form(default=str()),
+    confirm: bool = Form(default=False),
+):
+    user = db.query(models.User).filter(models.User.Username == name).first()
+    if not user:
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
+
+    has_cred = request.user.has_credential(creds.ACCOUNT_EDIT, approved=[user])
+    if not has_cred:
+        _ = l10n.get_translator_for_request(request)
+        raise HTTPException(
+            detail=_("You do not have permission to edit this account."),
+            status_code=HTTPStatus.UNAUTHORIZED,
+        )
+
+    context = make_context(request, "Accounts")
+    context["name"] = name
+
+    confirm = util.strtobool(confirm)
+    if not confirm:
+        context["errors"] = [
+            "The account has not been deleted, check the confirmation checkbox."
+        ]
+        return render_template(
+            request,
+            "account/delete.html",
+            context,
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+
+    if not request.user.valid_password(passwd):
+        context["errors"] = ["Invalid password."]
+        return render_template(
+            request,
+            "account/delete.html",
+            context,
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+
+    with db.begin():
+        db.delete(user)
+
+    return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
 
 
 def render_terms_of_service(request: Request, context: dict, terms: typing.Iterable):
