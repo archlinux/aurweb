@@ -5,7 +5,7 @@ from typing import Any
 # Publicly visible version of aurweb. This is used to display
 # aurweb versioning in the footer and must be maintained.
 # Todo: Make this dynamic/automated.
-AURWEB_VERSION = "v6.1.6"
+AURWEB_VERSION = "v6.1.7"
 
 _parser = None
 
