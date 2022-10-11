@@ -22,7 +22,7 @@ class Spec(SpecBase):
         base_query = (
             db.query(Package)
             .join(PackageBase)
-            .join(User, PackageBase.MaintainerUID == User.ID)
+            .join(User, PackageBase.MaintainerUID == User.ID, isouter=True)
         )
 
         # Create an instance of RPC, use it to get entities from
