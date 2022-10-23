@@ -201,6 +201,7 @@ PackageKeywords = Table(
         nullable=False,
         server_default=text("''"),
     ),
+    Index("KeywordsPackageBaseID", "PackageBaseID"),
     mysql_engine="InnoDB",
     mysql_charset="utf8mb4",
     mysql_collate="utf8mb4_general_ci",
