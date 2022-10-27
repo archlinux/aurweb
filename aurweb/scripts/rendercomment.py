@@ -46,7 +46,7 @@ class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
         el = Element("a")
         el.set("href", f"https://bugs.archlinux.org/task/{m.group(1)}")
         el.text = markdown.util.AtomicString(m.group(0))
-        return (el, m.start(0), m.end(0))
+        return el, m.start(0), m.end(0)
 
 
 class FlysprayLinksExtension(markdown.extensions.Extension):
@@ -74,7 +74,7 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
         oid = m.group(1)
         if oid not in self._repo:
             # Unknown OID; preserve the orginal text.
-            return (None, None, None)
+            return None, None, None
 
         el = Element("a")
         commit_uri = aurweb.config.get("options", "commit_uri")
@@ -83,7 +83,7 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
             "href", commit_uri % (quote_plus(self._head), quote_plus(oid[:prefixlen]))
         )
         el.text = markdown.util.AtomicString(oid[:prefixlen])
-        return (el, m.start(0), m.end(0))
+        return el, m.start(0), m.end(0)
 
 
 class GitCommitsExtension(markdown.extensions.Extension):

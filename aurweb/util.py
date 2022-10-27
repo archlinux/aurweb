@@ -107,7 +107,7 @@ def sanitize_params(offset: str, per_page: str) -> Tuple[int, int]:
     except ValueError:
         per_page = defaults.PP
 
-    return (offset, per_page)
+    return offset, per_page
 
 
 def strtobool(value: Union[str, bool]) -> bool:
@@ -187,7 +187,7 @@ def parse_ssh_key(string: str) -> Tuple[str, str]:
     if proc.returncode:
         raise invalid_exc
 
-    return (prefix, key)
+    return prefix, key
 
 
 def parse_ssh_keys(string: str) -> list[Tuple[str, str]]:
@@ -199,4 +199,4 @@ def shell_exec(cmdline: str, cwd: str) -> Tuple[int, str, str]:
     args = shlex.split(cmdline)
     proc = Popen(args, cwd=cwd, stdout=PIPE, stderr=PIPE)
     out, err = proc.communicate()
-    return (proc.returncode, out.decode().strip(), err.decode().strip())
+    return proc.returncode, out.decode().strip(), err.decode().strip()

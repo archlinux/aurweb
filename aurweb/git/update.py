@@ -52,7 +52,7 @@ def parse_dep(depstring):
     depname = re.sub(r"(<|=|>).*", "", dep)
     depcond = dep[len(depname) :]
 
-    return (depname, desc, depcond)
+    return depname, desc, depcond
 
 
 def create_pkgbase(conn, pkgbase, user):

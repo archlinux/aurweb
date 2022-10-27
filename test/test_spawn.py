@@ -24,7 +24,7 @@ class FakeProcess:
         """We need this constructor to remain compatible with Popen."""
 
     def communicate(self) -> Tuple[bytes, bytes]:
-        return (self.stdout, self.stderr)
+        return self.stdout, self.stderr
 
     def terminate(self) -> None:
         raise Exception("Fake termination.")

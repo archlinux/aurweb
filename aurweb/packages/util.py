@@ -239,12 +239,12 @@ def source_uri(pkgsrc: models.PackageSource) -> Tuple[str, str]:
        the package base name.
 
     :param pkgsrc: PackageSource instance
-    :return (text, uri) tuple
+    :return text, uri)tuple
     """
     if "::" in pkgsrc.Source:
         return pkgsrc.Source.split("::", 1)
     elif "://" in pkgsrc.Source:
-        return (pkgsrc.Source, pkgsrc.Source)
+        return pkgsrc.Source, pkgsrc.Source
     path = config.get("options", "source_file_uri")
     pkgbasename = pkgsrc.Package.PackageBase.Name
-    return (pkgsrc.Source, path % (pkgsrc.Source, pkgbasename))
+    return pkgsrc.Source, path % (pkgsrc.Source, pkgbasename)

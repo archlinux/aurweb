@@ -127,7 +127,7 @@ class BasicAuthBackend(AuthenticationBackend):
         user.nonce = util.make_nonce()
         user.authenticated = True
 
-        return (AuthCredentials(["authenticated"]), user)
+        return AuthCredentials(["authenticated"]), user
 
 
 def _auth_required(auth_goal: bool = True):

@@ -42,7 +42,7 @@ def email_pieces(voteinfo: TUVoteInfo) -> Tuple[str, str]:
         f"[1]. The voting period\nends in less than 48 hours.\n\n"
         f"[1] {aur_location}/tu/?id={voteinfo.ID}"
     )
-    return (subject, content)
+    return subject, content
 
 
 @pytest.fixture

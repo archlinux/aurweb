@@ -160,9 +160,9 @@ def process_account_form(request: Request, user: models.User, args: dict[str, An
         for check in checks:
             check(**args, request=request, user=user, _=_)
     except ValidationError as exc:
-        return (False, exc.data)
+        return False, exc.data
 
-    return (True, [])
+    return True, []
 
 
 def make_account_form_context(

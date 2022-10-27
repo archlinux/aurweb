@@ -1315,7 +1315,7 @@ def test_packages_post_unknown_action(client: TestClient, user: User, package: P
 
 def test_packages_post_error(client: TestClient, user: User, package: Package):
     async def stub_action(request: Request, **kwargs):
-        return (False, ["Some error."])
+        return False, ["Some error."]
 
     actions = {"stub": stub_action}
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
@@ -1336,7 +1336,7 @@ def test_packages_post_error(client: TestClient, user: User, package: Package):
 
 def test_packages_post(client: TestClient, user: User, package: Package):
     async def stub_action(request: Request, **kwargs):
-        return (True, ["Some success."])
+        return True, ["Some success."]
 
     actions = {"stub": stub_action}
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):

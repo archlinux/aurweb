@@ -213,7 +213,7 @@ async def package(
 
 async def packages_unflag(request: Request, package_ids: list[int] = [], **kwargs):
     if not package_ids:
-        return (False, ["You did not select any packages to unflag."])
+        return False, ["You did not select any packages to unflag."]
 
     # Holds the set of package bases we're looking to unflag.
     # Constructed below via looping through the packages query.
@@ -226,14 +226,14 @@ async def packages_unflag(request: Request, package_ids: list[int] = [], **kwarg
             creds.PKGBASE_UNFLAG, approved=[pkg.PackageBase.Flagger]
         )
         if not has_cred:
-            return (False, ["You did not select any packages to unflag."])
+            return False, ["You did not select any packages to unflag."]
 
         if pkg.PackageBase not in bases:
             bases.update({pkg.PackageBase})
 
     for pkgbase in bases:
         pkgbase_actions.pkgbase_unflag_instance(request, pkgbase)
-    return (True, ["The selected packages have been unflagged."])
+    return True, ["The selected packages have been unflagged."]
 
 
 async def packages_notify(request: Request, package_ids: list[int] = [], **kwargs):
@@ -271,13 +271,13 @@ async def packages_notify(request: Request, package_ids: list[int] = [], **kwarg
         pkgbase_actions.pkgbase_notify_instance(request, pkgbase)
 
     # TODO: This message does not yet have a translation.
-    return (True, ["The selected packages' notifications have been enabled."])
+    return True, ["The selected packages' notifications have been enabled."]
 
 
 async def packages_unnotify(request: Request, package_ids: list[int] = [], **kwargs):
     if not package_ids:
         # TODO: This error does not yet have a translation.
-        return (False, ["You did not select any packages for notification removal."])
+        return False, ["You did not select any packages for notification removal."]
 
     # TODO: This error does not yet have a translation.
     error_tuple = (
@@ -307,14 +307,14 @@ async def packages_unnotify(request: Request, package_ids: list[int] = [], **kwa
         pkgbase_actions.pkgbase_unnotify_instance(request, pkgbase)
 
     # TODO: This message does not yet have a translation.
-    return (True, ["The selected packages' notifications have been removed."])
+    return True, ["The selected packages' notifications have been removed."]
 
 
 async def packages_adopt(
     request: Request, package_ids: list[int] = [], confirm: bool = False, **kwargs
 ):
     if not package_ids:
-        return (False, ["You did not select any packages to adopt."])
+        return False, ["You did not select any packages to adopt."]
 
     if not confirm:
         return (
@@ -347,7 +347,7 @@ async def packages_adopt(
     for pkgbase in bases:
         pkgbase_actions.pkgbase_adopt_instance(request, pkgbase)
 
-    return (True, ["The selected packages have been adopted."])
+    return True, ["The selected packages have been adopted."]
 
 
 def disown_all(request: Request, pkgbases: list[models.PackageBase]) -> list[str]:
@@ -364,7 +364,7 @@ async def packages_disown(
     request: Request, package_ids: list[int] = [], confirm: bool = False, **kwargs
 ):
     if not package_ids:
-        return (False, ["You did not select any packages to disown."])
+        return False, ["You did not select any packages to disown."]
 
     if not confirm:
         return (
@@ -397,9 +397,9 @@ async def packages_disown(
 
     # Now, disown all the bases if we can.
     if errors := disown_all(request, bases):
-        return (False, errors)
+        return False, errors
 
-    return (True, ["The selected packages have been disowned."])
+    return True, ["The selected packages have been disowned."]
 
 
 async def packages_delete(
@@ -410,7 +410,7 @@ async def packages_delete(
     **kwargs,
 ):
     if not package_ids:
-        return (False, ["You did not select any packages to delete."])
+        return False, ["You did not select any packages to delete."]
 
     if not confirm:
         return (
@@ -422,7 +422,7 @@ async def packages_delete(
         )
 
     if not request.user.has_credential(creds.PKGBASE_DELETE):
-        return (False, ["You do not have permission to delete packages."])
+        return False, ["You do not have permission to delete packages."]
 
     # set-ify package_ids and query the database for related records.
     package_ids = set(package_ids)
@@ -432,7 +432,7 @@ async def packages_delete(
         # Let the user know there was an issue with their input: they have
         # provided at least one package_id which does not exist in the DB.
         # TODO: This error has not yet been translated.
-        return (False, ["One of the packages you selected does not exist."])
+        return False, ["One of the packages you selected does not exist."]
 
     # Make a set out of all package bases related to `packages`.
     bases = {pkg.PackageBase for pkg in packages}
@@ -448,7 +448,7 @@ async def packages_delete(
     )
 
     util.apply_all(notifs, lambda n: n.send())
-    return (True, ["The selected packages have been deleted."])
+    return True, ["The selected packages have been deleted."]
 
 
 # A mapping of action string -> callback functions used within the
