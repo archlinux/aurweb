@@ -1398,6 +1398,10 @@ msgid ""
 "the Arch User Repository."
 msgstr ""
 
+#: templates/partials/account_form.html
+msgid "Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr ""
+
 #: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr ""

@@ -264,6 +264,13 @@
             <textarea id="id_ssh" name="PK"
                       rows="5" cols="30">{{ ssh_pks | join("\n") }}</textarea>
         </p>
+        <p>
+            <em>
+                {{
+                    "Specify multiple SSH Keys separated by new line, empty lines are ignored." | tr
+                }}
+            </em>
+        </p>
     </fieldset>
 
     <fieldset>
