@@ -24,7 +24,6 @@ import io
 import os
 import shutil
 import sys
-import tempfile
 from collections import defaultdict
 from typing import Any
 
@@ -219,10 +218,9 @@ def _main():
     output = list()
     snapshot_uri = aurweb.config.get("options", "snapshot_uri")
 
-    tmpdir = tempfile.mkdtemp()
-    tmp_packages = os.path.join(tmpdir, os.path.basename(PACKAGES))
-    tmp_meta = os.path.join(tmpdir, os.path.basename(META))
-    tmp_metaext = os.path.join(tmpdir, os.path.basename(META_EXT))
+    tmp_packages = f"{PACKAGES}.tmp"
+    tmp_meta = f"{META}.tmp"
+    tmp_metaext = f"{META_EXT}.tmp"
     gzips = {
         "packages": gzip.open(tmp_packages, "wt"),
         "meta": gzip.open(tmp_meta, "wb"),
@@ -276,13 +274,13 @@ def _main():
 
     # Produce pkgbase.gz
     query = db.query(PackageBase.Name).filter(PackageBase.PackagerUID.isnot(None)).all()
-    tmp_pkgbase = os.path.join(tmpdir, os.path.basename(PKGBASE))
+    tmp_pkgbase = f"{PKGBASE}.tmp"
     with gzip.open(tmp_pkgbase, "wt") as f:
         f.writelines([f"{base.Name}\n" for i, base in enumerate(query)])
 
     # Produce users.gz
     query = db.query(User.Username).all()
-    tmp_users = os.path.join(tmpdir, os.path.basename(USERS))
+    tmp_users = f"{USERS}.tmp"
     with gzip.open(tmp_users, "wt") as f:
         f.writelines([f"{user.Username}\n" for i, user in enumerate(query)])
 
@@ -297,7 +295,7 @@ def _main():
 
     for src, dst in files:
         checksum = sha256sum(src)
-        base = os.path.basename(src)
+        base = os.path.basename(dst)
         checksum_formatted = f"SHA256 ({base}) = {checksum}"
 
         checksum_file = f"{dst}.sha256"
@@ -307,7 +305,6 @@ def _main():
         # Move the new archive into its rightful place.
         shutil.move(src, dst)
 
-    os.removedirs(tmpdir)
     seconds = filters.number_format(bench.end(), 4)
     logger.info(f"Completed in {seconds} seconds.")
 
