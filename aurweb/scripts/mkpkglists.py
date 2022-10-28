@@ -163,6 +163,7 @@ def as_dict(package: Package) -> dict[str, Any]:
         "Popularity": float(package.Popularity),
         "OutOfDate": package.OutOfDate,
         "Maintainer": package.Maintainer,
+        "Submitter": package.Submitter,
         "FirstSubmitted": package.FirstSubmitted,
         "LastModified": package.LastModified,
     }
@@ -190,10 +191,13 @@ def _main():
     logger.warning(f"{sys.argv[0]} is deprecated and will be soon be removed")
     logger.info("Started re-creating archives, wait a while...")
 
+    Submitter = orm.aliased(User)
+
     query = (
         db.query(Package)
         .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
         .join(User, PackageBase.MaintainerUID == User.ID, isouter=True)
+        .join(Submitter, PackageBase.SubmitterUID == Submitter.ID, isouter=True)
         .filter(PackageBase.PackagerUID.isnot(None))
         .with_entities(
             Package.ID,
@@ -207,6 +211,7 @@ def _main():
             PackageBase.Popularity,
             PackageBase.OutOfDateTS.label("OutOfDate"),
             User.Username.label("Maintainer"),
+            Submitter.Username.label("Submitter"),
             PackageBase.SubmittedTS.label("FirstSubmitted"),
             PackageBase.ModifiedTS.label("LastModified"),
         )

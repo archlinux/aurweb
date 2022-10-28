@@ -30,6 +30,7 @@ META_KEYS = [
     "Popularity",
     "OutOfDate",
     "Maintainer",
+    "Submitter",
     "FirstSubmitted",
     "LastModified",
     "URLPath",
@@ -61,7 +62,12 @@ def packages(user: User) -> list[Package]:
         lic = db.create(License, Name="GPL")
         for i in range(5):
             # Create the package.
-            pkgbase = db.create(PackageBase, Name=f"pkgbase_{i}", Packager=user)
+            pkgbase = db.create(
+                PackageBase,
+                Name=f"pkgbase_{i}",
+                Packager=user,
+                Submitter=user,
+            )
             pkg = db.create(Package, PackageBase=pkgbase, Name=f"pkg_{i}")
 
             # Create some related records.
