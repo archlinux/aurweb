@@ -94,7 +94,7 @@ def get_extended_fields():
             models.PackageDependency.DepName.label("Name"),
             models.PackageDependency.DepCondition.label("Cond"),
         )
-        .distinct()
+        .distinct()  # A package could have the same dependency multiple times
         .order_by("Name"),
         # PackageRelation
         db.query(models.PackageRelation)
@@ -105,7 +105,7 @@ def get_extended_fields():
             models.PackageRelation.RelName.label("Name"),
             models.PackageRelation.RelCondition.label("Cond"),
         )
-        .distinct()
+        .distinct()  # A package could have the same relation multiple times
         .order_by("Name"),
         # Groups
         db.query(models.PackageGroup)
@@ -116,7 +116,6 @@ def get_extended_fields():
             models.Group.Name.label("Name"),
             literal(str()).label("Cond"),
         )
-        .distinct()
         .order_by("Name"),
         # Licenses
         db.query(models.PackageLicense)
@@ -127,7 +126,6 @@ def get_extended_fields():
             models.License.Name.label("Name"),
             literal(str()).label("Cond"),
         )
-        .distinct()
         .order_by("Name"),
         # Keywords
         db.query(models.PackageKeyword)
@@ -140,7 +138,6 @@ def get_extended_fields():
             models.PackageKeyword.Keyword.label("Name"),
             literal(str()).label("Cond"),
         )
-        .distinct()
         .order_by("Name"),
         # Co-Maintainer
         db.query(models.PackageComaintainer)
@@ -155,7 +152,7 @@ def get_extended_fields():
             models.User.Username.label("Name"),
             literal(str()).label("Cond"),
         )
-        .distinct()
+        .distinct()  # A package could have the same co-maintainer multiple times
         .order_by("Name"),
     ]
     query = subqueries[0].union_all(*subqueries[1:])
@@ -230,7 +227,6 @@ def _main():
             PackageBase.SubmittedTS.label("FirstSubmitted"),
             PackageBase.ModifiedTS.label("LastModified"),
         )
-        .distinct()
         .order_by("Name")
     )
 
