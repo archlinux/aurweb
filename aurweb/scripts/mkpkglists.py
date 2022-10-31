@@ -242,8 +242,10 @@ def _main():
     tmp_meta = f"{META}.tmp"
     tmp_metaext = f"{META_EXT}.tmp"
     gzips = {
-        "packages": gzip.open(tmp_packages, "wt"),
-        "meta": gzip.open(tmp_meta, "wb"),
+        "packages": gzip.GzipFile(
+            filename=PACKAGES, mode="wb", fileobj=open(tmp_packages, "wb")
+        ),
+        "meta": gzip.GzipFile(filename=META, mode="wb", fileobj=open(tmp_meta, "wb")),
     }
 
     # Append list opening to the metafile.
@@ -252,7 +254,9 @@ def _main():
     # Produce packages.gz + packages-meta-ext-v1.json.gz
     extended = False
     if len(sys.argv) > 1 and sys.argv[1] in EXTENDED_FIELD_HANDLERS:
-        gzips["meta_ext"] = gzip.open(tmp_metaext, "wb")
+        gzips["meta_ext"] = gzip.GzipFile(
+            filename=META_EXT, mode="wb", fileobj=open(tmp_metaext, "wb")
+        )
         # Append list opening to the meta_ext file.
         gzips.get("meta_ext").write(b"[\n")
         f = EXTENDED_FIELD_HANDLERS.get(sys.argv[1])
@@ -261,28 +265,29 @@ def _main():
 
     results = query.all()
     n = len(results) - 1
-    for i, result in enumerate(results):
-        # Append to packages.gz.
-        gzips.get("packages").write(f"{result.Name}\n")
+    with io.TextIOWrapper(gzips.get("packages")) as p:
+        for i, result in enumerate(results):
+            # Append to packages.gz.
+            p.write(f"{result.Name}\n")
 
-        # Construct our result JSON dictionary.
-        item = as_dict(result)
-        item["URLPath"] = snapshot_uri % result.Name
+            # Construct our result JSON dictionary.
+            item = as_dict(result)
+            item["URLPath"] = snapshot_uri % result.Name
 
-        # We stream out package json objects line per line, so
-        # we also need to include the ',' character at the end
-        # of package lines (excluding the last package).
-        suffix = b",\n" if i < n else b"\n"
+            # We stream out package json objects line per line, so
+            # we also need to include the ',' character at the end
+            # of package lines (excluding the last package).
+            suffix = b",\n" if i < n else b"\n"
 
-        # Write out to packagesmetafile
-        output.append(item)
-        gzips.get("meta").write(orjson.dumps(output[-1]) + suffix)
+            # Write out to packagesmetafile
+            output.append(item)
+            gzips.get("meta").write(orjson.dumps(output[-1]) + suffix)
 
-        if extended:
-            # Write out to packagesmetaextfile.
-            data_ = data.get(result.ID, {})
-            output[-1].update(data_)
-            gzips.get("meta_ext").write(orjson.dumps(output[-1]) + suffix)
+            if extended:
+                # Write out to packagesmetaextfile.
+                data_ = data.get(result.ID, {})
+                output[-1].update(data_)
+                gzips.get("meta_ext").write(orjson.dumps(output[-1]) + suffix)
 
     # Append the list closing to meta/meta_ext.
     gzips.get("meta").write(b"]")
@@ -295,13 +300,17 @@ def _main():
     # Produce pkgbase.gz
     query = db.query(PackageBase.Name).filter(PackageBase.PackagerUID.isnot(None)).all()
     tmp_pkgbase = f"{PKGBASE}.tmp"
-    with gzip.open(tmp_pkgbase, "wt") as f:
+    pkgbase_gzip = gzip.GzipFile(
+        filename=PKGBASE, mode="wb", fileobj=open(tmp_pkgbase, "wb")
+    )
+    with io.TextIOWrapper(pkgbase_gzip) as f:
         f.writelines([f"{base.Name}\n" for i, base in enumerate(query)])
 
     # Produce users.gz
     query = db.query(User.Username).all()
     tmp_users = f"{USERS}.tmp"
-    with gzip.open(tmp_users, "wt") as f:
+    users_gzip = gzip.GzipFile(filename=USERS, mode="wb", fileobj=open(tmp_users, "wb"))
+    with io.TextIOWrapper(users_gzip) as f:
         f.writelines([f"{user.Username}\n" for i, user in enumerate(query)])
 
     files = [
