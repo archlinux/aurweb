@@ -11,6 +11,7 @@ from aurweb.models import (
     License,
     Package,
     PackageBase,
+    PackageComaintainer,
     PackageDependency,
     PackageLicense,
     User,
@@ -79,6 +80,7 @@ def packages(user: User) -> list[Package]:
                 DepName=f"dep_{i}",
                 DepCondition=">=1.0",
             )
+            db.create(PackageComaintainer, User=user, PackageBase=pkgbase, Priority=1)
 
             # Add the package to our output list.
             output.append(pkg)
@@ -229,6 +231,7 @@ def test_mkpkglists_extended(config_mock: None, user: User, packages: list[Packa
             assert key in pkg, f"{pkg=} record does not have {key=}"
         assert isinstance(pkg["Depends"], list)
         assert isinstance(pkg["License"], list)
+        assert isinstance(pkg["CoMaintainers"], list)
 
     for file in (PACKAGES, PKGBASE, USERS, META, META_EXT):
         with open(f"{file}.sha256") as f:

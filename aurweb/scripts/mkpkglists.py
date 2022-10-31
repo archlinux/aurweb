@@ -142,6 +142,21 @@ def get_extended_fields():
         )
         .distinct()
         .order_by("Name"),
+        # Co-Maintainer
+        db.query(models.PackageComaintainer)
+        .join(models.User, models.User.ID == models.PackageComaintainer.UsersID)
+        .join(
+            models.Package,
+            models.Package.PackageBaseID == models.PackageComaintainer.PackageBaseID,
+        )
+        .with_entities(
+            models.Package.ID,
+            literal("CoMaintainers").label("Type"),
+            models.User.Username.label("Name"),
+            literal(str()).label("Cond"),
+        )
+        .distinct()
+        .order_by("Name"),
     ]
     query = subqueries[0].union_all(*subqueries[1:])
     return get_extended_dict(query)
