@@ -284,6 +284,22 @@ class RPC:
             )
             .distinct()
             .order_by("Name"),
+            # Co-Maintainer
+            db.query(models.PackageComaintainer)
+            .join(models.User, models.User.ID == models.PackageComaintainer.UsersID)
+            .join(
+                models.Package,
+                models.Package.PackageBaseID
+                == models.PackageComaintainer.PackageBaseID,
+            )
+            .with_entities(
+                models.Package.ID,
+                literal("CoMaintainers").label("Type"),
+                models.User.Username.label("Name"),
+                literal(str()).label("Cond"),
+            )
+            .distinct()  # A package could have the same co-maintainer multiple times
+            .order_by("Name"),
         ]
 
         # Union all subqueries together.

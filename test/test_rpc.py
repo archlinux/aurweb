@@ -272,6 +272,33 @@ def relations(user: User, packages: list[Package]) -> list[PackageRelation]:
     yield output
 
 
+@pytest.fixture
+def comaintainer(
+    user2: User, user3: User, packages: list[Package]
+) -> list[PackageComaintainer]:
+    output = []
+
+    with db.begin():
+        comaintainer = db.create(
+            PackageComaintainer,
+            User=user2,
+            PackageBase=packages[0].PackageBase,
+            Priority=1,
+        )
+        output.append(comaintainer)
+
+        comaintainer = db.create(
+            PackageComaintainer,
+            User=user3,
+            PackageBase=packages[0].PackageBase,
+            Priority=1,
+        )
+        output.append(comaintainer)
+
+    # Finally, yield the packages.
+    yield output
+
+
 @pytest.fixture(autouse=True)
 def setup(db_test):
     # Create some extra package relationships.
@@ -321,6 +348,7 @@ def test_rpc_singular_info(
     packages: list[Package],
     depends: list[PackageDependency],
     relations: list[PackageRelation],
+    comaintainer: list[PackageComaintainer],
 ):
     # Define expected response.
     pkg = packages[0]
@@ -343,6 +371,7 @@ def test_rpc_singular_info(
                 "MakeDepends": ["chungus-makedepends"],
                 "CheckDepends": ["chungus-checkdepends"],
                 "Conflicts": ["chungus-conflicts"],
+                "CoMaintainers": ["user2", "user3"],
                 "Provides": ["chungus-provides<=200"],
                 "Replaces": ["chungus-replaces<=200"],
                 "License": [pkg.package_licenses.first().License.Name],
