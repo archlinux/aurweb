@@ -42,7 +42,7 @@
         <p>
 	{{ "If you want to discuss a request, you can use the %saur-requests%s mailing list. However, please do not use that list to file requests."
            | tr
-           | format('<a href="https://mailman.archlinux.org/mailman/listinfo/aur-requests">', "</a>")
+           | format('<a href="https://lists.archlinux.org/mailman3/lists/aur-requests.lists.archlinux.org/">', "</a>")
            | safe
         }}
         </p>
@@ -72,8 +72,8 @@
         <p>
         {{ "General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. For discussion relating to the development of the AUR web interface, use the %saur-dev%s mailing list."
            | tr
-           | format('<a href="https://mailman.archlinux.org/mailman/listinfo/aur-general">', "</a>",
-                    '<a href="https://mailman.archlinux.org/mailman/listinfo/aur-dev">', "</a>")
+           | format('<a href="https://lists.archlinux.org/mailman3/lists/aur-general.lists.archlinux.org/">', "</a>",
+                    '<a href="https://lists.archlinux.org/mailman3/lists/aur-dev.lists.archlinux.org/">', "</a>")
            | safe
         }}
         <p>
