@@ -13,10 +13,12 @@ from aurweb import asgi, config, db, rpc, scripts, time
 from aurweb.aur_redis import redis_connection
 from aurweb.models.account_type import USER_ID
 from aurweb.models.dependency_type import DEPENDS_ID
+from aurweb.models.group import Group
 from aurweb.models.license import License
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_dependency import PackageDependency
+from aurweb.models.package_group import PackageGroup
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_relation import PackageRelation
@@ -139,10 +141,13 @@ def packages(user: User, user2: User, user3: User) -> list[Package]:
         output.append(pkg)
 
     # Setup a few more related records on the first package:
-    # a license, some keywords and some votes.
+    # a license, group, some keywords and some votes.
     with db.begin():
         lic = db.create(License, Name="GPL")
         db.create(PackageLicense, Package=output[0], License=lic)
+
+        grp = db.create(Group, Name="testgroup")
+        db.create(PackageGroup, Package=output[0], Group=grp)
 
         for keyword in ["big-chungus", "smol-chungus", "sizeable-chungus"]:
             db.create(
@@ -326,6 +331,7 @@ def test_rpc_singular_info(
                 "Replaces": ["chungus-replaces<=200"],
                 "License": [pkg.package_licenses.first().License.Name],
                 "Keywords": ["big-chungus", "sizeable-chungus", "smol-chungus"],
+                "Groups": ["testgroup"],
             }
         ],
         "resultcount": 1,
@@ -880,6 +886,23 @@ def test_rpc_search_replaces(
     client: TestClient, packages: list[Package], relations: list[PackageRelation]
 ):
     params = {"v": 5, "type": "search", "by": "replaces", "arg": "chungus-replaces"}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == packages[0].Name
+
+
+def test_rpc_search_groups(
+    client: TestClient, packages: list[Package], depends: list[PackageDependency]
+):
+    params = {
+        "v": 5,
+        "type": "search",
+        "by": "groups",
+        "arg": "testgroup",
+    }
     with client as request:
         response = request.get("/rpc", params=params)
     data = response.json()

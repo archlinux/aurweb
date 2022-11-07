@@ -86,6 +86,7 @@ class RPC:
         "provides",
         "conflicts",
         "replaces",
+        "groups",
     }
 
     # A mapping of by aliases.

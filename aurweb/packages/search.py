@@ -3,7 +3,7 @@ from typing import Set
 from sqlalchemy import and_, case, or_, orm
 
 from aurweb import db, models
-from aurweb.models import Package, PackageBase, User
+from aurweb.models import Group, Package, PackageBase, User
 from aurweb.models.dependency_type import (
     CHECKDEPENDS_ID,
     DEPENDS_ID,
@@ -11,6 +11,7 @@ from aurweb.models.dependency_type import (
     OPTDEPENDS_ID,
 )
 from aurweb.models.package_comaintainer import PackageComaintainer
+from aurweb.models.package_group import PackageGroup
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_vote import PackageVote
@@ -290,6 +291,7 @@ class RPCSearch(PackageSearch):
                 "provides": self._search_by_provides,
                 "conflicts": self._search_by_conflicts,
                 "replaces": self._search_by_replaces,
+                "groups": self._search_by_groups,
             }
         )
 
@@ -318,6 +320,14 @@ class RPCSearch(PackageSearch):
         self.query = self.query.join(models.PackageRelation).filter(
             models.PackageRelation.RelTypeID == rel_type_id
         )
+        return self.query
+
+    def _join_groups(self) -> orm.Query:
+        """Join Package with PackageGroup and Group.
+
+        :returns: PackageGroup/Group-joined orm.Query
+        """
+        self.query = self.query.join(PackageGroup).join(Group)
         return self.query
 
     def _search_by_depends(self, keywords: str) -> "RPCSearch":
@@ -360,6 +370,11 @@ class RPCSearch(PackageSearch):
         self.query = self._join_relations(REPLACES_ID).filter(
             models.PackageRelation.RelName == keywords
         )
+        return self
+
+    def _search_by_groups(self, keywords: str) -> orm.Query:
+        self._join_groups()
+        self.query = self.query.filter(Group.Name == keywords)
         return self
 
     def search_by(self, by: str, keywords: str) -> "RPCSearch":
