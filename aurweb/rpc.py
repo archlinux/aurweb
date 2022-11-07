@@ -83,6 +83,9 @@ class RPC:
         "makedepends",
         "optdepends",
         "checkdepends",
+        "provides",
+        "conflicts",
+        "replaces",
     }
 
     # A mapping of by aliases.

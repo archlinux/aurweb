@@ -852,6 +852,42 @@ def test_rpc_search_checkdepends(
     assert result.get("Name") == packages[0].Name
 
 
+def test_rpc_search_provides(
+    client: TestClient, packages: list[Package], relations: list[PackageRelation]
+):
+    params = {"v": 5, "type": "search", "by": "provides", "arg": "chungus-provides"}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == packages[0].Name
+
+
+def test_rpc_search_conflicts(
+    client: TestClient, packages: list[Package], relations: list[PackageRelation]
+):
+    params = {"v": 5, "type": "search", "by": "conflicts", "arg": "chungus-conflicts"}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == packages[0].Name
+
+
+def test_rpc_search_replaces(
+    client: TestClient, packages: list[Package], relations: list[PackageRelation]
+):
+    params = {"v": 5, "type": "search", "by": "replaces", "arg": "chungus-replaces"}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == packages[0].Name
+
+
 def test_rpc_incorrect_by(client: TestClient):
     params = {"v": 5, "type": "search", "by": "fake", "arg": "big"}
     with client as request:

@@ -14,6 +14,7 @@ from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_vote import PackageVote
+from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 
 
 class PackageSearch:
@@ -286,6 +287,9 @@ class RPCSearch(PackageSearch):
                 "makedepends": self._search_by_makedepends,
                 "optdepends": self._search_by_optdepends,
                 "checkdepends": self._search_by_checkdepends,
+                "provides": self._search_by_provides,
+                "conflicts": self._search_by_conflicts,
+                "replaces": self._search_by_replaces,
             }
         )
 
@@ -301,6 +305,18 @@ class RPCSearch(PackageSearch):
         """
         self.query = self.query.join(models.PackageDependency).filter(
             models.PackageDependency.DepTypeID == dep_type_id
+        )
+        return self.query
+
+    def _join_relations(self, rel_type_id: int) -> orm.Query:
+        """Join Package with PackageRelation and filter results
+        based on `rel_type_id`.
+
+        :param rel_type_id: RelationType ID
+        :returns: PackageRelation-joined orm.Query
+        """
+        self.query = self.query.join(models.PackageRelation).filter(
+            models.PackageRelation.RelTypeID == rel_type_id
         )
         return self.query
 
@@ -325,6 +341,24 @@ class RPCSearch(PackageSearch):
     def _search_by_checkdepends(self, keywords: str) -> "RPCSearch":
         self.query = self._join_depends(CHECKDEPENDS_ID).filter(
             models.PackageDependency.DepName == keywords
+        )
+        return self
+
+    def _search_by_provides(self, keywords: str) -> "RPCSearch":
+        self.query = self._join_relations(PROVIDES_ID).filter(
+            models.PackageRelation.RelName == keywords
+        )
+        return self
+
+    def _search_by_conflicts(self, keywords: str) -> "RPCSearch":
+        self.query = self._join_relations(CONFLICTS_ID).filter(
+            models.PackageRelation.RelName == keywords
+        )
+        return self
+
+    def _search_by_replaces(self, keywords: str) -> "RPCSearch":
+        self.query = self._join_relations(REPLACES_ID).filter(
+            models.PackageRelation.RelName == keywords
         )
         return self
 
