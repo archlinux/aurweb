@@ -87,10 +87,11 @@ class RPC:
         "conflicts",
         "replaces",
         "groups",
+        "submitter",
     }
 
     # A mapping of by aliases.
-    BY_ALIASES = {"name-desc": "nd", "name": "n", "maintainer": "m"}
+    BY_ALIASES = {"name-desc": "nd", "name": "n", "maintainer": "m", "submitter": "s"}
 
     def __init__(self, version: int = 0, type: str = None) -> "RPC":
         self.version = version

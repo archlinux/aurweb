@@ -81,7 +81,11 @@ def packages(user: User, user2: User, user3: User) -> list[Package]:
     # Create package records used in our tests.
     with db.begin():
         pkgbase = db.create(
-            PackageBase, Name="big-chungus", Maintainer=user, Packager=user
+            PackageBase,
+            Name="big-chungus",
+            Maintainer=user,
+            Packager=user,
+            Submitter=user2,
         )
         pkg = db.create(
             Package,
@@ -93,7 +97,11 @@ def packages(user: User, user2: User, user3: User) -> list[Package]:
         output.append(pkg)
 
         pkgbase = db.create(
-            PackageBase, Name="chungy-chungus", Maintainer=user, Packager=user
+            PackageBase,
+            Name="chungy-chungus",
+            Maintainer=user,
+            Packager=user,
+            Submitter=user2,
         )
         pkg = db.create(
             Package,
@@ -909,6 +917,25 @@ def test_rpc_search_groups(
     assert data.get("resultcount") == 1
     result = data.get("results")[0]
     assert result.get("Name") == packages[0].Name
+
+
+def test_rpc_search_submitter(client: TestClient, user2: User, packages: list[Package]):
+    params = {"v": 5, "type": "search", "by": "submitter", "arg": user2.Username}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+
+    # user2 submitted 2 packages
+    assert data.get("resultcount") == 2
+    names = list(sorted(r.get("Name") for r in data.get("results")))
+    expected_results = ["big-chungus", "chungy-chungus"]
+    assert names == expected_results
+
+    # Search for a non-existent submitter, giving us zero packages.
+    params["arg"] = "blah-blah"
+    response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data.get("resultcount") == 0
 
 
 def test_rpc_incorrect_by(client: TestClient):

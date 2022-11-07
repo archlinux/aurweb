@@ -269,7 +269,7 @@ class RPCSearch(PackageSearch):
     sanitization done for the PackageSearch `by` argument.
     """
 
-    keys_removed = ("b", "N", "B", "k", "c", "M", "s")
+    keys_removed = ("b", "N", "B", "k", "c", "M")
 
     def __init__(self) -> "RPCSearch":
         super().__init__()
