@@ -89,6 +89,7 @@ class RPC:
         "groups",
         "submitter",
         "keywords",
+        "comaintainers",
     }
 
     # A mapping of by aliases.
@@ -98,6 +99,7 @@ class RPC:
         "maintainer": "m",
         "submitter": "s",
         "keywords": "k",
+        "comaintainers": "c",
     }
 
     def __init__(self, version: int = 0, type: str = None) -> "RPC":

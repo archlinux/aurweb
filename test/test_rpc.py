@@ -17,6 +17,7 @@ from aurweb.models.group import Group
 from aurweb.models.license import License
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_group import PackageGroup
 from aurweb.models.package_keyword import PackageKeyword
@@ -149,13 +150,20 @@ def packages(user: User, user2: User, user3: User) -> list[Package]:
         output.append(pkg)
 
     # Setup a few more related records on the first package:
-    # a license, group, some keywords and some votes.
+    # a license, group, some keywords, comaintainer and some votes.
     with db.begin():
         lic = db.create(License, Name="GPL")
         db.create(PackageLicense, Package=output[0], License=lic)
 
         grp = db.create(Group, Name="testgroup")
         db.create(PackageGroup, Package=output[0], Group=grp)
+
+        db.create(
+            PackageComaintainer,
+            PackageBase=output[0].PackageBase,
+            User=user2,
+            Priority=1,
+        )
 
         for keyword in ["big-chungus", "smol-chungus", "sizeable-chungus"]:
             db.create(
@@ -945,6 +953,27 @@ def test_rpc_search_keywords(client: TestClient, packages: list[Package]):
     data = response.json()
 
     # should get 2 packages
+    assert data.get("resultcount") == 1
+    names = list(sorted(r.get("Name") for r in data.get("results")))
+    expected_results = ["big-chungus"]
+    assert names == expected_results
+
+    # non-existent search
+    params["arg"] = "blah-blah"
+    response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data.get("resultcount") == 0
+
+
+def test_rpc_search_comaintainers(
+    client: TestClient, user2: User, packages: list[Package]
+):
+    params = {"v": 5, "type": "search", "by": "comaintainers", "arg": user2.Username}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+
+    # should get 1 package
     assert data.get("resultcount") == 1
     names = list(sorted(r.get("Name") for r in data.get("results")))
     expected_results = ["big-chungus"]
