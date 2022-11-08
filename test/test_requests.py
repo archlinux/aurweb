@@ -736,6 +736,52 @@ def test_requests(
 
     # Request page 2 of the requests page.
     with client as request:
+        resp = request.get("/requests", params={"O": 50}, cookies=cookies)  # Page 2
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert "‹ Previous" in resp.text
+    assert "« First" in resp.text
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 5  # There are five records left on the second page.
+
+
+def test_requests_with_filters(
+    client: TestClient,
+    tu_user: User,
+    packages: list[Package],
+    requests: list[PackageRequest],
+):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(
+            "/requests",
+            params={
+                # Pass in url query parameters O, SeB and SB to exercise
+                # their paths inside of the pager_nav used in this request.
+                "O": 0,  # Page 1
+                "SeB": "nd",
+                "SB": "n",
+                "filter_pending": True,
+                "filter_closed": True,
+                "filter_accepted": True,
+                "filter_rejected": True,
+            },
+            cookies=cookies,
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert "Next ›" in resp.text
+    assert "Last »" in resp.text
+
+    root = parse_root(resp.text)
+    # We have 55 requests, our defaults.PP is 50, so expect we have 50 rows.
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == defaults.PP
+
+    # Request page 2 of the requests page.
+    with client as request:
         resp = request.get(
             "/requests",
             params={

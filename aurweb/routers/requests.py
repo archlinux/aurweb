@@ -18,6 +18,13 @@ from aurweb.requests.util import get_pkgreq_by_id
 from aurweb.scripts import notify
 from aurweb.templates import make_context, render_template
 
+FILTER_PARAMS = {
+    "filter_pending",
+    "filter_closed",
+    "filter_accepted",
+    "filter_rejected",
+}
+
 router = APIRouter()
 
 
@@ -36,7 +43,7 @@ async def requests(
 
     context["q"] = dict(request.query_params)
 
-    if len(dict(request.query_params)) == 0:
+    if not dict(request.query_params).keys() & FILTER_PARAMS:
         filter_pending = True
 
     O, PP = util.sanitize_params(O, PP)
@@ -89,7 +96,6 @@ async def requests(
         .offset(O)
         .all()
     )
-
     return render_template(request, "requests.html", context)
 
 
