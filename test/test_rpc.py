@@ -938,6 +938,25 @@ def test_rpc_search_submitter(client: TestClient, user2: User, packages: list[Pa
     assert data.get("resultcount") == 0
 
 
+def test_rpc_search_keywords(client: TestClient, packages: list[Package]):
+    params = {"v": 5, "type": "search", "by": "keywords", "arg": "big-chungus"}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+
+    # should get 2 packages
+    assert data.get("resultcount") == 1
+    names = list(sorted(r.get("Name") for r in data.get("results")))
+    expected_results = ["big-chungus"]
+    assert names == expected_results
+
+    # non-existent search
+    params["arg"] = "blah-blah"
+    response = request.get("/rpc", params=params)
+    data = response.json()
+    assert data.get("resultcount") == 0
+
+
 def test_rpc_incorrect_by(client: TestClient):
     params = {"v": 5, "type": "search", "by": "fake", "arg": "big"}
     with client as request:

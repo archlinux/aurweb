@@ -269,7 +269,7 @@ class RPCSearch(PackageSearch):
     sanitization done for the PackageSearch `by` argument.
     """
 
-    keys_removed = ("b", "N", "B", "k", "c", "M")
+    keys_removed = ("b", "N", "B", "c", "M")
 
     def __init__(self) -> "RPCSearch":
         super().__init__()
@@ -372,9 +372,14 @@ class RPCSearch(PackageSearch):
         )
         return self
 
-    def _search_by_groups(self, keywords: str) -> orm.Query:
+    def _search_by_groups(self, keywords: str) -> "RPCSearch":
         self._join_groups()
         self.query = self.query.filter(Group.Name == keywords)
+        return self
+
+    def _search_by_keywords(self, keywords: str) -> "RPCSearch":
+        self._join_keywords()
+        self.query = self.query.filter(PackageKeyword.Keyword == keywords)
         return self
 
     def search_by(self, by: str, keywords: str) -> "RPCSearch":
