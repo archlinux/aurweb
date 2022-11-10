@@ -57,6 +57,11 @@
                         filter_rejected == true }}/>
                     </div>
                     <div>
+                        <label for="id_filter_maintainer_requests" title="Maintainer's requests">{{ "Maintainer's requests" | tr }}</label>
+                        <input type="checkbox" name="filter_maintainer_requests" id="id_filter_maintainer_requests"
+                               value="True" {{ "checked" if filter_maintainer_requests == true }}/>
+                    </div>
+                    <div>
                         <button type='submit' class='button' name='submit' value='Filter'>{{ "Filter" | tr }}</button>
                     </div>
                 </fieldset>

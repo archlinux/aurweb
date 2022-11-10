@@ -96,7 +96,21 @@ def maintainer() -> User:
 
 
 @pytest.fixture
-def packages(maintainer: User) -> list[Package]:
+def maintainer2() -> User:
+    """Yield a specific User used to maintain packages."""
+    with db.begin():
+        maintainer = db.create(
+            User,
+            Username="test_maintainer2",
+            Email="test_maintainer2@example.org",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
+    yield maintainer
+
+
+@pytest.fixture
+def packages(maintainer: User, maintainer2: User) -> list[Package]:
     """Yield 55 packages named pkg_0 .. pkg_54."""
     packages_ = []
     now = time.utcnow()
@@ -105,7 +119,7 @@ def packages(maintainer: User) -> list[Package]:
             pkgbase = db.create(
                 PackageBase,
                 Name=f"pkg_{i}",
-                Maintainer=maintainer,
+                Maintainer=maintainer2 if i > 52 else maintainer,
                 Packager=maintainer,
                 Submitter=maintainer,
                 ModifiedTS=now,
@@ -117,14 +131,18 @@ def packages(maintainer: User) -> list[Package]:
 
 
 @pytest.fixture
-def requests(user: User, packages: list[Package]) -> list[PackageRequest]:
+def requests(
+    user: User, maintainer2: User, packages: list[Package]
+) -> list[PackageRequest]:
     pkgreqs = []
     with db.begin():
         for i in range(55):
             pkgreq = db.create(
                 PackageRequest,
                 ReqTypeID=DELETION_ID,
-                User=user,
+                User=maintainer2
+                if packages[i].PackageBase.Maintainer.Username == "test_maintainer2"
+                else user,
                 PackageBase=packages[i].PackageBase,
                 PackageBaseName=packages[i].Name,
                 Comments=f"Deletion request for pkg_{i}",
@@ -717,10 +735,6 @@ def test_requests(
                 "O": 0,  # Page 1
                 "SeB": "nd",
                 "SB": "n",
-                "filter_pending": True,
-                "filter_closed": True,
-                "filter_accepted": True,
-                "filter_rejected": True,
             },
             cookies=cookies,
         )
@@ -767,6 +781,7 @@ def test_requests_with_filters(
                 "filter_closed": True,
                 "filter_accepted": True,
                 "filter_rejected": True,
+                "filter_maintainer_requests": False,
             },
             cookies=cookies,
         )
@@ -790,6 +805,7 @@ def test_requests_with_filters(
                 "filter_closed": True,
                 "filter_accepted": True,
                 "filter_rejected": True,
+                "filter_maintainer_requests": False,
             },
             cookies=cookies,
         )  # Page 2
@@ -801,6 +817,27 @@ def test_requests_with_filters(
     root = parse_root(resp.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 5  # There are five records left on the second page.
+
+
+def test_requests_for_maintainer_requests(
+    client: TestClient,
+    tu_user: User,
+    packages: list[Package],
+    requests: list[PackageRequest],
+):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(
+            "/requests",
+            params={"filter_maintainer_requests": True},
+            cookies=cookies,
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    # We only expect 2 requests since we are looking for requests from the maintainers
+    assert len(rows) == 2
 
 
 def test_requests_by_deleted_users(

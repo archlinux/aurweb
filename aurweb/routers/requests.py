@@ -2,12 +2,12 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Form, Query, Request
 from fastapi.responses import RedirectResponse
-from sqlalchemy import case
+from sqlalchemy import case, orm
 
 from aurweb import db, defaults, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import handle_form_exceptions
-from aurweb.models import PackageRequest
+from aurweb.models import PackageBase, PackageRequest, User
 from aurweb.models.package_request import (
     ACCEPTED_ID,
     CLOSED_ID,
@@ -23,6 +23,7 @@ FILTER_PARAMS = {
     "filter_closed",
     "filter_accepted",
     "filter_rejected",
+    "filter_maintainers_requests",
 }
 
 router = APIRouter()
@@ -38,6 +39,7 @@ async def requests(
     filter_closed: bool = False,
     filter_accepted: bool = False,
     filter_rejected: bool = False,
+    filter_maintainer_requests: bool = False,
 ):
     context = make_context(request, "Requests")
 
@@ -53,9 +55,17 @@ async def requests(
     context["filter_closed"] = filter_closed
     context["filter_accepted"] = filter_accepted
     context["filter_rejected"] = filter_rejected
+    context["filter_maintainer_requests"] = filter_maintainer_requests
 
+    Maintainer = orm.aliased(User)
     # A PackageRequest query
-    query = db.query(PackageRequest)
+    query = (
+        db.query(PackageRequest)
+        .join(PackageBase)
+        .join(User, PackageRequest.UsersID == User.ID, isouter=True)
+        .join(Maintainer, PackageBase.MaintainerUID == Maintainer.ID, isouter=True)
+    )
+    # query = db.query(PackageRequest).join(User)
 
     # Requests statistics
     context["total_requests"] = query.count()
@@ -79,6 +89,9 @@ async def requests(
     if filter_rejected:
         in_filters.append(REJECTED_ID)
     filtered = query.filter(PackageRequest.Status.in_(in_filters))
+    # Additionally filter for requests made from package maintainer
+    if filter_maintainer_requests:
+        filtered = filtered.filter(PackageRequest.UsersID == PackageBase.MaintainerUID)
     # If the request user is not elevated (TU or Dev), then
     # filter PackageRequests which are owned by the request user.
     if not request.user.is_elevated():
