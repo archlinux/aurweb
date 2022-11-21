@@ -13,7 +13,7 @@ class SSHPubKey(Base):
 
     User = relationship(
         "User",
-        backref=backref("ssh_pub_keys", lazy="dynamic"),
+        backref=backref("ssh_pub_keys", lazy="dynamic", cascade="all, delete"),
         foreign_keys=[__table__.c.UserID],
     )
 

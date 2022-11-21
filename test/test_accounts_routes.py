@@ -2032,6 +2032,37 @@ def test_account_delete_self(client: TestClient, user: User):
     assert record is None
 
 
+def test_account_delete_self_with_ssh_public_key(client: TestClient, user: User):
+    username = user.Username
+
+    with db.begin():
+        db.create(
+            SSHPubKey, User=user, Fingerprint="testFingerprint", PubKey="testPubKey"
+        )
+
+    # Confirm that we can view our own account deletion page
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/account/{username}/delete"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == HTTPStatus.OK
+
+    # Supply everything correctly and delete ourselves
+    with client as request:
+        resp = request.post(
+            endpoint,
+            data={"passwd": "testPassword", "confirm": True},
+            cookies=cookies,
+        )
+    assert resp.status_code == HTTPStatus.SEE_OTHER
+
+    # Check that our User record no longer exists in the database
+    user_record = db.query(User).filter(User.Username == username).first()
+    assert user_record is None
+    sshpubkey_record = db.query(SSHPubKey).filter(SSHPubKey.User == user).first()
+    assert sshpubkey_record is None
+
+
 def test_account_delete_as_tu(client: TestClient, tu_user: User):
     with db.begin():
         user = create_user("user2")
