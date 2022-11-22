@@ -154,6 +154,7 @@ class RPC:
             "PackageBase": package.PackageBaseName,
             # Maintainer should be set following this update if one exists.
             "Maintainer": package.Maintainer,
+            "Submitter": package.Submitter,
             "Version": package.Version,
             "Description": package.Description,
             "URL": package.URL,
@@ -192,22 +193,35 @@ class RPC:
 
     def entities(self, query: orm.Query) -> orm.Query:
         """Select specific RPC columns on `query`."""
-        return query.with_entities(
-            models.Package.ID,
-            models.Package.Name,
-            models.Package.Version,
-            models.Package.Description,
-            models.Package.URL,
-            models.Package.PackageBaseID,
-            models.PackageBase.Name.label("PackageBaseName"),
-            models.PackageBase.NumVotes,
-            models.PackageBase.Popularity,
-            models.PackageBase.PopularityUpdated,
-            models.PackageBase.OutOfDateTS,
-            models.PackageBase.SubmittedTS,
-            models.PackageBase.ModifiedTS,
-            models.User.Username.label("Maintainer"),
-        ).group_by(models.Package.ID)
+        Submitter = orm.aliased(models.User)
+
+        query = (
+            query.join(
+                Submitter,
+                Submitter.ID == models.PackageBase.SubmitterUID,
+                isouter=True,
+            )
+            .with_entities(
+                models.Package.ID,
+                models.Package.Name,
+                models.Package.Version,
+                models.Package.Description,
+                models.Package.URL,
+                models.Package.PackageBaseID,
+                models.PackageBase.Name.label("PackageBaseName"),
+                models.PackageBase.NumVotes,
+                models.PackageBase.Popularity,
+                models.PackageBase.PopularityUpdated,
+                models.PackageBase.OutOfDateTS,
+                models.PackageBase.SubmittedTS,
+                models.PackageBase.ModifiedTS,
+                models.User.Username.label("Maintainer"),
+                Submitter.Username.label("Submitter"),
+            )
+            .group_by(models.Package.ID)
+        )
+
+        return query
 
     def subquery(self, ids: set[int]):
         Package = models.Package
@@ -367,7 +381,13 @@ class RPC:
         if len(results) > max_results:
             raise RPCError("Too many package results.")
 
-        return self._assemble_json_data(results, self.get_json_data)
+        data = self._assemble_json_data(results, self.get_json_data)
+
+        # remove Submitter for search results
+        for pkg in data:
+            pkg.pop("Submitter")
+
+        return data
 
     def _handle_msearch_type(
         self, args: list[str] = [], **kwargs

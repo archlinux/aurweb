@@ -345,6 +345,7 @@ def test_rpc_documentation_missing():
 def test_rpc_singular_info(
     client: TestClient,
     user: User,
+    user2: User,
     packages: list[Package],
     depends: list[PackageDependency],
     relations: list[PackageRelation],
@@ -365,6 +366,7 @@ def test_rpc_singular_info(
                 "Popularity": float(pkg.PackageBase.Popularity),
                 "OutOfDate": None,
                 "Maintainer": user.Username,
+                "Submitter": user2.Username,
                 "URLPath": f"/cgit/aur.git/snapshot/{pkg.Name}.tar.gz",
                 "Depends": ["chungus-depends"],
                 "OptDepends": ["chungus-optdepends=50"],
@@ -498,6 +500,7 @@ def test_rpc_mixedargs(client: TestClient, packages: list[Package]):
 def test_rpc_no_dependencies_omits_key(
     client: TestClient,
     user: User,
+    user2: User,
     packages: list[Package],
     depends: list[PackageDependency],
     relations: list[PackageRelation],
@@ -520,6 +523,7 @@ def test_rpc_no_dependencies_omits_key(
                 "Popularity": int(pkg.PackageBase.Popularity),
                 "OutOfDate": None,
                 "Maintainer": user.Username,
+                "Submitter": user2.Username,
                 "URLPath": "/cgit/aur.git/snapshot/chungy-chungus.tar.gz",
                 "Depends": ["chungy-depends"],
                 "Conflicts": ["chungy-conflicts"],
@@ -799,6 +803,7 @@ def test_rpc_search(client: TestClient, packages: list[Package]):
 
     result = data.get("results")[0]
     assert result.get("Name") == packages[0].Name
+    assert result.get("Submitter") is None
 
     # Test the If-None-Match headers.
     etag = response.headers.get("ETag").strip('"')
