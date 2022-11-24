@@ -71,10 +71,10 @@ def test_login_logout(client: TestClient, user: User):
         response = request.post("/logout", data=post_data)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
+        request.cookies = {"AURSID": response.cookies.get("AURSID")}
         response = request.post(
             "/logout",
             data=post_data,
-            cookies={"AURSID": response.cookies.get("AURSID")},
         )
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -196,7 +196,9 @@ def test_authenticated_login(client: TestClient, user: User):
         # when requesting GET /login as an authenticated user.
         # Now, let's verify that we receive 403 Forbidden when we
         # try to get /login as an authenticated user.
-        response = request.get("/login", cookies=response.cookies)
+        request.cookies = response.cookies
+        response = request.get("/login")
+
         assert response.status_code == int(HTTPStatus.OK)
         assert "Logged-in as: <strong>test</strong>" in response.text
 
@@ -356,7 +358,8 @@ def test_generate_unique_sid_exhausted(
     with mock.patch(generate_unique_sid_, mock_generate_sid):
         with client as request:
             # Set cookies = {} to remove any previous login kept by TestClient.
-            response = request.post("/login", data=post_data, cookies={})
+            request.cookies = {}
+            response = request.post("/login", data=post_data)
     assert response.status_code == int(HTTPStatus.INTERNAL_SERVER_ERROR)
 
     assert "500 - Internal Server Error" in response.text

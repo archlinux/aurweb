@@ -71,7 +71,8 @@ def test_archdev_navbar_authenticated(client: TestClient, user: User):
     expected = ["Dashboard", "Packages", "Requests", "My Account", "Logout"]
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get("/", cookies=cookies)
+        request.cookies = cookies
+        resp = request.get("/")
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -92,7 +93,8 @@ def test_archdev_navbar_authenticated_tu(client: TestClient, trusted_user: User)
     ]
     cookies = {"AURSID": trusted_user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get("/", cookies=cookies)
+        request.cookies = cookies
+        resp = request.get("/")
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -173,9 +175,12 @@ def test_rtl(client: TestClient):
     expected = [[], [], ["rtl"], ["rtl"]]
     with client as request:
         responses["default"] = request.get("/")
-        responses["de"] = request.get("/", cookies={"AURLANG": "de"})
-        responses["he"] = request.get("/", cookies={"AURLANG": "he"})
-        responses["ar"] = request.get("/", cookies={"AURLANG": "ar"})
+        request.cookies = {"AURLANG": "de"}
+        responses["de"] = request.get("/")
+        request.cookies = {"AURLANG": "he"}
+        responses["he"] = request.get("/")
+        request.cookies = {"AURLANG": "ar"}
+        responses["ar"] = request.get("/")
     for i, (lang, resp) in enumerate(responses.items()):
         assert resp.status_code == int(HTTPStatus.OK)
         t = parse_root(resp.text)

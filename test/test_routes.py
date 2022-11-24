@@ -99,7 +99,8 @@ def test_user_language(client: TestClient, user: User):
     assert sid is not None
 
     with client as req:
-        response = req.post("/language", data=post_data, cookies={"AURSID": sid})
+        req.cookies = {"AURSID": sid}
+        response = req.post("/language", data=post_data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert user.LangPreference == "de"
 
@@ -154,6 +155,5 @@ def test_id_redirect(client: TestClient):
                 "key": "value",  # Test that this param persists.
                 "key2": "value2",  # And this one.
             },
-            allow_redirects=False,
         )
     assert response.headers.get("location") == "/test?key=value&key2=value2"

@@ -312,7 +312,8 @@ def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
     # We should've gotten one link to the voter, tu_user.
@@ -343,7 +344,8 @@ def test_pkgbase_comment_not_found(
     comment_id = 12345  # A non-existing comment.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/comments/{comment_id}"
     with client as request:
-        resp = request.post(endpoint, data={"comment": "Failure"}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"comment": "Failure"})
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -365,7 +367,8 @@ def test_pkgbase_comment_form_unauthorized(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/form"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
@@ -377,7 +380,8 @@ def test_pkgbase_comment_form_not_found(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/form"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -387,7 +391,8 @@ def test_pkgbase_comments_missing_comment(
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/comments"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
@@ -409,10 +414,10 @@ def test_pkgbase_comments(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments"
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"comment": "Test comment.", "enable_notifications": True},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -440,7 +445,8 @@ def test_pkgbase_comments(
     # Test the non-javascript version of comment editing by
     # visiting the /pkgbase/{name}/comments/{id}/edit route.
     with client as request:
-        resp = request.get(f"{endpoint}/{comment_id}/edit", cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(f"{endpoint}/{comment_id}/edit")
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Clear up the PackageNotification. This doubles as testing
@@ -457,10 +463,10 @@ def test_pkgbase_comments(
     comment_id = int(headers[0].attrib["id"].split("-")[-1])
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}"
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"comment": "Edited comment.", "enable_notifications": True},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -485,14 +491,16 @@ def test_pkgbase_comments(
 
     # Don't supply a comment; should return BAD_REQUEST.
     with client as request:
-        fail_resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        fail_resp = request.post(endpoint)
     assert fail_resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     # Now, test the form route, which should return form markup
     # via JSON.
     endpoint = f"{endpoint}/form"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
     data = resp.json()
@@ -510,11 +518,11 @@ def test_pkgbase_comment_edit_unauthorized(
 
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         endp = f"/pkgbase/{pkgbase.Name}/comments/{comment.ID}"
         response = request.post(
             endp,
             data={"comment": "abcd im trying to change this comment."},
-            cookies=cookies,
         )
     assert response.status_code == HTTPStatus.UNAUTHORIZED
 
@@ -561,7 +569,8 @@ def test_pkgbase_comment_delete_unauthorized(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/delete"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
@@ -573,7 +582,8 @@ def test_pkgbase_comment_delete_not_found(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/delete"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -585,7 +595,8 @@ def test_pkgbase_comment_undelete_not_found(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/undelete"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -607,7 +618,8 @@ def test_pkgbase_comment_pin_as_co(
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/pin"
     cookies = {"AURSID": comaint.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Assert that PinnedTS got set.
@@ -616,7 +628,8 @@ def test_pkgbase_comment_pin_as_co(
     # Unpin the comment we just pinned.
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/unpin"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Let's assert that PinnedTS was unset.
@@ -633,7 +646,8 @@ def test_pkgbase_comment_pin(
     # Pin the comment.
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/pin"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Assert that PinnedTS got set.
@@ -642,7 +656,8 @@ def test_pkgbase_comment_pin(
     # Unpin the comment we just pinned.
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/unpin"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Let's assert that PinnedTS was unset.
@@ -657,7 +672,8 @@ def test_pkgbase_comment_pin_unauthorized(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/pin"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
@@ -669,7 +685,8 @@ def test_pkgbase_comment_unpin_unauthorized(
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/unpin"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
@@ -677,7 +694,8 @@ def test_pkgbase_comaintainers_not_found(client: TestClient, maintainer: User):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     endpoint = "/pkgbase/fake/comaintainers"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -685,7 +703,8 @@ def test_pkgbase_comaintainers_post_not_found(client: TestClient, maintainer: Us
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     endpoint = "/pkgbase/fake/comaintainers"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -696,7 +715,8 @@ def test_pkgbase_comaintainers_unauthorized(
     endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
@@ -708,7 +728,8 @@ def test_pkgbase_comaintainers_post_unauthorized(
     endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
@@ -720,7 +741,8 @@ def test_pkgbase_comaintainers_post_invalid_user(
     endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, data={"users": "\nfake\n"}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"users": "\nfake\n"})
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -738,20 +760,20 @@ def test_pkgbase_comaintainers(
     # Start off by adding user as a comaintainer to package.
     # The maintainer username given should be ignored.
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"users": f"\n{user.Username}\n{maintainer.Username}\n"},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
     # Do it again to exercise the last_priority bump path.
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"users": f"\n{user.Username}\n{maintainer.Username}\n"},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
@@ -760,7 +782,8 @@ def test_pkgbase_comaintainers(
     # let's perform a GET request to make sure that the backend produces
     # the user we added in the users textarea.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -769,12 +792,14 @@ def test_pkgbase_comaintainers(
 
     # Finish off by removing all the comaintainers.
     with client as request:
-        resp = request.post(endpoint, data={"users": str()}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"users": str()})
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -788,7 +813,8 @@ def test_pkgbase_request_not_found(client: TestClient, user: User):
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -798,16 +824,16 @@ def test_pkgbase_request(client: TestClient, user: User, package: Package):
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
 
 def test_pkgbase_request_post_not_found(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(
-            "/pkgbase/fake/request", data={"type": "fake"}, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post("/pkgbase/fake/request", data={"type": "fake"})
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -817,7 +843,8 @@ def test_pkgbase_request_post_invalid_type(
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, data={"type": "fake"}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"type": "fake"})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
@@ -827,13 +854,13 @@ def test_pkgbase_request_post_no_comment_error(
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={
                 "type": "deletion",
                 "comments": "",  # An empty comment field causes an error.
             },
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.OK)
 
@@ -849,6 +876,7 @@ def test_pkgbase_request_post_merge_not_found_error(
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={
@@ -856,7 +884,6 @@ def test_pkgbase_request_post_merge_not_found_error(
                 "merge_into": "fake",  # There is no PackageBase.Name "fake"
                 "comments": "We want to merge this.",
             },
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.OK)
 
@@ -872,6 +899,7 @@ def test_pkgbase_request_post_merge_no_merge_into_error(
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={
@@ -879,7 +907,6 @@ def test_pkgbase_request_post_merge_no_merge_into_error(
                 "merge_into": "",  # There is no PackageBase.Name "fake"
                 "comments": "We want to merge this.",
             },
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.OK)
 
@@ -895,6 +922,7 @@ def test_pkgbase_request_post_merge_self_error(
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={
@@ -902,7 +930,6 @@ def test_pkgbase_request_post_merge_self_error(
                 "merge_into": package.PackageBase.Name,
                 "comments": "We want to merge this.",
             },
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.OK)
 
@@ -1017,7 +1044,8 @@ def test_pkgbase_flag_vcs(client: TestClient, user: User, package: Package):
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(f"/pkgbase/{package.PackageBase.Name}/flag", cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(f"/pkgbase/{package.PackageBase.Name}/flag")
     assert resp.status_code == int(HTTPStatus.OK)
 
     expected = (
@@ -1042,7 +1070,8 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/notify"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
@@ -1051,7 +1080,8 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
     # Disable notifications.
     endpoint = f"/pkgbase/{pkgbase.Name}/unnotify"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
@@ -1069,7 +1099,8 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/vote"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
@@ -1079,7 +1110,8 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
     # Remove vote.
     endpoint = f"/pkgbase/{pkgbase.Name}/unvote"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
@@ -1096,7 +1128,8 @@ def test_pkgbase_disown_as_sole_maintainer(
 
     # But we do here.
     with client as request:
-        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"confirm": True})
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
@@ -1114,9 +1147,8 @@ def test_pkgbase_disown_as_maint_with_comaint(
 
     maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(
-            endp, data=post_data, cookies=maint_cookies, follow_redirects=True
-        )
+        request.cookies = maint_cookies
+        resp = request.post(endp, data=post_data, follow_redirects=True)
     assert resp.status_code == int(HTTPStatus.OK)
 
     package = db.refresh(package)
@@ -1219,21 +1251,24 @@ def test_pkgbase_adopt(
 
     # Adopt the package base.
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert package.PackageBase.Maintainer == maintainer
 
     # Try to adopt it when it already has a maintainer; nothing changes.
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, cookies=user_cookies)
+        request.cookies = user_cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert package.PackageBase.Maintainer == maintainer
 
     # Steal the package as a TU.
     tu_cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(endpoint, cookies=tu_cookies)
+        request.cookies = tu_cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert package.PackageBase.Maintainer == tu_user
 
@@ -1245,13 +1280,15 @@ def test_pkgbase_delete_unauthorized(client: TestClient, user: User, package: Pa
 
     # Test GET.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
     # Test POST.
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
@@ -1263,17 +1300,20 @@ def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/delete"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Test that POST works and denies us because we haven't confirmed.
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     # Test that we can actually delete the pkgbase.
     with client as request:
-        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"confirm": True})
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Let's assert that the package base record got removed.
@@ -1300,7 +1340,8 @@ def test_pkgbase_delete_with_request(
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/delete"
     with client as request:
-        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"confirm": True})
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/packages"
 
@@ -1316,10 +1357,10 @@ def test_pkgbase_delete_with_request(
 def test_packages_post_unknown_action(client: TestClient, user: User, package: Package):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "unknown"},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1332,10 +1373,10 @@ def test_packages_post_error(client: TestClient, user: User, package: Package):
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
         cookies = {"AURSID": user.login(Request(), "testPassword")}
         with client as request:
+            request.cookies = cookies
             resp = request.post(
                 "/packages",
                 data={"action": "stub"},
-                cookies=cookies,
             )
         assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1352,10 +1393,10 @@ def test_packages_post(client: TestClient, user: User, package: Package):
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
         cookies = {"AURSID": user.login(Request(), "testPassword")}
         with client as request:
+            request.cookies = cookies
             resp = request.post(
                 "/packages",
                 data={"action": "stub"},
-                cookies=cookies,
             )
         assert resp.status_code == int(HTTPStatus.OK)
 
@@ -1368,7 +1409,8 @@ def test_pkgbase_merge_unauthorized(client: TestClient, user: User, package: Pac
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
@@ -1376,7 +1418,8 @@ def test_pkgbase_merge(client: TestClient, tu_user: User, package: Package):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
     assert not get_errors(resp.text)
 
@@ -1387,7 +1430,8 @@ def test_pkgbase_merge_post_unauthorized(
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
@@ -1397,7 +1441,8 @@ def test_pkgbase_merge_post_unconfirmed(
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = (
@@ -1413,9 +1458,8 @@ def test_pkgbase_merge_post_invalid_into(
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.post(
-            endpoint, data={"into": "not_real", "confirm": True}, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"into": "not_real", "confirm": True})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "Cannot find package to merge votes and comments into."
@@ -1428,10 +1472,10 @@ def test_pkgbase_merge_post_self_invalid(
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"into": package.PackageBase.Name, "confirm": True},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
@@ -1461,20 +1505,24 @@ def test_pkgbase_merge_post(
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/vote"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Enable notifications.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/notify"
     with client as request:
-        resp = request.post(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Comment on the package.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/comments"
     with client as request:
+        request.cookies = cookies
         resp = request.post(
-            endpoint, data={"comment": "Test comment."}, cookies=cookies
+            endpoint,
+            data={"comment": "Test comment."},
         )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -1486,9 +1534,8 @@ def test_pkgbase_merge_post(
     # Merge the package into target.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
-        resp = request.post(
-            endpoint, data={"into": target.Name, "confirm": True}, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post(endpoint, data={"into": target.Name, "confirm": True})
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     loc = resp.headers.get("location")
     assert loc == f"/pkgbase/{target.Name}"
@@ -1604,9 +1651,10 @@ def test_unauthorized_pkgbase_keywords(client: TestClient, package: Package):
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         pkgbase = package.PackageBase
         endp = f"/pkgbase/{pkgbase.Name}/keywords"
-        response = request.post(endp, cookies=cookies)
+        response = request.post(endp)
     assert response.status_code == HTTPStatus.UNAUTHORIZED
 
 

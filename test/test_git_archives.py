@@ -197,7 +197,8 @@ def test_metadata_change(
     with client as request:
         endp = f"/pkgbase/{pkgbasename}/keywords"
         post_data = {"keywords": "abc def"}
-        resp = request.post(endp, data=post_data, cookies=cookies, allow_redirects=True)
+        request.cookies = cookies
+        resp = request.post(endp, data=post_data)
     assert resp.status_code == HTTPStatus.OK
 
     # Run main() again, which should now produce a new commit with the

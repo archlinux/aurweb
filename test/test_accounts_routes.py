@@ -107,7 +107,8 @@ def test_get_passreset_authed_redirects(client: TestClient, user: User):
     assert sid is not None
 
     with client as request:
-        response = request.get("/passreset", cookies={"AURSID": sid})
+        request.cookies = {"AURSID": sid}
+        response = request.get("/passreset")
 
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/"
@@ -122,7 +123,8 @@ def test_get_passreset(client: TestClient):
 def test_get_passreset_translation(client: TestClient):
     # Test that translation works; set it to de.
     with client as request:
-        response = request.get("/passreset", cookies={"AURLANG": "de"})
+        request.cookies = {"AURLANG": "de"}
+        response = request.get("/passreset")
 
     # The header title should be translated.
     assert "Passwort zurücksetzen" in response.text
@@ -136,7 +138,8 @@ def test_get_passreset_translation(client: TestClient):
 
     # Restore english.
     with client as request:
-        response = request.get("/passreset", cookies={"AURLANG": "en"})
+        request.cookies = {"AURLANG": "en"}
+        response = request.get("/passreset")
 
 
 def test_get_passreset_with_resetkey(client: TestClient):
@@ -150,9 +153,9 @@ def test_post_passreset_authed_redirects(client: TestClient, user: User):
     assert sid is not None
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/passreset",
-            cookies={"AURSID": sid},
             data={"user": "blah"},
         )
 
@@ -652,7 +655,8 @@ def test_get_account_edit_tu_as_tu(client: TestClient, tu_user: User):
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
-        response = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        response = request.get(endpoint)
     assert response.status_code == int(HTTPStatus.OK)
 
     # Verify that we have an account type selection and that the
@@ -677,7 +681,8 @@ def test_get_account_edit_as_tu(client: TestClient, tu_user: User):
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
-        response = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        response = request.get(endpoint)
     assert response.status_code == int(HTTPStatus.OK)
 
     # Verify that we have an account type selection and that the
@@ -700,7 +705,8 @@ def test_get_account_edit_type(client: TestClient, user: User):
     endpoint = f"/account/{user.Username}/edit"
 
     with client as request:
-        response = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        response = request.get(endpoint)
     assert response.status_code == int(HTTPStatus.OK)
     assert "id_type" not in response.text
 
@@ -713,7 +719,8 @@ def test_get_account_edit_type_as_tu(client: TestClient, tu_user: User):
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
-        response = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        response = request.get(endpoint)
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -737,7 +744,8 @@ def test_get_account_edit_unauthorized(client: TestClient, user: User):
     endpoint = f"/account/{user2.Username}/edit"
     with client as request:
         # Try to edit `test2` while authenticated as `test`.
-        response = request.get(endpoint, cookies={"AURSID": sid})
+        request.cookies = {"AURSID": sid}
+        response = request.get(endpoint)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     expected = f"/account/{user2.Username}"
@@ -751,9 +759,9 @@ def test_post_account_edit(client: TestClient, user: User):
     post_data = {"U": "test", "E": "test666@example.org", "passwd": "testPassword"}
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -777,7 +785,8 @@ def test_post_account_edit_type_as_tu(client: TestClient, tu_user: User):
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
 
 
@@ -795,7 +804,8 @@ def test_post_account_edit_type_as_dev(client: TestClient, tu_user: User):
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
     assert user2.AccountTypeID == at.DEVELOPER_ID
 
@@ -814,7 +824,8 @@ def test_post_account_edit_invalid_type_as_tu(client: TestClient, tu_user: User)
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     assert user2.AccountTypeID == at.USER_ID
 
@@ -840,7 +851,8 @@ def test_post_account_edit_dev(client: TestClient, tu_user: User):
 
     endpoint = f"/account/{tu_user.Username}/edit"
     with client as request:
-        response = request.post(endpoint, cookies={"AURSID": sid}, data=post_data)
+        request.cookies = {"AURSID": sid}
+        response = request.post(endpoint, data=post_data)
     assert response.status_code == int(HTTPStatus.OK)
 
     expected = "The account, <strong>test</strong>, "
@@ -860,9 +872,9 @@ def test_post_account_edit_language(client: TestClient, user: User):
     }
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -889,9 +901,9 @@ def test_post_account_edit_timezone(client: TestClient, user: User):
     }
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -905,9 +917,9 @@ def test_post_account_edit_error_missing_password(client: TestClient, user: User
     post_data = {"U": "test", "E": "test@example.org", "TZ": "CET", "passwd": ""}
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -924,9 +936,9 @@ def test_post_account_edit_error_invalid_password(client: TestClient, user: User
     post_data = {"U": "test", "E": "test@example.org", "TZ": "CET", "passwd": "invalid"}
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -945,9 +957,8 @@ def test_post_account_edit_suspend_unauthorized(client: TestClient, user: User):
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(
-            f"/account/{user.Username}/edit", data=post_data, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post(f"/account/{user.Username}/edit", data=post_data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     errors = get_errors(resp.text)
@@ -968,9 +979,8 @@ def test_post_account_edit_inactivity(client: TestClient, user: User):
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(
-            f"/account/{user.Username}/edit", data=post_data, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post(f"/account/{user.Username}/edit", data=post_data)
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Make sure the user record got updated correctly.
@@ -978,9 +988,8 @@ def test_post_account_edit_inactivity(client: TestClient, user: User):
 
     post_data.update({"J": False})
     with client as request:
-        resp = request.post(
-            f"/account/{user.Username}/edit", data=post_data, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post(f"/account/{user.Username}/edit", data=post_data)
     assert resp.status_code == int(HTTPStatus.OK)
 
     assert user.InactivityTS == 0
@@ -1000,7 +1009,8 @@ def test_post_account_edit_suspended(client: TestClient, user: User):
     }
     endpoint = f"/account/{user.Username}/edit"
     with client as request:
-        resp = request.post(endpoint, data=post_data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=post_data)
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Make sure the user record got updated correctly.
@@ -1032,7 +1042,8 @@ def test_post_account_edit_error_unauthorized(client: TestClient, user: User):
     endpoint = f"/account/{user2.Username}/edit"
     with client as request:
         # Attempt to edit 'test2' while logged in as 'test'.
-        response = request.post(endpoint, cookies={"AURSID": sid}, data=post_data)
+        request.cookies = {"AURSID": sid}
+        response = request.post(endpoint, data=post_data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     expected = f"/account/{user2.Username}"
@@ -1051,9 +1062,9 @@ def test_post_account_edit_ssh_pub_key(client: TestClient, user: User):
     }
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -1063,9 +1074,9 @@ def test_post_account_edit_ssh_pub_key(client: TestClient, user: User):
     post_data["PK"] = make_ssh_pubkey()
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -1084,9 +1095,9 @@ def test_post_account_edit_missing_ssh_pubkey(client: TestClient, user: User):
     }
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -1100,9 +1111,9 @@ def test_post_account_edit_missing_ssh_pubkey(client: TestClient, user: User):
     }
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -1120,7 +1131,8 @@ def test_post_account_edit_invalid_ssh_pubkey(client: TestClient, user: User):
     }
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        response = request.post("/account/test/edit", data=data, cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/account/test/edit", data=data)
 
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1138,9 +1150,9 @@ def test_post_account_edit_password(client: TestClient, user: User):
     }
 
     with client as request:
+        request.cookies = {"AURSID": sid}
         response = request.post(
             "/account/test/edit",
-            cookies={"AURSID": sid},
             data=post_data,
         )
 
@@ -1154,7 +1166,8 @@ def test_post_account_edit_self_type_as_user(client: TestClient, user: User):
     endpoint = f"/account/{user.Username}/edit"
 
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
     assert "id_type" not in resp.text
 
@@ -1165,7 +1178,8 @@ def test_post_account_edit_self_type_as_user(client: TestClient, user: User):
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     errors = get_errors(resp.text)
@@ -1181,7 +1195,8 @@ def test_post_account_edit_other_user_as_user(client: TestClient, user: User):
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/account/{user2.Username}"
 
@@ -1192,7 +1207,8 @@ def test_post_account_edit_self_type_as_tu(client: TestClient, tu_user: User):
 
     # We cannot see the Account Type field on our own edit page.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
     assert "id_type" in resp.text
 
@@ -1204,7 +1220,8 @@ def test_post_account_edit_self_type_as_tu(client: TestClient, tu_user: User):
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
 
     assert tu_user.AccountTypeID == USER_ID
@@ -1223,7 +1240,8 @@ def test_post_account_edit_other_user_type_as_tu(
 
     # As a TU, we can see the Account Type field for other users.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
     assert "id_type" in resp.text
 
@@ -1234,8 +1252,10 @@ def test_post_account_edit_other_user_type_as_tu(
         "T": TRUSTED_USER_ID,
         "passwd": "testPassword",
     }
+
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Let's make sure the DB got updated properly.
@@ -1267,14 +1287,16 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user:
     user_cookies = {"AURSID": sid}
     with client as request:
         endpoint = f"/account/{user.Username}/edit"
-        resp = request.get(endpoint, cookies=user_cookies)
+        request.cookies = user_cookies
+        resp = request.get(endpoint)
     assert resp.status_code == HTTPStatus.OK
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     assert cookies is not None  # This is useless, we create the dict here ^
     # As a TU, we can see the Account for other users.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
     # As a TU, we can modify other user's account types.
     data = {
@@ -1290,7 +1312,8 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user:
 
     # Test that `user` no longer has a session.
     with user_client as request:
-        resp = request.get(endpoint, cookies=user_cookies)
+        request.cookies = user_cookies
+        resp = request.get(endpoint)
     assert resp.status_code == HTTPStatus.SEE_OTHER
 
     # Since user is now suspended, they should not be able to login.
@@ -1314,7 +1337,8 @@ def test_post_account_edit_other_user_type_as_tu_invalid_type(
     # As a TU, we can modify other user's account types.
     data = {"U": user2.Username, "E": user2.Email, "T": 0, "passwd": "testPassword"}
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     errors = get_errors(resp.text)
@@ -1327,7 +1351,8 @@ def test_get_account(client: TestClient, user: User):
     sid = user.login(request, "testPassword")
 
     with client as request:
-        response = request.get("/account/test", cookies={"AURSID": sid})
+        request.cookies = {"AURSID": sid}
+        response = request.get("/account/test")
 
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1337,7 +1362,8 @@ def test_get_account_not_found(client: TestClient, user: User):
     sid = user.login(request, "testPassword")
 
     with client as request:
-        response = request.get("/account/not_found", cookies={"AURSID": sid})
+        request.cookies = {"AURSID": sid}
+        response = request.get("/account/not_found")
 
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
@@ -1358,7 +1384,8 @@ def test_get_accounts(client: TestClient, user: User, tu_user: User):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.get("/accounts", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/accounts")
     assert response.status_code == int(HTTPStatus.OK)
 
     parser = lxml.etree.HTMLParser()
@@ -1426,7 +1453,8 @@ def test_post_accounts(client: TestClient, user: User, tu_user: User):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/accounts")
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1468,7 +1496,8 @@ def test_post_accounts_username(client: TestClient, user: User, tu_user: User):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"U": user.Username})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"U": user.Username})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1501,13 +1530,15 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
 
     # Expect no entries; we marked our only user as a User type.
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"T": "t"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"T": "t"})
     assert response.status_code == int(HTTPStatus.OK)
     assert len(get_rows(response.text)) == 0
 
     # So, let's also ensure that specifying "u" returns our user.
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"T": "u"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"T": "u"})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1525,7 +1556,8 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
         )
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"T": "t"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"T": "t"})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1542,7 +1574,8 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
         )
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"T": "d"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"T": "d"})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1559,7 +1592,8 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
         )
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"T": "td"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"T": "td"})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1577,7 +1611,8 @@ def test_post_accounts_status(client: TestClient, user: User, tu_user: User):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/accounts")
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1591,7 +1626,8 @@ def test_post_accounts_status(client: TestClient, user: User, tu_user: User):
         user.Suspended = True
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"S": True})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"S": True})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1608,7 +1644,8 @@ def test_post_accounts_email(client: TestClient, user: User, tu_user: User):
 
     # Search via email.
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"E": user.Email})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"E": user.Email})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1621,7 +1658,8 @@ def test_post_accounts_realname(client: TestClient, user: User, tu_user: User):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"R": user.RealName})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"R": user.RealName})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1634,7 +1672,8 @@ def test_post_accounts_irc(client: TestClient, user: User, tu_user: User):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"I": user.IRCNick})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"I": user.IRCNick})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1652,14 +1691,16 @@ def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
 
     # Show that "u" is the default search order, by username.
     with client as request:
-        response = request.post("/accounts", cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/accounts")
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
     first_rows = rows
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"SB": "u"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"SB": "u"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
@@ -1671,7 +1712,8 @@ def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
     assert compare_text_values(0, first_rows, rows) is True
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"SB": "i"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"SB": "i"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
@@ -1681,7 +1723,8 @@ def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
 
     # Sort by "i" -> RealName.
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"SB": "r"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"SB": "r"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
@@ -1696,7 +1739,8 @@ def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
 
     # Fetch first_rows again with our new AccountType ordering.
     with client as request:
-        response = request.post("/accounts", cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/accounts")
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
@@ -1704,7 +1748,8 @@ def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
 
     # Sort by "t" -> AccountType.
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"SB": "t"})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"SB": "t"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
@@ -1722,7 +1767,8 @@ def test_post_accounts_pgp_key(client: TestClient, user: User, tu_user: User):
 
     # Search via PGPKey.
     with client as request:
-        response = request.post("/accounts", cookies=cookies, data={"K": user.PGPKey})
+        request.cookies = cookies
+        response = request.post("/accounts", data={"K": user.PGPKey})
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1749,7 +1795,8 @@ def test_post_accounts_paged(client: TestClient, user: User, tu_user: User):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts", cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/accounts")
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1775,9 +1822,8 @@ def test_post_accounts_paged(client: TestClient, user: User, tu_user: User):
     assert "disabled" not in page_next.attrib
 
     with client as request:
-        response = request.post(
-            "/accounts", cookies=cookies, data={"O": 50}
-        )  # +50 offset.
+        request.cookies = cookies
+        response = request.post("/accounts", data={"O": 50})  # +50 offset.
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1791,9 +1837,8 @@ def test_post_accounts_paged(client: TestClient, user: User, tu_user: User):
         assert username.text.strip() == _user.Username
 
     with client as request:
-        response = request.post(
-            "/accounts", cookies=cookies, data={"O": 101}
-        )  # Last page.
+        request.cookies = cookies
+        response = request.post("/accounts", data={"O": 101})  # Last page.
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1824,12 +1869,14 @@ def test_get_terms_of_service(client: TestClient, user: User):
     # First of all, let's test that we get redirected to /tos
     # when attempting to browse authenticated without accepting terms.
     with client as request:
-        response = request.get("/", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/tos"
 
     with client as request:
-        response = request.get("/tos", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tos")
     assert response.status_code == int(HTTPStatus.OK)
 
     with db.begin():
@@ -1838,7 +1885,8 @@ def test_get_terms_of_service(client: TestClient, user: User):
         )
 
     with client as request:
-        response = request.get("/tos", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tos")
     # We accepted the term, there's nothing left to accept.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -1847,7 +1895,8 @@ def test_get_terms_of_service(client: TestClient, user: User):
         term.Revision = 2
 
     with client as request:
-        response = request.get("/tos", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tos")
     # This time, we have a modified term Revision that hasn't
     # yet been agreed to via AcceptedTerm update.
     assert response.status_code == int(HTTPStatus.OK)
@@ -1856,7 +1905,8 @@ def test_get_terms_of_service(client: TestClient, user: User):
         accepted_term.Revision = term.Revision
 
     with client as request:
-        response = request.get("/tos", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tos")
     # We updated the term revision, there's nothing left to accept.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -1876,17 +1926,20 @@ def test_post_terms_of_service(client: TestClient, user: User):
 
     # Test that the term we just created is listed.
     with client as request:
-        response = request.get("/tos", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tos")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Make a POST request to /tos with the agree checkbox disabled (False).
     with client as request:
-        response = request.post("/tos", data={"accept": False}, cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/tos", data={"accept": False})
     assert response.status_code == int(HTTPStatus.OK)
 
     # Make a POST request to /tos with the agree checkbox enabled (True).
     with client as request:
-        response = request.post("/tos", data=data, cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/tos", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Query the db for the record created by the post request.
@@ -1900,12 +1953,14 @@ def test_post_terms_of_service(client: TestClient, user: User):
 
     # A GET request gives us the new revision to accept.
     with client as request:
-        response = request.get("/tos", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tos")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Let's POST again and agree to the new term revision.
     with client as request:
-        response = request.post("/tos", data=data, cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/tos", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Check that the records ended up matching.
@@ -1913,7 +1968,8 @@ def test_post_terms_of_service(client: TestClient, user: User):
 
     # Now, see that GET redirects us to / with no terms left to accept.
     with client as request:
-        response = request.get("/tos", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tos")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/"
 
@@ -1921,14 +1977,16 @@ def test_post_terms_of_service(client: TestClient, user: User):
 def test_account_comments_not_found(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get("/account/non-existent/comments", cookies=cookies)
+        request.cookies = cookies
+        resp = request.get("/account/non-existent/comments")
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
 
 
 def test_accounts_unauthorized(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get("/accounts", cookies=cookies)
+        request.cookies = cookies
+        resp = request.get("/accounts")
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/"
 
@@ -1941,16 +1999,18 @@ def test_account_delete_self_unauthorized(client: TestClient, tu_user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/delete"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
-        resp = request.post(endpoint, cookies=cookies)
+        resp = request.post(endpoint)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
     # But a TU does have access
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with TestClient(app=app) as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == HTTPStatus.OK
 
 
@@ -1958,10 +2018,11 @@ def test_account_delete_self_not_found(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = "/account/non-existent-user/delete"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
         assert resp.status_code == HTTPStatus.NOT_FOUND
 
-        resp = request.post(endpoint, cookies=cookies)
+        resp = request.post(endpoint)
         assert resp.status_code == HTTPStatus.NOT_FOUND
 
 
@@ -1972,15 +2033,16 @@ def test_account_delete_self(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/account/{username}/delete"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == HTTPStatus.OK
 
     # The checkbox must be checked
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"passwd": "fakePassword", "confirm": False},
-            cookies=cookies,
         )
     assert resp.status_code == HTTPStatus.BAD_REQUEST
     errors = get_errors(resp.text)
@@ -1991,10 +2053,10 @@ def test_account_delete_self(client: TestClient, user: User):
 
     # The correct password must be supplied
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"passwd": "fakePassword", "confirm": True},
-            cookies=cookies,
         )
     assert resp.status_code == HTTPStatus.BAD_REQUEST
     errors = get_errors(resp.text)
@@ -2002,10 +2064,10 @@ def test_account_delete_self(client: TestClient, user: User):
 
     # Supply everything correctly and delete ourselves
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"passwd": "testPassword", "confirm": True},
-            cookies=cookies,
         )
     assert resp.status_code == HTTPStatus.SEE_OTHER
 
@@ -2026,15 +2088,16 @@ def test_account_delete_self_with_ssh_public_key(client: TestClient, user: User)
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/account/{username}/delete"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == HTTPStatus.OK
 
     # Supply everything correctly and delete ourselves
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"passwd": "testPassword", "confirm": True},
-            cookies=cookies,
         )
     assert resp.status_code == HTTPStatus.SEE_OTHER
 
@@ -2055,10 +2118,10 @@ def test_account_delete_as_tu(client: TestClient, tu_user: User):
 
     # Delete the user
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             endpoint,
             data={"passwd": "testPassword", "confirm": True},
-            cookies=cookies,
         )
     assert resp.status_code == HTTPStatus.SEE_OTHER
 

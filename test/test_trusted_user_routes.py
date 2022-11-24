@@ -166,7 +166,8 @@ def test_tu_index_unauthorized(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         # Login as a normal user, not a TU.
-        response = request.get("/tu", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tu")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/"
 
@@ -177,7 +178,8 @@ def test_tu_empty_index(client, tu_user):
     # Make a default get request to /tu.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/tu", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tu")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Parse lxml root.
@@ -226,9 +228,9 @@ def test_tu_index(client, tu_user):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         # Pass an invalid cby and pby; let them default to "desc".
+        request.cookies = cookies
         response = request.get(
             "/tu",
-            cookies=cookies,
             params={"cby": "BAD!", "pby": "blah"},
         )
 
@@ -295,7 +297,8 @@ def test_tu_index(client, tu_user):
 def test_tu_stats(client: TestClient, tu_user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/tu", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tu")
     assert response.status_code == HTTPStatus.OK
 
     root = parse_root(response.text)
@@ -316,7 +319,8 @@ def test_tu_stats(client: TestClient, tu_user: User):
         tu_user.InactivityTS = time.utcnow()
 
     with client as request:
-        response = request.get("/tu", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tu")
     assert response.status_code == HTTPStatus.OK
 
     root = parse_root(response.text)
@@ -364,7 +368,8 @@ def test_tu_index_table_paging(client, tu_user):
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/tu", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tu")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Parse lxml.etree root.
@@ -394,7 +399,8 @@ def test_tu_index_table_paging(client, tu_user):
     # Now, get the next page of current votes.
     offset = 10  # Specify coff=10
     with client as request:
-        response = request.get("/tu", cookies=cookies, params={"coff": offset})
+        request.cookies = cookies
+        response = request.get("/tu", params={"coff": offset})
     assert response.status_code == int(HTTPStatus.OK)
 
     old_rows = rows
@@ -421,7 +427,8 @@ def test_tu_index_table_paging(client, tu_user):
 
     offset = 20  # Specify coff=10
     with client as request:
-        response = request.get("/tu", cookies=cookies, params={"coff": offset})
+        request.cookies = cookies
+        response = request.get("/tu", params={"coff": offset})
     assert response.status_code == int(HTTPStatus.OK)
 
     # Do it again, we only have five left.
@@ -470,7 +477,8 @@ def test_tu_index_sorting(client, tu_user):
     # Make a default request to /tu.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/tu", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tu")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Get lxml handles of the document.
@@ -497,7 +505,8 @@ def test_tu_index_sorting(client, tu_user):
     # Make another request; one that sorts the current votes
     # in ascending order instead of the default descending order.
     with client as request:
-        response = request.get("/tu", cookies=cookies, params={"cby": "asc"})
+        request.cookies = cookies
+        response = request.get("/tu", params={"cby": "asc"})
     assert response.status_code == int(HTTPStatus.OK)
 
     # Get lxml handles of the document.
@@ -548,7 +557,8 @@ def test_tu_index_last_votes(
     # Now, check that tu_user got populated in the .last-votes table.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/tu", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/tu")
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -581,12 +591,14 @@ def test_tu_proposal_unauthorized(
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/tu/{proposal[2].ID}"
     with client as request:
-        response = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        response = request.get(endpoint)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/tu"
 
     with client as request:
-        response = request.post(endpoint, cookies=cookies, data={"decision": False})
+        request.cookies = cookies
+        response = request.post(endpoint, data={"decision": False})
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/tu"
 
@@ -602,9 +614,8 @@ def test_tu_running_proposal(
     proposal_id = voteinfo.ID
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get(
-            f"/tu/{proposal_id}", cookies=cookies, follow_redirects=True
-        )
+        request.cookies = cookies
+        response = request.get(f"/tu/{proposal_id}")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Alright, now let's continue on to verifying some markup.
@@ -674,9 +685,8 @@ def test_tu_running_proposal(
 
     # Make another request now that we've voted.
     with client as request:
-        response = request.get(
-            "/tu", params={"id": voteinfo.ID}, cookies=cookies, follow_redirects=True
-        )
+        request.cookies = cookies
+        response = request.get("/tu", params={"id": voteinfo.ID}, follow_redirects=True)
     assert response.status_code == int(HTTPStatus.OK)
 
     # Parse our new root.
@@ -702,7 +712,8 @@ def test_tu_ended_proposal(client, proposal):
     proposal_id = voteinfo.ID
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get(f"/tu/{proposal_id}", cookies=cookies)
+        request.cookies = cookies
+        response = request.get(f"/tu/{proposal_id}")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Alright, now let's continue on to verifying some markup.
@@ -734,7 +745,8 @@ def test_tu_proposal_vote_not_found(client, tu_user):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
-        response = request.post("/tu/1", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/tu/1", data=data)
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -747,7 +759,8 @@ def test_tu_proposal_vote(client, proposal):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
-        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post(f"/tu/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     # Check that the proposal record got updated.
@@ -775,7 +788,8 @@ def test_tu_proposal_vote_unauthorized(
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
-        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post(f"/tu/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
 
     root = parse_root(response.text)
@@ -784,7 +798,8 @@ def test_tu_proposal_vote_unauthorized(
 
     with client as request:
         data = {"decision": "Yes"}
-        response = request.get(f"/tu/{voteinfo.ID}", cookies=cookies, params=data)
+        request.cookies = cookies
+        response = request.get(f"/tu/{voteinfo.ID}", params=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -802,7 +817,8 @@ def test_tu_proposal_vote_cant_self_vote(client, proposal):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
-        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post(f"/tu/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
     root = parse_root(response.text)
@@ -811,7 +827,8 @@ def test_tu_proposal_vote_cant_self_vote(client, proposal):
 
     with client as request:
         data = {"decision": "Yes"}
-        response = request.get(f"/tu/{voteinfo.ID}", cookies=cookies, params=data)
+        request.cookies = cookies
+        response = request.get(f"/tu/{voteinfo.ID}", params=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -830,7 +847,8 @@ def test_tu_proposal_vote_already_voted(client, proposal):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
-        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post(f"/tu/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
     root = parse_root(response.text)
@@ -839,7 +857,8 @@ def test_tu_proposal_vote_already_voted(client, proposal):
 
     with client as request:
         data = {"decision": "Yes"}
-        response = request.get(f"/tu/{voteinfo.ID}", cookies=cookies, params=data)
+        request.cookies = cookies
+        response = request.get(f"/tu/{voteinfo.ID}", params=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -853,7 +872,8 @@ def test_tu_proposal_vote_invalid_decision(client, proposal):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "EVIL"}
-        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post(f"/tu/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
     assert response.text == "Invalid 'decision' value."
 
@@ -861,7 +881,8 @@ def test_tu_proposal_vote_invalid_decision(client, proposal):
 def test_tu_addvote(client: TestClient, tu_user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/addvote", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/addvote")
     assert response.status_code == int(HTTPStatus.OK)
 
 
@@ -870,12 +891,14 @@ def test_tu_addvote_unauthorized(
 ):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/addvote", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/addvote")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/tu"
 
     with client as request:
-        response = request.post("/addvote", cookies=cookies)
+        request.cookies = cookies
+        response = request.post("/addvote")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/tu"
 
@@ -883,7 +906,8 @@ def test_tu_addvote_unauthorized(
 def test_tu_addvote_invalid_type(client: TestClient, tu_user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/addvote", params={"type": "faketype"}, cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/addvote", params={"type": "faketype"})
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -897,7 +921,8 @@ def test_tu_addvote_post(client: TestClient, tu_user: User, user: User):
     data = {"user": user.Username, "type": "add_tu", "agenda": "Blah"}
 
     with client as request:
-        response = request.post("/addvote", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     voteinfo = db.query(TUVoteInfo, TUVoteInfo.Agenda == "Blah").first()
@@ -912,14 +937,16 @@ def test_tu_addvote_post_cant_duplicate_username(
     data = {"user": user.Username, "type": "add_tu", "agenda": "Blah"}
 
     with client as request:
-        response = request.post("/addvote", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     voteinfo = db.query(TUVoteInfo, TUVoteInfo.Agenda == "Blah").first()
     assert voteinfo is not None
 
     with client as request:
-        response = request.post("/addvote", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
@@ -927,7 +954,8 @@ def test_tu_addvote_post_invalid_username(client: TestClient, tu_user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     data = {"user": "fakeusername"}
     with client as request:
-        response = request.post("/addvote", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -935,7 +963,8 @@ def test_tu_addvote_post_invalid_type(client: TestClient, tu_user: User, user: U
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     data = {"user": user.Username}
     with client as request:
-        response = request.post("/addvote", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
@@ -943,7 +972,8 @@ def test_tu_addvote_post_invalid_agenda(client: TestClient, tu_user: User, user:
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     data = {"user": user.Username, "type": "add_tu"}
     with client as request:
-        response = request.post("/addvote", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
@@ -952,5 +982,6 @@ def test_tu_addvote_post_bylaws(client: TestClient, tu_user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     data = {"type": "bylaws", "agenda": "Blah blah!"}
     with client as request:
-        response = request.post("/addvote", cookies=cookies, data=data)
+        request.cookies = cookies
+        response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)

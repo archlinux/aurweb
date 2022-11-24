@@ -210,7 +210,8 @@ def test_homepage_dashboard(redis, packages, user):
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        response = request.get("/", cookies=cookies)
+        request.cookies = cookies
+        response = request.get("/")
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -307,7 +308,8 @@ def test_homepage_dashboard_flagged(user: User, user2: User, package: Package):
     # flagged maintained packages.
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get("/", cookies=cookies)
+        request.cookies = cookies
+        resp = request.get("/")
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)

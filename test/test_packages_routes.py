@@ -410,7 +410,8 @@ def test_package_comments(client: TestClient, user: User, package: Package):
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(package_endpoint(package), cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
@@ -465,7 +466,8 @@ def test_package_authenticated(client: TestClient, user: User, package: Package)
     This process also occurs when pkgbase.html is rendered."""
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(package_endpoint(package), cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
 
     expected = [
@@ -493,7 +495,8 @@ def test_package_authenticated_maintainer(
 ):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(package_endpoint(package), cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
 
     expected = [
@@ -515,7 +518,8 @@ def test_package_authenticated_maintainer(
 def test_package_authenticated_tu(client: TestClient, tu_user: User, package: Package):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(package_endpoint(package), cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
 
     expected = [
@@ -941,10 +945,10 @@ def test_packages_sort_by_voted(
     # Test that, by default, the first result is what we just set above.
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         response = request.get(
             "/packages",
             params={"SB": "w", "SO": "d"},  # Voted  # Descending, Voted first.
-            cookies=cookies,
         )
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -966,10 +970,10 @@ def test_packages_sort_by_notify(
     # Test that, by default, the first result is what we just set above.
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         response = request.get(
             "/packages",
             params={"SB": "o", "SO": "d"},  # Voted  # Descending, Voted first.
-            cookies=cookies,
         )
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1142,10 +1146,10 @@ def test_packages_post_unknown_action(client: TestClient, user: User, package: P
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "unknown"},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1158,10 +1162,10 @@ def test_packages_post_error(client: TestClient, user: User, package: Package):
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
         cookies = {"AURSID": user.login(Request(), "testPassword")}
         with client as request:
+            request.cookies = cookies
             resp = request.post(
                 "/packages",
                 data={"action": "stub"},
-                cookies=cookies,
             )
         assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1178,10 +1182,10 @@ def test_packages_post(client: TestClient, user: User, package: Package):
     with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
         cookies = {"AURSID": user.login(Request(), "testPassword")}
         with client as request:
+            request.cookies = cookies
             resp = request.post(
                 "/packages",
                 data={"action": "stub"},
-                cookies=cookies,
             )
         assert resp.status_code == int(HTTPStatus.OK)
 
@@ -1250,7 +1254,8 @@ def test_packages_post_notify(client: TestClient, user: User, package: Package):
     # an error to be rendered.
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post("/packages", data={"action": "notify"}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "notify"})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages to be notified about."
@@ -1258,9 +1263,8 @@ def test_packages_post_notify(client: TestClient, user: User, package: Package):
 
     # Now let's actually enable notifications on `package`.
     with client as request:
-        resp = request.post(
-            "/packages", data={"action": "notify", "IDs": [package.ID]}, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "notify", "IDs": [package.ID]})
     assert resp.status_code == int(HTTPStatus.OK)
     expected = "The selected packages' notifications have been enabled."
     successes = get_successes(resp.text)
@@ -1269,9 +1273,8 @@ def test_packages_post_notify(client: TestClient, user: User, package: Package):
     # Try to enable notifications when they're already enabled,
     # causing an error to be rendered.
     with client as request:
-        resp = request.post(
-            "/packages", data={"action": "notify", "IDs": [package.ID]}, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "notify", "IDs": [package.ID]})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages to be notified about."
@@ -1289,7 +1292,8 @@ def test_packages_post_unnotify(client: TestClient, user: User, package: Package
     # Request removal of the notification without any IDs.
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post("/packages", data={"action": "unnotify"}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "unnotify"})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages for notification removal."
@@ -1297,10 +1301,10 @@ def test_packages_post_unnotify(client: TestClient, user: User, package: Package
 
     # Request removal of the notification; really.
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "unnotify", "IDs": [package.ID]},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.OK)
     successes = get_successes(resp.text)
@@ -1315,10 +1319,10 @@ def test_packages_post_unnotify(client: TestClient, user: User, package: Package
 
     # Try it again. The notif no longer exists.
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "unnotify", "IDs": [package.ID]},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
@@ -1331,7 +1335,8 @@ def test_packages_post_adopt(client: TestClient, user: User, package: Package):
     # Try to adopt an empty list of packages.
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post("/packages", data={"action": "adopt"}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "adopt"})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages to adopt."
@@ -1339,10 +1344,10 @@ def test_packages_post_adopt(client: TestClient, user: User, package: Package):
 
     # Now, let's try to adopt a package that's already maintained.
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "adopt", "IDs": [package.ID], "confirm": True},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
@@ -1356,9 +1361,8 @@ def test_packages_post_adopt(client: TestClient, user: User, package: Package):
 
     # Now, let's try to adopt without confirming.
     with client as request:
-        resp = request.post(
-            "/packages", data={"action": "adopt", "IDs": [package.ID]}, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "adopt", "IDs": [package.ID]})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = (
@@ -1369,10 +1373,10 @@ def test_packages_post_adopt(client: TestClient, user: User, package: Package):
 
     # Let's do it again now that there is no maintainer.
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "adopt", "IDs": [package.ID], "confirm": True},
-            cookies=cookies,
         )
     assert resp.status_code == int(HTTPStatus.OK)
     successes = get_successes(resp.text)
@@ -1446,10 +1450,10 @@ def test_packages_post_disown(
     """Disown packages as a Trusted User, which cannot bypass idle time."""
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "disown", "IDs": [package.ID], "confirm": True},
-            cookies=cookies,
         )
 
     errors = get_errors(resp.text)
@@ -1576,7 +1580,8 @@ def test_account_comments(client: TestClient, user: User, package: Package):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/account/{user.Username}/comments"
     with client as request:
-        resp = request.get(endpoint, cookies=cookies)
+        request.cookies = cookies
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
