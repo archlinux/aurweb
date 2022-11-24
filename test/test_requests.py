@@ -29,7 +29,11 @@ def setup(db_test) -> None:
 @pytest.fixture
 def client() -> TestClient:
     """Yield a TestClient."""
-    yield TestClient(app=asgi.app)
+    client = TestClient(app=asgi.app)
+
+    # disable redirects for our tests
+    client.follow_redirects = False
+    yield client
 
 
 def create_user(username: str, email: str) -> User:
@@ -321,7 +325,8 @@ def test_request_post_deletion_autoaccept(
     endpoint = f"/pkgbase/{pkgbase.Name}/request"
     data = {"comments": "Test request.", "type": "deletion"}
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=auser.cookies)
+        request.cookies = auser.cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     pkgreq = (
@@ -642,7 +647,8 @@ def test_request_post_orphan_autoaccept(
         "comments": "Test request.",
     }
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=auser.cookies)
+        request.cookies = auser.cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     pkgreq = pkgbase.requests.first()
@@ -715,7 +721,7 @@ def test_pkgreq_by_id_not_found():
 
 def test_requests_unauthorized(client: TestClient):
     with client as request:
-        resp = request.get("/requests", allow_redirects=False)
+        resp = request.get("/requests")
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
@@ -879,9 +885,7 @@ def test_requests_selfmade(
 def test_requests_close(client: TestClient, user: User, pkgreq: PackageRequest):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(
-            f"/requests/{pkgreq.ID}/close", cookies=cookies, allow_redirects=False
-        )
+        resp = request.get(f"/requests/{pkgreq.ID}/close", cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
 
 
@@ -890,9 +894,7 @@ def test_requests_close_unauthorized(
 ):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(
-            f"/requests/{pkgreq.ID}/close", cookies=cookies, allow_redirects=False
-        )
+        resp = request.get(f"/requests/{pkgreq.ID}/close", cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/"
 
@@ -906,7 +908,6 @@ def test_requests_close_post_unauthorized(
             f"/requests/{pkgreq.ID}/close",
             data={"reason": ACCEPTED_ID},
             cookies=cookies,
-            allow_redirects=False,
         )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/"
@@ -915,9 +916,7 @@ def test_requests_close_post_unauthorized(
 def test_requests_close_post(client: TestClient, user: User, pkgreq: PackageRequest):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(
-            f"/requests/{pkgreq.ID}/close", cookies=cookies, allow_redirects=False
-        )
+        resp = request.post(f"/requests/{pkgreq.ID}/close", cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     assert pkgreq.Status == REJECTED_ID
@@ -930,9 +929,7 @@ def test_requests_close_post_rejected(
 ):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(
-            f"/requests/{pkgreq.ID}/close", cookies=cookies, allow_redirects=False
-        )
+        resp = request.post(f"/requests/{pkgreq.ID}/close", cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     assert pkgreq.Status == REJECTED_ID

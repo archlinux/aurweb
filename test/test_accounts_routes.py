@@ -70,6 +70,9 @@ def client() -> TestClient:
     # Necessary for forged login CSRF protection on the login route. Set here
     # instead of only on the necessary requests for convenience.
     client.headers.update(TEST_REFERER)
+
+    # disable redirects for our tests
+    client.follow_redirects = False
     yield client
 
 
@@ -104,9 +107,7 @@ def test_get_passreset_authed_redirects(client: TestClient, user: User):
     assert sid is not None
 
     with client as request:
-        response = request.get(
-            "/passreset", cookies={"AURSID": sid}, allow_redirects=False
-        )
+        response = request.get("/passreset", cookies={"AURSID": sid})
 
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/"
@@ -140,7 +141,7 @@ def test_get_passreset_translation(client: TestClient):
 
 def test_get_passreset_with_resetkey(client: TestClient):
     with client as request:
-        response = request.get("/passreset", data={"resetkey": "abcd"})
+        response = request.get("/passreset", params={"resetkey": "abcd"})
     assert response.status_code == int(HTTPStatus.OK)
 
 
@@ -153,7 +154,6 @@ def test_post_passreset_authed_redirects(client: TestClient, user: User):
             "/passreset",
             cookies={"AURSID": sid},
             data={"user": "blah"},
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
@@ -323,7 +323,7 @@ def post_register(request, **kwargs):
     for k, v in args.items():
         data[k] = v
 
-    return request.post("/register", data=data, allow_redirects=False)
+    return request.post("/register", data=data)
 
 
 def test_post_register(client: TestClient):
@@ -737,7 +737,7 @@ def test_get_account_edit_unauthorized(client: TestClient, user: User):
     endpoint = f"/account/{user2.Username}/edit"
     with client as request:
         # Try to edit `test2` while authenticated as `test`.
-        response = request.get(endpoint, cookies={"AURSID": sid}, allow_redirects=False)
+        response = request.get(endpoint, cookies={"AURSID": sid})
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     expected = f"/account/{user2.Username}"
@@ -755,7 +755,6 @@ def test_post_account_edit(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -841,9 +840,7 @@ def test_post_account_edit_dev(client: TestClient, tu_user: User):
 
     endpoint = f"/account/{tu_user.Username}/edit"
     with client as request:
-        response = request.post(
-            endpoint, cookies={"AURSID": sid}, data=post_data, allow_redirects=False
-        )
+        response = request.post(endpoint, cookies={"AURSID": sid}, data=post_data)
     assert response.status_code == int(HTTPStatus.OK)
 
     expected = "The account, <strong>test</strong>, "
@@ -867,7 +864,6 @@ def test_post_account_edit_language(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -897,7 +893,6 @@ def test_post_account_edit_timezone(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -914,7 +909,6 @@ def test_post_account_edit_error_missing_password(client: TestClient, user: User
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
@@ -934,7 +928,6 @@ def test_post_account_edit_error_invalid_password(client: TestClient, user: User
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
@@ -1039,9 +1032,7 @@ def test_post_account_edit_error_unauthorized(client: TestClient, user: User):
     endpoint = f"/account/{user2.Username}/edit"
     with client as request:
         # Attempt to edit 'test2' while logged in as 'test'.
-        response = request.post(
-            endpoint, cookies={"AURSID": sid}, data=post_data, allow_redirects=False
-        )
+        response = request.post(endpoint, cookies={"AURSID": sid}, data=post_data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     expected = f"/account/{user2.Username}"
@@ -1064,7 +1055,6 @@ def test_post_account_edit_ssh_pub_key(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -1077,7 +1067,6 @@ def test_post_account_edit_ssh_pub_key(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -1099,7 +1088,6 @@ def test_post_account_edit_missing_ssh_pubkey(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -1116,7 +1104,6 @@ def test_post_account_edit_missing_ssh_pubkey(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -1133,9 +1120,7 @@ def test_post_account_edit_invalid_ssh_pubkey(client: TestClient, user: User):
     }
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        response = request.post(
-            "/account/test/edit", data=data, cookies=cookies, allow_redirects=False
-        )
+        response = request.post("/account/test/edit", data=data, cookies=cookies)
 
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1157,7 +1142,6 @@ def test_post_account_edit_password(client: TestClient, user: User):
             "/account/test/edit",
             cookies={"AURSID": sid},
             data=post_data,
-            allow_redirects=False,
         )
 
     assert response.status_code == int(HTTPStatus.OK)
@@ -1197,7 +1181,7 @@ def test_post_account_edit_other_user_as_user(client: TestClient, user: User):
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
-        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+        resp = request.get(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/account/{user2.Username}"
 
@@ -1208,7 +1192,7 @@ def test_post_account_edit_self_type_as_tu(client: TestClient, tu_user: User):
 
     # We cannot see the Account Type field on our own edit page.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+        resp = request.get(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
     assert "id_type" in resp.text
 
@@ -1239,7 +1223,7 @@ def test_post_account_edit_other_user_type_as_tu(
 
     # As a TU, we can see the Account Type field for other users.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+        resp = request.get(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
     assert "id_type" in resp.text
 
@@ -1277,19 +1261,20 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user:
     # apart from `tu_user`s during our testing.
     user_client = TestClient(app=app)
     user_client.headers.update(TEST_REFERER)
+    user_client.follow_redirects = False
 
     # Test that `user` can view their account edit page while logged in.
     user_cookies = {"AURSID": sid}
     with client as request:
         endpoint = f"/account/{user.Username}/edit"
-        resp = request.get(endpoint, cookies=user_cookies, allow_redirects=False)
+        resp = request.get(endpoint, cookies=user_cookies)
     assert resp.status_code == HTTPStatus.OK
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     assert cookies is not None  # This is useless, we create the dict here ^
     # As a TU, we can see the Account for other users.
     with client as request:
-        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+        resp = request.get(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
     # As a TU, we can modify other user's account types.
     data = {
@@ -1299,12 +1284,13 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user:
         "passwd": "testPassword",
     }
     with client as request:
-        resp = request.post(endpoint, data=data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Test that `user` no longer has a session.
     with user_client as request:
-        resp = request.get(endpoint, cookies=user_cookies, allow_redirects=False)
+        resp = request.get(endpoint, cookies=user_cookies)
     assert resp.status_code == HTTPStatus.SEE_OTHER
 
     # Since user is now suspended, they should not be able to login.
@@ -1341,9 +1327,7 @@ def test_get_account(client: TestClient, user: User):
     sid = user.login(request, "testPassword")
 
     with client as request:
-        response = request.get(
-            "/account/test", cookies={"AURSID": sid}, allow_redirects=False
-        )
+        response = request.get("/account/test", cookies={"AURSID": sid})
 
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1353,16 +1337,14 @@ def test_get_account_not_found(client: TestClient, user: User):
     sid = user.login(request, "testPassword")
 
     with client as request:
-        response = request.get(
-            "/account/not_found", cookies={"AURSID": sid}, allow_redirects=False
-        )
+        response = request.get("/account/not_found", cookies={"AURSID": sid})
 
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
 def test_get_account_unauthenticated(client: TestClient, user: User):
     with client as request:
-        response = request.get("/account/test", allow_redirects=False)
+        response = request.get("/account/test")
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
 
     content = response.content.decode()
@@ -1832,7 +1814,7 @@ def test_get_terms_of_service(client: TestClient, user: User):
         )
 
     with client as request:
-        response = request.get("/tos", allow_redirects=False)
+        response = request.get("/tos")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     request = Request()
@@ -1842,12 +1824,12 @@ def test_get_terms_of_service(client: TestClient, user: User):
     # First of all, let's test that we get redirected to /tos
     # when attempting to browse authenticated without accepting terms.
     with client as request:
-        response = request.get("/", cookies=cookies, allow_redirects=False)
+        response = request.get("/", cookies=cookies)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/tos"
 
     with client as request:
-        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+        response = request.get("/tos", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
 
     with db.begin():
@@ -1856,7 +1838,7 @@ def test_get_terms_of_service(client: TestClient, user: User):
         )
 
     with client as request:
-        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+        response = request.get("/tos", cookies=cookies)
     # We accepted the term, there's nothing left to accept.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -1865,7 +1847,7 @@ def test_get_terms_of_service(client: TestClient, user: User):
         term.Revision = 2
 
     with client as request:
-        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+        response = request.get("/tos", cookies=cookies)
     # This time, we have a modified term Revision that hasn't
     # yet been agreed to via AcceptedTerm update.
     assert response.status_code == int(HTTPStatus.OK)
@@ -1874,7 +1856,7 @@ def test_get_terms_of_service(client: TestClient, user: User):
         accepted_term.Revision = term.Revision
 
     with client as request:
-        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+        response = request.get("/tos", cookies=cookies)
     # We updated the term revision, there's nothing left to accept.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -1931,7 +1913,7 @@ def test_post_terms_of_service(client: TestClient, user: User):
 
     # Now, see that GET redirects us to / with no terms left to accept.
     with client as request:
-        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+        response = request.get("/tos", cookies=cookies)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/"
 
@@ -1946,7 +1928,7 @@ def test_account_comments_not_found(client: TestClient, user: User):
 def test_accounts_unauthorized(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get("/accounts", cookies=cookies, allow_redirects=False)
+        resp = request.get("/accounts", cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/"
 

@@ -33,6 +33,9 @@ def client() -> TestClient:
     # Necessary for forged login CSRF protection on the login route. Set here
     # instead of only on the necessary requests for convenience.
     client.headers.update(TEST_REFERER)
+
+    # disable redirects for our tests
+    client.follow_redirects = False
     yield client
 
 
@@ -58,21 +61,20 @@ def test_login_logout(client: TestClient, user: User):
         response = request.get("/login")
         assert response.status_code == int(HTTPStatus.OK)
 
-        response = request.post("/login", data=post_data, allow_redirects=False)
+        response = request.post("/login", data=post_data)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
         # Simulate following the redirect location from above's response.
         response = request.get(response.headers.get("location"))
         assert response.status_code == int(HTTPStatus.OK)
 
-        response = request.post("/logout", data=post_data, allow_redirects=False)
+        response = request.post("/logout", data=post_data)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
         response = request.post(
             "/logout",
             data=post_data,
             cookies={"AURSID": response.cookies.get("AURSID")},
-            allow_redirects=False,
         )
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -94,7 +96,7 @@ def test_login_email(client: TestClient, user: user):
     post_data = {"user": user.Email, "passwd": "testPassword", "next": "/"}
 
     with client as request:
-        resp = request.post("/login", data=post_data, allow_redirects=False)
+        resp = request.post("/login", data=post_data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert "AURSID" in resp.cookies
 
@@ -119,14 +121,14 @@ def test_insecure_login(getboolean: mock.Mock, client: TestClient, user: User):
 
     # Perform a login request with the data matching our user.
     with client as request:
-        response = request.post("/login", data=post_data, allow_redirects=False)
+        response = request.post("/login", data=post_data)
 
     # Make sure we got the expected status out of it.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Let's check what we got in terms of cookies for AURSID.
     # Make sure that a secure cookie got passed to us.
-    cookie = next(c for c in response.cookies if c.name == "AURSID")
+    cookie = next(c for c in response.cookies.jar if c.name == "AURSID")
     assert cookie.secure is False
     assert cookie.has_nonstandard_attr("HttpOnly") is False
     assert cookie.has_nonstandard_attr("SameSite") is True
@@ -160,14 +162,14 @@ def test_secure_login(getboolean: mock.Mock, client: TestClient, user: User):
 
     # Perform a login request with the data matching our user.
     with client as request:
-        response = request.post("/login", data=post_data, allow_redirects=False)
+        response = request.post("/login", data=post_data)
 
     # Make sure we got the expected status out of it.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Let's check what we got in terms of cookies for AURSID.
     # Make sure that a secure cookie got passed to us.
-    cookie = next(c for c in response.cookies if c.name == "AURSID")
+    cookie = next(c for c in response.cookies.jar if c.name == "AURSID")
     assert cookie.secure is True
     assert cookie.has_nonstandard_attr("HttpOnly") is True
     assert cookie.has_nonstandard_attr("SameSite") is True
@@ -186,7 +188,7 @@ def test_authenticated_login(client: TestClient, user: User):
 
     with client as request:
         # Try to login.
-        response = request.post("/login", data=post_data, allow_redirects=False)
+        response = request.post("/login", data=post_data)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
         assert response.headers.get("location") == "/"
 
@@ -194,9 +196,7 @@ def test_authenticated_login(client: TestClient, user: User):
         # when requesting GET /login as an authenticated user.
         # Now, let's verify that we receive 403 Forbidden when we
         # try to get /login as an authenticated user.
-        response = request.get(
-            "/login", cookies=response.cookies, allow_redirects=False
-        )
+        response = request.get("/login", cookies=response.cookies)
         assert response.status_code == int(HTTPStatus.OK)
         assert "Logged-in as: <strong>test</strong>" in response.text
 
@@ -205,7 +205,7 @@ def test_unauthenticated_logout_unauthorized(client: TestClient):
     with client as request:
         # Alright, let's verify that attempting to /logout when not
         # authenticated returns 401 Unauthorized.
-        response = request.post("/logout", allow_redirects=False)
+        response = request.post("/logout")
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
         assert response.headers.get("location").startswith("/login")
 
@@ -232,7 +232,7 @@ def test_login_remember_me(client: TestClient, user: User):
     }
 
     with client as request:
-        response = request.post("/login", data=post_data, allow_redirects=False)
+        response = request.post("/login", data=post_data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert "AURSID" in response.cookies
 

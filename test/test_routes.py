@@ -20,7 +20,11 @@ def setup(db_test):
 
 @pytest.fixture
 def client() -> TestClient:
-    yield TestClient(app=app)
+    client = TestClient(app=app)
+
+    # disable redirects for our tests
+    client.follow_redirects = False
+    yield client
 
 
 @pytest.fixture
@@ -66,7 +70,7 @@ def test_favicon(client: TestClient):
     """Test the favicon route at '/favicon.ico'."""
     with client as request:
         response1 = request.get("/static/images/favicon.ico")
-        response2 = request.get("/favicon.ico")
+        response2 = request.get("/favicon.ico", follow_redirects=True)
     assert response1.status_code == int(HTTPStatus.OK)
     assert response1.content == response2.content
 

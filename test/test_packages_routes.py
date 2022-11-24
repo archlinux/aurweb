@@ -65,7 +65,11 @@ def setup(db_test):
 @pytest.fixture
 def client() -> TestClient:
     """Yield a FastAPI TestClient."""
-    yield TestClient(app=asgi.app)
+    client = TestClient(app=asgi.app)
+
+    # disable redirects for our tests
+    client.follow_redirects = False
+    yield client
 
 
 def create_user(username: str) -> User:
@@ -1142,7 +1146,6 @@ def test_packages_post_unknown_action(client: TestClient, user: User, package: P
             "/packages",
             data={"action": "unknown"},
             cookies=cookies,
-            allow_redirects=False,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1159,7 +1162,6 @@ def test_packages_post_error(client: TestClient, user: User, package: Package):
                 "/packages",
                 data={"action": "stub"},
                 cookies=cookies,
-                allow_redirects=False,
             )
         assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -1180,7 +1182,6 @@ def test_packages_post(client: TestClient, user: User, package: Package):
                 "/packages",
                 data={"action": "stub"},
                 cookies=cookies,
-                allow_redirects=False,
             )
         assert resp.status_code == int(HTTPStatus.OK)
 
@@ -1203,7 +1204,8 @@ def test_packages_post_unflag(
     # Don't supply any packages.
     post_data = {"action": "unflag", "IDs": []}
     with client as request:
-        resp = request.post("/packages", data=post_data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post("/packages", data=post_data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages to unflag."
@@ -1212,7 +1214,8 @@ def test_packages_post_unflag(
     # Unflag the package as `user`.
     post_data = {"action": "unflag", "IDs": [package.ID]}
     with client as request:
-        resp = request.post("/packages", data=post_data, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post("/packages", data=post_data)
     assert resp.status_code == int(HTTPStatus.OK)
     assert package.PackageBase.Flagger is None
     successes = get_successes(resp.text)
@@ -1229,7 +1232,8 @@ def test_packages_post_unflag(
     maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     post_data = {"action": "unflag", "IDs": [package.ID]}
     with client as request:
-        resp = request.post("/packages", data=post_data, cookies=maint_cookies)
+        request.cookies = maint_cookies
+        resp = request.post("/packages", data=post_data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages to unflag."
@@ -1387,7 +1391,8 @@ def test_packages_post_disown_as_maintainer(
     # Try to run the disown action with no IDs; get an error.
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post("/packages", data={"action": "disown"}, cookies=cookies)
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "disown"})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages to disown."
@@ -1396,9 +1401,8 @@ def test_packages_post_disown_as_maintainer(
 
     # Try to disown `package` without giving the confirm argument.
     with client as request:
-        resp = request.post(
-            "/packages", data={"action": "disown", "IDs": [package.ID]}, cookies=cookies
-        )
+        request.cookies = cookies
+        resp = request.post("/packages", data={"action": "disown", "IDs": [package.ID]})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     assert package.PackageBase.Maintainer is not None
     errors = get_errors(resp.text)
@@ -1411,10 +1415,10 @@ def test_packages_post_disown_as_maintainer(
     # Now, try to disown `package` without credentials (as `user`).
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = user_cookies
         resp = request.post(
             "/packages",
             data={"action": "disown", "IDs": [package.ID], "confirm": True},
-            cookies=user_cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     assert package.PackageBase.Maintainer is not None
@@ -1424,10 +1428,10 @@ def test_packages_post_disown_as_maintainer(
 
     # Now, let's really disown `package` as `maintainer`.
     with client as request:
+        request.cookies = cookies
         resp = request.post(
             "/packages",
             data={"action": "disown", "IDs": [package.ID], "confirm": True},
-            cookies=cookies,
         )
 
     assert package.PackageBase.Maintainer is None
@@ -1463,9 +1467,8 @@ def test_packages_post_delete(
     # First, let's try to use the delete action with no packages IDs.
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(
-            "/packages", data={"action": "delete"}, cookies=user_cookies
-        )
+        request.cookies = user_cookies
+        resp = request.post("/packages", data={"action": "delete"})
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = "You did not select any packages to delete."
@@ -1473,10 +1476,10 @@ def test_packages_post_delete(
 
     # Now, let's try to delete real packages without supplying "confirm".
     with client as request:
+        request.cookies = user_cookies
         resp = request.post(
             "/packages",
             data={"action": "delete", "IDs": [package.ID]},
-            cookies=user_cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
@@ -1488,10 +1491,10 @@ def test_packages_post_delete(
 
     # And again, with everything, but `user` doesn't have permissions.
     with client as request:
+        request.cookies = user_cookies
         resp = request.post(
             "/packages",
             data={"action": "delete", "IDs": [package.ID], "confirm": True},
-            cookies=user_cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
@@ -1503,10 +1506,10 @@ def test_packages_post_delete(
     # an invalid package ID.
     tu_cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = tu_cookies
         resp = request.post(
             "/packages",
             data={"action": "delete", "IDs": [0], "confirm": True},
-            cookies=tu_cookies,
         )
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
@@ -1516,10 +1519,10 @@ def test_packages_post_delete(
     # Whoo. Now, let's finally make a valid request as `tu_user`
     # to delete `package`.
     with client as request:
+        request.cookies = tu_cookies
         resp = request.post(
             "/packages",
             data={"action": "delete", "IDs": [package.ID], "confirm": True},
-            cookies=tu_cookies,
         )
     assert resp.status_code == int(HTTPStatus.OK)
     successes = get_successes(resp.text)
@@ -1541,7 +1544,7 @@ def test_account_comments_unauthorized(client: TestClient, user: User):
     leverage existing fixtures."""
     endpoint = f"/account/{user.Username}/comments"
     with client as request:
-        resp = request.get(endpoint, allow_redirects=False)
+        resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location").startswith("/login")
 
