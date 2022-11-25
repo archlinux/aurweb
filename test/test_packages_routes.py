@@ -352,7 +352,7 @@ def test_package_split_description(client: TestClient, user: User):
     assert row.text == pkg_b.Description
 
 
-def paged_depends_required(client: TestClient, package: Package):
+def test_paged_depends_required(client: TestClient, package: Package):
     maint = package.PackageBase.Maintainer
     new_pkgs = []
 
@@ -360,7 +360,7 @@ def paged_depends_required(client: TestClient, package: Package):
         # Create 25 new packages that'll be used to depend on our package.
         for i in range(26):
             base = db.create(PackageBase, Name=f"new_pkg{i}", Maintainer=maint)
-            new_pkgs.append(db.create(Package, Name=base.Name))
+            new_pkgs.append(db.create(Package, Name=base.Name, PackageBase=base))
 
         # Create 25 deps.
         for i in range(25):

@@ -62,10 +62,12 @@
                 <em>{{ dep | dep_extra }}</em>
             </li>
         {% endfor %}
-        {% if not all_reqs and (required_by | length) > max_listing %}
-            <a href="/packages/{{ name }}?{{ q | extend_query(['all_reqs', '1']) | urlencode }}#pkgreqs">
-                {{ "Show %d more" | tr | format(reqs_count - (required_by | length)) }}...
-            </a>
+        {% if not all_reqs and reqs_count > max_listing %}
+            <li>
+                <a href="/packages/{{ package.Name }}?{{ q | extend_query(['all_reqs', '1']) | urlencode }}#pkgreqs">
+                    {{ "Show %d more" | tr | format(reqs_count - (required_by | length)) }}...
+                </a>
+            </li>
         {% endif %}
     </ul>
 </div>
