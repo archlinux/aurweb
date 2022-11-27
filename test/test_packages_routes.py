@@ -271,6 +271,13 @@ def test_package(client: TestClient, package: Package):
         db.create(PackageLicense, PackageID=package.ID, License=licenses[0])
         db.create(PackageLicense, PackageID=package.ID, License=licenses[1])
 
+        # Create some keywords
+        keywords = ["test1", "test2"]
+        for keyword in keywords:
+            db.create(
+                PackageKeyword, PackageBaseID=package.PackageBaseID, Keyword=keyword
+            )
+
     with client as request:
         resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
@@ -306,6 +313,11 @@ def test_package(client: TestClient, package: Package):
     conflicts = root.xpath('//tr[@id="conflicts"]/td')
     expected = ["test_conflict1", "test_conflict2"]
     assert conflicts[0].text.strip() == ", ".join(expected)
+
+    keywords = root.xpath('//a[@class="keyword"]')
+    expected = ["test1", "test2"]
+    for i, keyword in enumerate(expected):
+        assert keywords[i].text.strip() == keyword
 
 
 def test_package_split_description(client: TestClient, user: User):
