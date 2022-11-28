@@ -45,5 +45,12 @@
         {% for comment in comments.all() %}
             {% include "partials/packages/comment.html" %}
         {% endfor %}
+        <div class="comments-footer">
+            {% if pages > 1 %}
+            <p class="comments-footer-nav">
+                {{ page | pager_nav(comments_total, prefix) | safe }}
+            </p>
+            {% endif %}
+        </div>
     </div>
 {% endif %}

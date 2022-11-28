@@ -193,6 +193,11 @@ label.confirmation {
 	align-self: flex-end;
 }
 
+.comments-footer {
+	display: flex;
+	justify-content: flex-end;
+}
+
 .comment-header {
 	clear: both;
 	font-size: 1em;
