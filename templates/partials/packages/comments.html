@@ -39,7 +39,7 @@
             {% if pages > 1 %}
             <p class="comments-header-nav">
                 {{ page | pager_nav(comments_total, prefix) | safe }}
-            <p>
+            </p>
             {% endif %}
         </div>
         {% for comment in comments.all() %}
