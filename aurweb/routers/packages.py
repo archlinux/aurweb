@@ -93,22 +93,18 @@ async def packages_get(
     search.sort_by(sort_by, sort_order)
 
     # Insert search results into the context.
-    results = (
-        search.results()
-        .with_entities(
-            models.Package.ID,
-            models.Package.Name,
-            models.Package.PackageBaseID,
-            models.Package.Version,
-            models.Package.Description,
-            models.PackageBase.Popularity,
-            models.PackageBase.NumVotes,
-            models.PackageBase.OutOfDateTS,
-            models.User.Username.label("Maintainer"),
-            models.PackageVote.PackageBaseID.label("Voted"),
-            models.PackageNotification.PackageBaseID.label("Notify"),
-        )
-        .group_by(models.Package.Name)
+    results = search.results().with_entities(
+        models.Package.ID,
+        models.Package.Name,
+        models.Package.PackageBaseID,
+        models.Package.Version,
+        models.Package.Description,
+        models.PackageBase.Popularity,
+        models.PackageBase.NumVotes,
+        models.PackageBase.OutOfDateTS,
+        models.User.Username.label("Maintainer"),
+        models.PackageVote.PackageBaseID.label("Voted"),
+        models.PackageNotification.PackageBaseID.label("Notify"),
     )
 
     packages = results.limit(per_page).offset(offset)

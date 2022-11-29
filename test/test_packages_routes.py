@@ -740,6 +740,23 @@ def test_packages_search_by_keywords(client: TestClient, packages: list[Package]
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 1
 
+    # Now let's add another keyword to the same package
+    with db.begin():
+        db.create(
+            PackageKeyword, PackageBase=package.PackageBase, Keyword="testKeyword2"
+        )
+
+    # And request packages with both keywords, we should still get 1 result.
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "k", "K": "testKeyword testKeyword2"}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
 
 def test_packages_search_by_maintainer(
     client: TestClient, maintainer: User, package: Package
