@@ -41,11 +41,10 @@ docker compose run test
 ### Generating Dummy Data
 
 Before you can make meaningful queries to the cluster, it needs some data.
-Luckily such data can be generated. First, `docker ps` to discover the ID of the
-container running the FastAPI. Then:
+Luckily such data can be generated.
 
 ```sh
-docker exec -it <id> /bin/bash
+docker compose exec fastapi /bin/bash
 pacman -S words fortune-mod
 ./schema/gendummydata.py dummy.sql
 mysql aurweb < dummy.sql
