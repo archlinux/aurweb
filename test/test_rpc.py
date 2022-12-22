@@ -920,6 +920,19 @@ def test_rpc_search_provides(
     assert result.get("Name") == packages[0].Name
 
 
+def test_rpc_search_provides_self(
+    client: TestClient, packages: list[Package], relations: list[PackageRelation]
+):
+    params = {"v": 5, "type": "search", "by": "provides", "arg": "big-chungus"}
+    with client as request:
+        response = request.get("/rpc", params=params)
+    data = response.json()
+    # expected to return "big-chungus"
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == packages[0].Name
+
+
 def test_rpc_search_conflicts(
     client: TestClient, packages: list[Package], relations: list[PackageRelation]
 ):

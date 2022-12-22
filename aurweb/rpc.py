@@ -376,8 +376,18 @@ class RPC:
         search.search_by(by, arg)
 
         max_results = config.getint("options", "max_rpc_results")
-        results = self.entities(search.results()).limit(max_results + 1).all()
 
+        query = self.entities(search.results()).limit(max_results + 1)
+
+        # For "provides", we need to union our relation search
+        # with an exact search since a package always provides itself.
+        # Turns out that doing this with an OR statement is extremely slow
+        if by == "provides":
+            search = RPCSearch()
+            search._search_by_exact_name(arg)
+            query = query.union(self.entities(search.results()))
+
+        results = query.all()
         if len(results) > max_results:
             raise RPCError("Too many package results.")
 
