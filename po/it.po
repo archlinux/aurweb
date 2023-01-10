@@ -1,26 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-#
+# 
 # Translators:
 # Fanfurlio Farolfi <demolitions@gmail.com>, 2021-2022
-# Giovanni Scafora <giovanni@archlinux.org>, 2011-2015
+# Giovanni Scafora <scafora.giovanni@gmail.com>, 2011-2015,2022
+# Giovanni Scafora <scafora.giovanni@gmail.com>, 2022
 # Lorenzo Porta <lorenzoporta@protonmail.com>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # mattia_b89 <mattia.b89@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
-"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2022-01-18 17:18+0000\n"
-"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
+"PO-Revision-Date: 2011-04-10 13:21+0000\n"
+"Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2022\n"
 "Language-Team: Italian (http://www.transifex.com/lfleischer/aurweb/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: html/404.php
 msgid "Page Not Found"
@@ -41,12 +42,12 @@ msgstr "Le URL per clonare un repository git non sono visualizzabili nel browser
 #: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr "Per clonare il reposiroty git di %s, esegui %s."
+msgstr "Per clonare il repository git di %s, esegui %s."
 
 #: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr "Clicca %squi%s per tornare alla pagina dei dettagli di %s."
+msgstr "Clicca %squi%s per ritornare alla pagina dei dettagli di %s."
 
 #: html/503.php
 msgid "Service Unavailable"
@@ -79,7 +80,7 @@ msgstr "Non hai i permessi necessari per modificare questo account."
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr "Password non valida."
+msgstr "La password non è valida."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -169,7 +170,7 @@ msgstr "Edita il commento"
 
 #: html/home.php template/header.php
 msgid "Dashboard"
-msgstr "Cruscotto"
+msgstr "Pannello"
 
 #: html/home.php template/header.php
 msgid "Home"
@@ -573,7 +574,7 @@ msgstr "Solo i TU e gli sviluppatori possono abbandonare i pacchetti."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
-msgstr "Segnala Commento"
+msgstr "Segnala il commento"
 
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
@@ -585,7 +586,7 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr "Questo appare essere un pacchetto da VCS. Per favore %snon%s marcarlo come non aggiornato se la versione in AUR non corrisponde con il commit più recente, Questo pacchetto dovrebbe essere marcato solo se i sorgenti sono stati spostati o se sono necessari dei cambiamenti al PKGBUILD a causa delle recenti modifiche al sorgente."
+msgstr "Sembra un pacchetto VCS. Fai %snon%s segnalarlo come non aggiornato, se la versione in AUR non corrisponde con il commit più recente. Questo pacchetto dovrebbe essere segnalato solo se i sorgenti vengono spostati o se sono necessarie delle modifiche al PKGBUILD a causa delle recenti modifiche al sorgente."
 
 #: html/pkgflag.php
 #, php-format
@@ -699,12 +700,12 @@ msgstr "Usa questo modulo per creare un account."
 
 #: html/tos.php
 msgid "Terms of Service"
-msgstr "Termini del Servizio"
+msgstr "Termini di servizio"
 
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr "I seguenti documenti sono stati aggiornati. Per favore riesaminali correttamente:"
+msgstr "I seguenti documenti sono stati aggiornati. Riesaminali attentamente:"
 
 #: html/tos.php
 #, php-format
@@ -784,7 +785,7 @@ msgstr "Può contenere solo un punto, un trattino basso o un trattino."
 
 #: lib/acctfuncs.inc.php
 msgid "Please confirm your new password."
-msgstr "Per favore conferma la tua nuova password."
+msgstr "Conferma la tua nuova password."
 
 #: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
@@ -796,7 +797,7 @@ msgstr "L'indirizzo email di scorta non è valido."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr "La homepage non è valida, per favore specificare l'URL HTTP(s) completo."
+msgstr "La homepage non è valida, specifica l'URL HTTP(s) completo."
 
 #: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
@@ -816,7 +817,7 @@ msgstr "Lingua attualmente non supportata."
 
 #: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
-msgstr "Fuso orario non attualmente supportato."
+msgstr "Il fuso orario non è attualmente supportato."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -835,15 +836,15 @@ msgstr "La chiave pubblica SSH %s%s%s, è già in uso."
 
 #: lib/acctfuncs.inc.php
 msgid "The CAPTCHA is missing."
-msgstr "Manca la risposta CAPTCHA."
+msgstr "Manca il CAPTCHA."
 
 #: lib/acctfuncs.inc.php
 msgid "This CAPTCHA has expired. Please try again."
-msgstr "Il CAPTCHA è scaduto, Per favore riprova."
+msgstr "Il CAPTCHA è scaduto. Riprova."
 
 #: lib/acctfuncs.inc.php
 msgid "The entered CAPTCHA answer is invalid."
-msgstr "La risposta CAPTCHA inserita non è valida."
+msgstr "Il CAPTCHA inserito non è valido."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -885,7 +886,7 @@ msgstr "Account sospeso"
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to suspend accounts."
-msgstr "Non hai il permesso per sospendere account."
+msgstr "Non hai il permesso per sospendere gli account."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -946,7 +947,7 @@ msgstr "Manca l'ID del commento."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
-msgstr "Non possono essere inseriti più di 5 commenti."
+msgstr "Non possono essere evidenziati più di 5 commenti."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
@@ -958,11 +959,11 @@ msgstr "Non sei autorizzato a rimuovere questo commento."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
-msgstr "Il commento è stato rimosso."
+msgstr "Il commento è ora in evidenza."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been unpinned."
-msgstr "I commenti sono stati rimossi."
+msgstr "I commenti non sono più in evidenza."
 
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
@@ -1296,7 +1297,7 @@ msgstr "Modifica l'account di quest'utente"
 
 #: template/account_details.php
 msgid "List this user's comments"
-msgstr "Elenca i commenti di quest'utente"
+msgstr "Elenca i commenti di questo utente"
 
 #: template/account_edit_form.php
 #, php-format
@@ -1306,7 +1307,7 @@ msgstr "Clicca %squi%s se vuoi eliminare definitivamente questo account."
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr "Click %squì%s per il dettagli dell'utente."
+msgstr "Click %squì%s per visualizzare i dettagli dell'utente."
 
 #: template/account_edit_form.php
 #, php-format
@@ -1364,7 +1365,7 @@ msgstr "Indirizzo email di scorta"
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr "Puoi fornire un secondo indirizzo email che potrà essere usato per ripristinare il tuo account, nel caso tu perda l'accesso al tuo indirizzo email primario."
+msgstr "Puoi fornire un secondo indirizzo email che potrà essere usato per ripristinare il tuo account, nel caso tu perdessi l'accesso al tuo indirizzo email primario."
 
 #: template/account_edit_form.php
 msgid ""
@@ -1391,7 +1392,7 @@ msgstr "Fuso orario"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr "Se vuoi cambiare la tua password, inseriscine una nuova e confermala inserendola di nuovo."
+msgstr "Se vuoi cambiare la tua password, inseriscine una nuova e confermala digitandola di nuovo."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1409,7 +1410,7 @@ msgstr "Chiave pubblica SSH"
 
 #: template/account_edit_form.php
 msgid "Notification settings"
-msgstr "Impostazioni notifiche"
+msgstr "Impostazioni delle notifiche"
 
 #: template/account_edit_form.php
 msgid "Notify of new comments"
@@ -1421,11 +1422,11 @@ msgstr "Notifica degli aggiornamenti dei pacchetti"
 
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
-msgstr "Notifica cambiamenti di proprietà"
+msgstr "Notifica dei cambiamenti di proprietà"
 
 #: template/account_edit_form.php
 msgid "To confirm the profile changes, please enter your current password:"
-msgstr "Per confermare le modifiche al profilo, per favore inserisci la tua password:"
+msgstr "Per confermare le modifiche al profilo, inserisci la tua password:"
 
 #: template/account_edit_form.php
 msgid "Your current password"
@@ -1499,7 +1500,7 @@ msgstr "Salva"
 #: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr "Commento per la marcatura come Non Aggiornato: %s"
+msgstr "Commento per la segnalazione come Non Aggiornato: %s"
 
 #: template/flag_comment.php
 #, php-format
@@ -1513,7 +1514,7 @@ msgstr "%s%s%s non è segnalato come non aggiornato."
 
 #: template/flag_comment.php
 msgid "Return to Details"
-msgstr "Ritorna ai Dettagli"
+msgstr "Ritorna ai dettagli"
 
 #: template/footer.php
 #, php-format
@@ -1583,6 +1584,7 @@ msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] "%d richiesta in attesa"
 msgstr[1] "%d richieste in attesa"
+msgstr[2] "%d richieste in attesa"
 
 #: template/pkgbase_actions.php
 msgid "Adopt Package"
@@ -1654,7 +1656,7 @@ msgstr "Aggiungi un commento"
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr "Gli identificatori dei commit Git nel repository dei pacchetti AUR e le URL vengono convertite automaticamente in link."
+msgstr "Gli identificatori dei commit Git nel repository dei pacchetti AUR e le URL vengono convertiti automaticamente in link."
 
 #: template/pkg_comment_form.php
 #, php-format
@@ -1663,7 +1665,7 @@ msgstr "La %ssintassi Markdown%s è parzialmente supportata."
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
-msgstr "Elimina i commenti"
+msgstr "Commenti in evidenza"
 
 #: template/pkg_comments.php
 msgid "Latest Comments"
@@ -1676,7 +1678,7 @@ msgstr "Commenti per"
 #: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
-msgstr "%s ha commentato su %s"
+msgstr "%s ha commentato il %s"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1686,27 +1688,27 @@ msgstr "Commento anonimo su %s"
 #: template/pkg_comments.php
 #, php-format
 msgid "Commented on package %s on %s"
-msgstr "Ha commentato sul pacchetto %s su %s"
+msgstr "Ha commentato sul pacchetto %s il %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
-msgstr "Eliminato su %s da %s"
+msgstr "eliminato il %s da %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
-msgstr "cancellato su %s"
+msgstr "eliminato il %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
-msgstr "modificato su %s da %s"
+msgstr "modificato il %s da %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
-msgstr "modificato su %s"
+msgstr "modificato il %s"
 
 #: template/pkg_comments.php
 msgid "Undelete comment"
@@ -1829,7 +1831,7 @@ msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Inserendo una richiesta di cancellazione, stai chiedendo ad un Trusted User di cancellare il pacchetto base. Questo tipo di richiesta dovrebbe essere usato per duplicati, software abbandonati dall'autore, sotware illegalmente distribuiti o pacchetti irreparabili."
+msgstr "Inserendo una richiesta di cancellazione, stai chiedendo ad un Trusted User di cancellare il pacchetto base. Questo tipo di richiesta dovrebbe essere usata per i duplicati, per software abbandonati dall'autore, per sotware illegalmente distribuiti oppure per pacchetti irreparabili."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1845,7 +1847,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "Inserendo una richiesta di abbandono, stai chiedendo ad un Trusted User di rimuovere la proprietà del pacchetto base. Per favore procedi soltanto se il pacchetto necessita di manutenzione, il manutentore attuale non risponde, e hai già provato a contattarlo precedentemente."
+msgstr "Inserendo una richiesta di abbandono, stai chiedendo ad un Trusted User di rimuovere la proprietà del pacchetto base. Procedi soltanto se il pacchetto necessita di manutenzione, se il manutentore attuale non risponde e se hai già provato a contattarlo precedentemente."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -1857,6 +1859,7 @@ msgid "%d package request found."
 msgid_plural "%d package requests found."
 msgstr[0] "È stato trovato %d pacchetto."
 msgstr[1] "Sono stati trovati %d pacchetti."
+msgstr[2] "Sono stati trovati %d pacchetti."
 
 #: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
@@ -1881,6 +1884,7 @@ msgid "~%d day left"
 msgid_plural "~%d days left"
 msgstr[0] "~%d giorno rimanente"
 msgstr[1] "~%d giorni rimanenti"
+msgstr[2] "~%d giorni rimanenti"
 
 #: template/pkgreq_results.php
 #, php-format
@@ -1888,6 +1892,7 @@ msgid "~%d hour left"
 msgid_plural "~%d hours left"
 msgstr[0] "~%d ora rimanente"
 msgstr[1] "~%d ore rimanenti"
+msgstr[2] "~%d ore rimanenti"
 
 #: template/pkgreq_results.php
 msgid "<1 hour left"
@@ -2016,6 +2021,7 @@ msgid "%d package found."
 msgid_plural "%d packages found."
 msgstr[0] "È stato trovato %d pacchetto."
 msgstr[1] "Sono stati trovati %d pacchetti."
+msgstr[2] "Sono stati trovati %d pacchetti."
 
 #: template/pkg_search_results.php
 msgid "Version"
@@ -2026,7 +2032,7 @@ msgstr "Versione"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr "La popolarità è calcolata come somma di tutti i voti pesati con un fattore di %.2f al giorno, dalla sua creazione."
+msgstr "La popolarità è calcolata come somma di tutti i voti ponderati con un fattore di %.2f al giorno dalla sua creazione."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -2172,7 +2178,7 @@ msgstr "Precedente"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr "Ripristino Password di AUR"
+msgstr "Ripristino della password di AUR"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2180,18 +2186,18 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr "È stata inviata una richiesta per ripristinare la password dell'account {user} associato al tuo indirizzo e-mail. Se desideri ripristinare la tua password, clicca sul link [1] sottostante, altrimenti ignora questo messaggio e non succederà nulla."
+msgstr "È stata inviata una richiesta per ripristinare la password dell'account {user} associato al tuo indirizzo email. Se desideri ripristinare la tua password, clicca sul link [1] sottostante, altrimenti ignora questo messaggio e non succederà nulla."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr "Benvenuto nel Arch User Repository"
+msgstr "Benvenuto nell' Arch User Repository"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "Benvenuto nel Arch User Repository! Per impostare una password iniziale per il tuo nuovo account, per favore segui il collegamento [1] sottostante. Se il collegamento non funziona, prova a copiarlo e incollarlo nel tuo browser."
+msgstr "Benvenuto nell' Arch User Repository! Per impostare una password iniziale per il tuo nuovo account, clicca sul link [1] sottostante. Se il link non funzionasse, prova a copiarlo e ad incollarlo nella barra degli indirizzi del tuo browser."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2208,12 +2214,12 @@ msgstr "{user} [1] ha commentato su {pkgbase} [2]:"
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr "Se non vuoi più ricevere notifiche su questo pacchetto, per favore vai alla pagina del pacchetto [2] e seleziona \"{label}\"."
+msgstr "Se non vuoi più ricevere notifiche su questo pacchetto, vai alla pagina del pacchetto [2] e seleziona \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package Update: {pkgbase}"
-msgstr "Aggiornamento pachetto base: {pkgbase}"
+msgstr "Aggiornamento del pacchetto base: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2223,7 +2229,7 @@ msgstr "{user} [1] ha inviato un nuovo commit su {pkgbase} [2]."
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Out-of-date Notification for {pkgbase}"
-msgstr "Notifica AUR per pacchetto {pkgbase} non aggiornato"
+msgstr "Notifica AUR per il pacchetto {pkgbase} non aggiornato"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2233,7 +2239,7 @@ msgstr "Il tuo pacchetto {pkgbase} [1] è stato marcato come non aggiornato dall
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Ownership Notification for {pkgbase}"
-msgstr "Notifica AUR di proprietà per pacchetto {pkgbase} "
+msgstr "Notifica AUR di proprietà del pacchetto {pkgbase} "
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2248,7 +2254,7 @@ msgstr "Il pacchetto {pkgbase} [1] è stato abbandonato da {user} [2]."
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Co-Maintainer Notification for {pkgbase}"
-msgstr "Notifica AUR di co-manutenzione per pacchetto {pkgbase} "
+msgstr "Notifica AUR di co-manutenzione per il pacchetto {pkgbase} "
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2272,7 +2278,7 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "{user} [1] ha unito {old} [2] in {new} [3].\n\n-- \nSe non vuoi più ricevere notifiche sul nuovo pacchetto, per favore vai a [3] e clicca su \"{label}\"."
+msgstr "{user} [1] ha unito {old} [2] in {new} [3].\n\n-- \nSe non desideri più ricevere notifiche sul nuovo pacchetto, vai a [3] e clicca su \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2280,7 +2286,7 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "{user} [1] ha eliminato {pkgbase} [2].\n\nNon riceverai più notifiche su questo pacchetto."
+msgstr "{user} [1] ha eliminato {pkgbase} [2].\n\nNon riceverai più notifiche per questo pacchetto."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2292,19 +2298,19 @@ msgstr "Promemoria per voto TU: Proposta {id}"
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr "Per favore ricordati di votare sulla proposta {id} [1]. La finestra di voto si chiude fra meno di 48 ore."
+msgstr "Ricordati di votare la proposta di {id} [1]. La finestra di voto si chiude fra meno di 48 ore."
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."
-msgstr "Tipo di account non valido."
+msgstr "L' account fornito non è valido."
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change account types."
-msgstr "Non hai il permesso per cambiare il tipo di account."
+msgstr "Non hai il permesso per modificare il tipo di account."
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change this user's account type to %s."
-msgstr "Non hai il permesso per cambiare il tipo di account di questo utente in %s."
+msgstr "Non hai il permesso per modificare il tipo di account di questo utente in %s."
 
 #: aurweb/packages/requests.py
 msgid "No due existing orphan requests to accept for %s."
@@ -2322,19 +2328,19 @@ msgstr "Si è verificato un errore irreversibile."
 msgid ""
 "Details have been logged and will be reviewed by the postmaster posthaste. "
 "We apologize for any inconvenience this may have caused."
-msgstr "I dettagli sono stati registrati e verranno visionati da postmaster velocemente. Ci scusiamo per l'inconvenienza che questo possa aver causato."
+msgstr "I dettagli sono stati registrati e verranno visionati al più presto dal postmaster. Ci scusiamo per gli eventuali disagi causati."
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
-msgstr "Errore server AUR"
+msgstr "Errore del server di AUR"
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 #: templates/packages/disown.html
 msgid "Related package request closure comments..."
-msgstr ""
+msgstr "Commenti relativi alla richiesta di chiusura del pacchetto..."
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr ""
+msgstr "Questa azione chiuderà tutte le richieste in sospeso dei pacchetti ad essa correlate. Se %scommenti%s vengono omessi, verrà generato automaticamente un commento di chiusura."
