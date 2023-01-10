@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-#
+# 
 # Translators:
 # Bartłomiej Piotrowski <spam@bpiotrowski.pl>, 2011
 # Bartłomiej Piotrowski <spam@bpiotrowski.pl>, 2014
@@ -13,16 +13,16 @@
 # marcin mikołajczak <me@mkljczk.pl>, 2017
 # Michal T <zorza2@gmail.com>, 2016
 # Nuc1eoN <nucrap@hotmail.com>, 2014
-# Piotr Strębski <strebski@gmail.com>, 2017-2018
+# Piotr Strębski <strebski@gmail.com>, 2017-2018,2022
 # Piotr Strębski <strebski@gmail.com>, 2013-2016
 # Przemyslaw Ka. <przemyslaw.karpeta@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
-"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2022-01-18 17:18+0000\n"
-"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
+"PO-Revision-Date: 2011-04-10 13:21+0000\n"
+"Last-Translator: Piotr Strębski <strebski@gmail.com>, 2017-2018,2022\n"
 "Language-Team: Polish (http://www.transifex.com/lfleischer/aurweb/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -712,7 +712,7 @@ msgstr "Zasady korzystania"
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr ""
+msgstr "Zaktualizowano następujące dokumenty. Przejrzyj je dokładnie:"
 
 #: html/tos.php
 #, php-format
@@ -792,7 +792,7 @@ msgstr "Może zawierać tylko jedną kropkę, podkreślnik lub myślnik."
 
 #: lib/acctfuncs.inc.php
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Potwierdź nowe hasło."
 
 #: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
@@ -800,7 +800,7 @@ msgstr "Adres e-mail jest nieprawidłowy."
 
 #: lib/acctfuncs.inc.php
 msgid "The backup email address is invalid."
-msgstr ""
+msgstr "Zapasowy adres e-mail jest nieprawidłowy."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -824,7 +824,7 @@ msgstr "Język nie jest obecnie obsługiwany."
 
 #: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Strefa czasowa nie jest obecnie obsługiwana."
 
 #: lib/acctfuncs.inc.php
 #, php-format
