@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-#
+# 
 # Translators:
 # Christophe Silva <christophesilva80@gmail.com>, 2018
 # Gaspar Santos <omeuviolino@gmail.com>, 2011
@@ -12,16 +12,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
-"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2022-01-18 17:18+0000\n"
-"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
+"PO-Revision-Date: 2011-04-10 13:21+0000\n"
+"Last-Translator: Christophe Silva <christophesilva80@gmail.com>, 2018\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/lfleischer/aurweb/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: html/404.php
 msgid "Page Not Found"
@@ -1584,6 +1584,7 @@ msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] "%d pedido por atender"
 msgstr[1] "%d pedidos por atender"
+msgstr[2] "%d pedidos por atender"
 
 #: template/pkgbase_actions.php
 msgid "Adopt Package"
@@ -1858,6 +1859,7 @@ msgid "%d package request found."
 msgid_plural "%d package requests found."
 msgstr[0] "%d pedido de pacote encontrado."
 msgstr[1] "%d pedidos de pacotes encontrados."
+msgstr[2] "%d pedidos de pacotes encontrados."
 
 #: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
@@ -1882,6 +1884,7 @@ msgid "~%d day left"
 msgid_plural "~%d days left"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: template/pkgreq_results.php
 #, php-format
@@ -1889,6 +1892,7 @@ msgid "~%d hour left"
 msgid_plural "~%d hours left"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: template/pkgreq_results.php
 msgid "<1 hour left"
@@ -2017,6 +2021,7 @@ msgid "%d package found."
 msgid_plural "%d packages found."
 msgstr[0] "%d pacote encontrado."
 msgstr[1] "%d pacotes encontrados."
+msgstr[2] "%d pacotes encontrados."
 
 #: template/pkg_search_results.php
 msgid "Version"
