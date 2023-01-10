@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-#
+# 
 # Translators:
 # archetyp <archetyp@linuxmail.org>, 2013-2016
-# Jose Riha <jose1711@gmail.com>, 2018
+# Jose Riha <jose1711@gmail.com>, 2018,2022
 # Matej Ľach <matej.lach@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
-"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2022-01-18 17:18+0000\n"
-"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
+"PO-Revision-Date: 2011-04-10 13:21+0000\n"
+"Last-Translator: Jose Riha <jose1711@gmail.com>, 2018,2022\n"
 "Language-Team: Slovak (http://www.transifex.com/lfleischer/aurweb/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -77,7 +77,7 @@ msgstr "Nemáte potrebné oprávnenia, pre úpravu tohoto účtu.  "
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr ""
+msgstr "Neplatné heslo."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -167,7 +167,7 @@ msgstr "Editovať komentár"
 
 #: html/home.php template/header.php
 msgid "Dashboard"
-msgstr ""
+msgstr "Nástenka"
 
 #: html/home.php template/header.php
 msgid "Home"
@@ -175,11 +175,11 @@ msgstr "Domov"
 
 #: html/home.php
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Moje označené balíčky"
 
 #: html/home.php
 msgid "My Requests"
-msgstr ""
+msgstr "Moje požiadavky"
 
 #: html/home.php
 msgid "My Packages"
@@ -187,15 +187,15 @@ msgstr "Moje balíčky"
 
 #: html/home.php
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Hľadať balíčky, ktoré spravujem"
 
 #: html/home.php
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Spoločne spravované balíčky"
 
 #: html/home.php
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Hľadať balíčky, v ktorých pôsobím ako spolupracovník"
 
 #: html/home.php
 #, php-format
@@ -239,7 +239,7 @@ msgstr "Podpora"
 
 #: html/home.php
 msgid "Package Requests"
-msgstr "Žiadosti ohľadom balíčkov"
+msgstr "Žiadosti týkajúce sa balíčkov"
 
 #: html/home.php
 #, php-format
@@ -325,7 +325,7 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the package maintainer or leave "
 "a comment on the appropriate package page."
-msgstr "Ak nájdete chybu vo webovom rozhradní AUR, pošlite prosím správu o chybe na náš %sbug tracker%s. Posielajte sem %slen%s chyby webového rozhrania AUR. Pre nahlásenie chýb balíčkov kontaktujte správcu balíčka alebo zanechate komentár na príslušnej stránke balíčka."
+msgstr "Ak nájdete chybu vo webovom rozhraní AUR, pošlite prosím správu o chybe na náš %sbug tracker%s. Posielajte sem %slen%s chyby webového rozhrania AUR. Pre nahlásenie chýb balíčkov kontaktujte správcu balíčka alebo zanechate komentár na príslušnej stránke balíčka."
 
 #: html/home.php
 msgid "Package Search"
@@ -374,7 +374,7 @@ msgstr "Zadajte prihlasovacie údaje"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "Meno používateľa alebo primárna e-mailová adresa"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
@@ -438,7 +438,7 @@ msgstr "Heslo bolo úspešne obnovené."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "Potvrďte vaše meno používateľa alebo primárnu e-mailovú adresu:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -707,7 +707,7 @@ msgstr ""
 #: html/tos.php
 #, php-format
 msgid "revision %d"
-msgstr ""
+msgstr "revízia: %d"
 
 #: html/tos.php
 msgid "I accept the terms and conditions above."
@@ -790,7 +790,7 @@ msgstr "E-mailová adresa nie je platná."
 
 #: lib/acctfuncs.inc.php
 msgid "The backup email address is invalid."
-msgstr ""
+msgstr "Záložná e-mailová adresa nie je platná."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -1256,7 +1256,7 @@ msgstr "PGP otlačok kľúča"
 #: template/account_details.php template/account_search_results.php
 #: template/pkgreq_results.php
 msgid "Status"
-msgstr "Status"
+msgstr "Stav"
 
 #: template/account_details.php
 msgid "Inactive since"
@@ -1520,7 +1520,7 @@ msgstr "Copyright %s 2004-%d aurweb Development Team."
 
 #: template/header.php
 msgid " My Account"
-msgstr "Môj účet"
+msgstr " Môj účet"
 
 #: template/pkgbase_actions.php
 msgid "Package Actions"
@@ -1814,7 +1814,7 @@ msgstr "Typ žiadosti"
 
 #: template/pkgreq_form.php
 msgid "Deletion"
-msgstr "Vymazanie"
+msgstr "Vymazať"
 
 #: template/pkgreq_form.php
 msgid "Orphan"
@@ -1855,10 +1855,10 @@ msgstr ""
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] "Bola nájdená %d požiadavka ohľadom balíčkov."
-msgstr[1] "Boli nájdené %d požiadavky ohľadom balíčkov."
-msgstr[2] "Bolo nájdených %d požiadaviek ohľadom balíčkov."
-msgstr[3] "Bolo nájdených %d požiadaviek ohľadom balíčkov."
+msgstr[0] "Bola nájdená %d požiadavka týkajúc sa balíčka."
+msgstr[1] "Boli nájdené %d požiadavky týkajúcich sa balíčkov."
+msgstr[2] "Bolo nájdených %d požiadaviek týkajúcich sa balíčkov."
+msgstr[3] "Bolo nájdených %d požiadaviek týkajúcich sa balíčkov."
 
 #: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
@@ -1986,7 +1986,7 @@ msgstr "Vyhľadávať podľa"
 
 #: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
-msgstr "Neaktuálny"
+msgstr "Neaktuálne"
 
 #: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
@@ -2216,7 +2216,7 @@ msgstr ""
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr ""
+msgstr "Ak si už viac neželáte dostávať upozornenia na tento balíček, prejdite prosím na stránku balíčku [2] a vyberte \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2280,7 +2280,7 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "{user} [1] zlúčil(a) {old} [2] do {new} [3].\n\n-- \nAk si už viac neželáte dostávať upozornenia na tento balíček, prejdite prosím na stránku balíčku [2] a vyberte \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2288,7 +2288,7 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr ""
+msgstr "{user} [1] odstránil(a) {pkgbase} [2].\n\nUpozornenia na tento balíček už viac nebudete dostávať."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2339,10 +2339,10 @@ msgstr ""
 #: templates/pkgbase/merge.html templates/packages/delete.html
 #: templates/packages/disown.html
 msgid "Related package request closure comments..."
-msgstr ""
+msgstr "Súvisiace komentáre k žiadosti o uzatvorenie balíčka..."
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr ""
+msgstr "Táto operácia uzavrie všetky súvisiace nevybavené žiadosti balíčkov. Ak %sComments%s vynecháte, použije sa automaticky generovaný komentár."
