@@ -1,13 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-#
+# 
 # Translators:
 # Feng Chao <chaofeng111@qq.com>, 2015-2016
 # dongfengweixiao <dongfengweixiao@gmail.com>, 2015
 # dongfengweixiao <dongfengweixiao@gmail.com>, 2015
 # Felix Yan <felixonmars@gmail.com>, 2014,2021
 # Feng Chao <chaofeng111@qq.com>, 2012,2021
+# lakejason0 <sunliyuan200402@outlook.com>, 2022
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # pingplug <pingplug@foxmail.com>, 2017-2018
 # Feng Chao <chaofeng111@qq.com>, 2012
@@ -17,10 +18,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
-"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2022-01-18 17:18+0000\n"
-"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
+"PO-Revision-Date: 2011-04-10 13:21+0000\n"
+"Last-Translator: lakejason0 <sunliyuan200402@outlook.com>, 2022\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aurweb/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +43,7 @@ msgstr "提示"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr "Git clone URLs 并不意味着能被浏览器打开。"
+msgstr "Git clone URL 并不应该使用浏览器打开。"
 
 #: html/404.php
 #, php-format
@@ -65,11 +66,11 @@ msgstr "别慌！本站正在维护中，不久后将恢复。"
 
 #: html/account.php
 msgid "Account"
-msgstr "帐户"
+msgstr "账户"
 
 #: html/account.php template/header.php
 msgid "Accounts"
-msgstr "帐户"
+msgstr "账户"
 
 #: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
@@ -81,7 +82,7 @@ msgstr "无法获取指定用户的信息。"
 
 #: html/account.php
 msgid "You do not have permission to edit this account."
-msgstr "您没有权限编辑此帐户。"
+msgstr "您没有权限编辑此账户。"
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
@@ -89,11 +90,11 @@ msgstr "密码无效。"
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
-msgstr "使用此表单查找存在的帐户。"
+msgstr "使用此表单查找存在的账户。"
 
 #: html/account.php
 msgid "You must log in to view user information."
-msgstr "您需要登录后才能察看用户信息。"
+msgstr "您需要登录后才能查看用户信息。"
 
 #: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
@@ -485,7 +486,7 @@ msgstr "选中的软件包未被弃置，请检查确认复选框。"
 msgid ""
 "The selected packages have not been adopted, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "选中的软件包未被接管，请检查确认复选框。"
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
@@ -591,7 +592,7 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr ""
+msgstr "这似乎是 VCS 软件包。请%s不要%s因为 AUR 中的软件包版本与最新的 commit 不匹配就将其标记为过期。仅当来源移动或由于最新上游更改需要更改 PKGBUILD 时才标记此软件包。"
 
 #: html/pkgflag.php
 #, php-format
@@ -701,7 +702,7 @@ msgstr "注册"
 
 #: html/register.php
 msgid "Use this form to create an account."
-msgstr "使用此表单创建帐号。"
+msgstr "使用此表单创建账户。"
 
 #: html/tos.php
 msgid "Terms of Service"
@@ -854,12 +855,12 @@ msgstr "输入的验证码无效。"
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
-msgstr "尝试创建帐户 %s%s%s 失败。"
+msgstr "尝试创建账户 %s%s%s 失败。"
 
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr "帐户 %s%s%s 创建成功。"
+msgstr "账户 %s%s%s 创建成功。"
 
 #: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
@@ -867,7 +868,7 @@ msgstr "密码重置密钥已经发送到您的邮箱。"
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr "点击上方的登录链接以使用您的帐号。"
+msgstr "点击上方的登录链接以使用您的账户。"
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -877,7 +878,7 @@ msgstr "账户 %s%s%s 没有被修改。"
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr "帐号 %s%s%s 已被成功修改。"
+msgstr "账户 %s%s%s 已被成功修改。"
 
 #: lib/acctfuncs.inc.php
 msgid ""
@@ -887,11 +888,11 @@ msgstr "登录表单目前对您所使用的 IP 地址禁用，原因可能是�
 
 #: lib/acctfuncs.inc.php
 msgid "Account suspended"
-msgstr "帐号被停用"
+msgstr "账户被停用"
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to suspend accounts."
-msgstr ""
+msgstr "您没有权限停用此账户。"
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -980,27 +981,27 @@ msgstr "无法找到软件包的详细信息。"
 
 #: aurweb/routers/auth.py
 msgid "Bad Referer header."
-msgstr ""
+msgstr "错误的 Referer 消息头。"
 
 #: aurweb/routers/packages.py
 msgid "You did not select any packages to be notified about."
-msgstr ""
+msgstr "您没有选择要接受通知的软件包。"
 
 #: aurweb/routers/packages.py
 msgid "The selected packages' notifications have been enabled."
-msgstr ""
+msgstr "选中的软件包的通知已被启用。"
 
 #: aurweb/routers/packages.py
 msgid "You did not select any packages for notification removal."
-msgstr ""
+msgstr "您没有选择要移除通知的软件包。"
 
 #: aurweb/routers/packages.py
 msgid "A package you selected does not have notifications enabled."
-msgstr ""
+msgstr "所选中的软件包并没有启用通知。"
 
 #: aurweb/routers/packages.py
 msgid "The selected packages' notifications have been removed."
-msgstr ""
+msgstr "选中的软件包的通知已被移除。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
@@ -1040,7 +1041,7 @@ msgstr "您没有选择要删除的软件包。"
 
 #: aurweb/routers/packages.py
 msgid "One of the packages you selected does not exist."
-msgstr ""
+msgstr "选中的其中一个软件包不存在。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
@@ -1052,7 +1053,7 @@ msgstr "您需要登录后才能接管软件包。"
 
 #: aurweb/routers/package.py
 msgid "You are not allowed to adopt one of the packages you selected."
-msgstr ""
+msgstr "您不被允许接管选中的其中一个软件包。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
@@ -1060,7 +1061,7 @@ msgstr "您需要登录后才能弃置软件包。"
 
 #: aurweb/routers/packages.py
 msgid "You are not allowed to disown one of the packages you selected."
-msgstr ""
+msgstr "您不被允许弃置选中的其中一个软件包。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -1197,7 +1198,7 @@ msgstr "请求关闭成功。"
 #: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr "您可以使用这个表单永久删除 AUR 帐号 %s。"
+msgstr "您可以使用这个表单永久删除 AUR 账号 %s。"
 
 #: template/account_delete.php
 #, php-format
@@ -1216,7 +1217,7 @@ msgstr "用户名"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Account Type"
-msgstr "帐户类别"
+msgstr "账户类别"
 
 #: template/account_details.php template/tu_details.php
 #: template/tu_last_votes_list.php template/tu_list.php
@@ -1298,7 +1299,7 @@ msgstr "查看这个用户提交的软件包"
 
 #: template/account_details.php
 msgid "Edit this user's account"
-msgstr "编辑此用户的帐号"
+msgstr "编辑此用户的账户"
 
 #: template/account_details.php
 msgid "List this user's comments"
@@ -1307,7 +1308,7 @@ msgstr "显示此用户的评论"
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr "如果你想永久删除这个帐号，请点击 %s这里%s。"
+msgstr "如果你想永久删除这个账户，请点击 %s这里%s。"
 
 #: template/account_edit_form.php
 #, php-format
@@ -1339,7 +1340,7 @@ msgstr "受信用户"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
-msgstr "帐户被暂停"
+msgstr "账户被停用"
 
 #: template/account_edit_form.php
 msgid "Inactive"
@@ -1370,7 +1371,7 @@ msgstr "备用邮件地址"
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr "选择性的提供的备用的邮件地址。该邮件地址将在你的主要邮件地址不可用时用于恢复你的帐号。"
+msgstr "选择性的提供的备用的邮件地址。该邮件地址将在你的主要邮件地址不可用时用于恢复你的账户。"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1466,7 +1467,7 @@ msgstr "没有结果符合您的搜索条件。"
 
 #: template/account_search_results.php
 msgid "Edit Account"
-msgstr "编辑帐户"
+msgstr "编辑账户"
 
 #: template/account_search_results.php
 msgid "Suspended"
@@ -1528,7 +1529,7 @@ msgstr "版权所有 %s 2004-%d aurweb 开发组。"
 
 #: template/header.php
 msgid " My Account"
-msgstr " 我的帐户"
+msgstr " 我的账户"
 
 #: template/pkgbase_actions.php
 msgid "Package Actions"
@@ -2297,45 +2298,45 @@ msgstr "请记得为提案 {id} [1] 投票，投票时段将于48小时内结束
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."
-msgstr ""
+msgstr "提供的账户类别无效。"
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change account types."
-msgstr ""
+msgstr "您没有权限更改账户类别。"
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change this user's account type to %s."
-msgstr ""
+msgstr "您没有权限将此用户的账户类别更改为%s。"
 
 #: aurweb/packages/requests.py
 msgid "No due existing orphan requests to accept for %s."
-msgstr ""
+msgstr "没有为 %s 接受的现有孤立请求。"
 
 #: aurweb/asgi.py
 msgid "Internal Server Error"
-msgstr ""
+msgstr "内部服务器错误"
 
 #: templates/errors/500.html
 msgid "A fatal error has occurred."
-msgstr ""
+msgstr "发生了严重的错误。"
 
 #: templates/errors/500.html
 msgid ""
 "Details have been logged and will be reviewed by the postmaster posthaste. "
 "We apologize for any inconvenience this may have caused."
-msgstr ""
+msgstr "详细信息已被记录，并会交由 Postmaster 尽快调查。对您造成的不便，我们深感抱歉。"
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
-msgstr ""
+msgstr "AUR 服务器错误"
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 #: templates/packages/disown.html
 msgid "Related package request closure comments..."
-msgstr ""
+msgstr "相关软件包请求关闭评论…"
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr ""
+msgstr "此操作将关闭任何有关的未处理的软件包请求。若省略%s评论%s，将会自动生成关闭评论。"
