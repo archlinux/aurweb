@@ -115,8 +115,11 @@
                                 {% if result.User %}
                                     <a href="/account/{{ result.User.Username }}">
                                         {{ result.User.Username }}
-                                    </a>
+                                    </a>&nbsp;
                                 {% endif %}
+                                <a target="_blank" rel="noopener noreferrer" href="{{ result.ml_message_url() }}">
+                                    (PRQ#{{ result.ID }})
+                                </a>
                             </td>
                             {% set idle_time = config_getint("options", "request_idle_time") %}
                             {% set time_delta = (utcnow - result.RequestTS) | int %}

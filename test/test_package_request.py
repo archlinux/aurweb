@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy.exc import IntegrityError
 
-from aurweb import db, time
+from aurweb import config, db, time
 from aurweb.models.account_type import USER_ID
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_request import (
@@ -190,3 +190,41 @@ def test_package_request_status_display(user: User, pkgbase: PackageBase):
         pkgreq.Status = 124
     with pytest.raises(KeyError):
         pkgreq.status_display()
+
+
+def test_package_request_ml_message_id_hash(user: User, pkgbase: PackageBase):
+    with db.begin():
+        pkgreq = db.create(
+            PackageRequest,
+            ID=1,
+            ReqTypeID=MERGE_ID,
+            User=user,
+            PackageBase=pkgbase,
+            PackageBaseName=pkgbase.Name,
+            Comments=str(),
+            ClosureComment=str(),
+            Status=PENDING_ID,
+        )
+
+    # A hash composed with ID=1 should result in BNNNRWOFDRSQP4LVPT77FF2GUFR45KW5
+    assert pkgreq.ml_message_id_hash() == "BNNNRWOFDRSQP4LVPT77FF2GUFR45KW5"
+
+
+def test_package_request_ml_message_url(user: User, pkgbase: PackageBase):
+    with db.begin():
+        pkgreq = db.create(
+            PackageRequest,
+            ID=1,
+            ReqTypeID=MERGE_ID,
+            User=user,
+            PackageBase=pkgbase,
+            PackageBaseName=pkgbase.Name,
+            Comments=str(),
+            ClosureComment=str(),
+            Status=PENDING_ID,
+        )
+
+    assert (
+        config.get("options", "ml_thread_url") % (pkgreq.ml_message_id_hash())
+        == pkgreq.ml_message_url()
+    )

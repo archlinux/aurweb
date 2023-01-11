@@ -1,7 +1,10 @@
+import base64
+import hashlib
+
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-from aurweb import schema
+from aurweb import config, schema
 from aurweb.models.declarative import Base
 from aurweb.models.package_base import PackageBase as _PackageBase
 from aurweb.models.request_type import RequestType as _RequestType
@@ -103,3 +106,16 @@ class PackageRequest(Base):
     def status_display(self) -> str:
         """Return a display string for the Status column."""
         return self.STATUS_DISPLAY[self.Status]
+
+    def ml_message_id_hash(self) -> str:
+        """Return the X-Message-ID-Hash that is used in the mailing list archive."""
+        # X-Message-ID-Hash is a base32 encoded SHA1 hash
+        msgid = f"pkg-request-{str(self.ID)}@aur.archlinux.org"
+        sha1 = hashlib.sha1(msgid.encode()).digest()
+
+        return base64.b32encode(sha1).decode()
+
+    def ml_message_url(self) -> str:
+        """Return the mailing list URL for the request."""
+        url = config.get("options", "ml_thread_url") % (self.ml_message_id_hash())
+        return url

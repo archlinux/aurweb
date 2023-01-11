@@ -25,6 +25,7 @@ max_rpc_results = 5000
 max_search_results = 2500
 max_depends = 1000
 aur_request_ml = aur-requests@lists.archlinux.org
+ml_thread_url = https://lists.archlinux.org/archives/list/aur-requests@lists.archlinux.org/thread/%s
 request_idle_time = 1209600
 request_archive_time = 15552000
 auto_orphan_age = 15552000
