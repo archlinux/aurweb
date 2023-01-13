@@ -1,2 +1,2 @@
 #!/bin/bash
-exec curl --no-verify -q https://localhost:8444
+exec curl -k -q https://localhost:8444
