@@ -125,33 +125,47 @@ def test_homepage():
 
 
 @patch("aurweb.util.get_ssh_fingerprints")
-def test_homepage_ssh_fingerprints(get_ssh_fingerprints_mock):
+def test_homepage_ssh_fingerprints(get_ssh_fingerprints_mock, user):
     fingerprints = {"Ed25519": "SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4"}
     get_ssh_fingerprints_mock.return_value = fingerprints
 
+    # without authentication (Home)
     with client as request:
         response = request.get("/")
 
-    for key, value in fingerprints.items():
-        assert key in response.content.decode()
-        assert value in response.content.decode()
-    assert (
-        "The following SSH fingerprints are used for the AUR"
-        in response.content.decode()
-    )
+    # with authentication (Dashboard)
+    with client as auth_request:
+        auth_request.cookies = {"AURSID": user.login(Request(), "testPassword")}
+        auth_response = auth_request.get("/")
+
+    for resp in [response, auth_response]:
+        for key, value in fingerprints.items():
+            assert key in resp.content.decode()
+            assert value in resp.content.decode()
+        assert (
+            "The following SSH fingerprints are used for the AUR"
+            in resp.content.decode()
+        )
 
 
 @patch("aurweb.util.get_ssh_fingerprints")
-def test_homepage_no_ssh_fingerprints(get_ssh_fingerprints_mock):
+def test_homepage_no_ssh_fingerprints(get_ssh_fingerprints_mock, user):
     get_ssh_fingerprints_mock.return_value = {}
 
+    # without authentication (Home)
     with client as request:
         response = request.get("/")
 
-    assert (
-        "The following SSH fingerprints are used for the AUR"
-        not in response.content.decode()
-    )
+    # with authentication (Dashboard)
+    with client as auth_request:
+        auth_request.cookies = {"AURSID": user.login(Request(), "testPassword")}
+        auth_response = auth_request.get("/")
+
+    for resp in [response, auth_response]:
+        assert (
+            "The following SSH fingerprints are used for the AUR"
+            not in resp.content.decode()
+        )
 
 
 def test_homepage_stats(redis, packages):

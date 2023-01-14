@@ -24,71 +24,7 @@
     <p class="readmore"><a href="https://wiki.archlinux.org/title/AUR">{% trans %}Learn more...{% endtrans %}</a></p>
 </div>
 <div id="news">
-    <h3><a>{% trans %}Support{% endtrans %}</a><span class="arrow"></span></h3>
-    <h4>{% trans %}Package Requests{% endtrans %}</h4>
-    <div class="article-content">
-        <p>
-        {{ "There are three types of requests that can be filed in the %sPackage Actions%s box on the package details page:"
-           | tr
-           | format("<var>", "</var>")
-           | safe
-        }}
-        </p>
-        <ul>
-            <li><em>{% trans %}Orphan Request{% endtrans %}</em>: {% trans %}Request a package to be disowned, e.g. when the maintainer is inactive and the package has been flagged out-of-date for a long time.{% endtrans %}</li>
-            <li><em>{% trans %}Deletion Request{% endtrans %}</em>: {%trans %}Request a package to be removed from the Arch User Repository. Please do not use this if a package is broken and can be fixed easily. Instead, contact the package maintainer and file orphan request if necessary.{% endtrans %}</li>
-            <li><em>{% trans %}Merge Request{% endtrans %}</em>: {% trans %}Request a package to be merged into another one. Can be used when a package needs to be renamed or replaced by a split package.{% endtrans %}</li>
-	</ul>
-        <p>
-	{{ "If you want to discuss a request, you can use the %saur-requests%s mailing list. However, please do not use that list to file requests."
-           | tr
-           | format('<a href="https://lists.archlinux.org/mailman3/lists/aur-requests.lists.archlinux.org/">', "</a>")
-           | safe
-        }}
-        </p>
-    </div>
-    <h4>{% trans %}Submitting Packages{% endtrans %}</h4>
-    <div class="article-content">
-    <p>
-        {{ "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting packages%s section of the Arch User Repository ArchWiki page for more details."
-           | tr
-           | format('<a href="https://wiki.archlinux.org/title/Arch_User_Repository#Submitting_packages">', "</a>")
-           | safe
-        }}
-    </p>
-    {% if ssh_fingerprints %}
-        <p>
-            {% trans %}The following SSH fingerprints are used for the AUR:{% endtrans %}
-        <p>
-        <ul>
-        {% for keytype in ssh_fingerprints %}
-            <li><code>{{ keytype }}</code>: <code>{{ ssh_fingerprints[keytype] }}</code>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    </div>
-    <h4>{% trans %}Discussion{% endtrans %}</h4>
-    <div class="article-content">
-        <p>
-        {{ "General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. For discussion relating to the development of the AUR web interface, use the %saur-dev%s mailing list."
-           | tr
-           | format('<a href="https://lists.archlinux.org/mailman3/lists/aur-general.lists.archlinux.org/">', "</a>",
-                    '<a href="https://lists.archlinux.org/mailman3/lists/aur-dev.lists.archlinux.org/">', "</a>")
-           | safe
-        }}
-        <p>
-    </div>
-    <h4>{% trans %}Bug Reporting{% endtrans %}</h4>
-    <div class="article-content">
-        <p>
-        {{ "If you find a bug in the AUR web interface, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page."
-           | tr
-           | format('<a href="https://gitlab.archlinux.org/archlinux/aurweb/-/issues">', "</a>",
-                    "<strong>", "</strong>")
-           | safe
-        }}
-        </p>
-    </div>
+    {% include 'partials/support.html' %}
 </div>
 
 <!-- Bootstrap typeahead for the homepage. -->
