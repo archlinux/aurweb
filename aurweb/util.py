@@ -96,14 +96,14 @@ def apply_all(iterable: Iterable, fn: Callable):
     return iterable
 
 
-def sanitize_params(offset: str, per_page: str) -> Tuple[int, int]:
+def sanitize_params(offset_str: str, per_page_str: str) -> Tuple[int, int]:
     try:
-        offset = int(offset)
+        offset = defaults.O if int(offset_str) < 0 else int(offset_str)
     except ValueError:
         offset = defaults.O
 
     try:
-        per_page = int(per_page)
+        per_page = defaults.PP if int(per_page_str) < 0 else int(per_page_str)
     except ValueError:
         per_page = defaults.PP
 

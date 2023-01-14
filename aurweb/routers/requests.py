@@ -48,7 +48,7 @@ async def requests(
     if not dict(request.query_params).keys() & FILTER_PARAMS:
         filter_pending = True
 
-    O, PP = util.sanitize_params(O, PP)
+    O, PP = util.sanitize_params(str(O), str(PP))
     context["O"] = O
     context["PP"] = PP
     context["filter_pending"] = filter_pending

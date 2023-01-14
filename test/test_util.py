@@ -121,6 +121,21 @@ fRSo6OFcejKc=
     assert_multiple_keys(pks)
 
 
+@pytest.mark.parametrize(
+    "offset_str, per_page_str, expected",
+    [
+        ("5", "100", (5, 100)),
+        ("", "100", (0, 100)),
+        ("5", "", (5, 50)),
+        ("", "", (0, 50)),
+        ("-1", "100", (0, 100)),
+        ("5", "-100", (5, 50)),
+    ],
+)
+def test_sanitize_params(offset_str: str, per_page_str: str, expected: tuple[int, int]):
+    assert util.sanitize_params(offset_str, per_page_str) == expected
+
+
 def assert_multiple_keys(pks):
     keys = util.parse_ssh_keys(pks)
     assert len(keys) == 2
