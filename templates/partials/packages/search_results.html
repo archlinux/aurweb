@@ -68,6 +68,16 @@
                     {{ "Maintainer" | tr }}
                 </a>
             </th>
+            <th>
+                {% if SB == "l" %}
+                    {% set order = reverse_order %}
+                {% else %}
+                    {% set order = SO %}
+                {% endif %}
+                <a href="/packages?{{ q | extend_query(('O', 0), ('SB', 'l'), ('SO', order)) | urlencode }}">
+                    {{ "Last Updated" | tr }}
+                </a>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -115,6 +125,11 @@
                         <span class="error">{{ "orphan" | tr }}</span>
                     {% endif %}
                 </td>
+                {% if flagged %}
+                    <td class="flagged">{{ datetime_display(pkg.ModifiedTS) }}</td>
+                {% else %}
+                    <td>{{ datetime_display(pkg.ModifiedTS) }}</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>

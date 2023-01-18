@@ -5,7 +5,8 @@ from unittest import mock
 import pytest
 from fastapi.testclient import TestClient
 
-from aurweb import asgi, db, time
+from aurweb import asgi, config, db, time
+from aurweb.filters import datetime_display
 from aurweb.models import License, PackageLicense
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
@@ -1084,6 +1085,11 @@ def test_packages_sort_by_last_modified(client: TestClient, packages: list[Packa
     row = rows[0]
     col = row.xpath("./td")[0].xpath("./a")[0]
     assert col.text.strip() == package.Name
+
+    # Make sure our row contains the modified date we've set
+    tz = config.get("options", "default_timezone")
+    dt = datetime_display({"timezone": tz}, package.PackageBase.ModifiedTS)
+    assert dt in "".join(row.itertext())
 
 
 def test_packages_flagged(
