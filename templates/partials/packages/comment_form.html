@@ -33,7 +33,7 @@ Routes:
             <button type="submit" class="button">
                 {{ ("Save" if comment else "Add Comment") | tr }}
             </button>
-            {% if comment and not request.user.notified(pkgbase) %}
+            {% if not request.user.notified(pkgbase) %}
                 <span class="comment-enable-notifications">
                     <input type="checkbox" name="enable_notifications"
                            id="id_enable_notifications" />

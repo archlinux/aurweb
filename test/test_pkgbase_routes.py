@@ -400,18 +400,36 @@ def test_pkgbase_comments(
     client: TestClient, maintainer: User, user: User, package: Package
 ):
     """This test includes tests against the following routes:
+    - GET /pkgbase/{name} (to check notification checkbox)
     - POST /pkgbase/{name}/comments
     - GET /pkgbase/{name} (to check comments)
         - Tested against a comment created with the POST route
     - GET /pkgbase/{name}/comments/{id}/form
         - Tested against a comment created with the POST route
     """
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    pkgbasename = package.PackageBase.Name
+
+    endpoint = f"/pkgbase/{pkgbasename}"
+    with client as request:
+        request.cookies = cookies
+        resp = request.get(
+            endpoint,
+            follow_redirects=True,
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Make sure we got our checkbox for enabling notifications
+    root = parse_root(resp.text)
+    input = root.find('//input[@id="id_enable_notifications"]')
+    assert input is not None
+
+    # create notification
     with db.begin():
         user.CommentNotify = 1
         db.create(PackageNotification, PackageBase=package.PackageBase, User=user)
 
-    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
-    pkgbasename = package.PackageBase.Name
+    # post a comment
     endpoint = f"/pkgbase/{pkgbasename}/comments"
     with client as request:
         request.cookies = cookies
@@ -441,6 +459,11 @@ def test_pkgbase_comments(
 
     assert bodies[0].text.strip() == "Test comment."
     comment_id = headers[0].attrib["id"].split("-")[-1]
+
+    # Since we've enabled notifications already,
+    # there should be no checkbox on our page
+    input = root.find('//input[@id="id_enable_notifications"]')
+    assert input is None
 
     # Test the non-javascript version of comment editing by
     # visiting the /pkgbase/{name}/comments/{id}/edit route.
