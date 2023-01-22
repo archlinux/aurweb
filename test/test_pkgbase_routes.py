@@ -512,6 +512,26 @@ def test_pkgbase_comments(
     ).first()
     assert db_notif is not None
 
+    # Delete notification for next test.
+    with db.begin():
+        db.delete(db_notif)
+
+    # Let's edit the comment again; This time we don't change the text.
+    # However we do enable notifications.
+    with client as request:
+        request.cookies = cookies
+        resp = request.post(
+            endpoint,
+            data={"comment": "Edited comment.", "enable_notifications": True},
+        )
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Ensure that a notification was created.
+    db_notif = pkgbase.notifications.filter(
+        PackageNotification.UserID == maintainer.ID
+    ).first()
+    assert db_notif is not None
+
     # Don't supply a comment; should return BAD_REQUEST.
     with client as request:
         request.cookies = cookies

@@ -312,11 +312,14 @@ async def pkgbase_comment_post(
             db_comment.Editor = request.user
             db_comment.EditedTS = now
 
+    if enable_notifications:
+        with db.begin():
             db_notif = request.user.notifications.filter(
                 PackageNotification.PackageBaseID == pkgbase.ID
             ).first()
-            if enable_notifications and not db_notif:
+            if not db_notif:
                 db.create(PackageNotification, User=request.user, PackageBase=pkgbase)
+
     update_comment_render_fastapi(db_comment)
 
     if not next:
