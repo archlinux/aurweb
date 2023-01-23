@@ -140,7 +140,7 @@ def update_comment_render(comment: PackageComment) -> None:
         ],
     )
 
-    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + [
+    allowed_tags = list(bleach.sanitizer.ALLOWED_TAGS) + [
         "p",
         "pre",
         "h4",
