@@ -48,7 +48,6 @@
     <h3>{{ "Required by" | tr }} ({{ reqs_count }})</h3>
     <ul id="pkgreqslist">
         {% for dep in required_by %}
-            {% if dep is not none %}
             <li>
                 <a href="{{ dep.Package | package_link }}">
                     {{ dep.Package.Name }}
@@ -62,7 +61,6 @@
 
                 <em>{{ dep | dep_extra }}</em>
             </li>
-            {% endif %}
         {% endfor %}
         {% if not all_reqs and reqs_count > max_listing %}
             <li>
