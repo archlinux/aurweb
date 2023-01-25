@@ -217,6 +217,7 @@ def pkg_required(pkgname: str, provides: list[str]) -> list[PackageDependency]:
     query = (
         db.query(PackageDependency)
         .join(Package)
+        .options(orm.contains_eager(PackageDependency.Package))
         .filter(PackageDependency.DepName.in_(targets))
         .order_by(Package.Name.asc())
     )

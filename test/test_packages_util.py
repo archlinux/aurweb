@@ -4,9 +4,11 @@ from fastapi.testclient import TestClient
 from aurweb import asgi, config, db, time
 from aurweb.aur_redis import kill_redis
 from aurweb.models.account_type import USER_ID
+from aurweb.models.dependency_type import DEPENDS_ID
 from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
@@ -129,3 +131,21 @@ def test_source_uri_unnamed_uri(package: Package):
         )
     file, uri = util.source_uri(pkgsrc)
     assert (file, uri) == (URL, URL)
+
+
+def test_pkg_required(package: Package):
+    with db.begin():
+        db.create(
+            PackageDependency,
+            Package=package,
+            DepName="test",
+            DepTypeID=DEPENDS_ID,
+        )
+
+    # We want to make sure "Package" data is included
+    # to avoid lazy-loading the information for each dependency
+    qry = util.pkg_required("test", list())
+    assert "Packages_ID" in str(qry)
+
+    # We should have 1 record
+    assert qry.count() == 1
