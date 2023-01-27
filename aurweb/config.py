@@ -2,10 +2,7 @@ import configparser
 import os
 from typing import Any
 
-# Publicly visible version of aurweb. This is used to display
-# aurweb versioning in the footer and must be maintained.
-# Todo: Make this dynamic/automated.
-AURWEB_VERSION = "v6.2.0"
+import tomlkit
 
 _parser = None
 
@@ -40,6 +37,18 @@ def get_with_fallback(section, option, fallback):
 
 def get(section, option):
     return _get_parser().get(section, option)
+
+
+def _get_project_meta():
+    with open(os.path.join(get("options", "aurwebdir"), "pyproject.toml")) as pyproject:
+        file_contents = pyproject.read()
+
+    return tomlkit.parse(file_contents)["tool"]["poetry"]
+
+
+# Publicly visible version of aurweb. This is used to display
+# aurweb versioning in the footer and must be maintained.
+AURWEB_VERSION = str(_get_project_meta()["version"])
 
 
 def getboolean(section, option):
