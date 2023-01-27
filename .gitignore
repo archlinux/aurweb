@@ -44,3 +44,8 @@ doc/rpc.html
 
 # Ignore .python-version file from Pyenv
 .python-version
+
+# Ignore coverage report
+coverage.xml
+# Ignore pytest report
+report.xml

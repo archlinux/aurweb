@@ -25,7 +25,7 @@ rm -rf $PROMETHEUS_MULTIPROC_DIR
 mkdir -p $PROMETHEUS_MULTIPROC_DIR
 
 # Run pytest with optional targets in front of it.
-pytest
+pytest --junitxml="/data/pytest-report.xml"
 
 # By default, report coverage and move it into cache.
 if [ $COVERAGE -eq 1 ]; then
