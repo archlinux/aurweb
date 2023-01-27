@@ -94,7 +94,7 @@ filelock = "^3.3.2"
 posix-ipc = "^1.0.5"
 pyalpm = "^0.10.6"
 fastapi = "^0.89.1"
-srcinfo = "^0.1.0"
+srcinfo = "^0.1.2"
 
 [tool.poetry.dev-dependencies]
 coverage = "^7.1.0"

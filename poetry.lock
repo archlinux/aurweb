@@ -1756,14 +1756,14 @@ sqlcipher = ["sqlcipher3_binary"]
 
 [[package]]
 name = "srcinfo"
-version = "0.1.1"
+version = "0.1.2"
 description = "A small library to parse .SRCINFO files"
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "srcinfo-0.1.1-py3-none-any.whl", hash = "sha256:5433eb557777d0ba3f612df2ccf79db85eda054f99bbf53584b71cd93b2a0783"},
-    {file = "srcinfo-0.1.1.tar.gz", hash = "sha256:f620ec0697ab7419e85afd37c5737660b9978b463672e25b5b7ee610fc540757"},
+    {file = "srcinfo-0.1.2-py3-none-any.whl", hash = "sha256:f670a3473db3efa7392bd68add147650fb6c3e9b2ec54c1db252d80698c968da"},
+    {file = "srcinfo-0.1.2.tar.gz", hash = "sha256:c8296c710015a6b25c1dc750a494841a8094a2cf4fdb33a375fbe9720ec976e6"},
 ]
 
 [package.dependencies]
@@ -1970,4 +1970,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.11"
-content-hash = "0162526600a9cc47ea6d0b07e1cf94dd1c3c4f4ad1e311d33f6febdaa15cfd25"
+content-hash = "b682cb8651578996e873aa9bafcd5f330394f1bc602c442431668bf63b8ef3e7"
