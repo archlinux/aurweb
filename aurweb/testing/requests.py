@@ -23,7 +23,10 @@ class Client:
 
 
 class URL:
-    path = "/"
+    path: str
+
+    def __init__(self, path: str = "/"):
+        self.path = path
 
 
 class Request:
@@ -39,6 +42,8 @@ class Request:
         method: str = "GET",
         headers: dict[str, str] = dict(),
         cookies: dict[str, str] = dict(),
+        url: str = "/",
+        query_params: dict[str, str] = dict(),
     ) -> "Request":
         self.user = user
         self.user.authenticated = authenticated
@@ -46,3 +51,5 @@ class Request:
         self.method = method.upper()
         self.headers = headers
         self.cookies = cookies
+        self.url = URL(path=url)
+        self.query_params = query_params

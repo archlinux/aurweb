@@ -34,6 +34,7 @@ aurwebdir = $TOPLEVEL
 aur_location = https://aur.archlinux.org
 aur_request_ml = aur-requests@lists.archlinux.org
 enable-maintenance = 0
+default_timezone = UTC
 maintenance-exceptions = 127.0.0.1
 commit_uri = https://aur.archlinux.org/cgit/aur.git/log/?h=%s&id=%s
 localedir = $TOPLEVEL/web/locale/

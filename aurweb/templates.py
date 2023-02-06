@@ -3,6 +3,7 @@ import functools
 import os
 from http import HTTPStatus
 from typing import Callable
+from zoneinfo import ZoneInfoNotFoundError
 
 import jinja2
 from fastapi import Request
@@ -18,6 +19,8 @@ _loader = jinja2.FileSystemLoader(
 _env = jinja2.Environment(
     loader=_loader, autoescape=True, extensions=["jinja2.ext.i18n"]
 )
+
+DEFAULT_TIMEZONE = aurweb.config.get("options", "default_timezone")
 
 
 def register_filter(name: str) -> Callable:
@@ -72,7 +75,10 @@ def make_context(request: Request, title: str, next: str = None):
         # Shorten commit_hash to a short Git hash.
         commit_hash = commit_hash[:7]
 
-    timezone = time.get_request_timezone(request)
+    try:
+        timezone = time.get_request_timezone(request)
+    except ZoneInfoNotFoundError:
+        timezone = DEFAULT_TIMEZONE
     language = l10n.get_request_language(request)
     return {
         "request": request,
@@ -104,8 +110,10 @@ async def make_variable_context(request: Request, title: str, next: str = None):
     )
 
     for k, v in to_copy.items():
-        context[k] = v
-
+        if k == "timezone":
+            context[k] = v if v in time.SUPPORTED_TIMEZONES else DEFAULT_TIMEZONE
+        else:
+            context[k] = v
     context["q"] = dict(request.query_params)
 
     return context

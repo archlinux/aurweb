@@ -16,6 +16,7 @@ from aurweb.models.relation_type import PROVIDES_ID, REPLACES_ID
 from aurweb.templates import (
     base_template,
     make_context,
+    make_variable_context,
     register_filter,
     register_function,
 )
@@ -348,3 +349,22 @@ def test_package_details_filled(user: User, package: Package):
     base = base_template("partials/packages/details.html")
     body = base.render(context, show_package_details=True)
     check_package_details(body, package)
+
+
+def test_make_context_timezone(user: User, package: Package):
+    request = Request(
+        user=user, authenticated=True, url="/packages/test?timezone=foobar"
+    )
+    context = make_context(request, "Test Details")
+    assert context["timezone"] in time.SUPPORTED_TIMEZONES
+
+
+@pytest.mark.asyncio
+async def test_make_variable_context_timezone(user: User, package: Package):
+    request = Request(
+        user=user, authenticated=True, url="/packages/test?timezone=foobar"
+    )
+    context = await make_variable_context(
+        request, "Test Details", next="/packages/test"
+    )
+    assert context["timezone"] in time.SUPPORTED_TIMEZONES
