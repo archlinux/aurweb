@@ -107,7 +107,6 @@ def test_ratelimit_db(
     getint: mock.MagicMock,
     pipeline: Pipeline,
 ):
-
     # We'll need a Request for everything here.
     request = Request()
 

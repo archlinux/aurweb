@@ -96,7 +96,6 @@ async def rpc_request(
     args: Optional[list[str]] = [],
     callback: Optional[str] = None,
 ):
-
     # Create a handle to our RPC class.
     rpc = RPC(version=v, type=type)
 

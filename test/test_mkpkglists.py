@@ -131,7 +131,7 @@ def test_mkpkglists(
         (USERS, "test\n"),
     ]
 
-    for (file, expected_content) in expectations:
+    for file, expected_content in expectations:
         with gzip.open(file, "r") as f:
             file_content = f.read().decode()
             assert file_content == expected_content
@@ -172,7 +172,7 @@ def test_mkpkglists_extended_empty(config_mock: None):
         (META_EXT, "[\n]"),
     ]
 
-    for (file, expected_content) in expectations:
+    for file, expected_content in expectations:
         with gzip.open(file, "r") as f:
             file_content = f.read().decode()
             assert file_content == expected_content, f"{file=} contents malformed"
@@ -209,7 +209,7 @@ def test_mkpkglists_extended(config_mock: None, user: User, packages: list[Packa
         (USERS, "test\n"),
     ]
 
-    for (file, expected_content) in expectations:
+    for file, expected_content in expectations:
         with gzip.open(file, "r") as f:
             file_content = f.read().decode()
             assert file_content == expected_content

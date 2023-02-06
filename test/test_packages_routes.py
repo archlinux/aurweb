@@ -322,7 +322,6 @@ def test_package(client: TestClient, package: Package):
 
 
 def test_package_split_description(client: TestClient, user: User):
-
     with db.begin():
         pkgbase = db.create(
             PackageBase,
@@ -1178,7 +1177,6 @@ def test_packages_per_page(client: TestClient, maintainer: User):
 
 
 def test_packages_post_unknown_action(client: TestClient, user: User, package: Package):
-
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
@@ -1366,7 +1364,6 @@ def test_packages_post_unnotify(client: TestClient, user: User, package: Package
 
 
 def test_packages_post_adopt(client: TestClient, user: User, package: Package):
-
     # Try to adopt an empty list of packages.
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:

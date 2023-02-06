@@ -470,7 +470,6 @@ async def packages_post(
     action: str = Form(default=str()),
     confirm: bool = Form(default=False),
 ):
-
     # If an invalid action is specified, just render GET /packages
     # with an BAD_REQUEST status_code.
     if action not in PACKAGE_ACTIONS:

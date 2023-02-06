@@ -115,7 +115,6 @@ async def requests(
 @router.get("/requests/{id}/close")
 @requires_auth
 async def request_close(request: Request, id: int):
-
     pkgreq = get_pkgreq_by_id(id)
     if not request.user.is_elevated() and request.user != pkgreq.User:
         # Request user doesn't have permission here: redirect to '/'.

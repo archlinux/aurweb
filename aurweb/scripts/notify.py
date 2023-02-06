@@ -131,7 +131,6 @@ class Notification:
 
 class ResetKeyNotification(Notification):
     def __init__(self, uid):
-
         user = (
             db.query(User)
             .filter(and_(User.ID == uid, User.Suspended == 0))
@@ -194,7 +193,6 @@ class WelcomeNotification(ResetKeyNotification):
 
 class CommentNotification(Notification):
     def __init__(self, uid, pkgbase_id, comment_id):
-
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username
         self._pkgbase = (
             db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
@@ -260,7 +258,6 @@ class CommentNotification(Notification):
 
 class UpdateNotification(Notification):
     def __init__(self, uid, pkgbase_id):
-
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username
         self._pkgbase = (
             db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
@@ -319,7 +316,6 @@ class UpdateNotification(Notification):
 
 class FlagNotification(Notification):
     def __init__(self, uid, pkgbase_id):
-
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username
         self._pkgbase = (
             db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
@@ -375,7 +371,6 @@ class FlagNotification(Notification):
 
 class OwnershipEventNotification(Notification):
     def __init__(self, uid, pkgbase_id):
-
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username
         self._pkgbase = (
             db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
@@ -437,7 +432,6 @@ class DisownNotification(OwnershipEventNotification):
 
 class ComaintainershipEventNotification(Notification):
     def __init__(self, uid, pkgbase_id):
-
         self._pkgbase = (
             db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
         )
@@ -482,7 +476,6 @@ class ComaintainerRemoveNotification(ComaintainershipEventNotification):
 
 class DeleteNotification(Notification):
     def __init__(self, uid, old_pkgbase_id, new_pkgbase_id=None):
-
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username
         self._old_pkgbase = (
             db.query(PackageBase.Name)
@@ -560,7 +553,6 @@ class DeleteNotification(Notification):
 
 class RequestOpenNotification(Notification):
     def __init__(self, uid, reqid, reqtype, pkgbase_id, merge_into=None):
-
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username
         self._pkgbase = (
             db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
