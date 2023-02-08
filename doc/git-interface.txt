@@ -53,7 +53,6 @@ The git-serve command, the "aurweb shell", provides different subcommands:
 * The restore command can be used to restore a deleted package base.
 * The set-comaintainers command modifies the co-maintainers of a package base.
 * The set-keywords command modifies the keywords assigned to a package base.
-* The setup-repo command can be used to create a new repository.
 * The vote/unvote command can be used to vote/unvote for a package base.
 * The git-{receive,upload}-pack commands are redirected to git-shell(1).
 

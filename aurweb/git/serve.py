@@ -573,13 +573,6 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
     elif action == "list-repos":
         checkarg(cmdargv)
         list_repos(user)
-    elif action == "setup-repo":
-        checkarg(cmdargv, "repository name")
-        warn(
-            "{:s} is deprecated. "
-            "Use `git push` to create new repositories.".format(action)
-        )
-        create_pkgbase(cmdargv[1], user)
     elif action == "restore":
         checkarg(cmdargv, "repository name")
 
@@ -636,7 +629,6 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
             "restore <name>": "Restore a deleted package base.",
             "set-comaintainers <name> [...]": "Set package base co-maintainers.",
             "set-keywords <name> [...]": "Change package base keywords.",
-            "setup-repo <name>": "Create a repository (deprecated).",
             "unflag <name>": "Remove out-of-date flag from a package base.",
             "unvote <name>": "Remove vote from a package base.",
             "vote <name>": "Vote for a package base.",

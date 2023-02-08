@@ -56,11 +56,16 @@ test_expect_success 'Test IP address bans.' '
 	SSH_CLIENT="$SSH_CLIENT_ORIG"
 '
 
-test_expect_success 'Test setup-repo and list-repos.' '
-	SSH_ORIGINAL_COMMAND="setup-repo foobar" AUR_USER=user \
-	cover "$GIT_SERVE" 2>&1 &&
-	SSH_ORIGINAL_COMMAND="setup-repo foobar2" AUR_USER=tu \
-	cover "$GIT_SERVE" 2>&1 &&
+test_expect_success 'Test list-repos.' '
+	# insert our test packages
+	echo "INSERT INTO PackageBases (Name, SubmittedTS, \
+	ModifiedTS, SubmitterUID, MaintainerUID, FlaggerComment) \
+	VALUES (\"foobar\", 0, 0, 1, 1, \"\");" | \
+	sqlite3 aur.db
+	echo "INSERT INTO PackageBases (Name, SubmittedTS, \
+	ModifiedTS, SubmitterUID, MaintainerUID, FlaggerComment) \
+	VALUES (\"foobar2\", 0, 0, 2, 2, \"\");" | \
+	sqlite3 aur.db
 	cat >expected <<-EOF &&
 	*foobar
 	EOF
