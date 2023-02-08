@@ -130,6 +130,7 @@ fRSo6OFcejKc=
         ("", "", (0, 50)),
         ("-1", "100", (0, 100)),
         ("5", "-100", (5, 50)),
+        ("0", "0", (0, 50)),
     ],
 )
 def test_sanitize_params(offset_str: str, per_page_str: str, expected: tuple[int, int]):

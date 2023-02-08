@@ -103,7 +103,7 @@ def sanitize_params(offset_str: str, per_page_str: str) -> Tuple[int, int]:
         offset = defaults.O
 
     try:
-        per_page = defaults.PP if int(per_page_str) < 0 else int(per_page_str)
+        per_page = defaults.PP if int(per_page_str) <= 0 else int(per_page_str)
     except ValueError:
         per_page = defaults.PP
 
