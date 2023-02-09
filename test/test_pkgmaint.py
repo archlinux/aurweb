@@ -62,7 +62,12 @@ def test_pkgmaint(packages: list[Package]):
     # Query package objects again and assert that the
     # first package was deleted but all others are intact.
     packages = db.query(Package).all()
-    assert len(packages) == 4
-    expected = ["pkg_1", "pkg_2", "pkg_3", "pkg_4"]
-    for i, pkgname in enumerate(expected):
-        assert packages[i].Name == pkgname
+
+    # !Cleanup of packages without last packager deactivated.
+    # We should still have 5 packages
+    assert len(packages) == 5
+
+    # assert len(packages) == 4
+    # expected = ["pkg_1", "pkg_2", "pkg_3", "pkg_4"]
+    # for i, pkgname in enumerate(expected):
+    #    assert packages[i].Name == pkgname

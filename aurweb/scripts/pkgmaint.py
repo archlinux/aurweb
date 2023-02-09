@@ -17,6 +17,12 @@ def _main():
 
 
 def main():
+    # Previously used to clean up "reserved" packages which never got pushed.
+    # Let's deactivate this for now since "setup-repo" is gone and we see
+    # other issue where deletion of a user account might cause unintended
+    # removal of a package (where PackagerUID account was deleted)
+    return
+
     db.get_engine()
     with db.begin():
         _main()
