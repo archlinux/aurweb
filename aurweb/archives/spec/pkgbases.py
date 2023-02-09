@@ -15,13 +15,7 @@ class Spec(SpecBase):
         self.pkgbases_repo = GitInfo(config.get("git-archive", "pkgbases-repo"))
 
     def generate(self) -> Iterable[SpecOutput]:
-        filt = PackageBase.PackagerUID.isnot(None)
-        query = (
-            db.query(PackageBase.Name)
-            .filter(filt)
-            .order_by(PackageBase.Name.asc())
-            .all()
-        )
+        query = db.query(PackageBase.Name).order_by(PackageBase.Name.asc()).all()
         pkgbases = [pkgbase.Name for pkgbase in query]
 
         self.add_output(

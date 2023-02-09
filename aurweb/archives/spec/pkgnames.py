@@ -15,11 +15,9 @@ class Spec(SpecBase):
         self.pkgnames_repo = GitInfo(config.get("git-archive", "pkgnames-repo"))
 
     def generate(self) -> Iterable[SpecOutput]:
-        filt = PackageBase.PackagerUID.isnot(None)
         query = (
             db.query(Package.Name)
             .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
-            .filter(filt)
             .order_by(Package.Name.asc())
             .all()
         )

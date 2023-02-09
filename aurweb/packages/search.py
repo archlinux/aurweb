@@ -400,4 +400,4 @@ class RPCSearch(PackageSearch):
         return result
 
     def results(self) -> orm.Query:
-        return self.query.filter(models.PackageBase.PackagerUID.isnot(None))
+        return self.query

@@ -12,7 +12,7 @@ from prometheus_client import (
     generate_latest,
     multiprocess,
 )
-from sqlalchemy import and_, case, or_
+from sqlalchemy import case, or_
 
 import aurweb.config
 import aurweb.models.package_request
@@ -84,17 +84,11 @@ async def index(request: Request):
     cache_expire = 300  # Five minutes.
 
     # Package statistics.
-    query = bases.filter(models.PackageBase.PackagerUID.isnot(None))
     context["package_count"] = await db_count_cache(
-        redis, "package_count", query, expire=cache_expire
+        redis, "package_count", bases, expire=cache_expire
     )
 
-    query = bases.filter(
-        and_(
-            models.PackageBase.MaintainerUID.is_(None),
-            models.PackageBase.PackagerUID.isnot(None),
-        )
-    )
+    query = bases.filter(models.PackageBase.MaintainerUID.is_(None))
     context["orphan_count"] = await db_count_cache(
         redis, "orphan_count", query, expire=cache_expire
     )
@@ -122,18 +116,10 @@ async def index(request: Request):
 
     one_hour = 3600
     updated = bases.filter(
-        and_(
-            models.PackageBase.ModifiedTS - models.PackageBase.SubmittedTS >= one_hour,
-            models.PackageBase.PackagerUID.isnot(None),
-        )
+        models.PackageBase.ModifiedTS - models.PackageBase.SubmittedTS >= one_hour
     )
 
-    query = bases.filter(
-        and_(
-            models.PackageBase.SubmittedTS >= seven_days_ago,
-            models.PackageBase.PackagerUID.isnot(None),
-        )
-    )
+    query = bases.filter(models.PackageBase.SubmittedTS >= seven_days_ago)
     context["seven_days_old_added"] = await db_count_cache(
         redis, "seven_days_old_added", query, expire=cache_expire
     )

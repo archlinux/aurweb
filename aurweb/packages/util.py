@@ -135,7 +135,6 @@ def updated_packages(limit: int = 0, cache_ttl: int = 600) -> list[models.Packag
     query = (
         db.query(models.Package)
         .join(models.PackageBase)
-        .filter(models.PackageBase.PackagerUID.isnot(None))
         .order_by(models.PackageBase.ModifiedTS.desc())
     )
 

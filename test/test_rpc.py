@@ -845,7 +845,7 @@ def test_rpc_msearch(client: TestClient, user: User, packages: list[Package]):
     params.pop("arg")
     response = request.get("/rpc", params=params)
     data = response.json()
-    assert data.get("resultcount") == 1
+    assert data.get("resultcount") == 2
     result = data.get("results")[0]
     assert result.get("Name") == "big-chungus"
 

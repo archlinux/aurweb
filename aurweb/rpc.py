@@ -412,12 +412,7 @@ class RPC:
         packages = (
             db.query(models.Package.Name)
             .join(models.PackageBase)
-            .filter(
-                and_(
-                    models.PackageBase.PackagerUID.isnot(None),
-                    models.Package.Name.like(f"{arg}%"),
-                )
-            )
+            .filter(models.Package.Name.like(f"{arg}%"))
             .order_by(models.Package.Name.asc())
             .limit(20)
         )
@@ -430,12 +425,7 @@ class RPC:
         arg = args[0]
         packages = (
             db.query(models.PackageBase.Name)
-            .filter(
-                and_(
-                    models.PackageBase.PackagerUID.isnot(None),
-                    models.PackageBase.Name.like(f"{arg}%"),
-                )
-            )
+            .filter(models.PackageBase.Name.like(f"{arg}%"))
             .order_by(models.PackageBase.Name.asc())
             .limit(20)
         )

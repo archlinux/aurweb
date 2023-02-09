@@ -210,7 +210,6 @@ def _main():
         .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
         .join(User, PackageBase.MaintainerUID == User.ID, isouter=True)
         .join(Submitter, PackageBase.SubmitterUID == Submitter.ID, isouter=True)
-        .filter(PackageBase.PackagerUID.isnot(None))
         .with_entities(
             Package.ID,
             Package.Name,
@@ -294,7 +293,7 @@ def _main():
     util.apply_all(gzips.values(), lambda gz: gz.close())
 
     # Produce pkgbase.gz
-    query = db.query(PackageBase.Name).filter(PackageBase.PackagerUID.isnot(None)).all()
+    query = db.query(PackageBase.Name).all()
     tmp_pkgbase = f"{PKGBASE}.tmp"
     pkgbase_gzip = gzip.GzipFile(
         filename=PKGBASE, mode="wb", fileobj=open(tmp_pkgbase, "wb")
