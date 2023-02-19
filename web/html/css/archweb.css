@@ -345,11 +345,14 @@ dl {
         border-top: 1px dotted #bbb;
     }
 
-    [dir="rtl"] dl dt {float: right; padding-left: 15px;}
+    [dir="rtl"] dl dt {
+        float: right;
+        padding-left: 15px;
+    }
     dl dt {
         color: #333;
-        float:left;
-        padding-right:15px;
+        float: left;
+        padding-right: 15px;
     }
 
 /* forms and input styling */
@@ -502,7 +505,9 @@ table thead th.sorter-false {
     #news .more {
         font-weight: normal;
     }
-
+    [dir="rtl"] #news .rss-icon {
+        float: left;
+    }
     #news .rss-icon {
         float: right;
         margin-top: 1em;
@@ -514,7 +519,10 @@ table thead th.sorter-false {
         margin-top: 1.5em;
         border-bottom: 1px dotted #bbb;
     }
-
+    [dir="rtl"] #news .timestamp {
+        float: left;
+        margin: -1.8em 0 0 0.5em;
+    }
     #news .timestamp {
         float: right;
         font-size: 0.85em;
@@ -559,7 +567,9 @@ h3 span.arrow {
         padding: 0.1em 0;
     }
 
-    [dir="rtl"] #pkgsearch input {float: left;}
+    [dir="rtl"] #pkgsearch input {
+        float: left;
+    }
     #pkgsearch input {
         width: 10em;
         float: right;
@@ -569,7 +579,11 @@ h3 span.arrow {
         border: 1px solid #09c;
     }
 
-    [dir="rtl"] .pkgsearch-typeahead {right:0;float:right;text-align: right;}
+    [dir="rtl"] .pkgsearch-typeahead {
+        right: 0;
+        float: right;
+        text-align: right;
+    }
 
     .pkgsearch-typeahead {
         position: absolute;
@@ -606,7 +620,8 @@ h3 span.arrow {
         font-weight: normal;
     }
     [dir="rtl"] #pkg-updates .rss-icon {
-        float: left;}
+        float: left;
+    }
     #pkg-updates .rss-icon {
         float: right;
         margin: -2em 0 0 0;
@@ -741,6 +756,9 @@ div.news-article .article-info {
     width: 100%;
 }
     /* max 4 columns, but possibly fewer if screen size doesn't allow for more */
+    [dir="rtl"] #donor-list li {
+        float: right;
+    }
     #donor-list li {
         float: left;
         width: 25%;
@@ -845,7 +863,7 @@ table.results {
 
 /* pkgdetails: details links that float on the right */
 [dir="rtl"] #pkgdetails #detailslinks {
-    float: right;
+    float: left;
 }
 #pkgdetails #detailslinks {
     float: right;
@@ -952,6 +970,7 @@ table.results {
 
 [dir="rtl"] #pkgdetails #pkgdeps {
     float: right;
+    width: 48%;
     margin-left: 2%;
 
 }
@@ -973,6 +992,7 @@ table.results {
 
 [dir="rtl"] #pkgdetails #pkgreqs {
     float: right;
+    width: 48%;
 }
 
 #pkgdetails #pkgreqs {
@@ -981,7 +1001,7 @@ table.results {
 }
 
 #pkgdetails #pkgfiles {
-    clear: left;
+    clear: both;
     padding-top: 1em;
 }
 
@@ -1114,7 +1134,9 @@ table.dash-stats .key {
 }
 
 /* dev dashboard: admin actions (add news items, todo list, etc) */
-[dir="rtl"] ul.admin-actions {float: left;}
+[dir="rtl"] ul.admin-actions {
+    float: left;
+}
 ul.admin-actions {
     float: right;
     list-style: none;
