@@ -38,7 +38,7 @@ test_expect_success 'Test IP address logging.' '
 	cat >expected <<-EOF &&
 	1.2.3.4
 	EOF
-	echo "SELECT LastSSHLoginIPAddress FROM Users WHERE UserName = \"user\";" | \
+	echo "SELECT LastSSHLoginIPAddress FROM Users WHERE UserName = '"'"'user'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual
 '
@@ -60,11 +60,11 @@ test_expect_success 'Test list-repos.' '
 	# insert our test packages
 	echo "INSERT INTO PackageBases (Name, SubmittedTS, \
 	ModifiedTS, SubmitterUID, MaintainerUID, FlaggerComment) \
-	VALUES (\"foobar\", 0, 0, 1, 1, \"\");" | \
+	VALUES ('"'"'foobar'"'"', 0, 0, 1, 1, '"'"''"'"');" | \
 	sqlite3 aur.db
 	echo "INSERT INTO PackageBases (Name, SubmittedTS, \
 	ModifiedTS, SubmitterUID, MaintainerUID, FlaggerComment) \
-	VALUES (\"foobar2\", 0, 0, 2, 2, \"\");" | \
+	VALUES ('"'"'foobar2'"'"', 0, 0, 2, 2, '"'"''"'"');" | \
 	sqlite3 aur.db
 	cat >expected <<-EOF &&
 	*foobar
@@ -137,7 +137,7 @@ test_expect_success "Try to push to someone else's repository as Trusted User." 
 '
 
 test_expect_success "Test restore." '
-	echo "DELETE FROM PackageBases WHERE Name = \"foobar\";" | \
+	echo "DELETE FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db &&
 	cat >expected <<-EOF &&
 	user
@@ -373,9 +373,9 @@ test_expect_success "Check whether package requests are closed when disowning." 
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (1, 2, 3, "foobar", 4, "", "");
-	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (2, 3, 3, "foobar", 5, "", "");
-	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (3, 2, 2, "foobar2", 6, "", "");
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (1, 2, 3, '"'"'foobar'"'"', 4, '"'"''"'"', '"'"''"'"');
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (2, 3, 3, '"'"'foobar'"'"', 5, '"'"''"'"', '"'"''"'"');
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (3, 2, 2, '"'"'foobar2'"'"', 6, '"'"''"'"', '"'"''"'"');
 	EOD
 	>sendmail.out &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
@@ -469,7 +469,7 @@ test_expect_success "Vote for a package base." '
 	cat >expected <<-EOF &&
 	1
 	EOF
-	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual
 '
@@ -487,7 +487,7 @@ test_expect_success "Vote for a package base twice." '
 	cat >expected <<-EOF &&
 	1
 	EOF
-	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual
 '
@@ -503,7 +503,7 @@ test_expect_success "Remove vote from a package base." '
 	cat >expected <<-EOF &&
 	0
 	EOF
-	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual
 '
@@ -521,7 +521,7 @@ test_expect_success "Try to remove the vote again." '
 	cat >expected <<-EOF &&
 	0
 	EOF
-	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual
 '
