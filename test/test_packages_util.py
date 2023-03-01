@@ -109,6 +109,12 @@ def test_source_uri_file(package: Package):
     expected = source_file_uri % (pkgsrc.Source, package.PackageBase.Name)
     assert (file, uri) == (FILE, expected)
 
+    # test URL encoding
+    pkgsrc.Package.PackageBase.Name = "test++"
+    file, uri = util.source_uri(pkgsrc)
+    expected = source_file_uri % (pkgsrc.Source, "test%2B%2B")
+    assert uri == expected
+
 
 def test_source_uri_named_uri(package: Package):
     FILE = "test"
