@@ -57,7 +57,7 @@ python = ">=3.9,<3.11"
 # based on git tags.
 
 # General
-aiofiles = "^22.0.0"
+aiofiles = "^23.0.0"
 asgiref = "^3.4.1"
 bcrypt = "^4.0.0"
 bleach = "^6.0.0"
