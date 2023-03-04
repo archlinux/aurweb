@@ -68,12 +68,19 @@ async def test_asgi_startup_session_secret_exception(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_asgi_startup_exception(monkeypatch):
-    with mock.patch.dict(os.environ, {"AUR_CONFIG": "conf/config.defaults"}):
-        aurweb.config.rehash()
-        with pytest.raises(Exception):
-            await aurweb.asgi.app_startup()
-    aurweb.config.rehash()
+async def test_asgi_startup_exception():
+    # save proper session secret
+    prev_secret = aurweb.asgi.session_secret
+
+    # remove secret
+    aurweb.asgi.session_secret = None
+
+    # startup should fail
+    with pytest.raises(Exception):
+        await aurweb.asgi.app_startup()
+
+    # restore previous session secret after test
+    aurweb.asgi.session_secret = prev_secret
 
 
 @pytest.mark.asyncio

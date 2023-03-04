@@ -38,6 +38,8 @@ logger = aur_logging.get_logger(__name__)
 # Setup the FastAPI app.
 app = FastAPI()
 
+session_secret = aurweb.config.get("fastapi", "session_secret")
+
 # Instrument routes with the prometheus-fastapi-instrumentator
 # library with custom collectors and expose /metrics.
 instrumentator().add(prometheus.http_api_requests_total())
@@ -68,7 +70,6 @@ async def app_startup():
             f"Supported backends: {str(aurweb.db.DRIVERS.keys())}"
         )
 
-    session_secret = aurweb.config.get("fastapi", "session_secret")
     if not session_secret:
         raise Exception("[fastapi] session_secret must not be empty")
 
@@ -83,10 +84,6 @@ async def app_startup():
     app.mount(
         "/static/images", StaticFiles(directory="web/html/images"), name="static_images"
     )
-
-    # Add application middlewares.
-    app.add_middleware(AuthenticationMiddleware, backend=BasicAuthBackend())
-    app.add_middleware(SessionMiddleware, secret_key=session_secret)
 
     # Add application routes.
     def add_router(module):
@@ -320,3 +317,8 @@ async def id_redirect_middleware(request: Request, call_next: typing.Callable):
         return RedirectResponse(f"{path}/{id}{qs}")
 
     return await util.error_or_result(call_next, request)
+
+
+# Add application middlewares.
+app.add_middleware(AuthenticationMiddleware, backend=BasicAuthBackend())
+app.add_middleware(SessionMiddleware, secret_key=session_secret)
