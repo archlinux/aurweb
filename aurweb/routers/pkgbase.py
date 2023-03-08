@@ -293,8 +293,14 @@ async def pkgbase_comment_post(
     comment: str = Form(default=str()),
     enable_notifications: bool = Form(default=False),
     next: str = Form(default=None),
+    cancel: bool = Form(default=False),
 ):
     """Edit an existing comment."""
+    if cancel:
+        return RedirectResponse(
+            f"/pkgbase/{name}#comment-{id}", status_code=HTTPStatus.SEE_OTHER
+        )
+
     pkgbase = get_pkg_or_base(name, PackageBase)
     db_comment = get_pkgbase_comment(pkgbase, id)
 

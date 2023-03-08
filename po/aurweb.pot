@@ -2354,3 +2354,7 @@ msgstr ""
 #: aurweb/routers/accounts.py
 msgid "The account has not been deleted, check the confirmation checkbox."
 msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr ""

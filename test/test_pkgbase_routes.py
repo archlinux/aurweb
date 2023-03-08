@@ -512,6 +512,26 @@ def test_pkgbase_comments(
     ).first()
     assert db_notif is not None
 
+    # Now, let's edit again, but cancel.
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}"
+    with client as request:
+        request.cookies = cookies
+        resp = request.post(
+            endpoint,
+            data={"comment": "Edited comment with cancel.", "cancel": True},
+        )
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    with client as request:
+        resp = request.get(resp.headers.get("location"), follow_redirects=True)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    bodies = root.xpath('//div[@class="article-content"]/div/p')
+
+    # Make sure our comment was NOT changed
+    assert bodies[0].text.strip() == "Edited comment."
+
     # Delete notification for next test.
     with db.begin():
         db.delete(db_notif)
