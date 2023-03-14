@@ -1,0 +1,5 @@
+# disable the modern installer until python-installer is fixed
+# https://github.com/python-poetry/poetry/issues/7572
+
+[installer]
+modern-installation = false
