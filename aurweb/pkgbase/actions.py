@@ -133,7 +133,7 @@ def pkgbase_delete_instance(
     request: Request, pkgbase: PackageBase, comments: str = str()
 ) -> list[notify.Notification]:
     notif = notify.DeleteNotification(request.user.ID, pkgbase.ID)
-    notifs = handle_request(request, DELETION_ID, pkgbase) + [notif]
+    notifs = handle_request(request, DELETION_ID, pkgbase, comments=comments) + [notif]
 
     _retry_delete(pkgbase, comments)
 
@@ -181,7 +181,7 @@ def pkgbase_merge_instance(
     pkgbasename = str(pkgbase.Name)
 
     # Create notifications.
-    notifs = handle_request(request, MERGE_ID, pkgbase, target)
+    notifs = handle_request(request, MERGE_ID, pkgbase, target, comments)
 
     _retry_merge(pkgbase, target)
 
