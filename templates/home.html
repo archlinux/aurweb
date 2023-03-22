@@ -1,10 +1,10 @@
 <div id="intro" class="box">
     <h2>AUR  {% trans %}Home{% endtrans %}</h2>
     <p>
-        {{ "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU Guidelines%s for more information."
+        {{ "Welcome to the AUR! Please read the %sAUR User Guidelines%s for more information and the %sAUR Submission Guidelines%s if you want to contribute a PKGBUILD."
             | tr
             | format('<a href="https://wiki.archlinux.org/title/AUR_User_Guidelines">', "</a>",
-                     '<a href="https://wiki.archlinux.org/title/AUR_Trusted_User_Guidelines">', "</a>")
+                     '<a href="https://wiki.archlinux.org/title/AUR_submission_guidelines">', "</a>")
             | safe
         }}
         {{ "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!"
