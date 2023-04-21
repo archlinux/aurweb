@@ -209,6 +209,7 @@ def make_account_form_context(
         context["cn"] = args.get("CN", user.CommentNotify)
         context["un"] = args.get("UN", user.UpdateNotify)
         context["on"] = args.get("ON", user.OwnershipNotify)
+        context["hdc"] = args.get("HDC", user.HideDeletedComments)
         context["inactive"] = args.get("J", user.InactivityTS != 0)
     else:
         context["username"] = args.get("U", str())
@@ -227,6 +228,7 @@ def make_account_form_context(
         context["cn"] = args.get("CN", True)
         context["un"] = args.get("UN", False)
         context["on"] = args.get("ON", True)
+        context["hdc"] = args.get("HDC", False)
         context["inactive"] = args.get("J", False)
 
     context["password"] = args.get("P", str())
@@ -253,6 +255,7 @@ async def account_register(
     CN: bool = Form(default=False),  # Comment Notify
     CU: bool = Form(default=False),  # Update Notify
     CO: bool = Form(default=False),  # Owner Notify
+    HDC: bool = Form(default=False),  # Hide Deleted Comments
     captcha: str = Form(default=str()),
 ):
     context = await make_variable_context(request, "Register")
@@ -281,6 +284,7 @@ async def account_register_post(
     CN: bool = Form(default=False),
     UN: bool = Form(default=False),
     ON: bool = Form(default=False),
+    HDC: bool = Form(default=False),
     captcha: str = Form(default=None),
     captcha_salt: str = Form(...),
 ):
@@ -334,6 +338,7 @@ async def account_register_post(
             CommentNotify=CN,
             UpdateNotify=UN,
             OwnershipNotify=ON,
+            HideDeletedComments=HDC,
             ResetKey=resetkey,
             AccountType=atype,
         )
@@ -417,6 +422,7 @@ async def account_edit_post(
     CN: bool = Form(default=False),  # Comment Notify
     UN: bool = Form(default=False),  # Update Notify
     ON: bool = Form(default=False),  # Owner Notify
+    HDC: bool = Form(default=False),  # Hide Deleted Comments
     T: int = Form(default=None),
     passwd: str = Form(default=str()),
 ):

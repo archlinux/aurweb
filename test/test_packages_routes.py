@@ -123,6 +123,22 @@ def tu_user():
 
 
 @pytest.fixture
+def user_who_hates_grey_comments() -> User:
+    """Yield a specific User who doesn't like grey comments."""
+    account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
+    with db.begin():
+        user_who_hates_grey_comments = db.create(
+            User,
+            Username="test_hater",
+            Email="test_hater@example.org",
+            Passwd="testPassword",
+            AccountType=account_type,
+            HideDeletedComments=True,
+        )
+    yield user_who_hates_grey_comments
+
+
+@pytest.fixture
 def package(maintainer: User) -> Package:
     """Yield a Package created by user."""
     now = time.utcnow()
@@ -189,6 +205,23 @@ def comment(user: User, package: Package) -> PackageComment:
             Comments="Test comment.",
             RenderedComment=str(),
             CommentTS=now,
+        )
+    yield comment
+
+
+@pytest.fixture
+def deleted_comment(user: User, package: Package) -> PackageComment:
+    pkgbase = package.PackageBase
+    now = time.utcnow()
+    with db.begin():
+        comment = db.create(
+            PackageComment,
+            User=user,
+            PackageBase=pkgbase,
+            Comments="Test comment.",
+            RenderedComment=str(),
+            CommentTS=now,
+            DelTS=now,
         )
     yield comment
 
@@ -409,7 +442,9 @@ def test_paged_depends_required(client: TestClient, package: Package):
     assert "Show 6 more" not in resp.text
 
 
-def test_package_comments(client: TestClient, user: User, package: Package):
+def test_package_comments(
+    client: TestClient, user: User, user_who_hates_grey_comments: User, package: Package
+):
     now = time.utcnow()
     with db.begin():
         comment = db.create(
@@ -419,8 +454,32 @@ def test_package_comments(client: TestClient, user: User, package: Package):
             Comments="Test comment",
             CommentTS=now,
         )
+        deleted_comment = db.create(
+            PackageComment,
+            PackageBase=package.PackageBase,
+            User=user,
+            Comments="Deleted Test comment",
+            CommentTS=now,
+            DelTS=now - 1,
+        )
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = cookies
+        resp = request.get(package_endpoint(package))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    expected = [comment.Comments, deleted_comment.Comments]
+    comments = root.xpath(
+        './/div[contains(@class, "package-comments")]'
+        '/div[@class="article-content"]/div/text()'
+    )
+    assert len(comments) == 2
+    for i, row in enumerate(expected):
+        assert comments[i].strip() == row
+
+    cookies = {"AURSID": user_who_hates_grey_comments.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get(package_endpoint(package))
@@ -432,6 +491,7 @@ def test_package_comments(client: TestClient, user: User, package: Package):
         './/div[contains(@class, "package-comments")]'
         '/div[@class="article-content"]/div/text()'
     )
+    assert len(comments) == 1  # Deleted comment is hidden
     for i, row in enumerate(expected):
         assert comments[i].strip() == row
 

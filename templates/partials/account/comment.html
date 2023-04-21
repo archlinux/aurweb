@@ -4,7 +4,7 @@
 {% endif %}
 
 {% if not comment.Deleter or request.user.has_credential(creds.COMMENT_VIEW_DELETED, approved=[comment.Deleter]) %}
-
+{% if not (request.user.HideDeletedComments and comment.DelTS) %}
     {% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
     <h4 id="comment-{{ comment.ID }}" class="{{ header_cls }}">
         {{
@@ -37,4 +37,5 @@
     </h4>
 
     {% include "partials/comment_content.html" %}
+{% endif %}
 {% endif %}

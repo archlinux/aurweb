@@ -1402,6 +1402,10 @@ msgstr ""
 msgid "Specify multiple SSH Keys separated by new line, empty lines are ignored."
 msgstr ""
 
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr ""
+
 #: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr ""

@@ -182,7 +182,7 @@
                    maxlength="50" name="K" value="{{ pgp }}">
         </p>
 
-        <!-- Homepage -->
+        <!-- Language -->
         <p>
             <label for="id_language">
                 {% trans %}Language{% endtrans %}:
@@ -202,10 +202,10 @@
             </select>
         </p>
 
-        <!-- Homepage -->
+        <!-- Timezone -->
         <p>
             <label for="id_timezone">
-                {% trans %}Timezone{% endtrans %}
+                {% trans %}Timezone{% endtrans %}:
             </label>
 
             <select id="id_timezone" name="TZ">
@@ -217,6 +217,19 @@
                     >{{ offset }}</option>
                 {% endfor %}
             </select>
+        </p>
+
+        <!-- Hide Deleted Comments -->
+        <p>
+            <label for="id_hidedeletedcomments">
+                {% trans %}Hide deleted comments{% endtrans %}:
+            </label>
+
+            <input id="id_hidedeletedcomments" type="checkbox" name="HDC"
+                {% if hdc %}
+                    checked="checked"
+                {% endif %}
+            >
         </p>
 
     </fieldset>

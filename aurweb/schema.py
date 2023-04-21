@@ -108,6 +108,12 @@ Users = Table(
     Column("OwnershipNotify", TINYINT(1), nullable=False, server_default=text("1")),
     Column("SSOAccountID", String(255), nullable=True, unique=True),
     Index("UsersAccountTypeID", "AccountTypeID"),
+    Column(
+        "HideDeletedComments",
+        TINYINT(unsigned=True),
+        nullable=False,
+        server_default=text("0"),
+    ),
     mysql_engine="InnoDB",
     mysql_charset="utf8mb4",
     mysql_collate="utf8mb4_general_ci",

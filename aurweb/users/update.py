@@ -22,6 +22,7 @@ def simple(
     CN: bool = False,
     UN: bool = False,
     ON: bool = False,
+    HDC: bool = False,
     S: bool = False,
     user: models.User = None,
     **kwargs,
@@ -41,6 +42,7 @@ def simple(
         user.CommentNotify = strtobool(CN)
         user.UpdateNotify = strtobool(UN)
         user.OwnershipNotify = strtobool(ON)
+        user.HideDeletedComments = strtobool(HDC)
 
 
 @db.retry_deadlock
