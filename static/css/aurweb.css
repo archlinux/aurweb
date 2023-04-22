@@ -1,0 +1,292 @@
+/* aurweb-specific customizations to archweb.css */
+
+#archnavbar.anb-aur ul li#anb-aur a {
+    color: white !important;
+}
+
+#archnavbarlogo {
+    background: url('archnavbar/aurlogo.png') !important;
+}
+
+[dir="rtl"] #lang_sub {
+	float: left;
+  }
+#lang_sub {
+  float: right;
+}
+
+.pkglist-nav .page {
+    margin: 0 .25em;
+}
+
+#pkg-stats td.stat-desc {
+  white-space: normal;
+}
+
+#actionlist form {
+	margin: 0;
+	padding: 0;
+}
+
+.arch-bio-entry ul {
+	list-style: none;
+	padding: 0;
+}
+
+#pkg-updates table {
+	table-layout: fixed;
+	width:100%;
+}
+
+#pkg-updates td.pkg-name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+[dir="rtl"] #pkg-updates td.pkg-date {
+	text-align:left;
+}
+#pkg-updates td.pkg-date {
+	text-align:right;
+}
+
+[dir="rtl"] .keyword:link, .keyword:visited {
+	float: right;
+}
+
+.keyword:link, .keyword:visited {
+	float: left;
+	margin: 1px .5ex 1px 0;
+	padding: 0 1em;
+	color: white;
+	background-color: #36a;
+	border: 1px solid transparent;
+	border-radius: 2px;
+}
+
+.keyword:hover {
+	cursor: pointer;
+}
+
+.keyword:focus {
+	border: 1px dotted #000;
+}
+
+.text-button {
+	background: transparent;
+	border: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	font: normal 100% sans-serif;
+	text-decoration: none;
+	color: #07b;
+	cursor: pointer;
+}
+
+.text-button:hover {
+	text-decoration: underline;
+	color: #666;
+}
+
+.text-button::-moz-focus-inner {
+	padding: 0;
+	border: none;
+}
+
+.comment-deleted {
+	color: #999;
+}
+
+.edited {
+	font-size: 0.9em;
+	color: #999;
+}
+
+[dir="rtl"] .delete-comment-form, .undelete-comment-form, .pin-comment-form, .edit-comment {
+	float: left;
+	margin-right: 8px;
+}
+
+.delete-comment-form, .undelete-comment-form, .pin-comment-form, .edit-comment {
+	float: right;
+	margin-left: 8px;
+}
+
+.edit-comment {
+	height: 11px;
+	position: relative;
+	top: 1px;
+}
+
+.comment-enable-notifications {
+	display: inline-block;
+	margin-left: 1em;
+}
+
+.rss-icon, .delete-comment, .undelete-comment, .edit-comment, .pin-comment {
+	filter: grayscale(100%);
+	opacity: 0.6;
+}
+
+.rss-icon:hover, .delete-comment:hover, .undelete-comment:hover, .edit-comment:hover, .pin-comment:hover {
+	filter: none;
+	opacity: 1;
+}
+
+[dir="rtl"] .ajax-loader {
+	float: left;
+}
+
+.ajax-loader {
+	float: right;
+	position: relative;
+	top: 4px;
+}
+
+.flagged a {
+	color: inherit;
+}
+
+legend {
+	padding: 1em 0;
+}
+
+p.important {
+	font-weight: bold;
+}
+
+span.hover-help {
+	border-bottom: 1px dotted black;
+	cursor:help;
+}
+
+label.confirmation {
+	width: auto;
+}
+
+#pkgdepslist .broken {
+	color: red;
+	font-weight: bold;
+}
+
+.package-comments {
+	margin-top: 1.5em;
+}
+
+.comments-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+/* arrowed headings */
+.comments-header h3 span.text {
+	display: block;
+	background: #1794D1;
+	font-size: 15px;
+	padding: 2px 10px;
+	color: white;
+}
+
+.comments-header .comments-header-nav {
+	align-self: flex-end;
+}
+
+.comments-footer {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.comment-header {
+	clear: both;
+	font-size: 1em;
+	margin-top: 1.5em;
+	border-bottom: 1px dotted #bbb;
+}
+
+.comments div {
+	margin-bottom: 1em;
+}
+
+.comments div p {
+	margin-bottom: 0.5em;
+}
+
+.comments .more {
+	font-weight: normal;
+}
+
+.error {
+	color: red;
+}
+
+.article-content > div {
+	overflow: hidden;
+	transition: height 1s;
+}
+
+.proposal.details {
+    margin: .33em 0 1em;
+}
+
+button[type="submit"],
+button[type="reset"] {
+    padding: 0 0.6em;
+}
+
+.results tr td[align="left"] fieldset {
+    text-align: left;
+}
+
+.results tr td[align="right"] fieldset {
+    text-align: right;
+}
+
+input#search-action-submit {
+    width: 80px;
+}
+
+.success {
+    color: green;
+}
+
+/* Styling used to clone <a> styles for a form.link button. */
+form.link, form.link button {
+    display: inline;
+    font-family: sans-serif;
+}
+form.link button {
+    padding: 0 0.5em;
+    color: #07b;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+form.link button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Customize form.link when used inside of a page. */
+div.box form.link p {
+    margin: .33em 0 1em;
+}
+div.box form.link button {
+    padding: 0;
+}
+
+pre.traceback {
+    /* https://css-tricks.com/snippets/css/make-pre-text-wrap/ */
+    white-space: pre-wrap;
+    word-wrap: break-all;
+}
+
+/* By default, tables use 100% width, which we do not always want. */
+table.no-width {
+    width: auto;
+}
+table.no-width > tbody > tr > td {
+    padding-right: 2px;
+}

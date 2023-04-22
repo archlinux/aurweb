@@ -79,11 +79,7 @@ async def app_startup():
             "endpoint is disabled."
         )
 
-    app.mount("/static/css", StaticFiles(directory="web/html/css"), name="static_css")
-    app.mount("/static/js", StaticFiles(directory="web/html/js"), name="static_js")
-    app.mount(
-        "/static/images", StaticFiles(directory="web/html/images"), name="static_images"
-    )
+    app.mount("/static", StaticFiles(directory="static"), name="static_files")
 
     # Add application routes.
     def add_router(module):
