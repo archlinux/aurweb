@@ -1,12 +1,24 @@
+<!--
+This template is used to report potential bugs with the AURweb website.
+
+NOTE: All comment sections with a MODIFY note need to be edited. All checkboxes
+in the "Checklist" section need to be checked by the owner of the issue.
+-->
+/label ~bug ~unconfirmed
+/title [BUG] <!-- MODIFY: add subject -->
+<!--
+Please do not remove the above quick actions, which automatically label the
+issue and assign relevant users.
+-->
+
 ### Checklist
 
-This bug template is meant to provide bug issues for code existing in
-the aurweb repository. This bug template is **not meant** to handle
-bugs with user-uploaded packages.
+**NOTE:** This bug template is meant to provide bug issues for code existing in
+the aurweb repository.
 
-To work out a bug you have found in a user-uploaded package, contact
-the package's maintainer first. If you receive no response, file the
-relevant package request against it so TUs can deal with cleanup.
+**This bug template is not meant to handle bugs with user-uploaded packages.**
+To report issues you might have found in a user-uploaded package, contact
+the package's maintainer in comments.
 
 - [ ] I confirm that this is an issue with aurweb's code and not a
       user-uploaded package.
@@ -29,7 +41,7 @@ this bug.
 
 ### Logs
 
-If you have any logs relevent to the bug, include them here in
+If you have any logs relevant to the bug, include them here in
 quoted or code blocks.
 
 ### Version(s)
