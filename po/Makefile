@@ -48,20 +48,12 @@ all: ${MOFILES}
 	lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
 	msgmerge -U --no-location --lang="$$lang" $< aurweb.pot
 
-POTFILES-php:
-	find ../web -type f -name '*.php' -printf '%P\n' | sort >POTFILES-php
-
 POTFILES-py:
 	find ../aurweb -type f -name '*.py' -printf '%P\n' | sort >POTFILES-py
 
-update-pot: POTFILES-php POTFILES-py
+update-pot: POTFILES-py
 	pkgname=AURWEB; \
-	pkgver=`sed -n 's/.*"AURWEB_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc.php`; \
-	xgettext --default-domain=aurweb -L php --keyword=__ --keyword=_n:1,2 \
-		--add-location=file --add-comments=TRANSLATORS: \
-		--package-name="$$pkgname" --package-version="$$pkgver" \
-		--msgid-bugs-address='${MSGID_BUGS_ADDRESS}' \
-		--directory ../web --files-from POTFILES-php -o aurweb.pot; \
+	pkgver=`sed -n 's/version\s*=\s*"\(.*\)"/\1/p' ../pyproject.toml`; \
 	xgettext --default-domain=aurweb -L python --join-existing \
 		--keyword=translate \
 		--add-location=file --add-comments=TRANSLATORS: \
@@ -73,7 +65,7 @@ update-po:
 	${MAKE} ${UPDATEPOFILES}
 
 clean:
-	rm -f *.mo *.po\~ POTFILES-php POTFILES-py
+	rm -f *.mo *.po\~ POTFILES-py
 
 install: all
 	for l in ${LOCALES}; do mkdir -p ${DESTDIR}${PREFIX}/$$l/LC_MESSAGES/; done
@@ -82,4 +74,4 @@ install: all
 uninstall:
 	for l in ${LOCALES}; do rm -rf ${DESTDIR}${PREFIX}/$$l/LC_MESSAGES/; done
 
-.PHONY: all update-pot update-po clean install uninstall POTFILES-php POTFILES-py
+.PHONY: all update-pot update-po clean install uninstall POTFILES-py

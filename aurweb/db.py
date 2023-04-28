@@ -364,7 +364,7 @@ class ConnectionExecutor:
 
     def execute(self, query, params=()):  # pragma: no cover
         # TODO: SQLite support has been removed in FastAPI. It remains
-        # here to fund its support for PHP until it is removed.
+        # here to fund its support for the Sharness testsuite.
         if self._paramstyle in ("format", "pyformat"):
             query = query.replace("%", "%%").replace("?", "%s")
         elif self._paramstyle == "qmark":
@@ -410,7 +410,7 @@ class Connection:
             )
         elif aur_db_backend == "sqlite":  # pragma: no cover
             # TODO: SQLite support has been removed in FastAPI. It remains
-            # here to fund its support for PHP until it is removed.
+            # here to fund its support for Sharness testsuite.
             import math
             import sqlite3
 

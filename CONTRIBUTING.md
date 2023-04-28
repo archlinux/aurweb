@@ -91,7 +91,6 @@ browser if desired.
 Accessible services (on the host):
 
 - https://localhost:8444 (python via nginx)
-- https://localhost:8443 (php via nginx)
 - localhost:13306 (mariadb)
 - localhost:16379 (redis)
 

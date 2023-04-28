@@ -29,7 +29,6 @@ docker-compose
 4) Browse to local aurweb development server.
 
    Python: https://localhost:8444/
-   PHP: https://localhost:8443/
 
 5) [Optionally] populate the database with dummy data:
 

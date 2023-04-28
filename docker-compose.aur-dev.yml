@@ -6,9 +6,6 @@ services:
       - data:/data
       - step:/root/.step
 
-  memcached:
-    restart: always
-
   redis:
     restart: always
 
@@ -32,11 +29,6 @@ services:
       - data:/data
       - smartgit_run:/var/run/smartgit
 
-  cgit-php:
-    restart: always
-    volumes:
-      - ${GIT_DATA_DIR}:/aurweb/aur.git
-
   cgit-fastapi:
     restart: always
     volumes:
@@ -47,14 +39,6 @@ services:
       # Exclude ./aurweb:/aurweb in production.
       - mariadb_run:/var/run/mysqld
       - archives:/var/lib/aurweb/archives
-
-  php-fpm:
-    restart: always
-    environment:
-      - AURWEB_PHP_PREFIX=${AURWEB_PHP_PREFIX}
-      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
-    volumes:
-      - data:/data
 
   fastapi:
     restart: always

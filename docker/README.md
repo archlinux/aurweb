@@ -55,8 +55,7 @@ can proceed.
 
 ### Querying the RPC
 
-The Fast (Python) API runs on Port 8444, while the legacy PHP version runs
-on 8443. You can query one like so:
+The Fast (Python) API runs on Port 8444. You can query one like so:
 
 ```sh
 curl -k "https://localhost:8444/rpc/?v=5&type=search&arg=python"

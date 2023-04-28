@@ -38,11 +38,9 @@ enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
 render-comment-cmd = /usr/bin/aurweb-rendercomment
 localedir = /srv/http/aurweb/web/locale/
-; memcache, apc, or redis
-; memcache/apc are supported in PHP, redis is supported in Python.
+; cache: redis is supported in Python.
 cache = none
 cache_pkginfo_ttl = 86400
-memcache_servers = 127.0.0.1:11211
 salt_rounds = 12
 redis_address = redis://localhost
 ; Toggles traceback display in templates/errors/500.html.
@@ -125,12 +123,12 @@ sync-dbs = core extra community multilib testing community-testing
 server = https://mirrors.kernel.org/archlinux/%s/os/x86_64
 
 [mkpkglists]
-archivedir = /srv/http/aurweb/web/html
-packagesfile = /srv/http/aurweb/web/html/packages.gz
-packagesmetafile = /srv/http/aurweb/web/html/packages-meta-v1.json.gz
-packagesmetaextfile = /srv/http/aurweb/web/html/packages-meta-ext-v1.json.gz
-pkgbasefile = /srv/http/aurweb/web/html/pkgbase.gz
-userfile = /srv/http/aurweb/web/html/users.gz
+archivedir = /srv/http/aurweb/archives
+packagesfile = /srv/http/aurweb/archives/packages.gz
+packagesmetafile = /srv/http/aurweb/archives/packages-meta-v1.json.gz
+packagesmetaextfile = /srv/http/aurweb/archives/packages-meta-ext-v1.json.gz
+pkgbasefile = /srv/http/aurweb/archives/pkgbase.gz
+userfile = /srv/http/aurweb/archives/users.gz
 
 [git-archive]
 author = git_archive.py

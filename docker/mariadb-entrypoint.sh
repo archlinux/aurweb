@@ -12,7 +12,7 @@ while ! mysqladmin ping 2>/dev/null; do
 done
 
 # Configure databases.
-DATABASE="aurweb" # Persistent database for fastapi/php-fpm.
+DATABASE="aurweb" # Persistent database for fastapi.
 
 echo "Taking care of primary database '${DATABASE}'..."
 mysql -u root -e "CREATE USER IF NOT EXISTS 'aur'@'localhost' IDENTIFIED BY 'aur';"

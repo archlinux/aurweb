@@ -10,11 +10,9 @@
 #   - `ca` - Certificate Authority generation
 #   - `git` - `port 2222` - Git over SSH server
 #   - `fastapi` - hypercorn service for aurweb's FastAPI app
-#   - `php-fpm` - Execution server for PHP aurweb
-#   - `nginx` - `ports 8444 (FastAPI), 8443 (PHP)` - Everything
-#     - You can reach `nginx` via FastAPI at `https://localhost:8444/`
-#       or via PHP at `https://localhost:8443/`. CGit can be reached
-#       via the `/cgit/` request uri on either server.
+#   - `nginx` - `port 8444 (FastAPI)
+#     - You can reach `nginx` via FastAPI at `https://localhost:8444/`.
+#       CGit can be reached via the `/cgit/` request uri on either server.
 #
 # Copyright (C) 2021 aurweb Development
 # All Rights Reserved.
@@ -35,14 +33,6 @@ services:
       interval: 3s
     volumes:
       - step:/root/.step
-
-  memcached:
-    image: aurweb:latest
-    init: true
-    command: /docker/scripts/run-memcached.sh
-    healthcheck:
-      test: "bash /docker/health/memcached.sh"
-      interval: 3s
 
   redis:
     image: aurweb:latest
@@ -133,26 +123,6 @@ services:
       test: "bash /docker/health/smartgit.sh"
       interval: 3s
 
-  cgit-php:
-    image: aurweb:latest
-    init: true
-    environment:
-      - AUR_CONFIG=/aurweb/conf/config
-      - CGIT_CLONE_PREFIX=${AURWEB_PHP_PREFIX}
-      - CGIT_CSS=/css/cgit.css
-    entrypoint: /docker/cgit-entrypoint.sh
-    command: /docker/scripts/run-cgit.sh 3000
-    healthcheck:
-      test: "bash /docker/health/cgit.sh 3000"
-      interval: 3s
-    depends_on:
-      git:
-        condition: service_healthy
-    ports:
-      - "127.0.0.1:13000:3000"
-    volumes:
-      - git_data:/aurweb/aur.git
-
   cgit-fastapi:
     image: aurweb:latest
     init: true
@@ -188,32 +158,6 @@ services:
       - ./aurweb:/aurweb/aurweb
       - mariadb_run:/var/run/mysqld
       - archives:/var/lib/aurweb/archives
-
-  php-fpm:
-    image: aurweb:latest
-    init: true
-    environment:
-      - AUR_CONFIG=/aurweb/conf/config
-      - AURWEB_PHP_PREFIX=${AURWEB_PHP_PREFIX}
-      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
-      - AUR_CONFIG_IMMUTABLE=${AUR_CONFIG_IMMUTABLE:-0}
-    entrypoint: /docker/php-entrypoint.sh
-    command: /docker/scripts/run-php.sh
-    healthcheck:
-      test: "bash /docker/health/php.sh"
-      interval: 3s
-    depends_on:
-      git:
-        condition: service_healthy
-      memcached:
-        condition: service_healthy
-      cron:
-        condition: service_started
-    volumes:
-      - mariadb_run:/var/run/mysqld
-      - archives:/var/lib/aurweb/archives
-    ports:
-      - "127.0.0.1:19000:9000"
 
   fastapi:
     image: aurweb:latest
@@ -252,7 +196,6 @@ services:
     entrypoint: /docker/nginx-entrypoint.sh
     command: /docker/scripts/run-nginx.sh
     ports:
-      - "127.0.0.1:8443:8443" # PHP
       - "127.0.0.1:8444:8444" # FastAPI
     healthcheck:
       test: "bash /docker/health/nginx.sh"
@@ -260,15 +203,11 @@ services:
     depends_on:
       ca:
         condition: service_healthy
-      cgit-php:
-        condition: service_healthy
       cgit-fastapi:
         condition: service_healthy
       smartgit:
         condition: service_healthy
       fastapi:
-        condition: service_healthy
-      php-fpm:
         condition: service_healthy
 
   sharness:
@@ -290,9 +229,6 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
   pytest-mysql:
@@ -319,9 +255,6 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
   test:
@@ -346,9 +279,6 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
 volumes:

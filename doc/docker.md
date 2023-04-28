@@ -65,12 +65,9 @@ Services
 | [mariadb](#mariadb) | 127.0.0.1:13306 |
 | [git](#git)         | 127.0.0.1:2222  |
 | redis               | 127.0.0.1:16379 |
-| [php-fpm](#php-fpm) | 127.0.0.1:19000 |
-| cgit-php            |                 |
 | [fastapi](#fastapi) | 127.0.0.1:18000 |
 | cgit-fastapi        |                 |
 | [nginx](#nginx) (fastapi) | 127.0.0.1:8444  |
-| [nginx](#nginx) (php)     | 127.0.0.1:8443  |
 
 There are more services which have not been referred to here;
 the services listed above encompass all notable services. Some
@@ -113,16 +110,6 @@ to be used for the AUR.
 This service will perform setup in either case if the repository
 is not yet initialized.
 
-#### php-fpm
-
-When running any services which use the _php-fpm_ backend or other
-php-related services, users should define:
-
-- `AURWEB_PHP_PREFIX`
-    - Default: `https://localhost:8443`
-- `AURWEB_SSHD_PREFIX`
-    - Default: `ssh://aur@localhost:2222`
-
 #### fastapi
 
 The _fastapi_ service hosts a `gunicorn`, `uvicorn` or `hypercorn`
@@ -145,20 +132,17 @@ backend or other fastapi-related services, users should define:
 
 #### nginx
 
-The _nginx_ service binds to two host endpoints: 127.0.0.1:8444 (fastapi)
-and 127.0.0.1:8443 (php). Each instance is available over the `https`
+The _nginx_ service binds to host endpoint: 127.0.0.1:8444 (fastapi).
+The instance is available over the `https`
 protocol as noted in the table below.
 
 | Impl   | Host Binding   | URL                    |
 |--------|----------------|------------------------|
 | Python | 127.0.0.1:8444 | https://localhost:8444 |
-| PHP    | 127.0.0.1:8443 | https://localhost:8443 |
 
 When running this service, the following variables should be defined:
 
 - `AURWEB_FASTAPI_PREFIX`
     - Default: `https://localhost:8444`
-- `AURWEB_PHP_PREFIX`
-    - Default: `https://localhost:8443`
 - `AURWEB_SSHD_PREFIX`
     - Default: `ssh://aur@localhost:2222`

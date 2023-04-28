@@ -20,7 +20,6 @@ from typing import Iterable
 
 import aurweb.config
 import aurweb.schema
-from aurweb.exceptions import AurwebException
 
 children = []
 temporary_dir = None
@@ -28,9 +27,6 @@ verbosity = 0
 asgi_backend = ""
 workers = 1
 
-PHP_BINARY = os.environ.get("PHP_BINARY", "php")
-PHP_MODULES = ["pdo_mysql", "pdo_sqlite"]
-PHP_NGINX_PORT = int(os.environ.get("PHP_NGINX_PORT", 8001))
 FASTAPI_NGINX_PORT = int(os.environ.get("FASTAPI_NGINX_PORT", 8002))
 
 
@@ -47,42 +43,12 @@ class ProcessExceptions(Exception):
         super().__init__("\n- ".join(messages))
 
 
-def validate_php_config() -> None:
-    """
-    Perform a validation check against PHP_BINARY's configuration.
-
-    AurwebException is raised here if checks fail to pass. We require
-    the 'pdo_mysql' and 'pdo_sqlite' modules to be enabled.
-
-    :raises: AurwebException
-    :return: None
-    """
-    try:
-        proc = subprocess.Popen(
-            [PHP_BINARY, "-m"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
-        out, _ = proc.communicate()
-    except FileNotFoundError:
-        raise AurwebException(f"Unable to locate the '{PHP_BINARY}' " "executable.")
-
-    assert proc.returncode == 0, (
-        "Received non-zero error code " f"{proc.returncode} from '{PHP_BINARY}'."
-    )
-
-    modules = out.decode().splitlines()
-    for module in PHP_MODULES:
-        if module not in modules:
-            raise AurwebException(f"PHP does not have the '{module}' module enabled.")
-
-
 def generate_nginx_config():
     """
     Generate an nginx configuration based on aurweb's configuration.
     The file is generated under `temporary_dir`.
     Returns the path to the created configuration file.
     """
-    php_bind = aurweb.config.get("php", "bind_address")
-    php_host = php_bind.split(":")[0]
     fastapi_bind = aurweb.config.get("fastapi", "bind_address")
     fastapi_host = fastapi_bind.split(":")[0]
     config_path = os.path.join(temporary_dir, "nginx.conf")
@@ -101,12 +67,6 @@ def generate_nginx_config():
             fastcgi_temp_path {os.path.join(temporary_dir, "fastcgi")}1 2;
             uwsgi_temp_path {os.path.join(temporary_dir, "uwsgi")};
             scgi_temp_path {os.path.join(temporary_dir, "scgi")};
-            server {{
-                listen {php_host}:{PHP_NGINX_PORT};
-                location / {{
-                    proxy_pass http://{php_bind};
-                }}
-            }}
             server {{
                 listen {fastapi_host}:{FASTAPI_NGINX_PORT};
                 location / {{
@@ -154,7 +114,7 @@ def start():
         terminal_width = 80
     print(
         "{ruler}\n"
-        "Spawing PHP and FastAPI, then nginx as a reverse proxy.\n"
+        "Spawing FastAPI, then nginx as a reverse proxy.\n"
         "Check out {aur_location}\n"
         "Hit ^C to terminate everything.\n"
         "{ruler}".format(
@@ -162,12 +122,6 @@ def start():
             aur_location=aurweb.config.get("options", "aur_location"),
         )
     )
-
-    # PHP
-    php_address = aurweb.config.get("php", "bind_address")
-    php_host = php_address.split(":")[0]
-    htmldir = aurweb.config.get("php", "htmldir")
-    spawn_child(["php", "-S", php_address, "-t", htmldir])
 
     # FastAPI
     fastapi_host, fastapi_port = aurweb.config.get("fastapi", "bind_address").rsplit(
@@ -210,10 +164,7 @@ def start():
         f"""
  > Started nginx.
  >
- >      PHP backend: http://{php_address}
- >  FastAPI backend: http://{fastapi_host}:{fastapi_port}
- >
- >     PHP frontend: http://{php_host}:{PHP_NGINX_PORT}
+ > FastAPI backend: http://{fastapi_host}:{fastapi_port}
  > FastAPI frontend: http://{fastapi_host}:{FASTAPI_NGINX_PORT}
  >
  > Frontends are hosted via nginx and should be preferred.
@@ -306,12 +257,6 @@ if __name__ == "__main__":
         help="number of workers to use in gunicorn",
     )
     args = parser.parse_args()
-
-    try:
-        validate_php_config()
-    except AurwebException as exc:
-        print(f"error: {str(exc)}")
-        sys.exit(1)
 
     verbosity = args.verbose
     asgi_backend = args.backend

@@ -7,10 +7,9 @@ import pytest
 
 import aurweb.config
 import aurweb.spawn
-from aurweb.exceptions import AurwebException
 
 # Some os.environ overrides we use in this suite.
-TEST_ENVIRONMENT = {"PHP_NGINX_PORT": "8001", "FASTAPI_NGINX_PORT": "8002"}
+TEST_ENVIRONMENT = {"FASTAPI_NGINX_PORT": "8002"}
 
 
 class FakeProcess:
@@ -49,34 +48,6 @@ class MockFakeProcess:
         return proc
 
 
-@mock.patch("aurweb.spawn.PHP_BINARY", "does-not-exist")
-def test_spawn():
-    match = r"^Unable to locate the '.*' executable\.$"
-    with pytest.raises(AurwebException, match=match):
-        aurweb.spawn.validate_php_config()
-
-
-@mock.patch("subprocess.Popen", side_effect=MockFakeProcess(1).process)
-def test_spawn_non_zero_php_binary(fake_process: FakeProcess):
-    match = r"^Received non-zero error code.*$"
-    with pytest.raises(AssertionError, match=match):
-        aurweb.spawn.validate_php_config()
-
-
-def test_spawn_missing_modules():
-    side_effect = MockFakeProcess(stdout=b"pdo_sqlite").process
-    with mock.patch("subprocess.Popen", side_effect=side_effect):
-        match = r"PHP does not have the 'pdo_mysql' module enabled\.$"
-        with pytest.raises(AurwebException, match=match):
-            aurweb.spawn.validate_php_config()
-
-    side_effect = MockFakeProcess(stdout=b"pdo_mysql").process
-    with mock.patch("subprocess.Popen", side_effect=side_effect):
-        match = r"PHP does not have the 'pdo_sqlite' module enabled\.$"
-        with pytest.raises(AurwebException, match=match):
-            aurweb.spawn.validate_php_config()
-
-
 @mock.patch.dict("os.environ", TEST_ENVIRONMENT)
 def test_spawn_generate_nginx_config():
     ctx = tempfile.TemporaryDirectory()
@@ -86,13 +57,9 @@ def test_spawn_generate_nginx_config():
         with open(nginx_config_path) as f:
             nginx_config = f.read().rstrip()
 
-    php_address = aurweb.config.get("php", "bind_address")
-    php_host = php_address.split(":")[0]
     fastapi_address = aurweb.config.get("fastapi", "bind_address")
     fastapi_host = fastapi_address.split(":")[0]
     expected_content = [
-        f'listen {php_host}:{TEST_ENVIRONMENT.get("PHP_NGINX_PORT")}',
-        f"proxy_pass http://{php_address}",
         f'listen {fastapi_host}:{TEST_ENVIRONMENT.get("FASTAPI_NGINX_PORT")}',
         f"proxy_pass http://{fastapi_address}",
     ]

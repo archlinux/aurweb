@@ -21,7 +21,7 @@ The RPC interface can be used to query package information via HTTP.
 Installation
 ------------
 
-The web backend requires a web server with PHP and an SQL database. The Git/SSH
+The web backend requires a web server and an SQL database. The Git/SSH
 interface requires Python, several Python modules and an up-to-date version of
 Git. APCu or memcached can be used to reduce load on the database server.
 

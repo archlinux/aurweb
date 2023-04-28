@@ -26,7 +26,6 @@ Directory Layout
 * `schema`: schema for the SQL database
 * `test`: test suite and test cases
 * `upgrading`: instructions for upgrading setups from one release to another
-* `web`: PHP-based web interface for the AUR
 
 Documentation
 -------------
