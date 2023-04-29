@@ -20,8 +20,8 @@ cache-static-ttl=60
 
 root-title=AUR Package Repositories
 root-desc=Web interface to the AUR Package Repositories
-header=/srv/http/aurweb/web/template/cgit/header.html
-footer=/srv/http/aurweb/web/template/cgit/footer.html
+header=/srv/http/aurweb/static/html/cgit/header.html
+footer=/srv/http/aurweb/static/html/cgit/footer.html
 max-repodesc-length=50
 max-blob-size=2048
 max-stats=year
