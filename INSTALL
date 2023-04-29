@@ -30,9 +30,6 @@ read the instructions below.
         ssl_certificate /etc/ssl/certs/aur.cert.pem;
         ssl_certificate_key /etc/ssl/private/aur.key.pem;
 
-        # Asset root. This is used to match against gzip archives.
-        root   /srv/http/aurweb/web/html;
-
         # TU Bylaws redirect.
         location = /trusted-user/TUbylaws.html {
             return 301 https://tu-bylaws.aur.archlinux.org;
@@ -62,6 +59,9 @@ read the instructions below.
 
         # Static archive assets.
         location ~ \.gz$ {
+            # Asset root. This is used to match against gzip archives.
+            root   /srv/http/aurweb/archives;
+
             types { application/gzip text/plain }
             default_type text/plain;
             add_header Content-Encoding gzip;
