@@ -1,59 +1,130 @@
 Setup Testing Environment
 =========================
 
-Note that this setup is only to test the web interface. If you need to have a
-full aurweb instance with cgit, ssh interface, etc, follow the directions in
-INSTALL.
+The quickest way to get you hacking on aurweb is to utilize docker.
+In case you prefer to run it bare-metal see instructions further below.
 
-docker-compose
---------------
+Containerized environment
+-------------------------
 
 1) Clone the aurweb project:
 
     $ git clone https://gitlab.archlinux.org/archlinux/aurweb.git
+    $ cd aurweb
 
 2) Install the necessary packages:
 
-    # pacman -S docker-compose
+    # pacman -S --needed docker docker-compose
 
-2) Build the aurweb:latest image:
+3) Build the aurweb:latest image:
 
-    $ cd /path/to/aurweb/
-    $ docker-compose build
+    # systemctl start docker
+    # docker compose build
 
-3) Run local Docker development instance:
+4) Run local Docker development instance:
 
-    $ cd /path/to/aurweb/
-    $ docker-compose up -d nginx
+    # docker compose up -d
 
-4) Browse to local aurweb development server.
+5) Browse to local aurweb development server.
 
-   Python: https://localhost:8444/
+   https://localhost:8444/
 
-5) [Optionally] populate the database with dummy data:
+6) [Optionally] populate the database with dummy data:
 
-    $ docker-compose up mariadb
-    $ docker-compose exec mariadb  /bin/sh
+    # docker compose exec mariadb /bin/bash
     # pacman -S --noconfirm words fortune-mod
     # poetry run schema/gendummydata.py dummy_data.sql
-    # mysql -uaur -paur aurweb < dummy_data.sql
+    # mariadb -uaur -paur aurweb < dummy_data.sql
+    # exit
 
-Inspect `dummy_data.sql` for test credentials. Passwords match usernames.
+    Inspect `dummy_data.sql` for test credentials.
+    Passwords match usernames.
 
-Bare Metal
-----------
+We now have fully set up environment which we can start and stop with:
+
+    # docker compose start
+    # docker compose stop
+
+Proceed with topic "Setup for running tests"
+
+
+Bare Metal installation
+-----------------------
+
+Note that this setup is only to test the web interface. If you need to have a
+full aurweb instance with cgit, ssh interface, etc, follow the directions in
+INSTALL.
 
 1) Clone the aurweb project:
 
     $ git clone git://git.archlinux.org/aurweb.git
+    $ cd aurweb
 
 2) Install the necessary packages:
 
-    # pacman -S python-poetry
+    # pacman -S --needed python-poetry mariadb words fortune-mod nginx
 
-4) Install the package/dependencies via `poetry`:
+3) Install the package/dependencies via `poetry`:
 
-    $ cd /path/to/aurweb/
+    $ poetry install
+
+4) Copy conf/config.dev to conf/config and replace YOUR_AUR_ROOT by the absolute
+   path to the root of your aurweb clone. sed can do both tasks for you:
+
+    $ sed -e "s;YOUR_AUR_ROOT;$PWD;g" conf/config.dev > conf/config
+
+   Note that when the upstream config.dev is updated, you should compare it to
+   your conf/config, or regenerate your configuration with the command above.
+
+5) Set up mariadb:
+
+    # mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+    # systemctl start mariadb
+    # mariadb -u root
+    > CREATE USER 'aur'@'localhost' IDENTIFIED BY 'aur';
+    > GRANT ALL ON *.* TO 'aur'@'localhost' WITH GRANT OPTION;
+    > CREATE DATABASE aurweb;
+    > exit
+
+6) Prepare a database and insert dummy data:
+
+    $ AUR_CONFIG=conf/config poetry run python -m aurweb.initdb
+    $ poetry run schema/gendummydata.py dummy_data.sql
+    $ mariadb -uaur -paur aurweb < dummy_data.sql
+
+7) Run the test server:
+
+   ## set AUR_CONFIG to our locally created config
+    $ export AUR_CONFIG=conf/config
+
+   ## with aurweb.spawn
+    $ poetry run python -m aurweb.spawn
+
+   ## with systemd service
+    $ sudo install -m644 examples/aurweb.service /etc/systemd/system/
+    # systemctl enable --now aurweb.service
+
+
+Setup for running tests
+-----------------------
+
+If you've set up a docker environment, you can run the full test-suite with:
+    # docker compose run test
+
+You can collect code-coverage data with:
+    $ ./util/fix-coverage data/.coverage
+
+See information further below on how to visualize the data.
+
+For running individual tests, we need to perform a couple of additional steps.
+In case you did the bare-metal install, steps 2, 3, 4 and 5 should be skipped.
+
+1) Install the necessary packages:
+
+    # pacman -S --needed python-poetry mariadb-libs asciidoc openssh
+
+2) Install the package/dependencies via `poetry`:
+
     $ poetry install
 
 3) Copy conf/config.dev to conf/config and replace YOUR_AUR_ROOT by the absolute
@@ -64,23 +135,51 @@ Bare Metal
    Note that when the upstream config.dev is updated, you should compare it to
    your conf/config, or regenerate your configuration with the command above.
 
-4) Prepare a database:
+4) Edit the config file conf/config and change the mysql/mariadb portion
 
-    $ cd /path/to/aurweb/
+    We can make use of our mariadb docker container instead of having to install
+    mariadb. Change the config as follows:
 
-    $ AUR_CONFIG=conf/config poetry run python -m aurweb.initdb
+    ---------------------------------------------------------------------
+    ; MySQL database information. User defaults to root for containerized
+    ; testing with mysqldb. This should be set to a non-root user.
+    user = root
+    password = aur
+    host = 127.0.0.1
+    port = 13306
+    ;socket = /var/run/mysqld/mysqld.sock
+    ---------------------------------------------------------------------
 
-    $ poetry run schema/gendummydata.py dummy_data.sql
-    $ mysql -uaur -paur aurweb < dummy_data.sql
+5) Start our mariadb docker container
 
-5) Run the test server:
+    # docker compose start mariadb
 
-   ## set AUR_CONFIG to our locally created config
-   $ export AUR_CONFIG=conf/config
+6) Set environment variables
 
-   ## with aurweb.spawn
-   $ poetry run python -m aurweb.spawn
+    $ export AUR_CONFIG=conf/config
+    $ export LOG_CONFIG=logging.test.conf
 
-   ## with systemd service
-   $ sudo install -m644 examples/aurweb.service /etc/systemd/system/
-   $ systemctl enable --now aurweb.service
+7) Compile translation & doc files
+
+    $ make -C po install
+    $ make -C doc
+
+Now we can run our python test-suite or individual tests with:
+
+    $ poetry run pytest test/
+    $ poetry run pytest test/test_whatever.py
+
+To run Sharness tests:
+
+    $ poetry run make -C test sh
+
+The e-Mails that have been generated can be found at test-emails/
+
+After test runs, code-coverage reports can be created with:
+    ## CLI report
+    $ coverage report
+
+    ## HTML version stored at htmlcov/
+    $ coverage html
+
+More information about tests can be found at test/README.md

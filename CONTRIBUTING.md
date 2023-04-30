@@ -97,6 +97,8 @@ Accessible services (on the host):
 Docker services, by default, are setup to be hot reloaded when source code
 is changed.
 
+For detailed setup instructions have a look at [TESTING](TESTING)
+
 #### Using INSTALL
 
 The [INSTALL](INSTALL) file describes steps to install the application on
