@@ -51,7 +51,7 @@ build-backend = "poetry.masonry.api"
 "Request Mailing List" = "https://lists.archlinux.org/listinfo/aur-requests"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
+python = ">=3.9,<3.12"
 
 # poetry-dynamic-versioning is used to produce tool.poetry.version
 # based on git tags.
