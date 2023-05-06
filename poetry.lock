@@ -1255,14 +1255,14 @@ twisted = ["twisted"]
 
 [[package]]
 name = "prometheus-fastapi-instrumentator"
-version = "5.11.2"
+version = "6.0.0"
 description = "Instrument your FastAPI with Prometheus metrics."
 category = "main"
 optional = false
 python-versions = ">=3.7.0,<4.0.0"
 files = [
-    {file = "prometheus_fastapi_instrumentator-5.11.2-py3-none-any.whl", hash = "sha256:c84ae3dc98bebb44f29d0af0c17c9f0782c2fb964ef83353664d9858a632cf81"},
-    {file = "prometheus_fastapi_instrumentator-5.11.2.tar.gz", hash = "sha256:9d8d0df8de7d6a73ae387121629dbf32fe022cdfc63e8bacd51f4b8ff21059ea"},
+    {file = "prometheus_fastapi_instrumentator-6.0.0-py3-none-any.whl", hash = "sha256:6f66a951a4801667f7311d161f3aebfe0cd202391d0f067fbbe169792e2d987b"},
+    {file = "prometheus_fastapi_instrumentator-6.0.0.tar.gz", hash = "sha256:f1ddd0b8ead75e71d055bdf4cb7e995ec6a6ca63543245e7bbc5ca9b14c45191"},
 ]
 
 [package.dependencies]
@@ -1955,4 +1955,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "7eba1b2d0fd17dacea153cb3f6ebdcb11d7888902cbb3a88a65f3c6c38f65699"
+content-hash = "e6a2e5b7d503b1597cf00c1378228c24d4c19651fa176c8bcf938ace9be42d62"
