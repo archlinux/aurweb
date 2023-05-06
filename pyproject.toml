@@ -103,7 +103,7 @@ pytest = "^7.2.2"
 pytest-asyncio = "^0.20.3"
 pytest-cov = "^4.0.0"
 pytest-tap = "^3.3"
-watchfiles = "^0.18.1"
+watchfiles = "^0.19.0"
 
 [tool.poetry.scripts]
 aurweb-git-auth = "aurweb.git.auth:main"
