@@ -1,6 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    "group:allNonMajor"
+  ],
+  "packageRules": [
+    {
+      "groupName": "fastapi",
+      "matchPackageNames": ["fastapi"]
+    }
   ]
 }
