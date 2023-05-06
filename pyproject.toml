@@ -93,7 +93,7 @@ pytest-xdist = "^3.2.1"
 filelock = "^3.9.1"
 posix-ipc = "^1.1.1"
 pyalpm = "^0.10.6"
-fastapi = "^0.94.1"
+fastapi = "^0.95.0"
 srcinfo = "^0.1.2"
 tomlkit = "^0.11.6"
 
