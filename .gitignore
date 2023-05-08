@@ -47,5 +47,9 @@ doc/rpc.html
 
 # Ignore coverage report
 coverage.xml
+
 # Ignore pytest report
 report.xml
+
+# Ignore test emails
+test-emails/
