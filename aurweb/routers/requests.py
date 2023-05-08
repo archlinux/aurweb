@@ -40,13 +40,21 @@ async def requests(
     filter_accepted: bool = False,
     filter_rejected: bool = False,
     filter_maintainer_requests: bool = False,
+    filter_pkg_name: str = None,
 ):
     context = make_context(request, "Requests")
 
     context["q"] = dict(request.query_params)
 
+    # Set pending filter by default if no status filter was provided.
+    # In case we got a package name filter, but no status filter,
+    # we enable the other ones too.
     if not dict(request.query_params).keys() & FILTER_PARAMS:
         filter_pending = True
+        if filter_pkg_name:
+            filter_closed = True
+            filter_accepted = True
+            filter_rejected = True
 
     O, PP = util.sanitize_params(str(O), str(PP))
     context["O"] = O
@@ -56,6 +64,7 @@ async def requests(
     context["filter_accepted"] = filter_accepted
     context["filter_rejected"] = filter_rejected
     context["filter_maintainer_requests"] = filter_maintainer_requests
+    context["filter_pkg_name"] = filter_pkg_name
 
     Maintainer = orm.aliased(User)
     # A PackageRequest query
@@ -78,7 +87,7 @@ async def requests(
     rejected_count = 0 + query.filter(PackageRequest.Status == REJECTED_ID).count()
     context["rejected_requests"] = rejected_count
 
-    # Apply filters
+    # Apply status filters
     in_filters = []
     if filter_pending:
         in_filters.append(PENDING_ID)
@@ -89,6 +98,11 @@ async def requests(
     if filter_rejected:
         in_filters.append(REJECTED_ID)
     filtered = query.filter(PackageRequest.Status.in_(in_filters))
+
+    # Name filter
+    if filter_pkg_name:
+        filtered = filtered.filter(PackageBase.Name == filter_pkg_name)
+
     # Additionally filter for requests made from package maintainer
     if filter_maintainer_requests:
         filtered = filtered.filter(PackageRequest.UsersID == PackageBase.MaintainerUID)

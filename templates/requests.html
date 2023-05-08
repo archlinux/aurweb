@@ -62,7 +62,13 @@
                                value="True" {{ "checked" if filter_maintainer_requests == true }}/>
                     </div>
                     <div>
-                        <button type='submit' class='button' name='submit' value='Filter'>{{ "Filter" | tr }}</button>
+                        <label for="id_filter_pkg_name" title="Package name">{{ "Package name" | tr }}</label>
+                        <input type="text" name="filter_pkg_name" id="id_filter_pkg_name" autocomplete="off"
+                               value="{{ filter_pkg_name if filter_pkg_name }}"/>
+                    </div>
+                    <div>
+                        <br/>
+                        <input type="submit" class="button" name="filter" value="{{ 'Filter' | tr }}"></input>
                     </div>
                 </fieldset>
             </form>
@@ -194,4 +200,7 @@
             {% include "partials/pager.html" %}
         {% endif %}
     </div>
+
+<!-- Bootstrap typeahead for requests page. -->
+<script type="text/javascript" src="/static/js/typeahead-requests.js"></script>
 {% endblock %}

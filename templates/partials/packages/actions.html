@@ -97,11 +97,19 @@
                 </li>
             {% endif %}
             {% if requests %}
-                <li>
-                    <span class="flagged">
-                        {{ requests | tn("%d pending request", "%d pending requests") | format(requests) }}
-                    </span>
-                </li>
+                {% if request.user.has_credential(creds.PKGREQ_LIST) %}
+                    <li>
+                        <a class="flagged" href="/requests?filter_pkg_name={{ pkgbase.Name }}">
+                            {{ requests | tn("%d pending request", "%d pending requests") | format(requests) }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <span class="flagged">
+                            {{ requests | tn("%d pending request", "%d pending requests") | format(requests) }}
+                        </span>
+                    </li>
+                {% endif %}
             {% endif %}
             <li>
                 <a href="/pkgbase/{{ pkgbase.Name }}/request?{{ {'next': '/pkgbase/%s' | format(pkgbase.Name)} | urlencode }}">

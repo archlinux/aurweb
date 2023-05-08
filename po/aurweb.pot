@@ -2362,3 +2362,7 @@ msgstr ""
 #: templates/partials/packages/comment_form.html
 msgid "Cancel"
 msgstr ""
+
+#: templates/requests.html
+msgid "Package name"
+msgstr ""

@@ -912,6 +912,44 @@ def test_requests_for_maintainer_requests(
     assert len(rows) == 2
 
 
+def test_requests_with_package_name_filter(
+    client: TestClient,
+    tu_user: User,
+    user2: User,
+    packages: list[Package],
+    requests: list[PackageRequest],
+):
+    # test as TU
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = cookies
+        resp = request.get(
+            "/requests",
+            params={"filter_pkg_name": packages[0].PackageBase.Name},
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    # We only expect 1 request for our first package
+    assert len(rows) == 1
+
+    # test as regular user, not related to our package
+    cookies = {"AURSID": user2.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = cookies
+        resp = request.get(
+            "/requests",
+            params={"filter_pkg_name": packages[0].PackageBase.Name},
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    # We don't expect to get any requests
+    assert len(rows) == 0
+
+
 def test_requests_by_deleted_users(
     client: TestClient, user: User, tu_user: User, pkgreq: PackageRequest
 ):

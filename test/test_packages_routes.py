@@ -555,6 +555,16 @@ def test_package_authenticated(client: TestClient, user: User, package: Package)
     for expected_text in expected:
         assert expected_text in resp.text
 
+    # make sure we don't have these. Only for Maintainer/TUs/Devs
+    not_expected = [
+        "Disown Package",
+        "View Requests",
+        "Delete Package",
+        "Merge Package",
+    ]
+    for unexpected_text in not_expected:
+        assert unexpected_text not in resp.text
+
     # When no requests are up, make sure we don't see the display for them.
     root = parse_root(resp.text)
     selector = '//div[@id="actionlist"]/ul/li/span[@class="flagged"]'
@@ -586,8 +596,19 @@ def test_package_authenticated_maintainer(
     for expected_text in expected:
         assert expected_text in resp.text
 
+    # make sure we don't have these. Only for TUs/Devs
+    not_expected = [
+        "1 pending request",
+        "Delete Package",
+        "Merge Package",
+    ]
+    for unexpected_text in not_expected:
+        assert unexpected_text not in resp.text
 
-def test_package_authenticated_tu(client: TestClient, tu_user: User, package: Package):
+
+def test_package_authenticated_tu(
+    client: TestClient, tu_user: User, package: Package, pkgreq: PackageRequest
+):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
@@ -603,6 +624,7 @@ def test_package_authenticated_tu(client: TestClient, tu_user: User, package: Pa
         "Vote for this package",
         "Enable notifications",
         "Manage Co-Maintainers",
+        "1 pending request",
         "Submit Request",
         "Delete Package",
         "Merge Package",
