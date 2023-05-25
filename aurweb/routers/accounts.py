@@ -8,7 +8,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import and_, or_
 
 import aurweb.config
-from aurweb import aur_logging, cookies, db, l10n, models, util
+from aurweb import aur_logging, db, l10n, models, util
 from aurweb.auth import account_type_required, creds, requires_auth, requires_guest
 from aurweb.captcha import get_captcha_salts
 from aurweb.exceptions import ValidationError, handle_form_exceptions
@@ -473,9 +473,7 @@ async def account_edit_post(
     if not errors:
         context["complete"] = True
 
-    # Update cookies with requests, in case they were changed.
-    response = render_template(request, "account/edit.html", context)
-    return cookies.update_response_cookies(request, response, aurtz=TZ, aurlang=L)
+    return render_template(request, "account/edit.html", context)
 
 
 @router.get("/account/{username}")

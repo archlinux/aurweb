@@ -38,8 +38,6 @@ def timeout(extended: bool) -> int:
 def update_response_cookies(
     request: Request,
     response: Response,
-    aurtz: str = None,
-    aurlang: str = None,
     aursid: str = None,
 ) -> Response:
     """Update session cookies. This method is particularly useful
@@ -50,20 +48,10 @@ def update_response_cookies(
 
     :param request: FastAPI request
     :param response: FastAPI response
-    :param aurtz: Optional AURTZ cookie value
-    :param aurlang: Optional AURLANG cookie value
     :param aursid: Optional AURSID cookie value
     :returns: Updated response
     """
     secure = config.getboolean("options", "disable_http_login")
-    if aurtz:
-        response.set_cookie(
-            "AURTZ", aurtz, secure=secure, httponly=secure, samesite=samesite()
-        )
-    if aurlang:
-        response.set_cookie(
-            "AURLANG", aurlang, secure=secure, httponly=secure, samesite=samesite()
-        )
     if aursid:
         remember_me = request.cookies.get("AURREMEMBER") == "True"
         response.set_cookie(
