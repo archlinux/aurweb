@@ -109,7 +109,9 @@
                                 {{ result.RequestType.name_display() | tr }}
                                 {# If the RequestType is a merge and request.MergeBaseName is valid... #}
                                 {% if result.RequestType.ID == 3 and result.MergeBaseName %}
-                                    ({{ result.MergeBaseName }})
+                                    <a href="/pkgbase/{{ result.MergeBaseName }}">
+                                        ({{ result.MergeBaseName }})
+                                    </a>
                                 {% endif %}
                             </td>
                             {# Comments #}
