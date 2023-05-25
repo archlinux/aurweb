@@ -56,19 +56,28 @@ async def language(
 
     query_string = "?" + q if q else str()
 
-    # If the user is authenticated, update the user's LangPreference.
-    if request.user.is_authenticated():
-        with db.begin():
-            request.user.LangPreference = set_lang
-
-    # In any case, set the response's AURLANG cookie that never expires.
     response = RedirectResponse(
         url=f"{next}{query_string}", status_code=HTTPStatus.SEE_OTHER
     )
-    secure = aurweb.config.getboolean("options", "disable_http_login")
-    response.set_cookie(
-        "AURLANG", set_lang, secure=secure, httponly=secure, samesite=cookies.samesite()
-    )
+
+    # If the user is authenticated, update the user's LangPreference.
+    # Otherwise set an AURLANG cookie
+    if request.user.is_authenticated():
+        with db.begin():
+            request.user.LangPreference = set_lang
+    else:
+        secure = aurweb.config.getboolean("options", "disable_http_login")
+        perma_timeout = aurweb.config.getint("options", "permanent_cookie_timeout")
+
+        response.set_cookie(
+            "AURLANG",
+            set_lang,
+            secure=secure,
+            httponly=secure,
+            max_age=perma_timeout,
+            samesite=cookies.samesite(),
+        )
+
     return response
 
 
