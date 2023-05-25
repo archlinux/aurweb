@@ -65,7 +65,7 @@ def update_response_cookies(
             "AURLANG", aurlang, secure=secure, httponly=secure, samesite=samesite()
         )
     if aursid:
-        remember_me = bool(request.cookies.get("AURREMEMBER", False))
+        remember_me = request.cookies.get("AURREMEMBER") == "True"
         response.set_cookie(
             "AURSID",
             aursid,

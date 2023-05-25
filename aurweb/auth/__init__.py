@@ -104,9 +104,7 @@ class BasicAuthBackend(AuthenticationBackend):
             return unauthenticated
 
         timeout = aurweb.config.getint("options", "login_timeout")
-        remembered = "AURREMEMBER" in conn.cookies and bool(
-            conn.cookies.get("AURREMEMBER")
-        )
+        remembered = conn.cookies.get("AURREMEMBER") == "True"
         if remembered:
             timeout = aurweb.config.getint("options", "persistent_cookie_timeout")
 

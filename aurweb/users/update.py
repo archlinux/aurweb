@@ -131,7 +131,7 @@ def password(
             user.update_password(P)
 
         if user == request.user:
-            remember_me = request.cookies.get("AURREMEMBER", False)
+            remember_me = request.cookies.get("AURREMEMBER") == "True"
 
             # If the target user is the request user, login with
             # the updated password to update the Session record.
