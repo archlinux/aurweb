@@ -86,20 +86,6 @@ async def login_post(
         samesite=cookies.samesite(),
     )
     response.set_cookie(
-        "AURTZ",
-        user.Timezone,
-        secure=secure,
-        httponly=secure,
-        samesite=cookies.samesite(),
-    )
-    response.set_cookie(
-        "AURLANG",
-        user.LangPreference,
-        secure=secure,
-        httponly=secure,
-        samesite=cookies.samesite(),
-    )
-    response.set_cookie(
         "AURREMEMBER",
         remember_me,
         secure=secure,
@@ -125,5 +111,5 @@ async def logout(request: Request, next: str = Form(default="/")):
     # to redirect to a get request.
     response = RedirectResponse(url=next, status_code=HTTPStatus.SEE_OTHER)
     response.delete_cookie("AURSID")
-    response.delete_cookie("AURTZ")
+    response.delete_cookie("AURREMEMBER")
     return response
