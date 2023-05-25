@@ -70,6 +70,7 @@ async def login_post(
         return await login_template(request, next, errors=["Account Suspended"])
 
     cookie_timeout = cookies.timeout(remember_me)
+    perma_timeout = aurweb.config.getint("options", "permanent_cookie_timeout")
     sid = _retry_login(request, user, passwd, cookie_timeout)
     if not sid:
         return await login_template(request, next, errors=["Bad username or password."])
@@ -88,6 +89,7 @@ async def login_post(
     response.set_cookie(
         "AURREMEMBER",
         remember_me,
+        max_age=perma_timeout,
         secure=secure,
         httponly=secure,
         samesite=cookies.samesite(),
