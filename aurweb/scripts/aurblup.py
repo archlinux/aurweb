@@ -49,6 +49,7 @@ def _main(force: bool = False):
             .all()
         )
 
+        # delete providers not existing in any of our alpm repos
         for name, provides in old_providers.difference(providers):
             db.delete_all(
                 db.query(OfficialProvider).filter(
@@ -59,9 +60,19 @@ def _main(force: bool = False):
                 )
             )
 
+        # add new providers that do not yet exist in our DB
         for name, provides in providers.difference(old_providers):
             repo = repomap.get((name, provides))
             db.create(OfficialProvider, Name=name, Repo=repo, Provides=provides)
+
+        # update providers where a pkg was moved from one repo to another
+        all_providers = db.query(OfficialProvider)
+
+        for op in all_providers:
+            new_repo = repomap.get((op.Name, op.Provides))
+
+            if op.Repo != new_repo:
+                op.Repo = new_repo
 
 
 def main(force: bool = False):

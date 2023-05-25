@@ -87,3 +87,23 @@ def test_aurblup_cleanup(alpm_db: AlpmDatabase):
         db.query(OfficialProvider).filter(OfficialProvider.Name == "fake package").all()
     )
     assert len(providers) == 0
+
+
+def test_aurblup_repo_change(alpm_db: AlpmDatabase):
+    # Add a package and sync up the database.
+    alpm_db.add("pkg", "1.0", "x86_64", provides=["pkg2", "pkg3"])
+    aurblup.main()
+
+    # We should find an entry with repo "test"
+    op = db.query(OfficialProvider).filter(OfficialProvider.Name == "pkg").first()
+    assert op.Repo == "test"
+
+    # Modify the repo to something that does not exist.
+    op.Repo = "nonsense"
+
+    # Run our script.
+    aurblup.main()
+
+    # Repo should be set back to "test"
+    db.refresh(op)
+    assert op.Repo == "test"

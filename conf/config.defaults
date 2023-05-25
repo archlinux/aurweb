@@ -119,7 +119,7 @@ max-blob-size = 256000
 
 [aurblup]
 db-path = /srv/http/aurweb/aurblup/
-sync-dbs = core extra community multilib testing community-testing
+sync-dbs = core-testing extra-testing multilib-testing core extra multilib
 server = https://mirrors.kernel.org/archlinux/%s/os/x86_64
 
 [mkpkglists]
