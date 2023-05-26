@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import Request
 
-from aurweb import cookies, db, models, time, util
+from aurweb import db, models, time, util
 from aurweb.models import SSHPubKey
 from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.util import strtobool
@@ -131,11 +131,9 @@ def password(
             user.update_password(P)
 
         if user == request.user:
-            remember_me = request.cookies.get("AURREMEMBER") == "True"
-
             # If the target user is the request user, login with
             # the updated password to update the Session record.
-            user.login(request, P, cookies.timeout(remember_me))
+            user.login(request, P)
 
 
 @db.retry_deadlock

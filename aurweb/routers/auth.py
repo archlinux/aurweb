@@ -29,8 +29,8 @@ async def login_get(request: Request, next: str = "/"):
 
 
 @db.retry_deadlock
-def _retry_login(request: Request, user: User, passwd: str, cookie_timeout: int) -> str:
-    return user.login(request, passwd, cookie_timeout)
+def _retry_login(request: Request, user: User, passwd: str) -> str:
+    return user.login(request, passwd)
 
 
 @router.post("/login", response_class=HTMLResponse)
@@ -76,7 +76,7 @@ async def login_post(
         cookie_timeout = aurweb.config.getint("options", "persistent_cookie_timeout")
 
     perma_timeout = aurweb.config.getint("options", "permanent_cookie_timeout")
-    sid = _retry_login(request, user, passwd, cookie_timeout)
+    sid = _retry_login(request, user, passwd)
     if not sid:
         return await login_template(request, next, errors=["Bad username or password."])
 

@@ -95,7 +95,7 @@ class User(Base):
     def _login_approved(self, request: Request):
         return not is_banned(request) and not self.Suspended
 
-    def login(self, request: Request, password: str, session_time: int = 0) -> str:
+    def login(self, request: Request, password: str) -> str:
         """Login and authenticate a request."""
 
         from aurweb import db
