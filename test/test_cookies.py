@@ -1,4 +1,5 @@
 from datetime import datetime
+from http import HTTPStatus
 
 import pytest
 from fastapi.testclient import TestClient
@@ -56,7 +57,6 @@ def test_cookies_login(client: TestClient, user: User):
         resp = request.post("/login", data=data)
 
     local_time = int(datetime.now().timestamp())
-    expected_timeout = local_time + config.getint("options", "login_timeout")
     expected_permanent = local_time + config.getint(
         "options", "permanent_cookie_timeout"
     )
@@ -64,22 +64,15 @@ def test_cookies_login(client: TestClient, user: User):
     # Check if we got permanent cookies with expected expiry date.
     # Allow 1 second difference to account for timing issues
     # between the request and current time.
+    # AURSID should be a session cookie (no expiry date)
     assert "AURSID", "AURREMEMBER" in resp.cookies
     for cookie in resp.cookies.jar:
         if cookie.name == "AURSID":
-            assert abs(cookie.expires - expected_timeout) < 2
+            assert cookie.expires is None
 
         if cookie.name == "AURREMEMBER":
             assert abs(cookie.expires - expected_permanent) < 2
-
-    # Make some random http call.
-    # We should get an (updated) AURSID cookie with each request.
-    sid = resp.cookies.get("AURSID")
-    with client as request:
-        request.cookies = {"AURSID": sid}
-        resp = request.get("/")
-
-    assert "AURSID" in resp.cookies
+            assert cookie.value == "False"
 
     # Log out
     with client as request:
@@ -102,13 +95,26 @@ def test_cookies_login(client: TestClient, user: User):
     # Check if we got a permanent cookie with expected expiry date.
     # Allow 1 second difference to account for timing issues
     # between the request and current time.
+    # AURSID should be a persistent cookie
     expected_persistent = local_time + config.getint(
         "options", "persistent_cookie_timeout"
     )
-    assert "AURSID" in resp.cookies
+    assert "AURSID", "AURREMEMBER" in resp.cookies
     for cookie in resp.cookies.jar:
         if cookie.name in "AURSID":
             assert abs(cookie.expires - expected_persistent) < 2
+
+        if cookie.name == "AURREMEMBER":
+            assert abs(cookie.expires - expected_permanent) < 2
+            assert cookie.value == "True"
+
+    # log in again even though we already have a session
+    with client as request:
+        resp = request.post("/login", data=data)
+
+    # we are logged in already and should have been redirected
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == "/"
 
 
 def test_cookie_language(client: TestClient, user: User):

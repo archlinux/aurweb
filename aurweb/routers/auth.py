@@ -69,7 +69,12 @@ async def login_post(
     if user.Suspended:
         return await login_template(request, next, errors=["Account Suspended"])
 
-    cookie_timeout = cookies.timeout(remember_me)
+    # If "remember me" was not ticked, we set a session cookie for AURSID,
+    # otherwise we make it a persistent cookie
+    cookie_timeout = None
+    if remember_me:
+        cookie_timeout = aurweb.config.getint("options", "persistent_cookie_timeout")
+
     perma_timeout = aurweb.config.getint("options", "permanent_cookie_timeout")
     sid = _retry_login(request, user, passwd, cookie_timeout)
     if not sid:

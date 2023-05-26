@@ -10,7 +10,7 @@ from fastapi import Request
 from fastapi.responses import HTMLResponse
 
 import aurweb.config
-from aurweb import cookies, l10n, time
+from aurweb import l10n, time
 
 # Prepare jinja2 objects.
 _loader = jinja2.FileSystemLoader(
@@ -145,13 +145,4 @@ def render_template(
 ):
     """Render a template as an HTMLResponse."""
     rendered = render_raw_template(request, path, context)
-    response = HTMLResponse(rendered, status_code=int(status_code))
-
-    sid = None
-    if request.user.is_authenticated():
-        sid = request.cookies.get("AURSID")
-
-    # Re-emit SID via update_response_cookies with an updated expiration.
-    # This extends the life of a user session based on the AURREMEMBER
-    # cookie, which is always set to the "Remember Me" state on login.
-    return cookies.update_response_cookies(request, response, aursid=sid)
+    return HTMLResponse(rendered, status_code=int(status_code))

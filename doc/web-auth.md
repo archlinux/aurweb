@@ -22,17 +22,11 @@ in the following ways:
 ### Max-Age
 
 The value used for the `AURSID` Max-Age attribute is decided based
-off of the "Remember Me" checkbox on the login page. Both paths
-use their own independent configuration for the number of seconds
-that each type of session should stay alive.
-
-- "Remember Me" unchecked while logging in
-    - `options.login_timeout` is used
-- "Remember Me" checked while logging in
-    - `options.persistent_cookie_timeout` is used
-
-Both `options.login_timeout` and `options.persistent_cookie_timeout`
-indicate the number of seconds the session should live.
+off of the "Remember Me" checkbox on the login page. If it was not
+checked, we don't set Max-Age and it becomes a session cookie.
+Otherwise we make it a persistent cookie and for the expiry date
+we use `options.persistent_cookie_timeout`.
+It indicates the number of seconds the session should live.
 
 ### Notes
 
@@ -89,7 +83,7 @@ The following list of steps describes exactly how this verification works:
 1. Was the `AURSID` cookie delivered?
     1. No, the algorithm ends, you are considered unauthenticated
     2. Yes, move on to 2
-2. Was the `AURREMEMBER` cookie delivered with a value of 1?
+2. Was the `AURREMEMBER` cookie delivered with a value of `True`?
     1. No, set the expected session timeout **T** to `options.login_timeout`
     2. Yes, set the expected session timeout **T** to
     `options.persistent_cookie_timeout`

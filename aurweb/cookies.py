@@ -1,6 +1,3 @@
-from fastapi import Request
-from fastapi.responses import Response
-
 from aurweb import config
 
 
@@ -33,33 +30,3 @@ def timeout(extended: bool) -> int:
     if bool(extended):
         timeout = config.getint("options", "persistent_cookie_timeout")
     return timeout
-
-
-def update_response_cookies(
-    request: Request,
-    response: Response,
-    aursid: str = None,
-) -> Response:
-    """Update session cookies. This method is particularly useful
-    when updating a cookie which was already set.
-
-    The AURSID cookie's expiration is based on the AURREMEMBER cookie,
-    which is retrieved from `request`.
-
-    :param request: FastAPI request
-    :param response: FastAPI response
-    :param aursid: Optional AURSID cookie value
-    :returns: Updated response
-    """
-    secure = config.getboolean("options", "disable_http_login")
-    if aursid:
-        remember_me = request.cookies.get("AURREMEMBER") == "True"
-        response.set_cookie(
-            "AURSID",
-            aursid,
-            secure=secure,
-            httponly=secure,
-            max_age=timeout(remember_me),
-            samesite=samesite(),
-        )
-    return response
