@@ -14,8 +14,8 @@ passwd_min_len = 8
 default_lang = en
 default_timezone = UTC
 sql_debug = 0
-; 2 hours - default login_timeout
-login_timeout = 7200
+; 4 hours - default login_timeout
+login_timeout = 14400
 ; 30 days - default persistent_cookie_timeout
 persistent_cookie_timeout = 2592000
 ; 400 days - default permanent_cookie_timeout
