@@ -175,10 +175,8 @@ test_expect_success 'Removing .SRCINFO with a follow-up fix.' '
 	git -C aur.git commit -q -m "Remove .SRCINFO" &&
 	git -C aur.git revert --no-edit HEAD &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^error: missing .SRCINFO$" actual
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
 '
 
 test_expect_success 'Removing PKGBUILD.' '

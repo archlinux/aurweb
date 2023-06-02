@@ -258,6 +258,63 @@ def die_commit(msg, commit):
     exit(1)
 
 
+def validate_metadata(metadata, commit):  # noqa: C901
+    try:
+        metadata_pkgbase = metadata["pkgbase"]
+    except KeyError:
+        die_commit(
+            "invalid .SRCINFO, does not contain a pkgbase (is the file empty?)",
+            str(commit.id),
+        )
+    if not re.match(repo_regex, metadata_pkgbase):
+        die_commit("invalid pkgbase: {:s}".format(metadata_pkgbase), str(commit.id))
+
+    if not metadata["packages"]:
+        die_commit("missing pkgname entry", str(commit.id))
+
+    for pkgname in set(metadata["packages"].keys()):
+        pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
+
+        for field in ("pkgver", "pkgrel", "pkgname"):
+            if field not in pkginfo:
+                die_commit(
+                    "missing mandatory field: {:s}".format(field), str(commit.id)
+                )
+
+        if "epoch" in pkginfo and not pkginfo["epoch"].isdigit():
+            die_commit("invalid epoch: {:s}".format(pkginfo["epoch"]), str(commit.id))
+
+        if not re.match(r"[a-z0-9][a-z0-9\.+_-]*$", pkginfo["pkgname"]):
+            die_commit(
+                "invalid package name: {:s}".format(pkginfo["pkgname"]),
+                str(commit.id),
+            )
+
+        max_len = {"pkgname": 255, "pkgdesc": 255, "url": 8000}
+        for field in max_len.keys():
+            if field in pkginfo and len(pkginfo[field]) > max_len[field]:
+                die_commit(
+                    "{:s} field too long: {:s}".format(field, pkginfo[field]),
+                    str(commit.id),
+                )
+
+        for field in ("install", "changelog"):
+            if field in pkginfo and not pkginfo[field] in commit.tree:
+                die_commit(
+                    "missing {:s} file: {:s}".format(field, pkginfo[field]),
+                    str(commit.id),
+                )
+
+        for field in extract_arch_fields(pkginfo, "source"):
+            fname = field["value"]
+            if len(fname) > 8000:
+                die_commit("source entry too long: {:s}".format(fname), str(commit.id))
+            if "://" in fname or "lp:" in fname:
+                continue
+            if fname not in commit.tree:
+                die_commit("missing source file: {:s}".format(fname), str(commit.id))
+
+
 def main():  # noqa: C901
     repo = pygit2.Repository(repo_path)
 
@@ -295,12 +352,30 @@ def main():  # noqa: C901
     if sha1_old != "0" * 40:
         walker.hide(sha1_old)
 
+    head_commit = repo[sha1_new]
+    if ".SRCINFO" not in head_commit.tree:
+        die_commit("missing .SRCINFO", str(head_commit.id))
+
+    # Read .SRCINFO from the HEAD commit.
+    metadata_raw = repo[head_commit.tree[".SRCINFO"].id].data.decode()
+    (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
+    if errors:
+        sys.stderr.write(
+            "error: The following errors occurred " "when parsing .SRCINFO in commit\n"
+        )
+        sys.stderr.write("error: {:s}:\n".format(str(head_commit.id)))
+        for error in errors:
+            for err in error["error"]:
+                sys.stderr.write("error: line {:d}: {:s}\n".format(error["line"], err))
+        exit(1)
+
+    # check if there is a correct .SRCINFO file in the latest revision
+    validate_metadata(metadata, head_commit)
+
     # Validate all new commits.
     for commit in walker:
-        for fname in (".SRCINFO", "PKGBUILD"):
-            if fname not in commit.tree:
-                die_commit("missing {:s}".format(fname), str(commit.id))
-
+        if "PKGBUILD" not in commit.tree:
+            die_commit("missing PKGBUILD", str(commit.id))
         for treeobj in commit.tree:
             blob = repo[treeobj.id]
 
@@ -320,92 +395,12 @@ def main():  # noqa: C901
                     str(commit.id),
                 )
 
-        metadata_raw = repo[commit.tree[".SRCINFO"].id].data.decode()
-        (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
-        if errors:
-            sys.stderr.write(
-                "error: The following errors occurred "
-                "when parsing .SRCINFO in commit\n"
-            )
-            sys.stderr.write("error: {:s}:\n".format(str(commit.id)))
-            for error in errors:
-                for err in error["error"]:
-                    sys.stderr.write(
-                        "error: line {:d}: {:s}\n".format(error["line"], err)
-                    )
-            exit(1)
-
-        try:
-            metadata_pkgbase = metadata["pkgbase"]
-        except KeyError:
-            die_commit(
-                "invalid .SRCINFO, does not contain a pkgbase (is the file empty?)",
-                str(commit.id),
-            )
-        if not re.match(repo_regex, metadata_pkgbase):
-            die_commit("invalid pkgbase: {:s}".format(metadata_pkgbase), str(commit.id))
-
-        if not metadata["packages"]:
-            die_commit("missing pkgname entry", str(commit.id))
-
-        for pkgname in set(metadata["packages"].keys()):
-            pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
-
-            for field in ("pkgver", "pkgrel", "pkgname"):
-                if field not in pkginfo:
-                    die_commit(
-                        "missing mandatory field: {:s}".format(field), str(commit.id)
-                    )
-
-            if "epoch" in pkginfo and not pkginfo["epoch"].isdigit():
-                die_commit(
-                    "invalid epoch: {:s}".format(pkginfo["epoch"]), str(commit.id)
-                )
-
-            if not re.match(r"[a-z0-9][a-z0-9\.+_-]*$", pkginfo["pkgname"]):
-                die_commit(
-                    "invalid package name: {:s}".format(pkginfo["pkgname"]),
-                    str(commit.id),
-                )
-
-            max_len = {"pkgname": 255, "pkgdesc": 255, "url": 8000}
-            for field in max_len.keys():
-                if field in pkginfo and len(pkginfo[field]) > max_len[field]:
-                    die_commit(
-                        "{:s} field too long: {:s}".format(field, pkginfo[field]),
-                        str(commit.id),
-                    )
-
-            for field in ("install", "changelog"):
-                if field in pkginfo and not pkginfo[field] in commit.tree:
-                    die_commit(
-                        "missing {:s} file: {:s}".format(field, pkginfo[field]),
-                        str(commit.id),
-                    )
-
-            for field in extract_arch_fields(pkginfo, "source"):
-                fname = field["value"]
-                if len(fname) > 8000:
-                    die_commit(
-                        "source entry too long: {:s}".format(fname), str(commit.id)
-                    )
-                if "://" in fname or "lp:" in fname:
-                    continue
-                if fname not in commit.tree:
-                    die_commit(
-                        "missing source file: {:s}".format(fname), str(commit.id)
-                    )
-
     # Display a warning if .SRCINFO is unchanged.
     if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):
         srcinfo_id_old = repo[sha1_old].tree[".SRCINFO"].id
         srcinfo_id_new = repo[sha1_new].tree[".SRCINFO"].id
         if srcinfo_id_old == srcinfo_id_new:
             warn(".SRCINFO unchanged. " "The package database will not be updated!")
-
-    # Read .SRCINFO from the HEAD commit.
-    metadata_raw = repo[repo[sha1_new].tree[".SRCINFO"].id].data.decode()
-    (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
 
     # Ensure that the package base name matches the repository name.
     metadata_pkgbase = metadata["pkgbase"]
