@@ -648,7 +648,7 @@ def main():
     ssh_client = os.environ.get("SSH_CLIENT")
 
     if not ssh_cmd:
-        die_with_help("Interactive shell is disabled.")
+        die_with_help(f"Welcome to AUR, {user}! Interactive shell is disabled.")
     cmdargv = shlex.split(ssh_cmd)
     action = cmdargv[0]
     remote_addr = ssh_client.split(" ")[0] if ssh_client else None
