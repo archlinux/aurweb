@@ -99,9 +99,9 @@ async def requests(
         in_filters.append(REJECTED_ID)
     filtered = query.filter(PackageRequest.Status.in_(in_filters))
 
-    # Name filter
+    # Name filter (contains)
     if filter_pkg_name:
-        filtered = filtered.filter(PackageBase.Name == filter_pkg_name)
+        filtered = filtered.filter(PackageBase.Name.like(f"%{filter_pkg_name}%"))
 
     # Additionally filter for requests made from package maintainer
     if filter_maintainer_requests:

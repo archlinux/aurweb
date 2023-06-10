@@ -925,14 +925,28 @@ def test_requests_with_package_name_filter(
         request.cookies = cookies
         resp = request.get(
             "/requests",
-            params={"filter_pkg_name": packages[0].PackageBase.Name},
+            params={"filter_pkg_name": "kg_1"},
         )
     assert resp.status_code == int(HTTPStatus.OK)
 
     root = parse_root(resp.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
-    # We only expect 1 request for our first package
-    assert len(rows) == 1
+    # We expect 11 requests for all packages containing "kg_1"
+    assert len(rows) == 11
+
+    # test as TU, no results
+    with client as request:
+        request.cookies = cookies
+        resp = request.get(
+            "/requests",
+            params={"filter_pkg_name": "x"},
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    # We expect 0 requests since we don't have anything containing "x"
+    assert len(rows) == 0
 
     # test as regular user, not related to our package
     cookies = {"AURSID": user2.login(Request(), "testPassword")}
