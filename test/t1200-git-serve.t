@@ -137,14 +137,21 @@ test_expect_success "Try to push to someone else's repository as Trusted User." 
 '
 
 test_expect_success "Test restore." '
+	# Delete from DB
 	echo "DELETE FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db &&
-	cat >expected <<-EOF &&
-	user
-	foobar
-	EOF
+	# "Create branch" as if it had been there
+	new=$(git -C aur.git rev-parse HEAD^) &&
+	echo $new > aur.git/.git/refs/heads/foobar &&
+	# Restore deleted package
 	SSH_ORIGINAL_COMMAND="restore foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	cover "$GIT_SERVE" 2>&1 >actual
+	cover "$GIT_SERVE" 2>&1 &&
+	# We should find foobar with a new ID (3) in the DB after restore
+	echo "SELECT ID FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db >actual &&
+	cat >expected <<-EOF &&
+	3
+	EOF
 	test_cmp expected actual
 '
 
@@ -174,7 +181,7 @@ test_expect_success "Adopt a package base as a regular user." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
-	*foobar
+	 foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 >actual &&
@@ -252,7 +259,7 @@ test_expect_success "Try to steal another user's package as a Trusted User." '
 	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	cat >expected <<-EOF &&
-	*foobar
+	 foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=tu AUR_PRIVILEGED=1 \
 	cover "$GIT_SERVE" 2>&1 >actual &&
@@ -340,7 +347,7 @@ test_expect_success "Disown a package base and check (co-)maintainer list." '
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
-	*foobar
+	 foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user2 AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 >actual &&

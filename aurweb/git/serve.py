@@ -52,7 +52,7 @@ def list_repos(user):
     conn.close()
 
 
-def create_pkgbase(pkgbase, user):
+def validate_pkgbase(pkgbase, user):
     if not re.match(repo_regex, pkgbase):
         raise aurweb.exceptions.InvalidRepositoryNameException(pkgbase)
     if pkgbase_exists(pkgbase):
@@ -62,25 +62,11 @@ def create_pkgbase(pkgbase, user):
 
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
+
+    conn.close()
+
     if userid == 0:
         raise aurweb.exceptions.InvalidUserException(user)
-
-    now = int(time.time())
-    cur = conn.execute(
-        "INSERT INTO PackageBases (Name, SubmittedTS, "
-        + "ModifiedTS, SubmitterUID, MaintainerUID, "
-        + "FlaggerComment) VALUES (?, ?, ?, ?, ?, '')",
-        [pkgbase, now, now, userid, userid],
-    )
-    pkgbase_id = cur.lastrowid
-
-    cur = conn.execute(
-        "INSERT INTO PackageNotifications " + "(PackageBaseID, UserID) VALUES (?, ?)",
-        [pkgbase_id, userid],
-    )
-
-    conn.commit()
-    conn.close()
 
 
 def pkgbase_adopt(pkgbase, user, privileged):
@@ -577,7 +563,7 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
         checkarg(cmdargv, "repository name")
 
         pkgbase = cmdargv[1]
-        create_pkgbase(pkgbase, user)
+        validate_pkgbase(pkgbase, user)
 
         os.environ["AUR_USER"] = user
         os.environ["AUR_PKGBASE"] = pkgbase

@@ -56,7 +56,7 @@ ssh-options = restrict
 repo-path = ./aur.git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
 git-shell-cmd = ./git-shell.sh
-git-update-cmd = ./update.sh
+git-update-cmd = $GIT_UPDATE
 ssh-cmdline = ssh aur@aur.archlinux.org
 
 [update]
@@ -89,13 +89,6 @@ echo $AUR_PKGBASE
 echo $GIT_NAMESPACE
 EOF
 chmod +x git-shell.sh
-
-cat >update.sh <<-\EOF
-#!/bin/sh
-echo $AUR_USER
-echo $AUR_PKGBASE
-EOF
-chmod +x update.sh
 
 AUR_CONFIG=config
 export AUR_CONFIG
