@@ -191,7 +191,7 @@ test_expect_success 'Removing PKGBUILD.' '
 	grep -q "^error: missing PKGBUILD$" actual
 '
 
-test_expect_success 'Pushing a tree with a subdirectory.' '
+test_expect_success 'Pushing a tree with a forbidden subdirectory.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
 	mkdir aur.git/subdir &&
@@ -203,6 +203,107 @@ test_expect_success 'Pushing a tree with a subdirectory.' '
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: the repository must not contain subdirectories$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory for pgp keys; wrong files.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/keys/pgp/ &&
+	touch aur.git/keys/pgp/nonsense &&
+	git -C aur.git add keys/pgp/nonsense &&
+	git -C aur.git commit -q -m "Add some nonsense" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: the subdir may only contain .asc (PGP pub key) files$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory for pgp keys; another subdir.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/keys/pgp/bla/ &&
+	touch aur.git/keys/pgp/bla/x.asc &&
+	git -C aur.git add keys/pgp/bla/x.asc &&
+	git -C aur.git commit -q -m "Add some nonsense" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: the subdir may only contain .asc (PGP pub key) files$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory for pgp keys; wrong subdir.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/keys/xyz/ &&
+	touch aur.git/keys/xyz/x.asc &&
+	git -C aur.git add keys/xyz/x.asc &&
+	git -C aur.git commit -q -m "Add some nonsense" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: the keys/ subdir may only contain a pgp/ directory$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory with pgp keys; additional files' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/keys/pgp/ &&
+	touch aur.git/keys/pgp/x.asc &&
+	touch aur.git/keys/nonsense &&
+	git -C aur.git add keys/pgp/x.asc &&
+	git -C aur.git add keys/nonsense &&
+	git -C aur.git commit -q -m "Add pgp key" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: the keys/ subdir may only contain a pgp/ directory$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory with pgp keys; additional subdir' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/keys/pgp/ &&
+	mkdir -p aur.git/somedir/ &&
+	touch aur.git/keys/pgp/x.asc &&
+	touch aur.git/somedir/nonsense &&
+	git -C aur.git add keys/pgp/x.asc &&
+	git -C aur.git add somedir/nonsense &&
+	git -C aur.git commit -q -m "Add pgp key" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: the repository must not contain subdirectories$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory with pgp keys; keys to large' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/keys/pgp/ &&
+	printf "%256001s" x > aur.git/keys/pgp/x.asc &&
+	git -C aur.git add keys/pgp/x.asc &&
+	git -C aur.git commit -q -m "Add pgp key" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: maximum blob size (250.00KiB) exceeded$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory with pgp keys.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/keys/pgp/ &&
+	touch aur.git/keys/pgp/x.asc &&
+	git -C aur.git add keys/pgp/x.asc &&
+	git -C aur.git commit -q -m "Add pgp key" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
 '
 
 test_expect_success 'Pushing a tree with a large blob.' '

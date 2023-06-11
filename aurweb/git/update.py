@@ -315,6 +315,14 @@ def validate_metadata(metadata, commit):  # noqa: C901
                 die_commit("missing source file: {:s}".format(fname), str(commit.id))
 
 
+def validate_blob_size(blob: pygit2.Object, commit: pygit2.Commit):
+    if isinstance(blob, pygit2.Blob) and blob.size > max_blob_size:
+        die_commit(
+            "maximum blob size ({:s}) exceeded".format(size_humanize(max_blob_size)),
+            str(commit.id),
+        )
+
+
 def main():  # noqa: C901
     repo = pygit2.Repository(repo_path)
 
@@ -376,24 +384,41 @@ def main():  # noqa: C901
     for commit in walker:
         if "PKGBUILD" not in commit.tree:
             die_commit("missing PKGBUILD", str(commit.id))
+
+        # Iterate over files in root dir
         for treeobj in commit.tree:
-            blob = repo[treeobj.id]
-
-            if isinstance(blob, pygit2.Tree):
+            # Don't allow any subdirs besides "keys/"
+            if isinstance(treeobj, pygit2.Tree) and treeobj.name != "keys":
                 die_commit(
-                    "the repository must not contain subdirectories", str(commit.id)
-                )
-
-            if not isinstance(blob, pygit2.Blob):
-                die_commit("not a blob object: {:s}".format(treeobj), str(commit.id))
-
-            if blob.size > max_blob_size:
-                die_commit(
-                    "maximum blob size ({:s}) exceeded".format(
-                        size_humanize(max_blob_size)
-                    ),
+                    "the repository must not contain subdirectories",
                     str(commit.id),
                 )
+
+            # Check size of files in root dir
+            validate_blob_size(treeobj, commit)
+
+        # If we got a subdir keys/,
+        # make sure it only contains a pgp/ subdir with key files
+        if "keys" in commit.tree:
+            # Check for forbidden files/dirs in keys/
+            for keyobj in commit.tree["keys"]:
+                if not isinstance(keyobj, pygit2.Tree) or keyobj.name != "pgp":
+                    die_commit(
+                        "the keys/ subdir may only contain a pgp/ directory",
+                        str(commit.id),
+                    )
+            # Check for forbidden files in keys/pgp/
+            if "keys/pgp" in commit.tree:
+                for pgpobj in commit.tree["keys/pgp"]:
+                    if not isinstance(pgpobj, pygit2.Blob) or not pgpobj.name.endswith(
+                        ".asc"
+                    ):
+                        die_commit(
+                            "the subdir may only contain .asc (PGP pub key) files",
+                            str(commit.id),
+                        )
+                    # Check file size for pgp key files
+                    validate_blob_size(pgpobj, commit)
 
     # Display a warning if .SRCINFO is unchanged.
     if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):
