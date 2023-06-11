@@ -26,14 +26,14 @@
                             <tr>
                                 <td>{% trans %}Enter your new password:{% endtrans %}</td>
                                 <td>
-                                    <input type="password" name="password" size="30"
+                                    <input type="password" name="password" size="30" autocomplete="new-password"
                                            value="{{ password or '' }}">
                                 </td>
                             </tr>
                             <tr>
                                 <td>{% trans %}Confirm your new password:{% endtrans %}</td>
                                 <td>
-                                    <input type="password" name="confirm" size="30"
+                                    <input type="password" name="confirm" size="30" autocomplete="new-password"
                                            value="{{ confirm or '' }}">
                                 </td>
                             </tr>

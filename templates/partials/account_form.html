@@ -246,7 +246,7 @@
                 <label for="id_passwd1">
                     {% trans %}Password{% endtrans %}:
                 </label>
-                <input id="id_passwd1" type="password"
+                <input id="id_passwd1" type="password" autocomplete="new-password"
                        size="30" name="P" value="{{ P or '' }}">
             </p>
 
@@ -255,7 +255,7 @@
                     {% trans %}Re-type password{% endtrans %}:
                 </label>
 
-                <input id="id_passwd2" type="password"
+                <input id="id_passwd2" type="password" autocomplete="new-password"
                        size="30" name="C" value="{{ C or '' }}">
             </p>
         </fieldset>
@@ -333,7 +333,7 @@
                 <label for="id_passwd_current">
                     {% trans %}Your current password{% endtrans %}:
                 </label>
-                <input id="id_passwd_current" type="password"
+                <input id="id_passwd_current" type="password" autocomplete="current-password"
                        size="30" name="passwd" id="id_passwd_current">
             </p>
         {% else %}
