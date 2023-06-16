@@ -24,7 +24,6 @@ conf/docker
 conf/docker.defaults
 data.sql
 dummy-data.sql*
-env/
 fastapi_aw/
 htmlcov/
 po/*.mo
@@ -32,7 +31,7 @@ po/*.po~
 po/POTFILES
 schema/aur-schema-sqlite.sql
 test/test-results/
-test/trash directory*
+test/trash_directory*
 web/locale/*/
 web/html/*.gz
 
@@ -53,3 +52,8 @@ report.xml
 
 # Ignore test emails
 test-emails/
+
+# Ignore typical virtualenv directories
+env/
+venv/
+.venv/

@@ -1,6 +1,23 @@
-*/*.mo
+# Config files
 conf/config
 conf/config.sqlite
 conf/config.sqlite.defaults
 conf/docker
 conf/docker.defaults
+
+# Compiled translation files
+**/*.mo
+
+# Typical virtualenv directories
+env/
+venv/
+.venv/
+
+# Test output
+htmlcov/
+test-emails/
+test/__pycache__
+test/test-results
+test/trash_directory*
+.coverage
+.pytest_cache
