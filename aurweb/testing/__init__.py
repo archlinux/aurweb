@@ -1,3 +1,5 @@
+from sqlalchemy import text
+
 import aurweb.db
 from aurweb import models
 
@@ -56,8 +58,10 @@ def setup_test_db(*args):
             models.User.__tablename__,
         ]
 
-    aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 0")
+    session = aurweb.db.get_session()
+    session.execute(text("SET FOREIGN_KEY_CHECKS = 0"))
     for table in tables:
-        aurweb.db.get_session().execute(f"DELETE FROM {table}")
-    aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 1")
-    aurweb.db.get_session().expunge_all()
+        session.execute(text(f"DELETE FROM {table}"))
+    session.execute(text("SET FOREIGN_KEY_CHECKS = 1"))
+    session.expunge_all()
+    session.commit()

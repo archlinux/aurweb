@@ -24,5 +24,6 @@ def test_run():
     aurweb.initdb.run(Args())
 
     # Check that constant table rows got added via initdb.
-    record = aurweb.db.query(AccountType, AccountType.AccountType == "User").first()
+    with aurweb.db.begin():
+        record = aurweb.db.query(AccountType, AccountType.AccountType == "User").first()
     assert record is not None

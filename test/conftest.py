@@ -43,7 +43,7 @@ from multiprocessing import Lock
 
 import py
 import pytest
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
 from sqlalchemy.engine.base import Engine
 from sqlalchemy.exc import ProgrammingError
@@ -104,15 +104,16 @@ def _create_database(engine: Engine, dbname: str) -> None:
     :param dbname: Database name to create
     """
     conn = engine.connect()
-    try:
-        conn.execute(f"CREATE DATABASE {dbname}")
-    except ProgrammingError:  # pragma: no cover
-        # The database most likely already existed if we hit
-        # a ProgrammingError. Just drop the database and try
-        # again. If at that point things still fail, any
-        # exception will be propogated up to the caller.
-        conn.execute(f"DROP DATABASE {dbname}")
-        conn.execute(f"CREATE DATABASE {dbname}")
+    with conn.begin():
+        try:
+            conn.execute(text(f"CREATE DATABASE {dbname}"))
+        except ProgrammingError:  # pragma: no cover
+            # The database most likely already existed if we hit
+            # a ProgrammingError. Just drop the database and try
+            # again. If at that point things still fail, any
+            # exception will be propogated up to the caller.
+            conn.execute(text(f"DROP DATABASE {dbname}"))
+            conn.execute(text(f"CREATE DATABASE {dbname}"))
     conn.close()
     initdb.run(AlembicArgs)
 
@@ -124,9 +125,10 @@ def _drop_database(engine: Engine, dbname: str) -> None:
     :param engine: Engine returned by test_engine()
     :param dbname: Database name to drop
     """
-    aurweb.schema.metadata.drop_all(bind=engine)
+    # aurweb.schema.metadata.drop_all(bind=engine)
     conn = engine.connect()
-    conn.execute(f"DROP DATABASE {dbname}")
+    with conn.begin():
+        conn.execute(text(f"DROP DATABASE {dbname}"))
     conn.close()
 
 

@@ -145,7 +145,7 @@ async def index(request: Request):
             .order_by(
                 # Order primarily by the Status column being PENDING_ID,
                 # and secondarily by RequestTS; both in descending order.
-                case([(models.PackageRequest.Status == PENDING_ID, 1)], else_=0).desc(),
+                case((models.PackageRequest.Status == PENDING_ID, 1), else_=0).desc(),
                 models.PackageRequest.RequestTS.desc(),
             )
             .limit(50)
