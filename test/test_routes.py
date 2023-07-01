@@ -102,6 +102,7 @@ def test_user_language(client: TestClient, user: User):
         req.cookies = {"AURSID": sid}
         response = req.post("/language", data=post_data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    db.refresh(user)
     assert user.LangPreference == "de"
 
 
