@@ -45,6 +45,9 @@ class Notification:
     def get_cc(self):
         return []
 
+    def get_bcc(self):
+        return []
+
     def get_body_fmt(self, lang):
         body = ""
         for line in self.get_body(lang).splitlines():
@@ -114,7 +117,7 @@ class Notification:
                     server.login(user, passwd)
 
                 server.set_debuglevel(0)
-                deliver_to = [to] + self.get_cc()
+                deliver_to = [to] + self.get_cc() + self.get_bcc()
                 server.sendmail(sender, deliver_to, msg.as_bytes())
                 server.quit()
 
@@ -578,10 +581,11 @@ class RequestOpenNotification(Notification):
                 ),
             )
             .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
-            .with_entities(User.Email)
+            .with_entities(User.Email, User.HideEmail)
             .distinct()
         )
-        self._cc = [u.Email for u in query]
+        self._cc = [u.Email for u in query if u.HideEmail == 0]
+        self._bcc = [u.Email for u in query if u.HideEmail == 1]
 
         pkgreq = (
             db.query(PackageRequest.Comments).filter(PackageRequest.ID == reqid).first()
@@ -597,6 +601,9 @@ class RequestOpenNotification(Notification):
 
     def get_cc(self):
         return self._cc
+
+    def get_bcc(self):
+        return self._bcc
 
     def get_subject(self, lang):
         return "[PRQ#%d] %s Request for %s" % (
@@ -665,10 +672,11 @@ class RequestCloseNotification(Notification):
                 ),
             )
             .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
-            .with_entities(User.Email)
+            .with_entities(User.Email, User.HideEmail)
             .distinct()
         )
-        self._cc = [u.Email for u in query]
+        self._cc = [u.Email for u in query if u.HideEmail == 0]
+        self._bcc = [u.Email for u in query if u.HideEmail == 1]
 
         pkgreq = (
             db.query(PackageRequest)
@@ -694,6 +702,9 @@ class RequestCloseNotification(Notification):
 
     def get_cc(self):
         return self._cc
+
+    def get_bcc(self):
+        return self._bcc
 
     def get_subject(self, lang):
         return "[PRQ#%d] %s Request for %s %s" % (

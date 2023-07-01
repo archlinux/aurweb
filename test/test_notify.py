@@ -479,6 +479,44 @@ def test_close_request_comaintainer_cc(
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
 
 
+def test_open_close_request_hidden_email(
+    user2: User, pkgreq: PackageRequest, pkgbases: list[PackageBase]
+):
+    pkgbase = pkgbases[0]
+
+    # Enable the "HideEmail" option for our requester
+    with db.begin():
+        user2.HideEmail = 1
+
+    # Send an open request notification.
+    notif = notify.RequestOpenNotification(
+        user2.ID, pkgreq.ID, pkgreq.RequestType.Name, pkgbase.ID
+    )
+
+    # Make sure our address got added to the bcc list
+    assert user2.Email in notif.get_bcc()
+
+    notif.send()
+    assert Email.count() == 1
+
+    email = Email(1).parse()
+    # Make sure we don't have our address in the Cc header
+    assert user2.Email not in email.headers.get("Cc")
+
+    # Create a closure notification on the pkgbase we just opened.
+    notif = notify.RequestCloseNotification(user2.ID, pkgreq.ID, "rejected")
+
+    # Make sure our address got added to the bcc list
+    assert user2.Email in notif.get_bcc()
+
+    notif.send()
+    assert Email.count() == 2
+
+    email = Email(2).parse()
+    # Make sure we don't have our address in the Cc header
+    assert user2.Email not in email.headers.get("Cc")
+
+
 def test_close_request_closure_comment(
     user: User, user2: User, pkgreq: PackageRequest, pkgbases: list[PackageBase]
 ):

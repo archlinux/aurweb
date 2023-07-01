@@ -2366,3 +2366,11 @@ msgstr ""
 #: templates/requests.html
 msgid "Package name"
 msgstr ""
+
+#: templates/partials/account_form.html
+msgid "Note that if you hide your email address, it'll "
+"end up on the BCC list for any request notifications. "
+"In case someone replies to these notifications, you won't "
+"receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
+msgstr ""
