@@ -7,6 +7,7 @@ from fastapi import APIRouter, Form, Query, Request, Response
 import aurweb.filters  # noqa: F401
 from aurweb import aur_logging, config, db, defaults, models, util
 from aurweb.auth import creds, requires_auth
+from aurweb.cache import db_count_cache, db_query_cache
 from aurweb.exceptions import InvariantError, handle_form_exceptions
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.packages import util as pkgutil
@@ -14,6 +15,7 @@ from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base
 from aurweb.pkgbase import actions as pkgbase_actions, util as pkgbaseutil
 from aurweb.templates import make_context, make_variable_context, render_template
+from aurweb.util import hash_query
 
 logger = aur_logging.get_logger(__name__)
 router = APIRouter()
@@ -87,7 +89,11 @@ async def packages_get(
     # Collect search result count here; we've applied our keywords.
     # Including more query operations below, like ordering, will
     # increase the amount of time required to collect a count.
-    num_packages = search.count()
+    # we use redis for caching the results of the query
+    cache_expire = config.getint("cache", "expiry_time")
+    num_packages = await db_count_cache(
+        hash_query(search.query), search.query, cache_expire
+    )
 
     # Apply user-specified sort column and ordering.
     search.sort_by(sort_by, sort_order)
@@ -108,7 +114,12 @@ async def packages_get(
         models.PackageNotification.PackageBaseID.label("Notify"),
     )
 
-    packages = results.limit(per_page).offset(offset)
+    # paging
+    results = results.limit(per_page).offset(offset)
+
+    # we use redis for caching the results of the query
+    packages = await db_query_cache(hash_query(results), results, cache_expire)
+
     context["packages"] = packages
     context["packages_count"] = num_packages
 

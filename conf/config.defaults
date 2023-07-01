@@ -165,3 +165,9 @@ commit_url = https://gitlab.archlinux.org/archlinux/aurweb/-/commits/%s
 ; voted on based on `now + range_start <= End <= now + range_end`.
 range_start = 500
 range_end = 172800
+
+[cache]
+; maximum number of keys/entries (for search results) in our redis cache, default is 50000
+max_search_entries = 50000
+; number of seconds after a cache entry expires, default is 3 minutes
+expiry_time = 180

@@ -4,6 +4,7 @@ import secrets
 import shlex
 import string
 from datetime import datetime
+from hashlib import sha1
 from http import HTTPStatus
 from subprocess import PIPE, Popen
 from typing import Callable, Iterable, Tuple, Union
@@ -13,6 +14,7 @@ import fastapi
 import pygit2
 from email_validator import EmailSyntaxError, validate_email
 from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Query
 
 import aurweb.config
 from aurweb import aur_logging, defaults
@@ -200,3 +202,9 @@ def shell_exec(cmdline: str, cwd: str) -> Tuple[int, str, str]:
     proc = Popen(args, cwd=cwd, stdout=PIPE, stderr=PIPE)
     out, err = proc.communicate()
     return proc.returncode, out.decode().strip(), err.decode().strip()
+
+
+def hash_query(query: Query):
+    return sha1(
+        str(query.statement.compile(compile_kwargs={"literal_binds": True})).encode()
+    ).hexdigest()

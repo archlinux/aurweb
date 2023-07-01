@@ -5,7 +5,8 @@ import fastapi
 import pytest
 from fastapi.responses import JSONResponse
 
-from aurweb import filters, util
+from aurweb import db, filters, util
+from aurweb.models.user import User
 from aurweb.testing.requests import Request
 
 
@@ -146,3 +147,26 @@ def assert_multiple_keys(pks):
     assert key1 == k1[1]
     assert pfx2 == k2[0]
     assert key2 == k2[1]
+
+
+def test_hash_query():
+    # No conditions
+    query = db.query(User)
+    assert util.hash_query(query) == "75e76026b7d576536e745ec22892cf8f5d7b5d62"
+
+    # With where clause
+    query = db.query(User).filter(User.Username == "bla")
+    assert util.hash_query(query) == "4dca710f33b1344c27ec6a3c266970f4fa6a8a00"
+
+    # With where clause and sorting
+    query = db.query(User).filter(User.Username == "bla").order_by(User.Username)
+    assert util.hash_query(query) == "ee2c7846fede430776e140f8dfe1d83cd21d2eed"
+
+    # With where clause, sorting and specific columns
+    query = (
+        db.query(User)
+        .filter(User.Username == "bla")
+        .order_by(User.Username)
+        .with_entities(User.Username)
+    )
+    assert util.hash_query(query) == "c1db751be61443d266cf643005eee7a884dac103"

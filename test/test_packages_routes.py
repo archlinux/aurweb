@@ -5,7 +5,7 @@ from unittest import mock
 import pytest
 from fastapi.testclient import TestClient
 
-from aurweb import asgi, config, db, time
+from aurweb import asgi, cache, config, db, time
 from aurweb.filters import datetime_display
 from aurweb.models import License, PackageLicense
 from aurweb.models.account_type import USER_ID, AccountType
@@ -61,6 +61,11 @@ def create_package_rel(package: Package, relname: str) -> PackageRelation:
 @pytest.fixture(autouse=True)
 def setup(db_test):
     return
+
+
+@pytest.fixture(autouse=True)
+def clear_fakeredis_cache():
+    cache._redis.flushall()
 
 
 @pytest.fixture
@@ -815,6 +820,8 @@ def test_packages_search_by_keywords(client: TestClient, packages: list[Package]
 
     # And request packages with that keyword, we should get 1 result.
     with client as request:
+        # clear fakeredis cache
+        cache._redis.flushall()
         response = request.get("/packages", params={"SeB": "k", "K": "testKeyword"})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -870,6 +877,8 @@ def test_packages_search_by_maintainer(
 
     # This time, we should get `package` returned, since it's now an orphan.
     with client as request:
+        # clear fakeredis cache
+        cache._redis.flushall()
         response = request.get("/packages", params={"SeB": "m"})
     assert response.status_code == int(HTTPStatus.OK)
     root = parse_root(response.text)
@@ -902,6 +911,8 @@ def test_packages_search_by_comaintainer(
 
     # Then test that it's returned by our search.
     with client as request:
+        # clear fakeredis cache
+        cache._redis.flushall()
         response = request.get(
             "/packages", params={"SeB": "c", "K": maintainer.Username}
         )

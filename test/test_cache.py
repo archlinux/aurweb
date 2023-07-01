@@ -1,6 +1,8 @@
+from unittest import mock
+
 import pytest
 
-from aurweb import cache, db
+from aurweb import cache, config, db
 from aurweb.models.account_type import USER_ID
 from aurweb.models.user import User
 
@@ -10,68 +12,85 @@ def setup(db_test):
     return
 
 
-class StubRedis:
-    """A class which acts as a RedisConnection without using Redis."""
-
-    cache = dict()
-    expires = dict()
-
-    def get(self, key, *args):
-        if "key" not in self.cache:
-            self.cache[key] = None
-        return self.cache[key]
-
-    def set(self, key, *args):
-        self.cache[key] = list(args)[0]
-
-    def expire(self, key, *args):
-        self.expires[key] = list(args)[0]
-
-    async def execute(self, command, key, *args):
-        f = getattr(self, command)
-        return f(key, *args)
-
-
 @pytest.fixture
-def redis():
-    yield StubRedis()
+def user() -> User:
+    with db.begin():
+        user = db.create(
+            User,
+            Username="test",
+            Email="test@example.org",
+            RealName="Test User",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
+    yield user
+
+
+@pytest.fixture(autouse=True)
+def clear_fakeredis_cache():
+    cache._redis.flushall()
 
 
 @pytest.mark.asyncio
-async def test_db_count_cache(redis):
-    db.create(
-        User,
-        Username="user1",
-        Email="user1@example.org",
-        Passwd="testPassword",
-        AccountTypeID=USER_ID,
-    )
-
+async def test_db_count_cache(user):
     query = db.query(User)
-
-    # Now, perform several checks that db_count_cache matches query.count().
 
     # We have no cached value yet.
-    assert await cache.db_count_cache(redis, "key1", query) == query.count()
+    assert cache._redis.get("key1") is None
+
+    # Add to cache
+    assert await cache.db_count_cache("key1", query) == query.count()
 
     # It's cached now.
-    assert await cache.db_count_cache(redis, "key1", query) == query.count()
+    assert cache._redis.get("key1") is not None
+
+    # It does not expire
+    assert cache._redis.ttl("key1") == -1
+
+    # Cache a query with an expire.
+    value = await cache.db_count_cache("key2", query, 100)
+    assert value == query.count()
+
+    assert cache._redis.ttl("key2") == 100
 
 
 @pytest.mark.asyncio
-async def test_db_count_cache_expires(redis):
-    db.create(
-        User,
-        Username="user1",
-        Email="user1@example.org",
-        Passwd="testPassword",
-        AccountTypeID=USER_ID,
-    )
-
+async def test_db_query_cache(user):
     query = db.query(User)
 
-    # Cache a query with an expire.
-    value = await cache.db_count_cache(redis, "key1", query, 100)
-    assert value == query.count()
+    # We have no cached value yet.
+    assert cache._redis.get("key1") is None
 
-    assert redis.expires["key1"] == 100
+    # Add to cache
+    await cache.db_query_cache("key1", query)
+
+    # It's cached now.
+    assert cache._redis.get("key1") is not None
+
+    # Modify our user and make sure we got a cached value
+    user.Username = "changed"
+    cached = await cache.db_query_cache("key1", query)
+    assert cached[0].Username != query.all()[0].Username
+
+    # It does not expire
+    assert cache._redis.ttl("key1") == -1
+
+    # Cache a query with an expire.
+    value = await cache.db_query_cache("key2", query, 100)
+    assert len(value) == query.count()
+    assert value[0].Username == query.all()[0].Username
+
+    assert cache._redis.ttl("key2") == 100
+
+    # Test "max_search_entries" options
+    def mock_max_search_entries(section: str, key: str, fallback: int) -> str:
+        if section == "cache" and key == "max_search_entries":
+            return 1
+        return config.getint(section, key)
+
+    with mock.patch("aurweb.config.getint", side_effect=mock_max_search_entries):
+        # Try to add another entry (we already have 2)
+        await cache.db_query_cache("key3", query)
+
+        # Make sure it was not added because it exceeds our max.
+        assert cache._redis.get("key3") is None
