@@ -195,13 +195,13 @@ class PackageSearch:
 
     def _sort_by_votes(self, order: str):
         column = getattr(models.PackageBase.NumVotes, order)
-        name = getattr(models.Package.Name, order)
+        name = getattr(models.PackageBase.Name, order)
         self.query = self.query.order_by(column(), name())
         return self
 
     def _sort_by_popularity(self, order: str):
         column = getattr(models.PackageBase.Popularity, order)
-        name = getattr(models.Package.Name, order)
+        name = getattr(models.PackageBase.Name, order)
         self.query = self.query.order_by(column(), name())
         return self
 
@@ -236,7 +236,7 @@ class PackageSearch:
 
     def _sort_by_last_modified(self, order: str):
         column = getattr(models.PackageBase.ModifiedTS, order)
-        name = getattr(models.Package.Name, order)
+        name = getattr(models.PackageBase.Name, order)
         self.query = self.query.order_by(column(), name())
         return self
 
