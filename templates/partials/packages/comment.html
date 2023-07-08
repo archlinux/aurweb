@@ -1,5 +1,9 @@
 {% set header_cls = "comment-header" %}
 {% set article_cls = "article-content" %}
+{% set comment_by = comment.User.Username %}
+{% if not comment.User %}
+	{% set comment_by = "&lt;deleted-account&gt;" %}
+{% endif %}
 {% if comment.Deleter %}
 	{% set header_cls = "%s %s" | format(header_cls, "comment-deleted") %}
 	{% set article_cls = "%s %s" | format(article_cls, "comment-deleted") %}
@@ -9,15 +13,15 @@
 {% if not (request.user.HideDeletedComments and comment.DelTS) %}
 	<h4 id="comment-{{ comment.ID }}" class="{{ header_cls }}">
 		{% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
-		{% set view_account_info = 'View account information for %s' | tr | format(comment.User.Username) %}
+		{% set view_account_info = 'View account information for %s' | tr | format(comment_by) %}
 		{{
 		"%s commented on %s" | tr | format(
 			('<a href="/account/%s" title="%s">%s</a>' | format(
-				comment.User.Username,
+				comment_by,
 				view_account_info,
-				comment.User.Username
-			)) if request.user.is_authenticated() else
-			(comment.User.Username),
+				comment_by
+			)) if request.user.is_authenticated() and comment.User else
+			(comment_by),
 			'<a href="#comment-%s" class="date">%s</a>' | format(
                 comment.ID,
                 datetime_display(comment.CommentTS)
