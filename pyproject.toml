@@ -29,7 +29,8 @@ authors = [
     "Kevin Morris <kevr@0cost.org>"
 ]
 maintainers = [
-    "Eli Schwartz <eschwartz@archlinux.org>"
+    "Leonidas Spyropoulos <artafinde@archlinux.org>",
+    "Mario Oenning <moson@archlinux.org>"
 ]
 packages = [
     { include = "aurweb" }
