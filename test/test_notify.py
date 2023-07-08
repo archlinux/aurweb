@@ -127,20 +127,20 @@ def test_out_of_date(user: User, user1: User, user2: User, pkgbases: list[Packag
     # Should've gotten three emails: maintainer + the two comaintainers.
     assert Email.count() == 3
 
-    # Comaintainer 1.
+    # Maintainer.
     first = Email(1).parse()
-    assert first.headers.get("To") == user1.Email
+    assert first.headers.get("To") == user.Email
 
     expected = f"AUR Out-of-date Notification for {pkgbase.Name}"
     assert first.headers.get("Subject") == expected
 
-    # Comaintainer 2.
+    # Comaintainer 1.
     second = Email(2).parse()
-    assert second.headers.get("To") == user2.Email
+    assert second.headers.get("To") == user1.Email
 
-    # Maintainer.
+    # Comaintainer 2.
     third = Email(3).parse()
-    assert third.headers.get("To") == user.Email
+    assert third.headers.get("To") == user2.Email
 
 
 def test_reset(user: User):

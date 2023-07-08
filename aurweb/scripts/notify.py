@@ -334,6 +334,7 @@ class FlagNotification(Notification):
             .filter(and_(PackageBase.ID == pkgbase_id, User.Suspended == 0))
             .with_entities(User.Email, User.LangPreference)
             .distinct()
+            .order_by(User.Email)
         )
         self._recipients = [(u.Email, u.LangPreference) for u in query]
 
