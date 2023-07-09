@@ -142,11 +142,8 @@ def assert_multiple_keys(pks):
     keys = util.parse_ssh_keys(pks)
     assert len(keys) == 2
     pfx1, key1, pfx2, key2 = pks.split()
-    k1, k2 = keys
-    assert pfx1 == k1[0]
-    assert key1 == k1[1]
-    assert pfx2 == k2[0]
-    assert key2 == k2[1]
+    assert (pfx1, key1) in keys
+    assert (pfx2, key2) in keys
 
 
 def test_hash_query():
