@@ -644,6 +644,18 @@ def test_post_register_with_ssh_pubkey(client: TestClient):
 
     assert response.status_code == int(HTTPStatus.OK)
 
+    # Let's create another user accidentally pasting their key twice
+    with db.begin():
+        db.query(SSHPubKey).delete()
+
+    pk_double = pk + "\n" + pk
+    with client as request:
+        response = post_register(
+            request, U="doubleKey", E="doubleKey@email.org", PK=pk_double
+        )
+
+    assert response.status_code == int(HTTPStatus.OK)
+
 
 def test_get_account_edit_tu_as_tu(client: TestClient, tu_user: User):
     """Test edit get route of another TU as a TU."""
@@ -1072,6 +1084,19 @@ def test_post_account_edit_ssh_pub_key(client: TestClient, user: User):
 
     # Now let's update what's already there to gain coverage over that path.
     post_data["PK"] = make_ssh_pubkey()
+
+    with client as request:
+        request.cookies = {"AURSID": sid}
+        response = request.post(
+            "/account/test/edit",
+            data=post_data,
+        )
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Accidentally enter the same key twice
+    pk = make_ssh_pubkey()
+    post_data["PK"] = pk + "\n" + pk
 
     with client as request:
         request.cookies = {"AURSID": sid}
