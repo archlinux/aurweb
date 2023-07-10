@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 import fastapi
 import paginate
 from jinja2 import pass_context
+from jinja2.filters import do_format
 
 import aurweb.models
 from aurweb import config, l10n
@@ -164,3 +165,17 @@ def date_display(context: dict[str, Any], dt: Union[int, datetime]) -> str:
 @pass_context
 def datetime_display(context: dict[str, Any], dt: Union[int, datetime]) -> str:
     return date_strftime(context, dt, "%Y-%m-%d %H:%M (%Z)")
+
+
+@register_filter("format")
+def safe_format(value: str, *args: Any, **kwargs: Any) -> str:
+    """Wrapper for jinja2 format function to perform additional checks."""
+
+    # If we don't have anything to be formatted, just return the value.
+    # We have some translations that do not contain placeholders for replacement.
+    # In these cases the jinja2 function is throwing an error:
+    # "TypeError: not all arguments converted during string formatting"
+    if "%" not in value:
+        return value
+
+    return do_format(value, *args, **kwargs)

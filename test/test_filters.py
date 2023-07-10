@@ -1,6 +1,8 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+import pytest
+
 from aurweb import filters, time
 
 
@@ -34,3 +36,18 @@ def test_to_qs():
     query = {"a": "b", "c": [1, 2, 3]}
     qs = filters.to_qs(query)
     assert qs == "a=b&c=1&c=2&c=3"
+
+
+@pytest.mark.parametrize(
+    "value, args, expected",
+    [
+        ("", (), ""),
+        ("a", (), "a"),
+        ("a", (1,), "a"),
+        ("%s", ("a",), "a"),
+        ("%s", ("ab",), "ab"),
+        ("%s%d", ("a", 1), "a1"),
+    ],
+)
+def test_safe_format(value: str, args: tuple, expected: str):
+    assert filters.safe_format(value, *args) == expected
