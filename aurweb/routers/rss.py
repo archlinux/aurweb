@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from fastapi import APIRouter, Request
 from fastapi.responses import Response
 from feedgen.feed import FeedGenerator
@@ -10,12 +8,11 @@ from aurweb.models import Package, PackageBase
 router = APIRouter()
 
 
-def make_rss_feed(request: Request, packages: list, date_attr: str):
+def make_rss_feed(request: Request, packages: list):
     """Create an RSS Feed string for some packages.
 
     :param request: A FastAPI request
     :param packages: A list of packages to add to the RSS feed
-    :param date_attr: The date attribute (DB column) to use
     :return: RSS Feed string
     """
 
@@ -36,18 +33,11 @@ def make_rss_feed(request: Request, packages: list, date_attr: str):
         entry = feed.add_entry(order="append")
         entry.title(pkg.Name)
         entry.link(href=f"{base}/packages/{pkg.Name}", rel="alternate")
-        entry.link(href=f"{base}/rss", rel="self", type="application/rss+xml")
         entry.description(pkg.Description or str())
-
-        attr = getattr(pkg.PackageBase, date_attr)
-        dt = filters.timestamp_to_datetime(attr)
+        dt = filters.timestamp_to_datetime(pkg.Timestamp)
         dt = filters.as_timezone(dt, request.user.Timezone)
         entry.pubDate(dt.strftime("%Y-%m-%d %H:%M:%S%z"))
-
-        entry.source(f"{base}")
-        if pkg.PackageBase.Maintainer:
-            entry.author(author={"name": pkg.PackageBase.Maintainer.Username})
-        entry.guid(f"{pkg.Name} - {attr}")
+        entry.guid(f"{pkg.Name}-{pkg.Timestamp}")
 
     return feed.rss_str()
 
@@ -59,15 +49,15 @@ async def rss(request: Request):
         .join(PackageBase)
         .order_by(PackageBase.SubmittedTS.desc())
         .limit(100)
+        .with_entities(
+            Package.Name,
+            Package.Description,
+            PackageBase.SubmittedTS.label("Timestamp"),
+        )
     )
-    feed = make_rss_feed(request, packages, "SubmittedTS")
 
+    feed = make_rss_feed(request, packages)
     response = Response(feed, media_type="application/rss+xml")
-    package = packages.first()
-    if package:
-        dt = datetime.utcfromtimestamp(package.PackageBase.SubmittedTS)
-        modified = dt.strftime("%a, %d %m %Y %H:%M:%S GMT")
-        response.headers["Last-Modified"] = modified
 
     return response
 
@@ -79,14 +69,14 @@ async def rss_modified(request: Request):
         .join(PackageBase)
         .order_by(PackageBase.ModifiedTS.desc())
         .limit(100)
+        .with_entities(
+            Package.Name,
+            Package.Description,
+            PackageBase.ModifiedTS.label("Timestamp"),
+        )
     )
-    feed = make_rss_feed(request, packages, "ModifiedTS")
 
+    feed = make_rss_feed(request, packages)
     response = Response(feed, media_type="application/rss+xml")
-    package = packages.first()
-    if package:
-        dt = datetime.utcfromtimestamp(package.PackageBase.ModifiedTS)
-        modified = dt.strftime("%a, %d %m %Y %H:%M:%S GMT")
-        response.headers["Last-Modified"] = modified
 
     return response
