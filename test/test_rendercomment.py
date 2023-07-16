@@ -1,5 +1,7 @@
+import os
 from unittest import mock
 
+import pygit2
 import pytest
 
 from aurweb import aur_logging, config, db, time
@@ -164,6 +166,43 @@ http://example.com/{commit_hash}\
 </p>\
 """
     assert comment.RenderedComment == expected
+
+
+def test_git_commit_link_multiple_oids(
+    git: GitRepository, user: User, package: Package
+):
+    # Make sure we get reproducible hashes by hardcoding the dates
+    date = "Sun, 16 Jul 2023 06:06:06 +0200"
+    os.environ["GIT_COMMITTER_DATE"] = date
+    os.environ["GIT_AUTHOR_DATE"] = date
+
+    # Package names that cause two object IDs starting with "09a3468"
+    pkgnames = [
+        "bfa3e330-23c5-11ee-9b6c-9c2dcdf2810d",
+        "54c6a420-23c6-11ee-9b6c-9c2dcdf2810d",
+    ]
+
+    # Create our commits
+    for pkgname in pkgnames:
+        with db.begin():
+            package = db.create(
+                Package, PackageBase=package.PackageBase, Name=pkgname, Version="1.0"
+            )
+        git.commit(package, pkgname)
+
+    repo_path = config.get("serve", "repo-path")
+    repo = pygit2.Repository(repo_path)
+
+    # Make sure we get an error when we search the git repo for "09a3468"
+    with pytest.raises(ValueError) as oid_error:
+        assert "09a3468" in repo
+        assert "ambiguous OID prefix" in oid_error
+
+    # Create a comment, referencing "09a3468"
+    comment = create_comment(user, package.PackageBase, "Commit 09a3468 is nasty!")
+
+    # Make sure our comment does not contain a link.
+    assert comment.RenderedComment == "<p>Commit 09a3468 is nasty!</p>"
 
 
 def test_flyspray_issue_link(user: User, pkgbase: PackageBase):

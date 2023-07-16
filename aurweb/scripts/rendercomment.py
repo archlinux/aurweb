@@ -72,8 +72,13 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
 
     def handleMatch(self, m, data):
         oid = m.group(1)
-        if oid not in self._repo:
-            # Unknown OID; preserve the orginal text.
+        # Lookup might raise ValueError in case multiple object ID's were found
+        try:
+            if oid not in self._repo:
+                # Unknown OID; preserve the orginal text.
+                return None, None, None
+        except ValueError:
+            # Multiple OID's found; preserve the orginal text.
             return None, None, None
 
         el = Element("a")
