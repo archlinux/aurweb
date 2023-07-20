@@ -14,7 +14,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from jinja2 import TemplateNotFound
 from prometheus_client import multiprocess
-from sqlalchemy import and_, or_
+from sqlalchemy import and_
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -277,21 +277,18 @@ async def check_terms_of_service(request: Request, call_next: typing.Callable):
     """This middleware function redirects authenticated users if they
     have any outstanding Terms to agree to."""
     if request.user.is_authenticated() and request.url.path != "/tos":
-        unaccepted = (
+        accepted = (
             query(Term)
             .join(AcceptedTerm)
             .filter(
-                or_(
-                    AcceptedTerm.UsersID != request.user.ID,
-                    and_(
-                        AcceptedTerm.UsersID == request.user.ID,
-                        AcceptedTerm.TermsID == Term.ID,
-                        AcceptedTerm.Revision < Term.Revision,
-                    ),
-                )
+                and_(
+                    AcceptedTerm.UsersID == request.user.ID,
+                    AcceptedTerm.TermsID == Term.ID,
+                    AcceptedTerm.Revision >= Term.Revision,
+                ),
             )
         )
-        if query(Term).count() > unaccepted.count():
+        if query(Term).count() - accepted.count() > 0:
             return RedirectResponse("/tos", status_code=int(http.HTTPStatus.SEE_OTHER))
 
     return await util.error_or_result(call_next, request)

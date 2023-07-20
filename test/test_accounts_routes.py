@@ -1915,6 +1915,12 @@ def test_get_terms_of_service(client: TestClient, user: User):
     # We accepted the term, there's nothing left to accept.
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
+    # Make sure we don't get redirected to /tos when browsing "Home"
+    with client as request:
+        request.cookies = cookies
+        response = request.get("/")
+    assert response.status_code == int(HTTPStatus.OK)
+
     # Bump the term's revision.
     with db.begin():
         term.Revision = 2
