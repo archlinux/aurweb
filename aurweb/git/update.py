@@ -356,7 +356,7 @@ def main():  # noqa: C901
             die("denying non-fast-forward (you should pull first)")
 
     # Prepare the walker that validates new commits.
-    walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
+    walker = repo.walk(sha1_new, pygit2.GIT_SORT_REVERSE)
     if sha1_old != "0" * 40:
         walker.hide(sha1_old)
 

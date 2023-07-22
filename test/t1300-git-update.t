@@ -312,11 +312,16 @@ test_expect_success 'Pushing a tree with a large blob.' '
 	printf "%256001s" x >aur.git/file &&
 	git -C aur.git add file &&
 	git -C aur.git commit -q -m "Add large blob" &&
+	first_error=$(git -C aur.git rev-parse HEAD) &&
+	touch aur.git/another.file &&
+	git -C aur.git add another.file &&
+	git -C aur.git commit -q -m "Add another commit" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^error: maximum blob size (250.00KiB) exceeded$" actual
+	grep -q "^error: maximum blob size (250.00KiB) exceeded$" actual &&
+	grep -q "^error: $first_error:$" actual
 '
 
 test_expect_success 'Pushing .SRCINFO with a non-matching package base.' '
