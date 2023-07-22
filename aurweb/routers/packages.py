@@ -91,9 +91,7 @@ async def packages_get(
     # increase the amount of time required to collect a count.
     # we use redis for caching the results of the query
     cache_expire = config.getint("cache", "expiry_time")
-    num_packages = await db_count_cache(
-        hash_query(search.query), search.query, cache_expire
-    )
+    num_packages = db_count_cache(hash_query(search.query), search.query, cache_expire)
 
     # Apply user-specified sort column and ordering.
     search.sort_by(sort_by, sort_order)
@@ -118,7 +116,7 @@ async def packages_get(
     results = results.limit(per_page).offset(offset)
 
     # we use redis for caching the results of the query
-    packages = await db_query_cache(hash_query(results), results, cache_expire)
+    packages = db_query_cache(hash_query(results), results, cache_expire)
 
     context["packages"] = packages
     context["packages_count"] = num_packages

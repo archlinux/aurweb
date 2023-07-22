@@ -1,6 +1,6 @@
 from typing import Any, Callable, Optional
 
-from prometheus_client import Counter
+from prometheus_client import Counter, Gauge
 from prometheus_fastapi_instrumentator import Instrumentator
 from prometheus_fastapi_instrumentator.metrics import Info
 from starlette.routing import Match, Route
@@ -11,10 +11,26 @@ logger = aur_logging.get_logger(__name__)
 _instrumentator = Instrumentator()
 
 
+# Custom metrics
+SEARCH_REQUESTS = Counter(
+    "aur_search_requests", "Number of search requests by cache hit/miss", ["cache"]
+)
+USERS = Gauge(
+    "aur_users", "Number of AUR users by type", ["type"], multiprocess_mode="livemax"
+)
+PACKAGES = Gauge(
+    "aur_packages",
+    "Number of AUR packages by state",
+    ["state"],
+    multiprocess_mode="livemax",
+)
+
+
 def instrumentator():
     return _instrumentator
 
 
+# FastAPI metrics
 # Taken from https://github.com/stephenhillier/starlette_exporter
 # Their license is included in LICENSES/starlette_exporter.
 # The code has been modified to remove child route checks

@@ -1,20 +1,15 @@
 import pickle
 
-from prometheus_client import Counter
 from sqlalchemy import orm
 
 from aurweb import config
 from aurweb.aur_redis import redis_connection
+from aurweb.prometheus import SEARCH_REQUESTS
 
 _redis = redis_connection()
 
-# Prometheus metrics
-SEARCH_REQUESTS = Counter(
-    "search_requests", "Number of search requests by cache hit/miss", ["cache"]
-)
 
-
-async def db_count_cache(key: str, query: orm.Query, expire: int = None) -> int:
+def db_count_cache(key: str, query: orm.Query, expire: int = None) -> int:
     """Store and retrieve a query.count() via redis cache.
 
     :param key: Redis key
@@ -30,7 +25,7 @@ async def db_count_cache(key: str, query: orm.Query, expire: int = None) -> int:
     return int(result)
 
 
-async def db_query_cache(key: str, query: orm.Query, expire: int = None) -> list:
+def db_query_cache(key: str, query: orm.Query, expire: int = None) -> list:
     """Store and retrieve query results via redis cache.
 
     :param key: Redis key

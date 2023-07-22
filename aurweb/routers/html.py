@@ -17,11 +17,10 @@ from sqlalchemy import case, or_
 import aurweb.config
 import aurweb.models.package_request
 from aurweb import aur_logging, cookies, db, models, time, util
-from aurweb.cache import db_count_cache
 from aurweb.exceptions import handle_form_exceptions
-from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.models.package_request import PENDING_ID
 from aurweb.packages.util import query_notified, query_voted, updated_packages
+from aurweb.statistics import Statistics, update_prometheus_metrics
 from aurweb.templates import make_context, render_template
 
 logger = aur_logging.get_logger(__name__)
@@ -87,68 +86,12 @@ async def index(request: Request):
     context = make_context(request, "Home")
     context["ssh_fingerprints"] = util.get_ssh_fingerprints()
 
-    bases = db.query(models.PackageBase)
-
     cache_expire = aurweb.config.getint("cache", "expiry_time")
+
     # Package statistics.
-    context["package_count"] = await db_count_cache(
-        "package_count", bases, expire=cache_expire
-    )
-
-    query = bases.filter(models.PackageBase.MaintainerUID.is_(None))
-    context["orphan_count"] = await db_count_cache(
-        "orphan_count", query, expire=cache_expire
-    )
-
-    query = db.query(models.User)
-    context["user_count"] = await db_count_cache(
-        "user_count", query, expire=cache_expire
-    )
-
-    query = query.filter(
-        or_(
-            models.User.AccountTypeID == TRUSTED_USER_ID,
-            models.User.AccountTypeID == TRUSTED_USER_AND_DEV_ID,
-        )
-    )
-    context["trusted_user_count"] = await db_count_cache(
-        "trusted_user_count", query, expire=cache_expire
-    )
-
-    # Current timestamp.
-    now = time.utcnow()
-
-    seven_days = 86400 * 7  # Seven days worth of seconds.
-    seven_days_ago = now - seven_days
-
-    one_hour = 3600
-    updated = bases.filter(
-        models.PackageBase.ModifiedTS - models.PackageBase.SubmittedTS >= one_hour
-    )
-
-    query = bases.filter(models.PackageBase.SubmittedTS >= seven_days_ago)
-    context["seven_days_old_added"] = await db_count_cache(
-        "seven_days_old_added", query, expire=cache_expire
-    )
-
-    query = updated.filter(models.PackageBase.ModifiedTS >= seven_days_ago)
-    context["seven_days_old_updated"] = await db_count_cache(
-        "seven_days_old_updated", query, expire=cache_expire
-    )
-
-    year = seven_days * 52  # Fifty two weeks worth: one year.
-    year_ago = now - year
-    query = updated.filter(models.PackageBase.ModifiedTS >= year_ago)
-    context["year_old_updated"] = await db_count_cache(
-        "year_old_updated", query, expire=cache_expire
-    )
-
-    query = bases.filter(
-        models.PackageBase.ModifiedTS - models.PackageBase.SubmittedTS < 3600
-    )
-    context["never_updated"] = await db_count_cache(
-        "never_updated", query, expire=cache_expire
-    )
+    stats = Statistics(cache_expire)
+    for counter in stats.HOMEPAGE_COUNTERS:
+        context[counter] = stats.get_count(counter)
 
     # Get the 15 most recently updated packages.
     context["package_updates"] = updated_packages(15, cache_expire)
@@ -193,7 +136,7 @@ async def index(request: Request):
         )
 
         archive_time = aurweb.config.getint("options", "request_archive_time")
-        start = now - archive_time
+        start = time.utcnow() - archive_time
 
         # Package requests created by request.user.
         context["package_requests"] = (
@@ -268,6 +211,9 @@ async def metrics(request: Request):
             "Prometheus metrics are not enabled.",
             status_code=HTTPStatus.SERVICE_UNAVAILABLE,
         )
+
+    # update prometheus gauges for packages and users
+    update_prometheus_metrics()
 
     registry = CollectorRegistry()
     multiprocess.MultiProcessCollector(registry)

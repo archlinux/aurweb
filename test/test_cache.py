@@ -31,15 +31,14 @@ def clear_fakeredis_cache():
     cache._redis.flushall()
 
 
-@pytest.mark.asyncio
-async def test_db_count_cache(user):
+def test_db_count_cache(user):
     query = db.query(User)
 
     # We have no cached value yet.
     assert cache._redis.get("key1") is None
 
     # Add to cache
-    assert await cache.db_count_cache("key1", query) == query.count()
+    assert cache.db_count_cache("key1", query) == query.count()
 
     # It's cached now.
     assert cache._redis.get("key1") is not None
@@ -48,35 +47,34 @@ async def test_db_count_cache(user):
     assert cache._redis.ttl("key1") == -1
 
     # Cache a query with an expire.
-    value = await cache.db_count_cache("key2", query, 100)
+    value = cache.db_count_cache("key2", query, 100)
     assert value == query.count()
 
     assert cache._redis.ttl("key2") == 100
 
 
-@pytest.mark.asyncio
-async def test_db_query_cache(user):
+def test_db_query_cache(user):
     query = db.query(User)
 
     # We have no cached value yet.
     assert cache._redis.get("key1") is None
 
     # Add to cache
-    await cache.db_query_cache("key1", query)
+    cache.db_query_cache("key1", query)
 
     # It's cached now.
     assert cache._redis.get("key1") is not None
 
     # Modify our user and make sure we got a cached value
     user.Username = "changed"
-    cached = await cache.db_query_cache("key1", query)
+    cached = cache.db_query_cache("key1", query)
     assert cached[0].Username != query.all()[0].Username
 
     # It does not expire
     assert cache._redis.ttl("key1") == -1
 
     # Cache a query with an expire.
-    value = await cache.db_query_cache("key2", query, 100)
+    value = cache.db_query_cache("key2", query, 100)
     assert len(value) == query.count()
     assert value[0].Username == query.all()[0].Username
 
@@ -90,7 +88,7 @@ async def test_db_query_cache(user):
 
     with mock.patch("aurweb.config.getint", side_effect=mock_max_search_entries):
         # Try to add another entry (we already have 2)
-        await cache.db_query_cache("key3", query)
+        cache.db_query_cache("key3", query)
 
         # Make sure it was not added because it exceeds our max.
         assert cache._redis.get("key3") is None

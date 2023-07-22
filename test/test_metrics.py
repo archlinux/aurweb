@@ -26,11 +26,10 @@ def user() -> User:
     yield user
 
 
-@pytest.mark.asyncio
-async def test_search_cache_metrics(user: User):
+def test_search_cache_metrics(user: User):
     # Fire off 3 identical queries for caching
     for _ in range(3):
-        await db_query_cache("key", db.query(User))
+        db_query_cache("key", db.query(User))
 
     # Get metrics
     metrics = str(generate_latest(REGISTRY))
