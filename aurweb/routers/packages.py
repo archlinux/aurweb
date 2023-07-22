@@ -90,7 +90,7 @@ async def packages_get(
     # Including more query operations below, like ordering, will
     # increase the amount of time required to collect a count.
     # we use redis for caching the results of the query
-    cache_expire = config.getint("cache", "expiry_time")
+    cache_expire = config.getint("cache", "expiry_time_search", 600)
     num_packages = db_count_cache(hash_query(search.query), search.query, cache_expire)
 
     # Apply user-specified sort column and ordering.

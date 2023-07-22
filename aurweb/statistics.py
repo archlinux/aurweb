@@ -89,7 +89,7 @@ class Statistics:
 
 
 def update_prometheus_metrics():
-    cache_expire = config.getint("cache", "expiry_time")
+    cache_expire = config.getint("cache", "expiry_time_statistics", 300)
     stats = Statistics(cache_expire)
     # Users gauge
     for counter, utype in stats.PROMETHEUS_USER_COUNTERS:

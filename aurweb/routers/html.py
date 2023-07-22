@@ -86,7 +86,7 @@ async def index(request: Request):
     context = make_context(request, "Home")
     context["ssh_fingerprints"] = util.get_ssh_fingerprints()
 
-    cache_expire = aurweb.config.getint("cache", "expiry_time")
+    cache_expire = aurweb.config.getint("cache", "expiry_time_statistics", 300)
 
     # Package statistics.
     stats = Statistics(cache_expire)

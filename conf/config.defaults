@@ -169,5 +169,7 @@ range_end = 172800
 [cache]
 ; maximum number of keys/entries (for search results) in our redis cache, default is 50000
 max_search_entries = 50000
-; number of seconds after a cache entry expires, default is 3 minutes
-expiry_time = 180
+; number of seconds after a cache entry for search queries expires, default is 10 minutes
+expiry_time_search = 600
+; number of seconds after a cache entry for statistics queries expires, default is 5 minutes
+expiry_time_statistics = 300
