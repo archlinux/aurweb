@@ -2,9 +2,15 @@ import pytest
 from prometheus_client import REGISTRY, generate_latest
 
 from aurweb import cache, db, time
+from aurweb.models import Package, PackageBase, PackageRequest
 from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
-from aurweb.models.package import Package
-from aurweb.models.package_base import PackageBase
+from aurweb.models.package_request import (
+    ACCEPTED_ID,
+    CLOSED_ID,
+    PENDING_ID,
+    REJECTED_ID,
+)
+from aurweb.models.request_type import DELETION_ID, ORPHAN_ID
 from aurweb.models.user import User
 from aurweb.statistics import Statistics, update_prometheus_metrics
 
@@ -45,19 +51,36 @@ def test_data():
                 ModifiedTS=now,
             )
             db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+            pkgreq = db.create(
+                PackageRequest,
+                ReqTypeID=ORPHAN_ID,
+                User=user,
+                PackageBase=pkgbase,
+                PackageBaseName=pkgbase.Name,
+                RequestTS=now,
+                Comments=str(),
+                ClosureComment=str(),
+            )
 
             # Modify some data to get some variances for our counters
             if i == 1:
                 user.AccountTypeID = TRUSTED_USER_ID
                 pkgbase.Maintainer = None
                 pkgbase.SubmittedTS = now
+                pkgreq.Status = PENDING_ID
+                pkgreq.ReqTypeID = DELETION_ID
 
             if i == 2:
                 pkgbase.SubmittedTS = older
+                pkgreq.Status = ACCEPTED_ID
 
             if i == 3:
                 pkgbase.SubmittedTS = older
                 pkgbase.ModifiedTS = old
+                pkgreq.Status = CLOSED_ID
+
+            if i == 4:
+                pkgreq.Status = REJECTED_ID
     yield
 
 
@@ -79,6 +102,11 @@ def stats() -> Statistics:
         ("trusted_user_count", 1),
         ("regular_user_count", 9),
         ("updated_packages", 9),
+        ("total_requests", 10),
+        ("pending_requests", 7),
+        ("closed_requests", 1),
+        ("accepted_requests", 1),
+        ("rejected_requests", 1),
         ("nonsense", -1),
     ],
 )

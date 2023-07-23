@@ -16,6 +16,7 @@ from aurweb.models.package_request import (
 )
 from aurweb.requests.util import get_pkgreq_by_id
 from aurweb.scripts import notify
+from aurweb.statistics import get_request_counts
 from aurweb.templates import make_context, render_template
 
 FILTER_PARAMS = {
@@ -31,7 +32,7 @@ router = APIRouter()
 
 @router.get("/requests")
 @requires_auth
-async def requests(
+async def requests(  # noqa: C901
     request: Request,
     O: int = Query(default=defaults.O),
     PP: int = Query(default=defaults.PP),
@@ -74,18 +75,11 @@ async def requests(
         .join(User, PackageRequest.UsersID == User.ID, isouter=True)
         .join(Maintainer, PackageBase.MaintainerUID == Maintainer.ID, isouter=True)
     )
-    # query = db.query(PackageRequest).join(User)
 
     # Requests statistics
-    context["total_requests"] = query.count()
-    pending_count = 0 + query.filter(PackageRequest.Status == PENDING_ID).count()
-    context["pending_requests"] = pending_count
-    closed_count = 0 + query.filter(PackageRequest.Status == CLOSED_ID).count()
-    context["closed_requests"] = closed_count
-    accepted_count = 0 + query.filter(PackageRequest.Status == ACCEPTED_ID).count()
-    context["accepted_requests"] = accepted_count
-    rejected_count = 0 + query.filter(PackageRequest.Status == REJECTED_ID).count()
-    context["rejected_requests"] = rejected_count
+    counts = get_request_counts()
+    for k in counts:
+        context[k] = counts[k]
 
     # Apply status filters
     in_filters = []

@@ -16,11 +16,10 @@ from sqlalchemy import case, or_
 
 import aurweb.config
 import aurweb.models.package_request
-from aurweb import aur_logging, cookies, db, models, time, util
+from aurweb import aur_logging, cookies, db, models, statistics, time, util
 from aurweb.exceptions import handle_form_exceptions
 from aurweb.models.package_request import PENDING_ID
 from aurweb.packages.util import query_notified, query_voted, updated_packages
-from aurweb.statistics import Statistics, update_prometheus_metrics
 from aurweb.templates import make_context, render_template
 
 logger = aur_logging.get_logger(__name__)
@@ -89,9 +88,9 @@ async def index(request: Request):
     cache_expire = aurweb.config.getint("cache", "expiry_time_statistics", 300)
 
     # Package statistics.
-    stats = Statistics(cache_expire)
-    for counter in stats.HOMEPAGE_COUNTERS:
-        context[counter] = stats.get_count(counter)
+    counts = statistics.get_homepage_counts()
+    for k in counts:
+        context[k] = counts[k]
 
     # Get the 15 most recently updated packages.
     context["package_updates"] = updated_packages(15, cache_expire)
@@ -213,7 +212,7 @@ async def metrics(request: Request):
         )
 
     # update prometheus gauges for packages and users
-    update_prometheus_metrics()
+    statistics.update_prometheus_metrics()
 
     registry = CollectorRegistry()
     multiprocess.MultiProcessCollector(registry)

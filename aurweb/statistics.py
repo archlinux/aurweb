@@ -1,31 +1,46 @@
 from aurweb import config, db, time
 from aurweb.cache import db_count_cache
-from aurweb.models import PackageBase, User
+from aurweb.models import PackageBase, PackageRequest, User
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, USER_ID
+from aurweb.models.package_request import (
+    ACCEPTED_ID,
+    CLOSED_ID,
+    PENDING_ID,
+    REJECTED_ID,
+)
 from aurweb.prometheus import PACKAGES, USERS
+
+cache_expire = config.getint("cache", "expiry_time_statistics", 300)
+
+HOMEPAGE_COUNTERS = [
+    "package_count",
+    "orphan_count",
+    "seven_days_old_added",
+    "seven_days_old_updated",
+    "year_old_updated",
+    "never_updated",
+    "user_count",
+    "trusted_user_count",
+]
+REQUEST_COUNTERS = [
+    "total_requests",
+    "pending_requests",
+    "closed_requests",
+    "accepted_requests",
+    "rejected_requests",
+]
+PROMETHEUS_USER_COUNTERS = [
+    ("trusted_user_count", "tu"),
+    ("regular_user_count", "user"),
+]
+PROMETHEUS_PACKAGE_COUNTERS = [
+    ("orphan_count", "orphan"),
+    ("never_updated", "not_updated"),
+    ("updated_packages", "updated"),
+]
 
 
 class Statistics:
-    HOMEPAGE_COUNTERS = [
-        "package_count",
-        "orphan_count",
-        "seven_days_old_added",
-        "seven_days_old_updated",
-        "year_old_updated",
-        "never_updated",
-        "user_count",
-        "trusted_user_count",
-    ]
-    PROMETHEUS_USER_COUNTERS = [
-        ("trusted_user_count", "tu"),
-        ("regular_user_count", "user"),
-    ]
-    PROMETHEUS_PACKAGE_COUNTERS = [
-        ("orphan_count", "orphan"),
-        ("never_updated", "not_updated"),
-        ("updated_packages", "updated"),
-    ]
-
     seven_days = 86400 * 7
     one_hour = 3600
     year = seven_days * 52
@@ -35,15 +50,18 @@ class Statistics:
         self.now = time.utcnow()
         self.seven_days_ago = self.now - self.seven_days
         self.year_ago = self.now - self.year
+
         self.user_query = db.query(User)
         self.bases_query = db.query(PackageBase)
         self.updated_query = db.query(PackageBase).filter(
             PackageBase.ModifiedTS - PackageBase.SubmittedTS >= self.one_hour
         )
+        self.request_query = db.query(PackageRequest)
 
     def get_count(self, counter: str) -> int:
         query = None
         match counter:
+            # Packages
             case "package_count":
                 query = self.bases_query
             case "orphan_count":
@@ -69,6 +87,7 @@ class Statistics:
                     PackageBase.ModifiedTS - PackageBase.SubmittedTS > self.one_hour,
                     ~PackageBase.MaintainerUID.is_(None),
                 )
+            # Users
             case "user_count":
                 query = self.user_query
             case "trusted_user_count":
@@ -82,6 +101,18 @@ class Statistics:
                 )
             case "regular_user_count":
                 query = self.user_query.filter(User.AccountTypeID == USER_ID)
+
+            # Requests
+            case "total_requests":
+                query = self.request_query
+            case "pending_requests":
+                query = self.request_query.filter(PackageRequest.Status == PENDING_ID)
+            case "closed_requests":
+                query = self.request_query.filter(PackageRequest.Status == CLOSED_ID)
+            case "accepted_requests":
+                query = self.request_query.filter(PackageRequest.Status == ACCEPTED_ID)
+            case "rejected_requests":
+                query = self.request_query.filter(PackageRequest.Status == REJECTED_ID)
             case _:
                 return -1
 
@@ -89,14 +120,30 @@ class Statistics:
 
 
 def update_prometheus_metrics():
-    cache_expire = config.getint("cache", "expiry_time_statistics", 300)
     stats = Statistics(cache_expire)
     # Users gauge
-    for counter, utype in stats.PROMETHEUS_USER_COUNTERS:
+    for counter, utype in PROMETHEUS_USER_COUNTERS:
         count = stats.get_count(counter)
         USERS.labels(utype).set(count)
 
     # Packages gauge
-    for counter, state in stats.PROMETHEUS_PACKAGE_COUNTERS:
+    for counter, state in PROMETHEUS_PACKAGE_COUNTERS:
         count = stats.get_count(counter)
         PACKAGES.labels(state).set(count)
+
+
+def _get_counts(counters: list[str]) -> dict[str, int]:
+    stats = Statistics(cache_expire)
+    result = dict()
+    for counter in counters:
+        result[counter] = stats.get_count(counter)
+
+    return result
+
+
+def get_homepage_counts() -> dict[str, int]:
+    return _get_counts(HOMEPAGE_COUNTERS)
+
+
+def get_request_counts() -> dict[str, int]:
+    return _get_counts(REQUEST_COUNTERS)
