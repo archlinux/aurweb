@@ -1,6 +1,8 @@
+from sqlalchemy import func
+
 from aurweb import config, db, time
-from aurweb.cache import db_count_cache
-from aurweb.models import PackageBase, PackageRequest, User
+from aurweb.cache import db_count_cache, db_query_cache
+from aurweb.models import PackageBase, PackageRequest, RequestType, User
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, USER_ID
 from aurweb.models.package_request import (
     ACCEPTED_ID,
@@ -8,7 +10,7 @@ from aurweb.models.package_request import (
     PENDING_ID,
     REJECTED_ID,
 )
-from aurweb.prometheus import PACKAGES, USERS
+from aurweb.prometheus import PACKAGES, REQUESTS, USERS
 
 cache_expire = config.getint("cache", "expiry_time_statistics", 300)
 
@@ -130,6 +132,20 @@ def update_prometheus_metrics():
     for counter, state in PROMETHEUS_PACKAGE_COUNTERS:
         count = stats.get_count(counter)
         PACKAGES.labels(state).set(count)
+
+    # Requests gauge
+    query = (
+        db.get_session()
+        .query(PackageRequest, func.count(PackageRequest.ID), RequestType.Name)
+        .join(RequestType)
+        .group_by(RequestType.Name, PackageRequest.Status)
+    )
+    results = db_query_cache("request_metrics", query, cache_expire)
+    for record in results:
+        status = record[0].status_display()
+        count = record[1]
+        rtype = record[2]
+        REQUESTS.labels(type=rtype, status=status).set(count)
 
 
 def _get_counts(counters: list[str]) -> dict[str, int]:

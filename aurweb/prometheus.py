@@ -24,6 +24,12 @@ PACKAGES = Gauge(
     ["state"],
     multiprocess_mode="livemax",
 )
+REQUESTS = Gauge(
+    "aur_requests",
+    "Number of AUR requests by type and status",
+    ["type", "status"],
+    multiprocess_mode="livemax",
+)
 
 
 def instrumentator():

@@ -144,6 +144,7 @@ def test_update_prometheus_metrics(test_data):
 
     assert "aur_users{" not in metrics
     assert "aur_packages{" not in metrics
+    assert "aur_requests{" not in metrics
 
     # Let's update our metrics. We should find our gauges now
     update_prometheus_metrics()
@@ -151,3 +152,8 @@ def test_update_prometheus_metrics(test_data):
 
     assert 'aur_users{type="user"} 9.0' in metrics
     assert 'aur_packages{state="updated"} 9.0' in metrics
+    assert 'aur_requests{status="Pending",type="orphan"} 6.0' in metrics
+    assert 'aur_requests{status="Closed",type="orphan"} 1.0' in metrics
+    assert 'aur_requests{status="Accepted",type="orphan"} 1.0' in metrics
+    assert 'aur_requests{status="Rejected",type="orphan"} 1.0' in metrics
+    assert 'aur_requests{status="Pending",type="deletion"} 1.0' in metrics
