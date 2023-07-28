@@ -40,10 +40,10 @@ resource "hcloud_server" "this" {
 }
 
 resource "hcloud_rdns" "this" {
-  for_each = toset([hcloud_server.this.ipv4_address, hcloud_server.this.ipv6_address])
+  for_each = { ipv4 : hcloud_server.this.ipv4_address, ipv6 : hcloud_server.this.ipv6_address }
 
   server_id  = hcloud_server.this.id
-  ip_address = each.key
+  ip_address = each.value
   dns_ptr    = "${var.name}.${var.dns_zone}"
 }
 
