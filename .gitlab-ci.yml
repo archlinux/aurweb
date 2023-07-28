@@ -61,34 +61,47 @@ test:
         coverage_format: cobertura
         path: coverage.xml
 
-deploy:
-  stage: deploy
-  tags:
-    - secure
-  rules:
-    - if: $CI_COMMIT_BRANCH == "pu"
-      when: manual
-  variables:
-    FASTAPI_BACKEND: gunicorn
-    FASTAPI_WORKERS: 5
-    AURWEB_FASTAPI_PREFIX: https://aur-dev.archlinux.org
-    AURWEB_SSHD_PREFIX: ssh://aur@aur-dev.archlinux.org:2222
-    COMMIT_HASH: $CI_COMMIT_SHA
-    GIT_DATA_DIR: git_data
-  script:
-    - pacman -Syu --noconfirm docker docker-compose socat openssh
-    - chmod 600 ${SSH_KEY}
-    - socat "UNIX-LISTEN:/tmp/docker.sock,reuseaddr,fork" EXEC:"ssh -o UserKnownHostsFile=${SSH_KNOWN_HOSTS} -Ti ${SSH_KEY} ${SSH_USER}@${SSH_HOST}" &
-    - export DOCKER_HOST="unix:///tmp/docker.sock"
-    # Set secure login config for aurweb.
-    - sed -ri "s/^(disable_http_login).*$/\1 = 1/" conf/config.dev
-    - docker-compose build
-    - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml down --remove-orphans
-    - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml up -d
-    - docker image prune -f
-    - docker container prune -f
-    - docker volume prune -f
+.init_tf: &init_tf
+  - pacman -Syu --needed --noconfirm --cachedir .pkg-cache terraform
+  - export TF_VAR_name="aurweb-${CI_COMMIT_REF_SLUG}"
+  - TF_ADDRESS="${CI_API_V4_URL}/projects/${TF_STATE_PROJECT}/terraform/state/${CI_COMMIT_REF_SLUG}"
+  - cd ci/tf
+  - >
+    terraform init \
+      -backend-config="address=${TF_ADDRESS}" \
+      -backend-config="lock_address=${TF_ADDRESS}/lock" \
+      -backend-config="unlock_address=${TF_ADDRESS}/lock" \
+      -backend-config="username=x-access-token" \
+      -backend-config="password=${TF_STATE_GITLAB_ACCESS_TOKEN}" \
+      -backend-config="lock_method=POST" \
+      -backend-config="unlock_method=DELETE" \
+      -backend-config="retry_wait_min=5"
 
+deploy_review:
+  stage: deploy
+  script:
+    - *init_tf
+    - terraform apply -auto-approve
   environment:
-    name: development
-    url: https://aur-dev.archlinux.org
+    name: review/$CI_COMMIT_REF_NAME
+    url: https://aurweb-$CI_ENVIRONMENT_SLUG.sandbox.archlinux.page
+    on_stop: stop_review
+    auto_stop_in: 1 week
+  rules:
+    - if: $CI_MERGE_REQUEST_ID && $CI_PROJECT_PATH == "archlinux/aurweb"
+      when: manual
+
+stop_review:
+  stage: deploy
+  needs:
+    - deploy_review
+  script:
+    - *init_tf
+    - terraform destroy -auto-approve
+    - 'curl --silent --show-error --fail --header "Private-Token: ${TF_STATE_GITLAB_ACCESS_TOKEN}" --request DELETE "${CI_API_V4_URL}/projects/${TF_STATE_PROJECT}/terraform/state/${CI_COMMIT_REF_SLUG}"'
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
+  rules:
+    - if: $CI_MERGE_REQUEST_ID && $CI_PROJECT_PATH == "archlinux/aurweb"
+      when: manual

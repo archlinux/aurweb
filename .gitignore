@@ -57,3 +57,7 @@ test-emails/
 env/
 venv/
 .venv/
+
+# Ignore some terraform files
+/ci/tf/.terraform
+/ci/tf/terraform.tfstate*
