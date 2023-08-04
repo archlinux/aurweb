@@ -764,6 +764,17 @@ def test_get_account_edit_unauthorized(client: TestClient, user: User):
     assert response.headers.get("location") == expected
 
 
+def test_get_account_edit_not_exists(client: TestClient, tu_user: User):
+    """Test that users do not have an Account Type field."""
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = "/account/doesnotexist/edit"
+
+    with client as request:
+        request.cookies = cookies
+        response = request.get(endpoint)
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+
+
 def test_post_account_edit(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
@@ -870,6 +881,19 @@ def test_post_account_edit_dev(client: TestClient, tu_user: User):
     expected = "The account, <strong>test</strong>, "
     expected += "has been successfully modified."
     assert expected in response.content.decode()
+
+
+def test_post_account_edit_not_exists(client: TestClient, tu_user: User):
+    request = Request()
+    sid = tu_user.login(request, "testPassword")
+
+    post_data = {"U": "test", "E": "test666@example.org", "passwd": "testPassword"}
+
+    endpoint = "/account/doesnotexist/edit"
+    with client as request:
+        request.cookies = {"AURSID": sid}
+        response = request.post(endpoint, data=post_data)
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
 def test_post_account_edit_language(client: TestClient, user: User):

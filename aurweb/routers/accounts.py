@@ -374,6 +374,9 @@ def cannot_edit(
     :param user: Target user to be edited
     :return: RedirectResponse if approval != granted else None
     """
+    # raise 404 if user does not exist
+    if not user:
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
     approved = request.user.can_edit_user(user)
     if not approved and (to := "/"):
         if user:
