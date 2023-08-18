@@ -13,7 +13,6 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from jinja2 import TemplateNotFound
-from prometheus_client import multiprocess
 from sqlalchemy import and_
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -89,12 +88,6 @@ async def app_startup():
 
     # Initialize the database engine and ORM.
     get_engine()
-
-
-def child_exit(server, worker):  # pragma: no cover
-    """This function is required for gunicorn customization
-    of prometheus multiprocessing."""
-    multiprocess.mark_process_dead(worker.pid)
 
 
 async def internal_server_error(request: Request, exc: Exception) -> Response:
