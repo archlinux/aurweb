@@ -1,7 +1,7 @@
 import pytest
 from prometheus_client import REGISTRY, generate_latest
 
-from aurweb import cache, db, time
+from aurweb import cache, db, prometheus, time
 from aurweb.models import Package, PackageBase, PackageRequest
 from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
 from aurweb.models.package_request import (
@@ -140,6 +140,11 @@ def test_get_count_change(stats: Statistics, test_data):
 
 
 def test_update_prometheus_metrics(test_data):
+    # Make sure any previous data is cleared
+    prometheus.USERS.clear()
+    prometheus.PACKAGES.clear()
+    prometheus.REQUESTS.clear()
+
     metrics = str(generate_latest(REGISTRY))
 
     assert "aur_users{" not in metrics
