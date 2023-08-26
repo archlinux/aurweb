@@ -43,7 +43,6 @@ from multiprocessing import Lock
 
 import py
 import pytest
-from posix_ipc import O_CREAT, Semaphore
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.engine.base import Engine
@@ -54,7 +53,6 @@ import aurweb.config
 import aurweb.db
 from aurweb import aur_logging, initdb, testing
 from aurweb.testing.email import Email
-from aurweb.testing.filelock import FileLock
 from aurweb.testing.git import GitRepository
 
 logger = aur_logging.get_logger(__name__)
@@ -133,20 +131,16 @@ def _drop_database(engine: Engine, dbname: str) -> None:
 
 
 def setup_email():
-    # TODO: Fix this data race! This try/catch is ugly; why is it even
-    # racing here? Perhaps we need to multiproc + multithread lock
-    # inside of setup_database to block the check?
-    with Semaphore("/test-emails", flags=O_CREAT, initial_value=1):
-        if not os.path.exists(Email.TEST_DIR):
-            # Create the directory.
-            os.makedirs(Email.TEST_DIR)
+    if not os.path.exists(Email.TEST_DIR):
+        # Create the directory.
+        os.makedirs(Email.TEST_DIR, exist_ok=True)
 
-        # Cleanup all email files for this test suite.
-        prefix = Email.email_prefix(suite=True)
-        files = os.listdir(Email.TEST_DIR)
-        for file in files:
-            if file.startswith(prefix):
-                os.remove(os.path.join(Email.TEST_DIR, file))
+    # Cleanup all email files for this test suite.
+    prefix = Email.email_prefix(suite=True)
+    files = os.listdir(Email.TEST_DIR)
+    for file in files:
+        if file.startswith(prefix):
+            os.remove(os.path.join(Email.TEST_DIR, file))
 
 
 @pytest.fixture(scope="module")
@@ -155,20 +149,8 @@ def setup_database(tmp_path_factory: pathlib.Path, worker_id: str) -> None:
     engine = test_engine()
     dbname = aurweb.db.name()
 
-    if worker_id == "master":  # pragma: no cover
-        # If we're not running tests through multiproc pytest-xdist.
-        setup_email()
-        yield _create_database(engine, dbname)
-        _drop_database(engine, dbname)
-        return
-
-    def setup(path):
-        setup_email()
-        _create_database(engine, dbname)
-
-    tmpdir = tmp_path_factory.getbasetemp().parent
-    file_lock = FileLock(tmpdir, dbname)
-    file_lock.lock(on_create=setup)
+    setup_email()
+    _create_database(engine, dbname)
     yield  # Run the test function depending on this fixture.
     _drop_database(engine, dbname)  # Cleanup the database.
 
