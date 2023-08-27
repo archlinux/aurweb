@@ -13,6 +13,8 @@ variables:
   TEST_RECURSION_LIMIT: 10000
   CURRENT_DIR: "$(pwd)"
   LOG_CONFIG: logging.test.conf
+  DEV_FQDN: aurweb-$CI_COMMIT_REF_SLUG.sandbox.archlinux.page
+  INFRASTRUCTURE_REPO: https://gitlab.archlinux.org/archlinux/infrastructure.git
 
 lint:
   stage: .pre
@@ -84,12 +86,62 @@ deploy_review:
     - terraform apply -auto-approve
   environment:
     name: review/$CI_COMMIT_REF_NAME
-    url: https://aurweb-$CI_ENVIRONMENT_SLUG.sandbox.archlinux.page
+    url: https://$DEV_FQDN
     on_stop: stop_review
     auto_stop_in: 1 week
   rules:
     - if: $CI_MERGE_REQUEST_ID && $CI_PROJECT_PATH == "archlinux/aurweb"
       when: manual
+
+provision_review:
+  stage: deploy
+  needs:
+    - deploy_review
+  script:
+    - *init_tf
+    - pacman -Syu --noconfirm --needed --cachedir .pkg-cache ansible git openssh jq
+      # Get ssh key from terraform state file
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - terraform show -json |
+      jq -r '.values.root_module.resources[] |
+      select(.address == "tls_private_key.this") |
+      .values.private_key_openssh' > ~/.ssh/id_ed25519
+    - chmod 400 ~/.ssh/id_ed25519
+      # Clone infra repo
+    - git clone $INFRASTRUCTURE_REPO
+    - cd infrastructure
+      # Remove vault files
+    - rm $(git grep -l 'ANSIBLE_VAULT;1.1;AES256$')
+      # Remove vault config
+    - sed -i '/^vault/d' ansible.cfg
+      # Add host config
+    - mkdir -p host_vars/$DEV_FQDN
+    - 'echo "filesystem: btrfs" > host_vars/$DEV_FQDN/misc'
+      # Add host
+    - echo "$DEV_FQDN" > hosts
+      # Add our pubkey and hostkeys
+    - ssh-keyscan $DEV_FQDN >> ~/.ssh/known_hosts
+    - ssh-keygen -f ~/.ssh/id_ed25519 -y > pubkeys/aurweb-dev.pub
+      # Run our ansible playbook
+    - >
+      ansible-playbook playbooks/aur-dev.archlinux.org.yml \
+        -e "aurdev_fqdn=$DEV_FQDN" \
+        -e "aurweb_repository=$CI_REPOSITORY_URL" \
+        -e "aurweb_version=$CI_COMMIT_SHA" \
+        -e "{\"vault_mariadb_users\":{\"root\":\"aur\"}}" \
+        -e "vault_aurweb_db_password=aur" \
+        -e "vault_aurweb_gitlab_instance=https://does.not.exist" \
+        -e "vault_aurweb_error_project=aur" \
+        -e "vault_aurweb_error_token=aur" \
+        -e "vault_aurweb_secret=aur" \
+        -e "vault_goaurrpc_metrics_token=aur" \
+        -e '{"root_additional_keys": ["moson.pub", "aurweb-dev.pub"]}'
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: access
+  rules:
+    - if: $CI_MERGE_REQUEST_ID && $CI_PROJECT_PATH == "archlinux/aurweb"
 
 stop_review:
   stage: deploy
