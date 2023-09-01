@@ -26,7 +26,7 @@ PKG_ID = 1  # Packages.ID of first package
 # how many users to 'register'
 MAX_USERS = int(os.environ.get("MAX_USERS", 38000))
 MAX_DEVS = 0.1  # what percentage of MAX_USERS are Developers
-MAX_TUS = 0.2  # what percentage of MAX_USERS are Trusted Users
+MAX_TUS = 0.2  # what percentage of MAX_USERS are Package Maintainers
 # how many packages to load
 MAX_PKGS = int(os.environ.get("MAX_PKGS", 32000))
 PKG_DEPS = (1, 15)  # min/max depends a package has

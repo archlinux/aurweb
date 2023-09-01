@@ -265,7 +265,7 @@ def pkgbase_disown(pkgbase, user, privileged):
     conn = aurweb.db.Connection()
 
     # Make the first co-maintainer the new maintainer, unless the action was
-    # enforced by a Trusted User.
+    # enforced by a Package Maintainer.
     if initialized_by_owner:
         comaintainers = pkgbase_get_comaintainers(pkgbase)
         if len(comaintainers) > 0:

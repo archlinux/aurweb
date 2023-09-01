@@ -6,11 +6,11 @@
         <table class="no-width">
             <tbody>
                 <tr>
-                    <td>{{ "Total" | tr }} {{ "Trusted Users" | tr }}:</td>
+                    <td>{{ "Total" | tr }} {{ "Package Maintainers" | tr }}:</td>
                     <td>{{ package_maintainer_count }}</td>
                 </tr>
                 <tr>
-                    <td>{{ "Active" | tr }} {{ "Trusted Users" | tr }}:</td>
+                    <td>{{ "Active" | tr }} {{ "Package Maintainers" | tr }}:</td>
                     <td>{{ active_package_maintainer_count }}</td>
                 </tr>
             </tbody>
@@ -45,7 +45,7 @@
         {% include "partials/tu/proposals.html" %}
     {% endwith %}
 
-    {% with title = "Last Votes by TU", votes = last_votes_by_pm %}
+    {% with title = "Last Votes by Package Maintainer", votes = last_votes_by_pm %}
         {% include "partials/tu/last_votes.html" %}
     {% endwith %}
 {% endblock %}

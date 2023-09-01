@@ -634,7 +634,7 @@ def test_tu_running_proposal(
 
     active = details.xpath('./div[contains(@class, "field")]')[1]
     content = active.text.strip()
-    assert "Active Trusted Users assigned:" in content
+    assert "Active Package Maintainers assigned:" in content
     assert "1" in content
 
     submitted = details.xpath('./div[contains(@class, "submitted")]/text()')[0]
@@ -796,7 +796,7 @@ def test_tu_proposal_vote_unauthorized(
 
     root = parse_root(response.text)
     status = root.xpath('//span[contains(@class, "status")]/text()')[0]
-    assert status == "Only Trusted Users are allowed to vote."
+    assert status == "Only Package Maintainers are allowed to vote."
 
     with client as request:
         data = {"decision": "Yes"}
@@ -806,7 +806,7 @@ def test_tu_proposal_vote_unauthorized(
 
     root = parse_root(response.text)
     status = root.xpath('//span[contains(@class, "status")]/text()')[0]
-    assert status == "Only Trusted Users are allowed to vote."
+    assert status == "Only Package Maintainers are allowed to vote."
 
 
 def test_tu_proposal_vote_cant_self_vote(client, proposal):

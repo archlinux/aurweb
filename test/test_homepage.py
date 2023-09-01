@@ -183,7 +183,7 @@ def test_homepage_stats(redis, packages):
         ("Packages updated in the past year", r"\d+"),
         ("Packages never updated", r"\d+"),
         ("Registered Users", r"\d+"),
-        ("Trusted Users", r"\d+"),
+        ("Package Maintainers", r"\d+"),
     ]
 
     stats = root.xpath('//div[@id="pkg-stats"]//tr')

@@ -139,15 +139,15 @@ msgid "Type"
 msgstr "Είδος"
 
 #: html/addvote.php
-msgid "Addition of a TU"
+msgid "Addition of a Package Maintainer"
 msgstr "Προσθήκη ενός TU"
 
 #: html/addvote.php
-msgid "Removal of a TU"
+msgid "Removal of a Package Maintainer"
 msgstr "Αφαίρεση ενός TU"
 
 #: html/addvote.php
-msgid "Removal of a TU (undeclared inactivity)"
+msgid "Removal of a Package Maintainer (undeclared inactivity)"
 msgstr "Αφαίρεση ενός TU (αδήλωτη αδράνεια)"
 
 #: html/addvote.php
@@ -207,7 +207,7 @@ msgstr ""
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %sOδηγό Χρηστών του AUR%s και τον %sΟδηγό των Trusted Users%s για περισσότερες πληροφορίες. "
+msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %sOδηγό Χρηστών του AUR%s και τον %sΟδηγό των Package Maintainers%s για περισσότερες πληροφορίες. "
 
 #: html/home.php
 #, php-format
@@ -271,7 +271,7 @@ msgstr ""
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
-"the package maintainer and file orphan request if necessary."
+"the maintainer and file orphan request if necessary."
 msgstr ""
 
 #: html/home.php
@@ -314,7 +314,7 @@ msgstr "Συζήτηση"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
@@ -328,7 +328,7 @@ msgstr "Αναφορά Σφαλμάτων"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+" %sonly%s. To report packaging bugs contact the maintainer or leave "
 "a comment on the appropriate package page."
 msgstr ""
 
@@ -530,8 +530,8 @@ msgid "Delete"
 msgstr "Διαγράψτε"
 
 #: html/pkgdel.php
-msgid "Only Trusted Users and Developers can delete packages."
-msgstr "Μόνο οι Trusted Users και οι Developers μπορούν να διαγράψουν πακέτα."
+msgid "Only Package Maintainers and Developers can delete packages."
+msgstr "Μόνο οι Package Maintainers και οι Developers μπορούν να διαγράψουν πακέτα."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -571,7 +571,7 @@ msgid "Disown"
 msgstr "Αποδέσμευση"
 
 #: html/pkgdisown.php
-msgid "Only Trusted Users and Developers can disown packages."
+msgid "Only Package Maintainers and Developers can disown packages."
 msgstr ""
 
 #: html/pkgflagcomment.php
@@ -661,8 +661,8 @@ msgid "Merge"
 msgstr "Συγχώνευση"
 
 #: html/pkgmerge.php
-msgid "Only Trusted Users and Developers can merge packages."
-msgstr "Μόνο οι Trusted Users και οι Developers μπορούν να συγχωνεύσουν πακέτα."
+msgid "Only Package Maintainers and Developers can merge packages."
+msgstr "Μόνο οι Package Maintainers και οι Developers μπορούν να συγχωνεύσουν πακέτα."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -719,8 +719,8 @@ msgid "I accept the terms and conditions above."
 msgstr "Αποδέχομαι τους παραπάνω όρους χρήσης."
 
 #: html/tu.php template/account_details.php template/header.php
-msgid "Trusted User"
-msgstr "Trusted User"
+msgid "Package Maintainer"
+msgstr "Package Maintainer"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -731,8 +731,8 @@ msgid "Voting is closed for this proposal."
 msgstr "Η ψηφοφορία έχει κλείσει για αυτή την πρόταση."
 
 #: html/tu.php
-msgid "Only Trusted Users are allowed to vote."
-msgstr "Μόνο οι Trusted Users έχουν δικαίωμα ψήφου."
+msgid "Only Package Maintainers are allowed to vote."
+msgstr "Μόνο οι Package Maintainers έχουν δικαίωμα ψήφου."
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1227,7 +1227,7 @@ msgstr "Developer"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
-msgid "Trusted User & Developer"
+msgid "Package Maintainer & Developer"
 msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
@@ -1329,10 +1329,6 @@ msgstr ""
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Απλός χρήστης"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Trusted user"
-msgstr "Αξιόπιστος χρήστης"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
@@ -1829,14 +1825,14 @@ msgstr "Συγχώνευση σε"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Trusted User to delete the "
+"By submitting a deletion request, you ask a Package Maintainer to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Trusted User to delete the package "
+"By submitting a merge request, you ask a Package Maintainer to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
@@ -1844,7 +1840,7 @@ msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting an orphan request, you ask a Trusted User to disown the "
+"By submitting an orphan request, you ask a Package Maintainer to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
@@ -2101,8 +2097,8 @@ msgid "Registered Users"
 msgstr "Εγγεγραμμένοι Χρήστες"
 
 #: template/stats/general_stats_table.php
-msgid "Trusted Users"
-msgstr "Trusted Users"
+msgid "Package Maintainers"
+msgstr "Package Maintainers"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2287,7 +2283,7 @@ msgstr ""
 
 #: scripts/notify.py
 #, python-brace-format
-msgid "TU Vote Reminder: Proposal {id}"
+msgid "Package Maintainer Vote Reminder: Proposal {id}"
 msgstr ""
 
 #: scripts/notify.py

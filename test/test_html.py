@@ -88,7 +88,7 @@ def test_archdev_navbar_authenticated_tu(client: TestClient, package_maintainer:
         "Requests",
         "Accounts",
         "My Account",
-        "Trusted User",
+        "Package Maintainer",
         "Logout",
     ]
     cookies = {"AURSID": package_maintainer.login(Request(), "testPassword")}

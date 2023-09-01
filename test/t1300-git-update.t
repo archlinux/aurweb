@@ -125,7 +125,7 @@ test_expect_success 'Performing a non-fast-forward ref update.' '
 	test_cmp expected actual
 '
 
-test_expect_success 'Performing a non-fast-forward ref update as Trusted User.' '
+test_expect_success 'Performing a non-fast-forward ref update as Package Maintainer.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	new=$(git -C aur.git rev-parse HEAD^) &&
 	cat >expected <<-EOD &&
@@ -149,7 +149,7 @@ test_expect_success 'Performing a non-fast-forward ref update as normal user wit
 	test_cmp expected actual
 '
 
-test_expect_success 'Performing a non-fast-forward ref update as Trusted User with AUR_OVERWRITE=1.' '
+test_expect_success 'Performing a non-fast-forward ref update as Package Maintainer with AUR_OVERWRITE=1.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	new=$(git -C aur.git rev-parse HEAD^) &&
 	AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 AUR_OVERWRITE=1 \
@@ -536,7 +536,7 @@ test_expect_success 'Pushing a blacklisted package.' '
 	test_cmp expected actual
 '
 
-test_expect_success 'Pushing a blacklisted package as Trusted User.' '
+test_expect_success 'Pushing a blacklisted package as Package Maintainer.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
 	echo "pkgname = forbidden" >>aur.git/.SRCINFO &&
@@ -565,7 +565,7 @@ test_expect_success 'Pushing a package already in the official repositories.' '
 	test_cmp expected actual
 '
 
-test_expect_success 'Pushing a package already in the official repositories as Trusted User.' '
+test_expect_success 'Pushing a package already in the official repositories as Package Maintainer.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
 	echo "pkgname = official" >>aur.git/.SRCINFO &&

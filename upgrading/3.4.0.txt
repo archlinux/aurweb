@@ -1,5 +1,5 @@
-1. Add the "Trusted User & Developer" user group:
+1. Add the "Package Maintainer & Developer" user group:
 
 ----
-INSERT INTO AccountTypes (ID, AccountType) VALUES (4, 'Trusted User & Developer');
+INSERT INTO AccountTypes (ID, AccountType) VALUES (4, 'Package Maintainer & Developer');
 ----

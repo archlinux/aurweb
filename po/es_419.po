@@ -141,15 +141,15 @@ msgid "Type"
 msgstr "Tipo"
 
 #: html/addvote.php
-msgid "Addition of a TU"
+msgid "Addition of a Package Maintainer"
 msgstr "Agregar a un nuevo Usuario de Confianza"
 
 #: html/addvote.php
-msgid "Removal of a TU"
+msgid "Removal of a Package Maintainer"
 msgstr "Remover a un Usuario de Confianza"
 
 #: html/addvote.php
-msgid "Removal of a TU (undeclared inactivity)"
+msgid "Removal of a Package Maintainer (undeclared inactivity)"
 msgstr "Remover a un Usuario de Confianza (no declarado inactivo)"
 
 #: html/addvote.php
@@ -273,7 +273,7 @@ msgstr "Petición de Borrado"
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
-"the package maintainer and file orphan request if necessary."
+"the maintainer and file orphan request if necessary."
 msgstr "Pedir que un paquete sea borrado del Repositorio Usuarios de Arch. Por favor, no use esta opción si un paquete está roto y se puede arreglar fácilmente. En cambio, contacte con el encargado del paquete y presentar solicitud orfandad si es necesario."
 
 #: html/home.php
@@ -316,7 +316,7 @@ msgstr "Debate"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr "La discusión general acerca del Repositorio de Usuarios de Arch (AUR) y la estructura de Usuarios de Confianza se realiza en la lista de correos %saur-general%s. Para discusiones relacionadas con el desarrollo de la interfaz web del AUR, utilice la lista de correo %saur-dev%s."
@@ -330,7 +330,7 @@ msgstr "Informe de errores"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+" %sonly%s. To report packaging bugs contact the maintainer or leave "
 "a comment on the appropriate package page."
 msgstr "Si encuentra un error en la interfaz web del AUR, llene un informe de fallo en nuestro %s«bug tracker»%s. Use este para reportar %súnicamente%s errores de la interfaz web del AUR. Para reportar errores de empaquetado debe contactar con el encargado o dejar un comentario en la página respectiva del paquete."
 
@@ -526,7 +526,7 @@ msgid "Delete"
 msgstr "Borrar"
 
 #: html/pkgdel.php
-msgid "Only Trusted Users and Developers can delete packages."
+msgid "Only Package Maintainers and Developers can delete packages."
 msgstr "Solo Usuarios de Confianza y Desarrolladores pueden borrar paquetes."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
@@ -567,7 +567,7 @@ msgid "Disown"
 msgstr "Abandonar"
 
 #: html/pkgdisown.php
-msgid "Only Trusted Users and Developers can disown packages."
+msgid "Only Package Maintainers and Developers can disown packages."
 msgstr "Solo Usuarios de Confianza y Desarrolladores pueden forzar el abandono de paquetes."
 
 #: html/pkgflagcomment.php
@@ -649,7 +649,7 @@ msgid "Merge"
 msgstr "Fusión"
 
 #: html/pkgmerge.php
-msgid "Only Trusted Users and Developers can merge packages."
+msgid "Only Package Maintainers and Developers can merge packages."
 msgstr "Solo Usuarios de Confianza y Desarrolladores pueden fusionar paquetes."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
@@ -707,7 +707,7 @@ msgid "I accept the terms and conditions above."
 msgstr "Acepto las Terminos y condiciones anteriores."
 
 #: html/tu.php template/account_details.php template/header.php
-msgid "Trusted User"
+msgid "Package Maintainer"
 msgstr "Usuario de Confianza"
 
 #: html/tu.php
@@ -719,7 +719,7 @@ msgid "Voting is closed for this proposal."
 msgstr "Las votaciones para esta propuesta están cerradas."
 
 #: html/tu.php
-msgid "Only Trusted Users are allowed to vote."
+msgid "Only Package Maintainers are allowed to vote."
 msgstr "Solo Usuarios de Confianza pueden votar."
 
 #: html/tu.php
@@ -1175,7 +1175,7 @@ msgstr "Desarrollador"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
-msgid "Trusted User & Developer"
+msgid "Package Maintainer & Developer"
 msgstr "Usuarios de Confianza y desarrolladores"
 
 #: template/account_details.php template/account_edit_form.php
@@ -1277,10 +1277,6 @@ msgstr "Su nombre de usuario es el nombre que usará para iniciar sesión. Es vi
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Usuario normal"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Trusted user"
-msgstr "Usuario de Confianza"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
@@ -1777,14 +1773,14 @@ msgstr "Fusionar en"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Trusted User to delete the "
+"By submitting a deletion request, you ask a Package Maintainer to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr "Al enviar una Petición de Borrado, le preguntará a un Usuario de Confianza que elimine dicho paquete base. Este tipo de peticiones debe ser utilizada para duplicados, programas abandonados por el desarrollador principal o encargado, así como programas ilegales e irreparablemente rotos."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Trusted User to delete the package "
+"By submitting a merge request, you ask a Package Maintainer to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
@@ -1792,7 +1788,7 @@ msgstr "Al enviar una Petición de Fusión, le preguntará a un Usuario de Confi
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting an orphan request, you ask a Trusted User to disown the "
+"By submitting an orphan request, you ask a Package Maintainer to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
@@ -2049,7 +2045,7 @@ msgid "Registered Users"
 msgstr "Usuarios registrados"
 
 #: template/stats/general_stats_table.php
-msgid "Trusted Users"
+msgid "Package Maintainers"
 msgstr "Usuarios de Confianza"
 
 #: template/stats/updates_table.php
@@ -2235,7 +2231,7 @@ msgstr ""
 
 #: scripts/notify.py
 #, python-brace-format
-msgid "TU Vote Reminder: Proposal {id}"
+msgid "Package Maintainer Vote Reminder: Proposal {id}"
 msgstr ""
 
 #: scripts/notify.py

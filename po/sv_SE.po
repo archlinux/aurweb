@@ -137,15 +137,15 @@ msgid "Type"
 msgstr "Typ"
 
 #: html/addvote.php
-msgid "Addition of a TU"
+msgid "Addition of a Package Maintainer"
 msgstr "Tillägg av en TU"
 
 #: html/addvote.php
-msgid "Removal of a TU"
+msgid "Removal of a Package Maintainer"
 msgstr "Borttagning av en TU"
 
 #: html/addvote.php
-msgid "Removal of a TU (undeclared inactivity)"
+msgid "Removal of a Package Maintainer (undeclared inactivity)"
 msgstr "Borttagning av en TU (odeklarerad inaktivitet)"
 
 #: html/addvote.php
@@ -269,7 +269,7 @@ msgstr "Raderings förfrågan"
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
-"the package maintainer and file orphan request if necessary."
+"the maintainer and file orphan request if necessary."
 msgstr "Begär att ett paket ska bli borttaget från Arch User Repository. Snälla använd inte detta om packetet bara är trasigt och kan enkelt bli fixat. Kontakta paket ansvarige istället, och begär att paketet ska bli herrelöst"
 
 #: html/home.php
@@ -312,10 +312,10 @@ msgstr "Diskussion"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "Generella diskussioner om Arch User Repository (AUR) och Trusted User strukturen tar plats på %saur-general%s. För diskussioner om utvecklingen av AUR web interfacet, använd %saur-dev%s maillistan."
+msgstr "Generella diskussioner om Arch User Repository (AUR) och Package Maintainer strukturen tar plats på %saur-general%s. För diskussioner om utvecklingen av AUR web interfacet, använd %saur-dev%s maillistan."
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -326,7 +326,7 @@ msgstr "Bugg Rapportering"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+" %sonly%s. To report packaging bugs contact the maintainer or leave "
 "a comment on the appropriate package page."
 msgstr "Om du hittar en bug i AUR webbgränssnittet, var snäll och fyll i en rapport i vårt %särendehanteringssystem%s. Använd systemet %sbara%s för buggar i webbgränssnittet. För att raportera paketbuggar kontakta den som är ansvarig för paketet istället, eller lämna en kommentar på paketets sida."
 
@@ -528,8 +528,8 @@ msgid "Delete"
 msgstr "Radera"
 
 #: html/pkgdel.php
-msgid "Only Trusted Users and Developers can delete packages."
-msgstr "Bara Trusted Users och Developers kan radera paket."
+msgid "Only Package Maintainers and Developers can delete packages."
+msgstr "Bara Package Maintainers och Developers kan radera paket."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -569,8 +569,8 @@ msgid "Disown"
 msgstr "Gör herrelös"
 
 #: html/pkgdisown.php
-msgid "Only Trusted Users and Developers can disown packages."
-msgstr "Bara Trusted Users och Developers kan göra paket herrelösa."
+msgid "Only Package Maintainers and Developers can disown packages."
+msgstr "Bara Package Maintainers och Developers kan göra paket herrelösa."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -659,8 +659,8 @@ msgid "Merge"
 msgstr "Slå ihop"
 
 #: html/pkgmerge.php
-msgid "Only Trusted Users and Developers can merge packages."
-msgstr "Bara Trusted Users och Developers kan slå ihop paket."
+msgid "Only Package Maintainers and Developers can merge packages."
+msgstr "Bara Package Maintainers och Developers kan slå ihop paket."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -717,8 +717,8 @@ msgid "I accept the terms and conditions above."
 msgstr "Jag accepterar villkoren ovan."
 
 #: html/tu.php template/account_details.php template/header.php
-msgid "Trusted User"
-msgstr "Trusted User"
+msgid "Package Maintainer"
+msgstr "Package Maintainer"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -729,8 +729,8 @@ msgid "Voting is closed for this proposal."
 msgstr "Röstning för detta förslag är stängt."
 
 #: html/tu.php
-msgid "Only Trusted Users are allowed to vote."
-msgstr "Bara Trusted Users är tillåtna att rösta."
+msgid "Only Package Maintainers are allowed to vote."
+msgstr "Bara Package Maintainers är tillåtna att rösta."
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1225,8 +1225,8 @@ msgstr "Developer"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
-msgid "Trusted User & Developer"
-msgstr "Trusted User & Developer"
+msgid "Package Maintainer & Developer"
+msgstr "Package Maintainer & Developer"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1327,10 +1327,6 @@ msgstr "Ditt användarnamn är det namn du kommer att använda för att logga in
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Normal användare"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Trusted user"
-msgstr "Trusted user"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
@@ -1827,26 +1823,26 @@ msgstr "Slå ihop i"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Trusted User to delete the "
+"By submitting a deletion request, you ask a Package Maintainer to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Genom att skicka en begäran om borttagning ber du en Trusted User att ta bort paketbasen. Denna typ av begäran bör användas för dubbletter, programvara som övergetts av uppström, såväl som olagliga och irreparabelt trasiga paket."
+msgstr "Genom att skicka en begäran om borttagning ber du en Package Maintainer att ta bort paketbasen. Denna typ av begäran bör användas för dubbletter, programvara som övergetts av uppström, såväl som olagliga och irreparabelt trasiga paket."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Trusted User to delete the package "
+"By submitting a merge request, you ask a Package Maintainer to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
-msgstr "Genom att skicka en sammanslagningsförfrågan ber du en Trusted User att ta bort paketbasen och överföra dess röster och kommentarer till en annan paketbas. Att slå samman ett paket påverkar inte motsvarande Git-förråd. Se till att du själv uppdaterar Git-historiken för målpaketet."
+msgstr "Genom att skicka en sammanslagningsförfrågan ber du en Package Maintainer att ta bort paketbasen och överföra dess röster och kommentarer till en annan paketbas. Att slå samman ett paket påverkar inte motsvarande Git-förråd. Se till att du själv uppdaterar Git-historiken för målpaketet."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting an orphan request, you ask a Trusted User to disown the "
+"By submitting an orphan request, you ask a Package Maintainer to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "Genom att skicka in en föräldralös begäran ber du en Trusted User att avfärda paketbasen. Vänligen gör endast detta om paketet behöver underhållsåtgärder, underhållaren är MIA och du redan försökt kontakta underhållaren tidigare."
+msgstr "Genom att skicka in en föräldralös begäran ber du en Package Maintainer att avfärda paketbasen. Vänligen gör endast detta om paketet behöver underhållsåtgärder, underhållaren är MIA och du redan försökt kontakta underhållaren tidigare."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2099,8 +2095,8 @@ msgid "Registered Users"
 msgstr "Registrerade användare"
 
 #: template/stats/general_stats_table.php
-msgid "Trusted Users"
-msgstr "Trusted Users"
+msgid "Package Maintainers"
+msgstr "Package Maintainers"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2285,7 +2281,7 @@ msgstr "{user} [1] raderade {pkgbase} [2].\n\nDu kommer inte längre att få avi
 
 #: scripts/notify.py
 #, python-brace-format
-msgid "TU Vote Reminder: Proposal {id}"
+msgid "Package Maintainer Vote Reminder: Proposal {id}"
 msgstr "TU röstningspåminnelse: Förslag {id}"
 
 #: scripts/notify.py

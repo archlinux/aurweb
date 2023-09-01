@@ -11,7 +11,7 @@ test_expect_success 'Test basic authentication.' '
 	grep -q AUR_PRIVILEGED=0 out
 '
 
-test_expect_success 'Test Trusted User authentication.' '
+test_expect_success 'Test Package Maintainer authentication.' '
 	cover "$GIT_AUTH" "$AUTH_KEYTYPE_TU" "$AUTH_KEYTEXT_TU" >out &&
 	grep -q AUR_USER=tu out &&
 	grep -q AUR_PRIVILEGED=1 out

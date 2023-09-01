@@ -134,15 +134,15 @@ msgid "Type"
 msgstr "סוג"
 
 #: html/addvote.php
-msgid "Addition of a TU"
+msgid "Addition of a Package Maintainer"
 msgstr "הוספת משתמש מהימן"
 
 #: html/addvote.php
-msgid "Removal of a TU"
+msgid "Removal of a Package Maintainer"
 msgstr "הסרת משתמש מהימן"
 
 #: html/addvote.php
-msgid "Removal of a TU (undeclared inactivity)"
+msgid "Removal of a Package Maintainer (undeclared inactivity)"
 msgstr "הסרת משתמש מהימן (חוסר פעילות בלתי מוצהרת)"
 
 #: html/addvote.php
@@ -266,7 +266,7 @@ msgstr "בקשת מחיקה"
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
-"the package maintainer and file orphan request if necessary."
+"the maintainer and file orphan request if necessary."
 msgstr "ניתן לבקש הסרת חבילה ממאגר המשתמשים של ארץ׳. אין להשתמש בזה אם יש תקלה בחבילה וניתן לתקן אותה בקלות. במקום זאת, יש ליצור קשר עם מתחזק החבילה ולהגיש בקשת יתומה אם יש צורך."
 
 #: html/home.php
@@ -309,7 +309,7 @@ msgstr "דיון"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr "הדיון הכללי על מאגר המשתמשים של ארץ׳ (AUR) ומבנה המשתמשים המהימנים מתנהל ברשימה %saur-general%s. לדיון בנוגע לפיתוח של המנשק של AUR, יש להשתמש ברשימה %saur-dev%s."
@@ -323,7 +323,7 @@ msgstr "דיווח על באגים"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+" %sonly%s. To report packaging bugs contact the maintainer or leave "
 "a comment on the appropriate package page."
 msgstr "אם נתקלת בתקלה במנשק הדפדפן של AUR, נא להגיש דיווח על תקלה ב%sמערכת ניהול התקלות%s שלנו. יש להשתמש במערכת ניהול התקלות כדי לדווח על תקלות במנשק הדפדפן %sבלבד%s. כדי לדווח על תקלות עם אריזה יש ליצור קשר עם מתחזק החבילה או להשאיר הערה בעמוד החבילה בהתאם."
 
@@ -525,7 +525,7 @@ msgid "Delete"
 msgstr "מחיקה"
 
 #: html/pkgdel.php
-msgid "Only Trusted Users and Developers can delete packages."
+msgid "Only Package Maintainers and Developers can delete packages."
 msgstr "רק משתמשים מהימנים ומפתחים יכולים למחוק חבילות."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
@@ -566,7 +566,7 @@ msgid "Disown"
 msgstr "ניתוק בעלות"
 
 #: html/pkgdisown.php
-msgid "Only Trusted Users and Developers can disown packages."
+msgid "Only Package Maintainers and Developers can disown packages."
 msgstr "רק משתמשים מהימנים ומפתחים יכולים לנתק בעלות של חבילות."
 
 #: html/pkgflagcomment.php
@@ -656,7 +656,7 @@ msgid "Merge"
 msgstr "מיזוג"
 
 #: html/pkgmerge.php
-msgid "Only Trusted Users and Developers can merge packages."
+msgid "Only Package Maintainers and Developers can merge packages."
 msgstr "רק משתמשים מהימנים ומפתחים יכולים למזג חבילות."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
@@ -714,7 +714,7 @@ msgid "I accept the terms and conditions above."
 msgstr "התנאים שלעיל מקובלים עלי."
 
 #: html/tu.php template/account_details.php template/header.php
-msgid "Trusted User"
+msgid "Package Maintainer"
 msgstr "משתמש מהימן"
 
 #: html/tu.php
@@ -726,7 +726,7 @@ msgid "Voting is closed for this proposal."
 msgstr "ההצבעה סגורה עבור הצעה זו."
 
 #: html/tu.php
-msgid "Only Trusted Users are allowed to vote."
+msgid "Only Package Maintainers are allowed to vote."
 msgstr "רק משתמשים מהימנים מורשים להצביע."
 
 #: html/tu.php
@@ -1222,7 +1222,7 @@ msgstr "מפתח"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
-msgid "Trusted User & Developer"
+msgid "Package Maintainer & Developer"
 msgstr "משתמש מהימן ומפתח"
 
 #: template/account_details.php template/account_edit_form.php
@@ -1324,10 +1324,6 @@ msgstr "שם המשתמש שלך הוא השם שישמש אותך לכניסה 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "משתמש רגיל"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Trusted user"
-msgstr "משתמשים אמינים"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
@@ -1826,14 +1822,14 @@ msgstr "מיזוג לתוך"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Trusted User to delete the "
+"By submitting a deletion request, you ask a Package Maintainer to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr "בהגשת בקשה למחיקה, משתמש מהימן ישקול אם למחוק בסיס חבילה. סוג כזה של בקשה יכול לשמש במקרים של כפילויות, תכנית שנזנחה במקור לצד חבילה בלתי חוקית או שבורה באופן שלא ניתן לשקם."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Trusted User to delete the package "
+"By submitting a merge request, you ask a Package Maintainer to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
@@ -1841,7 +1837,7 @@ msgstr "הגשת בקשת מיזוג מופנית למשתמש מהימן לטו
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting an orphan request, you ask a Trusted User to disown the "
+"By submitting an orphan request, you ask a Package Maintainer to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
@@ -2106,7 +2102,7 @@ msgid "Registered Users"
 msgstr "משתמשים רשומים"
 
 #: template/stats/general_stats_table.php
-msgid "Trusted Users"
+msgid "Package Maintainers"
 msgstr "משתמשים מהימנים"
 
 #: template/stats/updates_table.php
@@ -2292,7 +2288,7 @@ msgstr " {pkgbase} [2] נמחקה על ידי{user} [1].\n\nלא תישלחנה 
 
 #: scripts/notify.py
 #, python-brace-format
-msgid "TU Vote Reminder: Proposal {id}"
+msgid "Package Maintainer Vote Reminder: Proposal {id}"
 msgstr "תזכורת הצבעה למשתמש מהימן: הצעה {id}"
 
 #: scripts/notify.py

@@ -63,7 +63,7 @@ async def package_maintainer(
 ):  # past by
     """Proposal listings."""
 
-    if not request.user.has_credential(creds.TU_LIST_VOTES):
+    if not request.user.has_credential(creds.PM_LIST_VOTES):
         return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
 
     context = make_context(request, "Package Maintainer")
@@ -182,7 +182,7 @@ def render_proposal(
 @router.get("/tu/{proposal}")
 @requires_auth
 async def package_maintainer_proposal(request: Request, proposal: int):
-    if not request.user.has_credential(creds.TU_LIST_VOTES):
+    if not request.user.has_credential(creds.PM_LIST_VOTES):
         return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
 
     context = await make_variable_context(request, "Package Maintainer")
@@ -209,8 +209,8 @@ async def package_maintainer_proposal(request: Request, proposal: int):
         )
         .first()
     )
-    if not request.user.has_credential(creds.TU_VOTE):
-        context["error"] = "Only Trusted Users are allowed to vote."
+    if not request.user.has_credential(creds.PM_VOTE):
+        context["error"] = "Only Package Maintainers are allowed to vote."
     if voteinfo.User == request.user.Username:
         context["error"] = "You cannot vote in an proposal about you."
     elif vote is not None:
@@ -227,7 +227,7 @@ async def package_maintainer_proposal(request: Request, proposal: int):
 async def package_maintainer_proposal_post(
     request: Request, proposal: int, decision: str = Form(...)
 ):
-    if not request.user.has_credential(creds.TU_LIST_VOTES):
+    if not request.user.has_credential(creds.PM_LIST_VOTES):
         return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
 
     context = await make_variable_context(request, "Package Maintainer")
@@ -256,8 +256,8 @@ async def package_maintainer_proposal_post(
     )
 
     status_code = HTTPStatus.OK
-    if not request.user.has_credential(creds.TU_VOTE):
-        context["error"] = "Only Trusted Users are allowed to vote."
+    if not request.user.has_credential(creds.PM_VOTE):
+        context["error"] = "Only Package Maintainers are allowed to vote."
         status_code = HTTPStatus.UNAUTHORIZED
     elif voteinfo.User == request.user.Username:
         context["error"] = "You cannot vote in an proposal about you."
@@ -291,7 +291,7 @@ async def package_maintainer_proposal_post(
 async def package_maintainer_addvote(
     request: Request, user: str = str(), type: str = "add_pm", agenda: str = str()
 ):
-    if not request.user.has_credential(creds.TU_ADD_VOTE):
+    if not request.user.has_credential(creds.PM_ADD_VOTE):
         return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
 
     context = await make_variable_context(request, "Add Proposal")
@@ -317,7 +317,7 @@ async def package_maintainer_addvote_post(
     type: str = Form(default=str()),
     agenda: str = Form(default=str()),
 ):
-    if not request.user.has_credential(creds.TU_ADD_VOTE):
+    if not request.user.has_credential(creds.PM_ADD_VOTE):
         return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
 
     # Build a context.

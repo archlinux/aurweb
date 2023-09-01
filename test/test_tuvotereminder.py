@@ -36,7 +36,7 @@ def email_pieces(voteinfo: TUVoteInfo) -> Tuple[str, str]:
     :param voteinfo: TUVoteInfo instance
     :return: tuple(subject, content)
     """
-    subject = f"TU Vote Reminder: Proposal {voteinfo.ID}"
+    subject = f"Package Maintainer Vote Reminder: Proposal {voteinfo.ID}"
     content = (
         f"Please remember to cast your vote on proposal {voteinfo.ID} "
         f"[1]. The voting period\nends in less than 48 hours.\n\n"

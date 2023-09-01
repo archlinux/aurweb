@@ -94,7 +94,7 @@ def _retry_disown(request: Request, pkgbase: PackageBase):
             notifs.append(notif)
     elif request.user.has_credential(creds.PKGBASE_DISOWN):
         # Otherwise, the request user performing this disownage is a
-        # Trusted User and we treat it like a standard orphan request.
+        # Package Maintainer and we treat it like a standard orphan request.
         notifs += handle_request(request, ORPHAN_ID, pkgbase)
         with db.begin():
             pkgbase.Maintainer = None

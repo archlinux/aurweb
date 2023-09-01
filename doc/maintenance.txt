@@ -12,8 +12,8 @@ package maintenance from the command-line. More details can be found in
 
 The web interface can be used to browse packages, view package details, manage
 aurweb accounts, add comments, vote for packages, flag packages, and submit
-requests. Trusted Users can update package maintainers and delete/merge
-packages. The web interface also includes an area for Trusted Users to post
+requests. Package Maintainers can update package maintainers and delete/merge
+packages. The web interface also includes an area for Package Maintainers to post
 AUR-related proposals and vote on them.
 
 The RPC interface can be used to query package information via HTTP.
@@ -113,7 +113,7 @@ usually scheduled using Cron. The current setup is:
 Advanced Administrative Features
 --------------------------------
 
-Trusted Users can set the AUR_OVERWRITE environment variable to enable
+Package Maintainers can set the AUR_OVERWRITE environment variable to enable
 non-fast-forward pushes to the Git repositories. This feature is documented in
 `doc/git-interface.txt`.
 

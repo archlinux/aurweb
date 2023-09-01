@@ -908,7 +908,9 @@ async def pkgbase_merge_get(
     # Perhaps additionally: bad_credential_status_code(creds.PKGBASE_MERGE).
     # Don't take these examples verbatim. We should find good naming.
     if not request.user.has_credential(creds.PKGBASE_MERGE):
-        context["errors"] = ["Only Trusted Users and Developers can merge packages."]
+        context["errors"] = [
+            "Only Package Maintainers and Developers can merge packages."
+        ]
         status_code = HTTPStatus.UNAUTHORIZED
 
     return render_template(
@@ -934,7 +936,9 @@ async def pkgbase_merge_post(
 
     # TODO: Lookup errors from credential instead of hardcoding them.
     if not request.user.has_credential(creds.PKGBASE_MERGE):
-        context["errors"] = ["Only Trusted Users and Developers can merge packages."]
+        context["errors"] = [
+            "Only Package Maintainers and Developers can merge packages."
+        ]
         return render_template(
             request, "pkgbase/merge.html", context, status_code=HTTPStatus.UNAUTHORIZED
         )

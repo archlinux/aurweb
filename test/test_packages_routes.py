@@ -1574,7 +1574,7 @@ def test_packages_post_disown_as_maintainer(
 def test_packages_post_disown(
     client: TestClient, tu_user: User, maintainer: User, package: Package
 ):
-    """Disown packages as a Trusted User, which cannot bypass idle time."""
+    """Disown packages as a Package Maintainer, which cannot bypass idle time."""
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies

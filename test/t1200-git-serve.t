@@ -124,7 +124,7 @@ test_expect_success "Try to push to someone else's repository." '
 	cover "$GIT_SERVE" 2>&1
 '
 
-test_expect_success "Try to push to someone else's repository as Trusted User." '
+test_expect_success "Try to push to someone else's repository as Package Maintainer." '
 	cat >expected <<-EOF &&
 	tu
 	foobar
@@ -195,7 +195,7 @@ test_expect_success "Adopt an already adopted package base." '
 	cover "$GIT_SERVE" 2>&1
 '
 
-test_expect_success "Adopt a package base as a Trusted User." '
+test_expect_success "Adopt a package base as a Package Maintainer." '
 	SSH_ORIGINAL_COMMAND="adopt foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
@@ -216,7 +216,7 @@ test_expect_success "Disown one's own package base as a regular user." '
 	test_cmp expected actual
 '
 
-test_expect_success "Disown one's own package base as a Trusted User." '
+test_expect_success "Disown one's own package base as a Package Maintainer." '
 	SSH_ORIGINAL_COMMAND="disown foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
@@ -248,7 +248,7 @@ test_expect_success "Try to steal another user's package as a regular user." '
 	cover "$GIT_SERVE" 2>&1
 '
 
-test_expect_success "Try to steal another user's package as a Trusted User." '
+test_expect_success "Try to steal another user's package as a Package Maintainer." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=tu AUR_PRIVILEGED=1 \
@@ -285,7 +285,7 @@ test_expect_success "Try to disown another user's package as a regular user." '
 	cover "$GIT_SERVE" 2>&1
 '
 
-test_expect_success "Try to disown another user's package as a Trusted User." '
+test_expect_success "Try to disown another user's package as a Package Maintainer." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=tu AUR_PRIVILEGED=1 \

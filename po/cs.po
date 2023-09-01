@@ -140,15 +140,15 @@ msgid "Type"
 msgstr "Typ"
 
 #: html/addvote.php
-msgid "Addition of a TU"
+msgid "Addition of a Package Maintainer"
 msgstr "Přidání důvěryhodného uživatele"
 
 #: html/addvote.php
-msgid "Removal of a TU"
+msgid "Removal of a Package Maintainer"
 msgstr "Odebrání důvěryhodného uživatele"
 
 #: html/addvote.php
-msgid "Removal of a TU (undeclared inactivity)"
+msgid "Removal of a Package Maintainer (undeclared inactivity)"
 msgstr "Odebrání důvěryhodného uživatele (neohlášená neaktivita)"
 
 #: html/addvote.php
@@ -272,7 +272,7 @@ msgstr "Žádost o smazání"
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
-"the package maintainer and file orphan request if necessary."
+"the maintainer and file orphan request if necessary."
 msgstr "Požádá o smazání z repozitáře AUR. Nepoužívejte, pokud balíček nefunguje a je možné ho snadno opravit. Místo toho kontaktuje správce balíčku nebo v případě potřeby požádejte o odebrání vlastnictví."
 
 #: html/home.php
@@ -315,7 +315,7 @@ msgstr "Diskuze"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr "Obecná diskuze o struktuře repozitáře AUR a důvěryhodných uživatelích se odehrává v poštovní konferenci %saur-general%s. Diskuzi o vývoji webového rozhraní AUR pak naleznete v poštovní konferenci %saur-dev%s."
@@ -329,7 +329,7 @@ msgstr "Hlášení chyb"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+" %sonly%s. To report packaging bugs contact the maintainer or leave "
 "a comment on the appropriate package page."
 msgstr "Pokud ve webovém rozhraní repozitáře AUR najdete chybu, nahlaste to na %swebu pro sledování chyb%s. Zmíněný web se používá %sjen%s pro chyby webového rozhraní AUR. Pokud chcete nahlásit chyby v balíčcích, kontaktujte správce daného balíčku nebo k balíčku napište komentář."
 
@@ -531,7 +531,7 @@ msgid "Delete"
 msgstr "Smazat"
 
 #: html/pkgdel.php
-msgid "Only Trusted Users and Developers can delete packages."
+msgid "Only Package Maintainers and Developers can delete packages."
 msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou mazat balíčky."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
@@ -572,7 +572,7 @@ msgid "Disown"
 msgstr "Odebrat vlastnictví"
 
 #: html/pkgdisown.php
-msgid "Only Trusted Users and Developers can disown packages."
+msgid "Only Package Maintainers and Developers can disown packages."
 msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou odebrat vlastnictví balíčku."
 
 #: html/pkgflagcomment.php
@@ -662,7 +662,7 @@ msgid "Merge"
 msgstr "Spojit"
 
 #: html/pkgmerge.php
-msgid "Only Trusted Users and Developers can merge packages."
+msgid "Only Package Maintainers and Developers can merge packages."
 msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou slučovat balíčky."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
@@ -720,7 +720,7 @@ msgid "I accept the terms and conditions above."
 msgstr "Souhlasím s výše uvedenými podmínkami."
 
 #: html/tu.php template/account_details.php template/header.php
-msgid "Trusted User"
+msgid "Package Maintainer"
 msgstr "Důvěryhodný uživatel"
 
 #: html/tu.php
@@ -732,7 +732,7 @@ msgid "Voting is closed for this proposal."
 msgstr "Toto hlasování již skončilo."
 
 #: html/tu.php
-msgid "Only Trusted Users are allowed to vote."
+msgid "Only Package Maintainers are allowed to vote."
 msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou hlasovat."
 
 #: html/tu.php
@@ -1228,7 +1228,7 @@ msgstr "Vyvojář"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
-msgid "Trusted User & Developer"
+msgid "Package Maintainer & Developer"
 msgstr "Důvěryhodný uživatel a vývojář"
 
 #: template/account_details.php template/account_edit_form.php
@@ -1330,10 +1330,6 @@ msgstr "Vaše uživatelské jméno je vaše přihlašovací jméno. Je veřejně
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Běžný uživatel"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Trusted user"
-msgstr "Důvěryhodný uživatel"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
@@ -1832,14 +1828,14 @@ msgstr "Sloučení"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Trusted User to delete the "
+"By submitting a deletion request, you ask a Package Maintainer to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr "Vytvořením žádosti o smazání žádáte důvěryhodného uživatele, aby smazal základní balíček. Tento typ požadavku by se měl používat pro duplicitní balíčky, software, který již v upstreamu neexistuje, nebo v případě nelegálních či nezvratně rozbitých balíčků."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Trusted User to delete the package "
+"By submitting a merge request, you ask a Package Maintainer to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
@@ -1847,7 +1843,7 @@ msgstr "Vytvořením žádosti o sloučení žádáte důvěryhodného uživatel
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting an orphan request, you ask a Trusted User to disown the "
+"By submitting an orphan request, you ask a Package Maintainer to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
@@ -2112,7 +2108,7 @@ msgid "Registered Users"
 msgstr "Registrovaní uživatelé"
 
 #: template/stats/general_stats_table.php
-msgid "Trusted Users"
+msgid "Package Maintainers"
 msgstr "Důvěryhodní uživatelé"
 
 #: template/stats/updates_table.php
@@ -2298,7 +2294,7 @@ msgstr "Uživatel {user} [1] smazal balíček {pkgbase} [2].\n\nNadále již neb
 
 #: scripts/notify.py
 #, python-brace-format
-msgid "TU Vote Reminder: Proposal {id}"
+msgid "Package Maintainer Vote Reminder: Proposal {id}"
 msgstr "Připomínka k hlasování důvěryhodných uživatelů: návrh {id}"
 
 #: scripts/notify.py

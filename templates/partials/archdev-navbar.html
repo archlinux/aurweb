@@ -36,10 +36,10 @@
                 </a>
             </li>
 
-            {# Only CRED_TU_LIST_VOTES privileged users see Trusted User #}
+            {# Only CRED_PM_LIST_VOTES privileged users see Package Maintainer #}
             {% if request.user.has_credential(creds.PM_LIST_VOTES) %}
                 <li>
-                    <a href="/tu">{% trans %}Trusted User{% endtrans %}</a>
+                    <a href="/tu">{% trans %}Package Maintainer{% endtrans %}</a>
                 </li>
             {% endif %}
 

@@ -769,7 +769,7 @@ class TUVoteReminderNotification(Notification):
 
     def get_subject(self, lang):
         return aurweb.l10n.translator.translate(
-            "TU Vote Reminder: Proposal {id}", lang
+            "Package Maintainer Vote Reminder: Proposal {id}", lang
         ).format(id=self._vote_id)
 
     def get_body(self, lang):

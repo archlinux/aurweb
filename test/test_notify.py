@@ -554,7 +554,7 @@ def test_tu_vote_reminders(user: User):
 
     email = Email(1).parse()
     assert email.headers.get("To") == user.Email
-    expected = f"TU Vote Reminder: Proposal {vote_id}"
+    expected = f"Package Maintainer Vote Reminder: Proposal {vote_id}"
     assert email.headers.get("Subject") == expected
 
     expected = f"""\
@@ -579,7 +579,7 @@ def test_notify_main(user: User):
 
     email = Email(1).parse()
     assert email.headers.get("To") == user.Email
-    expected = f"TU Vote Reminder: Proposal {vote_id}"
+    expected = f"Package Maintainer Vote Reminder: Proposal {vote_id}"
     assert email.headers.get("Subject") == expected
 
     expected = f"""\

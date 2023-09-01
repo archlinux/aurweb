@@ -171,7 +171,7 @@ class User(Base):
 
     def is_elevated(self):
         """A User is 'elevated' when they have either a
-        Trusted User or Developer AccountType."""
+        Package Maintainer or Developer AccountType."""
         return self.AccountType.ID in {
             aurweb.models.account_type.PACKAGE_MAINTAINER_ID,
             aurweb.models.account_type.DEVELOPER_ID,
@@ -188,7 +188,7 @@ class User(Base):
         In short, a user must at least have credentials and be at least
         the same account type as the target.
 
-        User < Trusted User < Developer < Trusted User & Developer
+        User < Package Maintainer < Developer < Package Maintainer & Developer
 
         :param target: Target User to be edited
         :return: Boolean indicating whether `self` can edit `target`

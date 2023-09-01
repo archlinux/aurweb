@@ -138,15 +138,15 @@ msgid "Type"
 msgstr "Type"
 
 #: html/addvote.php
-msgid "Addition of a TU"
+msgid "Addition of a Package Maintainer"
 msgstr "Toevoeging van een TU"
 
 #: html/addvote.php
-msgid "Removal of a TU"
+msgid "Removal of a Package Maintainer"
 msgstr "Verwijdering van een TU"
 
 #: html/addvote.php
-msgid "Removal of a TU (undeclared inactivity)"
+msgid "Removal of a Package Maintainer (undeclared inactivity)"
 msgstr "Verwijdering van een TU (onverklaarbare inactiviteit)"
 
 #: html/addvote.php
@@ -270,7 +270,7 @@ msgstr "Verwijderingsverzoek"
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
-"the package maintainer and file orphan request if necessary."
+"the maintainer and file orphan request if necessary."
 msgstr "Verzoek om een pakket uit de Arch User Repository te laten verwijderen. Gebruik dit niet als een pakket niet naar behoren functioneert en eenvoudig gerepareerd kan worden. Neem in dat geval contact op met de eigenaar en open zo nodig een onteigeningsverzoek."
 
 #: html/home.php
@@ -313,10 +313,10 @@ msgstr "Discussiëren"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "Algemene discussies met betrekking tot de Arch User Repository (AUR) en de opzet van Trusted Users vinden plaats op %saur-general%s. Discussies met betrekking tot de ontwikkeling van de AUR-webapp vinden plaats op de %saur-dev%s-mailinglijst."
+msgstr "Algemene discussies met betrekking tot de Arch User Repository (AUR) en de opzet van Package Maintainers vinden plaats op %saur-general%s. Discussies met betrekking tot de ontwikkeling van de AUR-webapp vinden plaats op de %saur-dev%s-mailinglijst."
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -327,7 +327,7 @@ msgstr "Bugmeldingen"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+" %sonly%s. To report packaging bugs contact the maintainer or leave "
 "a comment on the appropriate package page."
 msgstr "Als u een bug tegenkomt in de AUR-webapp, open dan een ticket op onze %sbugtracker%s. Gebruik de bugtracker %salléén%s om bugs over AUR te melden. Als u fouten tegenkomt in een pakketsamenstelling, meld dit dan aan de eigenaar of laat een opmerking achter op de bijbehorende pakketpagina."
 
@@ -529,8 +529,8 @@ msgid "Delete"
 msgstr "Verwijderen"
 
 #: html/pkgdel.php
-msgid "Only Trusted Users and Developers can delete packages."
-msgstr "Alleen Trusted Users en Developers kunnen pakketten verwijderen."
+msgid "Only Package Maintainers and Developers can delete packages."
+msgstr "Alleen Package Maintainers en Developers kunnen pakketten verwijderen."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -570,8 +570,8 @@ msgid "Disown"
 msgstr "Onteigenen"
 
 #: html/pkgdisown.php
-msgid "Only Trusted Users and Developers can disown packages."
-msgstr "Alleen Trusted Users en Developers kunnen pakketten onteigenen."
+msgid "Only Package Maintainers and Developers can disown packages."
+msgstr "Alleen Package Maintainers en Developers kunnen pakketten onteigenen."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -660,8 +660,8 @@ msgid "Merge"
 msgstr "Samenvoegen"
 
 #: html/pkgmerge.php
-msgid "Only Trusted Users and Developers can merge packages."
-msgstr "Alleen Trusted Users en Developers kunnen pakketten samenvoegen."
+msgid "Only Package Maintainers and Developers can merge packages."
+msgstr "Alleen Package Maintainers en Developers kunnen pakketten samenvoegen."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -718,8 +718,8 @@ msgid "I accept the terms and conditions above."
 msgstr "Ik ga akkoord met de algemene voorwaarden."
 
 #: html/tu.php template/account_details.php template/header.php
-msgid "Trusted User"
-msgstr "Trusted User"
+msgid "Package Maintainer"
+msgstr "Package Maintainer"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -730,8 +730,8 @@ msgid "Voting is closed for this proposal."
 msgstr "U kunt niet meer stemmen op dit voorstel."
 
 #: html/tu.php
-msgid "Only Trusted Users are allowed to vote."
-msgstr "Alleen Trusted Users zijn bevoegd om te stemmen."
+msgid "Only Package Maintainers are allowed to vote."
+msgstr "Alleen Package Maintainers zijn bevoegd om te stemmen."
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1226,8 +1226,8 @@ msgstr "Ontwikkelaar"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
-msgid "Trusted User & Developer"
-msgstr "Trusted User en ontwikkelaar"
+msgid "Package Maintainer & Developer"
+msgstr "Package Maintainer en ontwikkelaar"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1328,10 +1328,6 @@ msgstr "Uw gebruikersnaam gebruikt u om in te loggen. Deze naam is openbaar, zel
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Normale gebruiker"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Trusted user"
-msgstr "Trusted User"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
@@ -1828,26 +1824,26 @@ msgstr "Samenvoegen met"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Trusted User to delete the "
+"By submitting a deletion request, you ask a Package Maintainer to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Als u een verwijderingsverzoek doet, vraagt u aan een zogeheten ‘Trusted User’ om het basispakket te verwijderen. Dit verzoek is bedoeld om duplicaten, niet-onderhouden (door upstream), illegale en onherstelbare pakketten te verwijderen."
+msgstr "Als u een verwijderingsverzoek doet, vraagt u aan een zogeheten ‘Package Maintainer’ om het basispakket te verwijderen. Dit verzoek is bedoeld om duplicaten, niet-onderhouden (door upstream), illegale en onherstelbare pakketten te verwijderen."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Trusted User to delete the package "
+"By submitting a merge request, you ask a Package Maintainer to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
-msgstr "Als u een samenvoegingsverzoek doet, vraagt u aan een zogeheten ‘Trusted User’ om het basispakket te verwijderen en de bijbehorende opmerkingen en stemmen over te zetten naar een ander basispakket. Dit heeft geen invloed op de bijbehorende git-repo's, maar u dient wél zelf de git-geschiedenis van het doelpakket bij te werken."
+msgstr "Als u een samenvoegingsverzoek doet, vraagt u aan een zogeheten ‘Package Maintainer’ om het basispakket te verwijderen en de bijbehorende opmerkingen en stemmen over te zetten naar een ander basispakket. Dit heeft geen invloed op de bijbehorende git-repo's, maar u dient wél zelf de git-geschiedenis van het doelpakket bij te werken."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting an orphan request, you ask a Trusted User to disown the "
+"By submitting an orphan request, you ask a Package Maintainer to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "Als u een onteigeningsverzoek doet, vraagt u aan een zogeheten ‘Trusted User’ om het basispakket te onteigenen. Doe dit alleen als een pakket dringend onderhoud nodig heeft, maar de eigenaar niet thuis geeft, ook niet na een persoonlijk verzoek."
+msgstr "Als u een onteigeningsverzoek doet, vraagt u aan een zogeheten ‘Package Maintainer’ om het basispakket te onteigenen. Doe dit alleen als een pakket dringend onderhoud nodig heeft, maar de eigenaar niet thuis geeft, ook niet na een persoonlijk verzoek."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2100,8 +2096,8 @@ msgid "Registered Users"
 msgstr "Geregistreerde gebruikers"
 
 #: template/stats/general_stats_table.php
-msgid "Trusted Users"
-msgstr "Trusted Users"
+msgid "Package Maintainers"
+msgstr "Package Maintainers"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2286,7 +2282,7 @@ msgstr "{user} [1] heeft {pkgbase} [2] verwijderd.\n\n\nU ontvangt geen meldinge
 
 #: scripts/notify.py
 #, python-brace-format
-msgid "TU Vote Reminder: Proposal {id}"
+msgid "Package Maintainer Vote Reminder: Proposal {id}"
 msgstr "TU-stemherinnering aangaande het voorstel ‘{id}’"
 
 #: scripts/notify.py

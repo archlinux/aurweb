@@ -143,15 +143,15 @@ msgid "Type"
 msgstr "类别"
 
 #: html/addvote.php
-msgid "Addition of a TU"
+msgid "Addition of a Package Maintainer"
 msgstr "添加受信用户"
 
 #: html/addvote.php
-msgid "Removal of a TU"
+msgid "Removal of a Package Maintainer"
 msgstr "移除受信用户"
 
 #: html/addvote.php
-msgid "Removal of a TU (undeclared inactivity)"
+msgid "Removal of a Package Maintainer (undeclared inactivity)"
 msgstr "移除受信用户（无故不活跃）"
 
 #: html/addvote.php
@@ -275,7 +275,7 @@ msgstr "删除请求"
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
-"the package maintainer and file orphan request if necessary."
+"the maintainer and file orphan request if necessary."
 msgstr "请求软件包从 AUR 中移除。如果这个包虽然损坏了但是可以被轻易地修好，请不要进行此操作，您应该联系包的维护者或者有必要的情况下发送弃置请求。"
 
 #: html/home.php
@@ -318,7 +318,7 @@ msgstr "邮件列表"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr "与 Arch 用户仓库（AUR）或者受信用户结构相关的一般讨论在 %saur-general%s 邮件列表。若是与 AUR web 页面开发相关的讨论，请使用 %saur-dev%s 邮件列表。"
@@ -332,7 +332,7 @@ msgstr "Bug 报告"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+" %sonly%s. To report packaging bugs contact the maintainer or leave "
 "a comment on the appropriate package page."
 msgstr "如果您在 AUR web 页面发现 Bug，请提交到我们的 %sBug 追踪系统%s。追踪系统 %s只能%s 用来报告 AUR web 页面的 Bug。如果想报告打包方面的 Bug，请联系相应的包维护者，或者在相应的软件包页面留下评论。"
 
@@ -534,7 +534,7 @@ msgid "Delete"
 msgstr "删除"
 
 #: html/pkgdel.php
-msgid "Only Trusted Users and Developers can delete packages."
+msgid "Only Package Maintainers and Developers can delete packages."
 msgstr "只有受信用户和开发人员能删除软件包。"
 
 #: html/pkgdisown.php template/pkgbase_actions.php
@@ -575,7 +575,7 @@ msgid "Disown"
 msgstr "弃置"
 
 #: html/pkgdisown.php
-msgid "Only Trusted Users and Developers can disown packages."
+msgid "Only Package Maintainers and Developers can disown packages."
 msgstr "只有受信用户和开发人员能弃置软件包。"
 
 #: html/pkgflagcomment.php
@@ -665,7 +665,7 @@ msgid "Merge"
 msgstr "合并"
 
 #: html/pkgmerge.php
-msgid "Only Trusted Users and Developers can merge packages."
+msgid "Only Package Maintainers and Developers can merge packages."
 msgstr "只有受信用户和开发人员才能删除软件包。"
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
@@ -723,7 +723,7 @@ msgid "I accept the terms and conditions above."
 msgstr "我接受以上条款与条件。"
 
 #: html/tu.php template/account_details.php template/header.php
-msgid "Trusted User"
+msgid "Package Maintainer"
 msgstr "受信用户"
 
 #: html/tu.php
@@ -735,7 +735,7 @@ msgid "Voting is closed for this proposal."
 msgstr "该提议的投票已被关闭。"
 
 #: html/tu.php
-msgid "Only Trusted Users are allowed to vote."
+msgid "Only Package Maintainers are allowed to vote."
 msgstr "只有受信用户可以投票。"
 
 #: html/tu.php
@@ -1231,7 +1231,7 @@ msgstr "开发人员"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
-msgid "Trusted User & Developer"
+msgid "Package Maintainer & Developer"
 msgstr "受信用户 & 开发者"
 
 #: template/account_details.php template/account_edit_form.php
@@ -1333,10 +1333,6 @@ msgstr "您的用户名称将用于您的登录。这是公开的，即使您的
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "普通用户"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Trusted user"
-msgstr "受信用户"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
@@ -1832,14 +1828,14 @@ msgstr "合并到"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Trusted User to delete the "
+"By submitting a deletion request, you ask a Package Maintainer to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr "通过提交删除请求，您请求受信用户进行包基础的删除。这种请求应当被用于重复，软件被上游放弃，非法或损坏且无法修复的软件包。"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Trusted User to delete the package "
+"By submitting a merge request, you ask a Package Maintainer to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
@@ -1847,7 +1843,7 @@ msgstr "通过提交合并请求，您请求受信用户进行包基础的删除
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting an orphan request, you ask a Trusted User to disown the "
+"By submitting an orphan request, you ask a Package Maintainer to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
@@ -2100,7 +2096,7 @@ msgid "Registered Users"
 msgstr "注册用户"
 
 #: template/stats/general_stats_table.php
-msgid "Trusted Users"
+msgid "Package Maintainers"
 msgstr "受信用户"
 
 #: template/stats/updates_table.php
@@ -2286,7 +2282,7 @@ msgstr "用户 {user} [1] 删除了软件包 {pkgbase} [2]。\n\n您将不再收
 
 #: scripts/notify.py
 #, python-brace-format
-msgid "TU Vote Reminder: Proposal {id}"
+msgid "Package Maintainer Vote Reminder: Proposal {id}"
 msgstr "受信用户投票提醒：提案 {id}"
 
 #: scripts/notify.py

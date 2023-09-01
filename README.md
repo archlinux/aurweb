@@ -11,8 +11,8 @@ The aurweb project includes
 * A web interface to search for packaging scripts and display package details.
 * An SSH/Git interface to submit and update packages and package meta data.
 * Community features such as comments, votes, package flagging and requests.
-* Editing/deletion of packages and accounts by Trusted Users and Developers.
-* Area for Trusted Users to post AUR-related proposals and vote on them.
+* Editing/deletion of packages and accounts by Package Maintainers and Developers.
+* Area for Package Maintainers to post AUR-related proposals and vote on them.
 
 Directory Layout
 ----------------
