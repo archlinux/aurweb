@@ -62,7 +62,7 @@ def redis():
             "package_count",
             "orphan_count",
             "user_count",
-            "trusted_user_count",
+            "package_maintainer_count",
             "seven_days_old_added",
             "seven_days_old_updated",
             "year_old_updated",

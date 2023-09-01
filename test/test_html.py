@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 
 from aurweb import asgi, config, db
 from aurweb.models import PackageBase
-from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
+from aurweb.models.account_type import PACKAGE_MAINTAINER_ID, USER_ID
 from aurweb.models.user import User
 from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
@@ -42,9 +42,9 @@ def user() -> User:
 
 
 @pytest.fixture
-def trusted_user(user: User) -> User:
+def package_maintainer(user: User) -> User:
     with db.begin():
-        user.AccountTypeID = TRUSTED_USER_ID
+        user.AccountTypeID = PACKAGE_MAINTAINER_ID
     yield user
 
 
@@ -81,7 +81,7 @@ def test_archdev_navbar_authenticated(client: TestClient, user: User):
         assert item.text.strip() == expected[i]
 
 
-def test_archdev_navbar_authenticated_tu(client: TestClient, trusted_user: User):
+def test_archdev_navbar_authenticated_tu(client: TestClient, package_maintainer: User):
     expected = [
         "Dashboard",
         "Packages",
@@ -91,7 +91,7 @@ def test_archdev_navbar_authenticated_tu(client: TestClient, trusted_user: User)
         "Trusted User",
         "Logout",
     ]
-    cookies = {"AURSID": trusted_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": package_maintainer.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get("/")

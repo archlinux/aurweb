@@ -3,7 +3,7 @@ from sqlalchemy.exc import IntegrityError
 
 from aurweb import db, time
 from aurweb.db import create, rollback
-from aurweb.models.account_type import TRUSTED_USER_ID
+from aurweb.models.account_type import PACKAGE_MAINTAINER_ID
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
 
@@ -22,7 +22,7 @@ def user() -> User:
             Email="test@example.org",
             RealName="Test User",
             Passwd="testPassword",
-            AccountTypeID=TRUSTED_USER_ID,
+            AccountTypeID=PACKAGE_MAINTAINER_ID,
         )
     yield user
 

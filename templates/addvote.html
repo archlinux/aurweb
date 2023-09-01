@@ -19,22 +19,22 @@
             <p class="vote-type">
                 <label for="id_type">{{ "Type" | tr }}</label>
                 <select name="type" id="id_type">
-                    <option value="add_tu"
-                        {% if "add_tu" == type %}
+                    <option value="add_pm"
+                        {% if "add_pm" == type %}
                             selected
                         {% endif %}
                     >
                         {{ "Addition of a TU" | tr }}
                     </option>
-                    <option value="remove_tu"
-                        {% if "remove_tu" == type %}
+                    <option value="remove_pm"
+                        {% if "remove_pm" == type %}
                             selected
                         {% endif %}
                     >
                         {{ "Removal of a TU" | tr }}
                     </option>
-                    <option value="remove_inactive_tu"
-                        {% if "remove_inactive_tu" == type %}
+                    <option value="remove_inactive_pm"
+                        {% if "remove_inactive_pm" == type %}
                             selected
                         {% endif %}
                     >

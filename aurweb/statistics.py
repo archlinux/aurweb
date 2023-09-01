@@ -3,7 +3,11 @@ from sqlalchemy import func
 from aurweb import config, db, time
 from aurweb.cache import db_count_cache, db_query_cache
 from aurweb.models import PackageBase, PackageRequest, RequestType, User
-from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, USER_ID
+from aurweb.models.account_type import (
+    PACKAGE_MAINTAINER_AND_DEV_ID,
+    PACKAGE_MAINTAINER_ID,
+    USER_ID,
+)
 from aurweb.models.package_request import (
     ACCEPTED_ID,
     CLOSED_ID,
@@ -22,7 +26,7 @@ HOMEPAGE_COUNTERS = [
     "year_old_updated",
     "never_updated",
     "user_count",
-    "trusted_user_count",
+    "package_maintainer_count",
 ]
 REQUEST_COUNTERS = [
     "total_requests",
@@ -32,7 +36,7 @@ REQUEST_COUNTERS = [
     "rejected_requests",
 ]
 PROMETHEUS_USER_COUNTERS = [
-    ("trusted_user_count", "tu"),
+    ("package_maintainer_count", "package_maintainer"),
     ("regular_user_count", "user"),
 ]
 PROMETHEUS_PACKAGE_COUNTERS = [
@@ -92,12 +96,12 @@ class Statistics:
             # Users
             case "user_count":
                 query = self.user_query
-            case "trusted_user_count":
+            case "package_maintainer_count":
                 query = self.user_query.filter(
                     User.AccountTypeID.in_(
                         (
-                            TRUSTED_USER_ID,
-                            TRUSTED_USER_AND_DEV_ID,
+                            PACKAGE_MAINTAINER_ID,
+                            PACKAGE_MAINTAINER_AND_DEV_ID,
                         )
                     )
                 )

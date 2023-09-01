@@ -184,9 +184,9 @@ def make_account_form_context(
             lambda e: request.user.AccountTypeID >= e[0],
             [
                 (at.USER_ID, f"Normal {at.USER}"),
-                (at.TRUSTED_USER_ID, at.TRUSTED_USER),
+                (at.PACKAGE_MAINTAINER_ID, at.PACKAGE_MAINTAINER),
                 (at.DEVELOPER_ID, at.DEVELOPER),
-                (at.TRUSTED_USER_AND_DEV_ID, at.TRUSTED_USER_AND_DEV),
+                (at.PACKAGE_MAINTAINER_AND_DEV_ID, at.PACKAGE_MAINTAINER_AND_DEV),
             ],
         )
     )
@@ -520,7 +520,9 @@ async def account_comments(request: Request, username: str):
 
 @router.get("/accounts")
 @requires_auth
-@account_type_required({at.TRUSTED_USER, at.DEVELOPER, at.TRUSTED_USER_AND_DEV})
+@account_type_required(
+    {at.PACKAGE_MAINTAINER, at.DEVELOPER, at.PACKAGE_MAINTAINER_AND_DEV}
+)
 async def accounts(request: Request):
     context = make_context(request, "Accounts")
     return render_template(request, "account/search.html", context)
@@ -529,7 +531,9 @@ async def accounts(request: Request):
 @router.post("/accounts")
 @handle_form_exceptions
 @requires_auth
-@account_type_required({at.TRUSTED_USER, at.DEVELOPER, at.TRUSTED_USER_AND_DEV})
+@account_type_required(
+    {at.PACKAGE_MAINTAINER, at.DEVELOPER, at.PACKAGE_MAINTAINER_AND_DEV}
+)
 async def accounts_post(
     request: Request,
     O: int = Form(default=0),  # Offset
@@ -564,9 +568,9 @@ async def accounts_post(
     # Convert parameter T to an AccountType ID.
     account_types = {
         "u": at.USER_ID,
-        "t": at.TRUSTED_USER_ID,
+        "t": at.PACKAGE_MAINTAINER_ID,
         "d": at.DEVELOPER_ID,
-        "td": at.TRUSTED_USER_AND_DEV_ID,
+        "td": at.PACKAGE_MAINTAINER_AND_DEV_ID,
     }
     account_type_id = account_types.get(T, None)
 

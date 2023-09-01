@@ -156,9 +156,9 @@ contents = None
 # developer/tu IDs
 #
 developers = []
-trustedusers = []
+packagemaintainers = []
 has_devs = 0
-has_tus = 0
+has_pms = 0
 
 # Just let python throw the errors if any happen
 #
@@ -170,7 +170,7 @@ out.write("BEGIN;\n")
 log.debug("Creating SQL statements for users.")
 for u in user_keys:
     account_type = 1  # default to normal user
-    if not has_devs or not has_tus:
+    if not has_devs or not has_pms:
         account_type = random.randrange(1, 4)
         if account_type == 3 and not has_devs:
             # this will be a dev account
@@ -178,12 +178,12 @@ for u in user_keys:
             developers.append(seen_users[u])
             if len(developers) >= MAX_DEVS * MAX_USERS:
                 has_devs = 1
-        elif account_type == 2 and not has_tus:
+        elif account_type == 2 and not has_pms:
             # this will be a trusted user account
             #
-            trustedusers.append(seen_users[u])
-            if len(trustedusers) >= MAX_TUS * MAX_USERS:
-                has_tus = 1
+            packagemaintainers.append(seen_users[u])
+            if len(packagemaintainers) >= MAX_TUS * MAX_USERS:
+                has_pms = 1
         else:
             # a normal user account
             #
@@ -205,8 +205,10 @@ for u in user_keys:
     out.write(s)
 
 log.debug("Number of developers: %d" % len(developers))
-log.debug("Number of trusted users: %d" % len(trustedusers))
-log.debug("Number of users: %d" % (MAX_USERS - len(developers) - len(trustedusers)))
+log.debug("Number of package maintainers: %d" % len(packagemaintainers))
+log.debug(
+    "Number of users: %d" % (MAX_USERS - len(developers) - len(packagemaintainers))
+)
 log.debug("Number of packages: %d" % MAX_PKGS)
 
 log.debug("Gathering text from fortune file...")
@@ -224,8 +226,8 @@ for p in list(seen_pkgs.keys()):
         muid = developers[random.randrange(0, len(developers))]
         puid = developers[random.randrange(0, len(developers))]
     else:
-        muid = trustedusers[random.randrange(0, len(trustedusers))]
-        puid = trustedusers[random.randrange(0, len(trustedusers))]
+        muid = packagemaintainers[random.randrange(0, len(packagemaintainers))]
+        puid = packagemaintainers[random.randrange(0, len(packagemaintainers))]
     if count % 20 == 0:  # every so often, there are orphans...
         muid = "NULL"
 
@@ -339,7 +341,7 @@ for p in seen_pkgs_keys:
 
 # Create trusted user proposals
 #
-log.debug("Creating SQL statements for trusted user proposals.")
+log.debug("Creating SQL statements for package maintainer proposals.")
 count = 0
 for t in range(0, OPEN_PROPOSALS + CLOSE_PROPOSALS):
     now = int(time.time())
@@ -353,7 +355,7 @@ for t in range(0, OPEN_PROPOSALS + CLOSE_PROPOSALS):
         user = ""
     else:
         user = user_keys[random.randrange(0, len(user_keys))]
-    suid = trustedusers[random.randrange(0, len(trustedusers))]
+    suid = packagemaintainers[random.randrange(0, len(packagemaintainers))]
     s = (
         "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End,"
         " Quorum, SubmitterID) VALUES ('%s', '%s', %d, %d, 0.0, %d);\n"

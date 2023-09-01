@@ -4,7 +4,7 @@
             <option value="unflag">{{ "Unflag Out-of-date" | tr }}</option>
             <option value="adopt">{{ "Adopt Packages" | tr }}</option>
             <option value="disown">{{ "Disown Packages" | tr }}</option>
-        {% if request.user.is_trusted_user() or request.user.is_developer() %}
+        {% if request.user.is_package_maintainer() or request.user.is_developer() %}
             <option value="delete">{{ "Delete Packages" | tr }}</option>
         {% endif %}
         <option value="notify">{{ "Notify" | tr }}</option>

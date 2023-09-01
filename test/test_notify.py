@@ -5,7 +5,7 @@ import pytest
 
 from aurweb import config, db, models, time
 from aurweb.models import Package, PackageBase, PackageRequest, User
-from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
+from aurweb.models.account_type import PACKAGE_MAINTAINER_ID, USER_ID
 from aurweb.models.request_type import ORPHAN_ID
 from aurweb.scripts import notify, rendercomment
 from aurweb.testing.email import Email
@@ -393,7 +393,7 @@ please go to [3] and click "Disable notifications".
 def set_tu(users: list[User]) -> User:
     with db.begin():
         for user in users:
-            user.AccountTypeID = TRUSTED_USER_ID
+            user.AccountTypeID = PACKAGE_MAINTAINER_ID
 
 
 def test_open_close_request(

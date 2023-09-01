@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 
 from aurweb import asgi, config, db, defaults, time
 from aurweb.models import Package, PackageBase, PackageRequest, User
-from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
+from aurweb.models.account_type import PACKAGE_MAINTAINER_ID, USER_ID
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
@@ -161,7 +161,7 @@ def tu_user() -> User:
     """Yield an authenticated Trusted User instance."""
     user = create_user("test_tu", "test_tu@example.org")
     with db.begin():
-        user.AccountTypeID = TRUSTED_USER_ID
+        user.AccountTypeID = PACKAGE_MAINTAINER_ID
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     user.cookies = cookies
     yield user

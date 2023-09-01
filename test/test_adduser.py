@@ -48,12 +48,12 @@ def test_adduser_tu():
             "-p",
             "abcd1234",
             "-t",
-            at.TRUSTED_USER,
+            at.PACKAGE_MAINTAINER,
         ]
     )
     test = db.query(User).filter(User.Username == "test").first()
     assert test is not None
-    assert test.AccountTypeID == at.TRUSTED_USER_ID
+    assert test.AccountTypeID == at.PACKAGE_MAINTAINER_ID
 
 
 def test_adduser_ssh_pk():

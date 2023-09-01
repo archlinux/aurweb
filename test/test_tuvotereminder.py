@@ -4,7 +4,7 @@ import pytest
 
 from aurweb import config, db, time
 from aurweb.models import TUVote, TUVoteInfo, User
-from aurweb.models.account_type import TRUSTED_USER_ID
+from aurweb.models.account_type import PACKAGE_MAINTAINER_ID
 from aurweb.scripts import tuvotereminder as reminder
 from aurweb.testing.email import Email
 
@@ -47,17 +47,17 @@ def email_pieces(voteinfo: TUVoteInfo) -> Tuple[str, str]:
 
 @pytest.fixture
 def user(db_test) -> User:
-    yield create_user("test", TRUSTED_USER_ID)
+    yield create_user("test", PACKAGE_MAINTAINER_ID)
 
 
 @pytest.fixture
 def user2() -> User:
-    yield create_user("test2", TRUSTED_USER_ID)
+    yield create_user("test2", PACKAGE_MAINTAINER_ID)
 
 
 @pytest.fixture
 def user3() -> User:
-    yield create_user("test3", TRUSTED_USER_ID)
+    yield create_user("test3", PACKAGE_MAINTAINER_ID)
 
 
 @pytest.fixture

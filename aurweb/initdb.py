@@ -13,9 +13,9 @@ def feed_initial_data(conn):
         aurweb.schema.AccountTypes.insert(),
         [
             {"ID": 1, "AccountType": "User"},
-            {"ID": 2, "AccountType": "Trusted User"},
+            {"ID": 2, "AccountType": "Package Maintainer"},
             {"ID": 3, "AccountType": "Developer"},
-            {"ID": 4, "AccountType": "Trusted User & Developer"},
+            {"ID": 4, "AccountType": "Package Maintainer & Developer"},
         ],
     )
     conn.execute(

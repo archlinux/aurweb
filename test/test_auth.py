@@ -137,9 +137,9 @@ def test_account_type_required():
         account_type_required({"FAKE"})
 
 
-def test_is_trusted_user():
+def test_is_package_maintainer():
     user_ = AnonymousUser()
-    assert not user_.is_trusted_user()
+    assert not user_.is_package_maintainer()
 
 
 def test_is_developer():

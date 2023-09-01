@@ -2,21 +2,21 @@ from aurweb import schema
 from aurweb.models.declarative import Base
 
 USER = "User"
-TRUSTED_USER = "Trusted User"
+PACKAGE_MAINTAINER = "Package Maintainer"
 DEVELOPER = "Developer"
-TRUSTED_USER_AND_DEV = "Trusted User & Developer"
+PACKAGE_MAINTAINER_AND_DEV = "Package Maintainer & Developer"
 
 USER_ID = 1
-TRUSTED_USER_ID = 2
+PACKAGE_MAINTAINER_ID = 2
 DEVELOPER_ID = 3
-TRUSTED_USER_AND_DEV_ID = 4
+PACKAGE_MAINTAINER_AND_DEV_ID = 4
 
 # Map string constants to integer constants.
 ACCOUNT_TYPE_ID = {
     USER: USER_ID,
-    TRUSTED_USER: TRUSTED_USER_ID,
+    PACKAGE_MAINTAINER: PACKAGE_MAINTAINER_ID,
     DEVELOPER: DEVELOPER_ID,
-    TRUSTED_USER_AND_DEV: TRUSTED_USER_AND_DEV_ID,
+    PACKAGE_MAINTAINER_AND_DEV: PACKAGE_MAINTAINER_AND_DEV_ID,
 }
 
 # Reversed ACCOUNT_TYPE_ID mapping.

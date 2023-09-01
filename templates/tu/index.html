@@ -7,11 +7,11 @@
             <tbody>
                 <tr>
                     <td>{{ "Total" | tr }} {{ "Trusted Users" | tr }}:</td>
-                    <td>{{ trusted_user_count }}</td>
+                    <td>{{ package_maintainer_count }}</td>
                 </tr>
                 <tr>
                     <td>{{ "Active" | tr }} {{ "Trusted Users" | tr }}:</td>
-                    <td>{{ active_trusted_user_count }}</td>
+                    <td>{{ active_package_maintainer_count }}</td>
                 </tr>
             </tbody>
         </table>
@@ -45,7 +45,7 @@
         {% include "partials/tu/proposals.html" %}
     {% endwith %}
 
-    {% with title = "Last Votes by TU", votes = last_votes_by_tu %}
+    {% with title = "Last Votes by TU", votes = last_votes_by_pm %}
         {% include "partials/tu/last_votes.html" %}
     {% endwith %}
 {% endblock %}

@@ -117,7 +117,9 @@ def comaintainer() -> User:
 
 @pytest.fixture
 def tu_user():
-    tu_type = db.query(AccountType, AccountType.AccountType == "Trusted User").first()
+    tu_type = db.query(
+        AccountType, AccountType.AccountType == "Package Maintainer"
+    ).first()
     with db.begin():
         tu_user = db.create(
             User,

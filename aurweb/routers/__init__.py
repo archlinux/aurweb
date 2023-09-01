@@ -7,13 +7,13 @@ from . import (
     accounts,
     auth,
     html,
+    package_maintainer,
     packages,
     pkgbase,
     requests,
     rpc,
     rss,
     sso,
-    trusted_user,
 )
 
 """
@@ -28,7 +28,7 @@ APP_ROUTES = [
     packages,
     pkgbase,
     requests,
-    trusted_user,
+    package_maintainer,
     rss,
     rpc,
     sso,

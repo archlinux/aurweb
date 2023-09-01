@@ -71,7 +71,7 @@ class AnonymousUser:
         return False
 
     @staticmethod
-    def is_trusted_user():
+    def is_package_maintainer():
         return False
 
     @staticmethod
@@ -205,7 +205,7 @@ def account_type_required(one_of: set):
 
     @router.get('/some_route')
     @auth_required(True)
-    @account_type_required({"Trusted User", "Trusted User & Developer"})
+    @account_type_required({"Package Maintainer", "Package Maintainer & Developer"})
     async def some_route(request: fastapi.Request):
         return Response()
 

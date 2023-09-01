@@ -3,7 +3,7 @@ from prometheus_client import REGISTRY, generate_latest
 
 from aurweb import cache, db, prometheus, time
 from aurweb.models import Package, PackageBase, PackageRequest
-from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
+from aurweb.models.account_type import PACKAGE_MAINTAINER_ID, USER_ID
 from aurweb.models.package_request import (
     ACCEPTED_ID,
     CLOSED_ID,
@@ -64,7 +64,7 @@ def test_data():
 
             # Modify some data to get some variances for our counters
             if i == 1:
-                user.AccountTypeID = TRUSTED_USER_ID
+                user.AccountTypeID = PACKAGE_MAINTAINER_ID
                 pkgbase.Maintainer = None
                 pkgbase.SubmittedTS = now
                 pkgreq.Status = PENDING_ID
@@ -99,7 +99,7 @@ def stats() -> Statistics:
         ("year_old_updated", 9),
         ("never_updated", 1),
         ("user_count", 10),
-        ("trusted_user_count", 1),
+        ("package_maintainer_count", 1),
         ("regular_user_count", 9),
         ("updated_packages", 9),
         ("total_requests", 10),
@@ -116,7 +116,7 @@ def test_get_count(stats: Statistics, test_data, counter: str, expected: int):
 
 def test_get_count_change(stats: Statistics, test_data):
     pkgs_before = stats.get_count("package_count")
-    tus_before = stats.get_count("trusted_user_count")
+    tus_before = stats.get_count("package_maintainer_count")
 
     assert pkgs_before == 10
     assert tus_before == 1
@@ -127,16 +127,16 @@ def test_get_count_change(stats: Statistics, test_data):
         db.delete(pkgbase)
 
         user = db.query(User).filter(User.AccountTypeID == USER_ID).first()
-        user.AccountTypeID = TRUSTED_USER_ID
+        user.AccountTypeID = PACKAGE_MAINTAINER_ID
 
     # Values should end up in (fake) redis cache so they should be the same
     assert stats.get_count("package_count") == pkgs_before
-    assert stats.get_count("trusted_user_count") == tus_before
+    assert stats.get_count("package_maintainer_count") == tus_before
 
     # Let's clear the cache and check again
     cache._redis.flushall()
     assert stats.get_count("package_count") != pkgs_before
-    assert stats.get_count("trusted_user_count") != tus_before
+    assert stats.get_count("package_maintainer_count") != tus_before
 
 
 def test_update_prometheus_metrics(test_data):

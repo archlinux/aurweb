@@ -17,9 +17,9 @@ from aurweb.db import create, query
 from aurweb.models.accepted_term import AcceptedTerm
 from aurweb.models.account_type import (
     DEVELOPER_ID,
-    TRUSTED_USER,
-    TRUSTED_USER_AND_DEV_ID,
-    TRUSTED_USER_ID,
+    PACKAGE_MAINTAINER,
+    PACKAGE_MAINTAINER_AND_DEV_ID,
+    PACKAGE_MAINTAINER_ID,
     USER_ID,
     AccountType,
 )
@@ -98,7 +98,7 @@ def user() -> User:
 @pytest.fixture
 def tu_user(user: User):
     with db.begin():
-        user.AccountTypeID = TRUSTED_USER_AND_DEV_ID
+        user.AccountTypeID = PACKAGE_MAINTAINER_AND_DEV_ID
     yield user
 
 
@@ -661,7 +661,7 @@ def test_get_account_edit_tu_as_tu(client: TestClient, tu_user: User):
     """Test edit get route of another TU as a TU."""
     with db.begin():
         user2 = create_user("test2")
-        user2.AccountTypeID = at.TRUSTED_USER_ID
+        user2.AccountTypeID = at.PACKAGE_MAINTAINER_ID
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
@@ -672,10 +672,10 @@ def test_get_account_edit_tu_as_tu(client: TestClient, tu_user: User):
     assert response.status_code == int(HTTPStatus.OK)
 
     # Verify that we have an account type selection and that the
-    # "{at.TRUSTED_USER}" option is selected.
+    # "{at.PACKAGE_MAINTAINER}" option is selected.
     root = parse_root(response.text)
     atype = root.xpath('//select[@id="id_type"]/option[@selected="selected"]')
-    expected = at.TRUSTED_USER
+    expected = at.PACKAGE_MAINTAINER
     assert atype[0].text.strip() == expected
 
     username = root.xpath('//input[@id="id_username"]')[0]
@@ -836,7 +836,7 @@ def test_post_account_edit_type_as_dev(client: TestClient, tu_user: User):
 def test_post_account_edit_invalid_type_as_tu(client: TestClient, tu_user: User):
     with db.begin():
         user2 = create_user("test_tu")
-        tu_user.AccountTypeID = at.TRUSTED_USER_ID
+        tu_user.AccountTypeID = at.PACKAGE_MAINTAINER_ID
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
@@ -861,8 +861,8 @@ def test_post_account_edit_invalid_type_as_tu(client: TestClient, tu_user: User)
 
 
 def test_post_account_edit_dev(client: TestClient, tu_user: User):
-    # Modify our user to be a "Trusted User & Developer"
-    name = "Trusted User & Developer"
+    # Modify our user to be a "Package Maintainer & Developer"
+    name = "Package Maintainer & Developer"
     tu_or_dev = query(AccountType, AccountType.AccountType == name).first()
     with db.begin():
         user.AccountType = tu_or_dev
@@ -1004,7 +1004,7 @@ def test_post_account_edit_suspend_unauthorized(client: TestClient, user: User):
 
 def test_post_account_edit_inactivity(client: TestClient, user: User):
     with db.begin():
-        user.AccountTypeID = TRUSTED_USER_ID
+        user.AccountTypeID = PACKAGE_MAINTAINER_ID
     assert not user.Suspended
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -1033,7 +1033,7 @@ def test_post_account_edit_inactivity(client: TestClient, user: User):
 
 def test_post_account_edit_suspended(client: TestClient, user: User):
     with db.begin():
-        user.AccountTypeID = TRUSTED_USER_ID
+        user.AccountTypeID = PACKAGE_MAINTAINER_ID
     assert not user.Suspended
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -1223,7 +1223,7 @@ def test_post_account_edit_self_type_as_user(client: TestClient, user: User):
     data = {
         "U": user.Username,
         "E": user.Email,
-        "T": TRUSTED_USER_ID,
+        "T": PACKAGE_MAINTAINER_ID,
         "passwd": "testPassword",
     }
     with client as request:
@@ -1298,7 +1298,7 @@ def test_post_account_edit_other_user_type_as_tu(
     data = {
         "U": user2.Username,
         "E": user2.Email,
-        "T": TRUSTED_USER_ID,
+        "T": PACKAGE_MAINTAINER_ID,
         "passwd": "testPassword",
     }
 
@@ -1308,13 +1308,13 @@ def test_post_account_edit_other_user_type_as_tu(
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Let's make sure the DB got updated properly.
-    assert user2.AccountTypeID == TRUSTED_USER_ID
+    assert user2.AccountTypeID == PACKAGE_MAINTAINER_ID
 
     # and also that this got logged out at DEBUG level.
     expected = (
-        f"Trusted User '{tu_user.Username}' has "
+        f"Package Maintainer '{tu_user.Username}' has "
         f"modified '{user2.Username}' account's type to"
-        f" {TRUSTED_USER}."
+        f" {PACKAGE_MAINTAINER}."
     )
     assert expected in caplog.text
 
@@ -1601,7 +1601,7 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
     # Set our only user to a Trusted User.
     with db.begin():
         user.AccountType = (
-            query(AccountType).filter(AccountType.ID == TRUSTED_USER_ID).first()
+            query(AccountType).filter(AccountType.ID == PACKAGE_MAINTAINER_ID).first()
         )
 
     with client as request:
@@ -1615,7 +1615,7 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
     row = next(iter(rows))
     username, type, status, realname, irc, pgp_key, edit = row
 
-    assert type.text.strip() == "Trusted User"
+    assert type.text.strip() == "Package Maintainer"
 
     with db.begin():
         user.AccountType = (
@@ -1637,7 +1637,9 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
 
     with db.begin():
         user.AccountType = (
-            query(AccountType).filter(AccountType.ID == TRUSTED_USER_AND_DEV_ID).first()
+            query(AccountType)
+            .filter(AccountType.ID == PACKAGE_MAINTAINER_AND_DEV_ID)
+            .first()
         )
 
     with client as request:
@@ -1651,7 +1653,7 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
     row = next(iter(rows))
     username, type, status, realname, irc, pgp_key, edit = row
 
-    assert type.text.strip() == "Trusted User & Developer"
+    assert type.text.strip() == "Package Maintainer & Developer"
 
 
 def test_post_accounts_status(client: TestClient, user: User, tu_user: User):
@@ -1783,7 +1785,9 @@ def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
 
     with db.begin():
         user.AccountType = (
-            query(AccountType).filter(AccountType.ID == TRUSTED_USER_AND_DEV_ID).first()
+            query(AccountType)
+            .filter(AccountType.ID == PACKAGE_MAINTAINER_AND_DEV_ID)
+            .first()
         )
 
     # Fetch first_rows again with our new AccountType ordering.

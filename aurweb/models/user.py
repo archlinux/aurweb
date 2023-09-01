@@ -157,25 +157,25 @@ class User(Base):
             with db.begin():
                 db.delete(self.session)
 
-    def is_trusted_user(self):
+    def is_package_maintainer(self):
         return self.AccountType.ID in {
-            aurweb.models.account_type.TRUSTED_USER_ID,
-            aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID,
+            aurweb.models.account_type.PACKAGE_MAINTAINER_ID,
+            aurweb.models.account_type.PACKAGE_MAINTAINER_AND_DEV_ID,
         }
 
     def is_developer(self):
         return self.AccountType.ID in {
             aurweb.models.account_type.DEVELOPER_ID,
-            aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID,
+            aurweb.models.account_type.PACKAGE_MAINTAINER_AND_DEV_ID,
         }
 
     def is_elevated(self):
         """A User is 'elevated' when they have either a
         Trusted User or Developer AccountType."""
         return self.AccountType.ID in {
-            aurweb.models.account_type.TRUSTED_USER_ID,
+            aurweb.models.account_type.PACKAGE_MAINTAINER_ID,
             aurweb.models.account_type.DEVELOPER_ID,
-            aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID,
+            aurweb.models.account_type.PACKAGE_MAINTAINER_AND_DEV_ID,
         }
 
     def can_edit_user(self, target: "User") -> bool:

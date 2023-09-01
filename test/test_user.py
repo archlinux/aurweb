@@ -12,8 +12,8 @@ from aurweb import db
 from aurweb.auth import creds
 from aurweb.models.account_type import (
     DEVELOPER_ID,
-    TRUSTED_USER_AND_DEV_ID,
-    TRUSTED_USER_ID,
+    PACKAGE_MAINTAINER_AND_DEV_ID,
+    PACKAGE_MAINTAINER_ID,
     USER_ID,
 )
 from aurweb.models.ban import Ban
@@ -53,7 +53,7 @@ def user() -> User:
 
 @pytest.fixture
 def tu_user() -> User:
-    user = create_user("test_tu", TRUSTED_USER_ID)
+    user = create_user("test_tu", PACKAGE_MAINTAINER_ID)
     yield user
 
 
@@ -65,7 +65,7 @@ def dev_user() -> User:
 
 @pytest.fixture
 def tu_and_dev_user() -> User:
-    user = create_user("test_tu_and_dev", TRUSTED_USER_AND_DEV_ID)
+    user = create_user("test_tu_and_dev", PACKAGE_MAINTAINER_AND_DEV_ID)
     yield user
 
 
@@ -207,33 +207,33 @@ def test_user_ssh_pub_key(user: User):
 
 
 def test_user_credential_types(user: User):
-    assert user.AccountTypeID in creds.user_developer_or_trusted_user
-    assert user.AccountTypeID not in creds.trusted_user
+    assert user.AccountTypeID in creds.user_developer_or_package_maintainer
+    assert user.AccountTypeID not in creds.package_maintainer
     assert user.AccountTypeID not in creds.developer
-    assert user.AccountTypeID not in creds.trusted_user_or_dev
+    assert user.AccountTypeID not in creds.package_maintainer_or_dev
 
     with db.begin():
-        user.AccountTypeID = at.TRUSTED_USER_ID
+        user.AccountTypeID = at.PACKAGE_MAINTAINER_ID
 
-    assert user.AccountTypeID in creds.trusted_user
-    assert user.AccountTypeID in creds.trusted_user_or_dev
+    assert user.AccountTypeID in creds.package_maintainer
+    assert user.AccountTypeID in creds.package_maintainer_or_dev
 
     with db.begin():
         user.AccountTypeID = at.DEVELOPER_ID
 
     assert user.AccountTypeID in creds.developer
-    assert user.AccountTypeID in creds.trusted_user_or_dev
+    assert user.AccountTypeID in creds.package_maintainer_or_dev
 
     with db.begin():
-        user.AccountTypeID = at.TRUSTED_USER_AND_DEV_ID
+        user.AccountTypeID = at.PACKAGE_MAINTAINER_AND_DEV_ID
 
-    assert user.AccountTypeID in creds.trusted_user
+    assert user.AccountTypeID in creds.package_maintainer
     assert user.AccountTypeID in creds.developer
-    assert user.AccountTypeID in creds.trusted_user_or_dev
+    assert user.AccountTypeID in creds.package_maintainer_or_dev
 
     # Some model authorization checks.
     assert user.is_elevated()
-    assert user.is_trusted_user()
+    assert user.is_package_maintainer()
     assert user.is_developer()
 
 
@@ -255,15 +255,15 @@ def test_user_as_dict(user: User):
     assert isinstance(data.get("RegistrationTS"), datetime)
 
 
-def test_user_is_trusted_user(user: User):
+def test_user_is_package_maintainer(user: User):
     with db.begin():
-        user.AccountTypeID = at.TRUSTED_USER_ID
-    assert user.is_trusted_user() is True
+        user.AccountTypeID = at.PACKAGE_MAINTAINER_ID
+    assert user.is_package_maintainer() is True
 
     # Do it again with the combined role.
     with db.begin():
-        user.AccountTypeID = at.TRUSTED_USER_AND_DEV_ID
-    assert user.is_trusted_user() is True
+        user.AccountTypeID = at.PACKAGE_MAINTAINER_AND_DEV_ID
+    assert user.is_package_maintainer() is True
 
 
 def test_user_is_developer(user: User):
@@ -273,7 +273,7 @@ def test_user_is_developer(user: User):
 
     # Do it again with the combined role.
     with db.begin():
-        user.AccountTypeID = at.TRUSTED_USER_AND_DEV_ID
+        user.AccountTypeID = at.PACKAGE_MAINTAINER_AND_DEV_ID
     assert user.is_developer() is True
 
 

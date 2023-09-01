@@ -8,7 +8,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from aurweb import config, db, filters, time
-from aurweb.models.account_type import DEVELOPER_ID, TRUSTED_USER_ID, AccountType
+from aurweb.models.account_type import DEVELOPER_ID, PACKAGE_MAINTAINER_ID, AccountType
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
@@ -90,7 +90,9 @@ def client():
 
 @pytest.fixture
 def tu_user():
-    tu_type = db.query(AccountType, AccountType.AccountType == "Trusted User").first()
+    tu_type = db.query(
+        AccountType, AccountType.AccountType == "Package Maintainer"
+    ).first()
     with db.begin():
         tu_user = db.create(
             User,
@@ -112,7 +114,7 @@ def tu_user2():
             Email="test_tu2@example.org",
             RealName="Test TU 2",
             Passwd="testPassword",
-            AccountTypeID=TRUSTED_USER_ID,
+            AccountTypeID=PACKAGE_MAINTAINER_ID,
         )
     yield tu_user2
 
@@ -918,7 +920,7 @@ def test_tu_addvote_invalid_type(client: TestClient, tu_user: User):
 def test_tu_addvote_post(client: TestClient, tu_user: User, user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
 
-    data = {"user": user.Username, "type": "add_tu", "agenda": "Blah"}
+    data = {"user": user.Username, "type": "add_pm", "agenda": "Blah"}
 
     with client as request:
         request.cookies = cookies
@@ -934,7 +936,7 @@ def test_tu_addvote_post_cant_duplicate_username(
 ):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
 
-    data = {"user": user.Username, "type": "add_tu", "agenda": "Blah"}
+    data = {"user": user.Username, "type": "add_pm", "agenda": "Blah"}
 
     with client as request:
         request.cookies = cookies
@@ -970,7 +972,7 @@ def test_tu_addvote_post_invalid_type(client: TestClient, tu_user: User, user: U
 
 def test_tu_addvote_post_invalid_agenda(client: TestClient, tu_user: User, user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
-    data = {"user": user.Username, "type": "add_tu"}
+    data = {"user": user.Username, "type": "add_pm"}
     with client as request:
         request.cookies = cookies
         response = request.post("/addvote", data=data)
