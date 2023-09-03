@@ -10,8 +10,10 @@ from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_notification import PackageNotification
+from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
+from aurweb.models.relation_type import PROVIDES_ID
 from aurweb.models.user import User
 from aurweb.packages import util
 
@@ -155,3 +157,41 @@ def test_pkg_required(package: Package):
 
     # We should have 1 record
     assert qry.count() == 1
+
+
+def test_provides_markup(package: Package):
+    # Create dependency and provider for AUR pkg
+    with db.begin():
+        dep = db.create(
+            PackageDependency,
+            Package=package,
+            DepName="test",
+            DepTypeID=DEPENDS_ID,
+        )
+        rel_pkg = db.create(Package, PackageBase=package.PackageBase, Name=dep.DepName)
+        db.create(
+            PackageRelation,
+            Package=rel_pkg,
+            RelName=dep.DepName,
+            RelTypeID=PROVIDES_ID,
+        )
+
+    # AUR provider links should end with ᴬᵁᴿ
+    link = util.provides_markup(dep.provides())
+    assert link.endswith("</a>ᴬᵁᴿ")
+    assert OFFICIAL_BASE not in link
+
+    # Remove AUR provider and add official one
+    with db.begin():
+        db.delete(rel_pkg)
+        db.create(
+            OfficialProvider,
+            Name="official-pkg",
+            Repo="extra",
+            Provides=dep.DepName,
+        )
+
+    # Repo provider links should not have any suffix
+    link = util.provides_markup(dep.provides())
+    assert link.endswith("</a>")
+    assert OFFICIAL_BASE in link

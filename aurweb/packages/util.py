@@ -83,9 +83,11 @@ def package_link(package: Union[Package, OfficialProvider]) -> str:
 
 @register_filter("provides_markup")
 def provides_markup(provides: Providers) -> str:
-    return ", ".join(
-        [f'<a href="{package_link(pkg)}">{pkg.Name}</a>' for pkg in provides]
-    )
+    links = []
+    for pkg in provides:
+        aur = "ᴬᵁᴿ" if not pkg.is_official else ""
+        links.append(f'<a href="{package_link(pkg)}">{pkg.Name}</a>{aur}')
+    return ", ".join(links)
 
 
 def get_pkg_or_base(

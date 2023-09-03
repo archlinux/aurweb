@@ -57,14 +57,17 @@ class PackageDependency(Base):
                 params=("NULL"),
             )
 
-    def is_package(self) -> bool:
+    def is_aur_package(self) -> bool:
         pkg = db.query(_Package).filter(_Package.Name == self.DepName).exists()
+        return db.query(pkg).scalar()
+
+    def is_package(self) -> bool:
         official = (
             db.query(_OfficialProvider)
             .filter(_OfficialProvider.Name == self.DepName)
             .exists()
         )
-        return db.query(pkg).scalar() or db.query(official).scalar()
+        return self.is_aur_package() or db.query(official).scalar()
 
     def provides(self) -> list[PackageRelation]:
         from aurweb.models.relation_type import PROVIDES_ID

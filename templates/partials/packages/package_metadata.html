@@ -14,12 +14,15 @@
                     <a href="{{ dep.DepName | pkgname_link }}">
                 {% endif %}
                     {{ dep.DepName }}
-                {% if broken %}
+                {%- if broken %}
                     {% if not provides %}
                         </span>
                     {% endif %}
-                {% else %}
+                {% else -%}
                     </a>
+                    {%- if dep.is_aur_package() -%}
+                        ᴬᵁᴿ
+                    {% endif %}
                 {% endif %}
 
                 {% if provides %}
