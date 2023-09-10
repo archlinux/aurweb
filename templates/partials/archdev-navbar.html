@@ -39,7 +39,7 @@
             {# Only CRED_PM_LIST_VOTES privileged users see Package Maintainer #}
             {% if request.user.has_credential(creds.PM_LIST_VOTES) %}
                 <li>
-                    <a href="/tu">{% trans %}Package Maintainer{% endtrans %}</a>
+                    <a href="/package-maintainer">{% trans %}Package Maintainer{% endtrans %}</a>
                 </li>
             {% endif %}
 

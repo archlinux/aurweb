@@ -28,7 +28,7 @@
         off = current_off,
         by = current_by
     %}
-        {% include "partials/tu/proposals.html" %}
+        {% include "partials/package-maintainer/proposals.html" %}
     {% endwith %}
 
     {%
@@ -42,10 +42,10 @@
         off = past_off,
         by = past_by
     %}
-        {% include "partials/tu/proposals.html" %}
+        {% include "partials/package-maintainer/proposals.html" %}
     {% endwith %}
 
     {% with title = "Last Votes by Package Maintainer", votes = last_votes_by_pm %}
-        {% include "partials/tu/last_votes.html" %}
+        {% include "partials/package-maintainer/last_votes.html" %}
     {% endwith %}
 {% endblock %}

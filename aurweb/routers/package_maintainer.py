@@ -52,7 +52,7 @@ def populate_package_maintainer_counts(context: dict[str, Any]) -> None:
     context["active_package_maintainer_count"] = active_pm_query.count()
 
 
-@router.get("/tu")
+@router.get("/package-maintainer")
 @requires_auth
 async def package_maintainer(
     request: Request,
@@ -141,7 +141,7 @@ async def package_maintainer(
         "pby": past_by,
     }
 
-    return render_template(request, "tu/index.html", context)
+    return render_template(request, "package-maintainer/index.html", context)
 
 
 def render_proposal(
@@ -176,14 +176,16 @@ def render_proposal(
     context["vote"] = vote
     context["has_voted"] = vote is not None
 
-    return render_template(request, "tu/show.html", context, status_code=status_code)
+    return render_template(
+        request, "package-maintainer/show.html", context, status_code=status_code
+    )
 
 
-@router.get("/tu/{proposal}")
+@router.get("/package-maintainer/{proposal}")
 @requires_auth
 async def package_maintainer_proposal(request: Request, proposal: int):
     if not request.user.has_credential(creds.PM_LIST_VOTES):
-        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+        return RedirectResponse("/package-maintainer", status_code=HTTPStatus.SEE_OTHER)
 
     context = await make_variable_context(request, "Package Maintainer")
     proposal = int(proposal)
@@ -221,14 +223,14 @@ async def package_maintainer_proposal(request: Request, proposal: int):
 
 
 @db.async_retry_deadlock
-@router.post("/tu/{proposal}")
+@router.post("/package-maintainer/{proposal}")
 @handle_form_exceptions
 @requires_auth
 async def package_maintainer_proposal_post(
     request: Request, proposal: int, decision: str = Form(...)
 ):
     if not request.user.has_credential(creds.PM_LIST_VOTES):
-        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+        return RedirectResponse("/package-maintainer", status_code=HTTPStatus.SEE_OTHER)
 
     context = await make_variable_context(request, "Package Maintainer")
     proposal = int(proposal)  # Make sure it's an int.
@@ -292,7 +294,7 @@ async def package_maintainer_addvote(
     request: Request, user: str = str(), type: str = "add_pm", agenda: str = str()
 ):
     if not request.user.has_credential(creds.PM_ADD_VOTE):
-        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+        return RedirectResponse("/package-maintainer", status_code=HTTPStatus.SEE_OTHER)
 
     context = await make_variable_context(request, "Add Proposal")
 
@@ -318,7 +320,7 @@ async def package_maintainer_addvote_post(
     agenda: str = Form(default=str()),
 ):
     if not request.user.has_credential(creds.PM_ADD_VOTE):
-        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+        return RedirectResponse("/package-maintainer", status_code=HTTPStatus.SEE_OTHER)
 
     # Build a context.
     context = await make_variable_context(request, "Add Proposal")
@@ -394,5 +396,5 @@ async def package_maintainer_addvote_post(
         )
 
     # Redirect to the new proposal.
-    endpoint = f"/tu/{voteinfo.ID}"
+    endpoint = f"/package-maintainer/{voteinfo.ID}"
     return RedirectResponse(endpoint, status_code=HTTPStatus.SEE_OTHER)

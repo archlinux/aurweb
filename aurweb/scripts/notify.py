@@ -780,7 +780,7 @@ class TUVoteReminderNotification(Notification):
         ).format(id=self._vote_id)
 
     def get_refs(self):
-        return (aur_location + "/tu/?id=" + str(self._vote_id),)
+        return (aur_location + "/package-maintainer/?id=" + str(self._vote_id),)
 
 
 def main():

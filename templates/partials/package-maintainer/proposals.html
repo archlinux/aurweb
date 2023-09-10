@@ -44,7 +44,7 @@
                         <td>
                             <!-- Truncate the agenda back to prev_len. -->
                             {% set agenda = result.Agenda[:prev_len] %}
-                            <a href="/tu/{{ result.ID }}">{{ agenda }}</a>
+                            <a href="/package-maintainer/{{ result.ID }}">{{ agenda }}</a>
                         </td>
 
                         <td>{{ date_display(result.Submitted) }}</td>

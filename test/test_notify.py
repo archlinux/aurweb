@@ -561,7 +561,7 @@ def test_tu_vote_reminders(user: User):
 Please remember to cast your vote on proposal {vote_id} [1]. The voting period
 ends in less than 48 hours.
 
-[1] {aur_location}/tu/?id={vote_id}\
+[1] {aur_location}/package-maintainer/?id={vote_id}\
 """
     assert email.body == expected
 
@@ -586,7 +586,7 @@ def test_notify_main(user: User):
 Please remember to cast your vote on proposal {vote_id} [1]. The voting period
 ends in less than 48 hours.
 
-[1] {aur_location}/tu/?id={vote_id}\
+[1] {aur_location}/package-maintainer/?id={vote_id}\
 """
     assert email.body == expected
 

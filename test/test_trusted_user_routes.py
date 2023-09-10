@@ -155,12 +155,12 @@ def proposal(user, tu_user):
 
 
 def test_tu_index_guest(client):
-    headers = {"referer": config.get("options", "aur_location") + "/tu"}
+    headers = {"referer": config.get("options", "aur_location") + "/package-maintainer"}
     with client as request:
-        response = request.get("/tu", headers=headers)
+        response = request.get("/package-maintainer", headers=headers)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    params = filters.urlencode({"next": "/tu"})
+    params = filters.urlencode({"next": "/package-maintainer"})
     assert response.headers.get("location") == f"/login?{params}"
 
 
@@ -169,7 +169,7 @@ def test_tu_index_unauthorized(client: TestClient, user: User):
     with client as request:
         # Login as a normal user, not a TU.
         request.cookies = cookies
-        response = request.get("/tu")
+        response = request.get("/package-maintainer")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/"
 
@@ -177,11 +177,11 @@ def test_tu_index_unauthorized(client: TestClient, user: User):
 def test_tu_empty_index(client, tu_user):
     """Check an empty index when we don't create any records."""
 
-    # Make a default get request to /tu.
+    # Make a default get request to /package-maintainer.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu")
+        response = request.get("/package-maintainer")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Parse lxml root.
@@ -232,13 +232,13 @@ def test_tu_index(client, tu_user):
         # Pass an invalid cby and pby; let them default to "desc".
         request.cookies = cookies
         response = request.get(
-            "/tu",
+            "/package-maintainer",
             params={"cby": "BAD!", "pby": "blah"},
         )
 
     assert response.status_code == int(HTTPStatus.OK)
 
-    # Rows we expect to exist in HTML produced by /tu for current votes.
+    # Rows we expect to exist in HTML produced by /package-maintainer for current votes.
     expected_rows = [
         (
             r"Test agenda 1",
@@ -265,7 +265,7 @@ def test_tu_index(client, tu_user):
     past_votes = [c for c in votes if c[2] <= ts]
     assert len(past_votes) == len(expected_rows)
 
-    # Rows we expect to exist in HTML produced by /tu for past votes.
+    # Rows we expect to exist in HTML produced by /package-maintainer for past votes.
     expected_rows = [
         (
             r"Test agenda 2",
@@ -300,7 +300,7 @@ def test_tu_stats(client: TestClient, tu_user: User):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu")
+        response = request.get("/package-maintainer")
     assert response.status_code == HTTPStatus.OK
 
     root = parse_root(response.text)
@@ -322,7 +322,7 @@ def test_tu_stats(client: TestClient, tu_user: User):
 
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu")
+        response = request.get("/package-maintainer")
     assert response.status_code == HTTPStatus.OK
 
     root = parse_root(response.text)
@@ -371,7 +371,7 @@ def test_tu_index_table_paging(client, tu_user):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu")
+        response = request.get("/package-maintainer")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Parse lxml.etree root.
@@ -402,7 +402,7 @@ def test_tu_index_table_paging(client, tu_user):
     offset = 10  # Specify coff=10
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu", params={"coff": offset})
+        response = request.get("package-maintainer", params={"coff": offset})
     assert response.status_code == int(HTTPStatus.OK)
 
     old_rows = rows
@@ -430,7 +430,7 @@ def test_tu_index_table_paging(client, tu_user):
     offset = 20  # Specify coff=10
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu", params={"coff": offset})
+        response = request.get("/package-maintainer", params={"coff": offset})
     assert response.status_code == int(HTTPStatus.OK)
 
     # Do it again, we only have five left.
@@ -476,11 +476,11 @@ def test_tu_index_sorting(client, tu_user):
             # of the tables.
             ts += 86405
 
-    # Make a default request to /tu.
+    # Make a default request to /package-maintainer.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu")
+        response = request.get("/package-maintainer")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Get lxml handles of the document.
@@ -508,7 +508,7 @@ def test_tu_index_sorting(client, tu_user):
     # in ascending order instead of the default descending order.
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu", params={"cby": "asc"})
+        response = request.get("/package-maintainer", params={"cby": "asc"})
     assert response.status_code == int(HTTPStatus.OK)
 
     # Get lxml handles of the document.
@@ -560,7 +560,7 @@ def test_tu_index_last_votes(
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu")
+        response = request.get("/package-maintainer")
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -583,7 +583,9 @@ def test_tu_proposal_not_found(client, tu_user):
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu", params={"id": 1}, follow_redirects=True)
+        response = request.get(
+            "/package-maintainer", params={"id": 1}, follow_redirects=True
+        )
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -591,18 +593,18 @@ def test_tu_proposal_unauthorized(
     client: TestClient, user: User, proposal: Tuple[User, User, TUVoteInfo]
 ):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
-    endpoint = f"/tu/{proposal[2].ID}"
+    endpoint = f"/package-maintainer/{proposal[2].ID}"
     with client as request:
         request.cookies = cookies
         response = request.get(endpoint)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
-    assert response.headers.get("location") == "/tu"
+    assert response.headers.get("location") == "/package-maintainer"
 
     with client as request:
         request.cookies = cookies
         response = request.post(endpoint, data={"decision": False})
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
-    assert response.headers.get("location") == "/tu"
+    assert response.headers.get("location") == "/package-maintainer"
 
 
 def test_tu_running_proposal(
@@ -612,12 +614,12 @@ def test_tu_running_proposal(
     with db.begin():
         voteinfo.ActiveTUs = 1
 
-    # Initiate an authenticated GET request to /tu/{proposal_id}.
+    # Initiate an authenticated GET request to /package-maintainer/{proposal_id}.
     proposal_id = voteinfo.ID
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get(f"/tu/{proposal_id}")
+        response = request.get(f"/package-maintainer/{proposal_id}")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Alright, now let's continue on to verifying some markup.
@@ -688,7 +690,9 @@ def test_tu_running_proposal(
     # Make another request now that we've voted.
     with client as request:
         request.cookies = cookies
-        response = request.get("/tu", params={"id": voteinfo.ID}, follow_redirects=True)
+        response = request.get(
+            "/package-maintainer", params={"id": voteinfo.ID}, follow_redirects=True
+        )
     assert response.status_code == int(HTTPStatus.OK)
 
     # Parse our new root.
@@ -710,12 +714,12 @@ def test_tu_ended_proposal(client, proposal):
     with db.begin():
         voteinfo.End = ts - 5  # 5 seconds ago.
 
-    # Initiate an authenticated GET request to /tu/{proposal_id}.
+    # Initiate an authenticated GET request to /package-maintainer/{proposal_id}.
     proposal_id = voteinfo.ID
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
-        response = request.get(f"/tu/{proposal_id}")
+        response = request.get(f"/package-maintainer/{proposal_id}")
     assert response.status_code == int(HTTPStatus.OK)
 
     # Alright, now let's continue on to verifying some markup.
@@ -748,7 +752,7 @@ def test_tu_proposal_vote_not_found(client, tu_user):
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.post("/tu/1", data=data)
+        response = request.post("/package-maintainer/1", data=data)
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
@@ -762,7 +766,7 @@ def test_tu_proposal_vote(client, proposal):
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.post(f"/tu/{voteinfo.ID}", data=data)
+        response = request.post(f"/package-maintainer/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     # Check that the proposal record got updated.
@@ -791,7 +795,7 @@ def test_tu_proposal_vote_unauthorized(
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.post(f"/tu/{voteinfo.ID}", data=data)
+        response = request.post(f"package-maintainer/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
 
     root = parse_root(response.text)
@@ -801,7 +805,7 @@ def test_tu_proposal_vote_unauthorized(
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.get(f"/tu/{voteinfo.ID}", params=data)
+        response = request.get(f"/package-maintainer/{voteinfo.ID}", params=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -820,7 +824,7 @@ def test_tu_proposal_vote_cant_self_vote(client, proposal):
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.post(f"/tu/{voteinfo.ID}", data=data)
+        response = request.post(f"/package-maintainer/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
     root = parse_root(response.text)
@@ -830,7 +834,7 @@ def test_tu_proposal_vote_cant_self_vote(client, proposal):
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.get(f"/tu/{voteinfo.ID}", params=data)
+        response = request.get(f"/package-maintainer/{voteinfo.ID}", params=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -850,7 +854,7 @@ def test_tu_proposal_vote_already_voted(client, proposal):
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.post(f"/tu/{voteinfo.ID}", data=data)
+        response = request.post(f"/package-maintainer/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
     root = parse_root(response.text)
@@ -860,7 +864,7 @@ def test_tu_proposal_vote_already_voted(client, proposal):
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
-        response = request.get(f"/tu/{voteinfo.ID}", params=data)
+        response = request.get(f"/package-maintainer/{voteinfo.ID}", params=data)
     assert response.status_code == int(HTTPStatus.OK)
 
     root = parse_root(response.text)
@@ -875,7 +879,7 @@ def test_tu_proposal_vote_invalid_decision(client, proposal):
     with client as request:
         data = {"decision": "EVIL"}
         request.cookies = cookies
-        response = request.post(f"/tu/{voteinfo.ID}", data=data)
+        response = request.post(f"package-maintainer/{voteinfo.ID}", data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
     assert response.text == "Invalid 'decision' value."
 
@@ -896,13 +900,13 @@ def test_tu_addvote_unauthorized(
         request.cookies = cookies
         response = request.get("/addvote")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
-    assert response.headers.get("location") == "/tu"
+    assert response.headers.get("location") == "/package-maintainer"
 
     with client as request:
         request.cookies = cookies
         response = request.post("/addvote")
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
-    assert response.headers.get("location") == "/tu"
+    assert response.headers.get("location") == "/package-maintainer"
 
 
 def test_tu_addvote_invalid_type(client: TestClient, tu_user: User):
