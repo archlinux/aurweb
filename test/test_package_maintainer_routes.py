@@ -96,9 +96,9 @@ def pm_user():
     with db.begin():
         pm_user = db.create(
             User,
-            Username="test_tu",
-            Email="test_tu@example.org",
-            RealName="Test TU",
+            Username="test_pm",
+            Email="test_pm@example.org",
+            RealName="Test PM",
             Passwd="testPassword",
             AccountType=pm_type,
         )
@@ -110,9 +110,9 @@ def pm_user2():
     with db.begin():
         pm_user2 = db.create(
             User,
-            Username="test_tu2",
-            Email="test_tu2@example.org",
-            RealName="Test TU 2",
+            Username="test_pm2",
+            Email="test_pm2@example.org",
+            RealName="Test PM 2",
             Passwd="testPassword",
             AccountTypeID=PACKAGE_MAINTAINER_ID,
         )
@@ -307,12 +307,12 @@ def test_pm_stats(client: TestClient, pm_user: User):
     stats = root.xpath('//table[@class="no-width"]')[0]
     rows = stats.xpath("./tbody/tr")
 
-    # We have one trusted user.
+    # We have one package maintainer.
     total = rows[0]
     label, count = total.xpath("./td")
     assert int(count.text.strip()) == 1
 
-    # And we have one active TU.
+    # And we have one active PM.
     active = rows[1]
     label, count = active.xpath("./td")
     assert int(count.text.strip()) == 1
@@ -329,12 +329,12 @@ def test_pm_stats(client: TestClient, pm_user: User):
     stats = root.xpath('//table[@class="no-width"]')[0]
     rows = stats.xpath("./tbody/tr")
 
-    # We have one trusted user.
+    # We have one package maintainer.
     total = rows[0]
     label, count = total.xpath("./td")
     assert int(count.text.strip()) == 1
 
-    # But we have no more active TUs.
+    # But we have no more active PMs.
     active = rows[1]
     label, count = active.xpath("./td")
     assert int(count.text.strip()) == 0

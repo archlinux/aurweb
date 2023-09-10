@@ -63,7 +63,7 @@ computations and clean up the database:
   packages that are in the official repositories already.
 
 * aurweb-tuvotereminder sends out reminders to TUs if the voting period for a
-  TU proposal ends soon.
+  Package Maintainer proposal ends soon.
 
 * aurweb-popupdate is used to recompute the popularity score of packages.
 

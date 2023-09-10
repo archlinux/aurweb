@@ -159,9 +159,9 @@ commit_url = https://gitlab.archlinux.org/archlinux/aurweb/-/commits/%s
 ;commit_hash = 1234567
 
 [tuvotereminder]
-; Offsets used to determine when TUs should be reminded about
+; Offsets used to determine when Package Maintainers should be reminded about
 ; votes that they should make.
-; Reminders will be sent out for all votes that a TU has not yet
+; Reminders will be sent out for all votes that a Package Maintainer has not yet
 ; voted on based on `now + range_start <= End <= now + range_end`.
 range_start = 500
 range_end = 172800

@@ -919,7 +919,7 @@ def test_requests_with_package_name_filter(
     packages: list[Package],
     requests: list[PackageRequest],
 ):
-    # test as TU
+    # test as PM
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
@@ -934,7 +934,7 @@ def test_requests_with_package_name_filter(
     # We expect 11 requests for all packages containing "kg_1"
     assert len(rows) == 11
 
-    # test as TU, no results
+    # test as PM, no results
     with client as request:
         request.cookies = cookies
         resp = request.get(

@@ -123,9 +123,9 @@ def pm_user():
     with db.begin():
         pm_user = db.create(
             User,
-            Username="test_tu",
+            Username="test_pm",
             Email="test_tu@example.org",
-            RealName="Test TU",
+            RealName="Test PM",
             Passwd="testPassword",
             AccountType=pm_type,
         )
@@ -1399,7 +1399,7 @@ def test_pkgbase_delete_with_request(
     client: TestClient, pm_user: User, pkgbase: PackageBase, pkgreq: PackageRequest
 ):
     # TODO: Test that a previously existing request gets Accepted when
-    # a TU deleted the package.
+    # a PM deleted the package.
 
     # Delete the package as `pm_user` via POST request.
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}

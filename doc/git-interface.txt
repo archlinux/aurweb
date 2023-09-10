@@ -109,7 +109,7 @@ is also recommended to disable automatic garbage collection by setting
 receive.autogc to false. Remember to periodically run `git gc` manually or
 setup a maintenance script which initiates the garbage collection if you follow
 this advice. For gc.pruneExpire, we recommend "3.months.ago", such that commits
-that became unreachable by TU intervention are kept for a while.
+that became unreachable by Package Maintainer intervention are kept for a while.
 
 Script Wrappers (poetry)
 ------------------------

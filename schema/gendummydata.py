@@ -26,7 +26,7 @@ PKG_ID = 1  # Packages.ID of first package
 # how many users to 'register'
 MAX_USERS = int(os.environ.get("MAX_USERS", 38000))
 MAX_DEVS = 0.1  # what percentage of MAX_USERS are Developers
-MAX_TUS = 0.2  # what percentage of MAX_USERS are Package Maintainers
+MAX_PMS = 0.2  # what percentage of MAX_USERS are Package Maintainers
 # how many packages to load
 MAX_PKGS = int(os.environ.get("MAX_PKGS", 32000))
 PKG_DEPS = (1, 15)  # min/max depends a package has
@@ -35,9 +35,9 @@ PKG_SRC = (1, 3)  # min/max sources a package has
 PKG_CMNTS = (1, 5)  # min/max number of comments a package has
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
 VOTING = (0, 0.001)  # percentage range for package voting
-# number of open trusted user proposals
+# number of open package maintainer proposals
 OPEN_PROPOSALS = int(os.environ.get("OPEN_PROPOSALS", 15))
-# number of closed trusted user proposals
+# number of closed package maintainer proposals
 CLOSE_PROPOSALS = int(os.environ.get("CLOSE_PROPOSALS", 50))
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
@@ -153,7 +153,7 @@ while len(seen_pkgs) < MAX_PKGS:
 #
 contents = None
 
-# developer/tu IDs
+# developer/PM IDs
 #
 developers = []
 packagemaintainers = []
@@ -179,10 +179,10 @@ for u in user_keys:
             if len(developers) >= MAX_DEVS * MAX_USERS:
                 has_devs = 1
         elif account_type == 2 and not has_pms:
-            # this will be a trusted user account
+            # this will be a package maintainer account
             #
             packagemaintainers.append(seen_users[u])
-            if len(packagemaintainers) >= MAX_TUS * MAX_USERS:
+            if len(packagemaintainers) >= MAX_PMS * MAX_USERS:
                 has_pms = 1
         else:
             # a normal user account
@@ -339,7 +339,7 @@ for p in seen_pkgs_keys:
         s = s % (seen_pkgs[p], src)
         out.write(s)
 
-# Create trusted user proposals
+# Create package maintainer proposals
 #
 log.debug("Creating SQL statements for package maintainer proposals.")
 count = 0

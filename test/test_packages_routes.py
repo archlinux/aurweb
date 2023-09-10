@@ -120,9 +120,9 @@ def pm_user():
     with db.begin():
         pm_user = db.create(
             User,
-            Username="test_tu",
+            Username="test_pm",
             Email="test_tu@example.org",
-            RealName="Test TU",
+            RealName="Test PM",
             Passwd="testPassword",
             AccountType=pm_type,
         )
@@ -603,7 +603,7 @@ def test_package_authenticated_maintainer(
     for expected_text in expected:
         assert expected_text in resp.text
 
-    # make sure we don't have these. Only for TUs/Devs
+    # make sure we don't have these. Only for PMs/Devs
     not_expected = [
         "1 pending request",
         "Delete Package",
@@ -1632,7 +1632,7 @@ def test_packages_post_delete(
     expected = "You do not have permission to delete packages."
     assert errors[0].text.strip() == expected
 
-    # Now, let's switch over to making the requests as a TU.
+    # Now, let's switch over to making the requests as a PM.
     # However, this next request will be rejected due to supplying
     # an invalid package ID.
     pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}

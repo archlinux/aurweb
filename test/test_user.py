@@ -307,11 +307,11 @@ def test_can_edit_user(
     assert not user.can_edit_user(dev_user)
     assert not user.can_edit_user(pm_and_dev_user)
 
-    # Trusted User can edit.
+    # Package Maintainer can edit.
     assert pm_user.can_edit_user(user)
     assert pm_user.can_edit_user(pm_user)
 
-    # Trusted User cannot edit.
+    # Package Maintainer cannot edit.
     assert not pm_user.can_edit_user(dev_user)
     assert not pm_user.can_edit_user(pm_and_dev_user)
 
@@ -323,7 +323,7 @@ def test_can_edit_user(
     # Developer cannot edit.
     assert not dev_user.can_edit_user(pm_and_dev_user)
 
-    # Trusted User & Developer can edit.
+    # Package Maintainer & Developer can edit.
     assert pm_and_dev_user.can_edit_user(user)
     assert pm_and_dev_user.can_edit_user(pm_user)
     assert pm_and_dev_user.can_edit_user(dev_user)

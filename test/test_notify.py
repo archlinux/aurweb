@@ -567,7 +567,7 @@ ends in less than 48 hours.
 
 
 def test_notify_main(user: User):
-    """Test TU vote reminder through aurweb.notify.main()."""
+    """Test PM vote reminder through aurweb.notify.main()."""
     set_tu([user])
 
     vote_id = 1

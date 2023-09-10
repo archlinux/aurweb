@@ -179,7 +179,7 @@
                                             {{ "Locked" | tr }}
                                             ({{ time_left_fmt }})
                                         {% else %}
-                                            {# Only elevated users (TU or Dev) are allowed to accept requests. #}
+                                            {# Only elevated users (PM or Dev) are allowed to accept requests. #}
                                             <a href="/pkgbase/{{ result.PackageBaseName }}/{{ action }}?{{ temp_q | urlencode }}">
                                                 {{ "Accept" | tr }}
                                             </a>

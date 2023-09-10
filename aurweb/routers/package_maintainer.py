@@ -20,7 +20,7 @@ from aurweb.templates import make_context, make_variable_context, render_templat
 router = APIRouter()
 logger = aur_logging.get_logger(__name__)
 
-# Some TU route specific constants.
+# Some PM route specific constants.
 ITEMS_PER_PAGE = 10  # Paged table size.
 MAX_AGENDA_LENGTH = 75  # Agenda table column length.
 
@@ -153,7 +153,7 @@ def render_proposal(
     vote: models.TUVote,
     status_code: HTTPStatus = HTTPStatus.OK,
 ):
-    """Render a single TU proposal."""
+    """Render a single PM proposal."""
     context["proposal"] = proposal
     context["voteinfo"] = voteinfo
     context["voters"] = voters.all()
@@ -368,7 +368,7 @@ async def package_maintainer_addvote_post(
     duration, quorum = ADDVOTE_SPECIFICS.get(type)
     timestamp = time.utcnow()
 
-    # Active TU types we filter for.
+    # Active PM types we filter for.
     types = {PACKAGE_MAINTAINER_ID, PACKAGE_MAINTAINER_AND_DEV_ID}
 
     # Create a new TUVoteInfo (proposal)!

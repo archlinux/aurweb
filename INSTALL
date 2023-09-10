@@ -30,11 +30,6 @@ read the instructions below.
         ssl_certificate /etc/ssl/certs/aur.cert.pem;
         ssl_certificate_key /etc/ssl/private/aur.key.pem;
 
-        # TU Bylaws redirect.
-        location = /trusted-user/TUbylaws.html {
-            return 301 https://tu-bylaws.aur.archlinux.org;
-        }
-
         # smartgit location.
         location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
             include      uwsgi_params;

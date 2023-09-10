@@ -658,7 +658,7 @@ def test_post_register_with_ssh_pubkey(client: TestClient):
 
 
 def test_get_account_edit_pm_as_pm(client: TestClient, pm_user: User):
-    """Test edit get route of another TU as a TU."""
+    """Test edit get route of another PM as a PM."""
     with db.begin():
         user2 = create_user("test2")
         user2.AccountTypeID = at.PACKAGE_MAINTAINER_ID
@@ -685,7 +685,7 @@ def test_get_account_edit_pm_as_pm(client: TestClient, pm_user: User):
 
 
 def test_get_account_edit_as_tu(client: TestClient, pm_user: User):
-    """Test edit get route of another user as a TU."""
+    """Test edit get route of another user as a PM."""
     with db.begin():
         user2 = create_user("test2")
 
@@ -1287,14 +1287,14 @@ def test_post_account_edit_other_user_type_as_tu(
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
 
-    # As a TU, we can see the Account Type field for other users.
+    # As a PM, we can see the Account Type field for other users.
     with client as request:
         request.cookies = cookies
         resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
     assert "id_type" in resp.text
 
-    # As a TU, we can modify other user's account types.
+    # As a PM, we can modify other user's account types.
     data = {
         "U": user2.Username,
         "E": user2.Email,
@@ -1342,12 +1342,12 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, pm_user:
 
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     assert cookies is not None  # This is useless, we create the dict here ^
-    # As a TU, we can see the Account for other users.
+    # As a PM, we can see the Account for other users.
     with client as request:
         request.cookies = cookies
         resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
-    # As a TU, we can modify other user's account types.
+    # As a PM, we can modify other user's account types.
     data = {
         "U": user.Username,
         "E": user.Email,
@@ -1383,7 +1383,7 @@ def test_post_account_edit_other_user_type_as_pm_invalid_type(
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
 
-    # As a TU, we can modify other user's account types.
+    # As a PM, we can modify other user's account types.
     data = {"U": user2.Username, "E": user2.Email, "T": 0, "passwd": "testPassword"}
     with client as request:
         request.cookies = cookies
@@ -1598,7 +1598,7 @@ def test_post_accounts_account_type(client: TestClient, user: User, pm_user: Use
 
     assert type.text.strip() == "User"
 
-    # Set our only user to a Trusted User.
+    # Set our only user to a Package Maintainer.
     with db.begin():
         user.AccountType = (
             query(AccountType).filter(AccountType.ID == PACKAGE_MAINTAINER_ID).first()
@@ -2065,7 +2065,7 @@ def test_account_delete_self_unauthorized(client: TestClient, pm_user: User):
         resp = request.post(endpoint)
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
-    # But a TU does have access
+    # But a PM does have access
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with TestClient(app=app) as request:
         request.cookies = cookies
