@@ -96,7 +96,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def tu_user(user: User):
+def pm_user(user: User):
     with db.begin():
         user.AccountTypeID = PACKAGE_MAINTAINER_AND_DEV_ID
     yield user
@@ -657,13 +657,13 @@ def test_post_register_with_ssh_pubkey(client: TestClient):
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_get_account_edit_tu_as_tu(client: TestClient, tu_user: User):
+def test_get_account_edit_pm_as_pm(client: TestClient, pm_user: User):
     """Test edit get route of another TU as a TU."""
     with db.begin():
         user2 = create_user("test2")
         user2.AccountTypeID = at.PACKAGE_MAINTAINER_ID
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
@@ -684,12 +684,12 @@ def test_get_account_edit_tu_as_tu(client: TestClient, tu_user: User):
     assert email.attrib["value"] == user2.Email
 
 
-def test_get_account_edit_as_tu(client: TestClient, tu_user: User):
+def test_get_account_edit_as_tu(client: TestClient, pm_user: User):
     """Test edit get route of another user as a TU."""
     with db.begin():
         user2 = create_user("test2")
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
@@ -723,11 +723,11 @@ def test_get_account_edit_type(client: TestClient, user: User):
     assert "id_type" not in response.text
 
 
-def test_get_account_edit_type_as_tu(client: TestClient, tu_user: User):
+def test_get_account_edit_type_as_tu(client: TestClient, pm_user: User):
     with db.begin():
         user2 = create_user("test_tu")
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
 
     with client as request:
@@ -764,9 +764,9 @@ def test_get_account_edit_unauthorized(client: TestClient, user: User):
     assert response.headers.get("location") == expected
 
 
-def test_get_account_edit_not_exists(client: TestClient, tu_user: User):
+def test_get_account_edit_not_exists(client: TestClient, pm_user: User):
     """Test that users do not have an Account Type field."""
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = "/account/doesnotexist/edit"
 
     with client as request:
@@ -795,11 +795,11 @@ def test_post_account_edit(client: TestClient, user: User):
     assert expected in response.content.decode()
 
 
-def test_post_account_edit_type_as_tu(client: TestClient, tu_user: User):
+def test_post_account_edit_type_as_tu(client: TestClient, pm_user: User):
     with db.begin():
         user2 = create_user("test_tu")
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
     data = {
         "U": user2.Username,
@@ -813,12 +813,12 @@ def test_post_account_edit_type_as_tu(client: TestClient, tu_user: User):
     assert resp.status_code == int(HTTPStatus.OK)
 
 
-def test_post_account_edit_type_as_dev(client: TestClient, tu_user: User):
+def test_post_account_edit_type_as_dev(client: TestClient, pm_user: User):
     with db.begin():
         user2 = create_user("test2")
-        tu_user.AccountTypeID = at.DEVELOPER_ID
+        pm_user.AccountTypeID = at.DEVELOPER_ID
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
     data = {
         "U": user2.Username,
@@ -833,12 +833,12 @@ def test_post_account_edit_type_as_dev(client: TestClient, tu_user: User):
     assert user2.AccountTypeID == at.DEVELOPER_ID
 
 
-def test_post_account_edit_invalid_type_as_tu(client: TestClient, tu_user: User):
+def test_post_account_edit_invalid_type_as_tu(client: TestClient, pm_user: User):
     with db.begin():
         user2 = create_user("test_tu")
-        tu_user.AccountTypeID = at.PACKAGE_MAINTAINER_ID
+        pm_user.AccountTypeID = at.PACKAGE_MAINTAINER_ID
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
     data = {
         "U": user2.Username,
@@ -860,19 +860,19 @@ def test_post_account_edit_invalid_type_as_tu(client: TestClient, tu_user: User)
     assert errors[0].text.strip() == expected
 
 
-def test_post_account_edit_dev(client: TestClient, tu_user: User):
+def test_post_account_edit_dev(client: TestClient, pm_user: User):
     # Modify our user to be a "Package Maintainer & Developer"
     name = "Package Maintainer & Developer"
-    tu_or_dev = query(AccountType, AccountType.AccountType == name).first()
+    pm_or_dev = query(AccountType, AccountType.AccountType == name).first()
     with db.begin():
-        user.AccountType = tu_or_dev
+        user.AccountType = pm_or_dev
 
     request = Request()
-    sid = tu_user.login(request, "testPassword")
+    sid = pm_user.login(request, "testPassword")
 
     post_data = {"U": "test", "E": "test666@example.org", "passwd": "testPassword"}
 
-    endpoint = f"/account/{tu_user.Username}/edit"
+    endpoint = f"/account/{pm_user.Username}/edit"
     with client as request:
         request.cookies = {"AURSID": sid}
         response = request.post(endpoint, data=post_data)
@@ -883,9 +883,9 @@ def test_post_account_edit_dev(client: TestClient, tu_user: User):
     assert expected in response.content.decode()
 
 
-def test_post_account_edit_not_exists(client: TestClient, tu_user: User):
+def test_post_account_edit_not_exists(client: TestClient, pm_user: User):
     request = Request()
-    sid = tu_user.login(request, "testPassword")
+    sid = pm_user.login(request, "testPassword")
 
     post_data = {"U": "test", "E": "test666@example.org", "passwd": "testPassword"}
 
@@ -1250,9 +1250,9 @@ def test_post_account_edit_other_user_as_user(client: TestClient, user: User):
     assert resp.headers.get("location") == f"/account/{user2.Username}"
 
 
-def test_post_account_edit_self_type_as_tu(client: TestClient, tu_user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
-    endpoint = f"/account/{tu_user.Username}/edit"
+def test_post_account_edit_self_type_as_tu(client: TestClient, pm_user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
+    endpoint = f"/account/{pm_user.Username}/edit"
 
     # We cannot see the Account Type field on our own edit page.
     with client as request:
@@ -1263,8 +1263,8 @@ def test_post_account_edit_self_type_as_tu(client: TestClient, tu_user: User):
 
     # We cannot modify our own account type.
     data = {
-        "U": tu_user.Username,
-        "E": tu_user.Email,
+        "U": pm_user.Username,
+        "E": pm_user.Email,
         "T": USER_ID,
         "passwd": "testPassword",
     }
@@ -1273,18 +1273,18 @@ def test_post_account_edit_self_type_as_tu(client: TestClient, tu_user: User):
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
 
-    assert tu_user.AccountTypeID == USER_ID
+    assert pm_user.AccountTypeID == USER_ID
 
 
 def test_post_account_edit_other_user_type_as_tu(
-    client: TestClient, tu_user: User, caplog: pytest.LogCaptureFixture
+    client: TestClient, pm_user: User, caplog: pytest.LogCaptureFixture
 ):
     caplog.set_level(DEBUG)
 
     with db.begin():
         user2 = create_user("test2")
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
 
     # As a TU, we can see the Account Type field for other users.
@@ -1312,14 +1312,14 @@ def test_post_account_edit_other_user_type_as_tu(
 
     # and also that this got logged out at DEBUG level.
     expected = (
-        f"Package Maintainer '{tu_user.Username}' has "
+        f"Package Maintainer '{pm_user.Username}' has "
         f"modified '{user2.Username}' account's type to"
         f" {PACKAGE_MAINTAINER}."
     )
     assert expected in caplog.text
 
 
-def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user: User):
+def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, pm_user: User):
     with db.begin():
         user = create_user("test3")
     # Create a session for user
@@ -1327,7 +1327,7 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user:
     assert sid is not None
 
     # `user` needs its own TestClient, to keep its AURSID cookies
-    # apart from `tu_user`s during our testing.
+    # apart from `pm_user`s during our testing.
     user_client = TestClient(app=app)
     user_client.headers.update(TEST_REFERER)
     user_client.follow_redirects = False
@@ -1340,7 +1340,7 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user:
         resp = request.get(endpoint)
     assert resp.status_code == HTTPStatus.OK
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     assert cookies is not None  # This is useless, we create the dict here ^
     # As a TU, we can see the Account for other users.
     with client as request:
@@ -1374,13 +1374,13 @@ def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, tu_user:
     assert errors[0].text.strip() == "Account Suspended"
 
 
-def test_post_account_edit_other_user_type_as_tu_invalid_type(
-    client: TestClient, tu_user: User, caplog: pytest.LogCaptureFixture
+def test_post_account_edit_other_user_type_as_pm_invalid_type(
+    client: TestClient, pm_user: User, caplog: pytest.LogCaptureFixture
 ):
     with db.begin():
         user2 = create_user("test2")
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
 
     # As a TU, we can modify other user's account types.
@@ -1426,7 +1426,7 @@ def test_get_account_unauthenticated(client: TestClient, user: User):
     assert "You must log in to view user information." in content
 
 
-def test_get_accounts(client: TestClient, user: User, tu_user: User):
+def test_get_accounts(client: TestClient, user: User, pm_user: User):
     """Test that we can GET request /accounts and receive
     a form which can be used to POST /accounts."""
     sid = user.login(Request(), "testPassword")
@@ -1486,7 +1486,7 @@ def get_rows(html):
     return root.xpath('//table[contains(@class, "users")]/tbody/tr')
 
 
-def test_post_accounts(client: TestClient, user: User, tu_user: User):
+def test_post_accounts(client: TestClient, user: User, pm_user: User):
     # Set a PGPKey.
     with db.begin():
         user.PGPKey = "5F18B20346188419750745D7335F2CB41F253D30"
@@ -1539,7 +1539,7 @@ def test_post_accounts(client: TestClient, user: User, tu_user: User):
         )
 
 
-def test_post_accounts_username(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_username(client: TestClient, user: User, pm_user: User):
     # Test the U parameter path.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1559,7 +1559,7 @@ def test_post_accounts_username(client: TestClient, user: User, tu_user: User):
     assert username.text.strip() == user.Username
 
 
-def test_post_accounts_account_type(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_account_type(client: TestClient, user: User, pm_user: User):
     # Check the different account type options.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1656,7 +1656,7 @@ def test_post_accounts_account_type(client: TestClient, user: User, tu_user: Use
     assert type.text.strip() == "Package Maintainer & Developer"
 
 
-def test_post_accounts_status(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_status(client: TestClient, user: User, pm_user: User):
     # Test the functionality of Suspended.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1689,7 +1689,7 @@ def test_post_accounts_status(client: TestClient, user: User, tu_user: User):
     assert status.text.strip() == "Suspended"
 
 
-def test_post_accounts_email(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_email(client: TestClient, user: User, pm_user: User):
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
 
@@ -1703,7 +1703,7 @@ def test_post_accounts_email(client: TestClient, user: User, tu_user: User):
     assert len(rows) == 1
 
 
-def test_post_accounts_realname(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_realname(client: TestClient, user: User, pm_user: User):
     # Test the R parameter path.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1717,7 +1717,7 @@ def test_post_accounts_realname(client: TestClient, user: User, tu_user: User):
     assert len(rows) == 1
 
 
-def test_post_accounts_irc(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_irc(client: TestClient, user: User, pm_user: User):
     # Test the I parameter path.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1731,7 +1731,7 @@ def test_post_accounts_irc(client: TestClient, user: User, tu_user: User):
     assert len(rows) == 1
 
 
-def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_sortby(client: TestClient, user: User, pm_user: User):
     # Create a second user so we can compare sorts.
     with db.begin():
         user_ = create_user("test2")
@@ -1811,7 +1811,7 @@ def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
     assert compare_text_values(1, first_rows, reversed(rows))
 
 
-def test_post_accounts_pgp_key(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_pgp_key(client: TestClient, user: User, pm_user: User):
     with db.begin():
         user.PGPKey = "5F18B20346188419750745D7335F2CB41F253D30"
 
@@ -1828,7 +1828,7 @@ def test_post_accounts_pgp_key(client: TestClient, user: User, tu_user: User):
     assert len(rows) == 1
 
 
-def test_post_accounts_paged(client: TestClient, user: User, tu_user: User):
+def test_post_accounts_paged(client: TestClient, user: User, pm_user: User):
     # Create 150 users.
     users = [user]
     account_type = query(AccountType, AccountType.AccountType == "User").first()
@@ -2050,7 +2050,7 @@ def test_accounts_unauthorized(client: TestClient, user: User):
     assert resp.headers.get("location") == "/"
 
 
-def test_account_delete_self_unauthorized(client: TestClient, tu_user: User):
+def test_account_delete_self_unauthorized(client: TestClient, pm_user: User):
     with db.begin():
         user = create_user("some_user")
         user2 = create_user("user2")
@@ -2066,7 +2066,7 @@ def test_account_delete_self_unauthorized(client: TestClient, tu_user: User):
         assert resp.status_code == HTTPStatus.UNAUTHORIZED
 
     # But a TU does have access
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with TestClient(app=app) as request:
         request.cookies = cookies
         resp = request.get(endpoint)
@@ -2167,11 +2167,11 @@ def test_account_delete_self_with_ssh_public_key(client: TestClient, user: User)
     assert sshpubkey_record is None
 
 
-def test_account_delete_as_tu(client: TestClient, tu_user: User):
+def test_account_delete_as_tu(client: TestClient, pm_user: User):
     with db.begin():
         user = create_user("user2")
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     username = user.Username
     endpoint = f"/account/{username}/delete"
 

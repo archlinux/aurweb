@@ -132,7 +132,7 @@ test_expect_success 'Performing a non-fast-forward ref update as Package Maintai
 	error: denying non-fast-forward (you should pull first)
 	EOD
 	test_must_fail \
-	env AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
+	env AUR_USER=pm AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1 &&
 	test_cmp expected actual
 '
@@ -152,7 +152,7 @@ test_expect_success 'Performing a non-fast-forward ref update as normal user wit
 test_expect_success 'Performing a non-fast-forward ref update as Package Maintainer with AUR_OVERWRITE=1.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	new=$(git -C aur.git rev-parse HEAD^) &&
-	AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 AUR_OVERWRITE=1 \
+	AUR_USER=pm AUR_PKGBASE=foobar AUR_PRIVILEGED=1 AUR_OVERWRITE=1 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
 '
 
@@ -545,7 +545,7 @@ test_expect_success 'Pushing a blacklisted package as Package Maintainer.' '
 	cat >expected <<-EOD &&
 	warning: package is blacklisted: forbidden
 	EOD
-	AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
+	AUR_USER=pm AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	test_cmp expected actual
 '
@@ -574,7 +574,7 @@ test_expect_success 'Pushing a package already in the official repositories as P
 	cat >expected <<-EOD &&
 	warning: package already provided by [core]: official
 	EOD
-	AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
+	AUR_USER=pm AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	test_cmp expected actual
 '

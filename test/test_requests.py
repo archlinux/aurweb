@@ -157,9 +157,9 @@ def requests(
 
 
 @pytest.fixture
-def tu_user() -> User:
-    """Yield an authenticated Trusted User instance."""
-    user = create_user("test_tu", "test_tu@example.org")
+def pm_user() -> User:
+    """Yield an authenticated Package Maintainer instance."""
+    user = create_user("test_pm", "test_pm@example.org")
     with db.begin():
         user.AccountTypeID = PACKAGE_MAINTAINER_ID
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -416,7 +416,7 @@ def test_request_post_orphan(client: TestClient, auser: User, pkgbase: PackageBa
 def test_deletion_request(
     client: TestClient,
     user: User,
-    tu_user: User,
+    pm_user: User,
     pkgbase: PackageBase,
     pkgreq: PackageRequest,
 ):
@@ -433,7 +433,7 @@ def test_deletion_request(
     comments = "Test closure."
     data = {"comments": comments, "confirm": True}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/packages"
@@ -456,17 +456,17 @@ def test_deletion_request(
     email = Email(3).parse()
     subject = r"^AUR Package deleted: [^ ]+$"
     assert re.match(subject, email.headers.get("Subject"))
-    body = r"%s [1] deleted %s [2]." % (tu_user.Username, pkgbase.Name)
+    body = r"%s [1] deleted %s [2]." % (pm_user.Username, pkgbase.Name)
     assert body in email.body
 
 
-def test_deletion_autorequest(client: TestClient, tu_user: User, pkgbase: PackageBase):
+def test_deletion_autorequest(client: TestClient, pm_user: User, pkgbase: PackageBase):
     """Test deleting a package without a request."""
     # `pkgreq`.ReqTypeID is already DELETION_ID.
     endpoint = f"/pkgbase/{pkgbase.Name}/delete"
     data = {"confirm": True}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -480,14 +480,14 @@ def test_deletion_autorequest(client: TestClient, tu_user: User, pkgbase: Packag
 
 
 def test_deletion_autorequest_with_comment(
-    client: TestClient, tu_user: User, pkgbase: PackageBase
+    client: TestClient, pm_user: User, pkgbase: PackageBase
 ):
     """Test deleting a package without a request and a comment."""
     # `pkgreq`.ReqTypeID is already DELETION_ID.
     endpoint = f"/pkgbase/{pkgbase.Name}/delete"
     data = {"confirm": True, "comments": "deleted with comment"}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
@@ -503,7 +503,7 @@ def test_deletion_autorequest_with_comment(
 def test_merge_request(
     client: TestClient,
     user: User,
-    tu_user: User,
+    pm_user: User,
     pkgbase: PackageBase,
     target: PackageBase,
     pkgreq: PackageRequest,
@@ -526,7 +526,7 @@ def test_merge_request(
     comments = "Test merge closure."
     data = {"into": target.Name, "comments": comments, "confirm": True}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{target.Name}"
@@ -561,7 +561,7 @@ def test_merge_request(
 def test_merge_autorequest(
     client: TestClient,
     user: User,
-    tu_user: User,
+    pm_user: User,
     pkgbase: PackageBase,
     target: PackageBase,
 ):
@@ -574,7 +574,7 @@ def test_merge_autorequest(
     endpoint = f"/pkgbase/{pkgbase.Name}/merge"
     data = {"into": target.Name, "confirm": True}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{target.Name}"
@@ -592,7 +592,7 @@ def test_merge_autorequest(
 def test_merge_autorequest_with_comment(
     client: TestClient,
     user: User,
-    tu_user: User,
+    pm_user: User,
     pkgbase: PackageBase,
     target: PackageBase,
 ):
@@ -605,7 +605,7 @@ def test_merge_autorequest_with_comment(
     endpoint = f"/pkgbase/{pkgbase.Name}/merge"
     data = {"into": target.Name, "confirm": True, "comments": "merged with comment"}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{target.Name}"
@@ -623,7 +623,7 @@ def test_merge_autorequest_with_comment(
 def test_orphan_request(
     client: TestClient,
     user: User,
-    tu_user: User,
+    pm_user: User,
     pkgbase: PackageBase,
     pkgreq: PackageRequest,
 ):
@@ -643,7 +643,7 @@ def test_orphan_request(
     comments = "Test orphan closure."
     data = {"comments": comments, "confirm": True}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
@@ -665,7 +665,7 @@ def test_orphan_request(
 
 
 def test_request_post_orphan_autogenerated_closure(
-    client: TestClient, tu_user: User, pkgbase: PackageBase, pkgreq: PackageRequest
+    client: TestClient, pm_user: User, pkgbase: PackageBase, pkgreq: PackageRequest
 ):
     idle_time = config.getint("options", "request_idle_time")
     now = time.utcnow()
@@ -677,7 +677,7 @@ def test_request_post_orphan_autogenerated_closure(
     endpoint = f"/pkgbase/{pkgbase.Name}/disown"
     data = {"confirm": True}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
@@ -752,13 +752,13 @@ def test_orphan_as_maintainer(client: TestClient, auser: User, pkgbase: PackageB
 
 
 def test_orphan_without_requests(
-    client: TestClient, tu_user: User, pkgbase: PackageBase
+    client: TestClient, pm_user: User, pkgbase: PackageBase
 ):
     """Test orphans are automatically accepted past a certain date."""
     endpoint = f"/pkgbase/{pkgbase.Name}/disown"
     data = {"confirm": True}
     with client as request:
-        request.cookies = tu_user.cookies
+        request.cookies = pm_user.cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
@@ -792,11 +792,11 @@ def test_requests_unauthorized(client: TestClient):
 
 def test_requests(
     client: TestClient,
-    tu_user: User,
+    pm_user: User,
     packages: list[Package],
     requests: list[PackageRequest],
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get(
@@ -835,11 +835,11 @@ def test_requests(
 
 def test_requests_with_filters(
     client: TestClient,
-    tu_user: User,
+    pm_user: User,
     packages: list[Package],
     requests: list[PackageRequest],
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get(
@@ -893,11 +893,11 @@ def test_requests_with_filters(
 
 def test_requests_for_maintainer_requests(
     client: TestClient,
-    tu_user: User,
+    pm_user: User,
     packages: list[Package],
     requests: list[PackageRequest],
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get(
@@ -914,13 +914,13 @@ def test_requests_for_maintainer_requests(
 
 def test_requests_with_package_name_filter(
     client: TestClient,
-    tu_user: User,
+    pm_user: User,
     user2: User,
     packages: list[Package],
     requests: list[PackageRequest],
 ):
     # test as TU
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get(
@@ -965,12 +965,12 @@ def test_requests_with_package_name_filter(
 
 
 def test_requests_by_deleted_users(
-    client: TestClient, user: User, tu_user: User, pkgreq: PackageRequest
+    client: TestClient, user: User, pm_user: User, pkgreq: PackageRequest
 ):
     with db.begin():
         db.delete(user)
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get("/requests")

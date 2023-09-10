@@ -113,20 +113,20 @@ def maintainer() -> User:
 
 
 @pytest.fixture
-def tu_user():
-    tu_type = db.query(
+def pm_user():
+    pm_type = db.query(
         AccountType, AccountType.AccountType == "Package Maintainer"
     ).first()
     with db.begin():
-        tu_user = db.create(
+        pm_user = db.create(
             User,
             Username="test_tu",
             Email="test_tu@example.org",
             RealName="Test TU",
             Passwd="testPassword",
-            AccountType=tu_type,
+            AccountType=pm_type,
         )
-    yield tu_user
+    yield pm_user
 
 
 @pytest.fixture
@@ -614,9 +614,9 @@ def test_package_authenticated_maintainer(
 
 
 def test_package_authenticated_tu(
-    client: TestClient, tu_user: User, package: Package, pkgreq: PackageRequest
+    client: TestClient, pm_user: User, package: Package, pkgreq: PackageRequest
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get(package_endpoint(package))
@@ -1572,10 +1572,10 @@ def test_packages_post_disown_as_maintainer(
 
 
 def test_packages_post_disown(
-    client: TestClient, tu_user: User, maintainer: User, package: Package
+    client: TestClient, pm_user: User, maintainer: User, package: Package
 ):
     """Disown packages as a Package Maintainer, which cannot bypass idle time."""
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.post(
@@ -1592,7 +1592,7 @@ def test_packages_post_delete(
     caplog: pytest.fixture,
     client: TestClient,
     user: User,
-    tu_user: User,
+    pm_user: User,
     package: Package,
 ):
     # First, let's try to use the delete action with no packages IDs.
@@ -1635,9 +1635,9 @@ def test_packages_post_delete(
     # Now, let's switch over to making the requests as a TU.
     # However, this next request will be rejected due to supplying
     # an invalid package ID.
-    tu_cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
-        request.cookies = tu_cookies
+        request.cookies = pm_cookies
         resp = request.post(
             "/packages",
             data={"action": "delete", "IDs": [0], "confirm": True},
@@ -1647,10 +1647,10 @@ def test_packages_post_delete(
     expected = "One of the packages you selected does not exist."
     assert errors[0].text.strip() == expected
 
-    # Whoo. Now, let's finally make a valid request as `tu_user`
+    # Whoo. Now, let's finally make a valid request as `pm_user`
     # to delete `package`.
     with client as request:
-        request.cookies = tu_cookies
+        request.cookies = pm_cookies
         resp = request.post(
             "/packages",
             data={"action": "delete", "IDs": [package.ID], "confirm": True},
@@ -1663,7 +1663,7 @@ def test_packages_post_delete(
     # Expect that the package deletion was logged.
     pkgbases = [package.PackageBase.Name]
     expected = (
-        f"Privileged user '{tu_user.Username}' deleted the "
+        f"Privileged user '{pm_user.Username}' deleted the "
         f"following package bases: {str(pkgbases)}."
     )
     assert expected in caplog.text

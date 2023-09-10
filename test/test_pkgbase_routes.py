@@ -116,20 +116,20 @@ def comaintainer() -> User:
 
 
 @pytest.fixture
-def tu_user():
-    tu_type = db.query(
+def pm_user():
+    pm_type = db.query(
         AccountType, AccountType.AccountType == "Package Maintainer"
     ).first()
     with db.begin():
-        tu_user = db.create(
+        pm_user = db.create(
             User,
             Username="test_tu",
             Email="test_tu@example.org",
             RealName="Test TU",
             Passwd="testPassword",
-            AccountType=tu_type,
+            AccountType=pm_type,
         )
-    yield tu_user
+    yield pm_user
 
 
 @pytest.fixture
@@ -304,25 +304,25 @@ def test_pkgbase_maintainer(
     assert comaint == f"({user.Username})"
 
 
-def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):
+def test_pkgbase_voters(client: TestClient, pm_user: User, package: Package):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/voters"
 
     now = time.utcnow()
     with db.begin():
-        db.create(PackageVote, User=tu_user, PackageBase=pkgbase, VoteTS=now)
+        db.create(PackageVote, User=pm_user, PackageBase=pkgbase, VoteTS=now)
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         resp = request.get(endpoint)
     assert resp.status_code == int(HTTPStatus.OK)
 
-    # We should've gotten one link to the voter, tu_user.
+    # We should've gotten one link to the voter, pm_user.
     root = parse_root(resp.text)
     rows = root.xpath('//div[@class="box"]//ul/li/a')
     assert len(rows) == 1
-    assert rows[0].text.strip() == tu_user.Username
+    assert rows[0].text.strip() == pm_user.Username
 
 
 def test_pkgbase_voters_unauthorized(client: TestClient, user: User, package: Package):
@@ -1304,7 +1304,7 @@ def test_pkgbase_disown(
 
 
 def test_pkgbase_adopt(
-    client: TestClient, user: User, tu_user: User, maintainer: User, package: Package
+    client: TestClient, user: User, pm_user: User, maintainer: User, package: Package
 ):
     # Unset the maintainer as if package is orphaned.
     with db.begin():
@@ -1329,13 +1329,13 @@ def test_pkgbase_adopt(
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert package.PackageBase.Maintainer == maintainer
 
-    # Steal the package as a TU.
-    tu_cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    # Steal the package as a PM.
+    pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
-        request.cookies = tu_cookies
+        request.cookies = pm_cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert package.PackageBase.Maintainer == tu_user
+    assert package.PackageBase.Maintainer == pm_user
 
 
 def test_pkgbase_delete_unauthorized(client: TestClient, user: User, package: Package):
@@ -1358,11 +1358,11 @@ def test_pkgbase_delete_unauthorized(client: TestClient, user: User, package: Pa
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
 
-def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
+def test_pkgbase_delete(client: TestClient, pm_user: User, package: Package):
     pkgbase = package.PackageBase
 
     # Test that the GET request works.
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/delete"
     with client as request:
         request.cookies = cookies
@@ -1396,13 +1396,13 @@ def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
 
 
 def test_pkgbase_delete_with_request(
-    client: TestClient, tu_user: User, pkgbase: PackageBase, pkgreq: PackageRequest
+    client: TestClient, pm_user: User, pkgbase: PackageBase, pkgreq: PackageRequest
 ):
     # TODO: Test that a previously existing request gets Accepted when
     # a TU deleted the package.
 
-    # Delete the package as `tu_user` via POST request.
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    # Delete the package as `pm_user` via POST request.
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/delete"
     with client as request:
         request.cookies = cookies
@@ -1479,8 +1479,8 @@ def test_pkgbase_merge_unauthorized(client: TestClient, user: User, package: Pac
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-def test_pkgbase_merge(client: TestClient, tu_user: User, package: Package):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pkgbase_merge(client: TestClient, pm_user: User, package: Package):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
         request.cookies = cookies
@@ -1501,9 +1501,9 @@ def test_pkgbase_merge_post_unauthorized(
 
 
 def test_pkgbase_merge_post_unconfirmed(
-    client: TestClient, tu_user: User, package: Package
+    client: TestClient, pm_user: User, package: Package
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
         request.cookies = cookies
@@ -1518,9 +1518,9 @@ def test_pkgbase_merge_post_unconfirmed(
 
 
 def test_pkgbase_merge_post_invalid_into(
-    client: TestClient, tu_user: User, package: Package
+    client: TestClient, pm_user: User, package: Package
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
         request.cookies = cookies
@@ -1532,9 +1532,9 @@ def test_pkgbase_merge_post_invalid_into(
 
 
 def test_pkgbase_merge_post_self_invalid(
-    client: TestClient, tu_user: User, package: Package
+    client: TestClient, pm_user: User, package: Package
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
         request.cookies = cookies
@@ -1550,7 +1550,7 @@ def test_pkgbase_merge_post_self_invalid(
 
 def test_pkgbase_merge_post(
     client: TestClient,
-    tu_user: User,
+    pm_user: User,
     package: Package,
     pkgbase: PackageBase,
     target: PackageBase,
@@ -1567,7 +1567,7 @@ def test_pkgbase_merge_post(
         pkgreq.MergeBaseName = target.Name
 
     # Vote for the package.
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{package.PackageBase.Name}/vote"
     with client as request:
         request.cookies = cookies

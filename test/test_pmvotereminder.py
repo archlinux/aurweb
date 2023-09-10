@@ -77,7 +77,7 @@ def voteinfo(user: User) -> TUVoteInfo:
     yield voteinfo
 
 
-def test_tu_vote_reminders(user: User, user2: User, user3: User, voteinfo: TUVoteInfo):
+def test_pm_vote_reminders(user: User, user2: User, user3: User, voteinfo: TUVoteInfo):
     reminder.main()
     assert Email.count() == 3
 
@@ -96,7 +96,7 @@ def test_tu_vote_reminders(user: User, user2: User, user3: User, voteinfo: TUVot
         assert emails[i].body == content
 
 
-def test_tu_vote_reminders_only_unvoted(
+def test_pm_vote_reminders_only_unvoted(
     user: User, user2: User, user3: User, voteinfo: TUVoteInfo
 ):
     # Vote with user2 and user3; leaving only user to be notified.

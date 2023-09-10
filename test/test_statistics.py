@@ -116,10 +116,10 @@ def test_get_count(stats: Statistics, test_data, counter: str, expected: int):
 
 def test_get_count_change(stats: Statistics, test_data):
     pkgs_before = stats.get_count("package_count")
-    tus_before = stats.get_count("package_maintainer_count")
+    pms_before = stats.get_count("package_maintainer_count")
 
     assert pkgs_before == 10
-    assert tus_before == 1
+    assert pms_before == 1
 
     # Let's delete a package and promote a user to TU
     with db.begin():
@@ -131,12 +131,12 @@ def test_get_count_change(stats: Statistics, test_data):
 
     # Values should end up in (fake) redis cache so they should be the same
     assert stats.get_count("package_count") == pkgs_before
-    assert stats.get_count("package_maintainer_count") == tus_before
+    assert stats.get_count("package_maintainer_count") == pms_before
 
     # Let's clear the cache and check again
     cache._redis.flushall()
     assert stats.get_count("package_count") != pkgs_before
-    assert stats.get_count("package_maintainer_count") != tus_before
+    assert stats.get_count("package_maintainer_count") != pms_before
 
 
 def test_update_prometheus_metrics(test_data):

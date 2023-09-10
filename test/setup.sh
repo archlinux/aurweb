@@ -98,9 +98,9 @@ AUTH_KEYTYPE_USER=ssh-rsa
 AUTH_KEYTEXT_USER=AAAAB3NzaC1yc2EAAAADAQABAAABAQCeUafDK4jqUiRHNQfwHcYjBKLZ4Rc1sNUofHApBP6j91nIvDHZe2VUqeBmFUhBz7kXK4VbXD9nlHMun2HeshL8hXnMzymZ8Wk7+IKefj61pajJkIdttw9Tnayfg7uhg5RbFy9zpEjmGjnIVjSzOXKCwppNT+CNujpKM5FD8gso/Z+l3fD+IwrPwS1SzF1Z99nqI9n2FM/JWZqluvTqnW9WdAvBDfutXxp0R5ZiLI5TAKL2Ssp5rpL70pkLXhv+9sK545zKKlXUFmw6Pi2iVBdqdRsk9ocl49dLiNIh8CYDCO3CRQn+8EnpBhTor2TKQxGJI3mzoBwWJJxoKhD/XlYJ
 AUTH_FINGERPRINT_USER=SHA256:F/OFtYAy0JCytAGUi4RUZnOsThhQtFMK7fH1YvFBCpo
 
-AUTH_KEYTYPE_TU=ssh-rsa
-AUTH_KEYTEXT_TU=AAAAB3NzaC1yc2EAAAADAQABAAABAQC4Q2Beg6jf2r1LZ4vwT5y10dK8+/c5RaNyTwv77wF2OSLXh32xW0ovhE2lW2gqoakdGsxgM2fTtqMTl29WOsAxlGF7x9XbWhFXFUT88Daq1fAeuihkiRjfBbInSW/WcrFZ+biLBch67addtfkkd4PmAafDeeCtszAXqza+ltBG1oxAGiTXgI3LOhA1/GtLLxsi5sPUO3ZlhvwDn4Sy0aXYx8l9hop/PU4Cjn82hyRa9r+SRxQ3KtjKxcVMnZ8IyXOrBwXTukgSBR/6nSdEmO0JPkYUFuNwh3UGFKuNkrPguL5T+4YDym6czYmZJzQ7NNl2pLKYmYgBwBe5rORlWfN5
-AUTH_FINGERPRINT_TU=SHA256:xQGC6j/U1Q3NDXLl04pm+Shr1mjYUXbGMUzlm9vby4k
+AUTH_KEYTYPE_PM=ssh-rsa
+AUTH_KEYTEXT_PM=AAAAB3NzaC1yc2EAAAADAQABAAABAQC4Q2Beg6jf2r1LZ4vwT5y10dK8+/c5RaNyTwv77wF2OSLXh32xW0ovhE2lW2gqoakdGsxgM2fTtqMTl29WOsAxlGF7x9XbWhFXFUT88Daq1fAeuihkiRjfBbInSW/WcrFZ+biLBch67addtfkkd4PmAafDeeCtszAXqza+ltBG1oxAGiTXgI3LOhA1/GtLLxsi5sPUO3ZlhvwDn4Sy0aXYx8l9hop/PU4Cjn82hyRa9r+SRxQ3KtjKxcVMnZ8IyXOrBwXTukgSBR/6nSdEmO0JPkYUFuNwh3UGFKuNkrPguL5T+4YDym6czYmZJzQ7NNl2pLKYmYgBwBe5rORlWfN5
+AUTH_FINGERPRINT_PM=SHA256:xQGC6j/U1Q3NDXLl04pm+Shr1mjYUXbGMUzlm9vby4k
 
 AUTH_KEYTYPE_MISSING=sha-rsa
 AUTH_KEYTEXT_MISSING=AAAAB3NzaC1yc2EAAAADAQABAAABAQC9UTpssBunuTBCT3KFtv+yb+cN0VmI2C9O9U7wHlkEZWxNBK8is6tnDHXBxRuvRk0LHILkTidLLFX22ZF0+TFgSz7uuEvGZVNpa2Fn2+vKJJYMvZEvb/f8VHF5/Jddt21VOyu23royTN/duiT7WIZdCtEmq5C9Y43NPfsB8FbUc+FVSYT2Lq7g1/bzvFF+CZxwCrGjC3qC7p3pshICfFR8bbWgRN33ClxIQ7MvkcDtfNu38dLotJqdfEa7NdQgba5/S586f1A4OWKc/mQJFyTaGhRBxw/cBSjqonvO0442VYLHFxlrTHoUunKyOJ8+BJfKgjWmfENC9ESY3mL/IEn5
@@ -116,17 +116,17 @@ export SSH_CLIENT SSH_CONNECTION SSH_TTY
 python -m aurweb.initdb --no-alembic
 
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (1, 'user', '!', 'user@localhost', 'en', 1);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (2, 'tu', '!', 'tu@localhost', 'en', 2);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (2, 'pm', '!', 'pm@localhost', 'en', 2);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (3, 'dev', '!', 'dev@localhost', 'en', 3);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (4, 'user2', '!', 'user2@localhost', 'en', 1);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (5, 'user3', '!', 'user3@localhost', 'en', 1);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (6, 'user4', '!', 'user4@localhost', 'en', 1);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (7, 'tu2', '!', 'tu2@localhost', 'en', 2);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (8, 'tu3', '!', 'tu3@localhost', 'en', 2);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (9, 'tu4', '!', 'tu4@localhost', 'en', 2);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (7, 'pm2', '!', 'pm2@localhost', 'en', 2);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (8, 'pm3', '!', 'pm3@localhost', 'en', 2);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (9, 'pm4', '!', 'pm4@localhost', 'en', 2);" | sqlite3 aur.db
 
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (1, '$AUTH_FINGERPRINT_USER', '$AUTH_KEYTYPE_USER $AUTH_KEYTEXT_USER');" | sqlite3 aur.db
-echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (2, '$AUTH_FINGERPRINT_TU', '$AUTH_KEYTYPE_TU $AUTH_KEYTEXT_TU');" | sqlite3 aur.db
+echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (2, '$AUTH_FINGERPRINT_PM', '$AUTH_KEYTYPE_PM $AUTH_KEYTEXT_PM');" | sqlite3 aur.db
 
 echo "INSERT INTO Bans (IPAddress, BanTS) VALUES ('1.3.3.7', 0);" | sqlite3 aur.db
 

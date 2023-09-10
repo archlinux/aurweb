@@ -52,7 +52,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def tu_user() -> User:
+def pm_user() -> User:
     user = create_user("test_tu", PACKAGE_MAINTAINER_ID)
     yield user
 
@@ -64,8 +64,8 @@ def dev_user() -> User:
 
 
 @pytest.fixture
-def tu_and_dev_user() -> User:
-    user = create_user("test_tu_and_dev", PACKAGE_MAINTAINER_AND_DEV_ID)
+def pm_and_dev_user() -> User:
+    user = create_user("test_pm_and_dev", PACKAGE_MAINTAINER_AND_DEV_ID)
     yield user
 
 
@@ -297,34 +297,34 @@ def test_user_packages(user: User, package: Package):
 
 
 def test_can_edit_user(
-    user: User, tu_user: User, dev_user: User, tu_and_dev_user: User
+    user: User, pm_user: User, dev_user: User, pm_and_dev_user: User
 ):
     # User can edit.
     assert user.can_edit_user(user)
 
     # User cannot edit.
-    assert not user.can_edit_user(tu_user)
+    assert not user.can_edit_user(pm_user)
     assert not user.can_edit_user(dev_user)
-    assert not user.can_edit_user(tu_and_dev_user)
+    assert not user.can_edit_user(pm_and_dev_user)
 
     # Trusted User can edit.
-    assert tu_user.can_edit_user(user)
-    assert tu_user.can_edit_user(tu_user)
+    assert pm_user.can_edit_user(user)
+    assert pm_user.can_edit_user(pm_user)
 
     # Trusted User cannot edit.
-    assert not tu_user.can_edit_user(dev_user)
-    assert not tu_user.can_edit_user(tu_and_dev_user)
+    assert not pm_user.can_edit_user(dev_user)
+    assert not pm_user.can_edit_user(pm_and_dev_user)
 
     # Developer can edit.
     assert dev_user.can_edit_user(user)
-    assert dev_user.can_edit_user(tu_user)
+    assert dev_user.can_edit_user(pm_user)
     assert dev_user.can_edit_user(dev_user)
 
     # Developer cannot edit.
-    assert not dev_user.can_edit_user(tu_and_dev_user)
+    assert not dev_user.can_edit_user(pm_and_dev_user)
 
     # Trusted User & Developer can edit.
-    assert tu_and_dev_user.can_edit_user(user)
-    assert tu_and_dev_user.can_edit_user(tu_user)
-    assert tu_and_dev_user.can_edit_user(dev_user)
-    assert tu_and_dev_user.can_edit_user(tu_and_dev_user)
+    assert pm_and_dev_user.can_edit_user(user)
+    assert pm_and_dev_user.can_edit_user(pm_user)
+    assert pm_and_dev_user.can_edit_user(dev_user)
+    assert pm_and_dev_user.can_edit_user(pm_and_dev_user)

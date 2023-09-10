@@ -28,10 +28,10 @@ def user() -> User:
 
 
 @pytest.fixture
-def tu_voteinfo(user: User) -> TUVoteInfo:
+def pm_voteinfo(user: User) -> TUVoteInfo:
     ts = time.utcnow()
     with db.begin():
-        tu_voteinfo = db.create(
+        pm_voteinfo = db.create(
             TUVoteInfo,
             Agenda="Blah blah.",
             User=user.Username,
@@ -40,24 +40,24 @@ def tu_voteinfo(user: User) -> TUVoteInfo:
             Quorum=0.5,
             Submitter=user,
         )
-    yield tu_voteinfo
+    yield pm_voteinfo
 
 
-def test_tu_vote_creation(user: User, tu_voteinfo: TUVoteInfo):
+def test_pm_vote_creation(user: User, pm_voteinfo: TUVoteInfo):
     with db.begin():
-        tu_vote = db.create(TUVote, User=user, VoteInfo=tu_voteinfo)
+        pm_vote = db.create(TUVote, User=user, VoteInfo=pm_voteinfo)
 
-    assert tu_vote.VoteInfo == tu_voteinfo
-    assert tu_vote.User == user
-    assert tu_vote in user.tu_votes
-    assert tu_vote in tu_voteinfo.tu_votes
+    assert pm_vote.VoteInfo == pm_voteinfo
+    assert pm_vote.User == user
+    assert pm_vote in user.tu_votes
+    assert pm_vote in pm_voteinfo.tu_votes
 
 
-def test_tu_vote_null_user_raises_exception(tu_voteinfo: TUVoteInfo):
+def test_pm_vote_null_user_raises_exception(pm_voteinfo: TUVoteInfo):
     with pytest.raises(IntegrityError):
-        TUVote(VoteInfo=tu_voteinfo)
+        TUVote(VoteInfo=pm_voteinfo)
 
 
-def test_tu_vote_null_voteinfo_raises_exception(user: User):
+def test_pm_vote_null_voteinfo_raises_exception(user: User):
     with pytest.raises(IntegrityError):
         TUVote(User=user)

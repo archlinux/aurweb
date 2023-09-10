@@ -89,26 +89,26 @@ def client():
 
 
 @pytest.fixture
-def tu_user():
-    tu_type = db.query(
+def pm_user():
+    pm_type = db.query(
         AccountType, AccountType.AccountType == "Package Maintainer"
     ).first()
     with db.begin():
-        tu_user = db.create(
+        pm_user = db.create(
             User,
             Username="test_tu",
             Email="test_tu@example.org",
             RealName="Test TU",
             Passwd="testPassword",
-            AccountType=tu_type,
+            AccountType=pm_type,
         )
-    yield tu_user
+    yield pm_user
 
 
 @pytest.fixture
-def tu_user2():
+def pm_user2():
     with db.begin():
-        tu_user2 = db.create(
+        pm_user2 = db.create(
             User,
             Username="test_tu2",
             Email="test_tu2@example.org",
@@ -116,7 +116,7 @@ def tu_user2():
             Passwd="testPassword",
             AccountTypeID=PACKAGE_MAINTAINER_ID,
         )
-    yield tu_user2
+    yield pm_user2
 
 
 @pytest.fixture
@@ -135,7 +135,7 @@ def user():
 
 
 @pytest.fixture
-def proposal(user, tu_user):
+def proposal(user, pm_user):
     ts = time.utcnow()
     agenda = "Test proposal."
     start = ts - 5
@@ -147,14 +147,14 @@ def proposal(user, tu_user):
             Agenda=agenda,
             Quorum=0.0,
             User=user.Username,
-            Submitter=tu_user,
+            Submitter=pm_user,
             Submitted=start,
             End=end,
         )
-    yield (tu_user, user, voteinfo)
+    yield (pm_user, user, voteinfo)
 
 
-def test_tu_index_guest(client):
+def test_pm_index_guest(client):
     headers = {"referer": config.get("options", "aur_location") + "/package-maintainer"}
     with client as request:
         response = request.get("/package-maintainer", headers=headers)
@@ -164,7 +164,7 @@ def test_tu_index_guest(client):
     assert response.headers.get("location") == f"/login?{params}"
 
 
-def test_tu_index_unauthorized(client: TestClient, user: User):
+def test_pm_index_unauthorized(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         # Login as a normal user, not a TU.
@@ -174,11 +174,11 @@ def test_tu_index_unauthorized(client: TestClient, user: User):
     assert response.headers.get("location") == "/"
 
 
-def test_tu_empty_index(client, tu_user):
+def test_pm_empty_index(client, pm_user):
     """Check an empty index when we don't create any records."""
 
     # Make a default get request to /package-maintainer.
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get("/package-maintainer")
@@ -196,7 +196,7 @@ def test_tu_empty_index(client, tu_user):
     assert len(tables) == 0
 
 
-def test_tu_index(client, tu_user):
+def test_pm_index(client, pm_user):
     ts = time.utcnow()
 
     # Create some test votes: (Agenda, Start, End).
@@ -212,11 +212,11 @@ def test_tu_index(client, tu_user):
                 db.create(
                     TUVoteInfo,
                     Agenda=agenda,
-                    User=tu_user.Username,
+                    User=pm_user.Username,
                     Submitted=start,
                     End=end,
                     Quorum=0.0,
-                    Submitter=tu_user,
+                    Submitter=pm_user,
                 )
             )
 
@@ -225,9 +225,9 @@ def test_tu_index(client, tu_user):
         vote_record = vote_records[1]
         vote_record.Yes += 1
         vote_record.ActiveTUs += 1
-        db.create(TUVote, VoteInfo=vote_record, User=tu_user)
+        db.create(TUVote, VoteInfo=vote_record, User=pm_user)
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         # Pass an invalid cby and pby; let them default to "desc".
         request.cookies = cookies
@@ -244,7 +244,7 @@ def test_tu_index(client, tu_user):
             r"Test agenda 1",
             DATETIME_REGEX,
             DATETIME_REGEX,
-            tu_user.Username,
+            pm_user.Username,
             r"^(Yes|No)$",
         )
     ]
@@ -271,7 +271,7 @@ def test_tu_index(client, tu_user):
             r"Test agenda 2",
             DATETIME_REGEX,
             DATETIME_REGEX,
-            tu_user.Username,
+            pm_user.Username,
             r"^\d+$",
             r"^\d+$",
             r"^(Yes|No)$",
@@ -292,12 +292,12 @@ def test_tu_index(client, tu_user):
     username, vote_id = rows[0]
     username = username.xpath("./a")[0]
     vote_id = vote_id.xpath("./a")[0]
-    assert username.text.strip() == tu_user.Username
+    assert username.text.strip() == pm_user.Username
     assert int(vote_id.text.strip()) == vote_records[1].ID
 
 
-def test_tu_stats(client: TestClient, tu_user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_stats(client: TestClient, pm_user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get("/package-maintainer")
@@ -318,7 +318,7 @@ def test_tu_stats(client: TestClient, tu_user: User):
     assert int(count.text.strip()) == 1
 
     with db.begin():
-        tu_user.InactivityTS = time.utcnow()
+        pm_user.InactivityTS = time.utcnow()
 
     with client as request:
         request.cookies = cookies
@@ -340,7 +340,7 @@ def test_tu_stats(client: TestClient, tu_user: User):
     assert int(count.text.strip()) == 0
 
 
-def test_tu_index_table_paging(client, tu_user):
+def test_pm_index_table_paging(client, pm_user):
     ts = time.utcnow()
 
     with db.begin():
@@ -349,11 +349,11 @@ def test_tu_index_table_paging(client, tu_user):
             db.create(
                 TUVoteInfo,
                 Agenda=f"Agenda #{i}",
-                User=tu_user.Username,
+                User=pm_user.Username,
                 Submitted=(ts - 5),
                 End=(ts + 1000),
                 Quorum=0.0,
-                Submitter=tu_user,
+                Submitter=pm_user,
             )
 
         for i in range(25):
@@ -361,14 +361,14 @@ def test_tu_index_table_paging(client, tu_user):
             db.create(
                 TUVoteInfo,
                 Agenda=f"Agenda #{25 + i}",
-                User=tu_user.Username,
+                User=pm_user.Username,
                 Submitted=(ts - 1000),
                 End=(ts - 5),
                 Quorum=0.0,
-                Submitter=tu_user,
+                Submitter=pm_user,
             )
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get("/package-maintainer")
@@ -386,7 +386,7 @@ def test_tu_index_table_paging(client, tu_user):
             f"Agenda #{offset + i}",
             DATETIME_REGEX,
             DATETIME_REGEX,
-            tu_user.Username,
+            pm_user.Username,
             r"^(Yes|No)$",
         ]
 
@@ -455,7 +455,7 @@ def test_tu_index_table_paging(client, tu_user):
     assert "Next" in past_directions[0].text
 
 
-def test_tu_index_sorting(client, tu_user):
+def test_pm_index_sorting(client, pm_user):
     ts = time.utcnow()
 
     with db.begin():
@@ -464,11 +464,11 @@ def test_tu_index_sorting(client, tu_user):
             db.create(
                 TUVoteInfo,
                 Agenda=f"Agenda #{i + 1}",
-                User=tu_user.Username,
+                User=pm_user.Username,
                 Submitted=(ts + 5),
                 End=(ts + 1000),
                 Quorum=0.0,
-                Submitter=tu_user,
+                Submitter=pm_user,
             )
 
             # Let's order each vote one day after the other.
@@ -477,7 +477,7 @@ def test_tu_index_sorting(client, tu_user):
             ts += 86405
 
     # Make a default request to /package-maintainer.
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get("/package-maintainer")
@@ -499,7 +499,7 @@ def test_tu_index_sorting(client, tu_user):
                 expected[i],
                 DATETIME_REGEX,
                 DATETIME_REGEX,
-                tu_user.Username,
+                pm_user.Username,
                 r"^(Yes|No)$",
             ],
         )
@@ -526,14 +526,14 @@ def test_tu_index_sorting(client, tu_user):
                 rev_expected[i],
                 DATETIME_REGEX,
                 DATETIME_REGEX,
-                tu_user.Username,
+                pm_user.Username,
                 r"^(Yes|No)$",
             ],
         )
 
 
-def test_tu_index_last_votes(
-    client: TestClient, tu_user: User, tu_user2: User, user: User
+def test_pm_index_last_votes(
+    client: TestClient, pm_user: User, pm_user2: User, user: User
 ):
     ts = time.utcnow()
 
@@ -549,15 +549,15 @@ def test_tu_index_last_votes(
             No=1,
             ActiveTUs=1,
             Quorum=0.0,
-            Submitter=tu_user,
+            Submitter=pm_user,
         )
 
-        # Create a vote on it from tu_user.
-        db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
-        db.create(TUVote, VoteInfo=voteinfo, User=tu_user2)
+        # Create a vote on it from pm_user.
+        db.create(TUVote, VoteInfo=voteinfo, User=pm_user)
+        db.create(TUVote, VoteInfo=voteinfo, User=pm_user2)
 
-    # Now, check that tu_user got populated in the .last-votes table.
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    # Now, check that pm_user got populated in the .last-votes table.
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get("/package-maintainer")
@@ -570,17 +570,17 @@ def test_tu_index_last_votes(
 
     last_vote = rows[0]
     user, vote_id = last_vote.xpath("./td/a")
-    assert user.text.strip() == tu_user.Username
+    assert user.text.strip() == pm_user.Username
     assert int(vote_id.text.strip()) == voteinfo.ID
 
     last_vote = rows[1]
     user, vote_id = last_vote.xpath("./td/a")
     assert int(vote_id.text.strip()) == voteinfo.ID
-    assert user.text.strip() == tu_user2.Username
+    assert user.text.strip() == pm_user2.Username
 
 
-def test_tu_proposal_not_found(client, tu_user):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_proposal_not_found(client, pm_user):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get(
@@ -589,7 +589,7 @@ def test_tu_proposal_not_found(client, tu_user):
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_tu_proposal_unauthorized(
+def test_pm_proposal_unauthorized(
     client: TestClient, user: User, proposal: Tuple[User, User, TUVoteInfo]
 ):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -607,16 +607,16 @@ def test_tu_proposal_unauthorized(
     assert response.headers.get("location") == "/package-maintainer"
 
 
-def test_tu_running_proposal(
+def test_pm_running_proposal(
     client: TestClient, proposal: Tuple[User, User, TUVoteInfo]
 ):
-    tu_user, user, voteinfo = proposal
+    pm_user, user, voteinfo = proposal
     with db.begin():
         voteinfo.ActiveTUs = 1
 
     # Initiate an authenticated GET request to /package-maintainer/{proposal_id}.
     proposal_id = voteinfo.ID
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get(f"/package-maintainer/{proposal_id}")
@@ -647,8 +647,8 @@ def test_tu_running_proposal(
         is not None
     )
     submitter = details.xpath('./div[contains(@class, "submitted")]/a')[0]
-    assert submitter.text.strip() == tu_user.Username
-    assert submitter.attrib["href"] == f"/account/{tu_user.Username}"
+    assert submitter.text.strip() == pm_user.Username
+    assert submitter.attrib["href"] == f"/account/{pm_user.Username}"
 
     end = details.xpath('./div[contains(@class, "end")]')[0]
     end_label = end.xpath("./text()")[0]
@@ -683,7 +683,7 @@ def test_tu_running_proposal(
 
     # Create a vote.
     with db.begin():
-        db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+        db.create(TUVote, VoteInfo=voteinfo, User=pm_user)
         voteinfo.ActiveTUs += 1
         voteinfo.Yes += 1
 
@@ -707,8 +707,8 @@ def test_tu_running_proposal(
     assert status == "You've already voted for this proposal."
 
 
-def test_tu_ended_proposal(client, proposal):
-    tu_user, user, voteinfo = proposal
+def test_pm_ended_proposal(client, proposal):
+    pm_user, user, voteinfo = proposal
 
     ts = time.utcnow()
     with db.begin():
@@ -716,7 +716,7 @@ def test_tu_ended_proposal(client, proposal):
 
     # Initiate an authenticated GET request to /package-maintainer/{proposal_id}.
     proposal_id = voteinfo.ID
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get(f"/package-maintainer/{proposal_id}")
@@ -746,9 +746,9 @@ def test_tu_ended_proposal(client, proposal):
     assert status == "Voting is closed for this proposal."
 
 
-def test_tu_proposal_vote_not_found(client, tu_user):
+def test_pm_proposal_vote_not_found(client, pm_user):
     """Test POST request to a missing vote."""
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
@@ -756,13 +756,13 @@ def test_tu_proposal_vote_not_found(client, tu_user):
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_tu_proposal_vote(client, proposal):
-    tu_user, user, voteinfo = proposal
+def test_pm_proposal_vote(client, proposal):
+    pm_user, user, voteinfo = proposal
 
     # Store the current related values.
     yes = voteinfo.Yes
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
@@ -773,7 +773,7 @@ def test_tu_proposal_vote(client, proposal):
     assert voteinfo.Yes == yes + 1
 
     # Check that the new TUVote exists.
-    vote = db.query(TUVote, TUVote.VoteInfo == voteinfo, TUVote.User == tu_user).first()
+    vote = db.query(TUVote, TUVote.VoteInfo == voteinfo, TUVote.User == pm_user).first()
     assert vote is not None
 
     root = parse_root(response.text)
@@ -783,15 +783,15 @@ def test_tu_proposal_vote(client, proposal):
     assert status == "You've already voted for this proposal."
 
 
-def test_tu_proposal_vote_unauthorized(
+def test_pm_proposal_vote_unauthorized(
     client: TestClient, proposal: Tuple[User, User, TUVoteInfo]
 ):
-    tu_user, user, voteinfo = proposal
+    pm_user, user, voteinfo = proposal
 
     with db.begin():
-        tu_user.AccountTypeID = DEVELOPER_ID
+        pm_user.AccountTypeID = DEVELOPER_ID
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
@@ -813,14 +813,14 @@ def test_tu_proposal_vote_unauthorized(
     assert status == "Only Package Maintainers are allowed to vote."
 
 
-def test_tu_proposal_vote_cant_self_vote(client, proposal):
-    tu_user, user, voteinfo = proposal
+def test_pm_proposal_vote_cant_self_vote(client, proposal):
+    pm_user, user, voteinfo = proposal
 
     # Update voteinfo.User.
     with db.begin():
-        voteinfo.User = tu_user.Username
+        voteinfo.User = pm_user.Username
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
@@ -842,15 +842,15 @@ def test_tu_proposal_vote_cant_self_vote(client, proposal):
     assert status == "You cannot vote in an proposal about you."
 
 
-def test_tu_proposal_vote_already_voted(client, proposal):
-    tu_user, user, voteinfo = proposal
+def test_pm_proposal_vote_already_voted(client, proposal):
+    pm_user, user, voteinfo = proposal
 
     with db.begin():
-        db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+        db.create(TUVote, VoteInfo=voteinfo, User=pm_user)
         voteinfo.Yes += 1
         voteinfo.ActiveTUs += 1
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "Yes"}
         request.cookies = cookies
@@ -872,10 +872,10 @@ def test_tu_proposal_vote_already_voted(client, proposal):
     assert status == "You've already voted for this proposal."
 
 
-def test_tu_proposal_vote_invalid_decision(client, proposal):
-    tu_user, user, voteinfo = proposal
+def test_pm_proposal_vote_invalid_decision(client, proposal):
+    pm_user, user, voteinfo = proposal
 
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         data = {"decision": "EVIL"}
         request.cookies = cookies
@@ -884,15 +884,15 @@ def test_tu_proposal_vote_invalid_decision(client, proposal):
     assert response.text == "Invalid 'decision' value."
 
 
-def test_tu_addvote(client: TestClient, tu_user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_addvote(client: TestClient, pm_user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get("/addvote")
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_tu_addvote_unauthorized(
+def test_pm_addvote_unauthorized(
     client: TestClient, user: User, proposal: Tuple[User, User, TUVoteInfo]
 ):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -909,8 +909,8 @@ def test_tu_addvote_unauthorized(
     assert response.headers.get("location") == "/package-maintainer"
 
 
-def test_tu_addvote_invalid_type(client: TestClient, tu_user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_addvote_invalid_type(client: TestClient, pm_user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = cookies
         response = request.get("/addvote", params={"type": "faketype"})
@@ -921,8 +921,8 @@ def test_tu_addvote_invalid_type(client: TestClient, tu_user: User):
     assert error.strip() == "Invalid type."
 
 
-def test_tu_addvote_post(client: TestClient, tu_user: User, user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_addvote_post(client: TestClient, pm_user: User, user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
 
     data = {"user": user.Username, "type": "add_pm", "agenda": "Blah"}
 
@@ -935,10 +935,10 @@ def test_tu_addvote_post(client: TestClient, tu_user: User, user: User):
     assert voteinfo is not None
 
 
-def test_tu_addvote_post_cant_duplicate_username(
-    client: TestClient, tu_user: User, user: User
+def test_pm_addvote_post_cant_duplicate_username(
+    client: TestClient, pm_user: User, user: User
 ):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
 
     data = {"user": user.Username, "type": "add_pm", "agenda": "Blah"}
 
@@ -956,8 +956,8 @@ def test_tu_addvote_post_cant_duplicate_username(
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
-def test_tu_addvote_post_invalid_username(client: TestClient, tu_user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_addvote_post_invalid_username(client: TestClient, pm_user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     data = {"user": "fakeusername"}
     with client as request:
         request.cookies = cookies
@@ -965,8 +965,8 @@ def test_tu_addvote_post_invalid_username(client: TestClient, tu_user: User):
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_tu_addvote_post_invalid_type(client: TestClient, tu_user: User, user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_addvote_post_invalid_type(client: TestClient, pm_user: User, user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     data = {"user": user.Username}
     with client as request:
         request.cookies = cookies
@@ -974,8 +974,8 @@ def test_tu_addvote_post_invalid_type(client: TestClient, tu_user: User, user: U
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
-def test_tu_addvote_post_invalid_agenda(client: TestClient, tu_user: User, user: User):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+def test_pm_addvote_post_invalid_agenda(client: TestClient, pm_user: User, user: User):
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     data = {"user": user.Username, "type": "add_pm"}
     with client as request:
         request.cookies = cookies
@@ -983,9 +983,9 @@ def test_tu_addvote_post_invalid_agenda(client: TestClient, tu_user: User, user:
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
-def test_tu_addvote_post_bylaws(client: TestClient, tu_user: User):
+def test_pm_addvote_post_bylaws(client: TestClient, pm_user: User):
     # Bylaws votes do not need a user specified.
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     data = {"type": "bylaws", "agenda": "Blah blah!"}
     with client as request:
         request.cookies = cookies

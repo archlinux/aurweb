@@ -12,8 +12,8 @@ test_expect_success 'Test basic authentication.' '
 '
 
 test_expect_success 'Test Package Maintainer authentication.' '
-	cover "$GIT_AUTH" "$AUTH_KEYTYPE_TU" "$AUTH_KEYTEXT_TU" >out &&
-	grep -q AUR_USER=tu out &&
+	cover "$GIT_AUTH" "$AUTH_KEYTYPE_PM" "$AUTH_KEYTEXT_PM" >out &&
+	grep -q AUR_USER=pm out &&
 	grep -q AUR_PRIVILEGED=1 out
 '
 

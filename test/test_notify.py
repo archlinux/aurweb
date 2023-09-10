@@ -544,7 +544,7 @@ This is a test closure comment.
     assert email.body == expected
 
 
-def test_tu_vote_reminders(user: User):
+def test_pm_vote_reminders(user: User):
     set_tu([user])
 
     vote_id = 1
