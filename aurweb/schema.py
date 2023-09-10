@@ -526,8 +526,8 @@ PackageRequests = Table(
 
 
 # Vote information
-TU_VoteInfo = Table(
-    "TU_VoteInfo",
+VoteInfo = Table(
+    "VoteInfo",
     metadata,
     Column("ID", INTEGER(unsigned=True), primary_key=True),
     Column("Agenda", Text, nullable=False),
@@ -546,7 +546,10 @@ TU_VoteInfo = Table(
         "Abstain", INTEGER(unsigned=True), nullable=False, server_default=text("'0'")
     ),
     Column(
-        "ActiveTUs", INTEGER(unsigned=True), nullable=False, server_default=text("'0'")
+        "ActiveUsers",
+        INTEGER(unsigned=True),
+        nullable=False,
+        server_default=text("'0'"),
     ),
     mysql_engine="InnoDB",
     mysql_charset="utf8mb4",
@@ -555,10 +558,10 @@ TU_VoteInfo = Table(
 
 
 # Individual vote records
-TU_Votes = Table(
-    "TU_Votes",
+Votes = Table(
+    "Votes",
     metadata,
-    Column("VoteID", ForeignKey("TU_VoteInfo.ID", ondelete="CASCADE"), nullable=False),
+    Column("VoteID", ForeignKey("VoteInfo.ID", ondelete="CASCADE"), nullable=False),
     Column("UserID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
     mysql_engine="InnoDB",
 )

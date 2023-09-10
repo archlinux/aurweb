@@ -4,7 +4,7 @@ from sqlalchemy import and_
 
 import aurweb.config
 from aurweb import db, time
-from aurweb.models import TUVoteInfo
+from aurweb.models import VoteInfo
 from aurweb.scripts import notify
 
 notify_cmd = aurweb.config.get("notifications", "notify-cmd")
@@ -15,17 +15,17 @@ def main():
 
     now = time.utcnow()
 
-    start = aurweb.config.getint("tuvotereminder", "range_start")
+    start = aurweb.config.getint("votereminder", "range_start")
     filter_from = now + start
 
-    end = aurweb.config.getint("tuvotereminder", "range_end")
+    end = aurweb.config.getint("votereminder", "range_end")
     filter_to = now + end
 
-    query = db.query(TUVoteInfo.ID).filter(
-        and_(TUVoteInfo.End >= filter_from, TUVoteInfo.End <= filter_to)
+    query = db.query(VoteInfo.ID).filter(
+        and_(VoteInfo.End >= filter_from, VoteInfo.End <= filter_to)
     )
     for voteinfo in query:
-        notif = notify.TUVoteReminderNotification(voteinfo.ID)
+        notif = notify.VoteReminderNotification(voteinfo.ID)
         notif.send()
 
 

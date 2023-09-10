@@ -158,7 +158,7 @@ commit_url = https://gitlab.archlinux.org/archlinux/aurweb/-/commits/%s
 ; sed -r "s/^;?(commit_hash) =.*$/\1 = $(git rev-parse HEAD)/" config
 ;commit_hash = 1234567
 
-[tuvotereminder]
+[votereminder]
 ; Offsets used to determine when Package Maintainers should be reminded about
 ; votes that they should make.
 ; Reminders will be sent out for all votes that a Package Maintainer has not yet

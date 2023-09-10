@@ -4,8 +4,8 @@ from sqlalchemy.exc import IntegrityError
 from aurweb import db, time
 from aurweb.db import create, rollback
 from aurweb.models.account_type import PACKAGE_MAINTAINER_ID
-from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
+from aurweb.models.voteinfo import VoteInfo
 
 
 @pytest.fixture(autouse=True)
@@ -27,11 +27,11 @@ def user() -> User:
     yield user
 
 
-def test_pm_voteinfo_creation(user: User):
+def test_voteinfo_creation(user: User):
     ts = time.utcnow()
     with db.begin():
-        pm_voteinfo = create(
-            TUVoteInfo,
+        voteinfo = create(
+            VoteInfo,
             Agenda="Blah blah.",
             User=user.Username,
             Submitted=ts,
@@ -39,26 +39,26 @@ def test_pm_voteinfo_creation(user: User):
             Quorum=0.5,
             Submitter=user,
         )
-    assert bool(pm_voteinfo.ID)
-    assert pm_voteinfo.Agenda == "Blah blah."
-    assert pm_voteinfo.User == user.Username
-    assert pm_voteinfo.Submitted == ts
-    assert pm_voteinfo.End == ts + 5
-    assert pm_voteinfo.Quorum == 0.5
-    assert pm_voteinfo.Submitter == user
-    assert pm_voteinfo.Yes == 0
-    assert pm_voteinfo.No == 0
-    assert pm_voteinfo.Abstain == 0
-    assert pm_voteinfo.ActiveTUs == 0
+    assert bool(voteinfo.ID)
+    assert voteinfo.Agenda == "Blah blah."
+    assert voteinfo.User == user.Username
+    assert voteinfo.Submitted == ts
+    assert voteinfo.End == ts + 5
+    assert voteinfo.Quorum == 0.5
+    assert voteinfo.Submitter == user
+    assert voteinfo.Yes == 0
+    assert voteinfo.No == 0
+    assert voteinfo.Abstain == 0
+    assert voteinfo.ActiveUsers == 0
 
-    assert pm_voteinfo in user.tu_voteinfo_set
+    assert voteinfo in user.voteinfo_set
 
 
-def test_pm_voteinfo_is_running(user: User):
+def test_voteinfo_is_running(user: User):
     ts = time.utcnow()
     with db.begin():
-        pm_voteinfo = create(
-            TUVoteInfo,
+        voteinfo = create(
+            VoteInfo,
             Agenda="Blah blah.",
             User=user.Username,
             Submitted=ts,
@@ -66,18 +66,18 @@ def test_pm_voteinfo_is_running(user: User):
             Quorum=0.5,
             Submitter=user,
         )
-    assert pm_voteinfo.is_running() is True
+    assert voteinfo.is_running() is True
 
     with db.begin():
-        pm_voteinfo.End = ts - 5
-    assert pm_voteinfo.is_running() is False
+        voteinfo.End = ts - 5
+    assert voteinfo.is_running() is False
 
 
-def test_pm_voteinfo_total_votes(user: User):
+def test_voteinfo_total_votes(user: User):
     ts = time.utcnow()
     with db.begin():
-        pm_voteinfo = create(
-            TUVoteInfo,
+        voteinfo = create(
+            VoteInfo,
             Agenda="Blah blah.",
             User=user.Username,
             Submitted=ts,
@@ -86,19 +86,19 @@ def test_pm_voteinfo_total_votes(user: User):
             Submitter=user,
         )
 
-        pm_voteinfo.Yes = 1
-        pm_voteinfo.No = 3
-        pm_voteinfo.Abstain = 5
+        voteinfo.Yes = 1
+        voteinfo.No = 3
+        voteinfo.Abstain = 5
 
     # total_votes() should be the sum of Yes, No and Abstain: 1 + 3 + 5 = 9.
-    assert pm_voteinfo.total_votes() == 9
+    assert voteinfo.total_votes() == 9
 
 
-def test_pm_voteinfo_null_submitter_raises(user: User):
+def test_voteinfo_null_submitter_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(
-                TUVoteInfo,
+                VoteInfo,
                 Agenda="Blah blah.",
                 User=user.Username,
                 Submitted=0,
@@ -108,11 +108,11 @@ def test_pm_voteinfo_null_submitter_raises(user: User):
     rollback()
 
 
-def test_pm_voteinfo_null_agenda_raises(user: User):
+def test_voteinfo_null_agenda_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(
-                TUVoteInfo,
+                VoteInfo,
                 User=user.Username,
                 Submitted=0,
                 End=0,
@@ -122,11 +122,11 @@ def test_pm_voteinfo_null_agenda_raises(user: User):
     rollback()
 
 
-def test_pm_voteinfo_null_user_raises(user: User):
+def test_voteinfo_null_user_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(
-                TUVoteInfo,
+                VoteInfo,
                 Agenda="Blah blah.",
                 Submitted=0,
                 End=0,
@@ -136,11 +136,11 @@ def test_pm_voteinfo_null_user_raises(user: User):
     rollback()
 
 
-def test_pm_voteinfo_null_submitted_raises(user: User):
+def test_voteinfo_null_submitted_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(
-                TUVoteInfo,
+                VoteInfo,
                 Agenda="Blah blah.",
                 User=user.Username,
                 End=0,
@@ -150,11 +150,11 @@ def test_pm_voteinfo_null_submitted_raises(user: User):
     rollback()
 
 
-def test_pm_voteinfo_null_end_raises(user: User):
+def test_voteinfo_null_end_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(
-                TUVoteInfo,
+                VoteInfo,
                 Agenda="Blah blah.",
                 User=user.Username,
                 Submitted=0,
@@ -164,10 +164,10 @@ def test_pm_voteinfo_null_end_raises(user: User):
     rollback()
 
 
-def test_pm_voteinfo_null_quorum_default(user: User):
+def test_voteinfo_null_quorum_default(user: User):
     with db.begin():
         vi = create(
-            TUVoteInfo,
+            VoteInfo,
             Agenda="Blah blah.",
             User=user.Username,
             Submitted=0,

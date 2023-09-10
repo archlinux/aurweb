@@ -26,6 +26,6 @@ from .request_type import RequestType  # noqa: F401
 from .session import Session  # noqa: F401
 from .ssh_pub_key import SSHPubKey  # noqa: F401
 from .term import Term  # noqa: F401
-from .tu_vote import TUVote  # noqa: F401
-from .tu_voteinfo import TUVoteInfo  # noqa: F401
 from .user import User  # noqa: F401
+from .vote import Vote  # noqa: F401
+from .voteinfo import VoteInfo  # noqa: F401

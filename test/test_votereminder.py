@@ -3,17 +3,17 @@ from typing import Tuple
 import pytest
 
 from aurweb import config, db, time
-from aurweb.models import TUVote, TUVoteInfo, User
+from aurweb.models import User, Vote, VoteInfo
 from aurweb.models.account_type import PACKAGE_MAINTAINER_ID
-from aurweb.scripts import tuvotereminder as reminder
+from aurweb.scripts import votereminder as reminder
 from aurweb.testing.email import Email
 
 aur_location = config.get("options", "aur_location")
 
 
-def create_vote(user: User, voteinfo: TUVoteInfo) -> TUVote:
+def create_vote(user: User, voteinfo: VoteInfo) -> Vote:
     with db.begin():
-        vote = db.create(TUVote, User=user, VoteID=voteinfo.ID)
+        vote = db.create(Vote, User=user, VoteID=voteinfo.ID)
     return vote
 
 
@@ -29,11 +29,11 @@ def create_user(username: str, type_id: int):
     return user
 
 
-def email_pieces(voteinfo: TUVoteInfo) -> Tuple[str, str]:
+def email_pieces(voteinfo: VoteInfo) -> Tuple[str, str]:
     """
     Return a (subject, content) tuple based on voteinfo.ID
 
-    :param voteinfo: TUVoteInfo instance
+    :param voteinfo: VoteInfo instance
     :return: tuple(subject, content)
     """
     subject = f"Package Maintainer Vote Reminder: Proposal {voteinfo.ID}"
@@ -61,12 +61,12 @@ def user3() -> User:
 
 
 @pytest.fixture
-def voteinfo(user: User) -> TUVoteInfo:
+def voteinfo(user: User) -> VoteInfo:
     now = time.utcnow()
-    start = config.getint("tuvotereminder", "range_start")
+    start = config.getint("votereminder", "range_start")
     with db.begin():
         voteinfo = db.create(
-            TUVoteInfo,
+            VoteInfo,
             Agenda="Lorem ipsum.",
             User=user.Username,
             End=(now + start + 1),
@@ -77,7 +77,7 @@ def voteinfo(user: User) -> TUVoteInfo:
     yield voteinfo
 
 
-def test_pm_vote_reminders(user: User, user2: User, user3: User, voteinfo: TUVoteInfo):
+def test_vote_reminders(user: User, user2: User, user3: User, voteinfo: VoteInfo):
     reminder.main()
     assert Email.count() == 3
 
@@ -96,8 +96,8 @@ def test_pm_vote_reminders(user: User, user2: User, user3: User, voteinfo: TUVot
         assert emails[i].body == content
 
 
-def test_pm_vote_reminders_only_unvoted(
-    user: User, user2: User, user3: User, voteinfo: TUVoteInfo
+def test_vote_reminders_only_unvoted(
+    user: User, user2: User, user3: User, voteinfo: VoteInfo
 ):
     # Vote with user2 and user3; leaving only user to be notified.
     create_vote(user2, voteinfo)

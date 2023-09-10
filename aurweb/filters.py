@@ -118,9 +118,9 @@ def to_qs(query: dict[str, Any]) -> str:
 
 @register_filter("get_vote")
 def get_vote(voteinfo, request: fastapi.Request):
-    from aurweb.models import TUVote
+    from aurweb.models import Vote
 
-    return voteinfo.tu_votes.filter(TUVote.User == request.user).first()
+    return voteinfo.votes.filter(Vote.User == request.user).first()
 
 
 @register_filter("number_format")

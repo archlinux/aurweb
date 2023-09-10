@@ -9,9 +9,9 @@ from fastapi.testclient import TestClient
 
 from aurweb import config, db, filters, time
 from aurweb.models.account_type import DEVELOPER_ID, PACKAGE_MAINTAINER_ID, AccountType
-from aurweb.models.tu_vote import TUVote
-from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
+from aurweb.models.vote import Vote
+from aurweb.models.voteinfo import VoteInfo
 from aurweb.testing.requests import Request
 
 DATETIME_REGEX = r"^[0-9]{4}-[0-9]{2}-[0-9]{2} \(.+\)$"
@@ -143,7 +143,7 @@ def proposal(user, pm_user):
 
     with db.begin():
         voteinfo = db.create(
-            TUVoteInfo,
+            VoteInfo,
             Agenda=agenda,
             Quorum=0.0,
             User=user.Username,
@@ -210,7 +210,7 @@ def test_pm_index(client, pm_user):
             agenda, start, end = vote
             vote_records.append(
                 db.create(
-                    TUVoteInfo,
+                    VoteInfo,
                     Agenda=agenda,
                     User=pm_user.Username,
                     Submitted=start,
@@ -224,8 +224,8 @@ def test_pm_index(client, pm_user):
         # Vote on an ended proposal.
         vote_record = vote_records[1]
         vote_record.Yes += 1
-        vote_record.ActiveTUs += 1
-        db.create(TUVote, VoteInfo=vote_record, User=pm_user)
+        vote_record.ActiveUsers += 1
+        db.create(Vote, VoteInfo=vote_record, User=pm_user)
 
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
@@ -347,7 +347,7 @@ def test_pm_index_table_paging(client, pm_user):
         for i in range(25):
             # Create 25 current votes.
             db.create(
-                TUVoteInfo,
+                VoteInfo,
                 Agenda=f"Agenda #{i}",
                 User=pm_user.Username,
                 Submitted=(ts - 5),
@@ -359,7 +359,7 @@ def test_pm_index_table_paging(client, pm_user):
         for i in range(25):
             # Create 25 past votes.
             db.create(
-                TUVoteInfo,
+                VoteInfo,
                 Agenda=f"Agenda #{25 + i}",
                 User=pm_user.Username,
                 Submitted=(ts - 1000),
@@ -462,7 +462,7 @@ def test_pm_index_sorting(client, pm_user):
         for i in range(2):
             # Create 'Agenda #1' and 'Agenda #2'.
             db.create(
-                TUVoteInfo,
+                VoteInfo,
                 Agenda=f"Agenda #{i + 1}",
                 User=pm_user.Username,
                 Submitted=(ts + 5),
@@ -540,21 +540,21 @@ def test_pm_index_last_votes(
     with db.begin():
         # Create a proposal which has ended.
         voteinfo = db.create(
-            TUVoteInfo,
+            VoteInfo,
             Agenda="Test agenda",
             User=user.Username,
             Submitted=(ts - 1000),
             End=(ts - 5),
             Yes=1,
             No=1,
-            ActiveTUs=1,
+            ActiveUsers=1,
             Quorum=0.0,
             Submitter=pm_user,
         )
 
         # Create a vote on it from pm_user.
-        db.create(TUVote, VoteInfo=voteinfo, User=pm_user)
-        db.create(TUVote, VoteInfo=voteinfo, User=pm_user2)
+        db.create(Vote, VoteInfo=voteinfo, User=pm_user)
+        db.create(Vote, VoteInfo=voteinfo, User=pm_user2)
 
     # Now, check that pm_user got populated in the .last-votes table.
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
@@ -590,7 +590,7 @@ def test_pm_proposal_not_found(client, pm_user):
 
 
 def test_pm_proposal_unauthorized(
-    client: TestClient, user: User, proposal: Tuple[User, User, TUVoteInfo]
+    client: TestClient, user: User, proposal: Tuple[User, User, VoteInfo]
 ):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/package-maintainer/{proposal[2].ID}"
@@ -607,12 +607,10 @@ def test_pm_proposal_unauthorized(
     assert response.headers.get("location") == "/package-maintainer"
 
 
-def test_pm_running_proposal(
-    client: TestClient, proposal: Tuple[User, User, TUVoteInfo]
-):
+def test_pm_running_proposal(client: TestClient, proposal: Tuple[User, User, VoteInfo]):
     pm_user, user, voteinfo = proposal
     with db.begin():
-        voteinfo.ActiveTUs = 1
+        voteinfo.ActiveUsers = 1
 
     # Initiate an authenticated GET request to /package-maintainer/{proposal_id}.
     proposal_id = voteinfo.ID
@@ -683,8 +681,8 @@ def test_pm_running_proposal(
 
     # Create a vote.
     with db.begin():
-        db.create(TUVote, VoteInfo=voteinfo, User=pm_user)
-        voteinfo.ActiveTUs += 1
+        db.create(Vote, VoteInfo=voteinfo, User=pm_user)
+        voteinfo.ActiveUsers += 1
         voteinfo.Yes += 1
 
     # Make another request now that we've voted.
@@ -772,8 +770,8 @@ def test_pm_proposal_vote(client, proposal):
     # Check that the proposal record got updated.
     assert voteinfo.Yes == yes + 1
 
-    # Check that the new TUVote exists.
-    vote = db.query(TUVote, TUVote.VoteInfo == voteinfo, TUVote.User == pm_user).first()
+    # Check that the new PMVote exists.
+    vote = db.query(Vote, Vote.VoteInfo == voteinfo, Vote.User == pm_user).first()
     assert vote is not None
 
     root = parse_root(response.text)
@@ -784,7 +782,7 @@ def test_pm_proposal_vote(client, proposal):
 
 
 def test_pm_proposal_vote_unauthorized(
-    client: TestClient, proposal: Tuple[User, User, TUVoteInfo]
+    client: TestClient, proposal: Tuple[User, User, VoteInfo]
 ):
     pm_user, user, voteinfo = proposal
 
@@ -846,9 +844,9 @@ def test_pm_proposal_vote_already_voted(client, proposal):
     pm_user, user, voteinfo = proposal
 
     with db.begin():
-        db.create(TUVote, VoteInfo=voteinfo, User=pm_user)
+        db.create(Vote, VoteInfo=voteinfo, User=pm_user)
         voteinfo.Yes += 1
-        voteinfo.ActiveTUs += 1
+        voteinfo.ActiveUsers += 1
 
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
@@ -893,7 +891,7 @@ def test_pm_addvote(client: TestClient, pm_user: User):
 
 
 def test_pm_addvote_unauthorized(
-    client: TestClient, user: User, proposal: Tuple[User, User, TUVoteInfo]
+    client: TestClient, user: User, proposal: Tuple[User, User, VoteInfo]
 ):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -931,7 +929,7 @@ def test_pm_addvote_post(client: TestClient, pm_user: User, user: User):
         response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    voteinfo = db.query(TUVoteInfo, TUVoteInfo.Agenda == "Blah").first()
+    voteinfo = db.query(VoteInfo, VoteInfo.Agenda == "Blah").first()
     assert voteinfo is not None
 
 
@@ -947,7 +945,7 @@ def test_pm_addvote_post_cant_duplicate_username(
         response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    voteinfo = db.query(TUVoteInfo, TUVoteInfo.Agenda == "Blah").first()
+    voteinfo = db.query(VoteInfo, VoteInfo.Agenda == "Blah").first()
     assert voteinfo is not None
 
     with client as request:

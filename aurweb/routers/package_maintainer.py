@@ -87,9 +87,9 @@ async def package_maintainer(
     context["past_by"] = past_by
 
     current_votes = (
-        db.query(models.TUVoteInfo)
-        .filter(models.TUVoteInfo.End > ts)
-        .order_by(models.TUVoteInfo.Submitted.desc())
+        db.query(models.VoteInfo)
+        .filter(models.VoteInfo.End > ts)
+        .order_by(models.VoteInfo.Submitted.desc())
     )
     context["current_votes_count"] = current_votes.count()
     current_votes = current_votes.limit(pp).offset(current_off)
@@ -99,9 +99,9 @@ async def package_maintainer(
     context["current_off"] = current_off
 
     past_votes = (
-        db.query(models.TUVoteInfo)
-        .filter(models.TUVoteInfo.End <= ts)
-        .order_by(models.TUVoteInfo.Submitted.desc())
+        db.query(models.VoteInfo)
+        .filter(models.VoteInfo.End <= ts)
+        .order_by(models.VoteInfo.Submitted.desc())
     )
     context["past_votes_count"] = past_votes.count()
     past_votes = past_votes.limit(pp).offset(past_off)
@@ -110,21 +110,21 @@ async def package_maintainer(
     )
     context["past_off"] = past_off
 
-    last_vote = func.max(models.TUVote.VoteID).label("LastVote")
+    last_vote = func.max(models.Vote.VoteID).label("LastVote")
     last_votes_by_pm = (
-        db.query(models.TUVote)
+        db.query(models.Vote)
         .join(models.User)
-        .join(models.TUVoteInfo, models.TUVoteInfo.ID == models.TUVote.VoteID)
+        .join(models.VoteInfo, models.VoteInfo.ID == models.Vote.VoteID)
         .filter(
             and_(
-                models.TUVote.VoteID == models.TUVoteInfo.ID,
-                models.User.ID == models.TUVote.UserID,
-                models.TUVoteInfo.End < ts,
+                models.Vote.VoteID == models.VoteInfo.ID,
+                models.User.ID == models.Vote.UserID,
+                models.VoteInfo.End < ts,
                 or_(models.User.AccountTypeID == 2, models.User.AccountTypeID == 4),
             )
         )
-        .with_entities(models.TUVote.UserID, last_vote, models.User.Username)
-        .group_by(models.TUVote.UserID)
+        .with_entities(models.Vote.UserID, last_vote, models.User.Username)
+        .group_by(models.Vote.UserID)
         .order_by(last_vote.desc(), models.User.Username.asc())
     )
     context["last_votes_by_pm"] = last_votes_by_pm.all()
@@ -148,9 +148,9 @@ def render_proposal(
     request: Request,
     context: dict,
     proposal: int,
-    voteinfo: models.TUVoteInfo,
+    voteinfo: models.VoteInfo,
     voters: typing.Iterable[models.User],
-    vote: models.TUVote,
+    vote: models.Vote,
     status_code: HTTPStatus = HTTPStatus.OK,
 ):
     """Render a single PM proposal."""
@@ -159,15 +159,15 @@ def render_proposal(
     context["voters"] = voters.all()
 
     total = voteinfo.total_votes()
-    participation = (total / voteinfo.ActiveTUs) if voteinfo.ActiveTUs else 0
+    participation = (total / voteinfo.ActiveUsers) if voteinfo.ActiveUsers else 0
     context["participation"] = participation
 
-    accepted = (voteinfo.Yes > voteinfo.ActiveTUs / 2) or (
+    accepted = (voteinfo.Yes > voteinfo.ActiveUsers / 2) or (
         participation > voteinfo.Quorum and voteinfo.Yes > voteinfo.No
     )
     context["accepted"] = accepted
 
-    can_vote = voters.filter(models.TUVote.User == request.user).first() is None
+    can_vote = voters.filter(models.Vote.User == request.user).first() is None
     context["can_vote"] = can_vote
 
     if not voteinfo.is_running():
@@ -190,23 +190,21 @@ async def package_maintainer_proposal(request: Request, proposal: int):
     context = await make_variable_context(request, "Package Maintainer")
     proposal = int(proposal)
 
-    voteinfo = (
-        db.query(models.TUVoteInfo).filter(models.TUVoteInfo.ID == proposal).first()
-    )
+    voteinfo = db.query(models.VoteInfo).filter(models.VoteInfo.ID == proposal).first()
     if not voteinfo:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     voters = (
         db.query(models.User)
-        .join(models.TUVote)
-        .filter(models.TUVote.VoteID == voteinfo.ID)
+        .join(models.Vote)
+        .filter(models.Vote.VoteID == voteinfo.ID)
     )
     vote = (
-        db.query(models.TUVote)
+        db.query(models.Vote)
         .filter(
             and_(
-                models.TUVote.UserID == request.user.ID,
-                models.TUVote.VoteID == voteinfo.ID,
+                models.Vote.UserID == request.user.ID,
+                models.Vote.VoteID == voteinfo.ID,
             )
         )
         .first()
@@ -235,23 +233,21 @@ async def package_maintainer_proposal_post(
     context = await make_variable_context(request, "Package Maintainer")
     proposal = int(proposal)  # Make sure it's an int.
 
-    voteinfo = (
-        db.query(models.TUVoteInfo).filter(models.TUVoteInfo.ID == proposal).first()
-    )
+    voteinfo = db.query(models.VoteInfo).filter(models.VoteInfo.ID == proposal).first()
     if not voteinfo:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     voters = (
         db.query(models.User)
-        .join(models.TUVote)
-        .filter(models.TUVote.VoteID == voteinfo.ID)
+        .join(models.Vote)
+        .filter(models.Vote.VoteID == voteinfo.ID)
     )
     vote = (
-        db.query(models.TUVote)
+        db.query(models.Vote)
         .filter(
             and_(
-                models.TUVote.UserID == request.user.ID,
-                models.TUVote.VoteID == voteinfo.ID,
+                models.Vote.UserID == request.user.ID,
+                models.Vote.VoteID == voteinfo.ID,
             )
         )
         .first()
@@ -282,7 +278,7 @@ async def package_maintainer_proposal_post(
                 "Invalid 'decision' value.", status_code=HTTPStatus.BAD_REQUEST
             )
 
-        vote = db.create(models.TUVote, User=request.user, VoteInfo=voteinfo)
+        vote = db.create(models.Vote, User=request.user, VoteInfo=voteinfo)
 
     context["error"] = "You've already voted for this proposal."
     return render_proposal(request, context, proposal, voteinfo, voters, vote)
@@ -342,10 +338,8 @@ async def package_maintainer_addvote_post(
 
         utcnow = time.utcnow()
         voteinfo = (
-            db.query(models.TUVoteInfo)
-            .filter(
-                and_(models.TUVoteInfo.User == user, models.TUVoteInfo.End > utcnow)
-            )
+            db.query(models.VoteInfo)
+            .filter(and_(models.VoteInfo.User == user, models.VoteInfo.End > utcnow))
             .count()
         )
         if voteinfo:
@@ -371,7 +365,7 @@ async def package_maintainer_addvote_post(
     # Active PM types we filter for.
     types = {PACKAGE_MAINTAINER_ID, PACKAGE_MAINTAINER_AND_DEV_ID}
 
-    # Create a new TUVoteInfo (proposal)!
+    # Create a new VoteInfo (proposal)!
     with db.begin():
         active_pms = (
             db.query(User)
@@ -385,13 +379,13 @@ async def package_maintainer_addvote_post(
             .count()
         )
         voteinfo = db.create(
-            models.TUVoteInfo,
+            models.VoteInfo,
             User=user,
             Agenda=html.escape(agenda),
             Submitted=timestamp,
             End=(timestamp + duration),
             Quorum=quorum,
-            ActiveTUs=active_pms,
+            ActiveUsers=active_pms,
             Submitter=request.user,
         )
 

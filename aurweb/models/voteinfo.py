@@ -8,14 +8,14 @@ from aurweb.models.declarative import Base
 from aurweb.models.user import User as _User
 
 
-class TUVoteInfo(Base):
-    __table__ = schema.TU_VoteInfo
+class VoteInfo(Base):
+    __table__ = schema.VoteInfo
     __tablename__ = __table__.name
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     Submitter = relationship(
         _User,
-        backref=backref("tu_voteinfo_set", lazy="dynamic"),
+        backref=backref("voteinfo_set", lazy="dynamic"),
         foreign_keys=[__table__.c.SubmitterID],
     )
 
@@ -30,35 +30,35 @@ class TUVoteInfo(Base):
         if self.Agenda is None:
             raise IntegrityError(
                 statement="Column Agenda cannot be null.",
-                orig="TU_VoteInfo.Agenda",
+                orig="VoteInfo.Agenda",
                 params=("NULL"),
             )
 
         if self.User is None:
             raise IntegrityError(
                 statement="Column User cannot be null.",
-                orig="TU_VoteInfo.User",
+                orig="VoteInfo.User",
                 params=("NULL"),
             )
 
         if self.Submitted is None:
             raise IntegrityError(
                 statement="Column Submitted cannot be null.",
-                orig="TU_VoteInfo.Submitted",
+                orig="VoteInfo.Submitted",
                 params=("NULL"),
             )
 
         if self.End is None:
             raise IntegrityError(
                 statement="Column End cannot be null.",
-                orig="TU_VoteInfo.End",
+                orig="VoteInfo.End",
                 params=("NULL"),
             )
 
         if not self.Submitter:
             raise IntegrityError(
                 statement="Foreign key SubmitterID cannot be null.",
-                orig="TU_VoteInfo.SubmitterID",
+                orig="VoteInfo.SubmitterID",
                 params=("NULL"),
             )
 

@@ -357,7 +357,7 @@ for t in range(0, OPEN_PROPOSALS + CLOSE_PROPOSALS):
         user = user_keys[random.randrange(0, len(user_keys))]
     suid = packagemaintainers[random.randrange(0, len(packagemaintainers))]
     s = (
-        "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End,"
+        "INSERT INTO VoteInfo (Agenda, User, Submitted, End,"
         " Quorum, SubmitterID) VALUES ('%s', '%s', %d, %d, 0.0, %d);\n"
     )
     s = s % (genFortune(), user, start, end, suid)

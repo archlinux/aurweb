@@ -20,7 +20,7 @@ from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_request import PackageRequest
 from aurweb.models.request_type import RequestType
-from aurweb.models.tu_vote import TUVote
+from aurweb.models.vote import Vote
 
 logger = aur_logging.get_logger(__name__)
 
@@ -744,11 +744,11 @@ class RequestCloseNotification(Notification):
         return headers
 
 
-class TUVoteReminderNotification(Notification):
+class VoteReminderNotification(Notification):
     def __init__(self, vote_id):
         self._vote_id = int(vote_id)
 
-        subquery = db.query(TUVote.UserID).filter(TUVote.VoteID == vote_id)
+        subquery = db.query(Vote.UserID).filter(Vote.VoteID == vote_id)
         query = (
             db.query(User)
             .filter(
@@ -799,7 +799,7 @@ def main():
         "delete": DeleteNotification,
         "request-open": RequestOpenNotification,
         "request-close": RequestCloseNotification,
-        "tu-vote-reminder": TUVoteReminderNotification,
+        "vote-reminder": VoteReminderNotification,
     }
 
     with db.begin():

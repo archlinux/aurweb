@@ -544,11 +544,11 @@ This is a test closure comment.
     assert email.body == expected
 
 
-def test_pm_vote_reminders(user: User):
+def test_vote_reminders(user: User):
     set_tu([user])
 
     vote_id = 1
-    notif = notify.TUVoteReminderNotification(vote_id)
+    notif = notify.VoteReminderNotification(vote_id)
     notif.send()
     assert Email.count() == 1
 
@@ -571,7 +571,7 @@ def test_notify_main(user: User):
     set_tu([user])
 
     vote_id = 1
-    args = ["aurweb-notify", "tu-vote-reminder", str(vote_id)]
+    args = ["aurweb-notify", "vote-reminder", str(vote_id)]
     with mock.patch("sys.argv", args):
         notify.main()
 

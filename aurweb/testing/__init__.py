@@ -51,8 +51,8 @@ def setup_test_db(*args):
             models.Session.__tablename__,
             models.SSHPubKey.__tablename__,
             models.Term.__tablename__,
-            models.TUVote.__tablename__,
-            models.TUVoteInfo.__tablename__,
+            models.Vote.__tablename__,
+            models.VoteInfo.__tablename__,
             models.User.__tablename__,
         ]
 

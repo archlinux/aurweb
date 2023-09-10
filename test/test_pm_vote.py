@@ -3,9 +3,9 @@ from sqlalchemy.exc import IntegrityError
 
 from aurweb import db, time
 from aurweb.models.account_type import PACKAGE_MAINTAINER_ID
-from aurweb.models.tu_vote import TUVote
-from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
+from aurweb.models.vote import Vote
+from aurweb.models.voteinfo import VoteInfo
 
 
 @pytest.fixture(autouse=True)
@@ -28,11 +28,11 @@ def user() -> User:
 
 
 @pytest.fixture
-def pm_voteinfo(user: User) -> TUVoteInfo:
+def voteinfo(user: User) -> VoteInfo:
     ts = time.utcnow()
     with db.begin():
-        pm_voteinfo = db.create(
-            TUVoteInfo,
+        voteinfo = db.create(
+            VoteInfo,
             Agenda="Blah blah.",
             User=user.Username,
             Submitted=ts,
@@ -40,24 +40,24 @@ def pm_voteinfo(user: User) -> TUVoteInfo:
             Quorum=0.5,
             Submitter=user,
         )
-    yield pm_voteinfo
+    yield voteinfo
 
 
-def test_pm_vote_creation(user: User, pm_voteinfo: TUVoteInfo):
+def test_vote_creation(user: User, voteinfo: VoteInfo):
     with db.begin():
-        pm_vote = db.create(TUVote, User=user, VoteInfo=pm_voteinfo)
+        vote = db.create(Vote, User=user, VoteInfo=voteinfo)
 
-    assert pm_vote.VoteInfo == pm_voteinfo
-    assert pm_vote.User == user
-    assert pm_vote in user.tu_votes
-    assert pm_vote in pm_voteinfo.tu_votes
+    assert vote.VoteInfo == voteinfo
+    assert vote.User == user
+    assert vote in user.votes
+    assert vote in voteinfo.votes
 
 
-def test_pm_vote_null_user_raises_exception(pm_voteinfo: TUVoteInfo):
+def test_vote_null_user_raises_exception(voteinfo: VoteInfo):
     with pytest.raises(IntegrityError):
-        TUVote(VoteInfo=pm_voteinfo)
+        Vote(VoteInfo=voteinfo)
 
 
-def test_pm_vote_null_voteinfo_raises_exception(user: User):
+def test_vote_null_voteinfo_raises_exception(user: User):
     with pytest.raises(IntegrityError):
-        TUVote(User=user)
+        Vote(User=user)

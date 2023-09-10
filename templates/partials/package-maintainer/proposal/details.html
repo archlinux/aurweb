@@ -23,7 +23,7 @@
 
     <div class="field">
         {{ "Active" | tr }} {{ "Package Maintainers" | tr }} {{ "assigned" | tr }}:
-        {{ voteinfo.ActiveTUs }}
+        {{ voteinfo.ActiveUsers }}
     </div>
 
     {% set submitter = voteinfo.Submitter.Username %}
@@ -47,7 +47,7 @@
     {% if not voteinfo.is_running() %}
         <div class="field result">
             {{ "Result" | tr }}:
-            {% if not voteinfo.ActiveTUs %}
+            {% if not voteinfo.ActiveUsers %}
                 <span>{{ "unknown" | tr }}</span>
             {% elif accepted %}
                 <span style="color: green; font-weight: bold">
@@ -102,7 +102,7 @@
             {% endif %}
         </td>
         <td>
-            {% if voteinfo.ActiveTUs %}
+            {% if voteinfo.ActiveUsers %}
                 {{ (participation * 100) | number_format(2) }}%
             {% else %}
                 {{ "unknown" | tr }}
