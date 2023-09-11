@@ -53,7 +53,7 @@ def user() -> User:
 
 @pytest.fixture
 def pm_user() -> User:
-    user = create_user("test_tu", PACKAGE_MAINTAINER_ID)
+    user = create_user("test_pm", PACKAGE_MAINTAINER_ID)
     yield user
 
 

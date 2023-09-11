@@ -81,7 +81,7 @@ def test_archdev_navbar_authenticated(client: TestClient, user: User):
         assert item.text.strip() == expected[i]
 
 
-def test_archdev_navbar_authenticated_tu(client: TestClient, package_maintainer: User):
+def test_archdev_navbar_authenticated_pm(client: TestClient, package_maintainer: User):
     expected = [
         "Dashboard",
         "Packages",

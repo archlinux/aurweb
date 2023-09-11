@@ -684,7 +684,7 @@ def test_get_account_edit_pm_as_pm(client: TestClient, pm_user: User):
     assert email.attrib["value"] == user2.Email
 
 
-def test_get_account_edit_as_tu(client: TestClient, pm_user: User):
+def test_get_account_edit_as_pm(client: TestClient, pm_user: User):
     """Test edit get route of another user as a PM."""
     with db.begin():
         user2 = create_user("test2")
@@ -723,9 +723,9 @@ def test_get_account_edit_type(client: TestClient, user: User):
     assert "id_type" not in response.text
 
 
-def test_get_account_edit_type_as_tu(client: TestClient, pm_user: User):
+def test_get_account_edit_type_as_pm(client: TestClient, pm_user: User):
     with db.begin():
-        user2 = create_user("test_tu")
+        user2 = create_user("test_pm")
 
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
@@ -795,9 +795,9 @@ def test_post_account_edit(client: TestClient, user: User):
     assert expected in response.content.decode()
 
 
-def test_post_account_edit_type_as_tu(client: TestClient, pm_user: User):
+def test_post_account_edit_type_as_pm(client: TestClient, pm_user: User):
     with db.begin():
-        user2 = create_user("test_tu")
+        user2 = create_user("test_pm")
 
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{user2.Username}/edit"
@@ -833,9 +833,9 @@ def test_post_account_edit_type_as_dev(client: TestClient, pm_user: User):
     assert user2.AccountTypeID == at.DEVELOPER_ID
 
 
-def test_post_account_edit_invalid_type_as_tu(client: TestClient, pm_user: User):
+def test_post_account_edit_invalid_type_as_pm(client: TestClient, pm_user: User):
     with db.begin():
-        user2 = create_user("test_tu")
+        user2 = create_user("test_pm")
         pm_user.AccountTypeID = at.PACKAGE_MAINTAINER_ID
 
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
@@ -1250,7 +1250,7 @@ def test_post_account_edit_other_user_as_user(client: TestClient, user: User):
     assert resp.headers.get("location") == f"/account/{user2.Username}"
 
 
-def test_post_account_edit_self_type_as_tu(client: TestClient, pm_user: User):
+def test_post_account_edit_self_type_as_pm(client: TestClient, pm_user: User):
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     endpoint = f"/account/{pm_user.Username}/edit"
 
@@ -1276,7 +1276,7 @@ def test_post_account_edit_self_type_as_tu(client: TestClient, pm_user: User):
     assert pm_user.AccountTypeID == USER_ID
 
 
-def test_post_account_edit_other_user_type_as_tu(
+def test_post_account_edit_other_user_type_as_pm(
     client: TestClient, pm_user: User, caplog: pytest.LogCaptureFixture
 ):
     caplog.set_level(DEBUG)
@@ -1319,7 +1319,7 @@ def test_post_account_edit_other_user_type_as_tu(
     assert expected in caplog.text
 
 
-def test_post_account_edit_other_user_suspend_as_tu(client: TestClient, pm_user: User):
+def test_post_account_edit_other_user_suspend_as_pm(client: TestClient, pm_user: User):
     with db.begin():
         user = create_user("test3")
     # Create a session for user
@@ -2167,7 +2167,7 @@ def test_account_delete_self_with_ssh_public_key(client: TestClient, user: User)
     assert sshpubkey_record is None
 
 
-def test_account_delete_as_tu(client: TestClient, pm_user: User):
+def test_account_delete_as_pm(client: TestClient, pm_user: User):
     with db.begin():
         user = create_user("user2")
 

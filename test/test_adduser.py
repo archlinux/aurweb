@@ -38,7 +38,7 @@ def test_adduser():
     assert test.login(Request(), "abcd1234")
 
 
-def test_adduser_tu():
+def test_adduser_pm():
     run_main(
         [
             "-u",

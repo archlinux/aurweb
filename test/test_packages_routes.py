@@ -121,7 +121,7 @@ def pm_user():
         pm_user = db.create(
             User,
             Username="test_pm",
-            Email="test_tu@example.org",
+            Email="test_pm@example.org",
             RealName="Test PM",
             Passwd="testPassword",
             AccountType=pm_type,
@@ -613,7 +613,7 @@ def test_package_authenticated_maintainer(
         assert unexpected_text not in resp.text
 
 
-def test_package_authenticated_tu(
+def test_package_authenticated_pm(
     client: TestClient, pm_user: User, package: Package, pkgreq: PackageRequest
 ):
     cookies = {"AURSID": pm_user.login(Request(), "testPassword")}

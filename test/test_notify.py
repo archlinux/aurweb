@@ -390,7 +390,7 @@ please go to [3] and click "Disable notifications".
     assert email.body == expected
 
 
-def set_tu(users: list[User]) -> User:
+def set_pm(users: list[User]) -> User:
     with db.begin():
         for user in users:
             user.AccountTypeID = PACKAGE_MAINTAINER_ID
@@ -399,7 +399,7 @@ def set_tu(users: list[User]) -> User:
 def test_open_close_request(
     user: User, user2: User, pkgreq: PackageRequest, pkgbases: list[PackageBase]
 ):
-    set_tu([user])
+    set_pm([user])
     pkgbase = pkgbases[0]
 
     # Send an open request notification.
@@ -545,7 +545,7 @@ This is a test closure comment.
 
 
 def test_vote_reminders(user: User):
-    set_tu([user])
+    set_pm([user])
 
     vote_id = 1
     notif = notify.VoteReminderNotification(vote_id)
@@ -568,7 +568,7 @@ ends in less than 48 hours.
 
 def test_notify_main(user: User):
     """Test PM vote reminder through aurweb.notify.main()."""
-    set_tu([user])
+    set_pm([user])
 
     vote_id = 1
     args = ["aurweb-notify", "vote-reminder", str(vote_id)]
