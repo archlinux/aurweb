@@ -90,6 +90,8 @@ deploy_review:
     on_stop: stop_review
     auto_stop_in: 1 week
   rules:
+    - if: $CI_COMMIT_REF_NAME =~ /^renovate\//
+      when: never
     - if: $CI_MERGE_REQUEST_ID && $CI_PROJECT_PATH == "archlinux/aurweb"
       when: manual
 
@@ -141,6 +143,8 @@ provision_review:
     name: review/$CI_COMMIT_REF_NAME
     action: access
   rules:
+    - if: $CI_COMMIT_REF_NAME =~ /^renovate\//
+      when: never
     - if: $CI_MERGE_REQUEST_ID && $CI_PROJECT_PATH == "archlinux/aurweb"
 
 stop_review:
@@ -155,5 +159,7 @@ stop_review:
     name: review/$CI_COMMIT_REF_NAME
     action: stop
   rules:
+    - if: $CI_COMMIT_REF_NAME =~ /^renovate\//
+      when: never
     - if: $CI_MERGE_REQUEST_ID && $CI_PROJECT_PATH == "archlinux/aurweb"
       when: manual
