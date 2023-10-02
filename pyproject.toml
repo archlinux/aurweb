@@ -72,7 +72,7 @@ orjson = "^3.8.11"
 protobuf = "^4.22.4"
 pygit2 = "^1.12.0"
 python-multipart = "^0.0.6"
-redis = "^4.5.4"
+redis = "^5.0.0"
 requests = "^2.30.0"
 paginate = "^0.5.6"
 
