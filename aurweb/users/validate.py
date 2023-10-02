@@ -56,12 +56,9 @@ def invalid_password(
 ) -> None:
     if P:
         if not util.valid_password(P):
-            username_min_len = config.getint("options", "username_min_len")
+            passwd_min_len = config.getint("options", "passwd_min_len")
             raise ValidationError(
-                [
-                    _("Your password must be at least %s characters.")
-                    % (username_min_len)
-                ]
+                [_("Your password must be at least %s characters.") % (passwd_min_len)]
             )
         elif not C:
             raise ValidationError(["Please confirm your new password."])
