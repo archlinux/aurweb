@@ -180,7 +180,7 @@ async def rpc_post(
     type: Optional[str] = Form(default=None),
     by: Optional[str] = Form(default=defaults.RPC_SEARCH_BY),
     arg: Optional[str] = Form(default=None),
-    args: Optional[list[str]] = Form(default=[], alias="arg[]"),
+    args: list[str] = Form(default=[], alias="arg[]"),
     callback: Optional[str] = Form(default=None),
 ):
     return await rpc_request(request, v, type, by, arg, args, callback)
