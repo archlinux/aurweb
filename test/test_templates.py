@@ -368,3 +368,13 @@ async def test_make_variable_context_timezone(user: User, package: Package):
         request, "Test Details", next="/packages/test"
     )
     assert context["timezone"] in time.SUPPORTED_TIMEZONES
+
+
+@pytest.mark.asyncio
+async def test_make_variable_context_params():
+    request = Request(url="/test", query_params={"request": "test", "x": "test"})
+    context = await make_variable_context(request, "Test")
+
+    # make sure we can't override our Request object with a query parameter
+    assert context["request"] != "test"
+    assert context["x"] == "test"

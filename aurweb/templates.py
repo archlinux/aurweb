@@ -112,7 +112,7 @@ async def make_variable_context(request: Request, title: str, next: str = None):
     for k, v in to_copy.items():
         if k == "timezone":
             context[k] = v if v in time.SUPPORTED_TIMEZONES else DEFAULT_TIMEZONE
-        else:
+        elif k not in context:
             context[k] = v
     context["q"] = dict(request.query_params)
 
