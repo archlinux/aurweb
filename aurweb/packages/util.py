@@ -85,7 +85,7 @@ def package_link(package: Union[Package, OfficialProvider]) -> str:
 def provides_markup(provides: Providers) -> str:
     links = []
     for pkg in provides:
-        aur = "ᴬᵁᴿ" if not pkg.is_official else ""
+        aur = "<sup><small>AUR</small></sup>" if not pkg.is_official else ""
         links.append(f'<a href="{package_link(pkg)}">{pkg.Name}</a>{aur}')
     return ", ".join(links)
 

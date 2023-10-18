@@ -176,9 +176,9 @@ def test_provides_markup(package: Package):
             RelTypeID=PROVIDES_ID,
         )
 
-    # AUR provider links should end with ᴬᵁᴿ
+    # AUR provider links should end with <sup><small>AUR</small></sup>
     link = util.provides_markup(dep.provides())
-    assert link.endswith("</a>ᴬᵁᴿ")
+    assert link.endswith("</a><sup><small>AUR</small></sup>")
     assert OFFICIAL_BASE not in link
 
     # Remove AUR provider and add official one
