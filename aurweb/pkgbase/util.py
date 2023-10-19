@@ -11,17 +11,7 @@ from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_request import PENDING_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.scripts import notify
-from aurweb.templates import (
-    make_context as _make_context,
-    make_variable_context as _make_variable_context,
-)
-
-
-async def make_variable_context(
-    request: Request, pkgbase: PackageBase
-) -> dict[str, Any]:
-    ctx = await _make_variable_context(request, pkgbase.Name)
-    return make_context(request, pkgbase, ctx)
+from aurweb.templates import make_context as _make_context
 
 
 def make_context(

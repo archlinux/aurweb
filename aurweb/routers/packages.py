@@ -167,7 +167,8 @@ async def package(
             rels_data["r"].append(rel)
 
     # Add our base information.
-    context = await pkgbaseutil.make_variable_context(request, pkgbase)
+    context = pkgbaseutil.make_context(request, pkgbase)
+    context["q"] = dict(request.query_params)
 
     context.update({"all_deps": all_deps, "all_reqs": all_reqs})
 
