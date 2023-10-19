@@ -15,18 +15,22 @@ def test_tz_offset_mst():
 
 def test_request_timezone():
     request = Request()
-    tz = get_request_timezone(request)
-    assert tz == aurweb.config.get("options", "default_timezone")
 
+    # Default timezone
+    dtz = aurweb.config.get("options", "default_timezone")
+    assert get_request_timezone(request) == dtz
 
-def test_authenticated_request_timezone():
-    # Modify a fake request to be authenticated with the
-    # America/Los_Angeles timezone.
-    request = Request()
+    # Timezone from query params
+    request.query_params = {"timezone": "Europe/Berlin"}
+    assert get_request_timezone(request) == "Europe/Berlin"
+
+    # Timezone from authenticated user.
+    request.query_params = {}
     request.user.authenticated = True
     request.user.Timezone = "America/Los_Angeles"
+    assert get_request_timezone(request) == "America/Los_Angeles"
 
-    # Get the request's timezone, it should be America/Los_Angeles.
-    tz = get_request_timezone(request)
-    assert tz == request.user.Timezone
-    assert tz == "America/Los_Angeles"
+    # Timezone from authenticated user with query param
+    # Query param should have precedence
+    request.query_params = {"timezone": "Europe/Berlin"}
+    assert get_request_timezone(request) == "Europe/Berlin"

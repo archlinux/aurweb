@@ -64,11 +64,24 @@ class Translator:
 translator = Translator()
 
 
-def get_request_language(request: Request):
-    if request.user.is_authenticated():
+def get_request_language(request: Request) -> str:
+    """Get a request's language from either query param, user setting or
+    cookie. We use the configuration's [options] default_lang otherwise.
+
+    @param request FastAPI request
+    """
+    request_lang = request.query_params.get("language")
+    cookie_lang = request.cookies.get("AURLANG")
+    if request_lang and request_lang in SUPPORTED_LANGUAGES:
+        return request_lang
+    elif (
+        request.user.is_authenticated()
+        and request.user.LangPreference in SUPPORTED_LANGUAGES
+    ):
         return request.user.LangPreference
-    default_lang = aurweb.config.get("options", "default_lang")
-    return request.cookies.get("AURLANG", default_lang)
+    elif cookie_lang and cookie_lang in SUPPORTED_LANGUAGES:
+        return cookie_lang
+    return aurweb.config.get_with_fallback("options", "default_lang", "en")
 
 
 def get_raw_translator_for_request(request: Request):

@@ -3,7 +3,6 @@ import functools
 import os
 from http import HTTPStatus
 from typing import Callable
-from zoneinfo import ZoneInfoNotFoundError
 
 import jinja2
 from fastapi import Request
@@ -75,10 +74,7 @@ def make_context(request: Request, title: str, next: str = None):
         # Shorten commit_hash to a short Git hash.
         commit_hash = commit_hash[:7]
 
-    try:
-        timezone = time.get_request_timezone(request)
-    except ZoneInfoNotFoundError:
-        timezone = DEFAULT_TIMEZONE
+    timezone = time.get_request_timezone(request)
     language = l10n.get_request_language(request)
     return {
         "request": request,
@@ -110,9 +106,7 @@ async def make_variable_context(request: Request, title: str, next: str = None):
     )
 
     for k, v in to_copy.items():
-        if k == "timezone":
-            context[k] = v if v in time.SUPPORTED_TIMEZONES else DEFAULT_TIMEZONE
-        elif k not in context:
+        if k not in context:
             context[k] = v
     context["q"] = dict(request.query_params)
 

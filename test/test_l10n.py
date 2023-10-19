@@ -1,5 +1,5 @@
 """ Test our l10n module. """
-from aurweb import filters, l10n
+from aurweb import config, filters, l10n
 from aurweb.testing.requests import Request
 
 
@@ -10,11 +10,53 @@ def test_translator():
 
 
 def test_get_request_language():
-    """First, tests default_lang, then tests a modified AURLANG cookie."""
+    """Test getting the language setting from a request."""
+    # Default language
+    default_lang = config.get("options", "default_lang")
     request = Request()
-    assert l10n.get_request_language(request) == "en"
+    assert l10n.get_request_language(request) == default_lang
 
+    # Language setting from cookie: de
     request.cookies["AURLANG"] = "de"
+    assert l10n.get_request_language(request) == "de"
+
+    # Language setting from cookie: nonsense
+    # Should fallback to default lang
+    request.cookies["AURLANG"] = "nonsense"
+    assert l10n.get_request_language(request) == default_lang
+
+    # Language setting from query param: de
+    request.cookies = {}
+    request.query_params = {"language": "de"}
+    assert l10n.get_request_language(request) == "de"
+
+    # Language setting from query param: nonsense
+    # Should fallback to default lang
+    request.query_params = {"language": "nonsense"}
+    assert l10n.get_request_language(request) == default_lang
+
+    # Language setting from query param: de and cookie
+    # Query param should have precedence
+    request.query_params = {"language": "de"}
+    request.cookies["AURLANG"] = "fr"
+    assert l10n.get_request_language(request) == "de"
+
+    # Language setting from authenticated user
+    request.cookies = {}
+    request.query_params = {}
+    request.user.authenticated = True
+    request.user.LangPreference = "de"
+    assert l10n.get_request_language(request) == "de"
+
+    # Language setting from authenticated user with query param
+    # Query param should have precedence
+    request.query_params = {"language": "fr"}
+    assert l10n.get_request_language(request) == "fr"
+
+    # Language setting from authenticated user with cookie
+    # DB setting should have precedence
+    request.query_params = {}
+    request.cookies["AURLANG"] = "fr"
     assert l10n.get_request_language(request) == "de"
 
 

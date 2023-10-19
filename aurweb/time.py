@@ -1,7 +1,6 @@
 import zoneinfo
 from collections import OrderedDict
 from datetime import datetime
-from urllib.parse import unquote
 from zoneinfo import ZoneInfo
 
 from fastapi import Request
@@ -58,16 +57,20 @@ SUPPORTED_TIMEZONES = OrderedDict(
 )
 
 
-def get_request_timezone(request: Request):
-    """Get a request's timezone by its AURTZ cookie. We use the
-    configuration's [options] default_timezone otherwise.
+def get_request_timezone(request: Request) -> str:
+    """Get a request's timezone from either query param or user settings.
+    We use the configuration's [options] default_timezone otherwise.
 
     @param request FastAPI request
     """
-    default_tz = aurweb.config.get("options", "default_timezone")
-    if request.user.is_authenticated():
-        default_tz = request.user.Timezone
-    return unquote(request.cookies.get("AURTZ", default_tz))
+    request_tz = request.query_params.get("timezone")
+    if request_tz and request_tz in SUPPORTED_TIMEZONES:
+        return request_tz
+    elif (
+        request.user.is_authenticated() and request.user.Timezone in SUPPORTED_TIMEZONES
+    ):
+        return request.user.Timezone
+    return aurweb.config.get_with_fallback("options", "default_timezone", "UTC")
 
 
 def now(timezone: str) -> datetime:
