@@ -105,6 +105,13 @@ def test_markdown_conversion(user: User, pkgbase: PackageBase):
     assert comment.RenderedComment == expected
 
 
+def test_markdown_strikethrough(user: User, pkgbase: PackageBase):
+    text = "*~~Hello~~world*~~!~~"
+    comment = create_comment(user, pkgbase, text)
+    expected = "<p><em><del>Hello</del>world</em><del>!</del></p>"
+    assert comment.RenderedComment == expected
+
+
 def test_html_sanitization(user: User, pkgbase: PackageBase):
     text = '<script>alert("XSS!")</script>'
     comment = create_comment(user, pkgbase, text)

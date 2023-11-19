@@ -121,6 +121,20 @@ class HeadingExtension(markdown.extensions.Extension):
         md.treeprocessors.register(HeadingTreeprocessor(md), "heading", 30)
 
 
+class StrikethroughInlineProcessor(markdown.inlinepatterns.InlineProcessor):
+    def handleMatch(self, m, data):
+        el = Element("del")
+        el.text = m.group(1)
+        return el, m.start(0), m.end(0)
+
+
+class StrikethroughExtension(markdown.extensions.Extension):
+    def extendMarkdown(self, md):
+        pattern = r"~~(.*?)~~"
+        processor = StrikethroughInlineProcessor(pattern, md)
+        md.inlinePatterns.register(processor, "del", 40)
+
+
 def save_rendered_comment(comment: PackageComment, html: str):
     with db.begin():
         comment.RenderedComment = html
@@ -142,6 +156,7 @@ def update_comment_render(comment: PackageComment) -> None:
             FlysprayLinksExtension(),
             GitCommitsExtension(pkgbasename),
             HeadingExtension(),
+            StrikethroughExtension(),
         ],
     )
 
@@ -153,6 +168,9 @@ def update_comment_render(comment: PackageComment) -> None:
         "h6",
         "br",
         "hr",
+        "del",
+        "details",
+        "summary",
     ]
     html = bleach.clean(html, tags=allowed_tags)
     save_rendered_comment(comment, html)
