@@ -68,6 +68,12 @@
             <td>{{ licenses.all() | join(', ', attribute='License.Name') }} </td>
         </tr>
     {% endif %}
+    {% if show_package_details and groups and groups.count() %}
+        <tr id="groups">
+            <th>{{ "Groups" | tr }}:</th>
+            <td>{{ groups.all() | join(', ', attribute='Group.Name') }} </td>
+        </tr>
+    {% endif %}
     {% if show_package_details and conflicts and conflicts.count() %}
         <tr id="conflicts">
             <th>{{ "Conflicts" | tr }}:</th>

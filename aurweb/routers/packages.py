@@ -200,6 +200,8 @@ async def package(
 
     context["licenses"] = pkg.package_licenses
 
+    context["groups"] = pkg.package_groups
+
     conflicts = pkg.package_relations.filter(
         models.PackageRelation.RelTypeID == CONFLICTS_ID
     ).order_by(models.PackageRelation.RelName.asc())

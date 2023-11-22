@@ -8,8 +8,10 @@ from aurweb import config, db, templates, time
 from aurweb.filters import as_timezone, number_format, timestamp_to_datetime as to_dt
 from aurweb.models import Package, PackageBase, User
 from aurweb.models.account_type import USER_ID
+from aurweb.models.group import Group
 from aurweb.models.license import License
 from aurweb.models.package_base import popularity
+from aurweb.models.package_group import PackageGroup
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.relation_type import PROVIDES_ID, REPLACES_ID
@@ -86,6 +88,12 @@ def create_license(pkg: Package, license_name: str) -> PackageLicense:
     lic = db.create(License, Name=license_name)
     pkglic = db.create(PackageLicense, License=lic, Package=pkg)
     return pkglic
+
+
+def create_group(pkg: Package, group_name: str) -> PackageLicense:
+    grp = db.create(Group, Name=group_name)
+    pkggrp = db.create(PackageGroup, Group=grp, Package=pkg)
+    return pkggrp
 
 
 def test_register_function_exists_key_error():
@@ -219,6 +227,15 @@ def check_package_details(content: str, pkg: Package) -> None:
     else:
         assert "Licenses" not in content
 
+    groups = pkg.package_groups.all()
+    if groups:
+        i += 1
+        expected = ", ".join([p.Group.Name for p in groups])
+        group_markup = rows[i].xpath("./td")[0]
+        assert group_markup.text.strip() == expected
+    else:
+        assert "Groups" not in content
+
     provides = pkg.package_relations.filter(
         PackageRelation.RelTypeID == PROVIDES_ID
     ).all()
@@ -319,6 +336,10 @@ def test_package_details_filled(user: User, package: Package):
         create_license(package, "TPL")  # Testing Public License
         create_license(package, "TPL2")  # Testing Public License 2
 
+        # Create two groups.
+        create_group(package, "GRP")
+        create_group(package, "GRP2")
+
         # Add provides.
         create_pkgrel(package, PROVIDES_ID, "test-provider")
 
@@ -337,6 +358,7 @@ def test_package_details_filled(user: User, package: Package):
             "package": package,
             "comaintainers": [],
             "licenses": package.package_licenses,
+            "groups": package.package_groups,
             "provides": package.package_relations.filter(
                 PackageRelation.RelTypeID == PROVIDES_ID
             ),
