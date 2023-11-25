@@ -90,7 +90,7 @@ def create_license(pkg: Package, license_name: str) -> PackageLicense:
     return pkglic
 
 
-def create_group(pkg: Package, group_name: str) -> PackageLicense:
+def create_group(pkg: Package, group_name: str) -> PackageGroup:
     grp = db.create(Group, Name=group_name)
     pkggrp = db.create(PackageGroup, Group=grp, Package=pkg)
     return pkggrp
