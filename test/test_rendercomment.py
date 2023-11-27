@@ -105,6 +105,22 @@ def test_markdown_conversion(user: User, pkgbase: PackageBase):
     assert comment.RenderedComment == expected
 
 
+def test_markdown_in_html_block(user: User, pkgbase: PackageBase):
+    # without "markdown" attribute
+    text = "<details><summary>test</summary>*Hello*</details>"
+    comment = create_comment(user, pkgbase, text)
+    expected = "<details><summary>test</summary>*Hello*</details>"
+    assert comment.RenderedComment == expected
+
+    # with "markdown" attribute
+    text = "<details markdown><summary>test</summary>*Hello*</details>"
+    comment = create_comment(user, pkgbase, text)
+    expected = (
+        "<details>\n<p></p><summary>test</summary><em>Hello</em><p></p>\n</details>"
+    )
+    assert comment.RenderedComment == expected
+
+
 def test_markdown_strikethrough(user: User, pkgbase: PackageBase):
     text = "*~~Hello~~world*~~!~~"
     comment = create_comment(user, pkgbase, text)

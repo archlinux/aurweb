@@ -151,6 +151,7 @@ def update_comment_render(comment: PackageComment) -> None:
     html = markdown.markdown(
         text,
         extensions=[
+            "md_in_html",
             "fenced_code",
             LinkifyExtension(),
             FlysprayLinksExtension(),
