@@ -43,6 +43,7 @@ from multiprocessing import Lock
 
 import py
 import pytest
+from prometheus_client import values
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.engine.base import Engine
@@ -54,11 +55,15 @@ import aurweb.db
 from aurweb import aur_logging, initdb, testing
 from aurweb.testing.email import Email
 from aurweb.testing.git import GitRepository
+from aurweb.testing.prometheus import clear_metrics
 
 logger = aur_logging.get_logger(__name__)
 
 # Synchronization lock for database setup.
 setup_lock = Lock()
+
+# Disable prometheus multiprocess mode for tests
+values.ValueClass = values.MutexValue
 
 
 def test_engine() -> Engine:
@@ -206,3 +211,13 @@ def email_test() -> None:
     that we set them up to be used via aurweb.testing.email.Email.
     """
     setup_email()
+
+
+@pytest.fixture
+def prometheus_test():
+    """
+    Prometheus test fixture
+
+    Removes any existing values from our metrics
+    """
+    clear_metrics()

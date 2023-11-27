@@ -8,7 +8,7 @@ from aurweb.models.user import User
 
 
 @pytest.fixture(autouse=True)
-def setup(db_test):
+def setup(db_test, prometheus_test):
     return
 
 
