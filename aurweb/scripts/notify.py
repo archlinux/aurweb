@@ -59,10 +59,13 @@ class Notification:
             body += "\n" + "[%d] %s" % (i + 1, ref)
         return body.rstrip()
 
+    def get_reply_to(self):
+        return aurweb.config.get("notifications", "reply-to")
+
     def _send(self) -> None:
         sendmail = aurweb.config.get("notifications", "sendmail")
         sender = aurweb.config.get("notifications", "sender")
-        reply_to = aurweb.config.get("notifications", "reply-to")
+        reply_to = self.get_reply_to()
         reason = self.__class__.__name__
         if reason.endswith("Notification"):
             reason = reason[: -len("Notification")]
@@ -563,6 +566,7 @@ class RequestOpenNotification(Notification):
         )
 
         self._to = aurweb.config.get("options", "aur_request_ml")
+        self._reply_to = self._to
 
         query = (
             db.query(PackageRequest)
@@ -598,6 +602,9 @@ class RequestOpenNotification(Notification):
 
     def get_recipients(self):
         return [(self._to, "en")]
+
+    def get_reply_to(self):
+        return self._reply_to
 
     def get_cc(self):
         return self._cc
@@ -654,6 +661,7 @@ class RequestCloseNotification(Notification):
         self._user = user.Username if user else None
 
         self._to = aurweb.config.get("options", "aur_request_ml")
+        self._reply_to = self._to
 
         query = (
             db.query(PackageRequest)
@@ -699,6 +707,9 @@ class RequestCloseNotification(Notification):
 
     def get_recipients(self):
         return [(self._to, "en")]
+
+    def get_reply_to(self):
+        return self._reply_to
 
     def get_cc(self):
         return self._cc
