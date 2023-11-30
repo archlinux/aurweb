@@ -54,6 +54,7 @@ async def packages_get(
     # This means that for any sentences separated by spaces,
     # they are used as if they were ANDed.
     keywords = context["K"] = request.query_params.get("K", str())
+    keywords = keywords.lower()
 
     keywords = keywords.split(" ")
     if search_by == "k":

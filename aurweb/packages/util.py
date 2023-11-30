@@ -102,7 +102,7 @@ def get_pkg_or_base(
     :raises HTTPException: With status code 404 if record doesn't exist
     :return: {Package,PackageBase} instance
     """
-    instance = db.query(cls).filter(cls.Name == name).first()
+    instance = db.query(cls).filter(cls.Name == name.lower()).first()
     if not instance:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
     return instance

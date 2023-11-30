@@ -153,7 +153,7 @@ def test_pkg_required(package: Package):
     # We want to make sure "Package" data is included
     # to avoid lazy-loading the information for each dependency
     qry = util.pkg_required("test", list())
-    assert "Packages_ID" in str(qry)
+    assert "packages_id" in str(qry).lower()
 
     # We should have 1 record
     assert qry.count() == 1
