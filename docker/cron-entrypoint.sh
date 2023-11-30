@@ -2,7 +2,7 @@
 set -eou pipefail
 
 # Setup the DB.
-NO_INITDB=1 /docker/mariadb-init-entrypoint.sh
+/docker/postgres-init-entrypoint.sh
 
 # Create aurblup's directory.
 AURBLUP_DIR="/aurweb/aurblup/"

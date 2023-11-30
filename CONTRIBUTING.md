@@ -91,7 +91,7 @@ browser if desired.
 Accessible services (on the host):
 
 - https://localhost:8444 (python via nginx)
-- localhost:13306 (mariadb)
+- localhost:15432 (postgresql)
 - localhost:16379 (redis)
 
 Docker services, by default, are setup to be hot reloaded when source code
