@@ -5,7 +5,7 @@ from sqlalchemy import and_
 from sqlalchemy.orm import joinedload
 
 from aurweb import config, db, defaults, l10n, time, util
-from aurweb.models import PackageBase, User
+from aurweb.models import PackageBase, PackageKeyword, User
 from aurweb.models.package_base import popularity
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
@@ -52,7 +52,7 @@ def make_context(
         context["unflaggers"] = []
 
     context["packages_count"] = pkgbase.packages.count()
-    context["keywords"] = pkgbase.keywords
+    context["keywords"] = pkgbase.keywords.order_by(PackageKeyword.Keyword)
     context["comments_total"] = pkgbase.comments.order_by(
         PackageComment.CommentTS.desc()
     ).count()

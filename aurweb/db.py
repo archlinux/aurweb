@@ -1,5 +1,7 @@
+from sqlalchemy.orm import Session
+
 # Supported database drivers.
-DRIVERS = {"mysql": "mysql+mysqldb"}
+DRIVERS = {"postgres": "postgresql+psycopg2"}
 
 
 def make_random_value(table: str, column: str, length: int):
@@ -65,7 +67,7 @@ def name() -> str:
 _sessions = dict()
 
 
-def get_session(engine=None):
+def get_session(engine=None) -> Session:
     """Return aurweb.db's global session."""
     dbname = name()
 
@@ -221,22 +223,21 @@ def get_sqlalchemy_url():
         constructor = URL.create
 
     aur_db_backend = aurweb.config.get("database", "backend")
-    if aur_db_backend == "mysql":
-        param_query = {}
+    if aur_db_backend == "postgres":
         port = aurweb.config.get_with_fallback("database", "port", None)
+        host = aurweb.config.get_with_fallback("database", "host", None)
+        socket = None
         if not port:
-            param_query["unix_socket"] = aurweb.config.get("database", "socket")
-
+            socket = aurweb.config.get("database", "socket")
         return constructor(
             DRIVERS.get(aur_db_backend),
             username=aurweb.config.get("database", "user"),
             password=aurweb.config.get_with_fallback(
                 "database", "password", fallback=None
             ),
-            host=aurweb.config.get("database", "host"),
+            host=socket if socket else host,
             database=name(),
             port=port,
-            query=param_query,
         )
     elif aur_db_backend == "sqlite":
         return constructor(
@@ -355,7 +356,7 @@ class ConnectionExecutor:
 
         backend = backend or aurweb.config.get("database", "backend")
         self._conn = conn
-        if backend == "mysql":
+        if backend == "postgres":
             self._paramstyle = "format"
         elif backend == "sqlite":
             import sqlite3
@@ -396,20 +397,21 @@ class Connection:
 
         aur_db_backend = aurweb.config.get("database", "backend")
 
-        if aur_db_backend == "mysql":
-            import MySQLdb
+        if aur_db_backend == "postgres":
+            import psycopg2
 
-            aur_db_host = aurweb.config.get("database", "host")
+            aur_db_host = aurweb.config.get_with_fallback("database", "host", None)
             aur_db_name = name()
             aur_db_user = aurweb.config.get("database", "user")
             aur_db_pass = aurweb.config.get_with_fallback("database", "password", str())
-            aur_db_socket = aurweb.config.get("database", "socket")
-            self._conn = MySQLdb.connect(
-                host=aur_db_host,
+            aur_db_socket = aurweb.config.get_with_fallback("database", "socket", None)
+            aur_db_port = aurweb.config.get_with_fallback("database", "port", None)
+            self._conn = psycopg2.connect(
+                host=aur_db_host if not aur_db_socket else aur_db_socket,
                 user=aur_db_user,
-                passwd=aur_db_pass,
-                db=aur_db_name,
-                unix_socket=aur_db_socket,
+                password=aur_db_pass,
+                dbname=aur_db_name,
+                port=aur_db_port if not aur_db_socket else None,
             )
         elif aur_db_backend == "sqlite":  # pragma: no cover
             # TODO: SQLite support has been removed in FastAPI. It remains

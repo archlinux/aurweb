@@ -5,6 +5,11 @@ services:
       - ./data:/data
       - step:/root/.step
 
+  postgres_init:
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   git:
     volumes:
       - git_data:/aurweb/aur.git
@@ -15,6 +20,9 @@ services:
       - git_data:/aurweb/aur.git
       - ./data:/data
       - smartgit_run:/var/run/smartgit
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   fastapi:
     volumes:

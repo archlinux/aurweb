@@ -6,7 +6,6 @@ usually be automatically generated. See `migrations/README` for details.
 """
 
 from sqlalchemy import (
-    CHAR,
     TIMESTAMP,
     Column,
     ForeignKey,
@@ -15,19 +14,23 @@ from sqlalchemy import (
     String,
     Table,
     Text,
+    event,
     text,
 )
-from sqlalchemy.dialects.mysql import BIGINT, DECIMAL, INTEGER, TINYINT
+from sqlalchemy.dialects.postgresql import BIGINT, BOOLEAN, INTEGER, NUMERIC, SMALLINT
 from sqlalchemy.ext.compiler import compiles
 
 import aurweb.config
 
+# from sqlalchemy import event
+
+
 db_backend = aurweb.config.get("database", "backend")
 
 
-@compiles(TINYINT, "sqlite")
-def compile_tinyint_sqlite(type_, compiler, **kw):  # pragma: no cover
-    """TINYINT is not supported on SQLite. Substitute it with INTEGER."""
+@compiles(SMALLINT, "sqlite")
+def compile_smallint_sqlite(type_, compiler, **kw):  # pragma: no cover
+    """SMALLINT is not supported on SQLite. Substitute it with INTEGER."""
     return "INTEGER"
 
 
@@ -42,17 +45,26 @@ def compile_bigint_sqlite(type_, compiler, **kw):  # pragma: no cover
     return "INTEGER"
 
 
+@event.listens_for(Column, "before_parent_attach")
+def attach_column(column: Column, parent, **kw):
+    column.origname = column.name
+    column.name = column.name.lower()
+
+
+@event.listens_for(Index, "before_parent_attach")
+def attach_index(index, parent, **kw):
+    index.name = index.name.lower()
+
+
 metadata = MetaData()
 
 # Define the Account Types for the AUR.
 AccountTypes = Table(
     "AccountTypes",
     metadata,
-    Column("ID", TINYINT(unsigned=True), primary_key=True),
+    Column("ID", SMALLINT(), primary_key=True),
     Column("AccountType", String(32), nullable=False, server_default=text("''")),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -60,62 +72,51 @@ AccountTypes = Table(
 Users = Table(
     "Users",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column(
         "AccountTypeID",
         ForeignKey("AccountTypes.ID", ondelete="NO ACTION"),
         nullable=False,
         server_default=text("1"),
     ),
-    Column(
-        "Suspended", TINYINT(unsigned=True), nullable=False, server_default=text("0")
-    ),
+    Column("Suspended", BOOLEAN(), nullable=False, server_default=text("False")),
     Column("Username", String(32), nullable=False, unique=True),
     Column("Email", String(254), nullable=False, unique=True),
     Column("BackupEmail", String(254)),
-    Column(
-        "HideEmail", TINYINT(unsigned=True), nullable=False, server_default=text("0")
-    ),
+    Column("HideEmail", BOOLEAN(), nullable=False, server_default=text("False")),
     Column("Passwd", String(255), nullable=False),
-    Column("Salt", CHAR(32), nullable=False, server_default=text("''")),
-    Column("ResetKey", CHAR(32), nullable=False, server_default=text("''")),
+    Column("Salt", String(32), nullable=False, server_default=text("''")),
+    Column("ResetKey", String(32), nullable=False, server_default=text("''")),
     Column("RealName", String(64), nullable=False, server_default=text("''")),
     Column("LangPreference", String(6), nullable=False, server_default=text("'en'")),
     Column("Timezone", String(32), nullable=False, server_default=text("'UTC'")),
     Column("Homepage", Text),
     Column("IRCNick", String(32), nullable=False, server_default=text("''")),
     Column("PGPKey", String(40)),
-    Column(
-        "LastLogin", BIGINT(unsigned=True), nullable=False, server_default=text("0")
-    ),
+    Column("LastLogin", BIGINT(), nullable=False, server_default=text("0")),
     Column("LastLoginIPAddress", String(45)),
-    Column(
-        "LastSSHLogin", BIGINT(unsigned=True), nullable=False, server_default=text("0")
-    ),
+    Column("LastSSHLogin", BIGINT(), nullable=False, server_default=text("0")),
     Column("LastSSHLoginIPAddress", String(45)),
-    Column(
-        "InactivityTS", BIGINT(unsigned=True), nullable=False, server_default=text("0")
-    ),
+    Column("InactivityTS", BIGINT(), nullable=False, server_default=text("0")),
     Column(
         "RegistrationTS",
         TIMESTAMP,
-        nullable=False,
         server_default=text("CURRENT_TIMESTAMP"),
     ),
-    Column("CommentNotify", TINYINT(1), nullable=False, server_default=text("1")),
-    Column("UpdateNotify", TINYINT(1), nullable=False, server_default=text("0")),
-    Column("OwnershipNotify", TINYINT(1), nullable=False, server_default=text("1")),
+    Column("CommentNotify", BOOLEAN(), nullable=False, server_default=text("True")),
+    Column("UpdateNotify", BOOLEAN(), nullable=False, server_default=text("False")),
+    Column("OwnershipNotify", BOOLEAN(), nullable=False, server_default=text("True")),
     Column("SSOAccountID", String(255), nullable=True, unique=True),
     Index("UsersAccountTypeID", "AccountTypeID"),
     Column(
         "HideDeletedComments",
-        TINYINT(unsigned=True),
+        BOOLEAN(),
         nullable=False,
-        server_default=text("0"),
+        server_default=text("False"),
     ),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    Index("UsernameLowerUnique", text("lower(username)"), unique=True),
+    Index("EmailLowerUnique", text("lower(email)"), unique=True),
+    quote=False,
 )
 
 
@@ -126,9 +127,7 @@ SSHPubKeys = Table(
     Column("UserID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
     Column("Fingerprint", String(44), primary_key=True),
     Column("PubKey", String(4096), nullable=False),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_bin",
+    quote=False,
 )
 
 
@@ -137,11 +136,9 @@ Sessions = Table(
     "Sessions",
     metadata,
     Column("UsersID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
-    Column("SessionID", CHAR(32), nullable=False, unique=True),
-    Column("LastUpdateTS", BIGINT(unsigned=True), nullable=False),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_bin",
+    Column("SessionID", String(32), nullable=False, unique=True),
+    Column("LastUpdateTS", BIGINT(), nullable=False),
+    quote=False,
 )
 
 
@@ -149,14 +146,12 @@ Sessions = Table(
 PackageBases = Table(
     "PackageBases",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column("Name", String(255), nullable=False, unique=True),
-    Column(
-        "NumVotes", INTEGER(unsigned=True), nullable=False, server_default=text("0")
-    ),
+    Column("NumVotes", INTEGER(), nullable=False, server_default=text("0")),
     Column(
         "Popularity",
-        DECIMAL(10, 6, unsigned=True) if db_backend == "mysql" else String(17),
+        NUMERIC(10, 6) if db_backend == "postgres" else String(17),
         nullable=False,
         server_default=text("0"),
     ),
@@ -166,10 +161,10 @@ PackageBases = Table(
         nullable=False,
         server_default=text("'1970-01-01 00:00:01.000000'"),
     ),
-    Column("OutOfDateTS", BIGINT(unsigned=True)),
+    Column("OutOfDateTS", BIGINT()),
     Column("FlaggerComment", Text, nullable=False),
-    Column("SubmittedTS", BIGINT(unsigned=True), nullable=False),
-    Column("ModifiedTS", BIGINT(unsigned=True), nullable=False),
+    Column("SubmittedTS", BIGINT(), nullable=False),
+    Column("ModifiedTS", BIGINT(), nullable=False),
     Column(
         "FlaggerUID", ForeignKey("Users.ID", ondelete="SET NULL")
     ),  # who flagged the package out-of-date?
@@ -185,9 +180,8 @@ PackageBases = Table(
     Index("BasesSubmitterUID", "SubmitterUID"),
     Index("BasesSubmittedTS", "SubmittedTS"),
     Index("BasesModifiedTS", "ModifiedTS"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    Index("BasesNameLowerUnique", text("lower(name)"), unique=True),
+    quote=False,
 )
 
 
@@ -209,9 +203,7 @@ PackageKeywords = Table(
         server_default=text("''"),
     ),
     Index("KeywordsPackageBaseID", "PackageBaseID"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -219,7 +211,7 @@ PackageKeywords = Table(
 Packages = Table(
     "Packages",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column(
         "PackageBaseID",
         ForeignKey("PackageBases.ID", ondelete="CASCADE"),
@@ -229,9 +221,8 @@ Packages = Table(
     Column("Version", String(255), nullable=False, server_default=text("''")),
     Column("Description", String(255)),
     Column("URL", String(8000)),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    Index("PackagesNameLowerUnique", text("lower(name)"), unique=True),
+    quote=False,
 )
 
 
@@ -239,11 +230,9 @@ Packages = Table(
 Licenses = Table(
     "Licenses",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column("Name", String(255), nullable=False, unique=True),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -263,7 +252,7 @@ PackageLicenses = Table(
         primary_key=True,
         nullable=True,
     ),
-    mysql_engine="InnoDB",
+    quote=False,
 )
 
 
@@ -271,11 +260,9 @@ PackageLicenses = Table(
 Groups = Table(
     "Groups",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column("Name", String(255), nullable=False, unique=True),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -295,7 +282,7 @@ PackageGroups = Table(
         primary_key=True,
         nullable=True,
     ),
-    mysql_engine="InnoDB",
+    quote=False,
 )
 
 
@@ -303,11 +290,9 @@ PackageGroups = Table(
 DependencyTypes = Table(
     "DependencyTypes",
     metadata,
-    Column("ID", TINYINT(unsigned=True), primary_key=True),
+    Column("ID", SMALLINT(), primary_key=True),
     Column("Name", String(32), nullable=False, server_default=text("''")),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -327,9 +312,7 @@ PackageDepends = Table(
     Column("DepArch", String(255)),
     Index("DependsDepName", "DepName"),
     Index("DependsPackageID", "PackageID"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -337,11 +320,9 @@ PackageDepends = Table(
 RelationTypes = Table(
     "RelationTypes",
     metadata,
-    Column("ID", TINYINT(unsigned=True), primary_key=True),
+    Column("ID", SMALLINT(), primary_key=True),
     Column("Name", String(32), nullable=False, server_default=text("''")),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -360,9 +341,7 @@ PackageRelations = Table(
     Column("RelArch", String(255)),
     Index("RelationsPackageID", "PackageID"),
     Index("RelationsRelName", "RelName"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -374,9 +353,7 @@ PackageSources = Table(
     Column("Source", String(8000), nullable=False, server_default=text("'/dev/null'")),
     Column("SourceArch", String(255)),
     Index("SourcesPackageID", "PackageID"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -390,11 +367,11 @@ PackageVotes = Table(
         ForeignKey("PackageBases.ID", ondelete="CASCADE"),
         nullable=False,
     ),
-    Column("VoteTS", BIGINT(unsigned=True), nullable=False),
+    Column("VoteTS", BIGINT(), nullable=False),
     Index("VoteUsersIDPackageID", "UsersID", "PackageBaseID", unique=True),
     Index("VotesPackageBaseID", "PackageBaseID"),
     Index("VotesUsersID", "UsersID"),
-    mysql_engine="InnoDB",
+    quote=False,
 )
 
 
@@ -402,7 +379,7 @@ PackageVotes = Table(
 PackageComments = Table(
     "PackageComments",
     metadata,
-    Column("ID", BIGINT(unsigned=True), primary_key=True),
+    Column("ID", BIGINT(), primary_key=True),
     Column(
         "PackageBaseID",
         ForeignKey("PackageBases.ID", ondelete="CASCADE"),
@@ -411,19 +388,15 @@ PackageComments = Table(
     Column("UsersID", ForeignKey("Users.ID", ondelete="SET NULL")),
     Column("Comments", Text, nullable=False),
     Column("RenderedComment", Text, nullable=False),
-    Column(
-        "CommentTS", BIGINT(unsigned=True), nullable=False, server_default=text("0")
-    ),
-    Column("EditedTS", BIGINT(unsigned=True)),
+    Column("CommentTS", BIGINT(), nullable=False, server_default=text("0")),
+    Column("EditedTS", BIGINT()),
     Column("EditedUsersID", ForeignKey("Users.ID", ondelete="SET NULL")),
-    Column("DelTS", BIGINT(unsigned=True)),
+    Column("DelTS", BIGINT()),
     Column("DelUsersID", ForeignKey("Users.ID", ondelete="CASCADE")),
-    Column("PinnedTS", BIGINT(unsigned=True), nullable=False, server_default=text("0")),
+    Column("PinnedTS", BIGINT(), nullable=False, server_default=text("0")),
     Index("CommentsPackageBaseID", "PackageBaseID"),
     Index("CommentsUsersID", "UsersID"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -437,10 +410,10 @@ PackageComaintainers = Table(
         ForeignKey("PackageBases.ID", ondelete="CASCADE"),
         nullable=False,
     ),
-    Column("Priority", INTEGER(unsigned=True), nullable=False),
+    Column("Priority", INTEGER(), nullable=False),
     Index("ComaintainersPackageBaseID", "PackageBaseID"),
     Index("ComaintainersUsersID", "UsersID"),
-    mysql_engine="InnoDB",
+    quote=False,
 )
 
 
@@ -455,7 +428,7 @@ PackageNotifications = Table(
     ),
     Column("UserID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
     Index("NotifyUserIDPkgID", "UserID", "PackageBaseID", unique=True),
-    mysql_engine="InnoDB",
+    quote=False,
 )
 
 
@@ -463,11 +436,9 @@ PackageNotifications = Table(
 PackageBlacklist = Table(
     "PackageBlacklist",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column("Name", String(64), nullable=False, unique=True),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -475,14 +446,12 @@ PackageBlacklist = Table(
 OfficialProviders = Table(
     "OfficialProviders",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column("Name", String(64), nullable=False),
     Column("Repo", String(64), nullable=False),
     Column("Provides", String(64), nullable=False),
     Index("ProviderNameProvides", "Name", "Provides", unique=True),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_bin",
+    quote=False,
 )
 
 
@@ -490,11 +459,9 @@ OfficialProviders = Table(
 RequestTypes = Table(
     "RequestTypes",
     metadata,
-    Column("ID", TINYINT(unsigned=True), primary_key=True),
+    Column("ID", SMALLINT(), primary_key=True),
     Column("Name", String(32), nullable=False, server_default=text("''")),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -502,7 +469,7 @@ RequestTypes = Table(
 PackageRequests = Table(
     "PackageRequests",
     metadata,
-    Column("ID", BIGINT(unsigned=True), primary_key=True),
+    Column("ID", BIGINT(), primary_key=True),
     Column(
         "ReqTypeID", ForeignKey("RequestTypes.ID", ondelete="NO ACTION"), nullable=False
     ),
@@ -512,17 +479,13 @@ PackageRequests = Table(
     Column("UsersID", ForeignKey("Users.ID", ondelete="SET NULL")),
     Column("Comments", Text, nullable=False),
     Column("ClosureComment", Text, nullable=False),
-    Column(
-        "RequestTS", BIGINT(unsigned=True), nullable=False, server_default=text("0")
-    ),
-    Column("ClosedTS", BIGINT(unsigned=True)),
+    Column("RequestTS", BIGINT(), nullable=False, server_default=text("0")),
+    Column("ClosedTS", BIGINT()),
     Column("ClosedUID", ForeignKey("Users.ID", ondelete="SET NULL")),
-    Column("Status", TINYINT(unsigned=True), nullable=False, server_default=text("0")),
+    Column("Status", SMALLINT(), nullable=False, server_default=text("0")),
     Index("RequestsPackageBaseID", "PackageBaseID"),
     Index("RequestsUsersID", "UsersID"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -530,31 +493,27 @@ PackageRequests = Table(
 VoteInfo = Table(
     "VoteInfo",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column("Agenda", Text, nullable=False),
     Column("User", String(32), nullable=False),
-    Column("Submitted", BIGINT(unsigned=True), nullable=False),
-    Column("End", BIGINT(unsigned=True), nullable=False),
+    Column("Submitted", BIGINT(), nullable=False),
+    Column("End", BIGINT(), nullable=False),
     Column(
         "Quorum",
-        DECIMAL(2, 2, unsigned=True) if db_backend == "mysql" else String(5),
+        NUMERIC(2, 2) if db_backend == "postgres" else String(5),
         nullable=False,
     ),
     Column("SubmitterID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
-    Column("Yes", INTEGER(unsigned=True), nullable=False, server_default=text("'0'")),
-    Column("No", INTEGER(unsigned=True), nullable=False, server_default=text("'0'")),
-    Column(
-        "Abstain", INTEGER(unsigned=True), nullable=False, server_default=text("'0'")
-    ),
+    Column("Yes", INTEGER(), nullable=False, server_default=text("'0'")),
+    Column("No", INTEGER(), nullable=False, server_default=text("'0'")),
+    Column("Abstain", INTEGER(), nullable=False, server_default=text("'0'")),
     Column(
         "ActiveUsers",
-        INTEGER(unsigned=True),
+        INTEGER(),
         nullable=False,
         server_default=text("'0'"),
     ),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -564,7 +523,7 @@ Votes = Table(
     metadata,
     Column("VoteID", ForeignKey("VoteInfo.ID", ondelete="CASCADE"), nullable=False),
     Column("UserID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
-    mysql_engine="InnoDB",
+    quote=False,
 )
 
 
@@ -574,9 +533,7 @@ Bans = Table(
     metadata,
     Column("IPAddress", String(45), primary_key=True),
     Column("BanTS", TIMESTAMP, nullable=False),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )
 
 
@@ -584,15 +541,11 @@ Bans = Table(
 Terms = Table(
     "Terms",
     metadata,
-    Column("ID", INTEGER(unsigned=True), primary_key=True),
+    Column("ID", INTEGER(), primary_key=True),
     Column("Description", String(255), nullable=False),
     Column("URL", String(8000), nullable=False),
-    Column(
-        "Revision", INTEGER(unsigned=True), nullable=False, server_default=text("1")
-    ),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    Column("Revision", INTEGER(), nullable=False, server_default=text("1")),
+    quote=False,
 )
 
 
@@ -602,10 +555,8 @@ AcceptedTerms = Table(
     metadata,
     Column("UsersID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
     Column("TermsID", ForeignKey("Terms.ID", ondelete="CASCADE"), nullable=False),
-    Column(
-        "Revision", INTEGER(unsigned=True), nullable=False, server_default=text("0")
-    ),
-    mysql_engine="InnoDB",
+    Column("Revision", INTEGER(), nullable=False, server_default=text("0")),
+    quote=False,
 )
 
 
@@ -614,10 +565,8 @@ ApiRateLimit = Table(
     "ApiRateLimit",
     metadata,
     Column("IP", String(45), primary_key=True, unique=True, default=str()),
-    Column("Requests", INTEGER(11), nullable=False),
-    Column("WindowStart", BIGINT(20), nullable=False),
+    Column("Requests", INTEGER(), nullable=False),
+    Column("WindowStart", BIGINT(), nullable=False),
     Index("ApiRateLimitWindowStart", "WindowStart"),
-    mysql_engine="InnoDB",
-    mysql_charset="utf8mb4",
-    mysql_collate="utf8mb4_general_ci",
+    quote=False,
 )

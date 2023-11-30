@@ -745,14 +745,15 @@ def test_packages_empty(client: TestClient):
 
 
 def test_packages_search_by_name(client: TestClient, packages: list[Package]):
-    with client as request:
-        response = request.get("/packages", params={"SeB": "n", "K": "pkg_"})
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in ["pkg_", "PkG_"]:
+        with client as request:
+            response = request.get("/packages", params={"SeB": "n", "K": keyword})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
+        root = parse_root(response.text)
 
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 50  # Default per-page
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 50  # Default per-page
 
 
 def test_packages_search_by_exact_name(client: TestClient, packages: list[Package]):
@@ -766,26 +767,28 @@ def test_packages_search_by_exact_name(client: TestClient, packages: list[Packag
     # There is no package named exactly 'pkg_', we get 0 results.
     assert len(rows) == 0
 
-    with client as request:
-        response = request.get("/packages", params={"SeB": "N", "K": "pkg_1"})
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in ["pkg_1", "PkG_1"]:
+        with client as request:
+            response = request.get("/packages", params={"SeB": "N", "K": keyword})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
+        root = parse_root(response.text)
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
 
-    # There's just one package named 'pkg_1', we get 1 result.
-    assert len(rows) == 1
+        # There's just one package named 'pkg_1', we get 1 result.
+        assert len(rows) == 1
 
 
 def test_packages_search_by_pkgbase(client: TestClient, packages: list[Package]):
-    with client as request:
-        response = request.get("/packages", params={"SeB": "b", "K": "pkg_"})
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in ["pkg_", "PkG_"]:
+        with client as request:
+            response = request.get("/packages", params={"SeB": "b", "K": "pkg_"})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
+        root = parse_root(response.text)
 
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 50
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 50
 
 
 def test_packages_search_by_exact_pkgbase(client: TestClient, packages: list[Package]):
@@ -797,13 +800,14 @@ def test_packages_search_by_exact_pkgbase(client: TestClient, packages: list[Pac
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 0
 
-    with client as request:
-        response = request.get("/packages", params={"SeB": "B", "K": "pkg_1"})
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in ["pkg_1", "PkG_1"]:
+        with client as request:
+            response = request.get("/packages", params={"SeB": "B", "K": "pkg_1"})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 1
+        root = parse_root(response.text)
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 1
 
 
 def test_packages_search_by_keywords(client: TestClient, packages: list[Package]):
@@ -824,15 +828,16 @@ def test_packages_search_by_keywords(client: TestClient, packages: list[Package]
         )
 
     # And request packages with that keyword, we should get 1 result.
-    with client as request:
-        # clear fakeredis cache
-        cache._redis.flushall()
-        response = request.get("/packages", params={"SeB": "k", "K": "testKeyword"})
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in ["testkeyword", "TestKeyWord"]:
+        with client as request:
+            # clear fakeredis cache
+            cache._redis.flushall()
+            response = request.get("/packages", params={"SeB": "k", "K": keyword})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 1
+        root = parse_root(response.text)
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 1
 
     # Now let's add another keyword to the same package
     with db.begin():
@@ -857,14 +862,13 @@ def test_packages_search_by_maintainer(
 ):
     # We should expect that searching by `package`'s maintainer
     # returns `package` in the results.
-    with client as request:
-        response = request.get(
-            "/packages", params={"SeB": "m", "K": maintainer.Username}
-        )
-    assert response.status_code == int(HTTPStatus.OK)
-    root = parse_root(response.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 1
+    for keyword in [maintainer.Username, maintainer.Username.upper()]:
+        with client as request:
+            response = request.get("/packages", params={"SeB": "m", "K": keyword})
+        assert response.status_code == int(HTTPStatus.OK)
+        root = parse_root(response.text)
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 1
 
     # Search again by maintainer with no keywords given.
     # This kind of search returns all orphans instead.
@@ -915,17 +919,16 @@ def test_packages_search_by_comaintainer(
         )
 
     # Then test that it's returned by our search.
-    with client as request:
-        # clear fakeredis cache
-        cache._redis.flushall()
-        response = request.get(
-            "/packages", params={"SeB": "c", "K": maintainer.Username}
-        )
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in [maintainer.Username, maintainer.Username.upper()]:
+        with client as request:
+            # clear fakeredis cache
+            cache._redis.flushall()
+            response = request.get("/packages", params={"SeB": "c", "K": keyword})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 1
+        root = parse_root(response.text)
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 1
 
 
 def test_packages_search_by_co_or_maintainer(
@@ -957,27 +960,27 @@ def test_packages_search_by_co_or_maintainer(
             PackageComaintainer, PackageBase=package.PackageBase, User=user, Priority=1
         )
 
-    with client as request:
-        response = request.get("/packages", params={"SeB": "M", "K": user.Username})
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in [user.Username, user.Username.upper()]:
+        with client as request:
+            response = request.get("/packages", params={"SeB": "M", "K": keyword})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 1
+        root = parse_root(response.text)
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 1
 
 
 def test_packages_search_by_submitter(
     client: TestClient, maintainer: User, package: Package
 ):
-    with client as request:
-        response = request.get(
-            "/packages", params={"SeB": "s", "K": maintainer.Username}
-        )
-    assert response.status_code == int(HTTPStatus.OK)
+    for keyword in [maintainer.Username, maintainer.Username.upper()]:
+        with client as request:
+            response = request.get("/packages", params={"SeB": "s", "K": keyword})
+        assert response.status_code == int(HTTPStatus.OK)
 
-    root = parse_root(response.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 1
+        root = parse_root(response.text)
+        rows = root.xpath('//table[@class="results"]/tbody/tr')
+        assert len(rows) == 1
 
 
 def test_packages_sort_by_name(client: TestClient, packages: list[Package]):

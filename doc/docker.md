@@ -62,7 +62,7 @@ Services
 |---------------------|-----------------|
 | [ca](#ca)           |                 |
 | [cron](#cron)       |                 |
-| [mariadb](#mariadb) | 127.0.0.1:13306 |
+| [postgres](#postgres) | 127.0.0.1:15432 |
 | [git](#git)         | 127.0.0.1:2222  |
 | redis               | 127.0.0.1:16379 |
 | [fastapi](#fastapi) | 127.0.0.1:18000 |
@@ -88,13 +88,10 @@ anchors or browsers for SSL verification.
 
 The _cron_ service includes all scripts recommended in `doc/maintenance.txt`.
 
-#### mariadb
+#### postgres
 
 - When used with the [default](#default) profile, a Docker-driven
-  mariadb service is used.
-- When used with the [aur-dev](#aur-dev) profile, `MARIADB_SOCKET_DIR`
-  (defaulted to `/var/run/mysqld/`) can be defined to bind-mount a
-  host-driven mariadb socket to the container.
+  postgresql service is used.
 
 #### git
 

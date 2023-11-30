@@ -39,7 +39,7 @@ Match User aur
 EOF
 
 # Setup database.
-NO_INITDB=1 /docker/mariadb-init-entrypoint.sh
+/docker/postgres-init-entrypoint.sh
 
 # Setup some other options.
 aurweb-config set serve repo-path '/aurweb/aur.git/'

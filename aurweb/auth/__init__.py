@@ -50,7 +50,7 @@ class AnonymousUser:
     LangPreference = aurweb.config.get("options", "default_lang")
     Timezone = aurweb.config.get("options", "default_timezone")
 
-    Suspended = 0
+    Suspended = False
     InactivityTS = 0
 
     # A stub ssh_pub_key relationship.
@@ -120,7 +120,7 @@ class BasicAuthBackend(AuthenticationBackend):
 
         # At this point, we cannot have an invalid user if the record
         # exists, due to ForeignKey constraints in the schema upheld
-        # by mysqlclient.
+        # by the database system.
         user = db.query(User).filter(User.ID == record.UsersID).first()
         user.nonce = util.make_nonce()
         user.authenticated = True

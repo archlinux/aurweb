@@ -12,35 +12,35 @@ def feed_initial_data(conn):
     conn.execute(
         aurweb.schema.AccountTypes.insert(),
         [
-            {"ID": 1, "AccountType": "User"},
-            {"ID": 2, "AccountType": "Package Maintainer"},
-            {"ID": 3, "AccountType": "Developer"},
-            {"ID": 4, "AccountType": "Package Maintainer & Developer"},
+            {"AccountType": "User"},
+            {"AccountType": "Package Maintainer"},
+            {"AccountType": "Developer"},
+            {"AccountType": "Package Maintainer & Developer"},
         ],
     )
     conn.execute(
         aurweb.schema.DependencyTypes.insert(),
         [
-            {"ID": 1, "Name": "depends"},
-            {"ID": 2, "Name": "makedepends"},
-            {"ID": 3, "Name": "checkdepends"},
-            {"ID": 4, "Name": "optdepends"},
+            {"Name": "depends"},
+            {"Name": "makedepends"},
+            {"Name": "checkdepends"},
+            {"Name": "optdepends"},
         ],
     )
     conn.execute(
         aurweb.schema.RelationTypes.insert(),
         [
-            {"ID": 1, "Name": "conflicts"},
-            {"ID": 2, "Name": "provides"},
-            {"ID": 3, "Name": "replaces"},
+            {"Name": "conflicts"},
+            {"Name": "provides"},
+            {"Name": "replaces"},
         ],
     )
     conn.execute(
         aurweb.schema.RequestTypes.insert(),
         [
-            {"ID": 1, "Name": "deletion"},
-            {"ID": 2, "Name": "orphan"},
-            {"ID": 3, "Name": "merge"},
+            {"Name": "deletion"},
+            {"Name": "orphan"},
+            {"Name": "merge"},
         ],
     )
 
@@ -57,8 +57,9 @@ def run(args):
         alembic_config.attributes["configure_logger"] = False
 
     engine = aurweb.db.get_engine(echo=(args.verbose >= 1))
-    aurweb.schema.metadata.create_all(engine)
     conn = engine.connect()
+    # conn.execute("CREATE COLLATION ci (provider = icu, locale = 'und-u-ks-level2', deterministic = false)")  # noqa: E501
+    aurweb.schema.metadata.create_all(engine)
     feed_initial_data(conn)
     conn.close()
 

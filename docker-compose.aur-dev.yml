@@ -8,7 +8,7 @@ services:
   redis:
     restart: always
 
-  mariadb:
+  postgres:
     restart: always
 
   git:
@@ -36,7 +36,7 @@ services:
   cron:
     volumes:
       # Exclude ./aurweb:/aurweb in production.
-      - mariadb_run:/var/run/mysqld
+      - postgres_run:/run/postgresql
       - archives:/var/lib/aurweb/archives
 
   fastapi:
@@ -59,8 +59,8 @@ services:
       - smartgit_run:/var/run/smartgit
 
 volumes:
-  mariadb_run: {} # Share /var/run/mysqld
-  mariadb_data: {} # Share /var/lib/mysql
+  postgres_run: {}
+  postgres_data: {}
   git_data: {} # Share aurweb/aur.git
   smartgit_run: {}
   data: {}

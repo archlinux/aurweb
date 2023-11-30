@@ -47,7 +47,7 @@ async def passreset_post(
 
     # The user parameter being required, we can match against
     criteria = or_(models.User.Username == user, models.User.Email == user)
-    db_user = db.query(models.User, and_(criteria, models.User.Suspended == 0)).first()
+    db_user = db.query(models.User, and_(criteria, ~models.User.Suspended)).first()
     if db_user is None:
         context["errors"] = ["Invalid e-mail."]
         return render_template(
@@ -243,7 +243,7 @@ async def account_register(
     request: Request,
     U: str = Form(default=str()),  # Username
     E: str = Form(default=str()),  # Email
-    H: str = Form(default=False),  # Hide Email
+    H: bool = Form(default=False),  # Hide Email
     BE: str = Form(default=None),  # Backup Email
     R: str = Form(default=None),  # Real Name
     HP: str = Form(default=None),  # Homepage
@@ -272,7 +272,7 @@ async def account_register_post(
     request: Request,
     U: str = Form(default=str()),  # Username
     E: str = Form(default=str()),  # Email
-    H: str = Form(default=False),  # Hide Email
+    H: bool = Form(default=False),  # Hide Email
     BE: str = Form(default=None),  # Backup Email
     R: str = Form(default=""),  # Real Name
     HP: str = Form(default=None),  # Homepage
@@ -410,7 +410,7 @@ async def account_edit_post(
     U: str = Form(default=str()),  # Username
     J: bool = Form(default=False),
     E: str = Form(default=str()),  # Email
-    H: str = Form(default=False),  # Hide Email
+    H: bool = Form(default=False),  # Hide Email
     BE: str = Form(default=None),  # Backup Email
     R: str = Form(default=None),  # Real Name
     HP: str = Form(default=None),  # Homepage
@@ -584,11 +584,11 @@ async def accounts_post(
         v
         for k, v in [
             (account_type_id is not None, models.AccountType.ID == account_type_id),
-            (bool(U), models.User.Username.like(f"%{U}%")),
+            (bool(U), models.User.Username.ilike(f"%{U}%")),
             (bool(S), models.User.Suspended == S),
-            (bool(E), models.User.Email.like(f"%{E}%")),
-            (bool(R), models.User.RealName.like(f"%{R}%")),
-            (bool(I), models.User.IRCNick.like(f"%{I}%")),
+            (bool(E), models.User.Email.ilike(f"%{E}%")),
+            (bool(R), models.User.RealName.ilike(f"%{R}%")),
+            (bool(I), models.User.IRCNick.ilike(f"%{I}%")),
             (bool(K), models.User.PGPKey.like(f"%{K}%")),
         ]
         if k

@@ -31,10 +31,10 @@ Containerized environment
 
 6) [Optionally] populate the database with dummy data:
 
-    # docker compose exec mariadb /bin/bash
+    # docker compose exec postgres /bin/bash
     # pacman -S --noconfirm words fortune-mod
     # poetry run schema/gendummydata.py dummy_data.sql
-    # mariadb -uaur -paur aurweb < dummy_data.sql
+    # su postgres -q -c 'psql aurweb < dummy_data.sql'
     # exit
 
     Inspect `dummy_data.sql` for test credentials.
@@ -62,7 +62,7 @@ INSTALL.
 
 2) Install the necessary packages:
 
-    # pacman -S --needed python-poetry mariadb words fortune-mod nginx
+    # pacman -S --needed python-poetry postgresql words fortune-mod nginx
 
 3) Install the package/dependencies via `poetry`:
 
@@ -76,21 +76,24 @@ INSTALL.
    Note that when the upstream config.dev is updated, you should compare it to
    your conf/config, or regenerate your configuration with the command above.
 
-5) Set up mariadb:
+5) Set up postgres:
 
-    # mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-    # systemctl start mariadb
-    # mariadb -u root
-    > CREATE USER 'aur'@'localhost' IDENTIFIED BY 'aur';
-    > GRANT ALL ON *.* TO 'aur'@'localhost' WITH GRANT OPTION;
-    > CREATE DATABASE aurweb;
+    # su postgres
+    $ pg_ctl initdb -D /var/lib/postgres/data
+    $ pg_ctl start -D /var/lib/postgres/data
+    $ psql
+    > create database aurweb;
+    > create role aur superuser login password 'aur';
     > exit
+
+    For the sake of simplicity in this example we just created a superuser account.
+    You might want to set up more granular permissions...
 
 6) Prepare a database and insert dummy data:
 
     $ AUR_CONFIG=conf/config poetry run python -m aurweb.initdb
     $ poetry run schema/gendummydata.py dummy_data.sql
-    $ mariadb -uaur -paur aurweb < dummy_data.sql
+    $ psql -U aur aurweb < dummy_data.sql
 
 7) Run the test server:
 
@@ -121,7 +124,7 @@ In case you did the bare-metal install, steps 2, 3, 4 and 5 should be skipped.
 
 1) Install the necessary packages:
 
-    # pacman -S --needed python-poetry mariadb-libs asciidoc openssh
+    # pacman -S --needed python-poetry postgresql-libs asciidoc openssh
 
 2) Install the package/dependencies via `poetry`:
 
@@ -135,24 +138,24 @@ In case you did the bare-metal install, steps 2, 3, 4 and 5 should be skipped.
    Note that when the upstream config.dev is updated, you should compare it to
    your conf/config, or regenerate your configuration with the command above.
 
-4) Edit the config file conf/config and change the mysql/mariadb portion
+4) Edit the config file conf/config and change the postgres portion
 
-    We can make use of our mariadb docker container instead of having to install
-    mariadb. Change the config as follows:
+    We can make use of our postgres docker container instead of having to install
+    postgres. Change the config as follows:
 
     ---------------------------------------------------------------------
-    ; MySQL database information. User defaults to root for containerized
-    ; testing with mysqldb. This should be set to a non-root user.
-    user = root
+    ; PostgreSQL database information. User defaults to root for containerized
+    ; testing with postgres. This should be set to a non-root user.
+    user = aur
     password = aur
     host = 127.0.0.1
-    port = 13306
-    ;socket = /var/run/mysqld/mysqld.sock
+    port = 15432
+    ;socket = /run/postgresql
     ---------------------------------------------------------------------
 
-5) Start our mariadb docker container
+5) Start our postgres docker container
 
-    # docker compose start mariadb
+    # docker compose start postgres
 
 6) Set environment variables
 

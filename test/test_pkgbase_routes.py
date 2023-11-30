@@ -430,7 +430,7 @@ def test_pkgbase_comments(
 
     # create notification
     with db.begin():
-        user.CommentNotify = 1
+        user.CommentNotify = True
         db.create(PackageNotification, PackageBase=package.PackageBase, User=user)
 
     # post a comment
