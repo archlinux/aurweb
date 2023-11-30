@@ -56,8 +56,8 @@ def setup_test_db(*args):
             models.User.__tablename__,
         ]
 
-    aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 0")
+    aurweb.db.get_session().execute("SET session_replication_role = 'replica'")
     for table in tables:
         aurweb.db.get_session().execute(f"DELETE FROM {table}")
-    aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 1")
+    aurweb.db.get_session().execute("SET session_replication_role = 'origin';")
     aurweb.db.get_session().expunge_all()

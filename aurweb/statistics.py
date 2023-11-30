@@ -13,6 +13,7 @@ from aurweb.models.package_request import (
     CLOSED_ID,
     PENDING_ID,
     REJECTED_ID,
+    STATUS_DISPLAY,
 )
 from aurweb.prometheus import PACKAGES, REQUESTS, USERS
 
@@ -143,10 +144,13 @@ def update_prometheus_metrics():
         .query(PackageRequest, func.count(PackageRequest.ID), RequestType.Name)
         .join(RequestType)
         .group_by(RequestType.Name, PackageRequest.Status)
+        .with_entities(
+            PackageRequest.Status, func.count(PackageRequest.ID), RequestType.Name
+        )
     )
     results = db_query_cache("request_metrics", query, cache_expire)
     for record in results:
-        status = record[0].status_display()
+        status = STATUS_DISPLAY[record[0]]
         count = record[1]
         rtype = record[2]
         REQUESTS.labels(type=rtype, status=status).set(count)

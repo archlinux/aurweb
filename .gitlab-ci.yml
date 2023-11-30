@@ -8,7 +8,7 @@ cache:
     - .pre-commit
 
 variables:
-  AUR_CONFIG: conf/config # Default MySQL config setup in before_script.
+  AUR_CONFIG: conf/config # Default PostgresSQL config setup in before_script.
   DB_HOST: localhost
   TEST_RECURSION_LIMIT: 10000
   CURRENT_DIR: "$(pwd)"
@@ -40,12 +40,12 @@ test:
     - source .venv/bin/activate # Enable our virtualenv cache
     - ./docker/scripts/install-python-deps.sh
     - useradd -U -d /aurweb -c 'AUR User' aur
-    - ./docker/mariadb-entrypoint.sh
-    - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
-    - 'until : > /dev/tcp/127.0.0.1/3306; do sleep 1s; done'
+    - ./docker/postgres-entrypoint.sh
+    - su postgres -c '/usr/bin/postgres -D /var/lib/postgres/data' &
+    - 'until : > /dev/tcp/127.0.0.1/5432; do sleep 1s; done'
     - cp -v conf/config.dev conf/config
     - sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
-    - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
+    - ./docker/test-postgres-entrypoint.sh # Create postgres AUR_CONFIG.
     - make -C po all install # Compile translations.
     - make -C doc # Compile asciidoc.
     - make -C test clean # Cleanup coverage.

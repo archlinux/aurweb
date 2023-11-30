@@ -47,7 +47,7 @@ Luckily such data can be generated.
 docker compose exec fastapi /bin/bash
 pacman -S words fortune-mod
 ./schema/gendummydata.py dummy.sql
-mysql aurweb < dummy.sql
+su postgres -q -c 'psql aurweb < dummy.sql'
 ```
 
 The generation script may prompt you to install other Arch packages before it

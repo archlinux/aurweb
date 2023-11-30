@@ -71,7 +71,7 @@ start_step_ca() {
 
 kill_step_ca() {
     # Stop the step-ca web server.
-    killall step-ca >/dev/null 2>&1 || /bin/true
+    killall -w step-ca >/dev/null 2>&1 || /bin/true
 }
 
 install_step_ca() {
@@ -105,8 +105,6 @@ if [ ! -d /root/.step/config ]; then
     echo -n "WARN: Your certificates are being regenerated to resolve "
     echo -n "an inconsistent step-ca state. You will need to re-import "
     echo "the root CA certificate into your browser."
-else
-    exec "$@"
 fi
 
 # Set permissions to /data to rwx for everybody.

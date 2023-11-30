@@ -14,7 +14,7 @@ read the instructions below.
     $ cd aurweb
     $ poetry install
 
-2) Setup a web server with MySQL. The following block can be used with nginx:
+2) Setup a web server with PostgreSQL. The following block can be used with nginx:
 
     server {
         # https is preferred and can be done easily with LetsEncrypt
@@ -100,7 +100,7 @@ read the instructions below.
 6b) Setup Services
 
 aurweb utilizes the following systemd services:
-- mariadb
+- postgresql
 - redis (optional, requires [options] cache 'redis')
 - `examples/aurweb.service`
 

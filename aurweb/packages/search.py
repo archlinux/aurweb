@@ -1,6 +1,6 @@
 from typing import Set
 
-from sqlalchemy import and_, case, or_, orm
+from sqlalchemy import and_, case, func, or_, orm
 
 from aurweb import db, models
 from aurweb.models import Group, Package, PackageBase, User
@@ -106,7 +106,7 @@ class PackageSearch:
         self.query = self.query.filter(
             or_(
                 Package.Name.like(f"%{keywords}%"),
-                Package.Description.like(f"%{keywords}%"),
+                func.lower(Package.Description).like(f"%{keywords}%"),
             )
         )
         return self
@@ -136,9 +136,9 @@ class PackageSearch:
         self._join_user()
         self._join_keywords()
         keywords = set(k.lower() for k in keywords)
-        self.query = self.query.filter(PackageKeyword.Keyword.in_(keywords)).group_by(
-            models.Package.Name
-        )
+        self.query = self.query.filter(
+            func.lower(PackageKeyword.Keyword).in_(keywords)
+        ).distinct()
 
         return self
 
@@ -146,7 +146,10 @@ class PackageSearch:
         self._join_user()
         if keywords:
             self.query = self.query.filter(
-                and_(User.Username == keywords, User.ID == PackageBase.MaintainerUID)
+                and_(
+                    func.lower(User.Username) == keywords,
+                    User.ID == PackageBase.MaintainerUID,
+                )
             )
         else:
             self.query = self.query.filter(PackageBase.MaintainerUID.is_(None))
@@ -155,7 +158,7 @@ class PackageSearch:
     def _search_by_comaintainer(self, keywords: str) -> orm.Query:
         self._join_user()
         self._join_comaint()
-        user = db.query(User).filter(User.Username == keywords).first()
+        user = db.query(User).filter(func.lower(User.Username) == keywords).first()
         uid = 0 if not user else user.ID
         self.query = self.query.filter(PackageComaintainer.UsersID == uid)
         return self
@@ -163,7 +166,7 @@ class PackageSearch:
     def _search_by_co_or_maintainer(self, keywords: str) -> orm.Query:
         self._join_user()
         self._join_comaint(True)
-        user = db.query(User).filter(User.Username == keywords).first()
+        user = db.query(User).filter(func.lower(User.Username) == keywords).first()
         uid = 0 if not user else user.ID
         self.query = self.query.filter(
             or_(PackageComaintainer.UsersID == uid, User.ID == uid)
@@ -174,7 +177,7 @@ class PackageSearch:
         self._join_user()
 
         uid = 0
-        user = db.query(User).filter(User.Username == keywords).first()
+        user = db.query(User).filter(func.lower(User.Username) == keywords).first()
         if user:
             uid = user.ID
 
