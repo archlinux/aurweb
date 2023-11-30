@@ -63,10 +63,10 @@ def create_pkgbase(conn, pkgbase, user):
     cur = conn.execute(
         "INSERT INTO PackageBases (Name, SubmittedTS, "
         + "ModifiedTS, SubmitterUID, MaintainerUID, "
-        + "FlaggerComment) VALUES (?, ?, ?, ?, ?, '')",
+        + "FlaggerComment) VALUES (?, ?, ?, ?, ?, '') RETURNING id",
         [pkgbase, now, now, userid, userid],
     )
-    pkgbase_id = cur.lastrowid
+    pkgbase_id = cur.fetchone()[0]
 
     cur = conn.execute(
         "INSERT INTO PackageNotifications " + "(PackageBaseID, UserID) VALUES (?, ?)",
@@ -135,11 +135,11 @@ def save_metadata(metadata, conn, user):  # noqa: C901
         cur = conn.execute(
             "INSERT INTO Packages (PackageBaseID, Name, "
             + "Version, Description, URL) "
-            + "VALUES (?, ?, ?, ?, ?)",
+            + "VALUES (?, ?, ?, ?, ?) RETURNING id",
             [pkgbase_id, pkginfo["pkgname"], ver, pkginfo["pkgdesc"], pkginfo["url"]],
         )
+        pkgid = cur.fetchone()[0]
         conn.commit()
-        pkgid = cur.lastrowid
 
         # Add package sources.
         for source_info in extract_arch_fields(pkginfo, "source"):
@@ -188,10 +188,11 @@ def save_metadata(metadata, conn, user):  # noqa: C901
                     licenseid = row[0]
                 else:
                     cur = conn.execute(
-                        "INSERT INTO Licenses (Name) " + "VALUES (?)", [license]
+                        "INSERT INTO Licenses (Name) " + "VALUES (?) RETURNING id",
+                        [license],
                     )
+                    licenseid = cur.fetchone()[0]
                     conn.commit()
-                    licenseid = cur.lastrowid
                 conn.execute(
                     "INSERT INTO PackageLicenses (PackageID, "
                     + "LicenseID) VALUES (?, ?)",
@@ -201,16 +202,16 @@ def save_metadata(metadata, conn, user):  # noqa: C901
         # Add package groups.
         if "groups" in pkginfo:
             for group in pkginfo["groups"]:
-                cur = conn.execute("SELECT ID FROM `Groups` WHERE Name = ?", [group])
+                cur = conn.execute("SELECT ID FROM Groups WHERE Name = ?", [group])
                 row = cur.fetchone()
                 if row:
                     groupid = row[0]
                 else:
                     cur = conn.execute(
-                        "INSERT INTO `Groups` (Name) VALUES (?)", [group]
+                        "INSERT INTO Groups (Name) VALUES (?) RETURNING id", [group]
                     )
+                    groupid = cur.fetchone()[0]
                     conn.commit()
-                    groupid = cur.lastrowid
                 conn.execute(
                     "INSERT INTO PackageGroups (PackageID, " "GroupID) VALUES (?, ?)",
                     [pkgid, groupid],

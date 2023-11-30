@@ -14,7 +14,7 @@ from aurweb.models.user import User
 from aurweb.testing.html import get_errors
 
 # Some test global constants.
-TEST_USERNAME = "test"
+TEST_USERNAME = "Test"
 TEST_EMAIL = "test@example.org"
 TEST_REFERER = {
     "referer": aurweb.config.get("options", "aur_location") + "/login",
@@ -54,36 +54,37 @@ def user() -> User:
 
 
 def test_login_logout(client: TestClient, user: User):
-    post_data = {"user": "test", "passwd": "testPassword", "next": "/"}
+    for username in ["test", "TEst"]:
+        post_data = {"user": username, "passwd": "testPassword", "next": "/"}
 
-    with client as request:
-        # First, let's test get /login.
-        response = request.get("/login")
-        assert response.status_code == int(HTTPStatus.OK)
+        with client as request:
+            # First, let's test get /login.
+            response = request.get("/login")
+            assert response.status_code == int(HTTPStatus.OK)
 
-        response = request.post("/login", data=post_data)
-        assert response.status_code == int(HTTPStatus.SEE_OTHER)
+            response = request.post("/login", data=post_data)
+            assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-        # Simulate following the redirect location from above's response.
-        response = request.get(response.headers.get("location"))
-        assert response.status_code == int(HTTPStatus.OK)
+            # Simulate following the redirect location from above's response.
+            response = request.get(response.headers.get("location"))
+            assert response.status_code == int(HTTPStatus.OK)
 
-        response = request.post("/logout", data=post_data)
-        assert response.status_code == int(HTTPStatus.SEE_OTHER)
+            response = request.post("/logout", data=post_data)
+            assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-        request.cookies = {"AURSID": response.cookies.get("AURSID")}
-        response = request.post(
-            "/logout",
-            data=post_data,
-        )
-        assert response.status_code == int(HTTPStatus.SEE_OTHER)
+            request.cookies = {"AURSID": response.cookies.get("AURSID")}
+            response = request.post(
+                "/logout",
+                data=post_data,
+            )
+            assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    assert "AURSID" not in response.cookies
+        assert "AURSID" not in response.cookies
 
 
 def test_login_suspended(client: TestClient, user: User):
     with db.begin():
-        user.Suspended = 1
+        user.Suspended = True
 
     data = {"user": user.Username, "passwd": "testPassword", "next": "/"}
     with client as request:
@@ -184,23 +185,23 @@ def test_secure_login(getboolean: mock.Mock, client: TestClient, user: User):
 
 
 def test_authenticated_login(client: TestClient, user: User):
-    post_data = {"user": user.Username, "passwd": "testPassword", "next": "/"}
+    for username in [user.Username.lower(), user.Username.upper()]:
+        post_data = {"user": username, "passwd": "testPassword", "next": "/"}
 
-    with client as request:
-        # Try to login.
-        response = request.post("/login", data=post_data)
-        assert response.status_code == int(HTTPStatus.SEE_OTHER)
-        assert response.headers.get("location") == "/"
+        with client as request:
+            # Try to login.
+            request.cookies = {}
+            response = request.post("/login", data=post_data)
+            assert response.status_code == int(HTTPStatus.SEE_OTHER)
+            assert response.headers.get("location") == "/"
 
-        # Now, let's verify that we get the logged in rendering
-        # when requesting GET /login as an authenticated user.
-        # Now, let's verify that we receive 403 Forbidden when we
-        # try to get /login as an authenticated user.
-        request.cookies = response.cookies
-        response = request.get("/login")
+            # Now, let's verify that we get the logged in rendering
+            # when requesting GET /login as an authenticated user.
+            request.cookies = response.cookies
+            response = request.get("/login")
 
-        assert response.status_code == int(HTTPStatus.OK)
-        assert "Logged-in as: <strong>test</strong>" in response.text
+            assert response.status_code == int(HTTPStatus.OK)
+            assert f"Logged-in as: <strong>{user.Username}</strong>" in response.text
 
 
 def test_unauthenticated_logout_unauthorized(client: TestClient):
@@ -370,5 +371,4 @@ def test_generate_unique_sid_exhausted(
     assert re.search(expr, caplog.text)
     assert "IntegrityError" in caplog.text
 
-    expr = r"Duplicate entry .+ for key .+SessionID.+"
-    assert re.search(expr, response.text)
+    assert "duplicate key value" in response.text

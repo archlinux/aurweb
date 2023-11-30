@@ -1,9 +1,9 @@
 [database]
-backend = mysql
-host = localhost
-socket = /var/run/mysqld/mysqld.sock
-;port = 3306
-name = AUR
+backend = postgres
+;host = localhost
+socket = /run/postgresql
+;port = 5432
+name = aurweb
 user = aur
 ;password = aur
 

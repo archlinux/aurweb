@@ -93,9 +93,9 @@ def make_temp_sqlite_config():
     )
 
 
-def make_temp_mysql_config():
+def make_temp_postgres_config():
     return make_temp_config(
-        (r"backend = .*", "backend = mysql"), (r"name = .*", "name = aurweb_test")
+        (r"backend = .*", "backend = postgres"), (r"name = .*", "name = aurweb_test")
     )
 
 
@@ -114,8 +114,8 @@ def test_sqlalchemy_sqlite_url():
     aurweb.config.rehash()
 
 
-def test_sqlalchemy_mysql_url():
-    tmpctx, tmp = make_temp_mysql_config()
+def test_sqlalchemy_postgres_url():
+    tmpctx, tmp = make_temp_postgres_config()
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
             aurweb.config.rehash()
@@ -123,8 +123,8 @@ def test_sqlalchemy_mysql_url():
     aurweb.config.rehash()
 
 
-def test_sqlalchemy_mysql_port_url():
-    tmpctx, tmp = make_temp_config((r";port = 3306", "port = 3306"))
+def test_sqlalchemy_postgres_port_url():
+    tmpctx, tmp = make_temp_config((r";port = 5432", "port = 5432"))
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -133,7 +133,7 @@ def test_sqlalchemy_mysql_port_url():
         aurweb.config.rehash()
 
 
-def test_sqlalchemy_mysql_socket_url():
+def test_sqlalchemy_postgres_socket_url():
     tmpctx, tmp = make_temp_config()
 
     with tmpctx:
@@ -170,16 +170,6 @@ def test_connection_class_unsupported_backend():
         aurweb.config.rehash()
 
 
-@mock.patch("MySQLdb.connect", mock.MagicMock(return_value=True))
-def test_connection_mysql():
-    tmpctx, tmp = make_temp_mysql_config()
-    with tmpctx:
-        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
-            aurweb.config.rehash()
-            db.Connection()
-        aurweb.config.rehash()
-
-
 def test_create_delete():
     with db.begin():
         account_type = db.create(AccountType, AccountType="test")
@@ -212,8 +202,8 @@ def test_add_commit():
         db.delete(account_type)
 
 
-def test_connection_executor_mysql_paramstyle():
-    executor = db.ConnectionExecutor(None, backend="mysql")
+def test_connection_executor_postgres_paramstyle():
+    executor = db.ConnectionExecutor(None, backend="postgres")
     assert executor.paramstyle() == "format"
 
 

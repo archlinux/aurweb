@@ -218,7 +218,7 @@ class RPC:
                 models.User.Username.label("Maintainer"),
                 Submitter.Username.label("Submitter"),
             )
-            .group_by(models.Package.ID)
+            .distinct()
         )
 
         return query
@@ -464,6 +464,9 @@ class RPC:
 
         # Convert by to its aliased value if it has one.
         by = RPC.BY_ALIASES.get(by, by)
+
+        # lowercase all args
+        args = [arg.lower() for arg in args]
 
         # Process the requested handler.
         try:

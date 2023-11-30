@@ -8,7 +8,7 @@ make -C test clean
 # Run sharness tests.
 bash $dir/run-sharness.sh
 
-# Run Python tests with MariaDB database.
+# Run Python tests with PostgreSQL database.
 # Pass --silence to avoid reporting coverage. We will do that below.
 bash $dir/run-pytests.sh --no-coverage
 

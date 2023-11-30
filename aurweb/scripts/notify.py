@@ -136,7 +136,7 @@ class ResetKeyNotification(Notification):
     def __init__(self, uid):
         user = (
             db.query(User)
-            .filter(and_(User.ID == uid, User.Suspended == 0))
+            .filter(and_(User.ID == uid, ~User.Suspended))
             .with_entities(
                 User.Username,
                 User.Email,
@@ -206,10 +206,10 @@ class CommentNotification(Notification):
             .join(PackageNotification)
             .filter(
                 and_(
-                    User.CommentNotify == 1,
+                    User.CommentNotify,
                     PackageNotification.UserID != uid,
                     PackageNotification.PackageBaseID == pkgbase_id,
-                    User.Suspended == 0,
+                    ~User.Suspended,
                 )
             )
             .with_entities(User.Email, User.LangPreference)
@@ -271,10 +271,10 @@ class UpdateNotification(Notification):
             .join(PackageNotification)
             .filter(
                 and_(
-                    User.UpdateNotify == 1,
+                    User.UpdateNotify,
                     PackageNotification.UserID != uid,
                     PackageNotification.PackageBaseID == pkgbase_id,
-                    User.Suspended == 0,
+                    ~User.Suspended,
                 )
             )
             .with_entities(User.Email, User.LangPreference)
@@ -334,7 +334,7 @@ class FlagNotification(Notification):
                     PackageBase.ID == PackageComaintainer.PackageBaseID,
                 ),
             )
-            .filter(and_(PackageBase.ID == pkgbase_id, User.Suspended == 0))
+            .filter(and_(PackageBase.ID == pkgbase_id, ~User.Suspended))
             .with_entities(User.Email, User.LangPreference)
             .distinct()
             .order_by(User.Email)
@@ -385,10 +385,10 @@ class OwnershipEventNotification(Notification):
             .join(PackageNotification)
             .filter(
                 and_(
-                    User.OwnershipNotify == 1,
+                    User.OwnershipNotify,
                     PackageNotification.UserID != uid,
                     PackageNotification.PackageBaseID == pkgbase_id,
-                    User.Suspended == 0,
+                    ~User.Suspended,
                 )
             )
             .with_entities(User.Email, User.LangPreference)
@@ -504,7 +504,7 @@ class DeleteNotification(Notification):
                 and_(
                     PackageNotification.UserID != uid,
                     PackageNotification.PackageBaseID == old_pkgbase_id,
-                    User.Suspended == 0,
+                    ~User.Suspended,
                 )
             )
             .with_entities(User.Email, User.LangPreference)
@@ -580,12 +580,12 @@ class RequestOpenNotification(Notification):
                     User.ID == PackageComaintainer.UsersID,
                 ),
             )
-            .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
+            .filter(and_(PackageRequest.ID == reqid, ~User.Suspended))
             .with_entities(User.Email, User.HideEmail)
             .distinct()
         )
-        self._cc = [u.Email for u in query if u.HideEmail == 0]
-        self._bcc = [u.Email for u in query if u.HideEmail == 1]
+        self._cc = [u.Email for u in query if not u.HideEmail]
+        self._bcc = [u.Email for u in query if u.HideEmail]
 
         pkgreq = (
             db.query(PackageRequest.Comments).filter(PackageRequest.ID == reqid).first()
@@ -671,12 +671,12 @@ class RequestCloseNotification(Notification):
                     User.ID == PackageComaintainer.UsersID,
                 ),
             )
-            .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
+            .filter(and_(PackageRequest.ID == reqid, ~User.Suspended))
             .with_entities(User.Email, User.HideEmail)
             .distinct()
         )
-        self._cc = [u.Email for u in query if u.HideEmail == 0]
-        self._bcc = [u.Email for u in query if u.HideEmail == 1]
+        self._cc = [u.Email for u in query if not u.HideEmail]
+        self._bcc = [u.Email for u in query if u.HideEmail]
 
         pkgreq = (
             db.query(PackageRequest)
@@ -755,7 +755,7 @@ class VoteReminderNotification(Notification):
                 and_(
                     User.AccountTypeID.in_((2, 4)),
                     ~User.ID.in_(subquery),
-                    User.Suspended == 0,
+                    ~User.Suspended,
                 )
             )
             .with_entities(User.Email, User.LangPreference)

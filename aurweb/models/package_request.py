@@ -21,6 +21,13 @@ CLOSED_ID = 1
 ACCEPTED_ID = 2
 REJECTED_ID = 3
 
+STATUS_DISPLAY = {
+    PENDING_ID: PENDING,
+    CLOSED_ID: CLOSED,
+    ACCEPTED_ID: ACCEPTED,
+    REJECTED_ID: REJECTED,
+}
+
 
 class PackageRequest(Base):
     __table__ = schema.PackageRequests
@@ -50,13 +57,6 @@ class PackageRequest(Base):
         backref=backref("closed_requests", lazy="dynamic"),
         foreign_keys=[__table__.c.ClosedUID],
     )
-
-    STATUS_DISPLAY = {
-        PENDING_ID: PENDING,
-        CLOSED_ID: CLOSED,
-        ACCEPTED_ID: ACCEPTED,
-        REJECTED_ID: REJECTED,
-    }
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -105,7 +105,7 @@ class PackageRequest(Base):
 
     def status_display(self) -> str:
         """Return a display string for the Status column."""
-        return self.STATUS_DISPLAY[self.Status]
+        return STATUS_DISPLAY[self.Status]
 
     def ml_message_id_hash(self) -> str:
         """Return the X-Message-ID-Hash that is used in the mailing list archive."""

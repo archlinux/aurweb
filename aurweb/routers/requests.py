@@ -95,7 +95,9 @@ async def requests(  # noqa: C901
 
     # Name filter (contains)
     if filter_pkg_name:
-        filtered = filtered.filter(PackageBase.Name.like(f"%{filter_pkg_name}%"))
+        filtered = filtered.filter(
+            PackageBase.Name.like(f"%{filter_pkg_name.lower()}%")
+        )
 
     # Additionally filter for requests made from package maintainer
     if filter_maintainer_requests:

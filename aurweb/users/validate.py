@@ -8,7 +8,7 @@ when encountering invalid criteria and return silently otherwise.
 """
 
 from fastapi import Request
-from sqlalchemy import and_
+from sqlalchemy import and_, func
 
 from aurweb import aur_logging, config, db, l10n, models, time, util
 from aurweb.auth import creds
@@ -158,7 +158,11 @@ def username_in_use(
 ) -> None:
     exists = (
         db.query(models.User)
-        .filter(and_(models.User.ID != user.ID, models.User.Username == U))
+        .filter(
+            and_(
+                models.User.ID != user.ID, func.lower(models.User.Username) == U.lower()
+            )
+        )
         .exists()
     )
     if db.query(exists).scalar():
@@ -176,7 +180,9 @@ def email_in_use(
 ) -> None:
     exists = (
         db.query(models.User)
-        .filter(and_(models.User.ID != user.ID, models.User.Email == E))
+        .filter(
+            and_(models.User.ID != user.ID, func.lower(models.User.Email) == E.lower())
+        )
         .exists()
     )
     if db.query(exists).scalar():

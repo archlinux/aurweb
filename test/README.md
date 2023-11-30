@@ -60,7 +60,7 @@ other user:
 
     GRANT ALL ON *.* TO 'user'@'localhost' WITH GRANT OPTION
 
-The aurweb platform is intended to use the `mysql` backend, but
+The aurweb platform is intended to use the `postgresql` backend, but
 the `sqlite` backend is still used for sharness tests. These tests
 will soon be replaced with pytest suites and `sqlite` removed.
 
