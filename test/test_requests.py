@@ -649,6 +649,7 @@ def test_orphan_request(
     assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
     # We should have unset the maintainer.
+    db.refresh(pkgbase)
     assert pkgbase.Maintainer is None
 
     # We should have removed the comaintainers.
@@ -748,6 +749,7 @@ def test_orphan_as_maintainer(client: TestClient, auser: User, pkgbase: PackageB
     # As the pkgbase maintainer, disowning the package just ends up
     # either promoting the lowest priority comaintainer or removing
     # the associated maintainer relationship altogether.
+    db.refresh(pkgbase)
     assert pkgbase.Maintainer is None
 
 
@@ -1044,6 +1046,7 @@ def test_requests_close_post(client: TestClient, user: User, pkgreq: PackageRequ
         resp = request.post(f"/requests/{pkgreq.ID}/close")
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
+    db.refresh(pkgreq)
     assert pkgreq.Status == REJECTED_ID
     assert pkgreq.Closer == user
     assert pkgreq.ClosureComment == str()
@@ -1060,6 +1063,7 @@ def test_requests_close_post_rejected(
         )
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
+    db.refresh(pkgreq)
     assert pkgreq.Status == REJECTED_ID
     assert pkgreq.Closer == user
     assert pkgreq.ClosureComment == str()

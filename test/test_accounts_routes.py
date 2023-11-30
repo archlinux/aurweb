@@ -830,6 +830,7 @@ def test_post_account_edit_type_as_dev(client: TestClient, pm_user: User):
         request.cookies = cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
+    db.refresh(user2)
     assert user2.AccountTypeID == at.DEVELOPER_ID
 
 
@@ -850,6 +851,7 @@ def test_post_account_edit_invalid_type_as_pm(client: TestClient, pm_user: User)
         request.cookies = cookies
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    db.refresh(user2)
     assert user2.AccountTypeID == at.USER_ID
 
     errors = get_errors(resp.text)
@@ -1020,6 +1022,7 @@ def test_post_account_edit_inactivity(client: TestClient, user: User):
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Make sure the user record got updated correctly.
+    db.refresh(user)
     assert user.InactivityTS > 0
 
     post_data.update({"J": False})
@@ -1028,6 +1031,7 @@ def test_post_account_edit_inactivity(client: TestClient, user: User):
         resp = request.post(f"/account/{user.Username}/edit", data=post_data)
     assert resp.status_code == int(HTTPStatus.OK)
 
+    db.refresh(user)
     assert user.InactivityTS == 0
 
 
@@ -1050,6 +1054,7 @@ def test_post_account_edit_suspended(client: TestClient, user: User):
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Make sure the user record got updated correctly.
+    db.refresh(user)
     assert user.Suspended
     # Let's make sure the DB got updated properly.
     assert user.session is None
@@ -1207,6 +1212,7 @@ def test_post_account_edit_password(client: TestClient, user: User):
 
     assert response.status_code == int(HTTPStatus.OK)
 
+    db.refresh(user)
     assert user.valid_password("newPassword")
 
 
@@ -1273,6 +1279,7 @@ def test_post_account_edit_self_type_as_pm(client: TestClient, pm_user: User):
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.OK)
 
+    db.refresh(pm_user)
     assert pm_user.AccountTypeID == USER_ID
 
 
@@ -1308,6 +1315,7 @@ def test_post_account_edit_other_user_type_as_pm(
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Let's make sure the DB got updated properly.
+    db.refresh(user2)
     assert user2.AccountTypeID == PACKAGE_MAINTAINER_ID
 
     # and also that this got logged out at DEBUG level.

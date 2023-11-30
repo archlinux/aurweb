@@ -25,7 +25,7 @@ import aurweb.pkgbase.util as pkgbaseutil
 from aurweb import aur_logging, prometheus, util
 from aurweb.aur_redis import redis_connection
 from aurweb.auth import BasicAuthBackend
-from aurweb.db import get_engine, query
+from aurweb.db import get_engine, query, set_db_session_context
 from aurweb.models import AcceptedTerm, Term
 from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
@@ -308,3 +308,20 @@ async def id_redirect_middleware(request: Request, call_next: typing.Callable):
 # Add application middlewares.
 app.add_middleware(AuthenticationMiddleware, backend=BasicAuthBackend())
 app.add_middleware(SessionMiddleware, secret_key=session_secret)
+
+
+# Set context var for database session & remove it after our request
+@app.middleware("http")
+async def db_session_context(request: Request, call_next: typing.Callable):
+    # static content won't require a db session
+    if request.url.path.startswith("/static"):
+        return await util.error_or_result(call_next, request)
+
+    try:
+        set_db_session_context(hash(request))
+        response = await util.error_or_result(call_next, request)
+
+    finally:
+        set_db_session_context(None)
+
+    return response

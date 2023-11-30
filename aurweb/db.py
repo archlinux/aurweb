@@ -1,3 +1,7 @@
+from contextvars import ContextVar
+from threading import get_ident
+from typing import Optional
+
 from sqlalchemy.orm import Session
 
 # Supported database drivers.
@@ -13,6 +17,23 @@ class Committer:
 
     def __exit__(self, *args):
         self.session.commit()
+
+
+db_session_context: ContextVar[Optional[int]] = ContextVar(
+    "session_id", default=get_ident()
+)
+
+
+def get_db_session_context():
+    id = db_session_context.get()
+    return id
+
+
+def set_db_session_context(session_id: int):
+    if session_id is None:
+        get_session().remove()
+
+    db_session_context.set(session_id)
 
 
 def make_random_value(table: str, column: str, length: int):
@@ -74,36 +95,39 @@ def name() -> str:
     return "db" + sha1
 
 
-# Module-private global memo used to store SQLAlchemy sessions.
-_sessions = dict()
+# Module-private global memo used to store SQLAlchemy sessions registries.
+_session_registries = dict()
 
 
 def get_session(engine=None) -> Session:
     """Return aurweb.db's global session."""
     dbname = name()
 
-    global _sessions
-    if dbname not in _sessions:
+    global _session_registries
+    if dbname not in _session_registries:
         from sqlalchemy.orm import scoped_session, sessionmaker
 
         if not engine:  # pragma: no cover
             engine = get_engine()
 
-        Session = scoped_session(sessionmaker(autoflush=False, bind=engine))
-        _sessions[dbname] = Session()
+        Session = scoped_session(
+            sessionmaker(autoflush=False, bind=engine),
+            scopefunc=get_db_session_context,
+        )
+        _session_registries[dbname] = Session
 
-    return _sessions.get(dbname)
+    return _session_registries.get(dbname)
 
 
 def pop_session(dbname: str) -> None:
     """
-    Pop a Session out of the private _sessions memo.
+    Pop a Session registry out of the private _session_registries memo.
 
     :param dbname: Database name
     :raises KeyError: When `dbname` does not exist in the memo
     """
-    global _sessions
-    _sessions.pop(dbname)
+    global _session_registries
+    _session_registries.pop(dbname)
 
 
 def refresh(model):
@@ -302,12 +326,14 @@ def get_engine(dbname: str = None, echo: bool = False):
     if dbname not in _engines:
         db_backend = aurweb.config.get("database", "backend")
         connect_args = dict()
+        kwargs = {"echo": echo, "connect_args": connect_args}
 
         is_sqlite = bool(db_backend == "sqlite")
         if is_sqlite:  # pragma: no cover
             connect_args["check_same_thread"] = False
+        else:
+            kwargs["isolation_level"] = "READ_COMMITTED"
 
-        kwargs = {"echo": echo, "connect_args": connect_args}
         from sqlalchemy import create_engine
 
         _engines[dbname] = create_engine(get_sqlalchemy_url(), **kwargs)
