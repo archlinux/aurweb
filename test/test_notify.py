@@ -227,7 +227,7 @@ please go to the package page [2] and select "Disable notifications".
 def test_update(user: User, user2: User, pkgbases: list[PackageBase]):
     pkgbase = pkgbases[0]
     with db.begin():
-        user.UpdateNotify = 1
+        user.UpdateNotify = True
 
     notif = notify.UpdateNotification(user2.ID, pkgbase.ID)
     notif.send()
@@ -331,7 +331,7 @@ You were removed from the co-maintainer list of {pkgbase.Name} [1].
 
 def test_suspended_ownership_change(user: User, pkgbases: list[PackageBase]):
     with db.begin():
-        user.Suspended = 1
+        user.Suspended = True
 
     pkgbase = pkgbases[0]
     notif = notify.ComaintainerAddNotification(user.ID, pkgbase.ID)
@@ -491,7 +491,7 @@ def test_open_close_request_hidden_email(
 
     # Enable the "HideEmail" option for our requester
     with db.begin():
-        user2.HideEmail = 1
+        user2.HideEmail = True
 
     # Send an open request notification.
     notif = notify.RequestOpenNotification(

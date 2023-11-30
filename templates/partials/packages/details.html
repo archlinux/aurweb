@@ -43,7 +43,7 @@
                     <div>
                         <input type="text"
                                name="keywords"
-                               value="{{ pkgbase.keywords | join(' ', attribute='Keyword') }}"
+                               value="{{ keywords | join(' ', attribute='Keyword') }}"
                         />
                         <input type="submit" value="{{ 'Update' | tr }}"/>
                     </div>
@@ -51,7 +51,7 @@
             </td>
             {% else %}
             <td>
-                {% for keyword in pkgbase.keywords.all() %}
+                {% for keyword in keywords.all() %}
                     <a class="keyword"
                        href="/packages/?K={{ keyword.Keyword }}&amp;SeB=k"
                     >

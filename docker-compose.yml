@@ -3,10 +3,10 @@
 #
 # Notable services:
 #   - `sharness` - Run sharness test suites
-#   - `pytest-mysql` - Run pytest suites with MariaDB
+#   - `pytest-postgres` - Run pytest suites with PostgreSQL
 #   - `pytest-sqlite` - Run pytest suites with SQLite
-#   - `test` - Run sharness, pytest-mysql and pytest-sqlite
-#   - `mariadb` - `port 13306` - MariaDB server for docker
+#   - `test` - Run sharness, pytest-postgres and pytest-sqlite
+#   - `postgres` - `port 15432` - PostgreSQL server for docker
 #   - `ca` - Certificate Authority generation
 #   - `git` - `port 2222` - Git over SSH server
 #   - `fastapi` - hypercorn service for aurweb's FastAPI app
@@ -45,52 +45,33 @@ services:
     ports:
       - "127.0.0.1:16379:6379"
 
-  mariadb:
+  postgres:
     image: aurweb:latest
     init: true
-    entrypoint: /docker/mariadb-entrypoint.sh
-    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
+    entrypoint: /docker/postgres-entrypoint.sh
+    command: su postgres -c '/usr/bin/postgres -D /var/lib/postgres/data'
     ports:
-      # This will expose mariadbd on 127.0.0.1:13306 in the host.
-      # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
-      - "127.0.0.1:13306:3306"
+      - "127.0.0.1:15432:5432"
     volumes:
-      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
-      - mariadb_data:/var/lib/mysql
+      - postgres_run:/run/postgresql
+      - postgres_data:/var/lib/postgres
     healthcheck:
-      test: "bash /docker/health/mariadb.sh"
+      test: "bash /docker/health/postgres.sh"
       interval: 3s
+    shm_size: 2gb
 
-  mariadb_init:
+  postgres_init:
     image: aurweb:latest
     init: true
     environment:
       - AUR_CONFIG_IMMUTABLE=${AUR_CONFIG_IMMUTABLE:-0}
-    entrypoint: /docker/mariadb-init-entrypoint.sh
-    command: echo "MariaDB tables initialized."
+    entrypoint: /docker/postgres-init-entrypoint.sh
+    command: echo "Postgres tables initialized."
     volumes:
-      - mariadb_run:/var/run/mysqld
+      - postgres_run:/run/postgresql
     depends_on:
-      mariadb:
+      postgres:
         condition: service_healthy
-
-  mariadb_test:
-    # Test database.
-    image: aurweb:latest
-    init: true
-    environment:
-      - MARIADB_PRIVILEGED=1
-    entrypoint: /docker/mariadb-entrypoint.sh
-    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
-    ports:
-      # This will expose mariadbd on 127.0.0.1:13307 in the host.
-      # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
-      - "127.0.0.1:13307:3306"
-    volumes:
-      - mariadb_test_run:/var/run/mysqld # Bind socket in this volume.
-    healthcheck:
-      test: "bash /docker/health/mariadb.sh"
-      interval: 3s
 
   git:
     image: aurweb:latest
@@ -107,10 +88,10 @@ services:
       test: "bash /docker/health/sshd.sh"
       interval: 3s
     depends_on:
-      mariadb_init:
+      postgres_init:
         condition: service_started
     volumes:
-      - mariadb_run:/var/run/mysqld
+      - postgres_run:/run/postgresql
 
   smartgit:
     image: aurweb:latest
@@ -152,11 +133,11 @@ services:
     entrypoint: /docker/cron-entrypoint.sh
     command: /docker/scripts/run-cron.sh
     depends_on:
-      mariadb_init:
+      postgres_init:
         condition: service_started
     volumes:
       - ./aurweb:/aurweb/aurweb
-      - mariadb_run:/var/run/mysqld
+      - postgres_run:/run/postgresql
       - archives:/var/lib/aurweb/archives
 
   fastapi:
@@ -184,7 +165,7 @@ services:
         condition: service_started
     volumes:
       - archives:/var/lib/aurweb/archives
-      - mariadb_run:/var/run/mysqld
+      - postgres_run:/run/postgresql
     ports:
       - "127.0.0.1:18000:8000"
 
@@ -222,7 +203,7 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      mariadb_test:
+      postgres:
         condition: service_healthy
     volumes:
       - ./data:/data
@@ -231,7 +212,7 @@ services:
       - ./test:/aurweb/test
       - ./templates:/aurweb/templates
 
-  pytest-mysql:
+  pytest-postgres:
     image: aurweb:latest
     profiles: ["dev"]
     init: true
@@ -240,17 +221,17 @@ services:
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
       - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
       - LOG_CONFIG=logging.test.conf
-    entrypoint: /docker/test-mysql-entrypoint.sh
+    entrypoint: /docker/test-postgres-entrypoint.sh
     command: /docker/scripts/run-pytests.sh clean
     stdin_open: true
     tty: true
     depends_on:
-      mariadb_test:
+      postgres:
         condition: service_healthy
     tmpfs:
       - /tmp
     volumes:
-      - mariadb_test_run:/var/run/mysqld
+      - postgres_run:/run/postgresql
       - ./data:/data
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
@@ -266,15 +247,15 @@ services:
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
       - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
       - LOG_CONFIG=logging.test.conf
-    entrypoint: /docker/test-mysql-entrypoint.sh
+    entrypoint: /docker/test-postgres-entrypoint.sh
     command: /docker/scripts/run-tests.sh
     stdin_open: true
     tty: true
     depends_on:
-      mariadb_test:
+      postgres:
         condition: service_healthy
     volumes:
-      - mariadb_test_run:/var/run/mysqld
+      - postgres_run:/run/postgresql
       - ./data:/data
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
@@ -282,9 +263,8 @@ services:
       - ./templates:/aurweb/templates
 
 volumes:
-  mariadb_test_run: {}
-  mariadb_run: {} # Share /var/run/mysqld/mysqld.sock
-  mariadb_data: {} # Share /var/lib/mysql
+  postgres_run: {}
+  postgres_data: {}
   git_data: {} # Share aurweb/aur.git
   smartgit_run: {}
   archives: {}

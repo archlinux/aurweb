@@ -124,7 +124,7 @@ async def package_maintainer(
             )
         )
         .with_entities(models.Vote.UserID, last_vote, models.User.Username)
-        .group_by(models.Vote.UserID)
+        .group_by(models.Vote.UserID, models.User.Username)
         .order_by(last_vote.desc(), models.User.Username.asc())
     )
     context["last_votes_by_pm"] = last_votes_by_pm.all()
@@ -371,7 +371,7 @@ async def package_maintainer_addvote_post(
             db.query(User)
             .filter(
                 and_(
-                    User.Suspended == 0,
+                    ~User.Suspended,
                     User.InactivityTS.isnot(None),
                     User.AccountTypeID.in_(types),
                 )

@@ -6,9 +6,9 @@ services:
       - ./data:/data
       - step:/root/.step
 
-  mariadb_init:
+  postgres_init:
     depends_on:
-      mariadb:
+      postgres:
         condition: service_healthy
 
   git:
@@ -22,7 +22,7 @@ services:
       - ./data:/data
       - smartgit_run:/var/run/smartgit
     depends_on:
-      mariadb:
+      postgres:
         condition: service_healthy
 
   fastapi:
