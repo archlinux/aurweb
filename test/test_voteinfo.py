@@ -1,5 +1,5 @@
 import pytest
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, SAWarning
 
 from aurweb import db, time
 from aurweb.db import create, rollback
@@ -109,7 +109,7 @@ def test_voteinfo_null_submitter_raises(user: User):
 
 
 def test_voteinfo_null_agenda_raises(user: User):
-    with pytest.raises(IntegrityError):
+    with pytest.raises(IntegrityError), pytest.warns(SAWarning):
         with db.begin():
             create(
                 VoteInfo,
@@ -123,7 +123,7 @@ def test_voteinfo_null_agenda_raises(user: User):
 
 
 def test_voteinfo_null_user_raises(user: User):
-    with pytest.raises(IntegrityError):
+    with pytest.raises(IntegrityError), pytest.warns(SAWarning):
         with db.begin():
             create(
                 VoteInfo,
@@ -137,7 +137,7 @@ def test_voteinfo_null_user_raises(user: User):
 
 
 def test_voteinfo_null_submitted_raises(user: User):
-    with pytest.raises(IntegrityError):
+    with pytest.raises(IntegrityError), pytest.warns(SAWarning):
         with db.begin():
             create(
                 VoteInfo,
@@ -151,7 +151,7 @@ def test_voteinfo_null_submitted_raises(user: User):
 
 
 def test_voteinfo_null_end_raises(user: User):
-    with pytest.raises(IntegrityError):
+    with pytest.raises(IntegrityError), pytest.warns(SAWarning):
         with db.begin():
             create(
                 VoteInfo,

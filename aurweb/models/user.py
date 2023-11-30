@@ -139,6 +139,7 @@ class User(Base):
 
                     break
             except IntegrityError as exc_:
+                db.rollback()
                 exc = exc_
 
         if exc:

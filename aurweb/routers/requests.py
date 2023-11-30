@@ -112,7 +112,7 @@ async def requests(  # noqa: C901
         filtered.order_by(
             # Order primarily by the Status column being PENDING_ID,
             # and secondarily by RequestTS; both in descending order.
-            case([(PackageRequest.Status == PENDING_ID, 1)], else_=0).desc(),
+            case((PackageRequest.Status == PENDING_ID, 1), else_=0).desc(),
             PackageRequest.RequestTS.desc(),
         )
         .limit(PP)

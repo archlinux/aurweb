@@ -104,6 +104,7 @@ async def packages_get(
         models.Package.PackageBaseID,
         models.Package.Version,
         models.Package.Description,
+        models.PackageBase.Name.label("BaseName"),
         models.PackageBase.Popularity,
         models.PackageBase.NumVotes,
         models.PackageBase.OutOfDateTS,

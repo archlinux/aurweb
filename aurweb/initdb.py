@@ -60,7 +60,8 @@ def run(args):
     conn = engine.connect()
     # conn.execute("CREATE COLLATION ci (provider = icu, locale = 'und-u-ks-level2', deterministic = false)")  # noqa: E501
     aurweb.schema.metadata.create_all(engine)
-    feed_initial_data(conn)
+    with conn.begin():
+        feed_initial_data(conn)
     conn.close()
 
     if args.use_alembic:

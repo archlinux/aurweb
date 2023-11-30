@@ -213,7 +213,7 @@ class PackageSearch:
         # in terms of performance. We should improve this; there's no
         # reason it should take _longer_.
         column = getattr(
-            case([(models.PackageVote.UsersID == self.user.ID, 1)], else_=0), order
+            case((models.PackageVote.UsersID == self.user.ID, 1), else_=0), order
         )
         name = getattr(models.Package.Name, order)
         self.query = self.query.order_by(column(), name())
@@ -224,7 +224,7 @@ class PackageSearch:
         # in terms of performance. We should improve this; there's no
         # reason it should take _longer_.
         column = getattr(
-            case([(models.PackageNotification.UserID == self.user.ID, 1)], else_=0),
+            case((models.PackageNotification.UserID == self.user.ID, 1), else_=0),
             order,
         )
         name = getattr(models.Package.Name, order)

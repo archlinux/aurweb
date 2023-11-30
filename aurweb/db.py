@@ -4,6 +4,17 @@ from sqlalchemy.orm import Session
 DRIVERS = {"postgres": "postgresql+psycopg2"}
 
 
+class Committer:
+    def __init__(self, session):
+        self.session = session
+
+    def __enter__(self):
+        pass
+
+    def __exit__(self, *args):
+        self.session.commit()
+
+
 def make_random_value(table: str, column: str, length: int):
     """Generate a unique, random value for a string column in a table.
 
@@ -78,9 +89,7 @@ def get_session(engine=None) -> Session:
         if not engine:  # pragma: no cover
             engine = get_engine()
 
-        Session = scoped_session(
-            sessionmaker(autocommit=True, autoflush=False, bind=engine)
-        )
+        Session = scoped_session(sessionmaker(autoflush=False, bind=engine))
         _sessions[dbname] = Session()
 
     return _sessions.get(dbname)
@@ -160,7 +169,7 @@ def add(model):
 
 def begin():
     """Begin an SQLAlchemy SessionTransaction."""
-    return get_session().begin()
+    return Committer(get_session())
 
 
 def retry_deadlock(func):
@@ -219,7 +228,7 @@ def get_sqlalchemy_url():
     parts = sqlalchemy.__version__.split(".")
     major = int(parts[0])
     minor = int(parts[1])
-    if major == 1 and minor >= 4:  # pragma: no cover
+    if (major == 1 and minor >= 4) or (major == 2):  # pragma: no cover
         constructor = URL.create
 
     aur_db_backend = aurweb.config.get("database", "backend")
