@@ -6,6 +6,7 @@ import re
 import sys
 import traceback
 import typing
+from contextlib import asynccontextmanager
 from urllib.parse import quote_plus
 
 import requests
@@ -33,11 +34,18 @@ from aurweb.routers import APP_ROUTES
 from aurweb.templates import make_context, render_template
 
 logger = aur_logging.get_logger(__name__)
+session_secret = aurweb.config.get("fastapi", "session_secret")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await app_startup()
+    yield
+
 
 # Setup the FastAPI app.
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
-session_secret = aurweb.config.get("fastapi", "session_secret")
 
 # Instrument routes with the prometheus-fastapi-instrumentator
 # library with custom collectors and expose /metrics.
@@ -46,7 +54,6 @@ instrumentator().add(prometheus.http_requests_total())
 instrumentator().instrument(app)
 
 
-@app.on_event("startup")
 async def app_startup():
     # https://stackoverflow.com/questions/67054759/about-the-maximum-recursion-error-in-fastapi
     # Test failures have been observed by internal starlette code when
