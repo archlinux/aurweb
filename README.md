@@ -56,7 +56,7 @@ Translations
 ------------
 
 Translations are welcome via our Transifex project at
-https://www.transifex.com/lfleischer/aurweb; see `doc/i18n.txt` for details.
+https://www.transifex.com/lfleischer/aurweb; see [doc/i18n.md](./doc/i18n.md) for details.
 
 ![Transifex](https://www.transifex.com/projects/p/aurweb/chart/image_png)
 
