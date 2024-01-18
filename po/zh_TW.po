@@ -6,15 +6,15 @@
 # pan93412 <pan93412@gmail.com>, 2018
 # Cycatz <thesummernightcat@gmail.com>, 2022
 # 黃柏諺 <s8321414@gmail.com>, 2014-2017
-# 黃柏諺 <s8321414@gmail.com>, 2020-2022
+# 黃柏諺 <s8321414@gmail.com>, 2020-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Cycatz <thesummernightcat@gmail.com>, 2022\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aurweb/language/zh_TW/)\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020-2023\n"
+"Language-Team: Chinese (Taiwan) (http://app.transifex.com/lfleischer/aurweb/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -136,15 +136,15 @@ msgstr "類型"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "添加受信使用者"
+msgstr "新增軟體包維護者"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "移除受信使用者"
+msgstr "移除軟體包維護者"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "移除受信使用者（無故不活躍）"
+msgstr "移除軟體包維護者（無故不活躍）"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -201,9 +201,10 @@ msgstr "搜尋我共同維護的套件"
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "歡迎來到 AUR！請閱讀 %sAUR 使用者指導方針%s 和 %sAUR 受信使用者指導方針%s 以獲取更多的詳細資訊。"
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr "歡迎使用 AUR！請閱讀 %sAUR 使用者指南%s以取得更多資訊，若您想要貢獻 PKGBUILD，也請閱讀 %sAUR 遞交指南%s。"
 
 #: html/home.php
 #, php-format
@@ -268,7 +269,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "請求套件從 Arch 使用者套件庫中移除。如果套件損毀但可以很容易的被修復，請不要使用這個請求。您應該聯絡套件維護者，並在必要時提出棄置請求。"
+msgstr "請求軟體包從 Arch 使用者軟體庫中移除。如果軟體包損毀但可以很容易的被修復，請不要使用這個請求。您應該聯絡維護者，並在必要時提出棄置請求。"
 
 #: html/home.php
 msgid "Merge Request"
@@ -310,10 +311,11 @@ msgstr "討論"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "與 Arch 使用者套件庫(AUR)及受信使用者結構相關的一般性討論請見 %saur-general%s 。討論關於 AUR 網頁介面的開發，請使用 %saur-dev%s 郵件列表。"
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
+msgstr "與 Arch 使用者軟體庫 (AUR) 與軟體包維護者結構相關的一般性討論請見 %saur-general%s 。討論關於 AUR 網頁介面的開發，請使用 %saur-dev%s 郵件列表。"
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -324,9 +326,9 @@ msgstr "臭蟲回報"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "如果您在 AUR 網頁介面中發現了臭蟲，請在我們的 %s臭蟲追蹤系統%s 中回報。請%s只%s回報 AUR 網頁介面本身的臭蟲。要回報打包臭蟲，請連絡套件的維護者或是在對應的套件頁面中留下評論。"
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
+msgstr "如果您在 AUR 網頁介面中發現了臭蟲，請在我們的 %s臭蟲追蹤系統%s 中回報。請%s只%s回報 AUR 網頁介面本身的臭蟲。要回報打包臭蟲，請連絡維護者或是在對應的軟體包頁面中留下評論。"
 
 #: html/home.php
 msgid "Package Search"
@@ -527,7 +529,7 @@ msgstr "刪除"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "只有受信使用者和開發者可以刪除套件。"
+msgstr "僅軟體包維護者與開發者可以刪除軟體包。"
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -568,7 +570,7 @@ msgstr "棄置"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "只有受信使用者和開發者可以棄置套件。"
+msgstr "僅軟體包維護者與開發者可以棄置軟體包。"
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -658,7 +660,7 @@ msgstr "合併"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "只有受信使用者和開發者可以合併套件。"
+msgstr "僅軟體包維護者與開發者可以合併軟體包。"
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -716,7 +718,7 @@ msgstr "我接受上述條款與條件。"
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "受信使用者"
+msgstr "軟體包維護者"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -728,7 +730,7 @@ msgstr "這個建議的投票已被關閉。"
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "只有受信使用者可以投票。"
+msgstr "僅軟體包維護者可以投票。"
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1224,7 +1226,7 @@ msgstr "開發者"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr "受信使用者 & 開發者"
+msgstr "軟體包維護者與開發者"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1397,6 +1399,15 @@ msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
 msgstr "以下的資訊僅在您想要遞交套件到 Arch 使用者套件庫時是必須的。"
+
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr "指定多個 SSH 金鑰，以換行符號分隔，將會忽略空行。"
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr "隱藏已刪除的評論"
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1820,18 +1831,18 @@ msgstr "合併到"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "透過遞交刪除請求，您會請求受信使用者刪除套件基礎。這個類型的請求應該用於重複、被上游放棄的軟體，以及違法與無法修復的損壞套件。"
+msgstr "透過遞交刪除請求，您會請求軟體包維護者刪除套件基礎。這個類型的請求應該用於重複、被上游放棄的軟體，以及違法與無法修復的損壞軟體包。"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
-msgstr "透過遞交合併請求，您會請求受信使用者刪除套件基礎並轉移其投票數到其他的套件基礎。合併一個套件不會影響相對應的 Git 倉庫。確保您可以自己更新目標套件的 Git 歷史。"
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
+msgstr "透過遞交合併請求，您會請求軟體包維護者刪除軟體包基礎並轉移其投票數到其他的軟體包基礎。合併一個軟體包不會影響相對應的 Git 倉庫。確保您可以自己更新目標軟體包的 Git 歷史。"
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1839,7 +1850,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "透過遞交棄置請求，您會請求受信使用者棄置套件基礎。請僅在該套件需要有維護者動作、維護者突然消失且您先前已經連絡過維護者時做此動作。"
+msgstr "透過遞交棄置請求，您會請求軟體包維護者棄置軟體包基礎。請僅在該軟體包需要有維護者動作、維護者突然消失且您先前已經連絡過維護者時做此動作。"
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2089,7 +2100,7 @@ msgstr "已註冊的使用者"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "受信使用者"
+msgstr "軟體包維護者"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2275,7 +2286,7 @@ msgstr "{user} [1] 已經刪除 {pkgbase} [2]。\n\n您將再也不會收到此�
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr "TU 投票提醒：編號為 {id} 的建議"
+msgstr "軟體包維護者投票提醒：編號為 {id} 的建議"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2328,3 +2339,35 @@ msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr "此動作將會關閉任何關於此的擱置中軟體包請求。若省略%s留言%s，將會自動產生關閉留言。"
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr "分配"
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr "再顯示 %d 個"
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr "依賴關係"
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr "帳號未被刪除，請檢查確認的核取方塊。"
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr "取消"
+
+#: templates/requests.html
+msgid "Package name"
+msgstr "軟體包名稱"
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
+msgstr "請注意，如果您隱藏您的電子郵件地址，它最終會出現在任何要求通知的密件副本清單中。如果有人回覆這些通知，您將不會收到電子郵件。但是，回覆通常會傳送到郵遞論壇，然後在存檔中可見。"

@@ -5,7 +5,7 @@
 # Translators:
 # Fanfurlio Farolfi <demolitions@gmail.com>, 2021-2022
 # Giovanni Scafora <scafora.giovanni@gmail.com>, 2011-2015,2022
-# Giovanni Scafora <scafora.giovanni@gmail.com>, 2022
+# Giovanni Scafora <scafora.giovanni@gmail.com>, 2022-2023
 # Lorenzo Porta <lorenzoporta@protonmail.com>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # mattia_b89 <mattia.b89@gmail.com>, 2019
@@ -15,8 +15,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2022\n"
-"Language-Team: Italian (http://www.transifex.com/lfleischer/aurweb/language/it/)\n"
+"Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2022-2023\n"
+"Language-Team: Italian (http://app.transifex.com/lfleischer/aurweb/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -138,19 +138,19 @@ msgstr "Tipo"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "Aggiunta di un TU"
+msgstr "Aggiunta di un manutentore del pacchetto"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "Rimozione di un TU"
+msgstr "Rimozione di un manutentore del pacchetto"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "Rimozione di un TU (inattività non dichiarata)"
+msgstr "Rimozione di un manutentore del pacchetto (inattività non dichiarata)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
-msgstr "Modifica dello statuto"
+msgstr "Modifica del regolamento"
 
 #: html/addvote.php template/tu_list.php
 msgid "Proposal"
@@ -203,9 +203,10 @@ msgstr "Cerca i pacchetti da me co-mantenuti"
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "Benvenuto in AUR! Per maggiori informazioni, leggi le %sAUR User Guidelines%s e le %sAUR TU Guidelines%s."
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr "Benvenuti in AUR! Prima di inviare un PKGBUILD, per maggiori informazioni, leggete le %sAUR User Guidelines%s e le %sAUR Submission Guidelines%s."
 
 #: html/home.php
 #, php-format
@@ -270,7 +271,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "richiesta per rimuovere un pacchetto dall'Arch User Repository. Non usare questo tipo di richiesta se un pacchetto non funziona e se può essere sistemato facilmente. Contatta il manutentore del pacchetto e, se necessario, invia una richiesta per renderlo orfano."
+msgstr "Richiesta di rimozione di un pacchetto dall'Arch User Repository. Non utilizzare questa procedura se un pacchetto non funziona e può essere sistemato facilmente. Contattare, invece, il manutentore e, se necessario, presentare una richiesta per abbandonarlo."
 
 #: html/home.php
 msgid "Merge Request"
@@ -312,10 +313,11 @@ msgstr "Discussione"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "La discussione generale sull'Arch User Repository (AUR) e sulla struttura dei TU avviene in %saur-general%s. Per la discussione relativa allo sviluppo dell'interfaccia web di AUR, utilizza la lista di discussione %saur-dev%s."
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
+msgstr "La discussione generale sulla struttura dell'Arch User Repository (AUR) e dei manutentori dei pacchetti si svolge su %saur-general%s. Per le discussioni relative allo sviluppo dell'interfaccia web di AUR, utilizzare la lista di discussione %saur-dev%s."
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -326,9 +328,9 @@ msgstr "Segnalazione di un bug"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "Se trovi un bug nell'interfaccia web di AUR, invia un report al nostro %sbug tracker%s. Usa il tracker %ssolo%s per inviare i bug di AUR. Per segnalare bug inerenti alla pacchettizzazione, contatta il manutentore oppure lascia un commento nella pagina del pacchetto."
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
+msgstr "Se si trova un bug nell'interfaccia web di AUR, si prega di compilare una segnalazione sul nostro %sbug tracker%s. Utilizzare il tracker %ssolo%s per segnalare bug nell'interfaccia web di AUR. Per segnalare bug relativi ai pacchetti, contattare il manutentore o lasciare un commento nella pagina del pacchetto."
 
 #: html/home.php
 msgid "Package Search"
@@ -460,7 +462,7 @@ msgstr "Continua"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr "Se hai dimenticato il nome utente e l'indirizzo email primario che hai usato per la registrazione, invia un messaggio alla mailing list %saur-general%s."
+msgstr "Se hai dimenticato il nome utente e l'indirizzo email primario che hai usato per la registrazione, invia un messaggio alla lista di discussione %saur-general%s."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
@@ -529,7 +531,7 @@ msgstr "Elimina"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "Solo i TU e gli sviluppatori possono eliminare i pacchetti."
+msgstr "Solo i manutentori del pacchetto e gli sviluppatori possono eliminare i pacchetti."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -570,7 +572,7 @@ msgstr "Abbandona"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "Solo i TU e gli sviluppatori possono abbandonare i pacchetti."
+msgstr "Solo i manutentori e gli sviluppatori possono abbandonare un pacchetto."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -660,7 +662,7 @@ msgstr "Unisci"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "Solo i TU e gli sviluppatori possono unire i pacchetti."
+msgstr "Solo i manutentori del pacchetto e gli sviluppatori possono unire i pacchetti."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -718,7 +720,7 @@ msgstr "Io accetto i termini e le condizioni di cui sopra."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "TU"
+msgstr "Manutentore del pacchetto"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -730,7 +732,7 @@ msgstr "Non puoi più votare per questa proposta."
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "Solo i TU possono votare."
+msgstr "Possono votare solo i manutentori del pacchetto."
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1226,7 +1228,7 @@ msgstr "Sviluppatore"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr "TU e sviluppatore"
+msgstr "Manutentore del pacchetto e sviluppatore"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1399,6 +1401,15 @@ msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
 msgstr "La seguente informazione è richiesta solo se vuoi inviare i pacchetti nell'Arch User Repository."
+
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr "Specifica più chiavi SSH separate da una nuova riga, le linee vuote saranno ignorate."
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr "Nascondi commenti eliminati"
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1824,18 +1835,18 @@ msgstr "Unisci con"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Inserendo una richiesta di cancellazione, stai chiedendo ad un Package Maintainer di cancellare il pacchetto base. Questo tipo di richiesta dovrebbe essere usata per i duplicati, per software abbandonati dall'autore, per sotware illegalmente distribuiti oppure per pacchetti irreparabili."
+msgstr "Inviando una richiesta di cancellazione, si chiede al manutentore del pacchetto di eliminare la base del pacchetto. Questo tipo di richiesta dovrebbe essere usata per i duplicati, per il software abbandonato dall'upstream, per i pacchetti illegali e per quelli non più funzionanti."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
-msgstr "Inserendo una richiesta di unione, stai chiedendo ad un Package Maintainer di cancellare il pacchetto base e trasferire i suoi voti e commenti su un altro pacchetto base. Unire due pacchetti non ha effetto sul corrispondente repository Git. Assicurati di aggiornare lo storico Git del pacchetto di destinazione."
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
+msgstr "Inviando una richiesta di unione, si chiede al manutentore di eliminare un pacchetto e di trasferire i suoi voti ed i commenti ad un altro pacchetto. L'unione di un pacchetto non influisce sui repository Git corrispondenti. Assicuratevi di aggiornare voi stessi la cronologia Git del pacchetto di destinazione."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1843,7 +1854,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "Inserendo una richiesta di abbandono, stai chiedendo ad un Package Maintainer di rimuovere la proprietà del pacchetto base. Procedi soltanto se il pacchetto necessita di manutenzione, se il manutentore attuale non risponde e se hai già provato a contattarlo precedentemente."
+msgstr "Inviando una richiesta di abbandono di un pacchetto, si chiede ad un manutentore di abbandonarlo. Si prega di farlo solo se il pacchetto necessita di un intervento del manutentore, se il manutentore è irreperibile e se si è già provato a contattarlo in precedenza."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2101,7 +2112,7 @@ msgstr "Utenti registrati"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "TU"
+msgstr "Manutentori del pacchetto"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2287,7 +2298,7 @@ msgstr "{user} [1] ha eliminato {pkgbase} [2].\n\nNon riceverai più notifiche p
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr "Promemoria per voto TU: Proposta {id}"
+msgstr "Promemoria per il voto del manutentore dei pacchetti: proposta {id}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2340,3 +2351,35 @@ msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr "Questa azione chiuderà tutte le richieste in sospeso dei pacchetti ad essa correlate. Se %scommenti%s vengono omessi, verrà generato automaticamente un commento di chiusura."
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr "assegnato"
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr "Mostra altri %d"
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr "dipendenze"
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr "L'account non è stato eliminato, selezionare la casella di conferma."
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr "Annulla"
+
+#: templates/requests.html
+msgid "Package name"
+msgstr "Nome del pacchetto"
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
+msgstr "Si noti che, se si nasconde il proprio indirizzo e-mail, esso finirà nell'elenco BCC per qualsiasi notifica di richiesta. Nel caso in cui qualcuno risponda a queste notifiche, non si riceverà un'e-mail. Tuttavia, le risposte sono tipicamente inviate alla lista di discussione e saranno, quindi, visibili nell'archivio."

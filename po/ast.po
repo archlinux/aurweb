@@ -1,19 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
-#
+# 
 # Translators:
-# enolp <enolp@softastur.org>, 2014-2015,2017
-# Ḷḷumex03 <tornes@opmbx.org>, 2014
-# prflr88 <prflr88@gmail.com>, 2014-2015
+# enolp <enolp@softastur.org>, 2014-2015,2017,2020,2022
+# enolp <enolp@softastur.org>, 2020
+# Ḷḷumex03, 2014
+# Ḷḷumex03, 2014
+# Pablo Lezaeta Reyes <prflr88@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
-"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-03-07 17:55+0000\n"
-"Last-Translator: enolp <enolp@softastur.org>\n"
-"Language-Team: Asturian (http://www.transifex.com/lfleischer/aurweb/language/ast/)\n"
+"PO-Revision-Date: 2011-04-10 13:21+0000\n"
+"Last-Translator: enolp <enolp@softastur.org>, 2014-2015,2017,2020,2022\n"
+"Language-Team: Asturian (http://app.transifex.com/lfleischer/aurweb/language/ast/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +24,7 @@ msgstr ""
 
 #: html/404.php
 msgid "Page Not Found"
-msgstr ""
+msgstr "Nun s'atopó la páxina"
 
 #: html/404.php
 msgid "Sorry, the page you've requested does not exist."
@@ -48,7 +50,7 @@ msgstr ""
 
 #: html/503.php
 msgid "Service Unavailable"
-msgstr ""
+msgstr "El serviciu nun ta disponible"
 
 #: html/503.php
 msgid ""
@@ -69,11 +71,11 @@ msgstr ""
 
 #: html/account.php
 msgid "Could not retrieve information for the specified user."
-msgstr ""
+msgstr "Nun se pudo recuperar la información del usuariu especificáu."
 
 #: html/account.php
 msgid "You do not have permission to edit this account."
-msgstr ""
+msgstr "Nun tienes permisu pa editar esta cuenta."
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
@@ -200,8 +202,9 @@ msgstr ""
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
 msgstr ""
 
 #: html/home.php
@@ -260,7 +263,7 @@ msgstr ""
 
 #: html/home.php
 msgid "Deletion Request"
-msgstr ""
+msgstr "Solicitú de desaniciu"
 
 #: html/home.php
 msgid ""
@@ -271,7 +274,7 @@ msgstr ""
 
 #: html/home.php
 msgid "Merge Request"
-msgstr ""
+msgstr "Solicitú de mecíu"
 
 #: html/home.php
 msgid ""
@@ -304,14 +307,15 @@ msgstr ""
 
 #: html/home.php
 msgid "Discussion"
-msgstr ""
+msgstr "Discutiniu"
 
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
 msgstr ""
 
 #: html/home.php
@@ -323,8 +327,8 @@ msgstr ""
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
 msgstr ""
 
 #: html/home.php
@@ -473,6 +477,12 @@ msgid ""
 "checkbox."
 msgstr ""
 
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr ""
+
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
@@ -569,6 +579,14 @@ msgstr ""
 
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
+msgstr ""
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
 msgstr ""
 
 #: html/pkgflag.php
@@ -697,7 +715,7 @@ msgstr ""
 
 #: html/tos.php
 msgid "I accept the terms and conditions above."
-msgstr ""
+msgstr "Acepto los términos y les condiciones d'arriba."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
@@ -705,7 +723,7 @@ msgstr ""
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
-msgstr ""
+msgstr "Nun se pudieron recuperar los detalles de la propuesta."
 
 #: html/tu.php
 msgid "Voting is closed for this proposal."
@@ -867,6 +885,10 @@ msgstr ""
 msgid "Account suspended"
 msgstr ""
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr ""
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -910,7 +932,7 @@ msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "El comentariu nun pue tar baleru."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
@@ -918,7 +940,7 @@ msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr ""
+msgstr "Tienes d'aniciar la sesión enantes d'editar la información del paquete."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
@@ -926,15 +948,15 @@ msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "Nun se puen fixar más de 5 comentarios."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "Nun tienes permisu pa fixar esti comentariu."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "Nun tienes permisu pa lliberar esti comentariu."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
@@ -950,6 +972,30 @@ msgstr ""
 
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
+msgstr "Nun se pudieron atopar los detalles del paquete."
+
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
@@ -988,6 +1034,10 @@ msgstr ""
 msgid "You did not select any packages to delete."
 msgstr ""
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr ""
@@ -996,8 +1046,16 @@ msgstr ""
 msgid "You must be logged in before you can adopt packages."
 msgstr ""
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
@@ -1343,6 +1401,15 @@ msgid ""
 " the Arch User Repository."
 msgstr ""
 
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr ""
+
 #: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr ""
@@ -1547,7 +1614,7 @@ msgstr ""
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
 msgid "Keywords"
-msgstr ""
+msgstr "Pallabres clave"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1766,17 +1833,17 @@ msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
 msgstr ""
 
 #: template/pkgreq_form.php
@@ -1801,7 +1868,7 @@ msgstr[1] ""
 #: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Páxina %d de %d."
 
 #: template/pkgreq_results.php
 msgid "Package"
@@ -2015,7 +2082,7 @@ msgstr ""
 
 #: template/stats/general_stats_table.php
 msgid "Orphan Packages"
-msgstr ""
+msgstr "Paquetes güérfanos"
 
 #: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
@@ -2035,7 +2102,7 @@ msgstr ""
 
 #: template/stats/general_stats_table.php
 msgid "Registered Users"
-msgstr ""
+msgstr "Usuarios rexistraos"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
@@ -2043,7 +2110,7 @@ msgstr ""
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
-msgstr ""
+msgstr "Anovamientos de recién"
 
 #: template/stats/updates_table.php
 msgid "more"
@@ -2088,7 +2155,7 @@ msgstr ""
 
 #: template/tu_details.php
 msgid "Participation"
-msgstr ""
+msgstr "Participación"
 
 #: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
@@ -2232,4 +2299,81 @@ msgstr ""
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr ""
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr "Fallu internu del sirvidor"
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr "Asocedió un fallu fatal."
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr ""
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr ""
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr ""
+
+#: templates/requests.html
+msgid "Package name"
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
 msgstr ""

@@ -5,15 +5,15 @@
 # Translators:
 # gk <genghiskhan@gmx.ca>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2022
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2022\n"
-"Language-Team: Hebrew (http://www.transifex.com/lfleischer/aurweb/language/he/)\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2023\n"
+"Language-Team: Hebrew (http://app.transifex.com/lfleischer/aurweb/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -135,15 +135,15 @@ msgstr "סוג"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "הוספת משתמש מהימן"
+msgstr "הוספת מתחזקים לחבילה"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "הסרת משתמש מהימן"
+msgstr "הסרת מתחזקים מהחבילה"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "הסרת משתמש מהימן (חוסר פעילות בלתי מוצהרת)"
+msgstr "הסרת מתחזקי חבילה (חוסר פעילות לא מוצהרת)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -200,9 +200,10 @@ msgstr "חיפוש אחר חבילה שאני מתחזק המשנה שלה"
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "ברוך בואך ל־AUR, מאגר תרומות המשתמשים של ארץ׳! נא לקרוא את %sהכללים למשתמש ב־AUR%s ואת %sהכללים למשתמשים מהימנים ב־AUR%s."
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr "ברוך בואך ל־AUR! נא לקרוא את %sההנחיות למשתמשים ב־AUR%s למידע נוסף ואת %sהנחיות ההגשה ל־AUR%s אם מעניין אותך לתרום  PKGBUILD."
 
 #: html/home.php
 #, php-format
@@ -267,7 +268,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "ניתן לבקש הסרת חבילה ממאגר המשתמשים של ארץ׳. אין להשתמש בזה אם יש תקלה בחבילה וניתן לתקן אותה בקלות. במקום זאת, יש ליצור קשר עם מתחזק החבילה ולהגיש בקשת יתומה אם יש צורך."
+msgstr "אפשר לבקש הסרת חבילה ממאגר המשתמשים של Arch ‏(AUR). נא לא להשתמש בזה אם החבילה פגומה ואפשר לתקן אותה בקלות. במקום, יש ליצור קשר עם מתחזקי החבילה ולהגיש בקשת יתמות במקרה הצורך."
 
 #: html/home.php
 msgid "Merge Request"
@@ -309,10 +310,11 @@ msgstr "דיון"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "הדיון הכללי על מאגר המשתמשים של ארץ׳ (AUR) ומבנה המשתמשים המהימנים מתנהל ברשימה %saur-general%s. לדיון בנוגע לפיתוח של המנשק של AUR, יש להשתמש ברשימה %saur-dev%s."
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
+msgstr "דיון כללי בנוגע למאגר המשתמשים של Arch‏ (AUR) ומבנה מתחזקי החבילות מתרחש ב־%saur-general%s. לדיון בנוגע לפיתוח האתר של AUR, יש להשתמש ברשימת הדיוור %saur-dev%s."
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -323,9 +325,9 @@ msgstr "דיווח על באגים"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "אם נתקלת בתקלה במנשק הדפדפן של AUR, נא להגיש דיווח על תקלה ב%sמערכת ניהול התקלות%s שלנו. יש להשתמש במערכת ניהול התקלות כדי לדווח על תקלות במנשק הדפדפן %sבלבד%s. כדי לדווח על תקלות עם אריזה יש ליצור קשר עם מתחזק החבילה או להשאיר הערה בעמוד החבילה בהתאם."
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
+msgstr "אם מצאת תקלה באתר של AUR, נא למלא דוח תקלה ב%sעוקב התקלות%s שלנו. אפשר להשתמש בעוקב כדי לדווח על תקלות באתר של AUR %sבלבד%s. כדי לדווח על תקלות עם אריזות יש ליצור קשר עם המתחזקים או להשאיר תגובה בעמוד החבילה המתאים."
 
 #: html/home.php
 msgid "Package Search"
@@ -526,7 +528,7 @@ msgstr "מחיקה"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "רק משתמשים מהימנים ומפתחים יכולים למחוק חבילות."
+msgstr "רק מתחזקי ומפתחי חבילות יכולים למחוק חבילות."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -567,7 +569,7 @@ msgstr "ניתוק בעלות"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "רק משתמשים מהימנים ומפתחים יכולים לנתק בעלות של חבילות."
+msgstr "רק מתחזקי ומפתחי חבילות יכולים לנשל חבילות."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -657,7 +659,7 @@ msgstr "מיזוג"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "רק משתמשים מהימנים ומפתחים יכולים למזג חבילות."
+msgstr "רק מתחזקי ומפתחי חבילות יכולים למזג חבילות."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -715,7 +717,7 @@ msgstr "התנאים שלעיל מקובלים עלי."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "משתמש מהימן"
+msgstr "מתחזקי חבילה"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -727,7 +729,7 @@ msgstr "ההצבעה סגורה עבור הצעה זו."
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "רק משתמשים מהימנים מורשים להצביע."
+msgstr "רק למתחזקי חבילה מותר להצביע."
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1223,7 +1225,7 @@ msgstr "מפתח"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr "משתמש מהימן ומפתח"
+msgstr "מתחזקי ומפתחי חבילה"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1396,6 +1398,15 @@ msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
 msgstr "המידע הבא נחוץ רק אם ברצונך להגיש חבילות למאגר החבילות של ארץ׳."
+
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr "אפשר לציין מגוון מפתחות SSH, אחד בשורה, אין משמעות לשורה ריקה."
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr "הסתרת הערות שנמחקו"
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1822,18 +1833,18 @@ msgstr "מיזוג לתוך"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "בהגשת בקשה למחיקה, משתמש מהימן ישקול אם למחוק בסיס חבילה. סוג כזה של בקשה יכול לשמש במקרים של כפילויות, תכנית שנזנחה במקור לצד חבילה בלתי חוקית או שבורה באופן שלא ניתן לשקם."
+msgstr "בקשת מחיקה היא דרישה ממתחזקי החבילה למחוק את בסיס החבילה. יש להשתמש בסוג הזה של הבקשה על כפילויות, תוכנה שננטשה במקור, וגם חבילות בלתי חוקיות ופגומות באופן שלא ניתן לתיקון."
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
-msgstr "הגשת בקשת מיזוג מופנית למשתמש מהימן לטובת מחיקת בסיס חבילה והעברת ההצבעות וההערות שלו לבסיס חבילה אחר. מיזוג חבילה לא משפיע על מאגרי ה־Git הקשורים אליו. יש לוודא שעדכנת את היסטוריית ה־Git של חבילת היעד בעצמך."
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
+msgstr "בקשת מיזוג היא דרישה ממתחזקי החבילה למחוק את בסיס החבילה ולהעביר את ההצבעות וההערות לבסיס חבילה אחר. מיזוג חבילה לא משפיע על מאגרי ה־Git התואמים. עדכון היסטוריית ה־Git של חבילת היעד הוא באחריותך. "
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1841,7 +1852,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "הגשת בקשת יתומה מופנית למשתמש מהימן לטובת ביטול שייכות בסיס חבילה. נא להגיש בקשה זו רק אם החבילה דורשת פעולת תחזוקה, המתחזק אינו זמין וכבר ניסית ליצור קשר עם המתחזק בעבר."
+msgstr "בקשת יתמות היא דרישה ממתחזקי החבילה לנשל את בסיס החבילה. נא עשות את זה רק אם החבילה צריכה פעולת תחזוקה, המתחזקים לא זמינים למשך תקופה וכבר ניסית ליצור קשר עם המתחזקים בעבר."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2103,7 +2114,7 @@ msgstr "משתמשים רשומים"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "משתמשים מהימנים"
+msgstr "מתחזקי החבילה"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2289,7 +2300,7 @@ msgstr " {pkgbase} [2] נמחקה על ידי{user} [1].\n\nלא תישלחנה 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr "תזכורת הצבעה למשתמש מהימן: הצעה {id}"
+msgstr "תזכורת הצבעה לתחזוקת חבילה: הצעה {id}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2342,3 +2353,35 @@ msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr "פעולה זו תסגור בקשות חבילות ממתינות שקשורות אליה. אם %sתגובות%s מושמטות, תיווצר תגובת סגירה אוטומטית."
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr "מוקצית"
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr "להציג עוד %d"
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr "תלויות"
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr "החשבון לא נמחק, נא לבדוק את תיבת האישור."
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr "ביטול"
+
+#: templates/requests.html
+msgid "Package name"
+msgstr "שם החבילה"
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
+msgstr "ראוי לשים לב שהסתרת כתובת הדוא״ל שלך תעביר אותה לרשימת העותק המוסתר בהתראות לבקשה. אם מישהו יגיב להתראות האלה, ההודעות לא תגענה אליך. עם זאת, תגובות בדרך כלל נשלחות לרשימת הדיוור והן אמורות להופיע בארכיון."

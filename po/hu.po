@@ -15,7 +15,7 @@ msgstr ""
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
 "Last-Translator: PB, 2020\n"
-"Language-Team: Hungarian (http://www.transifex.com/lfleischer/aurweb/language/hu/)\n"
+"Language-Team: Hungarian (http://app.transifex.com/lfleischer/aurweb/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -137,15 +137,15 @@ msgstr "Típus"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "TU hozzáadása"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "TU eltávolítása"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "TU eltávolítása (be nem jelentett inaktivitás)"
+msgstr ""
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -202,9 +202,10 @@ msgstr "Csomagok keresése, amelyeknek társkarbantartója vagyok"
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "Üdvözlünk az AUR-ban! További információért olvasd el az %sAUR felhasználói irányelveket%s és az %sAUR TU irányelveket%s."
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr ""
 
 #: html/home.php
 #, php-format
@@ -269,7 +270,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "Egy csomag Arch User Repositoriból való törlésének kérése. Kérünk, ne használd ezt, ha a csomag törött, és könnyen javítható. Ehelyett vedd fel a kapcsolatot a csomag karbantartójával, és tölts ki megtagadási kérelmet, ha szükséges."
+msgstr ""
 
 #: html/home.php
 msgid "Merge Request"
@@ -311,10 +312,11 @@ msgstr "Megbeszélés"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "Az Arch User Repositoryval (AUR) és a Package Maintainer struktúrával kapcsolatos általános tanácskozás helye az %saur-general%s. Az AUR webes felületének fejlesztésével kapcsolatos tanácskozáshoz az %saur-dev%s levelezőlista használandó."
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
+msgstr ""
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -325,9 +327,9 @@ msgstr "Hibajelentés"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "Ha találsz egy hibát az AUR webes felületén, kérünk, tölts ki egy hibajelentést a %shibakövetőnkben%s. A hibakövetőt %scsak%s az AUR webes felületén található hibák jelentésére használd. Csomagolási hibák jelentéséhez lépj kapcsolatba a csomag fenntartójával, vagy hagyj egy hozzászólást a megfelelő csomag oldalán."
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
+msgstr ""
 
 #: html/home.php
 msgid "Package Search"
@@ -528,7 +530,7 @@ msgstr "Törlés"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "Csak megbízható felhasználók és fejlesztők tudnak csomagokat törölni."
+msgstr ""
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -569,7 +571,7 @@ msgstr "Megtagadás"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "Csak megbízható felhasználók és fejlesztők tudnak megtagadni csomagokat."
+msgstr ""
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -659,7 +661,7 @@ msgstr "Beolvasztás"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "Csak megbízható felhasználók és fejlesztők tudnak csomagokat beolvasztani."
+msgstr ""
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -717,7 +719,7 @@ msgstr "Elfogadom a feljebb megadott feltételeket."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "Megbízható felhasználó"
+msgstr ""
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -729,7 +731,7 @@ msgstr "A szavazás lezárult erre az indítványra."
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "A szavazás csak megbízható felhasználóknak engedélyezett."
+msgstr ""
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1225,7 +1227,7 @@ msgstr "Fejlesztő"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr "Megbízható felhasználó és fejlesztő"
+msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1398,6 +1400,15 @@ msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
 msgstr "Az alábbi információ csak akkor szükséges, ha csomagokat szeretnél beküldeni az Arch User Repositoryba."
+
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1822,18 +1833,18 @@ msgstr "Beolvasztás ebbe:"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Törlési kérelem beküldésével megkérsz egy megbízható felhasználót, hogy törölje az alapcsomagot. Ez a típusú kérelem duplikátumok, főági fejlesztők által felhagyott szoftverek, valamint illegális és helyrehozhatatlanul elromlott csomagok esetén használható."
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
-msgstr "Beolvasztási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy törölje az alapcsomagot, és vigye át a szavazatait és hozzászólásait egy másik alapcsomaghoz. Egy csomag egyesítése nem érinti a kapcsolódó Git tárolókat. Győződj meg róla, hogy frissítetted magadnak a célcsomag Git történetét."
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1841,7 +1852,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "Megtagadási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy tegye árvává az alapcsomagot. Kérünk, hogy ezt csak akkor tedd, ha a csomag igényel fenntartói műveletet, a fenntartó eltűnt, és előzőleg már megpróbáltad felvenni a kapcsolatot a fenntartóval."
+msgstr ""
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2095,7 +2106,7 @@ msgstr "Regisztrált felhasználók"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "Megbízható felhasználók"
+msgstr ""
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2281,7 +2292,7 @@ msgstr "{user} [1] törölte a(z) {pkgbase} [2] csomagt.\n\nTöbbé nem fogsz é
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr "Szavazás megbízható felhasználóról: javaslat {id}"
+msgstr ""
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2333,4 +2344,36 @@ msgstr ""
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr ""
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr ""
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr ""
+
+#: templates/requests.html
+msgid "Package name"
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
 msgstr ""

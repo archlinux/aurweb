@@ -11,7 +11,7 @@ msgstr ""
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
 "Last-Translator: Panwar108 <caspian7pena@gmail.com>, 2018,2020-2022\n"
-"Language-Team: Hindi (India) (http://www.transifex.com/lfleischer/aurweb/language/hi_IN/)\n"
+"Language-Team: Hindi (India) (http://app.transifex.com/lfleischer/aurweb/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -133,15 +133,15 @@ msgstr "प्रकार"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "विश्वसनीय उपयोक्ता जोड़ना"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "विश्वसनीय उपयोक्ता हटाना"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "विश्वसनीय उपयोक्ता हटाना (अघोषित निष्क्रियता)"
+msgstr ""
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -198,9 +198,10 @@ msgstr "मेरे द्वारा सह-अनुरक्षित प�
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "AUR में स्वागत है! अधिक जानकारी हेतु %sAUR उपयोक्ता%s व %sAUR विश्वसनीय उपयोक्ता%s दिशा-निर्देश पढ़ें।"
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr ""
 
 #: html/home.php
 #, php-format
@@ -265,7 +266,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "आर्च उपयोक्ता पैकेज-संग्रह से पैकेज हटाने हेतु अनुरोध। कृपया पैकेज उपयोग संबंधी समस्या होने पर इसका उपयोग न करें। उचित होगा कि पैकेज अनुरक्षक से संपर्क करें व आवश्यकता हो तो निरर्थक पैकेज हेतु अनुरोध करें।"
+msgstr ""
 
 #: html/home.php
 msgid "Merge Request"
@@ -307,10 +308,11 @@ msgstr "चर्चा"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "आर्च उपयोक्ता पैकेज-संग्रह (AUR) व विश्वसनीय उपयोक्ता संरचना संबंधी सामान्य चर्चा %saur-general%s पर होती है। AUR वेब अंतरफलक के विकास संबंधी चर्चा हेतु %saur-dev%s ईमेल-सूची उपयोग करें।"
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
+msgstr ""
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -321,9 +323,9 @@ msgstr "समस्या हेतु रिपोर्ट"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "AUR वेब अंतरफलक में समस्या होने पर कृपया हमारे %sसमस्या ट्रैकर%s पर समस्या रिपोर्ट दर्ज करें। ट्रैकर का उपयोग %sकेवल%s AUR वेब अंतरफलक संबंधी समस्याओं के लिए ही करें। पैकेज समस्याओं हेतु पैकेज अनुरक्षक से संपर्क करें या उपयुक्त पैकेज के पृष्ठ पर टिप्पणी करें।"
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
+msgstr ""
 
 #: html/home.php
 msgid "Package Search"
@@ -524,7 +526,7 @@ msgstr "हटाएँ"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "केवल विश्वसनीय उपयोक्ता व व सॉफ्टवेयर विकासकर्ता ही पैकेज हटा सकते हैं।"
+msgstr ""
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -565,7 +567,7 @@ msgstr "स्वामित्व निरस्त करें"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "केवल विश्वसनीय उपयोक्ता व व सॉफ्टवेयर विकासकर्ता ही पैकेज स्वामित्व निरस्त कर सकते हैं।"
+msgstr ""
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -655,7 +657,7 @@ msgstr "विलय करें"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "केवल विश्वसनीय उपयोक्ता व व सॉफ्टवेयर विकासकर्ता ही पैकेज विलय कर सकते हैं।"
+msgstr ""
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -713,7 +715,7 @@ msgstr "मैं ऊपर दिए गए नियम व शर्तों
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "विश्वसनीय उपयोक्ता"
+msgstr ""
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -725,7 +727,7 @@ msgstr "इस प्रस्ताव हेतु वोट प्रक्�
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "केवल विश्वसनीय उपयोक्ता ही मतदान कर सकते हैं।"
+msgstr ""
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1221,7 +1223,7 @@ msgstr "सॉफ्टवेयर विकासकर्ता"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr "विश्वसनीय उपयोक्ता व सॉफ्टवेयर विकासकर्ता"
+msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1394,6 +1396,15 @@ msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
 msgstr "निम्नलिखित जानकारी केवल आर्च उपयोक्ता पैकेज-संग्रह में पैकेज निवेदन करने हेतु ही आवश्यक है।"
+
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1818,18 +1829,18 @@ msgstr "इसमें विलय करें"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "हटाने हेतु अनुरोध से अभिप्राय है विश्वसनीय उपयोक्ता को पैकेज बेस हटाने हेतु निवेदन। यह प्रतिरूपित प्रोग्राम, स्रोत द्वारा त्यागे गए सॉफ्टवेयर के साथ ही अवैध व समाधान विहीन समस्यात्मक पैकेज हेतु उचित होता है।"
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
-msgstr "विलय अनुरोध से अभिप्राय है विश्वसनीय उपयोक्ता को पैकेज बेस हटाकर मत व टिप्पणियाँ अन्य पैकेज बेस में अंतरण हेतु निवेदन। पैकेज बेस हटाने से संबंधित पैकेज-संग्रह प्रभावित नहीं होते हैं। सुनिश्चित करें कि आप लक्षित पैकेज का Git वृतांत स्वयं अपडेट करें।"
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1837,7 +1848,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "निरर्थक पैकेज अनुरोध से अभिप्राय है विश्वसनीय उपयोक्ता को पैकेज स्वामित्व निरस्त करने हेतु निवेदन। अनुरक्षक कार्य अनिवार्यता, अनुरक्षक की अघोषित अनुपस्थिति और स्वयं अनुरक्षक से संपर्क हेतु प्रयास होने पर ही कृपया ऐसा करें।"
+msgstr ""
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2091,7 +2102,7 @@ msgstr "पंजीकृत उपयोक्ता"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "विश्वसनीय उपयोक्ता"
+msgstr ""
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2277,7 +2288,7 @@ msgstr "{user} [1] द्वारा {pkgbase} [2] हटाया गया।
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr "विश्वसनीय उपयोक्ता मतदान सूचक : प्रस्ताव {id}"
+msgstr ""
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2330,3 +2341,35 @@ msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr "इस कार्य द्वारा संबंधित सभी लंबित पैकेज अनुरोध बंद हो जाएँगे। %sटिप्पणियाँ%s न होने की स्थिति में एक समापन टिप्पणी का स्वतः ही सृजन होगा।"
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr ""
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr ""
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr ""
+
+#: templates/requests.html
+msgid "Package name"
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
+msgstr ""

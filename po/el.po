@@ -8,7 +8,7 @@
 # Achilleas Pipinellis, 2013
 # Achilleas Pipinellis, 2011
 # Achilleas Pipinellis, 2012
-# Leonidas Spyropoulos, 2021-2022
+# Leonidas Spyropoulos, 2021-2023
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # flamelab <panosfilip@gmail.com>, 2011
 msgid ""
@@ -17,8 +17,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Leonidas Spyropoulos, 2021-2022\n"
-"Language-Team: Greek (http://www.transifex.com/lfleischer/aurweb/language/el/)\n"
+"Last-Translator: Leonidas Spyropoulos, 2021-2023\n"
+"Language-Team: Greek (http://app.transifex.com/lfleischer/aurweb/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -140,19 +140,19 @@ msgstr "Είδος"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "Προσθήκη ενός TU"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "Αφαίρεση ενός TU"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "Αφαίρεση ενός TU (αδήλωτη αδράνεια)"
+msgstr ""
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
-msgstr "Τροποποίηση των "
+msgstr "Τροποποίηση των Bylaws"
 
 #: html/addvote.php template/tu_list.php
 msgid "Proposal"
@@ -205,9 +205,10 @@ msgstr ""
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %sOδηγό Χρηστών του AUR%s και τον %sΟδηγό των Package Maintainers%s για περισσότερες πληροφορίες. "
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr ""
 
 #: html/home.php
 #, php-format
@@ -314,9 +315,10 @@ msgstr "Συζήτηση"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
 msgstr ""
 
 #: html/home.php
@@ -328,8 +330,8 @@ msgstr "Αναφορά Σφαλμάτων"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
 msgstr ""
 
 #: html/home.php
@@ -531,7 +533,7 @@ msgstr "Διαγράψτε"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "Μόνο οι Package Maintainers και οι Developers μπορούν να διαγράψουν πακέτα."
+msgstr ""
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -662,7 +664,7 @@ msgstr "Συγχώνευση"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "Μόνο οι Package Maintainers και οι Developers μπορούν να συγχωνεύσουν πακέτα."
+msgstr ""
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -720,7 +722,7 @@ msgstr "Αποδέχομαι τους παραπάνω όρους χρήσης."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "Package Maintainer"
+msgstr ""
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -732,7 +734,7 @@ msgstr "Η ψηφοφορία έχει κλείσει για αυτή την π�
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "Μόνο οι Package Maintainers έχουν δικαίωμα ψήφου."
+msgstr ""
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1402,6 +1404,15 @@ msgid ""
 " the Arch User Repository."
 msgstr ""
 
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr ""
+
 #: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr ""
@@ -1825,17 +1836,17 @@ msgstr "Συγχώνευση σε"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
 msgstr ""
 
 #: template/pkgreq_form.php
@@ -2098,7 +2109,7 @@ msgstr "Εγγεγραμμένοι Χρήστες"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "Package Maintainers"
+msgstr ""
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2336,4 +2347,36 @@ msgstr ""
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr ""
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr ""
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr ""
+
+#: templates/requests.html
+msgid "Package name"
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
 msgstr ""

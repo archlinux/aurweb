@@ -5,7 +5,7 @@
 # Translators:
 # Alexandre Macabies <web+transifex@zopieux.com>, 2018
 # Antoine Lubineau <antoine@lubignon.info>, 2012
-# Antoine Lubineau <antoine@lubignon.info>, 2012-2016
+# Antoine Lubineau <antoine@lubignon.info>, 2012-2016,2023
 # Cedric Girard <girard.cedric@gmail.com>, 2011,2014,2016
 # demostanis <demostanis@protonmail.com>, 2020
 # Kristien <kristien@mailo.com>, 2020
@@ -21,8 +21,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: lordheavy <lordheavym@gmail.com>, 2013-2014,2018,2022\n"
-"Language-Team: French (http://www.transifex.com/lfleischer/aurweb/language/fr/)\n"
+"Last-Translator: Antoine Lubineau <antoine@lubignon.info>, 2012-2016,2023\n"
+"Language-Team: French (http://app.transifex.com/lfleischer/aurweb/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -144,15 +144,15 @@ msgstr "Type"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "Ajout d’un utilisateur de confiance."
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "Suppression d’un utilisateur de confiance"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "Suppression d’un utilisateur de confiance (inactivité non prévenue)"
+msgstr ""
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -209,9 +209,10 @@ msgstr "Rechercher les paquets que je co-maintiens"
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "Bienvenue sur AUR ! Veuillez lire les %sconsignes pour les utilisateurs d’AUR%s et les %sconsignes pour les utilisateurs de confiance%s pour plus d’information."
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr ""
 
 #: html/home.php
 #, php-format
@@ -276,7 +277,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "Demande qu'un paquet soit supprimé d'AUR. Prière de ne pas l'utiliser si un paquet est cassé et que le problème peut être réglé facilement. À la place, contactez le mainteneur du paquet, et soumettez une requête de destitution si nécessaire."
+msgstr ""
 
 #: html/home.php
 msgid "Merge Request"
@@ -318,10 +319,11 @@ msgstr "Discussion"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "Les discussions générales en rapport avec AUR (Arch User Repository, dépôt des utilisateurs d’Arch Linux) et les TU (Package Maintainer, utilisateurs de confiance) ont lieu sur %saur-general%s. Pour les discussions en rapport avec le développement de l'interface web d'AUR, utilisez la mailing-list %saur-dev.%s"
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
+msgstr ""
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -332,9 +334,9 @@ msgstr "Rapports de bug"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "Si vous trouvez un bug dans l'interface web d'AUR, merci de remplir un rapport de bug sur le %sbug tracker%s. N’utilisez le tracker %sque%s pour les bugs de  l'interface web d'AUR. Pour signaler un bug dans un paquet, contactez directement le mainteneur du paquet, ou laissez un commentaire sur la page du paquet."
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
+msgstr ""
 
 #: html/home.php
 msgid "Package Search"
@@ -486,7 +488,7 @@ msgstr "Les paquets sélectionnés n'ont pas été destitués, vérifiez la boî
 msgid ""
 "The selected packages have not been adopted, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "Les paquets sélectionnés n’ont pas été adoptés, vérifiez la case de confirmation."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
@@ -535,7 +537,7 @@ msgstr "Supprimer"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "Seuls les Utilisateur de Confiance et les Développeurs peuvent effacer des paquets."
+msgstr ""
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -576,7 +578,7 @@ msgstr "Destituer"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "Seuls les Utilisateur de Confiance et les Développeurs peuvent destituer des paquets."
+msgstr ""
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -666,7 +668,7 @@ msgstr "Fusionner"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "Seuls les Utilisateur de Confiance et les Développeurs peuvent fusionner des paquets."
+msgstr ""
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -724,7 +726,7 @@ msgstr "J'accepte les modalités ci-avant."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "Utilisateur de confiance (TU)"
+msgstr ""
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -736,7 +738,7 @@ msgstr "Le vote est clos pour cette proposition."
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "Seuls les Utilisateurs de Confiance sont autorisés à voter."
+msgstr ""
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -892,7 +894,7 @@ msgstr "Compte suspendu."
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to suspend accounts."
-msgstr ""
+msgstr "Vous n’avez pas la permission de suspendre des comptes."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -981,27 +983,27 @@ msgstr "Les détails du paquet ne peuvent pas être trouvés."
 
 #: aurweb/routers/auth.py
 msgid "Bad Referer header."
-msgstr ""
+msgstr "Mauvais en-tête Referer."
 
 #: aurweb/routers/packages.py
 msgid "You did not select any packages to be notified about."
-msgstr ""
+msgstr "Vous n’avez sélectionné aucun paquet pour être notifié."
 
 #: aurweb/routers/packages.py
 msgid "The selected packages' notifications have been enabled."
-msgstr ""
+msgstr "Les notifications des paquets sélectionnés ont été activées."
 
 #: aurweb/routers/packages.py
 msgid "You did not select any packages for notification removal."
-msgstr ""
+msgstr "Vous n’avez sélectionné aucun paquet pour la suppression de notification."
 
 #: aurweb/routers/packages.py
 msgid "A package you selected does not have notifications enabled."
-msgstr ""
+msgstr "Un paquet que vous avez sélectionné n’a pas les notifications activées."
 
 #: aurweb/routers/packages.py
 msgid "The selected packages' notifications have been removed."
-msgstr ""
+msgstr "Les notifications des paquets sélectionnés ont été supprimées."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
@@ -1041,7 +1043,7 @@ msgstr "Vous n'avez sélectionné aucun paquet à supprimer."
 
 #: aurweb/routers/packages.py
 msgid "One of the packages you selected does not exist."
-msgstr ""
+msgstr "L’un des paquets que vous avez sélectionnés n’existe pas."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
@@ -1053,15 +1055,15 @@ msgstr "Vous devez être authentifié avant de pouvoir adopter des paquets."
 
 #: aurweb/routers/package.py
 msgid "You are not allowed to adopt one of the packages you selected."
-msgstr ""
+msgstr "Vous n’êtes pas autorisé à adopter l’un des paquets que vous avez sélectionnés."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
-msgstr "Vous devez être authentifié avant de pouvoir abandonner des paquets."
+msgstr "Vous devez être authentifié avant de pouvoir destituer des paquets."
 
 #: aurweb/routers/packages.py
 msgid "You are not allowed to disown one of the packages you selected."
-msgstr ""
+msgstr "Vous n’êtes pas autorisé à destituer l’un des paquets que vous avez sélectionnés."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -1069,7 +1071,7 @@ msgstr "Vous n'avez pas sélectionné de paquet à adopter."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
-msgstr "Vous n'avez sélectionné aucun paquet à abandonner."
+msgstr "Vous n'avez sélectionné aucun paquet à destituer."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
@@ -1077,7 +1079,7 @@ msgstr "Les paquets sélectionnés ont été adoptés."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
-msgstr "Les paquets sélectionnés ont été abandonnés."
+msgstr "Les paquets sélectionnés ont été destitués."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
@@ -1232,7 +1234,7 @@ msgstr "Développeur"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr "Utilisateur de confiance (TU) et Développeur"
+msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1405,6 +1407,15 @@ msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
 msgstr "L'information suivante est requise uniquement si vous voulez soumettre des paquets sur AUR"
+
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1830,18 +1841,18 @@ msgstr "Fusionner dans"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "En soumettant une requète de suppression, vous demandez à un utilisateur de confiance de supprimer le paquet de base. Ce type de requète doit être utilisé pour les doublons, les logiciels abandonnés par l'upstream ainsi que pour les paquets illégaux ou irréparables."
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
-msgstr "En soumettant une requète de fusion, vous demandez à un utilisateur de confiance de supprimer le paquet de base et de transférer les votes et les commentaires vers un autre paquet de base. Fusionner un paquet n'impacte pas le dépot Git correspondant. Assurez-vous de mettre à jour l'historique Git du paquet cible vous-même."
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1849,7 +1860,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "En soumettant une requète pour rendre orphelin, vous demandez à un utilisateur de confiance de retirer le mainteneur du paquet de base. Merci de ne faire ceci que si le paquet nécessite l'action d'un mainteneur, que le mainteneur ne répond pas et que vous avez préalablement essayé de contacter le mainteneur."
+msgstr ""
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2059,7 +2070,7 @@ msgstr "Adopter des paquets"
 
 #: template/pkg_search_results.php
 msgid "Disown Packages"
-msgstr "Abandonner les paquets"
+msgstr "Destituer les paquets"
 
 #: template/pkg_search_results.php
 msgid "Delete Packages"
@@ -2107,7 +2118,7 @@ msgstr "Utilisateurs enregistrés"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "Utilisateurs de confiance (TU)"
+msgstr ""
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2293,7 +2304,7 @@ msgstr "{user} [1] a supprimé {pkgbase} [2].\n\nVous ne recevrez plus de notifi
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr "Rappel du vote du TU : proposition {id}"
+msgstr ""
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2304,15 +2315,15 @@ msgstr "N'oubliez pas de voter sur la proposition {id} [1]. La période de vote 
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."
-msgstr ""
+msgstr "Type de compte choisi invalide."
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change account types."
-msgstr ""
+msgstr "Vous n’avez pas la permission de changer le type de compte."
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change this user's account type to %s."
-msgstr ""
+msgstr "Vous n’avez pas la permission de changer le type de compte de cet utilisateur en %s."
 
 #: aurweb/packages/requests.py
 msgid "No due existing orphan requests to accept for %s."
@@ -2324,7 +2335,7 @@ msgstr "Erreur interne du serveur"
 
 #: templates/errors/500.html
 msgid "A fatal error has occurred."
-msgstr ""
+msgstr "Une erreur fatale s’est produite."
 
 #: templates/errors/500.html
 msgid ""
@@ -2334,7 +2345,7 @@ msgstr ""
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
-msgstr ""
+msgstr "Erreur du serveur AUR"
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 #: templates/packages/disown.html
@@ -2345,4 +2356,36 @@ msgstr ""
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr ""
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr ""
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr ""
+
+#: templates/requests.html
+msgid "Package name"
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
 msgstr ""

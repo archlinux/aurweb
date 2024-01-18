@@ -14,7 +14,7 @@ msgstr ""
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
 "Last-Translator: kusakata, 2013-2018,2020-2022\n"
-"Language-Team: Japanese (http://www.transifex.com/lfleischer/aurweb/language/ja/)\n"
+"Language-Team: Japanese (http://app.transifex.com/lfleischer/aurweb/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -136,15 +136,15 @@ msgstr "タイプ"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr "TU の追加"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr "TU の削除"
+msgstr ""
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr "TU の削除 (undeclared inactivity)"
+msgstr ""
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -201,9 +201,10 @@ msgstr "共同メンテしているパッケージを検索"
 #: html/home.php
 #, php-format
 msgid ""
-"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
-"Guidelines%s for more information."
-msgstr "AUR にようこそ！AUR についての詳しい情報は %sAUR User Guidelines%s や %sAUR TU Guidelines%s を読んで下さい。"
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
+"information and the %sAUR Submission Guidelines%s if you want to contribute "
+"a PKGBUILD."
+msgstr ""
 
 #: html/home.php
 #, php-format
@@ -268,7 +269,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "Arch User Repository からパッケージを削除するようにリクエストします。パッケージが壊れていて、その不具合を簡単に修正できるような場合、このリクエストは使わないで下さい。代わりに、パッケージのメンテナに連絡したり、必要に応じて孤児リクエストを送りましょう。"
+msgstr ""
 
 #: html/home.php
 msgid "Merge Request"
@@ -310,10 +311,11 @@ msgstr "議論"
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer"
-" structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "Arch User Repository (AUR) や Package Maintainer に関する一般的な議論は %saur-general%s で行って下さい。AUR ウェブインターフェイスの開発に関しては、%saur-dev%s メーリングリストを使用します。"
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating"
+" to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
+msgstr ""
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -324,9 +326,9 @@ msgstr "バグレポート"
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "AUR のウェブインターフェイスにバグを発見した時は%sバグトラッカー%sにバグを報告してください。トラッカーを使って報告できるバグは AUR ウェブインターフェイスのバグ%sだけ%sです。パッケージのバグを報告するときはパッケージのメンテナに連絡するか該当するパッケージのページにコメントを投稿してください。"
+" %sonly%s. To report packaging bugs contact the maintainer or leave a "
+"comment on the appropriate package page."
+msgstr ""
 
 #: html/home.php
 msgid "Package Search"
@@ -527,7 +529,7 @@ msgstr "削除"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "Package Maintainer と開発者だけがパッケージを削除できます。"
+msgstr ""
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -568,7 +570,7 @@ msgstr "放棄"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "Package Maintainer と開発者だけがパッケージを孤児にできます。"
+msgstr ""
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -658,7 +660,7 @@ msgstr "マージ"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "Package Maintainer と開発者だけがパッケージをマージできます。"
+msgstr ""
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -716,7 +718,7 @@ msgstr "私は上記の利用規約を承認します。"
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr "Package Maintainer"
+msgstr ""
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -728,7 +730,7 @@ msgstr "この提案への投票は締め切られています。"
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr "Package Maintainer だけが投票できます。"
+msgstr ""
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -1224,7 +1226,7 @@ msgstr "開発者"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr "Package Maintainer & 開発者"
+msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1397,6 +1399,15 @@ msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
 msgstr "以下の情報は Arch User Repository にパッケージを送信したい場合にのみ必要になります。"
+
+#: templates/partials/account_form.html
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid "Hide deleted comments"
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1820,18 +1831,18 @@ msgstr "マージ"
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a deletion request, you ask a Package Maintainer to delete the "
-"package base. This type of request should be used for duplicates, software "
+"By submitting a deletion request, you ask a Package Maintainer to delete the"
+" package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "削除リクエストを送信することで、Package Maintainer にパッケージベースの削除を要求できます。削除リクエストを使用するケース: パッケージの重複や、上流によってソフトウェアの開発が放棄された場合、違法なパッケージ、あるいはパッケージがどうしようもなく壊れてしまっている場合など。"
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
-msgstr "マージリクエストを送信することで、パッケージベースを削除して\n投票数とコメントを他のパッケージベースに移動することを Package Maintainer に要求できます。パッケージのマージは Git リポジトリに影響を与えません。マージ先のパッケージの Git 履歴は自分で更新してください。"
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
+msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1839,7 +1850,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "孤児リクエストを送信することで、パッケージベースの所有権が放棄されるように Package Maintainer に要求できます。パッケージにメンテナが何らかの手を加える必要があり、現在のメンテナが行方不明で、メンテナに連絡を取ろうとしても返答がない場合にのみ、リクエストを送信してください。"
+msgstr ""
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2089,7 +2100,7 @@ msgstr "登録ユーザー"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr "Package Maintainer"
+msgstr ""
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2275,7 +2286,7 @@ msgstr "{user} [1] は {pkgbase} [2] を削除しました。\n\nこのパッケ
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr "TU 投票リマインダー: 提案 {id}"
+msgstr ""
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2328,3 +2339,35 @@ msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr "このアクションは関連するパッケージリクエストをすべて取り消します。%sコメント%sを省略した場合、自動的にコメントが生成されます。"
+
+#: templates/partials/tu/proposal/details.html
+msgid "assigned"
+msgstr ""
+
+#: templaets/partials/packages/package_metadata.html
+msgid "Show %d more"
+msgstr ""
+
+#: templates/partials/packages/package_metadata.html
+msgid "dependencies"
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "The account has not been deleted, check the confirmation checkbox."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Cancel"
+msgstr ""
+
+#: templates/requests.html
+msgid "Package name"
+msgstr ""
+
+#: templates/partials/account_form.html
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
+"mailing-list and would then be visible in the archive."
+msgstr ""
