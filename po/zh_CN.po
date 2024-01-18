@@ -226,8 +226,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "记得为您喜欢的软件包投票！"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "部分软件包将在 [community] 仓库以二进制包的形式提供。"
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "部分软件包将在 [extra] 仓库以二进制包的形式提供。"
 
 #: html/home.php
 msgid "DISCLAIMER"

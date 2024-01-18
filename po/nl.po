@@ -221,8 +221,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Vergeet niet te stemmen op uw favoriete pakketten!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Sommige pakketten in [community] kunnen worden aangeleverd als uitvoerbare bestanden."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Sommige pakketten in [extra] kunnen worden aangeleverd als uitvoerbare bestanden."
 
 #: html/home.php
 msgid "DISCLAIMER"

@@ -216,7 +216,7 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Ingat untuk memberika suara untuk paket favorit anda!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
+msgid "Some packages may be provided as binaries in [extra]."
 msgstr "Beberapa paket mungkin disediakan sebagai binabinari di [comunity]."
 
 #: html/home.php

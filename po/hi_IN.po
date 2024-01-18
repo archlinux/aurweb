@@ -215,8 +215,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "अपने पसंदीदा पैकेज हेतु मतदान अवश्य करें!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "[community] के कुछ पैकेज बाइनरी फाइल के रूप में उपलब्ध हो सकते हैं।"
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "[extra] के कुछ पैकेज बाइनरी फाइल के रूप में उपलब्ध हो सकते हैं।"
 
 #: html/home.php
 msgid "DISCLAIMER"

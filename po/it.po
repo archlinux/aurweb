@@ -220,8 +220,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Ricorda di votare i tuoi pacchetti preferiti!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Alcuni pacchetti potrebbero essere disponibili come precompilati in [community]."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Alcuni pacchetti potrebbero essere disponibili come precompilati in [extra]."
 
 #: html/home.php
 msgid "DISCLAIMER"

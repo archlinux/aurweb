@@ -219,7 +219,7 @@ msgid "Remember to vote for your favourite packages!"
 msgstr ""
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
+msgid "Some packages may be provided as binaries in [extra]."
 msgstr ""
 
 #: html/home.php

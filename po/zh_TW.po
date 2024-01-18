@@ -218,8 +218,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "記得投一票給您喜愛的套件！"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "某些套件可能會在 [community] 提供二進位檔案。"
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "某些套件可能會在 [extra] 提供二進位檔案。"
 
 #: html/home.php
 msgid "DISCLAIMER"

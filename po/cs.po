@@ -223,8 +223,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Nezapomeň hlasovat pro svoje oblíbené balíčky!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Některé balíčky mohou být poskytnuty v binární podobě v repozitáři [community]."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Některé balíčky mohou být poskytnuty v binární podobě v repozitáři [extra]."
 
 #: html/home.php
 msgid "DISCLAIMER"

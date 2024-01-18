@@ -218,8 +218,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Muista äänestää suosikkipakettejasi!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Jotkin paketit saattavat olla tarjolla valmiina paketteina [community]-varastossa."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Jotkin paketit saattavat olla tarjolla valmiina paketteina [extra]-varastossa."
 
 #: html/home.php
 msgid "DISCLAIMER"

@@ -223,8 +223,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Beğendiğiniz paketleri oylamayı unutmayın!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Burada listelenen paketlerin bazıları [community] deposunda yer almaktadır."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Burada listelenen paketlerin bazıları [extra] deposunda yer almaktadır."
 
 #: html/home.php
 msgid "DISCLAIMER"

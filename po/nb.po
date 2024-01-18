@@ -220,8 +220,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Husk å stemme på dine favorittpakker!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Noen pakker finnes som binærfiler i [community]."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Noen pakker finnes som binærfiler i [extra]."
 
 #: html/home.php
 msgid "DISCLAIMER"

@@ -218,8 +218,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "お気に入りのパッケージに投票しましょう！"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "パッケージがバイナリとして [community] で提供されることになるかもしれません。"
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "パッケージがバイナリとして [extra] で提供されることになるかもしれません。"
 
 #: html/home.php
 msgid "DISCLAIMER"

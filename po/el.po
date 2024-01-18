@@ -222,8 +222,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Θυμηθείτε να ψηφίσετε τα αγαπημένα σας πακέτα!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Ορισμένα πακέτα μπορεί να μεταφερθούν ως binaries στο [community]."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Ορισμένα πακέτα μπορεί να μεταφερθούν ως binaries στο [extra]."
 
 #: html/home.php
 msgid "DISCLAIMER"

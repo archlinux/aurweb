@@ -235,8 +235,8 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Denk daran, für Deine bevorzugten Pakete zu stimmen!"
 
 #: html/home.php
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Manche Pakete könnten als Binär-Pakete in [community] bereitgestellt sein."
+msgid "Some packages may be provided as binaries in [extra]."
+msgstr "Manche Pakete könnten als Binär-Pakete in [extra] bereitgestellt sein."
 
 #: html/home.php
 msgid "DISCLAIMER"
