@@ -2,6 +2,7 @@ from fastapi import Request
 
 from aurweb import db, schema
 from aurweb.models.declarative import Base
+from aurweb.util import get_client_ip
 
 
 class Ban(Base):
@@ -14,6 +15,6 @@ class Ban(Base):
 
 
 def is_banned(request: Request):
-    ip = request.client.host
+    ip = get_client_ip(request)
     exists = db.query(Ban).filter(Ban.IPAddress == ip).exists()
     return db.query(exists).scalar()

@@ -67,7 +67,7 @@ def invalid_password(
 
 
 def is_banned(request: Request = None, **kwargs) -> None:
-    host = request.client.host
+    host = util.get_client_ip(request)
     exists = db.query(models.Ban, models.Ban.IPAddress == host).exists()
     if db.query(exists).scalar():
         raise ValidationError(

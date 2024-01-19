@@ -80,7 +80,9 @@ def open_session(request, conn, user_id):
     conn.execute(
         Users.update()
         .where(Users.c.ID == user_id)
-        .values(LastLogin=int(time.time()), LastLoginIPAddress=request.client.host)
+        .values(
+            LastLogin=int(time.time()), LastLoginIPAddress=util.get_client_ip(request)
+        )
     )
 
     return sid
@@ -110,7 +112,7 @@ async def authenticate(
     Receive an OpenID Connect ID token, validate it, then process it to create
     an new AUR session.
     """
-    if is_ip_banned(conn, request.client.host):
+    if is_ip_banned(conn, util.get_client_ip(request)):
         _ = get_translator_for_request(request)
         raise HTTPException(
             status_code=HTTPStatus.FORBIDDEN,

@@ -208,3 +208,11 @@ def hash_query(query: Query):
     return sha1(
         str(query.statement.compile(compile_kwargs={"literal_binds": True})).encode()
     ).hexdigest()
+
+
+def get_client_ip(request: fastapi.Request) -> str:
+    """
+    Returns the client's IP address for a Request.
+    Falls back to 'no-client' is request.client is None
+    """
+    return request.client.host if request.client else "no-client"

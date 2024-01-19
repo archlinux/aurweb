@@ -122,7 +122,7 @@ class User(Base):
             try:
                 with db.begin():
                     self.LastLogin = now_ts
-                    self.LastLoginIPAddress = request.client.host
+                    self.LastLoginIPAddress = util.get_client_ip(request)
                     if not self.session:
                         sid = generate_unique_sid()
                         self.session = db.create(

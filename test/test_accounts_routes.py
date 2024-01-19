@@ -391,9 +391,10 @@ def test_post_register_error_invalid_captcha(client: TestClient):
 
 
 def test_post_register_error_ip_banned(client: TestClient):
-    # 'testclient' is used as request.client.host via FastAPI TestClient.
+    # 'no-client' is our fallback value in case request.client is None
+    # which is the case for TestClient
     with db.begin():
-        create(Ban, IPAddress="testclient", BanTS=datetime.utcnow())
+        create(Ban, IPAddress="no-client", BanTS=datetime.utcnow())
 
     with client as request:
         response = post_register(request)

@@ -310,10 +310,10 @@ def pipeline():
     redis = redis_connection()
     pipeline = redis.pipeline()
 
-    # The 'testclient' host is used when requesting the app
-    # via fastapi.testclient.TestClient.
-    pipeline.delete("ratelimit-ws:testclient")
-    pipeline.delete("ratelimit:testclient")
+    # 'no-client' is our fallback value in case request.client is None
+    # which is the case for TestClient
+    pipeline.delete("ratelimit-ws:no-client")
+    pipeline.delete("ratelimit:no-client")
     pipeline.execute()
 
     yield pipeline
@@ -760,8 +760,8 @@ def test_rpc_ratelimit(
     assert response.status_code == int(HTTPStatus.TOO_MANY_REQUESTS)
 
     # Delete the cached records.
-    pipeline.delete("ratelimit-ws:testclient")
-    pipeline.delete("ratelimit:testclient")
+    pipeline.delete("ratelimit-ws:no-client")
+    pipeline.delete("ratelimit:no-client")
     one, two = pipeline.execute()
     assert one and two
 

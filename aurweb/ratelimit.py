@@ -4,6 +4,7 @@ from redis.client import Pipeline
 from aurweb import aur_logging, config, db, time
 from aurweb.aur_redis import redis_connection
 from aurweb.models import ApiRateLimit
+from aurweb.util import get_client_ip
 
 logger = aur_logging.get_logger(__name__)
 
@@ -13,7 +14,7 @@ def _update_ratelimit_redis(request: Request, pipeline: Pipeline):
     now = time.utcnow()
     time_to_delete = now - window_length
 
-    host = request.client.host
+    host = get_client_ip(request)
     window_key = f"ratelimit-ws:{host}"
     requests_key = f"ratelimit:{host}"
 
@@ -55,7 +56,7 @@ def _update_ratelimit_db(request: Request):
                 record.Requests += 1
         return record
 
-    host = request.client.host
+    host = get_client_ip(request)
     record = db.query(ApiRateLimit, ApiRateLimit.IP == host).first()
     record = retry_create(record, now, host)
 
@@ -92,7 +93,7 @@ def check_ratelimit(request: Request):
     record = update_ratelimit(request, pipeline)
 
     # Get cache value, else None.
-    host = request.client.host
+    host = get_client_ip(request)
     pipeline.get(f"ratelimit:{host}")
     requests = pipeline.execute()[0]
 
