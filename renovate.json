@@ -8,6 +8,10 @@
     {
       "groupName": "fastapi",
       "matchPackageNames": ["fastapi"]
+    },
+    {
+      "matchPackageNames": ["python"],
+      "enabled": false
     }
   ]
 }
