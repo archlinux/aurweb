@@ -223,5 +223,40 @@ export GIT_COMMITTER_EMAIL GIT_COMMITTER_NAME
 	git add PKGBUILD .SRCINFO
 	git commit -q -m 'Initial import'
 
+	git checkout -q --orphan refs/namespaces/forbidden/refs/heads/master
+
+	cat >PKGBUILD <<-EOF
+	pkgname=foobar3
+	pkgver=1
+	pkgrel=1
+	pkgdesc='aurweb test package.'
+	url='https://aur.archlinux.org/'
+	license=('MIT')
+	arch=('any')
+	depends=('python-pygit2')
+	source=()
+	md5sums=()
+
+	package() {
+		echo 'Hello world!'
+	}
+	EOF
+
+	cat >.SRCINFO <<-EOF
+	pkgbase = forbidden
+		pkgdesc = aurweb test package.
+		pkgver = 1
+		pkgrel = 1
+		url = https://aur.archlinux.org/
+		arch = any
+		license = MIT
+		depends = python-pygit2
+
+	pkgname = foobar3
+	EOF
+
+	git add PKGBUILD .SRCINFO
+	git commit -q -m 'Initial import'
+
 	git checkout -q refs/namespaces/foobar/refs/heads/master
 )

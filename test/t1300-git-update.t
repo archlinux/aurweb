@@ -536,6 +536,22 @@ test_expect_success 'Pushing a blacklisted package.' '
 	test_cmp expected actual
 '
 
+test_expect_success 'Pushing a blacklisted pkgbase.' '
+	test_when_finished "git -C aur.git checkout refs/namespaces/foobar/refs/heads/master" &&
+	git -C aur.git checkout -q refs/namespaces/forbidden/refs/heads/master &&
+	old=$(git -C aur.git rev-parse HEAD) &&
+	echo " " >>aur.git/.SRCINFO &&
+	git -C aur.git commit -q -am "Do something" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	cat >expected <<-EOD &&
+	error: pkgbase is blacklisted: forbidden
+	EOD
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=forbidden AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_cmp expected actual
+'
+
 test_expect_success 'Pushing a blacklisted package as Package Maintainer.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&

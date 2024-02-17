@@ -440,6 +440,8 @@ def main():  # noqa: C901
 
     cur = conn.execute("SELECT Name FROM PackageBlacklist")
     blacklist = [row[0] for row in cur.fetchall()]
+    if pkgbase in blacklist:
+        warn_or_die("pkgbase is blacklisted: {:s}".format(pkgbase))
 
     cur = conn.execute("SELECT Name, Repo FROM OfficialProviders")
     providers = dict(cur.fetchall())
