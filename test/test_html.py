@@ -199,10 +199,24 @@ def test_404_with_valid_pkgbase(client: TestClient, pkgbase: PackageBase):
     assert "To clone the Git repository" in body
 
 
-def test_404(client: TestClient):
+def test_404(client: TestClient, user):
     """Test HTTPException with status_code == 404 without a valid pkgbase."""
     with client as request:
         response = request.get("/nonexistentroute")
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+
+    body = response.text
+    assert "404 - Page Not Found" in body
+    # No `pkgbase` is provided here; we don't see the extra info.
+    assert "To clone the Git repository" not in body
+
+    # Create a pkgbase named "pkgbase"
+    # Should NOT return extra info for "pkgbase"
+    with db.begin():
+        db.create(PackageBase, Name="pkgbase", Maintainer=user)
+
+    with client as request:
+        response = request.get("/pkgbase/doesnotexist")
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
     body = response.text

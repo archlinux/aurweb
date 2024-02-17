@@ -212,7 +212,7 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> Respon
     if exc.status_code == http.HTTPStatus.NOT_FOUND:
         tokens = request.url.path.split("/")
         matches = re.match("^([a-z0-9][a-z0-9.+_-]*?)(\\.git)?$", tokens[1])
-        if matches:
+        if matches and len(tokens) == 2:
             try:
                 pkgbase = get_pkg_or_base(matches.group(1))
                 context = pkgbaseutil.make_context(request, pkgbase)
