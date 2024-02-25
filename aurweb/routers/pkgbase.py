@@ -159,6 +159,8 @@ async def pkgbase_flag_post(
             request, "pkgbase/flag.html", context, status_code=HTTPStatus.BAD_REQUEST
         )
 
+    validate.comment_raise_http_ex(comments)
+
     has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
     if has_cred and not pkgbase.OutOfDateTS:
         now = time.utcnow()
@@ -185,8 +187,7 @@ async def pkgbase_comments_post(
     """Add a new comment via POST request."""
     pkgbase = get_pkg_or_base(name, PackageBase)
 
-    if not comment:
-        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST)
+    validate.comment_raise_http_ex(comment)
 
     # If the provided comment is different than the record's version,
     # update the db record.
@@ -304,9 +305,9 @@ async def pkgbase_comment_post(
     pkgbase = get_pkg_or_base(name, PackageBase)
     db_comment = get_pkgbase_comment(pkgbase, id)
 
-    if not comment:
-        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST)
-    elif request.user.ID != db_comment.UsersID:
+    validate.comment_raise_http_ex(comment)
+
+    if request.user.ID != db_comment.UsersID:
         raise HTTPException(status_code=HTTPStatus.UNAUTHORIZED)
 
     # If the provided comment is different than the record's version,
@@ -602,6 +603,9 @@ async def pkgbase_disown_post(
 ):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
+    if comments:
+        validate.comment_raise_http_ex(comments)
+
     comaints = {c.User for c in pkgbase.comaintainers}
     approved = [pkgbase.Maintainer] + list(comaints)
     has_cred = request.user.has_credential(creds.PKGBASE_DISOWN, approved=approved)
@@ -873,6 +877,7 @@ async def pkgbase_delete_post(
         )
 
     if comments:
+        validate.comment_raise_http_ex(comments)
         # Update any existing deletion requests' ClosureComment.
         with db.begin():
             requests = pkgbase.requests.filter(
@@ -965,6 +970,9 @@ async def pkgbase_merge_post(
         return render_template(
             request, "pkgbase/merge.html", context, status_code=HTTPStatus.BAD_REQUEST
         )
+
+    if comments:
+        validate.comment_raise_http_ex(comments)
 
     with db.begin():
         update_closure_comment(pkgbase, MERGE_ID, comments, target=target)

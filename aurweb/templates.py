@@ -70,6 +70,7 @@ def make_context(request: Request, title: str, next: str = None):
 
     commit_url = aurweb.config.get_with_fallback("devel", "commit_url", None)
     commit_hash = aurweb.config.get_with_fallback("devel", "commit_hash", None)
+    max_chars_comment = aurweb.config.getint("options", "max_chars_comment", 5000)
     if commit_hash:
         # Shorten commit_hash to a short Git hash.
         commit_hash = commit_hash[:7]
@@ -92,6 +93,7 @@ def make_context(request: Request, title: str, next: str = None):
         "creds": aurweb.auth.creds,
         "next": next if next else request.url.path,
         "version": os.environ.get("COMMIT_HASH", aurweb.config.AURWEB_VERSION),
+        "max_chars_comment": max_chars_comment,
     }
 
 

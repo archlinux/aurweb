@@ -21,12 +21,15 @@ Routes:
             | format('<a href="https://daringfireball.net/projects/markdown/syntax">',
                      "</a>")
             | safe }}
+            <br/>
+            {{ "Maximum number of characters" | tr }}: {{ max_chars_comment }}.
         </p>
         <p>
         <textarea id="id_comment"
                   name="comment"
                   cols="80"
                   rows="10"
+                  maxlength="{{ max_chars_comment }}"
         >{% if comment %}{{ comment.Comments or '' }}{% endif %}</textarea>
         </p>
         <p>

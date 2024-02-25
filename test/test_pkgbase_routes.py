@@ -6,7 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import and_
 
-from aurweb import asgi, db, time
+from aurweb import asgi, config, db, time
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
 from aurweb.models.package import Package
@@ -24,6 +24,8 @@ from aurweb.models.user import User
 from aurweb.testing.email import Email
 from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
+
+max_chars_comment = config.getint("options", "max_chars_comment", 5000)
 
 
 def package_endpoint(package: Package) -> str:
@@ -572,6 +574,38 @@ def test_pkgbase_comments(
     assert "form" in data
 
 
+def test_pkgbase_comment_exceed_character_limit(
+    client: TestClient,
+    user: User,
+    package: Package,
+    comment: PackageComment,
+):
+    # Post new comment
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments"
+
+    with client as request:
+        request.cookies = cookies
+        resp = request.post(
+            endpoint,
+            data={"comment": "x" * (max_chars_comment + 1)},
+        )
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    assert "Maximum number of characters for comment exceeded." in resp.text
+    # Edit existing
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = cookies
+        endp = f"/pkgbase/{pkgbasename}/comments/{comment.ID}"
+        response = request.post(
+            endp,
+            data={"comment": "x" * (max_chars_comment + 1)},
+        )
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert "Maximum number of characters for comment exceeded." in resp.text
+
+
 def test_pkgbase_comment_edit_unauthorized(
     client: TestClient,
     user: User,
@@ -935,6 +969,28 @@ def test_pkgbase_request_post_no_comment_error(
     assert error.text.strip() == expected
 
 
+def test_pkgbase_request_post_comment_exceed_character_limit(
+    client: TestClient, user: User, package: Package
+):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = cookies
+        resp = request.post(
+            endpoint,
+            data={
+                "type": "deletion",
+                "comments": "x" * (max_chars_comment + 1),
+            },
+        )
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    error = root.xpath('//ul[@class="errorlist"]/li')[0]
+    expected = "Maximum number of characters for comment exceeded."
+    assert error.text.strip() == expected
+
+
 def test_pkgbase_request_post_merge_not_found_error(
     client: TestClient, user: User, package: Package
 ):
@@ -1086,6 +1142,13 @@ def test_pkgbase_flag(
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert pkgbase.Flagger is None
+
+    # Try flagging with a comment that exceeds our character limit.
+    with client as request:
+        request.cookies = cookies
+        data = {"comments": "x" * (max_chars_comment + 1)}
+        resp = request.post(f"/pkgbase/{pkgbase.Name}/flag", data=data)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     # Flag it again.
     with client as request:

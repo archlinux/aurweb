@@ -60,7 +60,8 @@
                     <textarea id="id_comments"
                               name="comments"
                               rows="5"
-                              cols="50"></textarea>
+                              cols="50"
+                              maxlength="{{ max_chars_comment }}"></textarea>
                 </p>
                 <p>
                     <input class="button" type="submit" value="{{ 'Flag' | tr }}" />

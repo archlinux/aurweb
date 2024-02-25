@@ -26,7 +26,8 @@
                 <p>
                     <label for="id_comments">{{ "Comments" | tr }}:</label>
                     <textarea id="id_comments" name="comments"
-                              rows="5" cols="50"></textarea>
+                              rows="5" cols="50" maxlength="{{ max_chars_comment }}"
+                              ></textarea>
                 </p>
 
                 <p>

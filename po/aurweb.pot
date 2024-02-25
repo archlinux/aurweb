@@ -2371,3 +2371,7 @@ msgid "Note that if you hide your email address, it'll "
 "receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
 msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""

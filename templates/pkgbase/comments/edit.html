@@ -24,13 +24,17 @@
                             "</a>"
                         ) | safe
                     }}
+                    <br/>
+                    {{ "Maximum number of characters" | tr }}: {{ max_chars_comment }}.
                 </p>
 
                 <p>
                     <textarea id="id_comment"
                               name="comment"
                               cols="80"
-                              rows="10">{{ comment.Comments }}</textarea>
+                              rows="10"
+                              maxlength="{{ max_chars_comment }}"
+                              >{{ comment.Comments }}</textarea>
                 </p>
 
                 <p>

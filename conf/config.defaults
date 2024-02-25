@@ -49,6 +49,8 @@ salt_rounds = 12
 redis_address = redis://localhost
 ; Toggles traceback display in templates/errors/500.html.
 traceback = 0
+; Maximum number of characters for a comment
+max_chars_comment = 5000
 
 [ratelimit]
 request_limit = 4000
