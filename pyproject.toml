@@ -100,7 +100,7 @@ tomlkit = "^0.12.0"
 
 [tool.poetry.dev-dependencies]
 coverage = "^7.3.2"
-pytest = "^7.4.3"
+pytest = "^8.0.0"
 pytest-asyncio = "^0.23.0"
 pytest-cov = "^4.1.0"
 pytest-tap = "^3.4"
