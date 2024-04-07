@@ -31,8 +31,6 @@ lint:
 
 test:
   stage: test
-  tags:
-    - fast-single-thread
   before_script:
     - export PATH="$HOME/.poetry/bin:${PATH}"
     - ./docker/scripts/install-deps.sh
