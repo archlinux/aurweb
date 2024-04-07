@@ -213,6 +213,6 @@ def hash_query(query: Query):
 def get_client_ip(request: fastapi.Request) -> str:
     """
     Returns the client's IP address for a Request.
-    Falls back to 'no-client' is request.client is None
+    Falls back to 'testclient' if request.client is None
     """
-    return request.client.host if request.client else "no-client"
+    return request.client.host if request.client else "testclient"
