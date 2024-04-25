@@ -1,5 +1,5 @@
 import warnings
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from sqlalchemy import exc as sa_exc
@@ -17,7 +17,7 @@ def setup(db_test):
 
 @pytest.fixture
 def ban() -> Ban:
-    ts = datetime.utcnow() + timedelta(seconds=30)
+    ts = datetime.now(UTC) + timedelta(seconds=30)
     with db.begin():
         ban = create(Ban, IPAddress="127.0.0.1", BanTS=ts)
     yield ban
@@ -30,7 +30,7 @@ def test_ban(ban: Ban):
 
 def test_invalid_ban():
     with pytest.raises(sa_exc.IntegrityError):
-        bad_ban = Ban(BanTS=datetime.utcnow())
+        bad_ban = Ban(BanTS=datetime.now(UTC))
 
         # We're adding a ban with no primary key; this causes an
         # SQLAlchemy warnings when committing to the DB.

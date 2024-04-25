@@ -1,6 +1,6 @@
 import re
 import tempfile
-from datetime import datetime
+from datetime import UTC, datetime
 from http import HTTPStatus
 from logging import DEBUG
 from subprocess import Popen
@@ -394,7 +394,7 @@ def test_post_register_error_ip_banned(client: TestClient):
     # 'testclient' is our fallback value in case request.client is None
     # which is the case for TestClient
     with db.begin():
-        create(Ban, IPAddress="testclient", BanTS=datetime.utcnow())
+        create(Ban, IPAddress="testclient", BanTS=datetime.now(UTC))
 
     with client as request:
         response = post_register(request)

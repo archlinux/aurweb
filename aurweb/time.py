@@ -1,6 +1,6 @@
 import zoneinfo
 from collections import OrderedDict
-from datetime import datetime
+from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
 from fastapi import Request
@@ -89,4 +89,4 @@ def utcnow() -> int:
 
     :return: Current UTC timestamp
     """
-    return int(datetime.utcnow().timestamp())
+    return int(datetime.now(UTC).timestamp())

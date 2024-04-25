@@ -1,6 +1,6 @@
 import copy
 import math
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any, Union
 from urllib.parse import quote_plus, urlencode
 from zoneinfo import ZoneInfo
@@ -94,7 +94,7 @@ def tn(context: dict[str, Any], count: int, singular: str, plural: str) -> str:
 
 @register_filter("dt")
 def timestamp_to_datetime(timestamp: int):
-    return datetime.utcfromtimestamp(int(timestamp))
+    return datetime.fromtimestamp(timestamp, UTC)
 
 
 @register_filter("as_timezone")

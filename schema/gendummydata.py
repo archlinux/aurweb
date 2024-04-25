@@ -15,7 +15,7 @@ import os
 import random
 import sys
 import time
-from datetime import datetime
+from datetime import UTC, datetime
 
 import bcrypt
 
@@ -263,7 +263,7 @@ for p in list(seen_pkgs.keys()):
         out.write(s)
 
 # Cast votes
-utcnow = int(datetime.utcnow().timestamp())
+utcnow = int(datetime.now(UTC).timestamp())
 
 track_votes = {}
 log.debug("Casting votes for packages.")

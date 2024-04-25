@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
 import pytest
@@ -8,7 +8,7 @@ from aurweb import filters, time
 
 def test_timestamp_to_datetime():
     ts = time.utcnow()
-    dt = datetime.utcfromtimestamp(int(ts))
+    dt = datetime.fromtimestamp(ts, UTC)
     assert filters.timestamp_to_datetime(ts) == dt
 
 

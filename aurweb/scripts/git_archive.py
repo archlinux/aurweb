@@ -3,7 +3,7 @@ import importlib
 import os
 import sys
 import traceback
-from datetime import datetime
+from datetime import UTC, datetime
 
 import orjson
 import pygit2
@@ -60,7 +60,7 @@ def update_repository(repo: pygit2.Repository):
         except pygit2.GitError:
             base = []
 
-        utcnow = datetime.utcnow()
+        utcnow = datetime.now(UTC)
         author = pygit2.Signature(
             config.get("git-archive", "author"),
             config.get("git-archive", "author-email"),

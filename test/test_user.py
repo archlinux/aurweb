@@ -1,6 +1,6 @@
 import hashlib
 import json
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 import bcrypt
 import pytest
@@ -135,7 +135,7 @@ def test_user_login_twice(user: User):
 
 def test_user_login_banned(user: User):
     # Add ban for the next 30 seconds.
-    banned_timestamp = datetime.utcnow() + timedelta(seconds=30)
+    banned_timestamp = datetime.now(UTC) + timedelta(seconds=30)
     with db.begin():
         db.create(Ban, IPAddress="127.0.0.1", BanTS=banned_timestamp)
 
@@ -170,7 +170,7 @@ def test_user_login_with_outdated_sid(user: User):
             Session,
             UsersID=user.ID,
             SessionID="stub",
-            LastUpdateTS=datetime.utcnow().timestamp() - 5,
+            LastUpdateTS=datetime.now(UTC).timestamp() - 5,
         )
     sid = user.login(Request(), "testPassword")
     assert sid and user.is_authenticated()
@@ -279,7 +279,7 @@ def test_user_is_developer(user: User):
 
 def test_user_voted_for(user: User, package: Package):
     pkgbase = package.PackageBase
-    now = int(datetime.utcnow().timestamp())
+    now = int(datetime.now(UTC).timestamp())
     with db.begin():
         db.create(PackageVote, PackageBase=pkgbase, User=user, VoteTS=now)
     assert user.voted_for(package)

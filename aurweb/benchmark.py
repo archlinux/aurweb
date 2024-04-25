@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 
 
 class Benchmark:
@@ -7,7 +7,7 @@ class Benchmark:
 
     def _timestamp(self) -> float:
         """Generate a timestamp."""
-        return float(datetime.utcnow().timestamp())
+        return float(datetime.now(UTC).timestamp())
 
     def start(self) -> int:
         """Start a benchmark."""
