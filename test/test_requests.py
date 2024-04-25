@@ -144,9 +144,11 @@ def requests(
             pkgreq = db.create(
                 PackageRequest,
                 ReqTypeID=DELETION_ID,
-                User=maintainer2
-                if packages[i].PackageBase.Maintainer.Username == "test_maintainer2"
-                else user,
+                User=(
+                    maintainer2
+                    if packages[i].PackageBase.Maintainer.Username == "test_maintainer2"
+                    else user
+                ),
                 PackageBase=packages[i].PackageBase,
                 PackageBaseName=packages[i].Name,
                 Comments=f"Deletion request for pkg_{i}",

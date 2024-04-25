@@ -7,7 +7,6 @@ This module uses a global state, since you can’t open two servers with the sam
 configuration anyway.
 """
 
-
 import argparse
 import atexit
 import os

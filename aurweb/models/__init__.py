@@ -1,4 +1,5 @@
 """ Collection of all aurweb SQLAlchemy declarative models. """
+
 from .accepted_term import AcceptedTerm  # noqa: F401
 from .account_type import AccountType  # noqa: F401
 from .api_rate_limit import ApiRateLimit  # noqa: F401

@@ -6,6 +6,7 @@ See `aurweb-adduser --help` for documentation.
 Copyright (C) 2022 aurweb Development Team
 All Rights Reserved
 """
+
 import argparse
 import sys
 import traceback

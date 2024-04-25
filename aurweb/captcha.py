@@ -1,4 +1,5 @@
 """ This module consists of aurweb's CAPTCHA utility functions and filters. """
+
 import hashlib
 
 from jinja2 import pass_context

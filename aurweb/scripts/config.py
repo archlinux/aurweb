@@ -3,6 +3,7 @@ Perform an action on the aurweb config.
 
 When AUR_CONFIG_IMMUTABLE is set, the `set` action is noop.
 """
+
 import argparse
 import configparser
 import os

@@ -23,6 +23,7 @@ OpenAPI Routes:
 OpenAPI example (version 5): /rpc/v5/info/my-package
 
 """
+
 import hashlib
 import re
 from http import HTTPStatus

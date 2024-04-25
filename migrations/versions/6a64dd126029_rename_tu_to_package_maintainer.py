@@ -5,6 +5,7 @@ Revises: c5a6a9b661a0
 Create Date: 2023-09-01 13:48:15.315244
 
 """
+
 from aurweb import db
 from aurweb.models import AccountType
 

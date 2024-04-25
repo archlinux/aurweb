@@ -5,7 +5,6 @@ Changes here should always be accompanied by an Alembic migration, which can be
 usually be automatically generated. See `migrations/README` for details.
 """
 
-
 from sqlalchemy import (
     CHAR,
     TIMESTAMP,

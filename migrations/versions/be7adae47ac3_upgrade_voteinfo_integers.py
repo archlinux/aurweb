@@ -15,6 +15,7 @@ Revision ID: be7adae47ac3
 Revises: 56e2ce8e2ffa
 Create Date: 2022-01-06 14:37:07.899778
 """
+
 from alembic import op
 from sqlalchemy.dialects.mysql import INTEGER, TINYINT
 

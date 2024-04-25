@@ -1,4 +1,5 @@
 """ A test suite used to test HTML renders in different cases. """
+
 import hashlib
 import os
 import tempfile

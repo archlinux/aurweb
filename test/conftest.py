@@ -37,6 +37,7 @@ then clears the database for each test function run in that module.
 It is done this way because migration has a large cost; migrating
 ahead of each function takes too long when compared to this method.
 """
+
 import os
 import pathlib
 from multiprocessing import Lock

@@ -1,6 +1,7 @@
 """ AURWeb's primary routing module. Define all routes via @app.app.{get,post}
 decorators in some way; more complex routes should be defined in their
 own modules and imported here. """
+
 import os
 from http import HTTPStatus
 

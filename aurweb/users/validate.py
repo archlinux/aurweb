@@ -6,6 +6,7 @@ out of form data from /account/register or /account/{username}/edit.
 All functions in this module raise aurweb.exceptions.ValidationError
 when encountering invalid criteria and return silently otherwise.
 """
+
 from fastapi import Request
 from sqlalchemy import and_
 

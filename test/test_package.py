@@ -8,8 +8,6 @@ from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.user import User
 
-user = pkgbase = package = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
