@@ -24,8 +24,6 @@ lint:
     - pacman -Syu --noconfirm --noprogressbar --cachedir .pkg-cache
       git python python-pre-commit
   script:
-    # https://github.com/pre-commit/pre-commit/issues/2178#issuecomment-1002163763
-    - export SETUPTOOLS_USE_DISTUTILS=stdlib
     - export XDG_CACHE_HOME=.pre-commit
     - pre-commit run -a
 
