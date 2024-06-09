@@ -13,7 +13,6 @@ from aurweb.testing.smtp import FakeSMTP, FakeSMTP_SSL
 
 aur_location = config.get("options", "aur_location")
 aur_request_ml = config.get("options", "aur_request_ml")
-aur_reply_to = config.get("notifications", "reply-to")
 
 
 @pytest.fixture(autouse=True)
@@ -412,7 +411,6 @@ def test_open_close_request(
 
     email = Email(1).parse()
     assert email.headers.get("To") == aur_request_ml
-    assert email.headers.get("Reply-to") == aur_request_ml
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
     expected = f"[PRQ#{pkgreq.ID}] Orphan Request for {pkgbase.Name}"
     assert email.headers.get("Subject") == expected
@@ -434,7 +432,6 @@ This is a request test comment.
 
     email = Email(2).parse()
     assert email.headers.get("To") == aur_request_ml
-    assert email.headers.get("Reply-to") == aur_request_ml
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
     expected = f"[PRQ#{pkgreq.ID}] Orphan Request for {pkgbase.Name} Rejected"
     assert email.headers.get("Subject") == expected
@@ -453,7 +450,6 @@ Request #{pkgreq.ID} has been rejected by {user2.Username} [1].
 
     email = Email(3).parse()
     assert email.headers.get("To") == aur_request_ml
-    assert email.headers.get("Reply-to") == aur_request_ml
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
     expected = f"[PRQ#{pkgreq.ID}] Orphan Request for " f"{pkgbase.Name} Accepted"
     assert email.headers.get("Subject") == expected
@@ -480,7 +476,6 @@ def test_close_request_comaintainer_cc(
 
     email = Email(1).parse()
     assert email.headers.get("To") == aur_request_ml
-    assert email.headers.get("Reply-to") == aur_request_ml
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
 
 
@@ -535,7 +530,6 @@ def test_close_request_closure_comment(
 
     email = Email(1).parse()
     assert email.headers.get("To") == aur_request_ml
-    assert email.headers.get("Reply-to") == aur_request_ml
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
     expected = f"[PRQ#{pkgreq.ID}] Orphan Request for {pkgbase.Name} Accepted"
     assert email.headers.get("Subject") == expected
@@ -727,7 +721,6 @@ def test_notification_defaults():
     assert notif.get_refs() == tuple()
     assert notif.get_headers() == dict()
     assert notif.get_cc() == list()
-    assert notif.get_reply_to() == aur_reply_to
 
 
 def test_notification_oserror(user: User, caplog: pytest.LogCaptureFixture):
