@@ -119,12 +119,15 @@
                             <td>
                                 {# Filed by #}
                                 {# If the record has an associated User, display a link to that user. #}
-                                {# Otherwise, display nothing (an empty column). #}
+                                {# Otherwise, display "(deleted)". #}
                                 {% if result.User %}
                                     <a href="/account/{{ result.User.Username }}">
                                         {{ result.User.Username }}
-                                    </a>&nbsp;
+                                    </a>
+                                {% else %}
+                                    <i>(deleted)</i>
                                 {% endif %}
+                                &nbsp;
                                 <a target="_blank" rel="noopener noreferrer" href="{{ result.ml_message_url() }}">
                                     (PRQ#{{ result.ID }})
                                 </a>

@@ -834,6 +834,16 @@ def test_requests(
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 5  # There are five records left on the second page.
 
+    # Delete requesters user account and check output
+    with db.begin():
+        db.delete(requests[0].User)
+
+    with client as request:
+        request.cookies = cookies
+        resp = request.get("/requests")
+
+    assert "(deleted)" in resp.text
+
 
 def test_requests_with_filters(
     client: TestClient,
