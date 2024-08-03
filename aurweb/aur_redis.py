@@ -1,4 +1,5 @@
 import fakeredis
+from opentelemetry.instrumentation.redis import RedisInstrumentor
 from redis import ConnectionPool, Redis
 
 import aurweb.config
@@ -6,6 +7,8 @@ from aurweb import aur_logging
 
 logger = aur_logging.get_logger(__name__)
 pool = None
+
+RedisInstrumentor().instrument()
 
 
 class FakeConnectionPool:
