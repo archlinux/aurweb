@@ -2,7 +2,8 @@ from fastapi import APIRouter, Request
 from fastapi.responses import Response
 from feedgen.feed import FeedGenerator
 
-from aurweb import db, filters
+from aurweb import config, db, filters
+from aurweb.cache import lambda_cache
 from aurweb.models import Package, PackageBase
 
 router = APIRouter()
@@ -56,9 +57,11 @@ async def rss(request: Request):
         )
     )
 
-    feed = make_rss_feed(request, packages)
-    response = Response(feed, media_type="application/rss+xml")
+    # we use redis for caching the results of the feedgen
+    cache_expire = config.getint("cache", "expiry_time_rss", 300)
+    feed = lambda_cache("rss", lambda: make_rss_feed(request, packages), cache_expire)
 
+    response = Response(feed, media_type="application/rss+xml")
     return response
 
 
@@ -76,7 +79,9 @@ async def rss_modified(request: Request):
         )
     )
 
-    feed = make_rss_feed(request, packages)
-    response = Response(feed, media_type="application/rss+xml")
+    # we use redis for caching the results of the feedgen
+    cache_expire = config.getint("cache", "expiry_time_rss", 300)
+    feed = lambda_cache("rss_modified", lambda: make_rss_feed(request, packages), cache_expire)
 
+    response = Response(feed, media_type="application/rss+xml")
     return response

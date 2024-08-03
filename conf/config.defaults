@@ -175,3 +175,5 @@ max_search_entries = 50000
 expiry_time_search = 600
 ; number of seconds after a cache entry for statistics queries expires, default is 5 minutes
 expiry_time_statistics = 300
+; number of seconds after a cache entry for rss queries expires, default is 5 minutes
+expiry_time_rss = 300
