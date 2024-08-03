@@ -1,7 +1,7 @@
 import pickle
+from typing import Any, Callable
 
 from sqlalchemy import orm
-from typing import Callable, Any
 
 from aurweb import config
 from aurweb.aur_redis import redis_connection

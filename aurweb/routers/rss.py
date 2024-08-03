@@ -81,7 +81,9 @@ async def rss_modified(request: Request):
 
     # we use redis for caching the results of the feedgen
     cache_expire = config.getint("cache", "expiry_time_rss", 300)
-    feed = lambda_cache("rss_modified", lambda: make_rss_feed(request, packages), cache_expire)
+    feed = lambda_cache(
+        "rss_modified", lambda: make_rss_feed(request, packages), cache_expire
+    )
 
     response = Response(feed, media_type="application/rss+xml")
     return response

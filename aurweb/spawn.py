@@ -51,46 +51,46 @@ def generate_nginx_config():
     fastapi_bind = aurweb.config.get("fastapi", "bind_address")
     fastapi_host = fastapi_bind.split(":")[0]
     config_path = os.path.join(temporary_dir, "nginx.conf")
-    config = open(config_path, "w")
-    # We double nginx's braces because they conflict with Python's f-strings.
-    config.write(
-        f"""
-        events {{}}
-        daemon off;
-        error_log /dev/stderr info;
-        pid {os.path.join(temporary_dir, "nginx.pid")};
-        http {{
-            access_log /dev/stdout;
-            client_body_temp_path {os.path.join(temporary_dir, "client_body")};
-            proxy_temp_path {os.path.join(temporary_dir, "proxy")};
-            fastcgi_temp_path {os.path.join(temporary_dir, "fastcgi")}1 2;
-            uwsgi_temp_path {os.path.join(temporary_dir, "uwsgi")};
-            scgi_temp_path {os.path.join(temporary_dir, "scgi")};
-            server {{
-                listen {fastapi_host}:{FASTAPI_NGINX_PORT};
-                location / {{
-                    try_files $uri @proxy_to_app;
-                }}
-                location @proxy_to_app {{
-                    proxy_set_header Host $http_host;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_set_header X-Forwarded-Proto $scheme;
-                    proxy_redirect off;
-                    proxy_buffering off;
-                    proxy_pass http://{fastapi_bind};
+    with open(config_path, "w") as config:
+        # We double nginx's braces because they conflict with Python's f-strings.
+        config.write(
+            f"""
+            events {{}}
+            daemon off;
+            error_log /dev/stderr info;
+            pid {os.path.join(temporary_dir, "nginx.pid")};
+            http {{
+                access_log /dev/stdout;
+                client_body_temp_path {os.path.join(temporary_dir, "client_body")};
+                proxy_temp_path {os.path.join(temporary_dir, "proxy")};
+                fastcgi_temp_path {os.path.join(temporary_dir, "fastcgi")}1 2;
+                uwsgi_temp_path {os.path.join(temporary_dir, "uwsgi")};
+                scgi_temp_path {os.path.join(temporary_dir, "scgi")};
+                server {{
+                    listen {fastapi_host}:{FASTAPI_NGINX_PORT};
+                    location / {{
+                        try_files $uri @proxy_to_app;
+                    }}
+                    location @proxy_to_app {{
+                        proxy_set_header Host $http_host;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto $scheme;
+                        proxy_redirect off;
+                        proxy_buffering off;
+                        proxy_pass http://{fastapi_bind};
+                    }}
                 }}
             }}
-        }}
-    """
-    )
+        """
+        )
     return config_path
 
 
-def spawn_child(args):
+def spawn_child(_args):
     """Open a subprocess and add it to the global state."""
     if verbosity >= 1:
-        print(f":: Spawning {args}", file=sys.stderr)
-    children.append(subprocess.Popen(args))
+        print(f":: Spawning {_args}", file=sys.stderr)
+    children.append(subprocess.Popen(_args))
 
 
 def start():
@@ -171,17 +171,17 @@ def start():
     )
 
 
-def _kill_children(
-    children: Iterable, exceptions: list[Exception] = []
-) -> list[Exception]:
+def _kill_children(_children: Iterable, exceptions=None) -> list[Exception]:
     """
     Kill each process found in `children`.
 
-    :param children: Iterable of child processes
+    :param _children: Iterable of child processes
     :param exceptions: Exception memo
     :return: `exceptions`
     """
-    for p in children:
+    if exceptions is None:
+        exceptions = []
+    for p in _children:
         try:
             p.terminate()
             if verbosity >= 1:
@@ -191,17 +191,17 @@ def _kill_children(
     return exceptions
 
 
-def _wait_for_children(
-    children: Iterable, exceptions: list[Exception] = []
-) -> list[Exception]:
+def _wait_for_children(_children: Iterable, exceptions=None) -> list[Exception]:
     """
     Wait for each process to end found in `children`.
 
-    :param children: Iterable of child processes
+    :param _children: Iterable of child processes
     :param exceptions: Exception memo
     :return: `exceptions`
     """
-    for p in children:
+    if exceptions is None:
+        exceptions = []
+    for p in _children:
         try:
             rc = p.wait()
             if rc != 0 and rc != -15:
