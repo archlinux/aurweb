@@ -177,3 +177,6 @@ expiry_time_search = 600
 expiry_time_statistics = 300
 ; number of seconds after a cache entry for rss queries expires, default is 5 minutes
 expiry_time_rss = 300
+
+[tracing]
+otlp_endpoint = http://localhost:4318
