@@ -183,6 +183,8 @@ PackageBases = Table(
     Index("BasesNumVotes", "NumVotes"),
     Index("BasesPackagerUID", "PackagerUID"),
     Index("BasesSubmitterUID", "SubmitterUID"),
+    Index("BasesSubmittedTS", "SubmittedTS"),
+    Index("BasesModifiedTS", "ModifiedTS"),
     mysql_engine="InnoDB",
     mysql_charset="utf8mb4",
     mysql_collate="utf8mb4_general_ci",
