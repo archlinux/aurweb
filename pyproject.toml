@@ -86,9 +86,9 @@ Werkzeug = "^3.0.2"
 SQLAlchemy = "^1.4.52"
 
 # ASGI
-uvicorn = "^0.29.0"
+uvicorn = "^0.30.0"
 gunicorn = "^21.2.0"
-Hypercorn = "^0.16.0"
+Hypercorn = "^0.17.0"
 prometheus-fastapi-instrumentator = "^7.0.0"
 pytest-xdist = "^3.5.0"
 filelock = "^3.13.3"
@@ -96,7 +96,7 @@ posix-ipc = "^1.1.1"
 pyalpm = "^0.10.6"
 fastapi = "^0.110.0"
 srcinfo = "^0.1.2"
-tomlkit = "^0.12.0"
+tomlkit = "^0.13.0"
 
 [tool.poetry.dev-dependencies]
 coverage = "^7.4.4"
@@ -104,7 +104,7 @@ pytest = "^8.1.1"
 pytest-asyncio = "^0.23.0"
 pytest-cov = "^5.0.0"
 pytest-tap = "^3.4"
-watchfiles = "^0.21.0"
+watchfiles = "^0.22.0"
 
 [tool.poetry.scripts]
 aurweb-git-auth = "aurweb.git.auth:main"
