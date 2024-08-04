@@ -87,7 +87,7 @@ SQLAlchemy = "^1.4.52"
 
 # ASGI
 uvicorn = "^0.30.0"
-gunicorn = "^21.2.0"
+gunicorn = "^22.0.0"
 Hypercorn = "^0.17.0"
 prometheus-fastapi-instrumentator = "^7.0.0"
 pytest-xdist = "^3.5.0"
