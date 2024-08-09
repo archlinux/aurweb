@@ -53,42 +53,44 @@
                 </li>
                 {% endif %}
             {% endif %}
-            <li>
-                {% if not voted %}
-                <form action="/pkgbase/{{ pkgbase.Name }}/vote" method="post">
-                    <input type="submit"
-                           class="button text-button"
-                           name="do_Vote"
-                           value="{{ 'Vote for this package' | tr }}" />
-                </form>
-                {% else %}
-                <form action="/pkgbase/{{ pkgbase.Name }}/unvote" method="post">
-                    <input type="submit"
-                           class="button text-button"
-                           name="do_UnVote"
-                           value="{{ 'Remove vote' | tr }}" />
-                </form>
-                {% endif %}
-            </li>
-            <li>
-                {% if notified %}
-                    <form action="/pkgbase/{{ pkgbase.Name }}/unnotify" method="post">
+            {% if request.user.is_authenticated() %}
+                <li>
+                    {% if not voted %}
+                    <form action="/pkgbase/{{ pkgbase.Name }}/vote" method="post">
                         <input type="submit"
                                class="button text-button"
-                               name="do_UnNotify"
-                               value="{{ 'Disable notifications' | tr }}"
-                        />
+                               name="do_Vote"
+                               value="{{ 'Vote for this package' | tr }}" />
                     </form>
-                {% else %}
-                    <form action="/pkgbase/{{ pkgbase.Name }}/notify" method="post">
-                        <input type="submit"
-                               class="button text-button"
-                               name="do_Notify"
-                               value="{{ 'Enable notifications' | tr }}"
-                        />
+                    {% else %}
+                    <form action="/pkgbase/{{ pkgbase.Name }}/unvote" method="post">
+                       <input type="submit"
+                              class="button text-button"
+                              name="do_UnVote"
+                              value="{{ 'Remove vote' | tr }}" />
                     </form>
-                {% endif %}
-            </li>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if notified %}
+                        <form action="/pkgbase/{{ pkgbase.Name }}/unnotify" method="post">
+                            <input type="submit"
+                                   class="button text-button"
+                                   name="do_UnNotify"
+                                   value="{{ 'Disable notifications' | tr }}"
+                            />
+                        </form>
+                    {% else %}
+                        <form action="/pkgbase/{{ pkgbase.Name }}/notify" method="post">
+                            <input type="submit"
+                                   class="button text-button"
+                                   name="do_Notify"
+                                   value="{{ 'Enable notifications' | tr }}"
+                            />
+                        </form>
+                    {% endif %}
+                </li>
+            {% endif %}
             {% if request.user.has_credential(creds.PKGBASE_EDIT_COMAINTAINERS, approved=[pkgbase.Maintainer]) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/comaintainers">
@@ -111,11 +113,13 @@
                     </li>
                 {% endif %}
             {% endif %}
-            <li>
-                <a href="/pkgbase/{{ pkgbase.Name }}/request?{{ {'next': '/pkgbase/%s' | format(pkgbase.Name)} | urlencode }}">
-                    {{ "Submit Request" | tr }}
-                </a>
-            </li>
+            {% if request.user.is_authenticated() %}
+                <li>
+                    <a href="/pkgbase/{{ pkgbase.Name }}/request?{{ {'next': '/pkgbase/%s' | format(pkgbase.Name)} | urlencode }}">
+                        {{ "Submit Request" | tr }}
+                    </a>
+                </li>
+            {% endif %}
             {% if request.user.has_credential(creds.PKGBASE_DELETE) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/delete?next=/packages">
