@@ -26,6 +26,8 @@ def make_context(
     if not context:
         context = _make_context(request, pkgbase.Name)
 
+    is_authenticated = request.user.is_authenticated()
+
     # Per page and offset.
     offset, per_page = util.sanitize_params(
         request.query_params.get("O", defaults.O),
@@ -42,8 +44,11 @@ def make_context(
             PackageComaintainer.Priority.asc()
         ).all()
     ]
-    context["unflaggers"] = context["comaintainers"].copy()
-    context["unflaggers"].extend([pkgbase.Maintainer, pkgbase.Flagger])
+    if is_authenticated:
+        context["unflaggers"] = context["comaintainers"].copy()
+        context["unflaggers"].extend([pkgbase.Maintainer, pkgbase.Flagger])
+    else:
+        context["unflaggers"] = []
 
     context["packages_count"] = pkgbase.packages.count()
     context["keywords"] = pkgbase.keywords
@@ -60,17 +65,26 @@ def make_context(
     ).order_by(PackageComment.CommentTS.desc())
 
     context["is_maintainer"] = bool(request.user == pkgbase.Maintainer)
-    context["notified"] = request.user.notified(pkgbase)
+    if is_authenticated:
+        context["notified"] = request.user.notified(pkgbase)
+    else:
+        context["notified"] = False
 
     context["out_of_date"] = bool(pkgbase.OutOfDateTS)
 
-    context["voted"] = request.user.package_votes.filter(
-        PackageVote.PackageBaseID == pkgbase.ID
-    ).scalar()
+    if is_authenticated:
+        context["voted"] = request.user.package_votes.filter(
+            PackageVote.PackageBaseID == pkgbase.ID
+        ).scalar()
+    else:
+        context["voted"] = False
 
-    context["requests"] = pkgbase.requests.filter(
-        and_(PackageRequest.Status == PENDING_ID, PackageRequest.ClosedTS.is_(None))
-    ).count()
+    if is_authenticated:
+        context["requests"] = pkgbase.requests.filter(
+            and_(PackageRequest.Status == PENDING_ID, PackageRequest.ClosedTS.is_(None))
+        ).count()
+    else:
+        context["requests"] = []
 
     context["popularity"] = popularity(pkgbase, time.utcnow())
 
