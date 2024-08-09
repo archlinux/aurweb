@@ -507,7 +507,9 @@ def test_package_requests_display(
     client: TestClient, user: User, package: Package, pkgreq: PackageRequest
 ):
     # Test that a single request displays "1 pending request".
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
+        request.cookies = cookies
         resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
 
@@ -530,6 +532,7 @@ def test_package_requests_display(
 
     # Test that a two requests display "2 pending requests".
     with client as request:
+        request.cookies = cookies
         resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
 
