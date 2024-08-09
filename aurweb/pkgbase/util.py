@@ -73,8 +73,10 @@ def make_context(
     context["out_of_date"] = bool(pkgbase.OutOfDateTS)
 
     if is_authenticated:
-        context["voted"] = request.user.package_votes.filter(
-            PackageVote.PackageBaseID == pkgbase.ID
+        context["voted"] = db.query(
+            request.user.package_votes.filter(
+                PackageVote.PackageBaseID == pkgbase.ID
+            ).exists()
         ).scalar()
     else:
         context["voted"] = False
