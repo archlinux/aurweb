@@ -22,7 +22,6 @@ from starlette.middleware.sessions import SessionMiddleware
 import aurweb.captcha  # noqa: F401
 import aurweb.config
 import aurweb.filters  # noqa: F401
-import aurweb.pkgbase.util as pkgbaseutil
 from aurweb import aur_logging, prometheus, util
 from aurweb.aur_redis import redis_connection
 from aurweb.auth import BasicAuthBackend
@@ -215,7 +214,9 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> Respon
         if matches and len(tokens) == 2:
             try:
                 pkgbase = get_pkg_or_base(matches.group(1))
-                context = pkgbaseutil.make_context(request, pkgbase)
+                context["pkgbase"] = pkgbase
+                context["git_clone_uri_anon"] = aurweb.config.get("options", "git_clone_uri_anon")
+                context["git_clone_uri_priv"] = aurweb.config.get("options", "git_clone_uri_priv")
             except HTTPException:
                 pass
 
