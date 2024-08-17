@@ -215,8 +215,12 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> Respon
             try:
                 pkgbase = get_pkg_or_base(matches.group(1))
                 context["pkgbase"] = pkgbase
-                context["git_clone_uri_anon"] = aurweb.config.get("options", "git_clone_uri_anon")
-                context["git_clone_uri_priv"] = aurweb.config.get("options", "git_clone_uri_priv")
+                context["git_clone_uri_anon"] = aurweb.config.get(
+                    "options", "git_clone_uri_anon"
+                )
+                context["git_clone_uri_priv"] = aurweb.config.get(
+                    "options", "git_clone_uri_priv"
+                )
             except HTTPException:
                 pass
 
