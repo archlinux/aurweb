@@ -1,15 +1,9 @@
-version: "3.8"
-
+---
 services:
   ca:
     volumes:
       - ./data:/data
       - step:/root/.step
-
-  mariadb_init:
-    depends_on:
-      mariadb:
-        condition: service_healthy
 
   git:
     volumes:
@@ -21,9 +15,6 @@ services:
       - git_data:/aurweb/aur.git
       - ./data:/data
       - smartgit_run:/var/run/smartgit
-    depends_on:
-      mariadb:
-        condition: service_healthy
 
   fastapi:
     volumes:

@@ -1,3 +1,4 @@
+---
 #
 # Docker service definitions for the aurweb project.
 #
@@ -16,8 +17,6 @@
 #
 # Copyright (C) 2021 aurweb Development
 # All Rights Reserved.
-version: "3.8"
-
 services:
   aurweb-image:
     build: .
@@ -107,8 +106,10 @@ services:
       test: "bash /docker/health/sshd.sh"
       interval: 3s
     depends_on:
+      mariadb:
+        condition: service_healthy
       mariadb_init:
-        condition: service_started
+        condition: service_completed_successfully
     volumes:
       - mariadb_run:/var/run/mysqld
 
@@ -122,6 +123,9 @@ services:
     healthcheck:
       test: "bash /docker/health/smartgit.sh"
       interval: 3s
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
   cgit-fastapi:
     image: aurweb:latest
@@ -152,8 +156,10 @@ services:
     entrypoint: /docker/cron-entrypoint.sh
     command: /docker/scripts/run-cron.sh
     depends_on:
+      mariadb:
+        condition: service_healthy
       mariadb_init:
-        condition: service_started
+        condition: service_completed_successfully
     volumes:
       - ./aurweb:/aurweb/aurweb
       - mariadb_run:/var/run/mysqld
@@ -182,6 +188,12 @@ services:
         condition: service_healthy
       cron:
         condition: service_started
+      mariadb:
+        condition: service_healthy
+      mariadb_init:
+        condition: service_completed_successfully
+      tempo:
+        condition: service_healthy
     volumes:
       - archives:/var/lib/aurweb/archives
       - mariadb_run:/var/run/mysqld
