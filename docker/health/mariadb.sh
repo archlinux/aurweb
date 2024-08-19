@@ -1,2 +1,2 @@
 #!/bin/bash
-exec mysqladmin ping --silent
+exec mariadb-admin ping --silent

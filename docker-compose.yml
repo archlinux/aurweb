@@ -48,7 +48,7 @@ services:
     image: aurweb:latest
     init: true
     entrypoint: /docker/mariadb-entrypoint.sh
-    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
+    command: /usr/bin/mariadbd-safe --datadir=/var/lib/mysql
     ports:
       # This will expose mariadbd on 127.0.0.1:13306 in the host.
       # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
@@ -80,7 +80,7 @@ services:
     environment:
       - MARIADB_PRIVILEGED=1
     entrypoint: /docker/mariadb-entrypoint.sh
-    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
+    command: /usr/bin/mariadbd-safe --datadir=/var/lib/mysql
     ports:
       # This will expose mariadbd on 127.0.0.1:13307 in the host.
       # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
