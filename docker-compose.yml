@@ -293,6 +293,56 @@ services:
       - ./test:/aurweb/test
       - ./templates:/aurweb/templates
 
+  grafana:
+    # TODO: check if we need init: true
+    image: grafana/grafana:11.1.3
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_LOG_LEVEL=warn
+    # check if depends ar ecorrect, does stopping or restarting a child exit grafana?
+    depends_on:
+      prometheus:
+        condition: service_healthy
+      tempo:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./docker/config/grafana/datasources:/etc/grafana/provisioning/datasources
+
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.enable-remote-write-receiver
+      - --web.listen-address=prometheus:9090
+    healthcheck:
+      # TODO: check if there is a status route
+      test: "sh /docker/health/prometheus.sh"
+      interval: 3s
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./docker/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker/health/prometheus.sh:/docker/health/prometheus.sh
+
+  tempo:
+    image: grafana/tempo:2.5.0
+    command:
+      - -config.file=/etc/tempo/config.yml
+    healthcheck:
+      # TODO: check if there is a status route
+      test: "sh /docker/health/tempo.sh"
+      interval: 3s
+    ports:
+      - "127.0.0.1:3200:3200"
+      - "127.0.0.1:4318:4318"
+    volumes:
+      - ./docker/config/tempo.yml:/etc/tempo/config.yml
+      - ./docker/health/tempo.sh:/docker/health/tempo.sh
+
 volumes:
   mariadb_test_run: {}
   mariadb_run: {} # Share /var/run/mysqld/mysqld.sock

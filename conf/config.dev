@@ -73,3 +73,6 @@ pkgnames-repo = pkgnames.git
 
 [aurblup]
 db-path = YOUR_AUR_ROOT/aurblup/
+
+[tracing]
+otlp_endpoint = http://tempo:4318/v1/traces

@@ -179,4 +179,4 @@ expiry_time_statistics = 300
 expiry_time_rss = 300
 
 [tracing]
-otlp_endpoint = http://localhost:4318
+otlp_endpoint = http://localhost:4318/v1/traces

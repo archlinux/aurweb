@@ -1,0 +1,15 @@
+---
+global:
+  scrape_interval: 60s
+
+scrape_configs:
+  - job_name: tempo
+    static_configs:
+      - targets: ['tempo:3200']
+        labels:
+          instance: tempo
+  - job_name: aurweb
+    static_configs:
+      - targets: ['fastapi:8000']
+        labels:
+          instance: aurweb
