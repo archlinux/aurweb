@@ -2,6 +2,7 @@ from typing import Any
 
 from fastapi import Request
 from sqlalchemy import and_
+from sqlalchemy.orm import joinedload
 
 from aurweb import config, db, defaults, l10n, time, util
 from aurweb.models import PackageBase, User
@@ -40,7 +41,7 @@ def make_context(
     context["pkgbase"] = pkgbase
     context["comaintainers"] = [
         c.User
-        for c in pkgbase.comaintainers.order_by(
+        for c in pkgbase.comaintainers.options(joinedload(PackageComaintainer.User)).order_by(
             PackageComaintainer.Priority.asc()
         ).all()
     ]
