@@ -41,9 +41,9 @@ def make_context(
     context["pkgbase"] = pkgbase
     context["comaintainers"] = [
         c.User
-        for c in pkgbase.comaintainers.options(joinedload(PackageComaintainer.User)).order_by(
-            PackageComaintainer.Priority.asc()
-        ).all()
+        for c in pkgbase.comaintainers.options(joinedload(PackageComaintainer.User))
+        .order_by(PackageComaintainer.Priority.asc())
+        .all()
     ]
     if is_authenticated:
         context["unflaggers"] = context["comaintainers"].copy()
