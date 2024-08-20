@@ -20,7 +20,7 @@
                     {% endif %}
                 {% else -%}
                     </a>
-                    {%- if dep.is_aur_package() -%}
+                    {%- if dep.DepName in dependencies_names_from_aur -%}
                         <sup><small>AUR</small></sup>
                     {% endif %}
                 {% endif %}

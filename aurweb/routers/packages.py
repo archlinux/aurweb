@@ -190,6 +190,17 @@ async def package(
     if not all_deps:
         deps = deps.limit(max_listing)
     context["dependencies"] = deps.all()
+    # Existing dependencies to avoid multiple lookups
+    context["dependencies_names_from_aur"] = [
+        item.Name
+        for item in db.query(models.Package)
+        .filter(
+            models.Package.Name.in_(
+                pkg.package_dependencies.with_entities(models.PackageDependency.DepName)
+            )
+        )
+        .all()
+    ]
 
     # Package requirements (other packages depend on this one).
     reqs = pkgutil.pkg_required(pkg.Name, [p.RelName for p in rels_data.get("p", [])])
