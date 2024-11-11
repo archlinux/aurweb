@@ -50,7 +50,7 @@ Links
 
 * Questions, comments, and patches related to aurweb can be sent to the AUR
   development mailing list: aur-dev@archlinux.org -- mailing list archives:
-  https://mailman.archlinux.org/mailman/listinfo/aur-dev
+  https://lists.archlinux.org/archives/list/aur-dev@lists.archlinux.org/
 
 Translations
 ------------
