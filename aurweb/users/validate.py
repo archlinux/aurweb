@@ -107,7 +107,14 @@ def invalid_homepage(HP: str = str(), **kwargs) -> None:
 
 def invalid_pgp_key(K: str = str(), **kwargs) -> None:
     if K and not util.valid_pgp_fingerprint(K):
-        raise ValidationError(["The PGP key fingerprint is invalid."])
+        raise ValidationError(
+            [
+                "The PGP key fingerprint is invalid. "
+                "Only full fingerprints are accepted. "
+                "Use `gpg --list-keys --fingerprint KEYID` to obtain a valid "
+                "fingerprint."
+            ]
+        )
 
 
 def invalid_ssh_pubkey(
