@@ -52,7 +52,7 @@ build-backend = "poetry.masonry.api"
 "Request Mailing List" = "https://lists.archlinux.org/listinfo/aur-requests"
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.10,<3.14"
 
 # poetry-dynamic-versioning is used to produce tool.poetry.version
 # based on git tags.
@@ -69,8 +69,8 @@ httpx = "^0.27.0"
 itsdangerous = "^2.1.2"
 lxml = "^5.2.1"
 orjson = "^3.10.0"
-pygit2 = "^1.14.1"
-python-multipart = "^0.0.9"
+pygit2 = "^1.17.0"
+python-multipart = "0.0.19"
 redis = "^5.0.3"
 requests = "^2.31.0"
 paginate = "^0.5.6"
@@ -83,6 +83,7 @@ Jinja2 = "^3.1.3"
 Markdown = "^3.6"
 Werkzeug = "^3.0.2"
 SQLAlchemy = "^1.4.52"
+greenlet = "3.1.1" # Explicitly add greenlet (dependency of SQLAlchemy) for python 3.13 support
 
 # ASGI
 uvicorn = "^0.30.0"
@@ -111,7 +112,7 @@ pytest = "^8.1.1"
 pytest-asyncio = "^0.23.0"
 pytest-cov = "^5.0.0"
 pytest-tap = "^3.4"
-watchfiles = "^0.22.0"
+watchfiles = "^1.0.4"
 
 [tool.poetry.scripts]
 aurweb-git-auth = "aurweb.git.auth:main"
