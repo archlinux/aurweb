@@ -19,9 +19,9 @@ variables:
 lint:
   stage: .pre
   before_script:
-    - pacman -Sy --noconfirm --noprogressbar --cachedir .pkg-cache
+    - pacman -Sy --noconfirm --noprogressbar
       archlinux-keyring
-    - pacman -Syu --noconfirm --noprogressbar --cachedir .pkg-cache
+    - pacman -Syu --noconfirm --noprogressbar
       git python python-pre-commit
   script:
     - export XDG_CACHE_HOME=.pre-commit
@@ -60,7 +60,7 @@ test:
         path: coverage.xml
 
 .init_tf: &init_tf
-  - pacman -Syu --needed --noconfirm --cachedir .pkg-cache terraform
+  - pacman -Syu --needed --noconfirm terraform
   - export TF_VAR_name="aurweb-${CI_COMMIT_REF_SLUG}"
   - TF_ADDRESS="${CI_API_V4_URL}/projects/${TF_STATE_PROJECT}/terraform/state/${CI_COMMIT_REF_SLUG}"
   - cd ci/tf
@@ -97,7 +97,7 @@ provision_review:
     - deploy_review
   script:
     - *init_tf
-    - pacman -Syu --noconfirm --needed --cachedir .pkg-cache ansible git openssh jq
+    - pacman -Syu --noconfirm --needed ansible git openssh jq
       # Get ssh key from terraform state file
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
