@@ -109,6 +109,7 @@ provision_review:
       # Clone infra repo
     - git clone $INFRASTRUCTURE_REPO
     - cd infrastructure
+    - git switch skip-gpg-validation-in-aurdev
       # Remove vault files
     - rm $(git grep -l 'ANSIBLE_VAULT;1.1;AES256$')
       # Remove vault config
