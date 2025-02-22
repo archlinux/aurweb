@@ -24,25 +24,18 @@
                     {{ "Search wiki" | tr }}
                 </a>
             </li>
-            {% if request.user.is_authenticated() %}
-				{% if not out_of_date %}
-					<li>
-						<a href="/pkgbase/{{ pkgbase.Name }}/flag">
-							{{ "Flag package out-of-date" | tr }}
+			{% if out_of_date %}
+				<li>
+					<span class="flagged">
+						<a href="/pkgbase/{{ pkgbase.Name }}/flag-comment">
+							{{
+							"Flagged out-of-date (%s)"
+							| tr | format(date_strftime(pkgbase.OutOfDateTS, "%Y-%m-%d"))
+							}}
 						</a>
-					</li>
-				{% else %}
-					<li>
-						<span class="flagged">
-							<a href="/pkgbase/{{ pkgbase.Name }}/flag-comment">
-								{{
-								"Flagged out-of-date (%s)"
-								| tr | format(date_strftime(pkgbase.OutOfDateTS, "%Y-%m-%d"))
-								}}
-							</a>
-						</span>
-					</li>
-					{% if request.user.has_credential(creds.PKGBASE_UNFLAG, approved=unflaggers) %}
+					</span>
+				</li>
+				{% if request.user.has_credential(creds.PKGBASE_UNFLAG, approved=unflaggers) %}
 					<li>
 						<form action="/pkgbase/{{ pkgbase.Name }}/unflag" method="post">
 							<input class="button text-button"
@@ -52,7 +45,15 @@
 							/>
 						</form>
 					</li>
-					{% endif %}
+				{% endif %}
+			{% endif %}
+			{% if request.user.is_authenticated() %}
+				{% if not out_of_date %}
+					<li>
+						<a href="/pkgbase/{{ pkgbase.Name }}/flag">
+							{{ "Flag package out-of-date" | tr }}
+						</a>
+					</li>
 				{% endif %}
                 <li>
                     {% if not voted %}
