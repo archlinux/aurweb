@@ -76,7 +76,7 @@ requests = "^2.31.0"
 paginate = "^0.5.6"
 
 # SQL
-alembic = "^1.13.1"
+alembic = "^1.15"
 mysqlclient = "^2.2.3"
 Authlib = "^1.5"
 Jinja2 = "^3.1.3"
