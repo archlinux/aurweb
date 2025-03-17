@@ -47,7 +47,6 @@ class Request:
     ) -> "Request":
         self.user = user
         self.user.authenticated = authenticated
-
         self.method = method.upper()
         self.headers = headers
         self.cookies = cookies

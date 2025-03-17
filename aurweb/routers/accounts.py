@@ -243,7 +243,7 @@ async def account_register(
     request: Request,
     U: str = Form(default=str()),  # Username
     E: str = Form(default=str()),  # Email
-    H: str = Form(default=False),  # Hide Email
+    H: str | bool = Form(default=False),  # Hide Email
     BE: str = Form(default=None),  # Backup Email
     R: str = Form(default=None),  # Real Name
     HP: str = Form(default=None),  # Homepage
@@ -272,7 +272,7 @@ async def account_register_post(
     request: Request,
     U: str = Form(default=str()),  # Username
     E: str = Form(default=str()),  # Email
-    H: str = Form(default=False),  # Hide Email
+    H: str | bool = Form(default=False),  # Hide Email
     BE: str = Form(default=None),  # Backup Email
     R: str = Form(default=""),  # Real Name
     HP: str = Form(default=None),  # Homepage
@@ -410,7 +410,7 @@ async def account_edit_post(
     U: str = Form(default=str()),  # Username
     J: bool = Form(default=False),
     E: str = Form(default=str()),  # Email
-    H: str = Form(default=False),  # Hide Email
+    H: str | bool = Form(default=False),  # Hide Email
     BE: str = Form(default=None),  # Backup Email
     R: str = Form(default=None),  # Real Name
     HP: str = Form(default=None),  # Homepage
