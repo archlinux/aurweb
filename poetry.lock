@@ -2573,4 +2573,4 @@ test = ["big-O", "importlib-resources ; python_version < \"3.9\"", "jaraco.funct
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.14"
-content-hash = "2a96d199e1fc022a56c7c0ecbf1f4ebe65e67cf4783f29d29410d3ac5fa7e659"
+content-hash = "5a0a85fdc2ba5957f6ee4794b773ee37e5d420bc1135bc06fb85a7ca9e640304"
