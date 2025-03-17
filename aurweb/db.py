@@ -298,12 +298,16 @@ def get_engine(dbname: str = None, echo: bool = False):
             connect_args["check_same_thread"] = False
 
         kwargs = {"echo": echo, "connect_args": connect_args}
-        from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
         from sqlalchemy import create_engine
 
-        engine = create_engine(get_sqlalchemy_url(), **kwargs)
-        SQLAlchemyInstrumentor().instrument(engine=engine)
-        _engines[dbname] = engine
+        if aurweb.config.get("tracing", "otlp_endpoint"):
+            from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
+
+            engine = create_engine(get_sqlalchemy_url(), **kwargs)
+            SQLAlchemyInstrumentor().instrument(engine=engine)
+            _engines[dbname] = engine
+        else:
+            _engines[dbname] = create_engine(get_sqlalchemy_url(), **kwargs)
 
         if is_sqlite:  # pragma: no cover
             setup_sqlite(_engines.get(dbname))

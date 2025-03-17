@@ -74,6 +74,9 @@ packagesmetafile = packages-meta-v1.json.gz
 packagesmetaextfile = packages-meta-ext-v1.json.gz
 pkgbasefile = pkgbase.gz
 userfile = users.gz
+
+[tracing]
+otlp_endpoint =
 EOF
 
 cat >sendmail.sh <<-\EOF

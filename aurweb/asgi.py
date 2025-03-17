@@ -14,12 +14,6 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from jinja2 import TemplateNotFound
-from opentelemetry import trace
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from opentelemetry.sdk.resources import Resource
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from sqlalchemy import and_
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -51,7 +45,6 @@ async def lifespan(app: FastAPI):
 # Setup the FastAPI app.
 app = FastAPI(lifespan=lifespan)
 
-
 # Instrument routes with the prometheus-fastapi-instrumentator
 # library with custom collectors and expose /metrics.
 instrumentator().add(prometheus.http_api_requests_total())
@@ -59,15 +52,23 @@ instrumentator().add(prometheus.http_requests_total())
 instrumentator().instrument(app)
 
 
-# Instrument FastAPI for tracing
-FastAPIInstrumentor.instrument_app(app)
+if aurweb.config.get("tracing", "otlp_endpoint"):
+    from opentelemetry import trace
+    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+    from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+    from opentelemetry.sdk.resources import Resource
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
-resource = Resource(attributes={"service.name": "aurweb"})
-otlp_endpoint = aurweb.config.get("tracing", "otlp_endpoint")
-otlp_exporter = OTLPSpanExporter(endpoint=otlp_endpoint)
-span_processor = BatchSpanProcessor(otlp_exporter)
-trace.set_tracer_provider(TracerProvider(resource=resource))
-trace.get_tracer_provider().add_span_processor(span_processor)
+    # Instrument FastAPI for tracing
+    FastAPIInstrumentor.instrument_app(app)
+
+    resource = Resource(attributes={"service.name": "aurweb"})
+    otlp_endpoint = aurweb.config.get("tracing", "otlp_endpoint")
+    otlp_exporter = OTLPSpanExporter(endpoint=otlp_endpoint)
+    span_processor = BatchSpanProcessor(otlp_exporter)
+    trace.set_tracer_provider(TracerProvider(resource=resource))
+    trace.get_tracer_provider().add_span_processor(span_processor)
 
 
 async def app_startup():
