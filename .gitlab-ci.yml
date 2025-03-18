@@ -134,6 +134,7 @@ provision_review:
         -e "vault_aurweb_error_token=set-me" \
         -e "vault_aurweb_secret=aur" \
         -e "vault_goaurrpc_metrics_token=aur" \
+        -e "{\"sshd_port\": 22}" \
         -e '{"root_additional_keys": ["moson.pub", "aurweb-dev.pub"]}'
   environment:
     name: review/$CI_COMMIT_REF_NAME
