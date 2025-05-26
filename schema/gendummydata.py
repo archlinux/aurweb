@@ -315,7 +315,7 @@ for p in seen_pkgs_keys:
         out.write(s)
 
     num_rels = random.randrange(PKG_RELS[0], PKG_RELS[1])
-    for i in range(0, num_deps):
+    for i in range(0, num_rels):
         rel = random.choice(seen_pkgs_keys)
         reltype = random.randrange(1, 4)
         s = (
