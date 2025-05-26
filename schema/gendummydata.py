@@ -35,6 +35,7 @@ PKG_RELS = (1, 5)  # min/max relations a package has
 PKG_SRC = (1, 3)  # min/max sources a package has
 PKG_CMNTS = (1, 5)  # min/max number of comments a package has
 PKG_OPTS_DESC_PROBABILITY = 0.75
+PKG_SPLIT_PROBABILITY = 0.1
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
 VOTING = (0, 0.001)  # percentage range for package voting
 # number of open package maintainer proposals
@@ -142,18 +143,21 @@ user_keys = list(seen_users.keys())
 #
 log.debug("Generating random package names...")
 num_pkgs = PKG_ID
+pkgbases = {}
 while len(seen_pkgs) < MAX_PKGS:
     pkg = random.randrange(0, len(contents))
     word = contents[pkg].replace("'", "").replace(".", "").replace(" ", "_")
     word = normalize(word.strip().lower())
-    if not need_dupes:
-        if word not in seen_pkgs and word not in seen_users:
-            seen_pkgs[word] = num_pkgs
-            num_pkgs += 1
-    else:
-        if word not in seen_pkgs:
-            seen_pkgs[word] = num_pkgs
-            num_pkgs += 1
+    if word in seen_pkgs:
+        continue
+    if not need_dupes and word in seen_users:
+        continue
+    pkgbase = num_pkgs
+    if pkgbases and random.random() < PKG_SPLIT_PROBABILITY:
+        pkgbase = random.choice(list(pkgbases.values()))
+    seen_pkgs[word] = num_pkgs
+    pkgbases[word] = pkgbase
+    num_pkgs += 1
 
 # free up contents memory
 #
@@ -239,19 +243,20 @@ for p in list(seen_pkgs.keys()):
 
     uuid = genUID()  # the submitter/user
 
-    s = (
-        "INSERT INTO PackageBases (ID, Name, FlaggerComment, SubmittedTS, ModifiedTS, "
-        "SubmitterUID, MaintainerUID, PackagerUID) VALUES "
-        "(%d, '%s', '', %d, %d, %d, %s, %s);\n"
-    )
-    s = s % (seen_pkgs[p], p, NOW, NOW, uuid, muid, puid)
-    out.write(s)
+    if seen_pkgs[p] == pkgbases[p]:
+        s = (
+            "INSERT INTO PackageBases (ID, Name, FlaggerComment, SubmittedTS, "
+            "ModifiedTS, SubmitterUID, MaintainerUID, PackagerUID) VALUES "
+            "(%d, '%s', '', %d, %d, %d, %s, %s);\n"
+        )
+        s = s % (seen_pkgs[p], p, NOW, NOW, uuid, muid, puid)
+        out.write(s)
 
     s = (
         "INSERT INTO Packages (ID, PackageBaseID, Name, Version) VALUES "
         "(%d, %d, '%s', '%s');\n"
     )
-    s = s % (seen_pkgs[p], seen_pkgs[p], p, genVersion())
+    s = s % (seen_pkgs[p], pkgbases[p], p, genVersion())
     out.write(s)
 
     count += 1
@@ -265,7 +270,7 @@ for p in list(seen_pkgs.keys()):
             "INSERT INTO PackageComments (PackageBaseID, UsersID,"
             " Comments, RenderedComment, CommentTS) VALUES (%d, %d, '%s', '', %d);\n"
         )
-        s = s % (seen_pkgs[p], genUID(), genFortune(), now)
+        s = s % (pkgbases[p], genUID(), genFortune(), now)
         out.write(s)
 
 # Cast votes
@@ -279,7 +284,7 @@ for u in user_keys:
     )
     pkgvote = {}
     for v in range(num_votes):
-        pkg = random.randrange(1, len(seen_pkgs) + 1)
+        pkg = random.choice(list(pkgbases.values()))
         if pkg not in pkgvote:
             s = (
                 "INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS)"
