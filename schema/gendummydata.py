@@ -45,6 +45,7 @@ RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
 FORTUNE_FILE = os.environ.get("FORTUNE_FILE", "/usr/share/fortune/cookie")
+NONE_EXISTING_PACKAGE_PROBABILITY = 0.1
 
 # setup logging
 logformat = "%(levelname)s: %(message)s"
@@ -305,6 +306,9 @@ for p in seen_pkgs_keys:
     num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
     for i in range(0, num_deps):
         dep = random.choice(seen_pkgs_keys)
+        none_existing = random.random() < NONE_EXISTING_PACKAGE_PROBABILITY
+        if none_existing:
+            dep += "-broken"
         deptype = random.randrange(1, 5)
         if deptype == 4 and random.random() < PKG_OPTS_DESC_PROBABILITY:
             dep_desc = "for " + random.choice(seen_pkgs_keys)
