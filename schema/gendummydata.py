@@ -34,6 +34,7 @@ PKG_DEPS = (1, 15)  # min/max depends a package has
 PKG_RELS = (1, 5)  # min/max relations a package has
 PKG_SRC = (1, 3)  # min/max sources a package has
 PKG_CMNTS = (1, 5)  # min/max number of comments a package has
+PKG_OPTS_DESC_PROBABILITY = 0.75
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
 VOTING = (0, 0.001)  # percentage range for package voting
 # number of open package maintainer proposals
@@ -305,13 +306,19 @@ for p in seen_pkgs_keys:
     for i in range(0, num_deps):
         dep = random.choice(seen_pkgs_keys)
         deptype = random.randrange(1, 5)
-        if deptype == 4:
-            dep += ": for " + random.choice(seen_pkgs_keys)
-        s = (
-            "INSERT INTO PackageDepends(PackageID, DepTypeID, DepName) "
-            "VALUES (%d, %d, '%s');\n"
-        )
-        s = s % (seen_pkgs[p], deptype, dep)
+        if deptype == 4 and random.random() < PKG_OPTS_DESC_PROBABILITY:
+            dep_desc = "for " + random.choice(seen_pkgs_keys)
+            s = (
+                "INSERT INTO PackageDepends(PackageID, DepTypeID, DepName, DepDesc) "
+                "VALUES (%d, %d, '%s', '%s');\n"
+            )
+            s = s % (seen_pkgs[p], deptype, dep, dep_desc)
+        else:
+            s = (
+                "INSERT INTO PackageDepends(PackageID, DepTypeID, DepName) "
+                "VALUES (%d, %d, '%s');\n"
+            )
+            s = s % (seen_pkgs[p], deptype, dep)
         out.write(s)
 
     num_rels = random.randrange(PKG_RELS[0], PKG_RELS[1])
