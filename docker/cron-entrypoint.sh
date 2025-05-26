@@ -9,7 +9,7 @@ AURBLUP_DIR="/aurweb/aurblup/"
 mkdir -p $AURBLUP_DIR
 
 # Setup aurblup config for Docker.
-AURBLUP_DBS='core extra community multilib testing community-testing'
+AURBLUP_DBS='core extra multilib core-testing extra-testing multilib-testing'
 AURBLUP_SERVER='https://mirrors.kernel.org/archlinux/%s/os/x86_64'
 aurweb-config set aurblup db-path "$AURBLUP_DIR"
 aurweb-config set aurblup sync-dbs "$AURBLUP_DBS"
