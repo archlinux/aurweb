@@ -45,6 +45,9 @@ RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
 FORTUNE_FILE = os.environ.get("FORTUNE_FILE", "/usr/share/fortune/cookie")
+# some official repo package so we can live test all code paths, including provides
+OFFICIAL_PACKAGES = ["linux", "coreutils", "gcc", "clang", "rust", "netcat", "cargo"]
+OFFICIAL_PACKAGE_PROBABILITY = 0.1
 NONE_EXISTING_PACKAGE_PROBABILITY = 0.1
 
 # setup logging
@@ -305,8 +308,10 @@ seen_pkgs_keys = list(seen_pkgs.keys())
 for p in seen_pkgs_keys:
     num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
     for i in range(0, num_deps):
-        dep = random.choice(seen_pkgs_keys)
+        # random probability if its an AUR or official package
+        official = random.random() < OFFICIAL_PACKAGE_PROBABILITY
         none_existing = random.random() < NONE_EXISTING_PACKAGE_PROBABILITY
+        dep = random.choice(OFFICIAL_PACKAGES if official else seen_pkgs_keys)
         if none_existing:
             dep += "-broken"
         deptype = random.randrange(1, 5)
@@ -327,8 +332,12 @@ for p in seen_pkgs_keys:
 
     num_rels = random.randrange(PKG_RELS[0], PKG_RELS[1])
     for i in range(0, num_rels):
-        rel = random.choice(seen_pkgs_keys)
+        # make aur packages provide official packages
+        official = random.random() < OFFICIAL_PACKAGE_PROBABILITY
         reltype = random.randrange(1, 4)
+        rel = random.choice(
+            OFFICIAL_PACKAGES if official and reltype == 2 else seen_pkgs_keys
+        )
         s = (
             "INSERT INTO PackageRelations(PackageID, RelTypeID, RelName) "
             "VALUES (%d, %d, '%s');\n"
