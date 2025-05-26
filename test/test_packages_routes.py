@@ -983,7 +983,8 @@ def test_packages_search_by_submitter(
 def test_packages_sort_by_name(client: TestClient, packages: list[Package]):
     with client as request:
         response = request.get(
-            "/packages", params={"SB": "n", "SO": "a", "PP": "150"}  # Name  # Ascending
+            "/packages",
+            params={"SB": "n", "SO": "a", "PP": "150"},  # Name  # Ascending
         )
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -993,7 +994,8 @@ def test_packages_sort_by_name(client: TestClient, packages: list[Package]):
 
     with client as request:
         response2 = request.get(
-            "/packages", params={"SB": "n", "SO": "d", "PP": "150"}  # Name  # Ascending
+            "/packages",
+            params={"SB": "n", "SO": "d", "PP": "150"},  # Name  # Ascending
         )
     assert response2.status_code == int(HTTPStatus.OK)
 
@@ -1496,8 +1498,7 @@ def test_packages_post_adopt(client: TestClient, user: User, package: Package):
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = (
-        "The selected packages have not been adopted, "
-        "check the confirmation checkbox."
+        "The selected packages have not been adopted, check the confirmation checkbox."
     )
     assert errors[0].text.strip() == expected
 
@@ -1541,8 +1542,7 @@ def test_packages_post_disown_as_maintainer(
     assert package.PackageBase.Maintainer is not None
     errors = get_errors(resp.text)
     expected = (
-        "The selected packages have not been disowned, "
-        "check the confirmation checkbox."
+        "The selected packages have not been disowned, check the confirmation checkbox."
     )
     assert errors[0].text.strip() == expected
 
@@ -1618,8 +1618,7 @@ def test_packages_post_delete(
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = (
-        "The selected packages have not been deleted, "
-        "check the confirmation checkbox."
+        "The selected packages have not been deleted, check the confirmation checkbox."
     )
     assert errors[0].text.strip() == expected
 

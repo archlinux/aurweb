@@ -2,6 +2,7 @@
 """
 usage: gendummydata.py outputfilename.sql
 """
+
 #
 # This script seeds the AUR database with dummy data for
 # use during development/testing.  It uses random entries

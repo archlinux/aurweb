@@ -1,4 +1,4 @@
-""" Constant default values centralized in one place. """
+"""Constant default values centralized in one place."""
 
 # Default [O]ffset
 O = 0

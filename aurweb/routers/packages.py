@@ -360,7 +360,7 @@ async def packages_adopt(
             # TODO: This error needs to be translated.
             return (
                 False,
-                ["You are not allowed to adopt one of the " "packages you selected."],
+                ["You are not allowed to adopt one of the packages you selected."],
             )
 
     # Now, really adopt the bases.
@@ -412,7 +412,7 @@ async def packages_disown(
             # TODO: This error needs to be translated.
             return (
                 False,
-                ["You are not allowed to disown one " "of the packages you selected."],
+                ["You are not allowed to disown one of the packages you selected."],
             )
 
     # Now, disown all the bases if we can.

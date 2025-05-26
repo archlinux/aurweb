@@ -1,4 +1,4 @@
-""" Fake SMTP clients that can be used for testing. """
+"""Fake SMTP clients that can be used for testing."""
 
 
 class FakeSMTP:
