@@ -13,7 +13,7 @@ pacman -Sy --noconfirm --noprogressbar archlinux-keyring
 
 # Install other OS dependencies.
 pacman -Syu --noconfirm --noprogressbar \
-    git gpgme nginx redis openssh \
+    git gpgme nginx valkey openssh \
     mariadb mariadb-libs cgit-aurweb uwsgi uwsgi-plugin-cgi \
     python-pip pyalpm python-srcinfo curl libeatmydata cronie \
     python-poetry python-poetry-core step-cli step-ca asciidoc \

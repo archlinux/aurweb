@@ -1,2 +1,2 @@
 #!/bin/bash
-exec /usr/bin/redis-server /etc/redis/redis.conf
+exec /usr/bin/redis-server /etc/valkey/valkey.conf
