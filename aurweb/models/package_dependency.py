@@ -31,6 +31,7 @@ class PackageDependency(Base):
         _DependencyType,
         backref=backref("package_dependencies", lazy="dynamic"),
         foreign_keys=[__table__.c.DepTypeID],
+        lazy="joined",
     )
 
     def __init__(self, **kwargs):
