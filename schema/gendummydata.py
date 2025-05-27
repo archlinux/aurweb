@@ -26,6 +26,11 @@ import bcrypt
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate database dummy data")
     _ = parser.add_argument(
+        "--delete-data",
+        action="store_true",
+        help="Add DELETE statements to clear the database before inserting",
+    )
+    _ = parser.add_argument(
         "--max-users",
         type=int,
         default=int(os.environ.get("MAX_USERS", 38000)),
@@ -309,6 +314,10 @@ has_pms = 0
 #
 out = open(args.output_file, "w", encoding="utf-8")
 out.write("BEGIN;\n")
+if cast(bool, args.delete_data):
+    out.write("DELETE FROM Users;\n")
+    out.write("DELETE FROM Packages;\n")
+    out.write("DELETE FROM PackageBases;\n")
 
 # Begin by creating the User statements
 #
