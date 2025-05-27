@@ -424,7 +424,7 @@ track_votes = {}
 log.debug("Casting votes for packages.")
 for u in user_keys:
     num_votes = random.randrange(
-        int(len(seen_pkgs) * VOTING[0]), int(len(seen_pkgs) * VOTING[1])
+        int(len(seen_pkgs) * VOTING[0]), int(max(len(seen_pkgs) * VOTING[1], 1))
     )
     pkgvote = {}
     for v in range(num_votes):
