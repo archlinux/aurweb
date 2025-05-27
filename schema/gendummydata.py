@@ -10,55 +10,190 @@ usage: gendummydata.py outputfilename.sql
 # package names.  It generates the SQL statements to
 # insert these users/packages into the AUR database.
 #
+
+import argparse
 import hashlib
 import logging
 import os
 import random
-import sys
 import time
 from datetime import UTC, datetime
+from typing import cast
 
 import bcrypt
 
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate database dummy data")
+    _ = parser.add_argument(
+        "--max-users",
+        type=int,
+        default=int(os.environ.get("MAX_USERS", 38000)),
+        metavar="n",
+        help="number of users to generate",
+    )
+    _ = parser.add_argument(
+        "--max-packages",
+        type=int,
+        default=int(os.environ.get("MAX_PKGS", 32000)),
+        metavar="n",
+        help="number of packages to generate",
+    )
+    _ = parser.add_argument(
+        "--min-pkg-depends",
+        type=int,
+        default=1,
+        metavar="n",
+        help="number of minimum package depends",
+    )
+    _ = parser.add_argument(
+        "--max-pkg-depends",
+        type=int,
+        default=15,
+        metavar="n",
+        help="number of maximum package depends",
+    )
+    _ = parser.add_argument(
+        "--min-pkg-relations",
+        type=int,
+        default=1,
+        metavar="n",
+        help="number of minimum package relations",
+    )
+    _ = parser.add_argument(
+        "--max-pkg-relations",
+        type=int,
+        default=5,
+        metavar="n",
+        help="number of maximum package relations",
+    )
+    _ = parser.add_argument(
+        "--min-pkg-sources",
+        type=int,
+        default=1,
+        metavar="n",
+        help="number of minimum package sources",
+    )
+    _ = parser.add_argument(
+        "--max-pkg-sources",
+        type=int,
+        default=3,
+        metavar="n",
+        help="number of maximum package sources",
+    )
+    _ = parser.add_argument(
+        "--min-pkg-comments",
+        type=int,
+        default=1,
+        metavar="n",
+        help="number of minimum package comments",
+    )
+    _ = parser.add_argument(
+        "--max-pkg-comments",
+        type=int,
+        default=5,
+        metavar="n",
+        help="number of maximum package comments",
+    )
+    _ = parser.add_argument(
+        "--optdepends-description",
+        type=float,
+        default=0.75,
+        metavar="f",
+        help="Probability that optdepends contains a description",
+    )
+    _ = parser.add_argument(
+        "--split-packages",
+        type=float,
+        default=0.1,
+        metavar="f",
+        help="Probability that a package is part of a split package base",
+    )
+    _ = parser.add_argument(
+        "--official-packages",
+        type=float,
+        default=0.1,
+        metavar="f",
+        help="Probability that a dependency is an official repo package",
+    )
+    _ = parser.add_argument(
+        "--none-existing-depends",
+        type=float,
+        default=0.1,
+        metavar="f",
+        help="Probability that a dependency does not exist",
+    )
+    _ = parser.add_argument(
+        "--open-proposals",
+        type=int,
+        default=int(os.environ.get("OPEN_PROPOSALS", 15)),
+        metavar="n",
+        help="number of open package maintainer proposals",
+    )
+    _ = parser.add_argument(
+        "--closed-proposals",
+        type=int,
+        default=int(os.environ.get("CLOSE_PROPOSALS", 50)),
+        metavar="n",
+        help="number of closed package maintainer proposals",
+    )
+    _ = parser.add_argument(
+        "--package-voting",
+        type=float,
+        default=0.001,
+        metavar="f",
+        help="percentage range for package voting",
+    )
+    _ = parser.add_argument("output_file", metavar="FILE", help="Output filename")
+    return parser.parse_args()
+
+
+args = parse_args()
 LOG_LEVEL = logging.DEBUG  # logging level. set to logging.INFO to reduce output
 SEED_FILE = "/usr/share/dict/words"
 USER_ID = 5  # Users.ID of first bogus user
 PKG_ID = 1  # Packages.ID of first package
 # how many users to 'register'
-MAX_USERS = int(os.environ.get("MAX_USERS", 38000))
+MAX_USERS = cast(int, args.max_users)
 MAX_DEVS = 0.1  # what percentage of MAX_USERS are Developers
 MAX_PMS = 0.2  # what percentage of MAX_USERS are Package Maintainers
 # how many packages to load
-MAX_PKGS = int(os.environ.get("MAX_PKGS", 32000))
-PKG_DEPS = (1, 15)  # min/max depends a package has
-PKG_RELS = (1, 5)  # min/max relations a package has
-PKG_SRC = (1, 3)  # min/max sources a package has
-PKG_CMNTS = (1, 5)  # min/max number of comments a package has
-PKG_OPTS_DESC_PROBABILITY = 0.75
-PKG_SPLIT_PROBABILITY = 0.1
+MAX_PKGS = cast(int, args.max_packages)
+PKG_DEPS = (
+    cast(int, args.min_pkg_depends),
+    cast(int, args.max_pkg_depends),
+)  # min/max depends a package has
+PKG_RELS = (
+    cast(int, args.min_pkg_relations),
+    cast(int, args.max_pkg_relations),
+)  # min/max relations a package has
+PKG_SRC = (
+    cast(int, args.min_pkg_sources),
+    cast(int, args.max_pkg_sources),
+)  # min/max sources a package has
+PKG_CMNTS = (
+    cast(int, args.min_pkg_comments),
+    cast(int, args.max_pkg_comments),
+)  # min/max comments a package has
+PKG_OPTS_DESC_PROBABILITY = cast(float, args.optdepends_description)
+PKG_SPLIT_PROBABILITY = cast(float, args.split_packages)
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
-VOTING = (0, 0.001)  # percentage range for package voting
-# number of open package maintainer proposals
-OPEN_PROPOSALS = int(os.environ.get("OPEN_PROPOSALS", 15))
-# number of closed package maintainer proposals
-CLOSE_PROPOSALS = int(os.environ.get("CLOSE_PROPOSALS", 50))
+VOTING = (0, cast(float, args.package_voting))  # percentage range for package voting
+OPEN_PROPOSALS = cast(int, args.open_proposals)
+CLOSE_PROPOSALS = cast(int, args.closed_proposals)
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
 FORTUNE_FILE = os.environ.get("FORTUNE_FILE", "/usr/share/fortune/cookie")
 # some official repo package so we can live test all code paths, including provides
 OFFICIAL_PACKAGES = ["linux", "coreutils", "gcc", "clang", "rust", "netcat", "cargo"]
-OFFICIAL_PACKAGE_PROBABILITY = 0.1
-NONE_EXISTING_PACKAGE_PROBABILITY = 0.1
+OFFICIAL_PACKAGE_PROBABILITY = cast(float, args.official_packages)
+NONE_EXISTING_PACKAGE_PROBABILITY = cast(float, args.none_existing_depends)
 
 # setup logging
 logformat = "%(levelname)s: %(message)s"
 logging.basicConfig(format=logformat, level=LOG_LEVEL)
 log = logging.getLogger()
-
-if len(sys.argv) != 2:
-    log.error("Missing output filename argument")
-    raise SystemExit(1)
 
 # make sure the seed file exists
 #
@@ -172,7 +307,7 @@ has_pms = 0
 
 # Just let python throw the errors if any happen
 #
-out = open(sys.argv[1], "w", encoding="utf-8")
+out = open(args.output_file, "w", encoding="utf-8")
 out.write("BEGIN;\n")
 
 # Begin by creating the User statements
