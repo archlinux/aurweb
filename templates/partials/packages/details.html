@@ -62,41 +62,43 @@
             {% endif %}
         </tr>
     {% endif %}
-    {% if show_package_details and licenses and licenses.count() %}
+    {% if show_package_details | default(False) %}
+      {% if licenses %}
         <tr id="licenses">
             <th>{{ "Licenses" | tr }}:</th>
-            <td>{{ licenses.all() | join(', ', attribute='License.Name') }} </td>
+            <td>{{ licenses | join(', ', attribute='License.Name') }} </td>
         </tr>
-    {% endif %}
-    {% if show_package_details and groups and groups.count() %}
+      {% endif %}
+      {% if groups %}
         <tr id="groups">
             <th>{{ "Groups" | tr }}:</th>
-            <td>{{ groups.all() | join(', ', attribute='Group.Name') }} </td>
+            <td>{{ groups | join(', ', attribute='Group.Name') }} </td>
         </tr>
-    {% endif %}
-    {% if show_package_details and conflicts and conflicts.count() %}
+      {% endif %}
+      {% if conflicts %}
         <tr id="conflicts">
             <th>{{ "Conflicts" | tr }}:</th>
             <td class="wrap">
-                {{ conflicts.all() | join(', ', attribute='RelName') }}
+                {{ conflicts | join(', ', attribute='RelName') }}
             </td>
         </tr>
-    {% endif %}
-    {% if show_package_details and provides and provides.count() %}
+      {% endif %}
+      {% if provides %}
         <tr id="provides">
             <th>{{ "Provides" | tr }}:</th>
             <td class="wrap">
-                {{ provides.all() | join(', ', attribute='RelName') }}
+                {{ provides | join(', ', attribute='RelName') }}
             </td>
         </tr>
-    {% endif %}
-    {% if show_package_details and replaces and replaces.count() %}
+      {% endif %}
+      {% if replaces %}
         <tr id="replaces">
             <th>{{ "Replaces" | tr }}:</th>
             <td class="wrap">
-                {{ replaces.all() | join(', ', attribute='RelName') }}
+                {{ replaces | join(', ', attribute='RelName') }}
             </td>
         </tr>
+      {% endif %}
     {% endif %}
     <tr>
         <th>{{ "Submitter" | tr }}:</th>

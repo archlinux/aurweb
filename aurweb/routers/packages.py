@@ -156,15 +156,17 @@ async def package(
     pkg = get_pkg_or_base(name, models.Package)
     pkgbase = pkg.PackageBase
 
-    rels = pkg.package_relations.order_by(models.PackageRelation.RelName.asc())
-    rels_data = defaultdict(list)
-    for rel in rels:
-        if rel.RelTypeID == CONFLICTS_ID:
-            rels_data["c"].append(rel)
-        elif rel.RelTypeID == PROVIDES_ID:
-            rels_data["p"].append(rel)
-        elif rel.RelTypeID == REPLACES_ID:
-            rels_data["r"].append(rel)
+    conflicts = []
+    provides = []
+    replaces = []
+    relations = pkg.package_relations.order_by(models.PackageRelation.RelName.asc())
+    for relation in relations:
+        if relation.RelTypeID == CONFLICTS_ID:
+            conflicts.append(relation)
+        elif relation.RelTypeID == PROVIDES_ID:
+            provides.append(relation)
+        elif relation.RelTypeID == REPLACES_ID:
+            replaces.append(relation)
 
     # Add our base information.
     context = pkgbaseutil.make_context(request, pkgbase)
@@ -173,6 +175,9 @@ async def package(
     context.update({"all_deps": all_deps, "all_reqs": all_reqs})
 
     context["package"] = pkg
+    context["conflicts"] = conflicts
+    context["provides"] = provides
+    context["replaces"] = replaces
 
     # Package sources.
     context["sources"] = pkg.package_sources.order_by(
@@ -203,30 +208,15 @@ async def package(
     ]
 
     # Package requirements (other packages depend on this one).
-    reqs = pkgutil.pkg_required(pkg.Name, [p.RelName for p in rels_data.get("p", [])])
+    reqs = pkgutil.pkg_required(pkg.Name, [p.RelName for p in provides])
     context["reqs_count"] = reqs.count()
     if not all_reqs:
         reqs = reqs.limit(max_listing)
     context["required_by"] = reqs.all()
+    context["licenses"] = pkg.package_licenses.all()
+    context["groups"] = pkg.package_groups.all()
 
-    context["licenses"] = pkg.package_licenses
 
-    context["groups"] = pkg.package_groups
-
-    conflicts = pkg.package_relations.filter(
-        models.PackageRelation.RelTypeID == CONFLICTS_ID
-    ).order_by(models.PackageRelation.RelName.asc())
-    context["conflicts"] = conflicts
-
-    provides = pkg.package_relations.filter(
-        models.PackageRelation.RelTypeID == PROVIDES_ID
-    ).order_by(models.PackageRelation.RelName.asc())
-    context["provides"] = provides
-
-    replaces = pkg.package_relations.filter(
-        models.PackageRelation.RelTypeID == REPLACES_ID
-    ).order_by(models.PackageRelation.RelName.asc())
-    context["replaces"] = replaces
 
     return render_template(request, "packages/show.html", context)
 
