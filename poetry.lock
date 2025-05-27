@@ -1648,12 +1648,13 @@ files = [
 
 [[package]]
 name = "pyalpm"
-version = "0.10.6"
+version = "0.10.12"
 description = "libalpm bindings for Python 3"
 optional = false
 python-versions = "*"
+groups = ["main"]
 files = [
-    {file = "pyalpm-0.10.6.tar.gz", hash = "sha256:99e6ec73b8c46bb12466013f228f831ee0d18e8ab664b91a01c2a3c40de07c7f"},
+    {file = "pyalpm-0.10.12.tar.gz", hash = "sha256:8c6cb4bbba819f99fe6c2547f25a861f68905d96729caf1ea15ba6c43d4f1127"},
 ]
 
 [[package]]
@@ -2466,4 +2467,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.14"
-content-hash = "3f61efa57153b51d06808462a7cc3f2dc9a0d9132d1f35d47886a8af75243123"
+content-hash = "e4d64adc3cf6a79b6b3249032e564c7523c08eb36c806aecac4993293aac88be"
