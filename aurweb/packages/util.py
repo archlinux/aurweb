@@ -206,6 +206,36 @@ def query_notified(query: list[models.Package], user: models.User) -> dict[int, 
     return output
 
 
+def query_package_dependencies(
+    pkg: Package, all_deps: bool, max_listing: int = 20
+) -> tuple[list[PackageDependency], int]:
+    """
+    Get dependencies of a given package
+
+    :param pkg: Package to query the dependencies for
+    :param all_deps: Bool if all dependencies should be fetched
+    :param max_listing: Maximum numbers to fetch
+    :return: tuple of a List of PackageDependency and total count
+    """
+    dependencies_query = pkg.package_dependencies.order_by(
+        PackageDependency.DepTypeID.asc(), PackageDependency.DepName.asc()
+    )
+
+    if all_deps:
+        dependencies = dependencies_query.all()
+        total_count = len(dependencies)
+        return dependencies, total_count
+
+    dependencies = dependencies_query.limit(max_listing).all()
+    total_count = len(dependencies)
+
+    # if the fetched count equals the limit, check the total count with no limits
+    if total_count >= max_listing:
+        total_count = dependencies_query.count()
+
+    return dependencies, total_count
+
+
 def pkg_required(pkgname: str, provides: list[str]) -> list[PackageDependency]:
     """
     Get dependencies that match a string in `[pkgname] + provides`.
@@ -224,6 +254,39 @@ def pkg_required(pkgname: str, provides: list[str]) -> list[PackageDependency]:
         .order_by(Package.Name.asc())
     )
     return query
+
+
+def query_required_by_package_dependencies(
+    pkg: Package,
+    provides: list[PackageRelation],
+    all_reqs: bool,
+    max_listing: int = 20,
+) -> tuple[list[PackageDependency], int]:
+    """
+    Get PackageDependency model for all relations requiring a given
+    package or any of its provides.
+
+    :param pkg: Package to query the required by dependencies
+    :param provides: List of PackageRelation that the given Package provides
+    :param all_reqs: Bool if all required by dependencies should be fetched
+    :param max_listing: Maximum numbers to fetch
+    :return: tuple of a List of PackageDependency and total count
+    """
+    required_by_query = pkg_required(pkg.Name, [p.RelName for p in provides])
+
+    if all_reqs:
+        required_by = required_by_query.all()
+        total_count = len(required_by)
+        return required_by, total_count
+
+    required_by = required_by_query.limit(max_listing).all()
+    total_count = len(required_by)
+
+    # if the fetched count equals the limit, check the total count with no limits
+    if total_count >= max_listing:
+        total_count = required_by_query.count()
+
+    return required_by, total_count
 
 
 @register_filter("source_uri")

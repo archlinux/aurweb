@@ -1,5 +1,5 @@
 <div id="pkgdeps" class="listing">
-    <h3>{{ "Dependencies" | tr }} ({{ depends_count }})</h3>
+    <h3>{{ "Dependencies" | tr }} ({{ dependencies_count }})</h3>
     <ul id="pkgdepslist">
         {% for dep in dependencies %}
             {# Collect provides for `dep`. #}
@@ -37,10 +37,10 @@
                 {% endif %}
             </li>
         {% endfor %}
-        {% if not all_deps and depends_count > max_listing %}
+        {% if not all_deps and dependencies_count > max_listing %}
             <li>
                 <a href="/packages/{{ package.Name }}?{{ q | extend_query(['all_deps', '1']) | urlencode }}#pkgdeps">
-                    {{ "Show %d more" | tr | format(depends_count - (dependencies | length)) }} {{ "dependencies" | tr }}...
+                    {{ "Show %d more" | tr | format(dependencies_count - (dependencies | length)) }} {{ "dependencies" | tr }}...
                 </a>
             </li>
         {% endif %}
@@ -48,7 +48,7 @@
 </div>
 
 <div id="pkgreqs" class="listing">
-    <h3>{{ "Required by" | tr }} ({{ reqs_count }})</h3>
+    <h3>{{ "Required by" | tr }} ({{ required_by_count }})</h3>
     <ul id="pkgreqslist">
         {% for dep in required_by %}
             <li>
@@ -65,10 +65,10 @@
                 <em>{{ dep | dep_extra }}</em>
             </li>
         {% endfor %}
-        {% if not all_reqs and reqs_count > max_listing %}
+        {% if not all_reqs and required_by_count > max_listing %}
             <li>
                 <a href="/packages/{{ package.Name }}?{{ q | extend_query(['all_reqs', '1']) | urlencode }}#pkgreqs">
-                    {{ "Show %d more" | tr | format(reqs_count - (required_by | length)) }}...
+                    {{ "Show %d more" | tr | format(required_by_count - (required_by | length)) }}...
                 </a>
             </li>
         {% endif %}

@@ -188,14 +188,19 @@ async def package(
     context["max_listing"] = max_listing = 20
 
     # Package dependencies.
-    deps = pkg.package_dependencies.order_by(
-        models.PackageDependency.DepTypeID.asc(), models.PackageDependency.DepName.asc()
+    dependencies, dependencies_count = pkgutil.query_package_dependencies(
+        pkg, all_deps, max_listing
     )
-    context["depends_count"] = deps.count()
-    if not all_deps:
-        deps = deps.limit(max_listing)
-    context["dependencies"] = deps.all()
-    # Existing dependencies to avoid multiple lookups
+    context["dependencies"] = dependencies
+    context["dependencies_count"] = dependencies_count
+
+    # Packages requiring this package (other packages depend on this one).
+    required_by, required_by_count = pkgutil.query_required_by_package_dependencies(
+        pkg, provides, all_reqs, max_listing
+    )
+    context["required_by"] = required_by
+    context["required_by_count"] = required_by_count
+
     context["dependencies_names_from_aur"] = [
         item.Name
         for item in db.query(models.Package)
@@ -207,12 +212,6 @@ async def package(
         .all()
     ]
 
-    # Package requirements (other packages depend on this one).
-    reqs = pkgutil.pkg_required(pkg.Name, [p.RelName for p in provides])
-    context["reqs_count"] = reqs.count()
-    if not all_reqs:
-        reqs = reqs.limit(max_listing)
-    context["required_by"] = reqs.all()
     context["licenses"] = pkg.package_licenses.all()
     context["groups"] = pkg.package_groups.all()
 
