@@ -1,4 +1,3 @@
-from collections import defaultdict
 from http import HTTPStatus
 from typing import Any
 
@@ -206,7 +205,12 @@ async def package(
 
     # Collect all dependency names for batched lookups
     dependency_names = set([dep.DepName for dep in dependencies])
-    context["aur_packages"] = pkgutil.lookup_aur_packages(dependency_names)
+    aur_packages, official_packages, dependency_providers = pkgutil.lookup_dependencies(
+        dependency_names
+    )
+    context["aur_packages"] = aur_packages
+    context["official_packages"] = official_packages
+    context["dependency_providers"] = dependency_providers
 
     return render_template(request, "packages/show.html", context)
 

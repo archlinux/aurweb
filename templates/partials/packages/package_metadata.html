@@ -2,16 +2,15 @@
     <h3>{{ "Dependencies" | tr }} ({{ dependencies_count }})</h3>
     <ul id="pkgdepslist">
         {% for dep in dependencies %}
-            {# Collect provides for `dep`. #}
-            {% set provides = dep.provides() %}
+            {% set provides = dependency_providers[dep.DepName] %}
             <li>
-                {% set broken = not dep.is_package() %}
+                {% set broken = dep.DepName not in aur_packages and dep.DepName not in official_packages %}
                 {% if broken %}
                     {% if not provides %}
                         <span class="broken">
                     {% endif %}
                 {% else %}
-                    <a href="{{ dep.DepName | pkgname_link }}">
+                    <a href="{{ dep.DepName | pkgname_link(aur_packages, official_packages) }}">
                 {% endif %}
                     {{ dep.DepName }}
                 {%- if broken %}

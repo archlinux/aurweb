@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 
 import orjson
 from fastapi import HTTPException
-from sqlalchemy import orm
+from sqlalchemy import and_, literal, orm
 
 from aurweb import config, db, models
 from aurweb.aur_redis import redis_connection
@@ -13,6 +13,7 @@ from aurweb.models import Package
 from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_relation import PackageRelation
+from aurweb.models.relation_type import PROVIDES_ID
 from aurweb.templates import register_filter
 
 Providers = list[Union[PackageRelation, OfficialProvider]]
@@ -60,15 +61,13 @@ def dep_extra_desc(dep: models.PackageDependency) -> str:
 
 
 @register_filter("pkgname_link")
-def pkgname_link(pkgname: str) -> str:
-    record = db.query(Package).filter(Package.Name == pkgname).exists()
-    if db.query(record).scalar():
+def pkgname_link(
+    pkgname: str, aur_packages: set[str], official_packages: set[str]
+) -> str:
+    if pkgname in aur_packages:
         return f"/packages/{pkgname}"
 
-    official = (
-        db.query(OfficialProvider).filter(OfficialProvider.Name == pkgname).exists()
-    )
-    if db.query(official).scalar():
+    if pkgname in official_packages:
         base = "/".join([OFFICIAL_BASE, "packages"])
         return f"{base}/?q={pkgname}"
 
@@ -304,6 +303,63 @@ def lookup_aur_packages(dependency_names: list[str]) -> set[str]:
         .filter(models.Package.Name.in_(dependency_names))
     )
     return set([dep.DepName for dep in aur_dep_packages_query.all()])
+
+
+def lookup_dependencies(
+    dependency_names: list[str],
+) -> Tuple[set[str], set[str], dict[str, dict[str, str]]]:
+    """
+    Efficient lookup all given dependency names and return distinct sets for AUR
+    and official packages as well as a dict for all AUR and official packages
+    providing the dependency name via the provides property.
+
+    :param dependency_names: List of dependency names for which to do the lookup
+    :return: set of AUR packages, set of official packages, dict of providers
+    """
+    aur_dep_provides_query = (
+        db.query(models.PackageRelation)
+        .join(models.Package)
+        .with_entities(
+            models.Package.Name.label("Name"),
+            models.PackageRelation.RelName.label("provides"),
+            literal(False).label("is_official"),
+        )
+        .filter(
+            and_(
+                models.PackageRelation.RelTypeID == PROVIDES_ID,
+                models.PackageRelation.RelName.in_(dependency_names),
+            )
+        )
+        .order_by(models.Package.Name.asc())
+    )
+
+    official_dep_provides_query = (
+        db.query(models.OfficialProvider)
+        .with_entities(
+            models.OfficialProvider.Name.label("Name"),
+            models.OfficialProvider.Provides.label("provides"),
+            literal(True).label("is_official"),
+        )
+        .filter(models.OfficialProvider.Provides.in_(dependency_names))
+        .order_by(models.OfficialProvider.Name.asc())
+    )
+
+    combined_provider = aur_dep_provides_query.union_all(
+        official_dep_provides_query
+    ).all()
+
+    aur_packages = lookup_aur_packages(dependency_names)
+    dependency_providers = defaultdict(list)
+    official_packages = set()
+
+    for provider in combined_provider:
+        if provider.is_official:
+            official_packages.add(provider.Name)
+            if provider.provides == provider.Name:
+                continue
+        dependency_providers[provider.provides].append(provider)
+
+    return aur_packages, official_packages, dependency_providers
 
 
 @register_filter("source_uri")
