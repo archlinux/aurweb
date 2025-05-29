@@ -289,6 +289,23 @@ def query_required_by_package_dependencies(
     return required_by, total_count
 
 
+def lookup_aur_packages(dependency_names: list[str]) -> set[str]:
+    """
+    Returns a set of all dependency names which are AUR packages.
+
+    :param dependency_names: List of dependency names for which to do the lookup
+    :return: set of package names that can be looked up in the AUR
+    """
+    aur_dep_packages_query = (
+        db.query(models.Package)
+        .with_entities(
+            models.Package.Name.label("DepName"),
+        )
+        .filter(models.Package.Name.in_(dependency_names))
+    )
+    return set([dep.DepName for dep in aur_dep_packages_query.all()])
+
+
 @register_filter("source_uri")
 def source_uri(pkgsrc: models.PackageSource) -> Tuple[str, str]:
     """

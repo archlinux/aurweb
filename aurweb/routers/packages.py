@@ -201,21 +201,12 @@ async def package(
     context["required_by"] = required_by
     context["required_by_count"] = required_by_count
 
-    context["dependencies_names_from_aur"] = [
-        item.Name
-        for item in db.query(models.Package)
-        .filter(
-            models.Package.Name.in_(
-                pkg.package_dependencies.with_entities(models.PackageDependency.DepName)
-            )
-        )
-        .all()
-    ]
-
     context["licenses"] = pkg.package_licenses.all()
     context["groups"] = pkg.package_groups.all()
 
-
+    # Collect all dependency names for batched lookups
+    dependency_names = set([dep.DepName for dep in dependencies])
+    context["aur_packages"] = pkgutil.lookup_aur_packages(dependency_names)
 
     return render_template(request, "packages/show.html", context)
 
