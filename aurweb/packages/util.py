@@ -250,7 +250,7 @@ def pkg_required(pkgname: str, provides: list[str]) -> list[PackageDependency]:
         .join(Package)
         .options(orm.contains_eager(PackageDependency.Package))
         .filter(PackageDependency.DepName.in_(targets))
-        .order_by(Package.Name.asc())
+        .order_by(Package.Name.asc(), PackageDependency.DepTypeID.asc())
     )
     return query
 
