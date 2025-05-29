@@ -159,7 +159,7 @@ def test_pkg_required(package: Package):
     assert qry.count() == 1
 
 
-def test_provides_markup(package: Package):
+def test_provides_markup_aur(package: Package):
     # Create dependency and provider for AUR pkg
     with db.begin():
         dep = db.create(
@@ -177,13 +177,21 @@ def test_provides_markup(package: Package):
         )
 
     # AUR provider links should end with <sup><small>AUR</small></sup>
-    link = util.provides_markup(dep.provides())
+    _, _, providers = util.lookup_dependencies([dep.DepName])
+    link = util.provides_markup(providers[dep.DepName])
     assert link.endswith("</a><sup><small>AUR</small></sup>")
     assert OFFICIAL_BASE not in link
 
-    # Remove AUR provider and add official one
+
+def test_provides_markup_official(package: Package):
+    # Create dependency and provider for official pkg
     with db.begin():
-        db.delete(rel_pkg)
+        dep = db.create(
+            PackageDependency,
+            Package=package,
+            DepName="test",
+            DepTypeID=DEPENDS_ID,
+        )
         db.create(
             OfficialProvider,
             Name="official-pkg",
@@ -192,6 +200,7 @@ def test_provides_markup(package: Package):
         )
 
     # Repo provider links should not have any suffix
-    link = util.provides_markup(dep.provides())
+    _, _, providers = util.lookup_dependencies([dep.DepName])
+    link = util.provides_markup(providers[dep.DepName])
     assert link.endswith("</a>")
     assert OFFICIAL_BASE in link

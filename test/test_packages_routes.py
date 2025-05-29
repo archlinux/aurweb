@@ -29,6 +29,7 @@ from aurweb.models.relation_type import (
 )
 from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
+from aurweb.packages import util as pkgutil
 from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
 
@@ -689,9 +690,11 @@ def test_package_dependencies(client: TestClient, maintainer: User, package: Pac
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Let's make sure all the non-broken deps are ordered as we expect.
+    all_deps = [dep.DepName for dep in package.package_dependencies.all()]
+    aur_packages, official_packages, _ = pkgutil.lookup_dependencies(all_deps)
     expected = list(
         filter(
-            lambda e: e.is_package(),
+            lambda e: e.DepName in aur_packages or e.DepName in official_packages,
             package.package_dependencies.order_by(
                 PackageDependency.DepTypeID.asc(), PackageDependency.DepName.asc()
             ).all(),

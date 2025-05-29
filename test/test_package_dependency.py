@@ -44,22 +44,39 @@ def package(user: User) -> Package:
     yield package
 
 
+def is_aur_package(dep: PackageDependency) -> bool:
+    exists = db.query(Package).filter(Package.Name == dep.DepName).exists()
+    return db.query(exists).scalar()
+
+
+def is_official_package(dep: PackageDependency) -> bool:
+    exists = (
+        db.query(OfficialProvider).filter(OfficialProvider.Name == dep.DepName).exists()
+    )
+    return db.query(exists).scalar()
+
+
+def is_package(dep: PackageDependency) -> bool:
+    return is_aur_package(dep) or is_official_package(dep)
+
+
 def test_package_dependencies(user: User, package: Package):
     with db.begin():
         pkgdep = db.create(
             PackageDependency, Package=package, DepTypeID=DEPENDS_ID, DepName="test-dep"
         )
+
     assert pkgdep.DepName == "test-dep"
     assert pkgdep.Package == package
     assert pkgdep in package.package_dependencies
-    assert not pkgdep.is_package()
+    assert not is_package(pkgdep)
 
     with db.begin():
         base = db.create(PackageBase, Name=pkgdep.DepName, Maintainer=user)
         db.create(Package, PackageBase=base, Name=pkgdep.DepName)
 
-    assert pkgdep.is_package()
-    assert pkgdep.is_aur_package()
+    assert is_package(pkgdep)
+    assert is_aur_package(pkgdep)
 
     # Test with OfficialProvider
     with db.begin():
@@ -73,8 +90,9 @@ def test_package_dependencies(user: User, package: Package):
             OfficialProvider, Name=pkgdep.DepName, Repo="extra", Provides=pkgdep.DepName
         )
 
-    assert pkgdep.is_package()
-    assert not pkgdep.is_aur_package()
+    assert is_package(pkgdep)
+    assert is_official_package(pkgdep)
+    assert not is_aur_package(pkgdep)
 
 
 def test_package_dependencies_null_package_raises():
