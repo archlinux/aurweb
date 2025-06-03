@@ -116,6 +116,7 @@ provision_review:
       # Add host config
     - mkdir -p host_vars/$DEV_FQDN
     - 'echo "filesystem: btrfs" > host_vars/$DEV_FQDN/misc'
+    - 'echo "sshd_port: 22" >> host_vars/$DEV_FQDN/misc'
       # Add host
     - echo "$DEV_FQDN" > hosts
       # Add our pubkey and hostkeys
