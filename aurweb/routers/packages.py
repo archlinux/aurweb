@@ -54,13 +54,20 @@ async def packages_get(
     # they are used as if they were ANDed.
     keywords = context["K"] = request.query_params.get("K", str())
 
-    keywords = keywords.split(" ")
-    if search_by == "k":
-        # If we're searchin by keywords, supply a set of keywords.
-        search.search_by(search_by, set(keywords))
+    # Maintainer/co-maintainer/submitter searches should not split by spaces
+    # since usernames cannot contain spaces and require exact matches
+    if search_by in ("m", "c", "M", "s"):
+        # Strip whitespace for user searches to handle trailing spaces
+        keywords = keywords.strip()
+        search.search_by(search_by, keywords)
     else:
-        for keyword in keywords:
-            search.search_by(search_by, keyword)
+        keywords = keywords.split(" ")
+        if search_by == "k":
+            # If we're searchin by keywords, supply a set of keywords.
+            search.search_by(search_by, set(keywords))
+        else:
+            for keyword in keywords:
+                search.search_by(search_by, keyword)
 
     flagged = request.query_params.get("outdated", None)
     if flagged:

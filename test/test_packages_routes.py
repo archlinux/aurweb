@@ -894,6 +894,40 @@ def test_packages_search_by_maintainer(
     assert len(rows) == 1
 
 
+def test_packages_search_by_maintainer_with_trailing_space(
+    client: TestClient, maintainer: User, package: Package
+):
+    # Test that searching with trailing spaces still finds the maintainer
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "m", "K": maintainer.Username + " "}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    # Test with leading spaces
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "m", "K": " " + maintainer.Username}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    # Test with both leading and trailing spaces
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "m", "K": " " + maintainer.Username + " "}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
 def test_packages_search_by_comaintainer(
     client: TestClient, maintainer: User, package: Package
 ):
@@ -926,6 +960,51 @@ def test_packages_search_by_comaintainer(
         )
     assert response.status_code == int(HTTPStatus.OK)
 
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_search_by_comaintainer_with_trailing_space(
+    client: TestClient, maintainer: User, package: Package
+):
+    # First create a comaintainer
+    with db.begin():
+        db.create(
+            PackageComaintainer,
+            PackageBase=package.PackageBase,
+            User=maintainer,
+            Priority=1,
+        )
+
+    # Test that searching with trailing spaces still finds the co-maintainer
+    with client as request:
+        # clear fakeredis cache
+        cache._redis.flushall()
+        response = request.get(
+            "/packages", params={"SeB": "c", "K": maintainer.Username + " "}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    # Test with leading spaces
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "c", "K": " " + maintainer.Username}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    # Test with both leading and trailing spaces
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "c", "K": " " + maintainer.Username + " "}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
     root = parse_root(response.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 1
@@ -969,6 +1048,30 @@ def test_packages_search_by_co_or_maintainer(
     assert len(rows) == 1
 
 
+def test_packages_search_by_co_or_maintainer_with_trailing_space(
+    client: TestClient, maintainer: User, package: Package
+):
+    # Test that searching with trailing spaces works for combined search
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "M", "K": maintainer.Username + " "}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    # Test with leading spaces
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "M", "K": " " + maintainer.Username}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
 def test_packages_search_by_submitter(
     client: TestClient, maintainer: User, package: Package
 ):
@@ -981,6 +1084,77 @@ def test_packages_search_by_submitter(
     root = parse_root(response.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 1
+
+
+def test_packages_search_by_submitter_with_trailing_space(
+    client: TestClient, maintainer: User, package: Package
+):
+    # Test that searching with trailing spaces still finds the submitter
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "s", "K": maintainer.Username + " "}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    # Test with leading spaces
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "s", "K": " " + maintainer.Username}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    # Test with both leading and trailing spaces
+    with client as request:
+        response = request.get(
+            "/packages", params={"SeB": "s", "K": " " + maintainer.Username + " "}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_search_with_only_spaces(
+    client: TestClient, maintainer: User, package: Package
+):
+    # Test searching with only spaces for maintainer search
+    with client as request:
+        response = request.get("/packages", params={"SeB": "m", "K": "   "})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    # Should return no results since "   " doesn't match any username
+    assert len(rows) == 0
+
+    # Test searching with only spaces for co-maintainer search
+    with client as request:
+        response = request.get("/packages", params={"SeB": "c", "K": "   "})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 0
+
+    # Test searching with only spaces for submitter search
+    with client as request:
+        response = request.get("/packages", params={"SeB": "s", "K": "   "})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 0
+
+    # Test searching with only spaces for combined maintainer/co-maintainer search
+    with client as request:
+        response = request.get("/packages", params={"SeB": "M", "K": "   "})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 0
 
 
 def test_packages_sort_by_name(client: TestClient, packages: list[Package]):
