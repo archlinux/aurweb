@@ -8,6 +8,7 @@
 # Daniel Peukert <daniel@peukert.cc>, 2021-2022
 # Jaroslav Lichtblau <l10n@lichtblau.cz>, 2015-2016
 # Jaroslav Lichtblau <l10n@lichtblau.cz>, 2014
+# Jaroslav Lichtblau <l10n@lichtblau.cz>, 2014
 # Appukonrad <appukonrad@gmail.com>, 2017-2018
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Lukáš Kucharczyk <lukas@kucharczyk.xyz>, 2020
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Daniel Peukert <daniel@peukert.cc>, 2021-2022\n"
+"Last-Translator: Pavel Ševeček <pavel.sevecek@gmail.com>, 2014\n"
 "Language-Team: Czech (http://app.transifex.com/lfleischer/aurweb/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +62,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Nepanikařte! Na tomto webu probíhá údržba. Brzy budeme zpět."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Účet"
 
@@ -77,7 +78,7 @@ msgstr "Zde nemáte povolený přístup."
 msgid "Could not retrieve information for the specified user."
 msgstr "Načtení informací o daném uživateli se nezdařilo."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Pro úpravu tohoto účtu nemáte oprávnění. "
 
@@ -105,8 +106,8 @@ msgstr "Chybný token uživatelské akce."
 msgid "Username does not exist."
 msgstr "Uživatelské jméno neexistuje."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "Pro %s již existuje návrh."
 
@@ -423,8 +424,9 @@ msgstr "Chybí povinný údaj."
 msgid "Password fields do not match."
 msgstr "Hesla se neshodují."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Heslo musí mít nejméně %s znaků."
 
@@ -703,7 +705,7 @@ msgstr "Registrace"
 msgid "Use this form to create an account."
 msgstr "Tento formulář použijte k vytvoření účtu."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "Podmínky užívání"
 
@@ -775,8 +777,8 @@ msgstr "Chybí ID uživatele"
 msgid "The username is invalid."
 msgstr "Uživatelské jméno není platné."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Délka musí být %s až %s znaků"
 
@@ -824,18 +826,18 @@ msgstr "Jazyk není momentálné podporován."
 msgid "Timezone is not currently supported."
 msgstr "Časové pásmo momentálně není podporováno."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Uživatelské jméno, %s%s%s, je již používáno."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adresa, %s%s%s, je již použita."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Veřejný SSH klíč, %s%s%s, je již použit."
 
@@ -879,13 +881,13 @@ msgstr "Na účtu nebyly provedeny žádné změny,, %s%s%s."
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Účet, %s%s%s, byl úspěšně změněn."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Přihlášení je momentálně pro vaši IP adresu zakázáno. Důvodem je nejspíše opakované zasílání spamu z této adresy. Za nepříjemnosti se omlouváme."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Účet pozastaven"
 
@@ -954,11 +956,11 @@ msgstr "Chybí ID komentáře."
 msgid "No more than 5 comments can be pinned."
 msgstr "Nelze připnout více než 5 komentářů."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "Nemáte oprávnění připnout tento komentář."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "Nemáte oprávnění odepnout tento komentář."
 
@@ -978,7 +980,7 @@ msgstr "Načtení informací o balíčku se nezdařilo."
 msgid "Package details could not be found."
 msgstr "Informace o balíčku nebyly nalezeny."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr "Chybná hlavička Referer"
 
@@ -1112,7 +1114,7 @@ msgstr "Byly jste přidáni do seznamu uživatelů k obeznámení o balíčku %s
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Byli jste odebráni ze seznamu uživatelů k obeznámení o balíčku %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "Nemáte oprávnění k obnovení tohoto komentáře."
 
@@ -1120,7 +1122,7 @@ msgstr "Nemáte oprávnění k obnovení tohoto komentáře."
 msgid "Comment has been undeleted."
 msgstr "Komentář byl obnoven."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "Pro smazání tohoto komentáře nemáte oprávnění."
 
@@ -1144,8 +1146,8 @@ msgstr "Klíčová slova základního balíčku byla aktualizována."
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Nemáte oprávnění spravovat spolusprávce tohoto balíčku."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "Neplatné uživatelské jméno: %s"
 
@@ -2323,11 +2325,13 @@ msgstr "Poskytnutý typ účtu je neplatný."
 msgid "You do not have permission to change account types."
 msgstr "Nemáte oprávnění ke změnám typů účtů."
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr "Pro změnu typu tohoto účtu na %s nemáte oprávnění."
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr "Žádné žádosti o odebrání vlastnictví balíčku %s momentálně neexistují."
 
@@ -2390,4 +2394,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

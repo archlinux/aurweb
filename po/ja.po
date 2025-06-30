@@ -5,15 +5,16 @@
 # Translators:
 # kusakata, 2013
 # kusakata, 2013
+# kusakata, 2013
 # kusakata, 2013-2018,2020-2022
 # 尾ノ上卓朗 <onoue@showway.biz>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: kusakata, 2013-2018,2020-2022\n"
+"Last-Translator: 尾ノ上卓朗 <onoue@showway.biz>, 2017\n"
 "Language-Team: Japanese (http://app.transifex.com/lfleischer/aurweb/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +57,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "落ち着いて下さい！このサイトはメンテナンスのためにダウンしています。すぐに復帰する予定です。"
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "アカウント"
 
@@ -72,7 +73,7 @@ msgstr "このページへのアクセスは許可されていません。"
 msgid "Could not retrieve information for the specified user."
 msgstr "指定のユーザーの情報が取得できませんでした。"
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "あなたはこのアカウントを編集する権利を持っていません。"
 
@@ -100,8 +101,8 @@ msgstr "アクションの不正なトークン。"
 msgid "Username does not exist."
 msgstr "ユーザー名が存在しません。"
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s はすでにその提案を持っています。"
 
@@ -418,8 +419,9 @@ msgstr "必須項目が埋められていません。"
 msgid "Password fields do not match."
 msgstr "パスワードが一致しません。"
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "パスワードは最低でも %s 文字以上必要です。"
 
@@ -698,7 +700,7 @@ msgstr "登録"
 msgid "Use this form to create an account."
 msgstr "このフォームを使ってアカウントを作成してください。"
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "利用規約"
 
@@ -770,8 +772,8 @@ msgstr "ユーザー ID の消失"
 msgid "The username is invalid."
 msgstr "ユーザー名が不正です。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "文字の長さは %s から %s の間である必要があります"
 
@@ -819,18 +821,18 @@ msgstr "言語は現在サポートされていません。"
 msgid "Timezone is not currently supported."
 msgstr "タイムゾーンは現在サポートされていません。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "%s%s%s というユーザー名は既に使われています。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "%s%s%s というメールアドレスは既に使われています。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "SSH 公開鍵、%s%s%s は既に使われています。"
 
@@ -874,13 +876,13 @@ msgstr "アカウントに変更は加えられませんでした、%s%s%s。"
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "アカウント %s%s%s の修正が完了しました。"
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "スパムのために、現在あなたのIPアドレスからはログインフォームが無効になっています。ご迷惑をおかけして申し訳ございません。"
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "休眠アカウント"
 
@@ -949,11 +951,11 @@ msgstr "コメント ID が見つかりません。"
 msgid "No more than 5 comments can be pinned."
 msgstr "5個までコメントをピン留めできます。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "このコメントをピン留めする権限がありません。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "このコメントのピン留めを解除する権限がありません。"
 
@@ -973,7 +975,7 @@ msgstr "パッケージの詳細の取得エラー。"
 msgid "Package details could not be found."
 msgstr "パッケージの詳細が見つかりませんでした。"
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr "不正なリファラヘッダー。"
 
@@ -1107,7 +1109,7 @@ msgstr "%s がコメントの通知リストに追加されました。"
 msgid "You have been removed from the comment notification list for %s."
 msgstr "%s がコメントの通知リストから削除されました。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "このコメントを復元する権限がありません。"
 
@@ -1115,7 +1117,7 @@ msgstr "このコメントを復元する権限がありません。"
 msgid "Comment has been undeleted."
 msgstr "コメントは復元されました。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "このコメントを削除することはできません。"
 
@@ -1139,8 +1141,8 @@ msgstr "パッケージベースのキーワードは更新されました。"
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "このパッケージベースの共同メンテナを管理することはできません。"
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "不正なユーザー名: %s"
 
@@ -2303,11 +2305,13 @@ msgstr "不正なアカウントタイプが指定されました。"
 msgid "You do not have permission to change account types."
 msgstr "あなたはアカウントタイプを変更する権限を持っていません。"
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr "あなたはこのユーザーのアカウントタイプを %s に変更する権限を持っていません。"
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr "%s の承認できる孤児リクエストは存在しません。"
 
@@ -2370,4 +2374,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

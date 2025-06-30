@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
 "Last-Translator: Slobodan Terzić <githzerai06@gmail.com>, 2011-2012,2015-2017\n"
 "Language-Team: Serbian (http://app.transifex.com/lfleischer/aurweb/language/sr/)\n"
@@ -55,7 +55,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Ne paničite! Sajt je van mreže usled održavanja. Povratak se očekuje uskoro."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Nalog"
 
@@ -71,7 +71,7 @@ msgstr "Nije vam dozvoljen pristup ovoj oblasti."
 msgid "Could not retrieve information for the specified user."
 msgstr "Ne mogu da dobavim podatke o izabranom korisniku."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Nemate dozvole za uređivanje ovog naloga."
 
@@ -99,8 +99,8 @@ msgstr "Neispravan token korisničke radnje."
 msgid "Username does not exist."
 msgstr "Korisničko ime ne postoji."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "Predlog za %s već postoji."
 
@@ -417,8 +417,9 @@ msgstr "Nedostaje neophodno polje."
 msgid "Password fields do not match."
 msgstr "Polja lozinke se ne poklapaju."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Lozinka mora imati najmanje %s znaka."
 
@@ -697,7 +698,7 @@ msgstr "Registracija"
 msgid "Use this form to create an account."
 msgstr "Ovim formularom pravite nalog."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "Uslovi korišćenja"
 
@@ -769,8 +770,8 @@ msgstr "Nedostaje ID korisnika"
 msgid "The username is invalid."
 msgstr "Neispravno korisničko ime."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Mora imati između %s i %s znakova."
 
@@ -818,18 +819,18 @@ msgstr "Jezik trenutno nije podržan."
 msgid "Timezone is not currently supported."
 msgstr "Vremenska zona trenutno nije podržana."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Korisničko ime %s%s%s je već u upotrebi."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adresa %s%s%s je već u upotrebi."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Javni SSH ključ %s%s%s je već u upotrebi."
 
@@ -873,13 +874,13 @@ msgstr "Nisu izvršene nikakve izmene naloga %s%s%s."
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Nalog %s%s%s je uspešno izmenjen."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Formular za prijavljivanje je trenutno onemogućen za vašu IP adresu, najverovatnije usled napada spama. Oprostite na neprijatnosti."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Nalog je suspendovan"
 
@@ -948,11 +949,11 @@ msgstr "Nedostaje ID komentara."
 msgid "No more than 5 comments can be pinned."
 msgstr "Ne može se izdvojiti više od 5 komentara."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "Nemate dozvole za izdvajanje ovog komentara."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "Nemate dozvole da odvajanje ovog komentara."
 
@@ -972,7 +973,7 @@ msgstr "Greška pri dobavaljanju podataka o paketu."
 msgid "Package details could not be found."
 msgstr "Ne mogu naći podatke o paketu."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr ""
 
@@ -1106,7 +1107,7 @@ msgstr "Dodati ste na spisak za obaveštenja o %s."
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Uklonjeni ste sa spiska obaveštavanja o komentarima za %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "Nemate dozvole za povraćaj ovog komentara."
 
@@ -1114,7 +1115,7 @@ msgstr "Nemate dozvole za povraćaj ovog komentara."
 msgid "Comment has been undeleted."
 msgstr "Komentar je povraćen."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "Nije vam dozvoljeno brisanje ovog komentara."
 
@@ -1138,8 +1139,8 @@ msgstr "Ključne reči baze paketa su ažurirane."
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Nije vam dozvvoljeno da upravljate koodržavaocima ove osnove paketa."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "Neispravno korisničko ime: %s"
 
@@ -2312,11 +2313,13 @@ msgstr ""
 msgid "You do not have permission to change account types."
 msgstr ""
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr ""
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr ""
 
@@ -2379,4 +2382,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

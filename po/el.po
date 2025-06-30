@@ -3,21 +3,23 @@
 # This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
+# Achilleas Pipinellis, 2011-2014
 # Achilleas Pipinellis, 2014
 # Achilleas Pipinellis, 2013
 # Achilleas Pipinellis, 2013
 # Achilleas Pipinellis, 2011
 # Achilleas Pipinellis, 2012
-# Leonidas Spyropoulos, 2021-2023
+# flamelab <panosfilip@gmail.com>, 2011
+# Leonidas Spyropoulos, 2021-2023,2025
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # flamelab <panosfilip@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Leonidas Spyropoulos, 2021-2023\n"
+"Last-Translator: Leonidas Spyropoulos, 2021-2023,2025\n"
 "Language-Team: Greek (http://app.transifex.com/lfleischer/aurweb/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,7 +62,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Λογαριασμός"
 
@@ -76,7 +78,7 @@ msgstr "Δεν σας επιτρέπεται η πρόσβαση σε αυτήν
 msgid "Could not retrieve information for the specified user."
 msgstr "Δεν ήταν δυνατή η λήψη πληροφοριών για αυτόν τον χρήστη."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Δεν έχετε την άδεια να επεξεργαστείτε αυτόν τον λογαριασμό."
 
@@ -104,8 +106,8 @@ msgstr "Μη έγκυρο διακριτικό για την ενέργεια τ
 msgid "Username does not exist."
 msgstr "Αυτό το όνομα χρήστη δεν υπάρχει."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s έχει ήδη πρόταση σε εξέλιξη για αυτό το θέμα."
 
@@ -223,7 +225,7 @@ msgstr "Θυμηθείτε να ψηφίσετε τα αγαπημένα σας 
 
 #: html/home.php
 msgid "Some packages may be provided as binaries in [extra]."
-msgstr "Ορισμένα πακέτα μπορεί να μεταφερθούν ως binaries στο [extra]."
+msgstr "Ορισμένα πακέτα μπορεί να προσφέρονται ως binaries από το [extra]."
 
 #: html/home.php
 msgid "DISCLAIMER"
@@ -422,8 +424,9 @@ msgstr "Λείπει ένα απαραίτητο πεδίο."
 msgid "Password fields do not match."
 msgstr "Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν είναι ίδιες."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Ο κωδικός πρέπει να αποτελείται τουλάχιστον %s χαρακτήρες."
 
@@ -702,7 +705,7 @@ msgstr "Εγγραφείτε"
 msgid "Use this form to create an account."
 msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να δημιουργήσετε λογαριασμό."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "Όροι χρήσης"
 
@@ -774,8 +777,8 @@ msgstr "Λείπει το ID Χρήστη"
 msgid "The username is invalid."
 msgstr "Το όνομα χρήστη δεν είναι έγκυρο."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Πρέπει να αποτελείται από %s έως %s χαρακτήρες"
 
@@ -823,18 +826,18 @@ msgstr "Η γλώσσα αυτή δεν υποστηρίζεται ακόμη."
 msgid "Timezone is not currently supported."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Το όνομα, %s%s%s, χρησιμοποιείται ήδη."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Η διεύθυνση, %s%s%s, χρησιμοποιείται ήδη."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr ""
 
@@ -878,13 +881,13 @@ msgstr "Δεν έγιναν αλλαγές στο λογαριασμό, %s%s%s."
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Ο λογαριασμός, %s%s%s, τροποποποιήθηκε επιτυχώς."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Ο λογαριασμός έχει ανασταλεί"
 
@@ -953,11 +956,11 @@ msgstr "Λείπει το ID του σχολίου."
 msgid "No more than 5 comments can be pinned."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr ""
 
@@ -977,7 +980,7 @@ msgstr "Σφάλμα κατά τη διάρκεια φόρτωσης των πλ
 msgid "Package details could not be found."
 msgstr "Οι πληροφορίες του πακέτου δεν μπόρεσαν να βρεθούν."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr ""
 
@@ -1111,7 +1114,7 @@ msgstr "Έχετε προστεθεί στη λίστα ειδοποίησης �
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Έχετε αφαιρεθεί από τη λίστα ειδοποίησης σχολίων για το %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr ""
 
@@ -1119,7 +1122,7 @@ msgstr ""
 msgid "Comment has been undeleted."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "Δεν σας επιτρέπεται να διαγράψετε αυτό το σχόλιο."
 
@@ -1143,8 +1146,8 @@ msgstr ""
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr ""
 
@@ -2312,11 +2315,13 @@ msgstr ""
 msgid "You do not have permission to change account types."
 msgstr ""
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr ""
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr ""
 
@@ -2379,4 +2384,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

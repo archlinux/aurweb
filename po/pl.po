@@ -4,25 +4,29 @@
 # 
 # Translators:
 # Bartłomiej Piotrowski <spam@bpiotrowski.pl>, 2011
-# Bartłomiej Piotrowski <spam@bpiotrowski.pl>, 2014
+# Bartłomiej Piotrowski <spam@bpiotrowski.pl>, 2011,2014
+# Chris Warrick, 2012-2013
+# hawkeye116477 <inactive+hawkeye116477@transifex.com>, 2019
 # hawkeye116477 <inactive+hawkeye116477@transifex.com>, 2019
 # Chris Warrick, 2013
 # Chris Warrick, 2012
 # Kwpolska <kwpolska@kwpolska.tk>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # marcin mikołajczak <me@mkljczk.pl>, 2017
+# marcin mikołajczak <me@mkljczk.pl>, 2017
 # Michal T <zorza2@gmail.com>, 2016
 # Nuc1eoN <nucrap@hotmail.com>, 2014
-# Piotr Strębski <strebski@gmail.com>, 2017-2018,2022
-# Piotr Strębski <strebski@gmail.com>, 2013-2016
+# Nuc1eoN <nucrap@hotmail.com>, 2014
+# Piotr Strebski <strebski@gmail.com>, 2017-2018,2022,2024
+# Piotr Strebski <strebski@gmail.com>, 2013-2016
 # Przemyslaw Ka. <przemyslaw.karpeta@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Piotr Strębski <strebski@gmail.com>, 2017-2018,2022\n"
+"Last-Translator: Piotr Strebski <strebski@gmail.com>, 2017-2018,2022,2024\n"
 "Language-Team: Polish (http://app.transifex.com/lfleischer/aurweb/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +69,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Nie panikuj! W związku z przeprowadzanymi pracami technicznymi strona jest chwilowo niedostępna. Już wkrótce wrócimy."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Konto"
 
@@ -81,7 +85,7 @@ msgstr "Nie masz uprawnień do oglądania tej strony."
 msgid "Could not retrieve information for the specified user."
 msgstr "Uzyskanie informacji o podanym użytkowniku nie powiodło się."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Nie masz uprawnień do edycji tego konta."
 
@@ -109,8 +113,8 @@ msgstr "Nieprawidłowy token dla czynności użytkownika."
 msgid "Username does not exist."
 msgstr "Nazwa użytkownika nie istnieje."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s ma już propozycję dla nich."
 
@@ -145,15 +149,15 @@ msgstr "Rodzaj"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr ""
+msgstr "Dodanie opiekuna pakietu"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr ""
+msgstr "Usunięcie opiekuna pakietu"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr ""
+msgstr "Usunięcie opiekuna pakietu (niezadeklarowany brak aktywności)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -386,7 +390,7 @@ msgstr "Podaj poświadczenia logowania"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "Nazwa użytkownika lub podstawowy adres e-mail"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
@@ -427,8 +431,9 @@ msgstr "Brakuje wymaganego pola."
 msgid "Password fields do not match."
 msgstr "Hasła nie zgadzają się."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Twoje hasło musi mieć składać się z conajmniej %s znaków."
 
@@ -450,7 +455,7 @@ msgstr "Twoje hasło zostało pomyślnie zresetowane."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "Potwierdź swoją nazwę użytkownika lub podstawowy adres e-mail:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -473,7 +478,7 @@ msgstr ""
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr ""
+msgstr "Wpisz swoją nazwę użytkownika lub podstawowy adres e-mail:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -707,7 +712,7 @@ msgstr "Zarejestruj się"
 msgid "Use this form to create an account."
 msgstr "Przy użyciu tego formularza możesz utworzyć konto."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "Zasady korzystania"
 
@@ -727,7 +732,7 @@ msgstr "Akceptuję powyższe warunki i zasady."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr ""
+msgstr "Opiekun pakietu"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -779,8 +784,8 @@ msgstr "Brakujące ID użytkownika."
 msgid "The username is invalid."
 msgstr "Nazwa użytkownika jest nieprawidłowa."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Długość musi być pomiędzy %s a %s"
 
@@ -828,18 +833,18 @@ msgstr "Język nie jest obecnie obsługiwany."
 msgid "Timezone is not currently supported."
 msgstr "Strefa czasowa nie jest obecnie obsługiwana."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Nazwa użytkownika, %s%s%s, jest już używana."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adres, %s%s%s, jest już używany."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Publiczny klucz SSH, %s%s%s, jest już używany."
 
@@ -883,13 +888,13 @@ msgstr "Nie zostały dokonane żadne zmiany na koncie, %s%s%s."
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Konto %s%s%s zostało pomyślnie zaktualizowane."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Formularz logowania jest obecnie wyłączony dla Twojego adresu IP, najprawdopodobniej z powodu przeprowadzanych ataków spamerskich. Przepraszamy za niedogodności."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Konto zawieszone"
 
@@ -958,11 +963,11 @@ msgstr "Brakuje identyfikatora komentarza."
 msgid "No more than 5 comments can be pinned."
 msgstr "Można przypiąć nie więcej niż 5 komentarzy."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "Nie masz uprawnień do przypięcia tego komentarza."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "Nie masz uprawnień do odpięcia tego komentarza."
 
@@ -982,7 +987,7 @@ msgstr "Błąd podczas pobierania informacji o pakiecie."
 msgid "Package details could not be found."
 msgstr "Nie odnaleziono informacji o pakiecie."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr ""
 
@@ -1116,7 +1121,7 @@ msgstr "Zostałeś dodany do listy powiadamiania o nowych komentarzach dla %s."
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Zostałeś usunięty z listy powiadamiania o komentarzach dla %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "Nie masz uprawnień do cofnięcia usunięcia tego komentarza."
 
@@ -1124,7 +1129,7 @@ msgstr "Nie masz uprawnień do cofnięcia usunięcia tego komentarza."
 msgid "Comment has been undeleted."
 msgstr "Zostało cofnięte usunięcie komentarza."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "Nie masz uprawnień do usunięcia tego komentarza."
 
@@ -1148,8 +1153,8 @@ msgstr "Słowa kluczowe bazy pakietu zostały zaktualizowane."
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Nie masz uprawnień, by zarządzać współutrzymującymi tej bazy pakietu."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "Niepoprawna nazwa użytkownika: %s"
 
@@ -1235,7 +1240,7 @@ msgstr "Deweloper"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr ""
+msgstr "Opiekun pakietu i programista"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1397,7 +1402,7 @@ msgstr "Strefa czasowa"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr ""
+msgstr "Jeśli chcesz zmienić hasło, wpisz nowe hasło i potwierdź nowe hasło wpisując je ponownie."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1416,7 +1421,7 @@ msgstr ""
 
 #: templates/partials/account_form.html
 msgid "Hide deleted comments"
-msgstr ""
+msgstr "Ukryj usunięte komentarze"
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1444,7 +1449,7 @@ msgstr ""
 
 #: template/account_edit_form.php
 msgid "Your current password"
-msgstr ""
+msgstr "Twoje aktualne hasło"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1454,7 +1459,7 @@ msgstr ""
 
 #: template/account_edit_form.php
 msgid "Answer"
-msgstr ""
+msgstr "Odpowiedź"
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1619,7 +1624,7 @@ msgstr "tylko do odczytu"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "click to copy"
-msgstr ""
+msgstr "kliknij, aby skopiować"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1688,7 +1693,7 @@ msgstr "Ostatnie komentarze"
 
 #: template/pkg_comments.php
 msgid "Comments for"
-msgstr ""
+msgstr "Komentarze wobec"
 
 #: template/pkg_comments.php
 #, php-format
@@ -2124,7 +2129,7 @@ msgstr "Zarejestrowani użytkownicy"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr ""
+msgstr "Opiekunowie pakietów"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2321,27 +2326,29 @@ msgstr ""
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."
-msgstr ""
+msgstr "Podano nieprawidłowy typ konta."
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change account types."
-msgstr ""
+msgstr "Nie masz uprawnień do zmiany typów kont."
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr ""
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr ""
 
 #: aurweb/asgi.py
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Wewnętrzny błąd serwera"
 
 #: templates/errors/500.html
 msgid "A fatal error has occurred."
-msgstr ""
+msgstr "Wystąpił błąd krytyczny."
 
 #: templates/errors/500.html
 msgid ""
@@ -2382,11 +2389,11 @@ msgstr ""
 
 #: templates/partials/packages/comment_form.html
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: templates/requests.html
 msgid "Package name"
-msgstr ""
+msgstr "Nazwa pakietu"
 
 #: templates/partials/account_form.html
 msgid ""
@@ -2394,4 +2401,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

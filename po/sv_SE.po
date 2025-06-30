@@ -7,15 +7,15 @@
 # Kevin Morris <kevr@0cost.org>, 2022
 # Kim Svensson <ks6g10@soton.ac.uk>, 2011
 # Kim Svensson <ks@linux.com>, 2012
-# Luna Jernberg <bittin@cafe8bitar.se>, 2021-2023
+# Luna Jernberg <droidbittin@gmail.com>, 2021-2023
 # Robin Björnsvik <robin@bjornsvik.se>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Luna Jernberg <bittin@cafe8bitar.se>, 2021-2023\n"
+"Last-Translator: Kim Svensson <ks@linux.com>, 2012\n"
 "Language-Team: Swedish (Sweden) (http://app.transifex.com/lfleischer/aurweb/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +58,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Få inte panik! Den här sidan är nere för underhåll. Vi kommer tillbaka snart."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Konto"
 
@@ -74,7 +74,7 @@ msgstr "Du har inte åtkomst till den här sidan."
 msgid "Could not retrieve information for the specified user."
 msgstr "Kunde inte nå information för den önskade användaren."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Du har inte tillåtelse att ändra det här kontot."
 
@@ -102,8 +102,8 @@ msgstr "Ogiltigt värde för användareåtgärd."
 msgid "Username does not exist."
 msgstr "Användarnamnet finns inte."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s har redan förslag som är aktivt."
 
@@ -420,8 +420,9 @@ msgstr "Ett nödvändigt fält saknas."
 msgid "Password fields do not match."
 msgstr "Lösenorden stämmer inte överens."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Ditt lösenord måste vara åtminstone %s karaktärer."
 
@@ -700,7 +701,7 @@ msgstr "Registrera"
 msgid "Use this form to create an account."
 msgstr "Använd det här fältet för att skapa ett konto."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "Användarvillkor"
 
@@ -772,8 +773,8 @@ msgstr "Användar ID fattas"
 msgid "The username is invalid."
 msgstr "Användarnamnet är ogiltigt."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Det måste vara mellan %s och %s karaktärer långt"
 
@@ -821,18 +822,18 @@ msgstr "Språket stöds för nuvarande inte."
 msgid "Timezone is not currently supported."
 msgstr "Tidszon stöds för nuvarande inte."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Användarnamnet %s%s%s används redan."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Addressen %s%s%s används redan."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Den publika SSH nyckeln %s%s%s används redan."
 
@@ -876,13 +877,13 @@ msgstr "Inga ändringar gjordes till kontot, %s%s%s."
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Kontot %s%s%s har blivit modifierat framgångsrikt."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Inloggnings formuläret är för närvarande avstängt för din IP adress, troligen på grund av spam attacker. Vi ber om ursäkt för besväret."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Konto avstängt"
 
@@ -951,11 +952,11 @@ msgstr "Kommentars ID fattas."
 msgid "No more than 5 comments can be pinned."
 msgstr "Inte mer än 5 kommentarer kan bli fästa."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "Du har inte rättigheter till att fästa denna kommentar."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "Du har inte rättigheter till att lossa denna kommentar."
 
@@ -975,7 +976,7 @@ msgstr "Fel vid hämtning av paket detaljer."
 msgid "Package details could not be found."
 msgstr "Paket detaljer kunde inte hittas."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr "Dåligt referenshuvud."
 
@@ -1109,7 +1110,7 @@ msgstr "Du har blivit tillagd i kommentarnotifierings listan för %s"
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Du har blivit borttagen från kommentarsnotifierings listan för %s"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "Du har inte rättigheter att återta denna kommentar."
 
@@ -1117,7 +1118,7 @@ msgstr "Du har inte rättigheter att återta denna kommentar."
 msgid "Comment has been undeleted."
 msgstr "Kommentaren har blivit återtagen."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "Du kan inte ta bort den här kommentaren"
 
@@ -1141,8 +1142,8 @@ msgstr "Paket basens nyckelord har blivit updaterade."
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Du har inte tillåtelse att ändra sam-ansvariga för denna paket bas."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "Felaktigt användar namn: %s"
 
@@ -2310,11 +2311,13 @@ msgstr "Ogiltig kontotyp har angetts."
 msgid "You do not have permission to change account types."
 msgstr "Du har inte behörighet att ändra kontotyper."
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr "Du har inte behörighet att ändra den här användarens kontotyp till %s."
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr "Inga befintliga herrelösa begäranden att acceptera för %s."
 
@@ -2378,3 +2381,24 @@ msgid ""
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
 msgstr "Observera att om du döljer din e-postadress hamnar den på BCC-listan för eventuella begärandemeddelanden. Om någon svarar på dessa aviseringar kommer du inte att få något e-postmeddelande. Svaren skickas dock vanligtvis till e-postlistan och kommer då att vara synliga i arkivet."
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr ""

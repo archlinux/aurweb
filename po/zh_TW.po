@@ -6,14 +6,15 @@
 # pan93412 <pan93412@gmail.com>, 2018
 # Cycatz <thesummernightcat@gmail.com>, 2022
 # 黃柏諺 <s8321414@gmail.com>, 2014-2017
+# pan93412 <pan93412@gmail.com>, 2018
 # 黃柏諺 <s8321414@gmail.com>, 2020-2023
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2020-2023\n"
+"Last-Translator: Cycatz <thesummernightcat@gmail.com>, 2022\n"
 "Language-Team: Chinese (Taiwan) (http://app.transifex.com/lfleischer/aurweb/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +57,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "別緊張！這個頁面因維護而暫時下線。我們很快就會回來。"
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "帳號"
 
@@ -72,7 +73,7 @@ msgstr "您不被允許存取此區域。"
 msgid "Could not retrieve information for the specified user."
 msgstr "無法擷取指定使用者的資訊。"
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "您沒有權限編輯此帳號。"
 
@@ -100,8 +101,8 @@ msgstr "無效的使用者動作標誌。"
 msgid "Username does not exist."
 msgstr "使用者名稱不存在。"
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s 已經有了關於他們的建議。"
 
@@ -418,8 +419,9 @@ msgstr "缺少必填項目。"
 msgid "Password fields do not match."
 msgstr "密碼不符合。"
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "您的密碼必須至少 %s 個字節。"
 
@@ -698,7 +700,7 @@ msgstr "註冊"
 msgid "Use this form to create an account."
 msgstr "使用此表單來新建一個帳號。"
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "服務條款"
 
@@ -770,8 +772,8 @@ msgstr "遺失使用者 ID"
 msgid "The username is invalid."
 msgstr "使用者名稱無效。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "使用者名稱的長度必須在 %s 到 %s 個字節間。"
 
@@ -819,18 +821,18 @@ msgstr "目前不支援此語言。"
 msgid "Timezone is not currently supported."
 msgstr "目前不支援時區。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "使用者名稱 %s%s%s 已被使用。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "該位址 %s%s%s 已被使用。"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "SSH 公開金鑰，%s%s%s，已在使用中。"
 
@@ -874,13 +876,13 @@ msgstr "帳號 %s%s%s 沒有被修改。"
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "帳號 %s%s%s 已成功修改。"
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "登入表單在您目前所使用的 IP 位址被停用，可能是因為一些持續性的垃圾攻擊。我們為您的不便致歉。"
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "帳號被暫停"
 
@@ -949,11 +951,11 @@ msgstr "遺失評論 ID。"
 msgid "No more than 5 comments can be pinned."
 msgstr "只能釘選不超過 5 個評論。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "您不被允許釘選這個評論。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "您不被允許解除釘選這個評論。"
 
@@ -973,7 +975,7 @@ msgstr "擷取套件細節時發生錯誤。"
 msgid "Package details could not be found."
 msgstr "找不到套件的詳細資訊。"
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr "錯誤的 Referer 標頭。"
 
@@ -1107,7 +1109,7 @@ msgstr "您已經成功加入到 %s 的評論通知列表。"
 msgid "You have been removed from the comment notification list for %s."
 msgstr "您已經成功從 %s 的評論通知列表移除。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "您不被允許反刪除此則評論。"
 
@@ -1115,7 +1117,7 @@ msgstr "您不被允許反刪除此則評論。"
 msgid "Comment has been undeleted."
 msgstr "評論已被反刪除。"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "您不被允許刪除此則評論。"
 
@@ -1139,8 +1141,8 @@ msgstr "套件基礎關鍵字已更新。"
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "您不被允許管理此套件基礎的共同維護者。"
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "無效的使用者名稱：%s"
 
@@ -2303,11 +2305,13 @@ msgstr "提供了無效的帳號類型。"
 msgid "You do not have permission to change account types."
 msgstr "您無權變更帳號類型。"
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr "您無權變更此使用者的帳號類型至 %s。"
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr "沒有要接受的 %s 到期既有孤立請求。"
 
@@ -2371,3 +2375,24 @@ msgid ""
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
 msgstr "請注意，如果您隱藏您的電子郵件地址，它最終會出現在任何要求通知的密件副本清單中。如果有人回覆這些通知，您將不會收到電子郵件。但是，回覆通常會傳送到郵遞論壇，然後在存檔中可見。"
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr ""

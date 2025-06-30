@@ -4,15 +4,15 @@
 # 
 # Translators:
 # archetyp <archetyp@linuxmail.org>, 2013-2016
-# Jose Riha <jose1711@gmail.com>, 2018,2022
+# Jose Riha <jose1711@gmail.com>, 2018,2022,2024
 # Matej Ľach <matej.lach@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Jose Riha <jose1711@gmail.com>, 2018,2022\n"
+"Last-Translator: Jose Riha <jose1711@gmail.com>, 2018,2022,2024\n"
 "Language-Team: Slovak (http://app.transifex.com/lfleischer/aurweb/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Zachovajte pokoj. Na stránke momentálne prebieha údržba. Vrátime sa čoskoro."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Účet"
 
@@ -71,7 +71,7 @@ msgstr "Nemáte potrebné práva pre prístup do tejto oblasti."
 msgid "Could not retrieve information for the specified user."
 msgstr "Nemožno získať informácie pre špecifikovaného užívateľa. "
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Nemáte potrebné oprávnenia, pre úpravu tohoto účtu.  "
 
@@ -99,8 +99,8 @@ msgstr "Neplatný znak pre užívateľskú akciu."
 msgid "Username does not exist."
 msgstr "Užívateľské meno neexistuje."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "O %s už návrh beží."
 
@@ -135,15 +135,15 @@ msgstr "Typ"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr ""
+msgstr "Pridanie správcu balíčkov"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr ""
+msgstr "Odstránenie správcu balíčkov"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr ""
+msgstr "Odstránenie správcu balíčkov (neohlásená činnosť)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -257,7 +257,7 @@ msgstr "Žiadosť o osirenie"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Žiadosť o odobratie vlastníctva balíčka, napr. ak správca balíčka nie je aktívny a balíček bol dlhšiu dobu označený ako neaktuálny."
+msgstr "Žiadosť o odobratie vlastníctva balíčka, napr. ak správca nie je aktívny a balíček bol dlhšiu dobu označený ako neaktuálny."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -268,7 +268,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr ""
+msgstr "Požiadať o odstránenie balíčka z Arch User Repository. Prosím, nepoužívajte túto možnosť, ak balíček nefunguje a chybu je možné jednoducho opraviť. Miesto toho kontaktujte správcu a ak je to potrebné zadajte požiadavku na vyvlastnenie."
 
 #: html/home.php
 msgid "Merge Request"
@@ -417,8 +417,9 @@ msgstr "Povinné pole nie je vyplnené."
 msgid "Password fields do not match."
 msgstr "Heslá sa nezhodujú. "
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Heslo musí mať aspoň %s znakov."
 
@@ -528,7 +529,7 @@ msgstr "Vymazať"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr ""
+msgstr "Odstraňovať balíčky môžu len správcovia balíčkov a vývojári."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -539,13 +540,13 @@ msgstr "Vyvlastni balíček"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "Použite tento formulár na vyvlastnenie základne balíčka %s%s%s, ktorá zahrňuje nasledujúce balíčky:"
+msgstr "Použite tento formulár na vyvlastnenie základne balíčka %s%s%s, ktorá zahŕňa nasledujúce balíčky:"
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr ""
+msgstr "Zaškrtnutím tohto políčka potvrdzujete, že už viac nechcete byť spolupracovníkom správcu balíčka."
 
 #: html/pkgdisown.php
 #, php-format
@@ -697,7 +698,7 @@ msgstr "Registrovať"
 msgid "Use this form to create an account."
 msgstr "Použite tento formulár pre vytvorenie účtu. "
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr ""
 
@@ -717,7 +718,7 @@ msgstr ""
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr ""
+msgstr "Správca balíčkov"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -729,7 +730,7 @@ msgstr "Hlasovanie o tomto návrhu bolo ukončené."
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr ""
+msgstr "Hlasovať môžu iba správcovia balíčkov"
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -769,8 +770,8 @@ msgstr "Chýba ID užívateľa"
 msgid "The username is invalid."
 msgstr "Užívateľské meno je neplatné."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Musí mať dĺžku medzi %s a %s znakmi"
 
@@ -818,18 +819,18 @@ msgstr "Jazyk nie je momentálne podporovaný."
 msgid "Timezone is not currently supported."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Užívateľské meno %s%s%s sa už používa."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adresa %s%s%s sa už používa."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Verejný SSH kľúč %s%s%s sa už používa."
 
@@ -873,13 +874,13 @@ msgstr "Žiadne zmeny neboli vykonané na účte %s%s%s."
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Účet %s%s%s bol úspešne zmenený."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Prihlasovací formulár je v súčasnosti zablokovaný pre vašu IP adresu, pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Účet bol pozastavený"
 
@@ -948,11 +949,11 @@ msgstr "Chýba ID komentára."
 msgid "No more than 5 comments can be pinned."
 msgstr "Nemôže byť pripnutých viac ako 5 komentárov."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "Nemáte oprávnenie na pripnutie tohoto komentára."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "Nemáte oprávnenie na odopnutie tohoto komentára."
 
@@ -972,7 +973,7 @@ msgstr "Chyba pri získavaní informácií o balíčku."
 msgid "Package details could not be found."
 msgstr "Informácie o balíčku sa nepodarilo nájsť."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr ""
 
@@ -1106,7 +1107,7 @@ msgstr "Boli ste pridaný na notifikačný zoznam komentárov pre %s."
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Boli ste odobraný z notifikačného zoznamu komentárov pre %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "Nemáte práva na obnovenie tohto komentára."
 
@@ -1114,7 +1115,7 @@ msgstr "Nemáte práva na obnovenie tohto komentára."
 msgid "Comment has been undeleted."
 msgstr "Komentár bol obnovený."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "Nemáte práva na vymazanie tohto komentára."
 
@@ -1136,16 +1137,16 @@ msgstr "Kľúčové slová základne balíčka boli aktualizované."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "Nie ste oprávnený manažovať spolupracovníkov tejto základne balíčka."
+msgstr "Nie ste oprávnený spravovať spolupracovníkov správcu tejto základne balíčka."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "Neplatné užívateľské meno: %s"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
-msgstr "Spolupracovníci základne balíčka boli aktualizovaní."
+msgstr "Spolupracovníci správcu základne balíčka boli aktualizovaní."
 
 #: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
@@ -1225,7 +1226,7 @@ msgstr "Vývojár"
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr ""
+msgstr "Správca balíčkov a vývojár"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
@@ -1813,7 +1814,7 @@ msgstr "Zamietnutý"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Použite tento formulár na vyplnenie požiadavky ohľadom základne balíčka %s%s%s ktorá zahrňuje nasledovné balíčky:"
+msgstr "Použite tento formulár na vyplnenie požiadavky ohľadom základne balíčka %s%s%s ktorá zahŕňa nasledovné balíčky:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -1836,7 +1837,7 @@ msgid ""
 "By submitting a deletion request, you ask a Package Maintainer to delete the"
 " package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr ""
+msgstr "Odoslaním žiadosti o vymazanie zadávate požiadavku správcovi balíčkov na vymazanie základne balíčka. Takéto typy žiadostí by ste mali používať na duplikované balíčky, softvér, ktorý už nie je v upstreame podporovaný a tiež nelegálne a chybné a zároveň neopraviteľné balíčky."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1844,7 +1845,7 @@ msgid ""
 "package base and transfer its votes and comments to another package base. "
 "Merging a package does not affect the corresponding Git repositories. Make "
 "sure you update the Git history of the target package yourself."
-msgstr ""
+msgstr "Odoslaním žiadosti o zlúčenie zadávate požiadavku správcovi balíčkov na vymazanie základne balíčka a presun jej hlasov a komentárov k základni iného balíčka. Zlúčenie balíčka nemá vplyv na príslušné repozitáre Git. Aktualizáciu Git histórie cieľového balíčka preto prosím zabezpečte ručne."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -2114,7 +2115,7 @@ msgstr "Registrovaní užívatelia"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr ""
+msgstr "Správcovia balíčkov"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2211,7 +2212,7 @@ msgstr ""
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "AUR komentár ku {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2317,11 +2318,13 @@ msgstr ""
 msgid "You do not have permission to change account types."
 msgstr ""
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr ""
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr ""
 
@@ -2384,4 +2387,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

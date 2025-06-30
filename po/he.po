@@ -4,21 +4,22 @@
 # 
 # Translators:
 # gk <genghiskhan@gmx.ca>, 2016
+# gk <genghiskhan@gmx.ca>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2023
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2024
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2023\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2024\n"
 "Language-Team: Hebrew (http://app.transifex.com/lfleischer/aurweb/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #: html/404.php
 msgid "Page Not Found"
@@ -55,7 +56,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "אל בהלה! אתר זה הושבת לטובת עבודות תחזוקה. נשוב במהרה."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "חשבון"
 
@@ -71,7 +72,7 @@ msgstr "אין לך גישה לאזור זה."
 msgid "Could not retrieve information for the specified user."
 msgstr "לא ניתן לקבל נתונים עבור המשתמש שנבחר."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "אין לך הרשאה לערוך חשבון זה."
 
@@ -99,8 +100,8 @@ msgstr "אסימון שגוי לפעולת משתמש."
 msgid "Username does not exist."
 msgstr "שם המשתמש לא קיים."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "ל־%s יש כבר הצעה קיימת."
 
@@ -218,7 +219,7 @@ msgstr "לא לשכוח להצביע לחבילות המועדפות עליך!"
 
 #: html/home.php
 msgid "Some packages may be provided as binaries in [extra]."
-msgstr "יתכן שחלק מהחבילות מסופקות בתור קבצים בינריים תחת [extra] (קהילה)."
+msgstr "ייתכן שחלק מהחבילות מסופקות בתור קבצים בינריים תחת [extra] (תוספות)."
 
 #: html/home.php
 msgid "DISCLAIMER"
@@ -417,8 +418,9 @@ msgstr "שדה הכרחי חסר."
 msgid "Password fields do not match."
 msgstr "שדות הססמה לא תואמים."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "הססמה חייבת להיות באורך של %s אותיות לפחות."
 
@@ -697,7 +699,7 @@ msgstr "הרשמה"
 msgid "Use this form to create an account."
 msgstr "ניתן להשתמש בטופס זה על מנת ליצור חשבון."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "תנאי השירות"
 
@@ -769,8 +771,8 @@ msgstr "מס׳ הזיהוי של המשתמש חסר"
 msgid "The username is invalid."
 msgstr "שם המשתמש אינו חוקי."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "חייב להיות בין %s ל־%s אותיות"
 
@@ -818,18 +820,18 @@ msgstr "השפה אינה נתמכת כרגע."
 msgid "Timezone is not currently supported."
 msgstr "אין תמיכה באזור זמן נכון לעכשיו."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "שם המשתמש, %s%s%s, כבר נמצא בשימוש."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "הכתובת, %s%s%s, כבר נמצאת בשימוש."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "מפתח ה־SSH הציבורי, %s%s%s, כבר נמצא בשימוש."
 
@@ -873,13 +875,13 @@ msgstr "לא בוצעו שינויים בחשבון, %s%s%s."
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "החשבון, %s%s%s, השתנה בהצלחה."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "כתובת הכניסה מנוטרלת לכתובת ה־ IP שלך, כנראה עקב מתקפות ספאם מתמשכות. אנו מתנצלים על אי הנוחות."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "חשבון מושעה"
 
@@ -948,11 +950,11 @@ msgstr "חסר מס׳ זיהוי להערה."
 msgid "No more than 5 comments can be pinned."
 msgstr "אי אפשר להצמיד למעלה מ־5 תגובות."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "אין לך הרשאה להצמיד תגובה זו."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "אין לך הרשה לבטל את ההצמדה של תגובה זו."
 
@@ -972,7 +974,7 @@ msgstr "שגיאה בקבלת נתוני חבילה."
 msgid "Package details could not be found."
 msgstr "נתוני חבילה לא נמצאו."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr "כותרת הפניה שגויה."
 
@@ -1106,7 +1108,7 @@ msgstr "צורפת אל רשימת ההתראות עבור %s."
 msgid "You have been removed from the comment notification list for %s."
 msgstr "הוסרת מרשימת ההתראות להערות של %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "אין לך הרשאה לשחזר את התגובה הזו."
 
@@ -1114,7 +1116,7 @@ msgstr "אין לך הרשאה לשחזר את התגובה הזו."
 msgid "Comment has been undeleted."
 msgstr "התגובה שוחזרה."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "אין לך הרשאה למחוק הערה זו."
 
@@ -1138,8 +1140,8 @@ msgstr "מילות המפתח של בסיס החבילה עודכנו."
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "אין לך הרשאה לנהל את מתחזקי המשנה לבסיס חבילה זה."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "שם משתמש שגוי: %s"
 
@@ -1589,7 +1591,6 @@ msgid_plural "%d pending requests"
 msgstr[0] "בקשה %d ממתינה"
 msgstr[1] "%d בקשות ממתינות"
 msgstr[2] "%d בקשות ממתינות"
-msgstr[3] "%d בקשות ממתינות"
 
 #: template/pkgbase_actions.php
 msgid "Adopt Package"
@@ -1865,7 +1866,6 @@ msgid_plural "%d package requests found."
 msgstr[0] "נמצאה בקשה אחת (%d) לחבילה."
 msgstr[1] "נמצאו %d בקשות לחבילות."
 msgstr[2] "נמצאו %d בקשות לחבילות."
-msgstr[3] "נמצאו %d בקשות לחבילות."
 
 #: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
@@ -1891,7 +1891,6 @@ msgid_plural "~%d days left"
 msgstr[0] "נותר ~%d אחד"
 msgstr[1] "נותרו ~%d ימים"
 msgstr[2] "נותרו ~%d ימים"
-msgstr[3] "נותרו ~%d ימים"
 
 #: template/pkgreq_results.php
 #, php-format
@@ -1900,7 +1899,6 @@ msgid_plural "~%d hours left"
 msgstr[0] "נותרה בערך שעה (%d)"
 msgstr[1] "בערך שעתיים (%d) נותרו"
 msgstr[2] "בערך %d שעות נותרו"
-msgstr[3] "בערך %d שעות נותרו"
 
 #: template/pkgreq_results.php
 msgid "<1 hour left"
@@ -2030,7 +2028,6 @@ msgid_plural "%d packages found."
 msgstr[0] "נמצאה חבילה %d."
 msgstr[1] "נמצאו %d חבילות."
 msgstr[2] "נמצאו %d חבילות."
-msgstr[3] "נמצאו %d חבילות."
 
 #: template/pkg_search_results.php
 msgid "Version"
@@ -2317,11 +2314,13 @@ msgstr "סוג החשבון שסופק שגוי."
 msgid "You do not have permission to change account types."
 msgstr "אין לך הרשאות לשנות סוגי חשבון."
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr "אין לך הרשאות לשנות את סוג חשבון המשתמש הזה לכדי %s."
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr "אין בקשות יתומות קיימות שתוקפן פג לאשר עבור %s."
 
@@ -2385,3 +2384,24 @@ msgid ""
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
 msgstr "ראוי לשים לב שהסתרת כתובת הדוא״ל שלך תעביר אותה לרשימת העותק המוסתר בהתראות לבקשה. אם מישהו יגיב להתראות האלה, ההודעות לא תגענה אליך. עם זאת, תגובות בדרך כלל נשלחות לרשימת הדיוור והן אמורות להופיע בארכיון."
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr ""

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
-# Panwar108 <caspian7pena@gmail.com>, 2018,2020-2022
+# Panwar108 <caspian7pena@gmail.com>, 2018,2020-2022,2024
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Panwar108 <caspian7pena@gmail.com>, 2018,2020-2022\n"
+"Last-Translator: Panwar108 <caspian7pena@gmail.com>, 2018,2020-2022,2024\n"
 "Language-Team: Hindi (India) (http://app.transifex.com/lfleischer/aurweb/language/hi_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +53,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "धैर्य रखें। अनुरक्षण के कारण साइट अभी बंद है। साइट शीघ्र ही चालू हो जाएगी।"
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "अकाउंट"
 
@@ -69,7 +69,7 @@ msgstr "इस क्षेत्र हेतु आपका अभिगम �
 msgid "Could not retrieve information for the specified user."
 msgstr "निर्दिष्ट उपयोक्ता हेतु जानकारी प्राप्त प्राप्त करना विफल।"
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "आपके पास अकाउंट संपादन हेतु अनुमति नहीं है।"
 
@@ -97,8 +97,8 @@ msgstr "उपयोक्ता कार्य हेतु अमान्य
 msgid "Username does not exist."
 msgstr "अनुपस्थित उपयोक्ता नाम।"
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s हेतु प्रस्ताव पहले से दर्ज है।"
 
@@ -415,8 +415,9 @@ msgstr "आवश्यक जानकारी अनुपलब्ध।"
 msgid "Password fields do not match."
 msgstr "कूटशब्द मेल नहीं खाते।"
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "कूटशब्द में %s अक्षर आवश्यक हैं।"
 
@@ -695,7 +696,7 @@ msgstr "पंजीकरण"
 msgid "Use this form to create an account."
 msgstr "यह प्रपत्र उपयोग कर अकाउंट बनाएँ।"
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "सेवा की शर्तें"
 
@@ -715,7 +716,7 @@ msgstr "मैं ऊपर दिए गए नियम व शर्तों
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr ""
+msgstr "पैकेज अनुरक्षक"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
@@ -727,7 +728,7 @@ msgstr "इस प्रस्ताव हेतु वोट प्रक्�
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr ""
+msgstr "केवल पैकेज अनुरक्षक ही मतदान कर सकते हैं।"
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
@@ -767,8 +768,8 @@ msgstr "अनुपस्थित उपयोक्ता आईडी"
 msgid "The username is invalid."
 msgstr "अमान्य उपयोक्ता नाम।"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "%s से लेकर %s अक्षर होना आवश्यक है"
 
@@ -816,18 +817,18 @@ msgstr "असमर्थित भाषा।"
 msgid "Timezone is not currently supported."
 msgstr "असमर्थित समयक्षेत्र।"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "उपयोक्ता नाम, %s%s%s, पहले से कार्यरत है।"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "पता, %s%s%s, पहले से कार्यरत है।"
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "सार्वजनिक एसएसएच कुंजी, %s%s%s, पहले से कार्यरत है।"
 
@@ -871,13 +872,13 @@ msgstr "अकाउंट, %s%s%s में कोई परिवर्तन 
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "अकाउंट,%s%s%s, हेतु परिवर्तन सफल।"
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "संभवतः अवांछनीय इंटरनेट गतिविधि के कारण आपके आईपी पते हेतु लॉगिन प्रपत्र अभी निष्क्रिय है। असुविधा के लिए खेद है।"
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "निलंबित अकाउंट"
 
@@ -946,11 +947,11 @@ msgstr "अनुपस्थित टिप्पणी आईडी।"
 msgid "No more than 5 comments can be pinned."
 msgstr "5 से अधिक कमेंट पिन करना संभव नहीं है।"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "आप इस टिप्पणी को पिन नहीं कर सकते हैं।"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "आप इस टिप्पणी को पिन से नहीं हटा सकते हैं।"
 
@@ -970,7 +971,7 @@ msgstr "पैकेज विवरण प्राप्त करने ह�
 msgid "Package details could not be found."
 msgstr "पैकेज विवरण प्राप्त करने में विफल।"
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr "अनुचित संदर्भित हैडर।"
 
@@ -1104,7 +1105,7 @@ msgstr "आपको %s के लिए टिप्पणियों हे�
 msgid "You have been removed from the comment notification list for %s."
 msgstr "आपको %s के लिए टिप्पणियों हेतु अधिसूचना सूची में से हटा दिया गया है।"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "आपके पास यह टिप्पणी नहीं हटाने हेतु अनुमति नहीं है।"
 
@@ -1112,7 +1113,7 @@ msgstr "आपके पास यह टिप्पणी नहीं हट�
 msgid "Comment has been undeleted."
 msgstr "टिप्पणी हटाई नहीं गई।"
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "आपके पास यह टिप्पणी हटाने हेतु अनुमति नहीं है।"
 
@@ -1136,8 +1137,8 @@ msgstr "पैकेज बेस के वर्गीकरण शब्द �
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "आपके पास इस पैकेज बेस के सह-अनुरक्षकों के प्रबंधन हेतु अनुमति नहीं है।"
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "अमान्य उपयोक्ता नाम : %s"
 
@@ -2102,7 +2103,7 @@ msgstr "पंजीकृत उपयोक्ता"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr ""
+msgstr "पैकेज अनुरक्षक"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2288,7 +2289,7 @@ msgstr "{user} [1] द्वारा {pkgbase} [2] हटाया गया।
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr ""
+msgstr "पैकेज अनुरक्षक मतदान सूचक : प्रस्ताव {id}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2305,11 +2306,13 @@ msgstr "प्रदान किया गया अकाउंट प्र�
 msgid "You do not have permission to change account types."
 msgstr "आपके पास अकाउंट प्रकार में परिवर्तन हेतु अनुमति नहीं है।"
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr "आपके पास इस उपयोक्ता के अकाउंट प्रकार को %s में परिवर्तित करने हेतु अनुमति नहीं है।"
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr "%s स्वीकारनें हेतु कोई निरर्थक पैकेज अनुरोध शेष नहीं है।"
 
@@ -2352,7 +2355,7 @@ msgstr ""
 
 #: templates/partials/packages/package_metadata.html
 msgid "dependencies"
-msgstr ""
+msgstr "आश्रित पैकेज"
 
 #: aurweb/routers/accounts.py
 msgid "The account has not been deleted, check the confirmation checkbox."
@@ -2360,11 +2363,11 @@ msgstr ""
 
 #: templates/partials/packages/comment_form.html
 msgid "Cancel"
-msgstr ""
+msgstr "रद्द करें"
 
 #: templates/requests.html
 msgid "Package name"
-msgstr ""
+msgstr "पैकेज का नाम"
 
 #: templates/partials/account_form.html
 msgid ""
@@ -2372,4 +2375,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

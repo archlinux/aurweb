@@ -6,15 +6,16 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AURWEB v4.8.0\n"
-"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
+"Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/"
+"issues\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
@@ -53,7 +54,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr ""
 
@@ -69,7 +70,7 @@ msgstr ""
 msgid "Could not retrieve information for the specified user."
 msgstr ""
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr ""
 
@@ -97,8 +98,8 @@ msgstr ""
 msgid "Username does not exist."
 msgstr ""
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr ""
 
@@ -243,8 +244,8 @@ msgstr ""
 #: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage Actions"
-"%s box on the package details page:"
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
 msgstr ""
 
 #: html/home.php
@@ -308,9 +309,10 @@ msgstr ""
 #: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Package Maintainer "
-"structure takes place on %saur-general%s. For discussion relating to the "
-"development of the AUR web interface, use the %saur-dev%s mailing list."
+"General discussion regarding the Arch User Repository (AUR) and Package "
+"Maintainer structure takes place on %saur-general%s. For discussion relating "
+"to the development of the AUR web interface, use the %saur-dev%s mailing "
+"list."
 msgstr ""
 
 #: html/home.php
@@ -322,8 +324,8 @@ msgstr ""
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
-"%sonly%s. To report packaging bugs contact the maintainer or leave a "
-"comment on the appropriate package page."
+"%sonly%s. To report packaging bugs contact the maintainer or leave a comment "
+"on the appropriate package page."
 msgstr ""
 
 #: html/home.php
@@ -414,8 +416,9 @@ msgstr ""
 msgid "Password fields do not match."
 msgstr ""
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr ""
 
@@ -474,8 +477,7 @@ msgstr ""
 
 #: aurweb/routers/packages.py
 msgid ""
-"The selected packages have not been adopted, check the confirmation "
-"checkbox."
+"The selected packages have not been adopted, check the confirmation checkbox."
 msgstr ""
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
@@ -576,12 +578,11 @@ msgid "Flag Package Out-Of-Date"
 msgstr ""
 
 #: templates/packages/flag.html
-msgid "This seems to be a VCS package. Please do %snot%s flag "
-"it out-of-date if the package version in the AUR does "
-"not match the most recent commit. Flagging this package "
-"should only be done if the sources moved or changes in "
-"the PKGBUILD are required because of recent upstream "
-"changes."
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the "
+"package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
 msgstr ""
 
 #: html/pkgflag.php
@@ -694,7 +695,7 @@ msgstr ""
 msgid "Use this form to create an account."
 msgstr ""
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr ""
 
@@ -766,8 +767,8 @@ msgstr ""
 msgid "The username is invalid."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr ""
 
@@ -815,18 +816,18 @@ msgstr ""
 msgid "Timezone is not currently supported."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr ""
 
@@ -870,13 +871,13 @@ msgstr ""
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr ""
 
@@ -945,11 +946,11 @@ msgstr ""
 msgid "No more than 5 comments can be pinned."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr ""
 
@@ -969,7 +970,7 @@ msgstr ""
 msgid "Package details could not be found."
 msgstr ""
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr ""
 
@@ -1103,7 +1104,7 @@ msgstr ""
 msgid "You have been removed from the comment notification list for %s."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr ""
 
@@ -1111,7 +1112,7 @@ msgstr ""
 msgid "Comment has been undeleted."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr ""
 
@@ -1135,8 +1136,8 @@ msgstr ""
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr ""
 
@@ -1396,7 +1397,8 @@ msgid ""
 msgstr ""
 
 #: templates/partials/account_form.html
-msgid "Specify multiple SSH Keys separated by new line, empty lines are ignored."
+msgid ""
+"Specify multiple SSH Keys separated by new line, empty lines are ignored."
 msgstr ""
 
 #: templates/partials/account_form.html
@@ -1833,10 +1835,10 @@ msgstr ""
 
 #: template/pkgreq_form.php
 msgid ""
-"By submitting a merge request, you ask a Package Maintainer to delete the package "
-"base and transfer its votes and comments to another package base. Merging a "
-"package does not affect the corresponding Git repositories. Make sure you "
-"update the Git history of the target package yourself."
+"By submitting a merge request, you ask a Package Maintainer to delete the "
+"package base and transfer its votes and comments to another package base. "
+"Merging a package does not affect the corresponding Git repositories. Make "
+"sure you update the Git history of the target package yourself."
 msgstr ""
 
 #: template/pkgreq_form.php
@@ -2302,11 +2304,13 @@ msgstr ""
 msgid "You do not have permission to change account types."
 msgstr ""
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr ""
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr ""
 
@@ -2319,25 +2323,24 @@ msgid "A fatal error has occurred."
 msgstr ""
 
 #: templates/errors/500.html
-msgid "Details have been logged and will be reviewed by the postmaster "
-"posthaste. We apologize for any inconvenience this may have caused."
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
 msgstr ""
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
 msgstr ""
 
-#: templates/pkgbase/merge.html
-#: templates/packages/delete.html
+#: templates/pkgbase/merge.html templates/packages/delete.html
 #: templates/packages/disown.html
 msgid "Related package request closure comments..."
 msgstr ""
 
-#: templates/pkgbase/merge.html
-#: templates/packages/delete.html
-msgid "This action will close any pending package requests "
-"related to it. If %sComments%s are omitted, a closure "
-"comment will be autogenerated."
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr ""
 
 #: templates/partials/tu/proposal/details.html
@@ -2365,13 +2368,31 @@ msgid "Package name"
 msgstr ""
 
 #: templates/partials/account_form.html
-msgid "Note that if you hide your email address, it'll "
-"end up on the BCC list for any request notifications. "
-"In case someone replies to these notifications, you won't "
-"receive an email. However, replies are typically sent to the "
+msgid ""
+"Note that if you hide your email address, it'll end up on the BCC list for "
+"any request notifications. In case someone replies to these notifications, "
+"you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
 msgstr ""
 
 #: templates/partials/packages/comment_form.html
 msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go "
+"to [3] and click \"{label}\"."
 msgstr ""

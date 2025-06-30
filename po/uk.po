@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2018,2022\n"
+"Last-Translator: Данило Коростіль <ted.korostiled@gmail.com>, 2011\n"
 "Language-Team: Ukrainian (http://app.transifex.com/lfleischer/aurweb/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +58,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Не панікуйте! Сторінка закрита на технічне обслуговування. Ми скоро повернемося."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Обліковий запис"
 
@@ -74,7 +74,7 @@ msgstr "У вас недостатньо прав доступу."
 msgid "Could not retrieve information for the specified user."
 msgstr "Не вдалося отримати інформацію про вказаного користувача."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "У вас недостатньо прав для редагування цього облікового запису."
 
@@ -102,8 +102,8 @@ msgstr "Невірний маркер дії користувача."
 msgid "Username does not exist."
 msgstr "Користувача не існує."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s вже мають зареєстровану на себе пропозицію."
 
@@ -420,8 +420,9 @@ msgstr "Бракує обов’язкового рядка."
 msgid "Password fields do not match."
 msgstr "Паролі не збігаються."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Ваш пароль має містити щонайменше %s символів."
 
@@ -700,7 +701,7 @@ msgstr "Зареєструватись"
 msgid "Use this form to create an account."
 msgstr "Створіть обліковий запис за допомогою цієї форми."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr "Умови обслуговування"
 
@@ -772,8 +773,8 @@ msgstr "Бракує ідентифікатора користувача"
 msgid "The username is invalid."
 msgstr "Користувач неправильний."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Кількість символів повинна бути від %s до %s"
 
@@ -821,18 +822,18 @@ msgstr "Наразі ця мова не підтримується."
 msgid "Timezone is not currently supported."
 msgstr "Наразі часова зона не підтримується."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Назва користувача %s%s%s вже використовується."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Адрес %s%s%s вже використовується."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Публічний ключ SSH, %s%s%s, вже використовується."
 
@@ -876,13 +877,13 @@ msgstr "Жодних змін до облікового запису %s%s%s не
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Обліковий запис %s%s%s успішно змінено."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Форма логування зараз заборонена для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Обліковий запис вилучено"
 
@@ -951,11 +952,11 @@ msgstr "Немає ідентифікатора коментаря."
 msgid "No more than 5 comments can be pinned."
 msgstr "Можна прикріпити не більше 5 коментарів."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr "Вам заборонено прикріпляти цей коментар."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr "Вам заборонено відкріпляти цей коментар."
 
@@ -975,7 +976,7 @@ msgstr "Помилка пошуку інформації про пакунок."
 msgid "Package details could not be found."
 msgstr "Інформації про пакунок не знайдено."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr "Поганий заголовок Referer."
 
@@ -1109,7 +1110,7 @@ msgstr "Вас долучено до списку сповіщень про ко
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Вас вилучено із списку сповіщень про коментарі для %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr "Вам заборонено відновлювати цей коментар."
 
@@ -1117,7 +1118,7 @@ msgstr "Вам заборонено відновлювати цей комент
 msgid "Comment has been undeleted."
 msgstr "Коментар відновлено."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "У вас немає прав, щоб вилучити цей коментар."
 
@@ -1141,8 +1142,8 @@ msgstr "Ключові слова бази пакунків оновлено."
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Ви не має прав для керування ко-супровідниками цієї бази пакунків."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "Неправильна назва користувача: %s"
 
@@ -2320,11 +2321,13 @@ msgstr "Вказано недійсний тип облікового запис
 msgid "You do not have permission to change account types."
 msgstr "У Вас немає дозволу змінювати типи облікових записів."
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr "Ви не маєте дозволу змінити тип облікового запису цього користувача на %s."
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr "Немає наявних запитів на прийняття для %s."
 
@@ -2387,4 +2390,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

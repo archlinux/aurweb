@@ -3,15 +3,17 @@
 # This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
+# Rizki Alamsyah, 2024
 # se7entime <se7entime@disroot.org>, 2013
 # se7entime <se7entime@disroot.org>, 2016
+# se7entime <se7entime@disroot.org>, 2013,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: se7entime <se7entime@disroot.org>, 2016\n"
+"Last-Translator: Rizki Alamsyah, 2024\n"
 "Language-Team: Indonesian (http://app.transifex.com/lfleischer/aurweb/language/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,21 +31,21 @@ msgstr "Maaf, halaman yang anda minta tidak ada."
 
 #: html/404.php template/pkgreq_close_form.php
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Git clone URLs are not meant to be opened in a browser."
 
 #: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "To clone the Git repository of %s, run %s."
 
 #: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Click %shere%s to return to the %s details page."
 
 #: html/503.php
 msgid "Service Unavailable"
@@ -54,7 +56,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Jangan panik! Situs ini sedang tidak aktif karena sedang ada pemeliharaan. Kami akan kembali secepatnya."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Akun"
 
@@ -70,13 +72,13 @@ msgstr "Anda tidak diperbolehkan untuk mengakses area ini."
 msgid "Could not retrieve information for the specified user."
 msgstr "Tidak dapat mengambil informasi untuk pengguna spesifik."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Anda tidak mempunyai izin untuk menyunting akun ini."
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr ""
+msgstr "Invalid password."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -98,8 +100,8 @@ msgstr "Token tidak sah untuk aksi pengguna."
 msgid "Username does not exist."
 msgstr "Nama pengguna tidak ada."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s telah mempunyai proposal yang berjalan untuk mereka."
 
@@ -134,15 +136,15 @@ msgstr "Tipe"
 
 #: html/addvote.php
 msgid "Addition of a Package Maintainer"
-msgstr ""
+msgstr "Addition of a Package Maintainer"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer"
-msgstr ""
+msgstr "Removal of a Package Maintainer"
 
 #: html/addvote.php
 msgid "Removal of a Package Maintainer (undeclared inactivity)"
-msgstr ""
+msgstr "Removal of a Package Maintainer (undeclared inactivity)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -166,7 +168,7 @@ msgstr "Sunting komentar"
 
 #: html/home.php template/header.php
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
 #: html/home.php template/header.php
 msgid "Home"
@@ -174,27 +176,27 @@ msgstr "Beranda"
 
 #: html/home.php
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "My Flagged Packages"
 
 #: html/home.php
 msgid "My Requests"
-msgstr ""
+msgstr "My Requests"
 
 #: html/home.php
 msgid "My Packages"
-msgstr ""
+msgstr "My Packages"
 
 #: html/home.php
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Search for packages I maintain"
 
 #: html/home.php
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Co-Maintained Packages"
 
 #: html/home.php
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Search for packages I co-maintain"
 
 #: html/home.php
 #, php-format
@@ -202,14 +204,14 @@ msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
 "information and the %sAUR Submission Guidelines%s if you want to contribute "
 "a PKGBUILD."
-msgstr ""
+msgstr "Welcome to the AUR! Please read the %sAUR User Guidelines%s for more information and the %sAUR Submission Guidelines%s if you want to contribute a PKGBUILD."
 
 #: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -227,11 +229,11 @@ msgstr "DISCLAIMER"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr ""
+msgstr "AUR packages are user produced content. Any use of the provided files is at your own risk."
 
 #: html/home.php
 msgid "Learn more..."
-msgstr ""
+msgstr "Learn more..."
 
 #: html/home.php
 msgid "Support"
@@ -239,56 +241,56 @@ msgstr "Bantuan"
 
 #: html/home.php
 msgid "Package Requests"
-msgstr ""
+msgstr "Package Requests"
 
 #: html/home.php
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr ""
+msgstr "There are three types of requests that can be filed in the %sPackage Actions%s box on the package details page:"
 
 #: html/home.php
 msgid "Orphan Request"
-msgstr ""
+msgstr "Orphan Request"
 
 #: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr ""
+msgstr "Request a package to be disowned, e.g. when the maintainer is inactive and the package has been flagged out-of-date for a long time."
 
 #: html/home.php
 msgid "Deletion Request"
-msgstr ""
+msgstr "Deletion Request"
 
 #: html/home.php
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr ""
+msgstr "Request a package to be removed from the Arch User Repository. Please do not use this if a package is broken and can be fixed easily. Instead, contact the maintainer and file orphan request if necessary."
 
 #: html/home.php
 msgid "Merge Request"
-msgstr ""
+msgstr "Merge Request"
 
 #: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr ""
+msgstr "Request a package to be merged into another one. Can be used when a package needs to be renamed or replaced by a split package."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr ""
+msgstr "If you want to discuss a request, you can use the %saur-requests%s mailing list. However, please do not use that list to file requests."
 
 #: html/home.php
 msgid "Submitting Packages"
-msgstr ""
+msgstr "Submitting Packages"
 
 #: html/home.php
 #, php-format
@@ -296,15 +298,15 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr ""
+msgstr "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting packages%s section of the Arch User Repository ArchWiki page for more details."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr ""
+msgstr "The following SSH fingerprints are used for the AUR:"
 
 #: html/home.php
 msgid "Discussion"
-msgstr ""
+msgstr "Discussion"
 
 #: html/home.php
 #, php-format
@@ -313,11 +315,11 @@ msgid ""
 "Maintainer structure takes place on %saur-general%s. For discussion relating"
 " to the development of the AUR web interface, use the %saur-dev%s mailing "
 "list."
-msgstr ""
+msgstr "General discussion regarding the Arch User Repository (AUR) and Package Maintainer structure takes place on %saur-general%s. For discussion relating to the development of the AUR web interface, use the %saur-dev%s mailing list."
 
 #: html/home.php
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Bug Reporting"
 
 #: html/home.php
 #, php-format
@@ -326,74 +328,74 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the maintainer or leave a "
 "comment on the appropriate package page."
-msgstr ""
+msgstr "If you find a bug in the AUR web interface, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface %sonly%s. To report packaging bugs contact the maintainer or leave a comment on the appropriate package page."
 
 #: html/home.php
 msgid "Package Search"
-msgstr ""
+msgstr "Package Search"
 
 #: html/index.php
 msgid "Adopt"
-msgstr ""
+msgstr "Adopt"
 
 #: html/index.php
 msgid "Vote"
-msgstr ""
+msgstr "Vote"
 
 #: html/index.php
 msgid "UnVote"
-msgstr ""
+msgstr "UnVote"
 
 #: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
-msgstr ""
+msgstr "Notify"
 
 #: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
-msgstr ""
+msgstr "UnNotify"
 
 #: html/index.php
 msgid "UnFlag"
-msgstr ""
+msgstr "UnFlag"
 
 #: html/login.php template/header.php
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: html/login.php html/tos.php
 #, php-format
 msgid "Logged-in as: %s"
-msgstr ""
+msgstr "Logged-in as: %s"
 
 #: html/login.php template/header.php
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: html/login.php
 msgid "Enter login credentials"
-msgstr ""
+msgstr "Enter login credentials"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "User name or primary email address"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: html/login.php
 msgid "Remember me"
-msgstr ""
+msgstr "Remember me"
 
 #: html/login.php
 msgid "Forgot Password"
-msgstr ""
+msgstr "Forgot Password"
 
 #: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
+msgstr "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -410,83 +412,84 @@ msgstr "Galat saat mencoba untuk menerima rincian paket."
 
 #: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
-msgstr ""
+msgstr "Missing a required field."
 
 #: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
-msgstr ""
+msgstr "Password fields do not match."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
-msgstr ""
+msgstr "Your password must be at least %s characters."
 
 #: html/passreset.php
 msgid "Invalid e-mail."
-msgstr ""
+msgstr "Invalid e-mail."
 
 #: html/passreset.php
 msgid "Password Reset"
-msgstr ""
+msgstr "Password Reset"
 
 #: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
-msgstr ""
+msgstr "Check your e-mail for the confirmation link."
 
 #: html/passreset.php
 msgid "Your password has been reset successfully."
-msgstr ""
+msgstr "Your password has been reset successfully."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "Confirm your user name or primary e-mail address:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
-msgstr ""
+msgstr "Enter your new password:"
 
 #: html/passreset.php
 msgid "Confirm your new password:"
-msgstr ""
+msgstr "Confirm your new password:"
 
 #: html/passreset.php html/tos.php
 msgid "Continue"
-msgstr ""
+msgstr "Continue"
 
 #: html/passreset.php
 #, php-format
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "If you have forgotten the user name and the primary e-mail address you used to register, please send a message to the %saur-general%s mailing list."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr ""
+msgstr "Enter your user name or your primary e-mail address:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
-msgstr ""
+msgstr "Package Bases"
 
 #: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "The selected packages have not been disowned, check the confirmation checkbox."
 
 #: aurweb/routers/packages.py
 msgid ""
 "The selected packages have not been adopted, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "The selected packages have not been adopted, check the confirmation checkbox."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
-msgstr ""
+msgstr "Cannot find package to merge votes and comments into."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "Cannot merge a package base with itself."
 
 #: html/pkgbase.php
 msgid ""
@@ -496,87 +499,87 @@ msgstr "Paket yang dipilih belum dihapus, periksa kotak centang konfirmasi."
 
 #: html/pkgdel.php
 msgid "Package Deletion"
-msgstr ""
+msgstr "Package Deletion"
 
 #: html/pkgdel.php template/pkgbase_actions.php
 msgid "Delete Package"
-msgstr ""
+msgstr "Delete Package"
 
 #: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "Use this form to delete the package base %s%s%s and the following packages from the AUR: "
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "Deletion of a package is permanent. "
 
 #: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "Select the checkbox to confirm action."
 
 #: html/pkgdel.php
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Confirm package deletion"
 
 #: html/pkgdel.php template/account_delete.php
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr ""
+msgstr "Only Package Maintainers and Developers can delete packages."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
-msgstr ""
+msgstr "Disown Package"
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr ""
+msgstr "Use this form to disown the package base %s%s%s which includes the following packages: "
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr ""
+msgstr "By selecting the checkbox, you confirm that you want to no longer be a package co-maintainer."
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr ""
+msgstr "By selecting the checkbox, you confirm that you want to disown the package and transfer ownership to %s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr ""
+msgstr "By selecting the checkbox, you confirm that you want to disown the package."
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Confirm to disown the package"
 
 #: html/pkgdisown.php
 msgid "Disown"
-msgstr ""
+msgstr "Disown"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr ""
+msgstr "Only Package Maintainers and Developers can disown packages."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
-msgstr ""
+msgstr "Flag Comment"
 
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
-msgstr ""
+msgstr "Flag Package Out-Of-Date"
 
 #: templates/packages/flag.html
 msgid ""
@@ -584,307 +587,307 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr ""
+msgstr "This seems to be a VCS package. Please do %snot%s flag it out-of-date if the package version in the AUR does not match the most recent commit. Flagging this package should only be done if the sources moved or changes in the PKGBUILD are required because of recent upstream changes."
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr ""
+msgstr "Use this form to flag the package base %s%s%s and the following packages out-of-date: "
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr ""
+msgstr "Please do %snot%s use this form to report bugs. Use the package comments instead."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr ""
+msgstr "Enter details on why the package is out-of-date below, preferably including links to the release announcement or the new release tarball."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
 msgid "Comments"
-msgstr ""
+msgstr "Comments"
 
 #: html/pkgflag.php
 msgid "Flag"
-msgstr ""
+msgstr "Flag"
 
 #: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
+msgstr "Only registered users can flag packages out-of-date."
 
 #: html/pkgmerge.php
 msgid "Package Merging"
-msgstr ""
+msgstr "Package Merging"
 
 #: html/pkgmerge.php template/pkgbase_actions.php
 msgid "Merge Package"
-msgstr ""
+msgstr "Merge Package"
 
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "Use this form to merge the package base %s%s%s into another package. "
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
-msgstr ""
+msgstr "The following packages will be deleted: "
 
 #: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "Once the package has been merged it cannot be reversed. "
 
 #: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Enter the package name you wish to merge the package into. "
 
 #: html/pkgmerge.php
 msgid "Merge into:"
-msgstr ""
+msgstr "Merge into:"
 
 #: html/pkgmerge.php
 msgid "Confirm package merge"
-msgstr ""
+msgstr "Confirm package merge"
 
 #: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
-msgstr ""
+msgstr "Merge"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr ""
+msgstr "Only Package Maintainers and Developers can merge packages."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
-msgstr ""
+msgstr "Submit Request"
 
 #: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
-msgstr ""
+msgstr "Close Request"
 
 #: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
-msgstr ""
+msgstr "First"
 
 #: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
-msgstr ""
+msgstr "Previous"
 
 #: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
-msgstr ""
+msgstr "Last"
 
 #: html/pkgreq.php template/header.php
 msgid "Requests"
-msgstr ""
+msgstr "Requests"
 
 #: html/register.php template/header.php
 msgid "Register"
-msgstr ""
+msgstr "Register"
 
 #: html/register.php
 msgid "Use this form to create an account."
-msgstr ""
+msgstr "Use this form to create an account."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
-msgstr ""
+msgstr "Terms of Service"
 
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr ""
+msgstr "The following documents have been updated. Please review them carefully:"
 
 #: html/tos.php
 #, php-format
 msgid "revision %d"
-msgstr ""
+msgstr "revision %d"
 
 #: html/tos.php
 msgid "I accept the terms and conditions above."
-msgstr ""
+msgstr "I accept the terms and conditions above."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Package Maintainer"
-msgstr ""
+msgstr "Package Maintainer"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
-msgstr ""
+msgstr "Could not retrieve proposal details."
 
 #: html/tu.php
 msgid "Voting is closed for this proposal."
-msgstr ""
+msgstr "Voting is closed for this proposal."
 
 #: html/tu.php
 msgid "Only Package Maintainers are allowed to vote."
-msgstr ""
+msgstr "Only Package Maintainers are allowed to vote."
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
-msgstr ""
+msgstr "You cannot vote in an proposal about you."
 
 #: html/tu.php
 msgid "You've already voted for this proposal."
-msgstr ""
+msgstr "You've already voted for this proposal."
 
 #: html/tu.php
 msgid "Vote ID not valid."
-msgstr ""
+msgstr "Vote ID not valid."
 
 #: html/tu.php template/tu_list.php
 msgid "Current Votes"
-msgstr ""
+msgstr "Current Votes"
 
 #: html/tu.php
 msgid "Past Votes"
-msgstr ""
+msgstr "Past Votes"
 
 #: html/voters.php template/tu_details.php
 msgid "Voters"
-msgstr ""
+msgstr "Voters"
 
 #: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Account registration has been disabled for your IP address, probably due to sustained spam attacks. Sorry for the inconvenience."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
-msgstr ""
+msgstr "Missing User ID"
 
 #: lib/acctfuncs.inc.php
 msgid "The username is invalid."
-msgstr ""
+msgstr "The username is invalid."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
-msgstr ""
+msgstr "It must be between %s and %s characters long"
 
 #: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
-msgstr ""
+msgstr "Start and end with a letter or number"
 
 #: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
-msgstr ""
+msgstr "Can contain only one period, underscore or hyphen."
 
 #: lib/acctfuncs.inc.php
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Please confirm your new password."
 
 #: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
-msgstr ""
+msgstr "The email address is invalid."
 
 #: lib/acctfuncs.inc.php
 msgid "The backup email address is invalid."
-msgstr ""
+msgstr "The backup email address is invalid."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr ""
+msgstr "The home page is invalid, please specify the full HTTP(s) URL."
 
 #: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
-msgstr ""
+msgstr "The PGP key fingerprint is invalid."
 
 #: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "The SSH public key is invalid."
 
 #: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
-msgstr ""
+msgstr "Cannot increase account permissions."
 
 #: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
-msgstr ""
+msgstr "Language is not currently supported."
 
 #: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Timezone is not currently supported."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr ""
+msgstr "The username, %s%s%s, is already in use."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
-msgstr ""
+msgstr "The address, %s%s%s, is already in use."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "The SSH public key, %s%s%s, is already in use."
 
 #: lib/acctfuncs.inc.php
 msgid "The CAPTCHA is missing."
-msgstr ""
+msgstr "The CAPTCHA is missing."
 
 #: lib/acctfuncs.inc.php
 msgid "This CAPTCHA has expired. Please try again."
-msgstr ""
+msgstr "This CAPTCHA has expired. Please try again."
 
 #: lib/acctfuncs.inc.php
 msgid "The entered CAPTCHA answer is invalid."
-msgstr ""
+msgstr "The entered CAPTCHA answer is invalid."
 
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
-msgstr ""
+msgstr "Error trying to create account, %s%s%s."
 
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr ""
+msgstr "The account, %s%s%s, has been successfully created."
 
 #: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
+msgstr "A password reset key has been sent to your e-mail address."
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr ""
+msgstr "Click on the Login link above to use your account."
 
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
-msgstr ""
+msgstr "No changes were made to the account, %s%s%s."
 
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr ""
+msgstr "The account, %s%s%s, has been successfully modified."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "The login form is currently disabled for your IP address, probably due to sustained spam attacks. Sorry for the inconvenience."
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
-msgstr ""
+msgstr "Account suspended"
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to suspend accounts."
-msgstr ""
+msgstr "You do not have permission to suspend accounts."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -892,947 +895,947 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "Your password has been reset. If you just created a new account, please use the link from the confirmation email to set an initial password. Otherwise, please request a reset key on the %sPassword Reset%s page."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
-msgstr ""
+msgstr "Bad username or password."
 
 #: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
-msgstr ""
+msgstr "An error occurred trying to generate a user session."
 
 #: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
-msgstr ""
+msgstr "Invalid e-mail and reset key combination."
 
 #: lib/aur.inc.php template/pkg_details.php
 msgid "None"
-msgstr ""
+msgstr "None"
 
 #: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
-msgstr ""
+msgstr "View account information for %s"
 
 #: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "Package base ID or package base name missing."
 
 #: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
-msgstr ""
+msgstr "You are not allowed to edit this comment."
 
 #: lib/aurjson.class.php
 msgid "Comment does not exist."
-msgstr ""
+msgstr "Comment does not exist."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "Comment cannot be empty."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
-msgstr ""
+msgstr "Comment has been added."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr ""
+msgstr "You must be logged in before you can edit package information."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
-msgstr ""
+msgstr "Missing comment ID."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "No more than 5 comments can be pinned."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "You are not allowed to pin this comment."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "You are not allowed to unpin this comment."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "Comment has been pinned."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "Comment has been unpinned."
 
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
-msgstr ""
+msgstr "Error retrieving package details."
 
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
-msgstr ""
+msgstr "Package details could not be found."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
-msgstr ""
+msgstr "Bad Referer header."
 
 #: aurweb/routers/packages.py
 msgid "You did not select any packages to be notified about."
-msgstr ""
+msgstr "You did not select any packages to be notified about."
 
 #: aurweb/routers/packages.py
 msgid "The selected packages' notifications have been enabled."
-msgstr ""
+msgstr "The selected packages' notifications have been enabled."
 
 #: aurweb/routers/packages.py
 msgid "You did not select any packages for notification removal."
-msgstr ""
+msgstr "You did not select any packages for notification removal."
 
 #: aurweb/routers/packages.py
 msgid "A package you selected does not have notifications enabled."
-msgstr ""
+msgstr "A package you selected does not have notifications enabled."
 
 #: aurweb/routers/packages.py
 msgid "The selected packages' notifications have been removed."
-msgstr ""
+msgstr "The selected packages' notifications have been removed."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
-msgstr ""
+msgstr "You must be logged in before you can flag packages."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
-msgstr ""
+msgstr "You did not select any packages to flag."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
+msgstr "The selected packages have not been flagged, please enter a comment."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
-msgstr ""
+msgstr "The selected packages have been flagged out-of-date."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
-msgstr ""
+msgstr "You must be logged in before you can unflag packages."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
-msgstr ""
+msgstr "You did not select any packages to unflag."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
-msgstr ""
+msgstr "The selected packages have been unflagged."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "You do not have permission to delete packages."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
-msgstr ""
+msgstr "You did not select any packages to delete."
 
 #: aurweb/routers/packages.py
 msgid "One of the packages you selected does not exist."
-msgstr ""
+msgstr "One of the packages you selected does not exist."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
-msgstr ""
+msgstr "The selected packages have been deleted."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
-msgstr ""
+msgstr "You must be logged in before you can adopt packages."
 
 #: aurweb/routers/package.py
 msgid "You are not allowed to adopt one of the packages you selected."
-msgstr ""
+msgstr "You are not allowed to adopt one of the packages you selected."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
-msgstr ""
+msgstr "You must be logged in before you can disown packages."
 
 #: aurweb/routers/packages.py
 msgid "You are not allowed to disown one of the packages you selected."
-msgstr ""
+msgstr "You are not allowed to disown one of the packages you selected."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
-msgstr ""
+msgstr "You did not select any packages to adopt."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
-msgstr ""
+msgstr "You did not select any packages to disown."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
-msgstr ""
+msgstr "The selected packages have been adopted."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
-msgstr ""
+msgstr "The selected packages have been disowned."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
-msgstr ""
+msgstr "You must be logged in before you can vote for packages."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
-msgstr ""
+msgstr "You must be logged in before you can un-vote for packages."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
-msgstr ""
+msgstr "You did not select any packages to vote for."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
-msgstr ""
+msgstr "Your votes have been removed from the selected packages."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
-msgstr ""
+msgstr "Your votes have been cast for the selected packages."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
-msgstr ""
+msgstr "Couldn't add to notification list."
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
-msgstr ""
+msgstr "You have been added to the comment notification list for %s."
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr ""
+msgstr "You have been removed from the comment notification list for %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "You are not allowed to undelete this comment."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Comment has been undeleted."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
-msgstr ""
+msgstr "You are not allowed to delete this comment."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
-msgstr ""
+msgstr "Comment has been deleted."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been edited."
-msgstr ""
+msgstr "Comment has been edited."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr ""
+msgstr "You are not allowed to edit the keywords of this package base."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
-msgstr ""
+msgstr "The package base keywords have been updated."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "You are not allowed to manage co-maintainers of this package base."
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Invalid user name: %s"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "The package base co-maintainers have been updated."
 
 #: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
-msgstr ""
+msgstr "View packages details for"
 
 #: lib/pkgfuncs.inc.php
 #, php-format
 msgid "requires %s"
-msgstr ""
+msgstr "requires %s"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "You must be logged in to file package requests."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
-msgstr ""
+msgstr "Invalid name: only lowercase letters are allowed."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "The comment field must not be empty."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
-msgstr ""
+msgstr "Invalid request type."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
-msgstr ""
+msgstr "Added request successfully."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
-msgstr ""
+msgstr "Invalid reason."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Only TUs and developers can close requests."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
-msgstr ""
+msgstr "Request closed successfully."
 
 #: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr ""
+msgstr "You can use this form to permanently delete the AUR account %s."
 
 #: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
-msgstr ""
+msgstr "%sWARNING%s: This action cannot be undone."
 
 #: template/account_delete.php
 msgid "Confirm deletion"
-msgstr ""
+msgstr "Confirm deletion"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php template/search_accounts_form.php
 msgid "Username"
-msgstr ""
+msgstr "Username"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Account Type"
-msgstr ""
+msgstr "Account Type"
 
 #: template/account_details.php template/tu_details.php
 #: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Developer"
-msgstr ""
+msgstr "Developer"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Package Maintainer & Developer"
-msgstr ""
+msgstr "Package Maintainer & Developer"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Email Address"
-msgstr ""
+msgstr "Email Address"
 
 #: template/account_details.php
 msgid "hidden"
-msgstr ""
+msgstr "hidden"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
-msgstr ""
+msgstr "Real Name"
 
 #: template/account_details.php template/account_edit_form.php
 msgid "Homepage"
-msgstr ""
+msgstr "Homepage"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
-msgstr ""
+msgstr "IRC Nick"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php
 msgid "PGP Key Fingerprint"
-msgstr ""
+msgstr "PGP Key Fingerprint"
 
 #: template/account_details.php template/account_search_results.php
 #: template/pkgreq_results.php
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: template/account_details.php
 msgid "Inactive since"
-msgstr ""
+msgstr "Inactive since"
 
 #: template/account_details.php template/account_search_results.php
 msgid "Active"
-msgstr ""
+msgstr "Active"
 
 #: template/account_details.php
 msgid "Registration date:"
-msgstr ""
+msgstr "Registration date:"
 
 #: template/account_details.php template/pkgbase_details.php
 #: template/pkg_details.php template/pkgreq_results.php
 #: template/tu_details.php
 msgid "unknown"
-msgstr ""
+msgstr "unknown"
 
 #: template/account_details.php
 msgid "Last Login"
-msgstr ""
+msgstr "Last Login"
 
 #: template/account_details.php
 msgid "Never"
-msgstr ""
+msgstr "Never"
 
 #: template/account_details.php
 msgid "View this user's packages"
-msgstr ""
+msgstr "View this user's packages"
 
 #: template/account_details.php
 msgid "Edit this user's account"
-msgstr ""
+msgstr "Edit this user's account"
 
 #: template/account_details.php
 msgid "List this user's comments"
-msgstr ""
+msgstr "List this user's comments"
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Click %shere%s if you want to permanently delete this account."
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Click %shere%s for user details."
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s to list the comments made by this account."
-msgstr ""
+msgstr "Click %shere%s to list the comments made by this account."
 
 #: template/account_edit_form.php
 msgid "required"
-msgstr ""
+msgstr "required"
 
 #: template/account_edit_form.php
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr ""
+msgstr "Your user name is the name you will use to login. It is visible to the general public, even if your account is inactive."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
-msgstr ""
+msgstr "Normal user"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
-msgstr ""
+msgstr "Account Suspended"
 
 #: template/account_edit_form.php
 msgid "Inactive"
-msgstr ""
+msgstr "Inactive"
 
 #: template/account_edit_form.php
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr ""
+msgstr "Please ensure you correctly entered your email address, otherwise you will be locked out."
 
 #: template/account_edit_form.php
 msgid "Hide Email Address"
-msgstr ""
+msgstr "Hide Email Address"
 
 #: template/account_edit_form.php
 msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr ""
+msgstr "If you do not hide your email address, it is visible to all registered AUR users. If you hide your email address, it is visible to members of the Arch Linux staff only."
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
-msgstr ""
+msgstr "Backup Email Address"
 
 #: template/account_edit_form.php
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr ""
+msgstr "Optionally provide a secondary email address that can be used to restore your account in case you lose access to your primary email address."
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr ""
+msgstr "Password reset links are always sent to both your primary and your backup email address."
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr ""
+msgstr "Your backup email address is always only visible to members of the Arch Linux staff, independent of the %s setting."
 
 #: template/account_edit_form.php
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #: template/account_edit_form.php
 msgid "Timezone"
-msgstr ""
+msgstr "Timezone"
 
 #: template/account_edit_form.php
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr ""
+msgstr "If you want to change the password, enter a new password and confirm the new password by entering it again."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
-msgstr ""
+msgstr "Re-type password"
 
 #: template/account_edit_form.php
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr ""
+msgstr "The following information is only required if you want to submit packages to the Arch User Repository."
 
 #: templates/partials/account_form.html
 msgid ""
 "Specify multiple SSH Keys separated by new line, empty lines are ignored."
-msgstr ""
+msgstr "Specify multiple SSH Keys separated by new line, empty lines are ignored."
 
 #: templates/partials/account_form.html
 msgid "Hide deleted comments"
-msgstr ""
+msgstr "Hide deleted comments"
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
-msgstr ""
+msgstr "SSH Public Key"
 
 #: template/account_edit_form.php
 msgid "Notification settings"
-msgstr ""
+msgstr "Notification settings"
 
 #: template/account_edit_form.php
 msgid "Notify of new comments"
-msgstr ""
+msgstr "Notify of new comments"
 
 #: template/account_edit_form.php
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Notify of package updates"
 
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
-msgstr ""
+msgstr "Notify of ownership changes"
 
 #: template/account_edit_form.php
 msgid "To confirm the profile changes, please enter your current password:"
-msgstr ""
+msgstr "To confirm the profile changes, please enter your current password:"
 
 #: template/account_edit_form.php
 msgid "Your current password"
-msgstr ""
+msgstr "Your current password"
 
 #: template/account_edit_form.php
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr ""
+msgstr "To protect the AUR against automated account creation, we kindly ask you to provide the output of the following command:"
 
 #: template/account_edit_form.php
 msgid "Answer"
-msgstr ""
+msgstr "Answer"
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
 msgid "Update"
-msgstr ""
+msgstr "Update"
 
 #: template/account_edit_form.php
 msgid "Create"
-msgstr ""
+msgstr "Create"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: template/account_search_results.php
 msgid "No results matched your search criteria."
-msgstr ""
+msgstr "No results matched your search criteria."
 
 #: template/account_search_results.php
 msgid "Edit Account"
-msgstr ""
+msgstr "Edit Account"
 
 #: template/account_search_results.php
 msgid "Suspended"
-msgstr ""
+msgstr "Suspended"
 
 #: template/account_search_results.php
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: template/account_search_results.php
 msgid "Less"
-msgstr ""
+msgstr "Less"
 
 #: template/account_search_results.php
 msgid "More"
-msgstr ""
+msgstr "More"
 
 #: template/account_search_results.php
 msgid "No more results to display."
-msgstr ""
+msgstr "No more results to display."
 
 #: template/comaintainers_form.php
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr ""
+msgstr "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 
 #: template/comaintainers_form.php
 msgid "Users"
-msgstr ""
+msgstr "Users"
 
 #: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Flagged Out-of-Date Comment: %s"
 
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s is not flagged out-of-date."
 
 #: template/flag_comment.php
 msgid "Return to Details"
-msgstr ""
+msgstr "Return to Details"
 
 #: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "Copyright %s 2004-%d aurweb Development Team."
 
 #: template/header.php
 msgid " My Account"
-msgstr ""
+msgstr " My Account"
 
 #: template/pkgbase_actions.php
 msgid "Package Actions"
-msgstr ""
+msgstr "Package Actions"
 
 #: template/pkgbase_actions.php
 msgid "View PKGBUILD"
-msgstr ""
+msgstr "View PKGBUILD"
 
 #: template/pkgbase_actions.php
 msgid "View Changes"
-msgstr ""
+msgstr "View Changes"
 
 #: template/pkgbase_actions.php
 msgid "Download snapshot"
-msgstr ""
+msgstr "Download snapshot"
 
 #: template/pkgbase_actions.php
 msgid "Search wiki"
-msgstr ""
+msgstr "Search wiki"
 
 #: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Flagged out-of-date (%s)"
 
 #: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
-msgstr ""
+msgstr "Flag package out-of-date"
 
 #: template/pkgbase_actions.php
 msgid "Unflag package"
-msgstr ""
+msgstr "Unflag package"
 
 #: template/pkgbase_actions.php
 msgid "Remove vote"
-msgstr ""
+msgstr "Remove vote"
 
 #: template/pkgbase_actions.php
 msgid "Vote for this package"
-msgstr ""
+msgstr "Vote for this package"
 
 #: template/pkgbase_actions.php scripts/notify.py
 msgid "Disable notifications"
-msgstr ""
+msgstr "Disable notifications"
 
 #: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
-msgstr ""
+msgstr "Enable notifications"
 
 #: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Manage Co-Maintainers"
 
 #: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
+msgstr[0] "%d pending requests"
 
 #: template/pkgbase_actions.php
 msgid "Adopt Package"
-msgstr ""
+msgstr "Adopt Package"
 
 #: template/pkgbase_details.php
 msgid "Package Base Details"
-msgstr ""
+msgstr "Package Base Details"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git Clone URL"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
-msgstr ""
+msgstr "read-only"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "click to copy"
-msgstr ""
+msgstr "click to copy"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
 msgid "Keywords"
-msgstr ""
+msgstr "Keywords"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
 msgid "Submitter"
-msgstr ""
+msgstr "Submitter"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
-msgstr ""
+msgstr "Maintainer"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
-msgstr ""
+msgstr "Last Packager"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
-msgstr ""
+msgstr "Votes"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Popularity"
-msgstr ""
+msgstr "Popularity"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
-msgstr ""
+msgstr "First Submitted"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
-msgstr ""
+msgstr "Last Updated"
 
 #: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "Edit comment for: %s"
 
 #: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
-msgstr ""
+msgstr "Add Comment"
 
 #: template/pkg_comment_form.php
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr ""
+msgstr "Git commit identifiers referencing commits in the AUR package repository and URLs are converted to links automatically."
 
 #: template/pkg_comment_form.php
 #, php-format
 msgid "%sMarkdown syntax%s is partially supported."
-msgstr ""
+msgstr "%sMarkdown syntax%s is partially supported."
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
-msgstr ""
+msgstr "Pinned Comments"
 
 #: template/pkg_comments.php
 msgid "Latest Comments"
-msgstr ""
+msgstr "Latest Comments"
 
 #: template/pkg_comments.php
 msgid "Comments for"
-msgstr ""
+msgstr "Comments for"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
-msgstr ""
+msgstr "%s commented on %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
-msgstr ""
+msgstr "Anonymous comment on %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "Commented on package %s on %s"
-msgstr ""
+msgstr "Commented on package %s on %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
-msgstr ""
+msgstr "deleted on %s by %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "deleted on %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "edited on %s by %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "edited on %s"
 
 #: template/pkg_comments.php
 msgid "Undelete comment"
-msgstr ""
+msgstr "Undelete comment"
 
 #: template/pkg_comments.php
 msgid "Delete comment"
-msgstr ""
+msgstr "Delete comment"
 
 #: template/pkg_comments.php
 msgid "Pin comment"
-msgstr ""
+msgstr "Pin comment"
 
 #: template/pkg_comments.php
 msgid "Unpin comment"
-msgstr ""
+msgstr "Unpin comment"
 
 #: template/pkg_details.php
 msgid "Package Details"
-msgstr ""
+msgstr "Package Details"
 
 #: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
-msgstr ""
+msgstr "Package Base"
 
 #: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: template/pkg_details.php
 msgid "Upstream URL"
-msgstr ""
+msgstr "Upstream URL"
 
 #: template/pkg_details.php
 msgid "Visit the website for"
-msgstr ""
+msgstr "Visit the website for"
 
 #: template/pkg_details.php
 msgid "Licenses"
-msgstr ""
+msgstr "Licenses"
 
 #: template/pkg_details.php
 msgid "Groups"
-msgstr ""
+msgstr "Groups"
 
 #: template/pkg_details.php
 msgid "Conflicts"
-msgstr ""
+msgstr "Conflicts"
 
 #: template/pkg_details.php
 msgid "Provides"
-msgstr ""
+msgstr "Provides"
 
 #: template/pkg_details.php
 msgid "Replaces"
-msgstr ""
+msgstr "Replaces"
 
 #: template/pkg_details.php
 msgid "Dependencies"
-msgstr ""
+msgstr "Dependencies"
 
 #: template/pkg_details.php
 msgid "Required by"
-msgstr ""
+msgstr "Required by"
 
 #: template/pkg_details.php
 msgid "Sources"
-msgstr ""
+msgstr "Sources"
 
 #: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
+msgstr "Use this form to close the request for package base %s%s%s."
 
 #: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr ""
+msgstr "The comments field can be left empty. However, it is highly recommended to add a comment when rejecting a request."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
-msgstr ""
+msgstr "Reason"
 
 #: template/pkgreq_close_form.php template/pkgreq_results.php
 #: template/tu_details.php
 msgid "Accepted"
-msgstr ""
+msgstr "Accepted"
 
 #: template/pkgreq_close_form.php template/pkgreq_results.php
 #: template/tu_details.php
 msgid "Rejected"
-msgstr ""
+msgstr "Rejected"
 
 #: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
+msgstr "Use this form to file a request against package base %s%s%s which includes the following packages:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
-msgstr ""
+msgstr "Request type"
 
 #: template/pkgreq_form.php
 msgid "Deletion"
-msgstr ""
+msgstr "Deletion"
 
 #: template/pkgreq_form.php
 msgid "Orphan"
-msgstr ""
+msgstr "Orphan"
 
 #: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
-msgstr ""
+msgstr "Merge into"
 
 #: template/pkgreq_form.php
 msgid ""
 "By submitting a deletion request, you ask a Package Maintainer to delete the"
 " package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr ""
+msgstr "By submitting a deletion request, you ask a Package Maintainer to delete the package base. This type of request should be used for duplicates, software abandoned by upstream, as well as illegal and irreparably broken packages."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1840,7 +1843,7 @@ msgid ""
 "package base and transfer its votes and comments to another package base. "
 "Merging a package does not affect the corresponding Git repositories. Make "
 "sure you update the Git history of the target package yourself."
-msgstr ""
+msgstr "By submitting a merge request, you ask a Package Maintainer to delete the package base and transfer its votes and comments to another package base. Merging a package does not affect the corresponding Git repositories. Make sure you update the Git history of the target package yourself."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1848,330 +1851,330 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr ""
+msgstr "By submitting an orphan request, you ask a Package Maintainer to disown the package base. Please only do this if the package needs maintainer action, the maintainer is MIA and you already tried to contact the maintainer previously."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "No requests matched your search criteria."
 
 #: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
+msgstr[0] "%d package requests found."
 
 #: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Page %d of %d."
 
 #: template/pkgreq_results.php
 msgid "Package"
-msgstr ""
+msgstr "Package"
 
 #: template/pkgreq_results.php
 msgid "Filed by"
-msgstr ""
+msgstr "Filed by"
 
 #: template/pkgreq_results.php
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: template/pkgreq_results.php
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
+msgstr[0] "~%d days left"
 
 #: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
+msgstr[0] "~%d hours left"
 
 #: template/pkgreq_results.php
 msgid "<1 hour left"
-msgstr ""
+msgstr "<1 hour left"
 
 #: template/pkgreq_results.php
 msgid "Accept"
-msgstr ""
+msgstr "Accept"
 
 #: template/pkgreq_results.php
 msgid "Locked"
-msgstr ""
+msgstr "Locked"
 
 #: template/pkgreq_results.php
 msgid "Close"
-msgstr ""
+msgstr "Close"
 
 #: template/pkgreq_results.php
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 #: template/pkgreq_results.php
 msgid "Closed"
-msgstr ""
+msgstr "Closed"
 
 #: template/pkg_search_form.php
 msgid "Name, Description"
-msgstr ""
+msgstr "Name, Description"
 
 #: template/pkg_search_form.php
 msgid "Name Only"
-msgstr ""
+msgstr "Name Only"
 
 #: template/pkg_search_form.php
 msgid "Exact Name"
-msgstr ""
+msgstr "Exact Name"
 
 #: template/pkg_search_form.php
 msgid "Exact Package Base"
-msgstr ""
+msgstr "Exact Package Base"
 
 #: template/pkg_search_form.php
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Co-maintainer"
 
 #: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Maintainer, Co-maintainer"
 
 #: template/pkg_search_form.php
 msgid "All"
-msgstr ""
+msgstr "All"
 
 #: template/pkg_search_form.php
 msgid "Flagged"
-msgstr ""
+msgstr "Flagged"
 
 #: template/pkg_search_form.php
 msgid "Not Flagged"
-msgstr ""
+msgstr "Not Flagged"
 
 #: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: template/pkg_search_form.php template/pkg_search_results.php
 #: template/tu_details.php template/tu_list.php
 msgid "Voted"
-msgstr ""
+msgstr "Voted"
 
 #: template/pkg_search_form.php
 msgid "Last modified"
-msgstr ""
+msgstr "Last modified"
 
 #: template/pkg_search_form.php
 msgid "Ascending"
-msgstr ""
+msgstr "Ascending"
 
 #: template/pkg_search_form.php
 msgid "Descending"
-msgstr ""
+msgstr "Descending"
 
 #: template/pkg_search_form.php
 msgid "Enter search criteria"
-msgstr ""
+msgstr "Enter search criteria"
 
 #: template/pkg_search_form.php
 msgid "Search by"
-msgstr ""
+msgstr "Search by"
 
 #: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
-msgstr ""
+msgstr "Out of Date"
 
 #: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
-msgstr ""
+msgstr "Sort by"
 
 #: template/pkg_search_form.php
 msgid "Sort order"
-msgstr ""
+msgstr "Sort order"
 
 #: template/pkg_search_form.php
 msgid "Per page"
-msgstr ""
+msgstr "Per page"
 
 #: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
-msgstr ""
+msgstr "Go"
 
 #: template/pkg_search_form.php
 msgid "Orphans"
-msgstr ""
+msgstr "Orphans"
 
 #: template/pkg_search_results.php
 msgid "Error retrieving package list."
-msgstr ""
+msgstr "Error retrieving package list."
 
 #: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
-msgstr ""
+msgstr "No packages matched your search criteria."
 
 #: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
+msgstr[0] "%d packages found."
 
 #: template/pkg_search_results.php
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: template/pkg_search_results.php
 #, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr ""
+msgstr "Popularity is calculated as the sum of all votes with each vote being weighted with a factor of %.2f per day since its creation."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #: template/pkg_search_results.php
 msgid "orphan"
-msgstr ""
+msgstr "orphan"
 
 #: template/pkg_search_results.php
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
-msgstr ""
+msgstr "Unflag Out-of-date"
 
 #: template/pkg_search_results.php
 msgid "Adopt Packages"
-msgstr ""
+msgstr "Adopt Packages"
 
 #: template/pkg_search_results.php
 msgid "Disown Packages"
-msgstr ""
+msgstr "Disown Packages"
 
 #: template/pkg_search_results.php
 msgid "Delete Packages"
-msgstr ""
+msgstr "Delete Packages"
 
 #: template/pkg_search_results.php
 msgid "Confirm"
-msgstr ""
+msgstr "Confirm"
 
 #: template/search_accounts_form.php
 msgid "Any type"
-msgstr ""
+msgstr "Any type"
 
 #: template/search_accounts_form.php
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #: template/stats/general_stats_table.php
 msgid "Statistics"
-msgstr ""
+msgstr "Statistics"
 
 #: template/stats/general_stats_table.php
 msgid "Orphan Packages"
-msgstr ""
+msgstr "Orphan Packages"
 
 #: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
-msgstr ""
+msgstr "Packages added in the past 7 days"
 
 #: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
-msgstr ""
+msgstr "Packages updated in the past 7 days"
 
 #: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
-msgstr ""
+msgstr "Packages updated in the past year"
 
 #: template/stats/general_stats_table.php
 msgid "Packages never updated"
-msgstr ""
+msgstr "Packages never updated"
 
 #: template/stats/general_stats_table.php
 msgid "Registered Users"
-msgstr ""
+msgstr "Registered Users"
 
 #: template/stats/general_stats_table.php
 msgid "Package Maintainers"
-msgstr ""
+msgstr "Package Maintainers"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
-msgstr ""
+msgstr "Recent Updates"
 
 #: template/stats/updates_table.php
 msgid "more"
-msgstr ""
+msgstr "more"
 
 #: template/stats/user_table.php
 msgid "My Statistics"
-msgstr ""
+msgstr "My Statistics"
 
 #: template/tu_details.php
 msgid "Proposal Details"
-msgstr ""
+msgstr "Proposal Details"
 
 #: template/tu_details.php
 msgid "This vote is still running."
-msgstr ""
+msgstr "This vote is still running."
 
 #: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
-msgstr ""
+msgstr "Submitted: %s by %s"
 
 #: template/tu_details.php template/tu_list.php
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: template/tu_details.php
 msgid "Result"
-msgstr ""
+msgstr "Result"
 
 #: template/tu_details.php template/tu_list.php
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: template/tu_details.php
 msgid "Abstain"
-msgstr ""
+msgstr "Abstain"
 
 #: template/tu_details.php
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: template/tu_details.php
 msgid "Participation"
-msgstr ""
+msgstr "Participation"
 
 #: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Last Votes by TU"
 
 #: template/tu_last_votes_list.php
 msgid "Last vote"
-msgstr ""
+msgstr "Last vote"
 
 #: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
-msgstr ""
+msgstr "No results found."
 
 #: template/tu_list.php
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: template/tu_list.php
 msgid "Back"
-msgstr ""
+msgstr "Back"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "AUR Password Reset"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2179,90 +2182,90 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr ""
+msgstr "A password reset request was submitted for the account {user} associated with your email address. If you wish to reset your password follow the link [1] below, otherwise ignore this message and nothing will happen."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "Welcome to the Arch User Repository"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr ""
+msgstr "Welcome to the Arch User Repository! In order to set an initial password for your new account, please click the link [1] below. If the link does not work, try copying and pasting it into your browser."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "AUR Comment for {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] added the following comment to {pkgbase} [2]:"
-msgstr ""
+msgstr "{user} [1] added the following comment to {pkgbase} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr ""
+msgstr "If you no longer wish to receive notifications about this package, please go to the package page [2] and select \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package Update: {pkgbase}"
-msgstr ""
+msgstr "AUR Package Update: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
-msgstr ""
+msgstr "{user} [1] pushed a new commit to {pkgbase} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Out-of-date Notification for {pkgbase}"
-msgstr ""
+msgstr "AUR Out-of-date Notification for {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr ""
+msgstr "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Ownership Notification for {pkgbase}"
-msgstr ""
+msgstr "AUR Ownership Notification for {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was adopted by {user} [2]."
-msgstr ""
+msgstr "The package {pkgbase} [1] was adopted by {user} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was disowned by {user} [2]."
-msgstr ""
+msgstr "The package {pkgbase} [1] was disowned by {user} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Co-Maintainer Notification for {pkgbase}"
-msgstr ""
+msgstr "AUR Co-Maintainer Notification for {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were added to the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "You were added to the co-maintainer list of {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "You were removed from the co-maintainer list of {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package deleted: {pkgbase}"
-msgstr ""
+msgstr "AUR Package deleted: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2271,7 +2274,7 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "{user} [1] merged {old} [2] into {new} [3].\n\n-- \nIf you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2279,88 +2282,90 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr ""
+msgstr "{user} [1] deleted {pkgbase} [2].\n\nYou will no longer receive notifications about this package."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Package Maintainer Vote Reminder: Proposal {id}"
-msgstr ""
+msgstr "Package Maintainer Vote Reminder: Proposal {id}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr ""
+msgstr "Please remember to cast your vote on proposal {id} [1]. The voting period ends in less than 48 hours."
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."
-msgstr ""
+msgstr "Invalid account type provided."
 
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change account types."
-msgstr ""
+msgstr "You do not have permission to change account types."
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
-msgstr ""
+msgstr "You do not have permission to change this user's account type to %s."
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
-msgstr ""
+msgstr "No due existing orphan requests to accept for %s."
 
 #: aurweb/asgi.py
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Internal Server Error"
 
 #: templates/errors/500.html
 msgid "A fatal error has occurred."
-msgstr ""
+msgstr "A fatal error has occurred."
 
 #: templates/errors/500.html
 msgid ""
 "Details have been logged and will be reviewed by the postmaster posthaste. "
 "We apologize for any inconvenience this may have caused."
-msgstr ""
+msgstr "Details have been logged and will be reviewed by the postmaster posthaste. We apologize for any inconvenience this may have caused."
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
-msgstr ""
+msgstr "AUR Server Error"
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 #: templates/packages/disown.html
 msgid "Related package request closure comments..."
-msgstr ""
+msgstr "Related package request closure comments..."
 
 #: templates/pkgbase/merge.html templates/packages/delete.html
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr ""
+msgstr "This action will close any pending package requests related to it. If %sComments%s are omitted, a closure comment will be autogenerated."
 
 #: templates/partials/tu/proposal/details.html
 msgid "assigned"
-msgstr ""
+msgstr "assigned"
 
 #: templaets/partials/packages/package_metadata.html
 msgid "Show %d more"
-msgstr ""
+msgstr "Show %d more"
 
 #: templates/partials/packages/package_metadata.html
 msgid "dependencies"
-msgstr ""
+msgstr "dependencies"
 
 #: aurweb/routers/accounts.py
 msgid "The account has not been deleted, check the confirmation checkbox."
-msgstr ""
+msgstr "The account has not been deleted, check the confirmation checkbox."
 
 #: templates/partials/packages/comment_form.html
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: templates/requests.html
 msgid "Package name"
-msgstr ""
+msgstr "Package name"
 
 #: templates/partials/account_form.html
 msgid ""
@@ -2368,4 +2373,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr "Note that if you hide your email address, it'll end up on the BCC list for any request notifications. In case someone replies to these notifications, you won't receive an email. However, replies are typically sent to the mailing-list and would then be visible in the archive."
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""

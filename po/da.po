@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
-"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"POT-Creation-Date: 2025-06-30 21:27+0100\n"
 "PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Linuxbruger <y.z@live.dk>, 2018\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>, 2011\n"
 "Language-Team: Danish (http://app.transifex.com/lfleischer/aurweb/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Lad vær med at gå i panik! Denne side er nede på grund af vedligeholdelse. Vi vil være tilbage snart."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "Account"
 msgstr "Konto"
 
@@ -71,7 +71,7 @@ msgstr "Du har ikke tilladelse til dette område."
 msgid "Could not retrieve information for the specified user."
 msgstr "Kunne ikke hente information om den specifikke bruger."
 
-#: html/account.php
+#: html/account.php routers/accounts.py
 msgid "You do not have permission to edit this account."
 msgstr "Du har ikke tilladelse til at redigere denne konto."
 
@@ -99,8 +99,8 @@ msgstr "Ugyldigt tegn for bruger handling."
 msgid "Username does not exist."
 msgstr "Brugernavnet findes ikke."
 
-#: html/addvote.php
-#, php-format
+#: html/addvote.php routers/package_maintainer.py
+#, python-format, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s har allerede et forslag kørende for dem."
 
@@ -417,8 +417,9 @@ msgstr "Du mangler at udfylde et påkrævet felt."
 msgid "Password fields do not match."
 msgstr "Adgangskoderne stemmer ikke overens."
 
-#: html/passreset.php lib/acctfuncs.inc.php
-#, php-format
+#: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
+#: users/validate.py
+#, python-format, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Din adgangskode skal være mindst %s tegn."
 
@@ -697,7 +698,7 @@ msgstr "Register"
 msgid "Use this form to create an account."
 msgstr "Brug denne formular til at oprette en konto."
 
-#: html/tos.php
+#: html/tos.php routers/accounts.py
 msgid "Terms of Service"
 msgstr ""
 
@@ -769,8 +770,8 @@ msgstr "Manglende bruger-ID"
 msgid "The username is invalid."
 msgstr "Brugernavnet er ugyldigt."
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Skal være mellem %s og %s tegn."
 
@@ -818,18 +819,18 @@ msgstr "Sproget er ikke understøttet på nuværende tidspunkt."
 msgid "Timezone is not currently supported."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
-#, php-format
+#: lib/acctfuncs.inc.php users/validate.py
+#, python-format, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr ""
 
@@ -873,13 +874,13 @@ msgstr ""
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
 
-#: lib/acctfuncs.inc.php
+#: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
 msgstr "Konto suspenderet"
 
@@ -948,11 +949,11 @@ msgstr "Manglende kommentar ID."
 msgid "No more than 5 comments can be pinned."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to pin this comment."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to unpin this comment."
 msgstr ""
 
@@ -972,7 +973,7 @@ msgstr "Fejl ved modtagelse af pakkedetaljer."
 msgid "Package details could not be found."
 msgstr "Kunne ikke finde pakkedetaljerne.."
 
-#: aurweb/routers/auth.py
+#: aurweb/routers/auth.py auth/__init__.py routers/auth.py
 msgid "Bad Referer header."
 msgstr ""
 
@@ -1106,7 +1107,7 @@ msgstr "Du vil nu modtage besked, når der kommer nye kommentarer til %s."
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Du vil ikke længere modtage besked ved nye kommentarer for %s."
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
 msgstr ""
 
@@ -1114,7 +1115,7 @@ msgstr ""
 msgid "Comment has been undeleted."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
+#: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to delete this comment."
 msgstr "Du har ikke rettigheder til at slette denne kommentar."
 
@@ -1138,8 +1139,8 @@ msgstr ""
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
-#: lib/pkgbasefuncs.inc.php
-#, php-format
+#: lib/pkgbasefuncs.inc.php pkgbase/util.py
+#, python-format, php-format
 msgid "Invalid user name: %s"
 msgstr "Ugyldigt brugernavn: %s"
 
@@ -2307,11 +2308,13 @@ msgstr ""
 msgid "You do not have permission to change account types."
 msgstr ""
 
-#: aurweb/routers/accounts.py
+#: aurweb/routers/accounts.py users/validate.py
+#, python-format
 msgid "You do not have permission to change this user's account type to %s."
 msgstr ""
 
-#: aurweb/packages/requests.py
+#: aurweb/packages/requests.py packages/requests.py
+#, python-format
 msgid "No due existing orphan requests to accept for %s."
 msgstr ""
 
@@ -2374,4 +2377,25 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
+msgstr ""
+
+#: templates/partials/packages/comment_form.html
+msgid "Maximum number of characters"
+msgstr ""
+
+#: routers/sso.py
+msgid "Bad OAuth token. Please retry logging in from the start."
+msgstr ""
+
+#: routers/sso.py
+msgid "JWT is missing its `sub` field."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"--\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""
