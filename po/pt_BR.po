@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011
-# Fábio Nogueira <deb.user.ba@gmail.com>, 2016
-# Rafael Fontenelle <rffontenelle@gmail.com>, 2012-2015
-# Rafael Fontenelle <rffontenelle@gmail.com>, 2011,2015-2018,2020-2023
-# Rafael Fontenelle <rffontenelle@gmail.com>, 2011
-# Sandro <sandrossv@hotmail.com>, 2011
-# Sandro <sandrossv@hotmail.com>, 2011
+# Archlinux DevOps account, 2025
+# Rafael Fontenelle <rffontenelle@gmail.com>, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Sandro <sandrossv@hotmail.com>, 2011\n"
-"Language-Team: Portuguese (Brazil) (http://app.transifex.com/lfleischer/aurweb/language/pt_BR/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>, 2025\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/archlinux/teams/289905/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +55,9 @@ msgstr "Serviço indisponível"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Sem pânico! Este site está indisponível para manutenção. Voltaremos às atividades em breve."
+msgstr ""
+"Sem pânico! Este site está indisponível para manutenção. Voltaremos às "
+"atividades em breve."
 
 #: html/account.php routers/accounts.py
 msgid "Account"
@@ -207,14 +207,19 @@ msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
 "information and the %sAUR Submission Guidelines%s if you want to contribute "
 "a PKGBUILD."
-msgstr "Bem-vindo ao AUR! Por favor, leia as %sDiretrizes do Usuário do AUR%s para obter mais informações e as %sDiretrizes de Envio para o AUR%s se você quiser contribuir com um PKGBUILD."
+msgstr ""
+"Bem-vindo ao AUR! Por favor, leia as %sDiretrizes do Usuário do AUR%s para "
+"obter mais informações e as %sDiretrizes de Envio para o AUR%s se você "
+"quiser contribuir com um PKGBUILD."
 
 #: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "PKGBUILDs contribuídos %sdevem%s estar em conformidade com os %sPadrões de Empacotamento do Arch%s, do contrário eles serão excluídos!"
+msgstr ""
+"PKGBUILDs contribuídos %sdevem%s estar em conformidade com os %sPadrões de "
+"Empacotamento do Arch%s, do contrário eles serão excluídos!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -222,7 +227,8 @@ msgstr "Lembre-se de votar nos seus pacotes favoritos!"
 
 #: html/home.php
 msgid "Some packages may be provided as binaries in [extra]."
-msgstr "Alguns pacotes podem ser fornecidos como binários no repositório [extra]."
+msgstr ""
+"Alguns pacotes podem ser fornecidos como binários no repositório [extra]."
 
 #: html/home.php
 msgid "DISCLAIMER"
@@ -232,7 +238,9 @@ msgstr "AVISO LEGAL"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Os pacotes do AUR são conteúdos produzidos por usuários. Qualquer uso dos arquivos fornecidos é de sua própria conta e risco."
+msgstr ""
+"Os pacotes do AUR são conteúdos produzidos por usuários. Qualquer uso dos "
+"arquivos fornecidos é de sua própria conta e risco."
 
 #: html/home.php
 msgid "Learn more..."
@@ -251,7 +259,9 @@ msgstr "Requisições de pacote"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "Há três tipos de requisições que podem ser realizadas na caixa %sAções do pacote%s na página de detalhes do pacote:"
+msgstr ""
+"Há três tipos de requisições que podem ser realizadas na caixa %sAções do "
+"pacote%s na página de detalhes do pacote:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -261,7 +271,10 @@ msgstr "Requisição para tornar o pacote órfão"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Requisite que um pacote seja desvinculado de seu mantenedor, de forma que o pacote fique órfão, quando, por exemplo, o mantenedor está inativo e o pacote foi marcado como desatualizado há muito tempo."
+msgstr ""
+"Requisite que um pacote seja desvinculado de seu mantenedor, de forma que o "
+"pacote fique órfão, quando, por exemplo, o mantenedor está inativo e o "
+"pacote foi marcado como desatualizado há muito tempo."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -272,7 +285,11 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "Requisite que um pacote seja removido do Arch User Repository. Por favor, não use esta opção se um pacote está quebrado, mas que pode ser corrigido facilmente. Ao invés disso, contate o mantenedor e, se necessário, preencha uma requisição para tornar o pacote órfão."
+msgstr ""
+"Requisite que um pacote seja removido do Arch User Repository. Por favor, "
+"não use esta opção se um pacote está quebrado, mas que pode ser corrigido "
+"facilmente. Ao invés disso, contate o mantenedor e, se necessário, preencha "
+"uma requisição para tornar o pacote órfão."
 
 #: html/home.php
 msgid "Merge Request"
@@ -282,14 +299,19 @@ msgstr "Requisição de mesclagem"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "Requisite que um pacote seja mesclado com outro. Pode ser usado quando um pacote precisa ser renomeado ou substituído por um pacote dividido."
+msgstr ""
+"Requisite que um pacote seja mesclado com outro. Pode ser usado quando um "
+"pacote precisa ser renomeado ou substituído por um pacote dividido."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Se você quiser discutir uma requisição, você pode usar a lista de discussão %saur-request%s. Porém, por favor, não use essa lista para fazer requisições."
+msgstr ""
+"Se você quiser discutir uma requisição, você pode usar a lista de discussão "
+"%saur-request%s. Porém, por favor, não use essa lista para fazer "
+"requisições."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -301,7 +323,10 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Git sobre SSH agora é usado para enviar pacotes para o AUR. Veja a seção %sEnviando pacotes%s da página wiki do Arch User Repository para mais detalhes."
+msgstr ""
+"Git sobre SSH agora é usado para enviar pacotes para o AUR. Veja a seção "
+"%sEnviando pacotes%s da página wiki do Arch User Repository para mais "
+"detalhes."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -318,7 +343,11 @@ msgid ""
 "Maintainer structure takes place on %saur-general%s. For discussion relating"
 " to the development of the AUR web interface, use the %saur-dev%s mailing "
 "list."
-msgstr "Discussões gerais no que se refere à estrutura do Arch User Repository (AUR) e de Mantenedores de Pacote acontecem no %saur-general%s. Para discussão relacionada ao desenvolvimento da interface web do AUR, use a lista de discussão do %saur-dev%s"
+msgstr ""
+"Discussões gerais no que se refere à estrutura do Arch User Repository (AUR)"
+" e de Mantenedores de Pacote acontecem no %saur-general%s. Para discussão "
+"relacionada ao desenvolvimento da interface web do AUR, use a lista de "
+"discussão do %saur-dev%s"
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -331,7 +360,12 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the maintainer or leave a "
 "comment on the appropriate package page."
-msgstr "Se você encontrar um erro na interface web do AUR, preencha um relatório de erro no nosso %srastreador de erros%s. Use o rastreador para relatar erros encontrados na interface web do AUR, %ssomente%s. Para relatar erros de empacotamento, contate o mantenedor ou deixe um comentário na página de pacote apropriada."
+msgstr ""
+"Se você encontrar um erro na interface web do AUR, preencha um relatório de "
+"erro no nosso %srastreador de erros%s. Use o rastreador para relatar erros "
+"encontrados na interface web do AUR, %ssomente%s. Para relatar erros de "
+"empacotamento, contate o mantenedor ou deixe um comentário na página de "
+"pacote apropriada."
 
 #: html/home.php
 msgid "Package Search"
@@ -398,7 +432,9 @@ msgstr "Esqueci minha senha"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Acesso por HTTP está desabilitado. %sAcesse via HTTPs%s caso queira se conectar."
+msgstr ""
+"Acesso por HTTP está desabilitado. %sAcesse via HTTPs%s caso queira se "
+"conectar."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -464,7 +500,10 @@ msgstr "Continuar"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr "Se você esqueceu o nome de usuário e o endereço de e-mail primário que você usou para se registrar, envie uma mensagem para a lista de discussão %saur-general%s."
+msgstr ""
+"Se você esqueceu o nome de usuário e o endereço de e-mail primário que você "
+"usou para se registrar, envie uma mensagem para a lista de discussão %saur-"
+"general%s."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
@@ -478,17 +517,21 @@ msgstr "Pacotes base"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr "Os pacotes selecionados não foram abandonados, marque a caixa de confirmação."
+msgstr ""
+"Os pacotes selecionados não foram abandonados, marque a caixa de "
+"confirmação."
 
 #: aurweb/routers/packages.py
 msgid ""
 "The selected packages have not been adopted, check the confirmation "
 "checkbox."
-msgstr "Os pacotes selecionados não foram adotados, marque a caixa de confirmação."
+msgstr ""
+"Os pacotes selecionados não foram adotados, marque a caixa de confirmação."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Não foi possível encontrar pacote para mesclar votos e comentários nele."
+msgstr ""
+"Não foi possível encontrar pacote para mesclar votos e comentários nele."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
@@ -498,7 +541,8 @@ msgstr "Não é possível mesclar um pacote base com ele mesmo"
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr "Os pacotes selecionados não foram excluídos, marque a caixa de confirmação."
+msgstr ""
+"Os pacotes selecionados não foram excluídos, marque a caixa de confirmação."
 
 #: html/pkgdel.php
 msgid "Package Deletion"
@@ -513,7 +557,9 @@ msgstr "Excluir pacote"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Use este formulário para excluir o pacote base %s%s%s e os seguintes pacotes do AUR: "
+msgstr ""
+"Use este formulário para excluir o pacote base %s%s%s e os seguintes pacotes"
+" do AUR: "
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -533,7 +579,8 @@ msgstr "Excluir"
 
 #: html/pkgdel.php
 msgid "Only Package Maintainers and Developers can delete packages."
-msgstr "Apenas Mantenedores de Pacote e Desenvolvedores podem excluir pacotes."
+msgstr ""
+"Apenas Mantenedores de Pacote e Desenvolvedores podem excluir pacotes."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
@@ -544,25 +591,32 @@ msgstr "Abandonar pacote"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "Use este formulário para abandonar o pacote base %s%s%s que inclui os seguintes pacotes:"
+msgstr ""
+"Use este formulário para abandonar o pacote base %s%s%s que inclui os "
+"seguintes pacotes:"
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr "Ao marcar a caixa de seleção, você confirma que deseja deixar de ser um comantenedor de pacote."
+msgstr ""
+"Ao marcar a caixa de seleção, você confirma que deseja deixar de ser um "
+"comantenedor de pacote."
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "Ao marcar a caixa de seleção, você confirma que deseja abandonar o pacote e transferir a responsabilidade para %s%s%s."
+msgstr ""
+"Ao marcar a caixa de seleção, você confirma que deseja abandonar o pacote e "
+"transferir a responsabilidade para %s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr "Ao marcar a caixa de seleção, você confirma que deseja abandonar o pacote."
+msgstr ""
+"Ao marcar a caixa de seleção, você confirma que deseja abandonar o pacote."
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
@@ -574,7 +628,8 @@ msgstr "Abandonar"
 
 #: html/pkgdisown.php
 msgid "Only Package Maintainers and Developers can disown packages."
-msgstr "Apenas Mantenedores de Pacote e Desenvolvedores podem tornar órfãos pacotes."
+msgstr ""
+"Apenas Mantenedores de Pacote e Desenvolvedores podem tornar órfãos pacotes."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -590,27 +645,38 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr "Este parece ser um pacote VCS. %sNão%s marque como desatualizado se a versão do pacote no AUR não corresponder ao commit mais recente. A marcação deste pacote só deve ser feita se as fontes forem movidas ou mudanças no PKGBUILD forem necessárias devido a mudanças recentes no upstream."
+msgstr ""
+"Este parece ser um pacote VCS. %sNão%s marque como desatualizado se a versão"
+" do pacote no AUR não corresponder ao commit mais recente. A marcação deste "
+"pacote só deve ser feita se as fontes forem movidas ou mudanças no PKGBUILD "
+"forem necessárias devido a mudanças recentes no upstream."
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "Use este formulário para marcar o pacote base %s%s%s e os seguintes pacotes como desatualizados: "
+msgstr ""
+"Use este formulário para marcar o pacote base %s%s%s e os seguintes pacotes "
+"como desatualizados: "
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "Por favor, %snão%s use este formulário para relatar erros. Para isto, use os comentários do pacote."
+msgstr ""
+"Por favor, %snão%s use este formulário para relatar erros. Para isto, use os"
+" comentários do pacote."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "Insira detalhes sobre o motivo do pacote estar desatualizado abaixo, preferivelmente incluindo links para o anúncio de lançamento ou um novo tarball de lançamento."
+msgstr ""
+"Insira detalhes sobre o motivo do pacote estar desatualizado abaixo, "
+"preferivelmente incluindo links para o anúncio de lançamento ou um novo "
+"tarball de lançamento."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -636,7 +702,8 @@ msgstr "Mesclar pacote"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Use este formulário para mesclar o pacote base %s%s%s em outro pacote. "
+msgstr ""
+"Use este formulário para mesclar o pacote base %s%s%s em outro pacote. "
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
@@ -644,7 +711,8 @@ msgstr "Os seguintes pacotes serão excluídos: "
 
 #: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr "Assim que o pacote tiver sido mesclado, não é possível reverter a ação."
+msgstr ""
+"Assim que o pacote tiver sido mesclado, não é possível reverter a ação."
 
 #: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
@@ -664,7 +732,8 @@ msgstr "Mesclar"
 
 #: html/pkgmerge.php
 msgid "Only Package Maintainers and Developers can merge packages."
-msgstr "Apenas Mantenedores de Pacote e Desenvolvedores podem mesclar pacotes."
+msgstr ""
+"Apenas Mantenedores de Pacote e Desenvolvedores podem mesclar pacotes."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -709,7 +778,9 @@ msgstr "Termos de Serviço"
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr "Os seguintes documentos foram atualizados. Por favor, revise-os cuidadosamente:"
+msgstr ""
+"Os seguintes documentos foram atualizados. Por favor, revise-os "
+"cuidadosamente:"
 
 #: html/tos.php
 #, php-format
@@ -764,7 +835,9 @@ msgstr "Eleitores"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "O registro de conta foi desabilitado para seu endereço IP, provavelmente por causa de ataques continuados de spam. Desculpe a inconveniência."
+msgstr ""
+"O registro de conta foi desabilitado para seu endereço IP, provavelmente por"
+" causa de ataques continuados de spam. Desculpe a inconveniência."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -801,7 +874,8 @@ msgstr "O endereço de e-mail reserva é inválido"
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr "A página inicial é inválida. Por favor, especificar a URL HTTP(s) completa."
+msgstr ""
+"A página inicial é inválida. Por favor, especificar a URL HTTP(s) completa."
 
 #: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
@@ -862,7 +936,8 @@ msgstr "A conta %s%s%s foi criada com sucesso."
 
 #: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
-msgstr "Uma chave de redefinição de senha foi enviada para seu endereço de e-mail."
+msgstr ""
+"Uma chave de redefinição de senha foi enviada para seu endereço de e-mail."
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
@@ -882,7 +957,10 @@ msgstr "A conta, %s%s%s, foi modificada com sucesso."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "O formulário para se conectar está desabilitado momento para seu endereço IP, provavelmente por causa de ataques continuados de spam. Desculpe a inconveniência."
+msgstr ""
+"O formulário para se conectar está desabilitado momento para seu endereço "
+"IP, provavelmente por causa de ataques continuados de spam. Desculpe a "
+"inconveniência."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -898,7 +976,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Sua senha foi redefinida. Se você acabou de criar uma conta, por favor, use o link do e-mail de confirmação para definir uma senha inicial. Do contrário, requisite uma chave de senha na página de %sRedefinição de senha%s."
+msgstr ""
+"Sua senha foi redefinida. Se você acabou de criar uma conta, por favor, use "
+"o link do e-mail de confirmação para definir uma senha inicial. Do "
+"contrário, requisite uma chave de senha na página de %sRedefinição de "
+"senha%s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1011,7 +1093,9 @@ msgstr "Você selecionou nenhum pacote para marcar."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr "Os pacotes selecionados não foram marcados como desatualizados. Por favor, insira um comentário."
+msgstr ""
+"Os pacotes selecionados não foram marcados como desatualizados. Por favor, "
+"insira um comentário."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
@@ -1133,7 +1217,8 @@ msgstr "O comentário foi editado."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr "Você não tem permissão para editar as palavras-chaves deste pacote base."
+msgstr ""
+"Você não tem permissão para editar as palavras-chaves deste pacote base."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
@@ -1141,7 +1226,8 @@ msgstr "As palavras-chave do pacote base foram atualizadas."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "Você não tem permissão para gerenciar comantenedores deste pacote base."
+msgstr ""
+"Você não tem permissão para gerenciar comantenedores deste pacote base."
 
 #: lib/pkgbasefuncs.inc.php pkgbase/util.py
 #, python-format, php-format
@@ -1196,7 +1282,9 @@ msgstr "Requisição fechada com sucesso."
 #: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr "Você pode usar este formulário para excluir permanentemente a conta %s do AUR."
+msgstr ""
+"Você pode usar este formulário para excluir permanentemente a conta %s do "
+"AUR."
 
 #: template/account_delete.php
 #, php-format
@@ -1326,7 +1414,9 @@ msgstr "obrigatório"
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr "Seu nome de usuário é o nome que você vai usar para se autenticar. É visível para o público geral, mesmo se sua conta estiver inativa."
+msgstr ""
+"Seu nome de usuário é o nome que você vai usar para se autenticar. É visível"
+" para o público geral, mesmo se sua conta estiver inativa."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
@@ -1344,7 +1434,9 @@ msgstr "Inativo"
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr "Por favor, certifique-se de que você informou seu endereço de e-mail, do contrário você perderá acesso."
+msgstr ""
+"Por favor, certifique-se de que você informou seu endereço de e-mail, do "
+"contrário você perderá acesso."
 
 #: template/account_edit_form.php
 msgid "Hide Email Address"
@@ -1355,7 +1447,10 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr "Se você não ocultar seu endereço de e-mail, ele ficará visível para todos os usuários registrados do AUR. Se você ocultar seu endereço de e-mail, ele estará visível apenas para membros da equipe do Arch Linux."
+msgstr ""
+"Se você não ocultar seu endereço de e-mail, ele ficará visível para todos os"
+" usuários registrados do AUR. Se você ocultar seu endereço de e-mail, ele "
+"estará visível apenas para membros da equipe do Arch Linux."
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
@@ -1365,20 +1460,27 @@ msgstr "Endereço de e-mail reserva"
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr "Opcionalmente, forneça um endereço de e-mail secundário que possa ser usado para restaurar sua conta, caso você perca o acesso ao seu endereço de e-mail primário."
+msgstr ""
+"Opcionalmente, forneça um endereço de e-mail secundário que possa ser usado "
+"para restaurar sua conta, caso você perca o acesso ao seu endereço de e-mail"
+" primário."
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr "Os links de redefinição de senha são sempre enviados ao seu endereço de e-mail primário e reserva."
+msgstr ""
+"Os links de redefinição de senha são sempre enviados ao seu endereço de "
+"e-mail primário e reserva."
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr "Seu endereço de e-mail reserva sempre é visível apenas para membros da equipe do Arch Linux, independentemente da configuração %s."
+msgstr ""
+"Seu endereço de e-mail reserva sempre é visível apenas para membros da "
+"equipe do Arch Linux, independentemente da configuração %s."
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1392,7 +1494,9 @@ msgstr "Fuso horário"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr "Se você deseja alterar a senha, insira uma nova senha e confirme a nova senha digitando-a novamente."
+msgstr ""
+"Se você deseja alterar a senha, insira uma nova senha e confirme a nova "
+"senha digitando-a novamente."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1402,12 +1506,16 @@ msgstr "Re-digite a senha"
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr "A informação a seguir é necessária apenas se você deseja enviar pacotes para o Arch User Repository."
+msgstr ""
+"A informação a seguir é necessária apenas se você deseja enviar pacotes para"
+" o Arch User Repository."
 
 #: templates/partials/account_form.html
 msgid ""
 "Specify multiple SSH Keys separated by new line, empty lines are ignored."
-msgstr "Especifique várias chaves SSH separadas por nova linha, linhas vazias são ignoradas."
+msgstr ""
+"Especifique várias chaves SSH separadas por nova linha, linhas vazias são "
+"ignoradas."
 
 #: templates/partials/account_form.html
 msgid "Hide deleted comments"
@@ -1445,7 +1553,9 @@ msgstr "Sua senha atual"
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr "Para proteger o AUR contra a criação automatizada de contas, solicitamos que você forneça o resultado do seguinte comando:"
+msgstr ""
+"Para proteger o AUR contra a criação automatizada de contas, solicitamos que"
+" você forneça o resultado do seguinte comando:"
 
 #: template/account_edit_form.php
 msgid "Answer"
@@ -1496,7 +1606,9 @@ msgstr "Não há mais resultados para serem exibidos."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "Use este formulário para adicionar comantenedores para %s%s%s (um nome de usuário por linha):"
+msgstr ""
+"Use este formulário para adicionar comantenedores para %s%s%s (um nome de "
+"usuário por linha):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1514,7 +1626,8 @@ msgstr "Comentário sobre marcação como desatualizado: %s"
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr "%s%s%s marcou %s%s%s como desatualizado em %s%s%s pelo seguinte motivo:"
+msgstr ""
+"%s%s%s marcou %s%s%s como desatualizado em %s%s%s pelo seguinte motivo:"
 
 #: template/flag_comment.php
 #, php-format
@@ -1665,7 +1778,10 @@ msgstr "Adicionar comentário"
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr "Os identificadores de commit Git que fazem referência a commits no repositório de pacote AUR e os URLs são convertidos em links automaticamente."
+msgstr ""
+"Os identificadores de commit Git que fazem referência a commits no "
+"repositório de pacote AUR e os URLs são convertidos em links "
+"automaticamente."
 
 #: template/pkg_comment_form.php
 #, php-format
@@ -1790,13 +1906,16 @@ msgstr "Fontes"
 #: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "Use este formulário para fechar a requisição para o pacote base %s%s%s."
+msgstr ""
+"Use este formulário para fechar a requisição para o pacote base %s%s%s."
 
 #: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "O campo de comentários pode ser deixado vazio. Porém, é fortemente recomendado adicionar um comentário ao rejeitar uma requisição."
+msgstr ""
+"O campo de comentários pode ser deixado vazio. Porém, é fortemente "
+"recomendado adicionar um comentário ao rejeitar uma requisição."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1817,7 +1936,9 @@ msgstr "Rejeitado"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Use este formulário para fazer uma requisição sobre o pacote base %s%s%s que inclui os seguintes pacotes:"
+msgstr ""
+"Use este formulário para fazer uma requisição sobre o pacote base %s%s%s que"
+" inclui os seguintes pacotes:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -1840,7 +1961,11 @@ msgid ""
 "By submitting a deletion request, you ask a Package Maintainer to delete the"
 " package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Ao enviar uma requisição de exclusão, você solicita que um Mantenedor de Pacote exclua o pacote base. Esse tipo de requisição deveria ser usada em caso de duplicidade, softwares abandonados pelo upstream, assim como pacotes ilegais ou irreparavelmente quebrados."
+msgstr ""
+"Ao enviar uma requisição de exclusão, você solicita que um Mantenedor de "
+"Pacote exclua o pacote base. Esse tipo de requisição deveria ser usada em "
+"caso de duplicidade, softwares abandonados pelo upstream, assim como pacotes"
+" ilegais ou irreparavelmente quebrados."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1848,7 +1973,12 @@ msgid ""
 "package base and transfer its votes and comments to another package base. "
 "Merging a package does not affect the corresponding Git repositories. Make "
 "sure you update the Git history of the target package yourself."
-msgstr "Ao enviar uma requisição de mesclagem, você solicita que um Mantenedor de Pacote exclua o pacote base e transfira seus votos e comentários para um outro pacote base. Mesclar um pacote não afeta os repositórios Git correspondentes. Certifique-se de você mesmo atualizar o histórico Git do pacote alvo."
+msgstr ""
+"Ao enviar uma requisição de mesclagem, você solicita que um Mantenedor de "
+"Pacote exclua o pacote base e transfira seus votos e comentários para um "
+"outro pacote base. Mesclar um pacote não afeta os repositórios Git "
+"correspondentes. Certifique-se de você mesmo atualizar o histórico Git do "
+"pacote alvo."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1856,7 +1986,11 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "Ao enviar uma requisição de tornar órfão, você pede que um Mantenedor de Pacote abandona o pacote base. Por favor, apenas faça isto se o pacote precise de ação do mantenedor, estando este ausente por muito tempo, e você já tentou – e não conseguiu – contatá-lo anteriormente."
+msgstr ""
+"Ao enviar uma requisição de tornar órfão, você pede que um Mantenedor de "
+"Pacote abandona o pacote base. Por favor, apenas faça isto se o pacote "
+"precise de ação do mantenedor, estando este ausente por muito tempo, e você "
+"já tentou – e não conseguiu – contatá-lo anteriormente."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2041,7 +2175,9 @@ msgstr "Versão"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr "Popularidade é calculada como a soma de todos os votos, sendo cada voto pesado com um fator de %.2f por dia desde sua criação."
+msgstr ""
+"Popularidade é calculada como a soma de todos os votos, sendo cada voto "
+"pesado com um fator de %.2f por dia desde sua criação."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -2195,7 +2331,10 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr "Uma requisição de redefinição de senha foi enviada para a conta {user} associada com seu endereço de e-mail. Se deseja redefinir sua senha acesse o link [1] abaixo, do contrário ignore essa mensagem e nada vai acontecer."
+msgstr ""
+"Uma requisição de redefinição de senha foi enviada para a conta {user} "
+"associada com seu endereço de e-mail. Se deseja redefinir sua senha acesse o"
+" link [1] abaixo, do contrário ignore essa mensagem e nada vai acontecer."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
@@ -2206,7 +2345,10 @@ msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "Bem-vindo ao Arch User Repository! Para definir uma senha inicial para sua nova conta, clique no link [1] abaixo. Se o link não funcionar, tente copiar e colá-lo no seu navegador."
+msgstr ""
+"Bem-vindo ao Arch User Repository! Para definir uma senha inicial para sua "
+"nova conta, clique no link [1] abaixo. Se o link não funcionar, tente copiar"
+" e colá-lo no seu navegador."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2223,7 +2365,9 @@ msgstr "{user} [1] adicionou o seguinte comentário ao {pkgbase} [2]:"
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr "Se você não deseja mais receber notificações sobre esse pacote, por favor vá à página do pacote [2] e selecione \"{label}\"."
+msgstr ""
+"Se você não deseja mais receber notificações sobre esse pacote, por favor vá"
+" à página do pacote [2] e selecione \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2243,7 +2387,8 @@ msgstr "Notificação de desatualização do AUR para {pkgbase}"
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr "Seu pacote {pkgbase} [1] foi marcado como desatualizado por {user} [2]:"
+msgstr ""
+"Seu pacote {pkgbase} [1] foi marcado como desatualizado por {user} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2287,7 +2432,11 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "{user} [1] mesclou {old} [2] ao {new} [3].\n\n-- \nSe você não deseja mais receber notificações sobre o novo pacote, por favor acesse a [3] e clique em \"{label}\"."
+msgstr ""
+"{user} [1] mesclou {old} [2] ao {new} [3].\n"
+"\n"
+"-- \n"
+"Se você não deseja mais receber notificações sobre o novo pacote, por favor acesse a [3] e clique em \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2295,7 +2444,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "{user} [1] excluiu {pkgbase} [2].\n\nVocê não mais receberá notificações sobre esse pacote."
+msgstr ""
+"{user} [1] excluiu {pkgbase} [2].\n"
+"\n"
+"Você não mais receberá notificações sobre esse pacote."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2307,7 +2459,9 @@ msgstr "Lembrete de Voto de Mantenedor de Pacote: Proposta {id}"
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr "Por favor, lembre-se de votar na proposta {id} [1]. O período de votação termina em menos de 48 horas."
+msgstr ""
+"Por favor, lembre-se de votar na proposta {id} [1]. O período de votação "
+"termina em menos de 48 horas."
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."
@@ -2320,7 +2474,8 @@ msgstr "Você não tem permissão para alterar tipos de contas."
 #: aurweb/routers/accounts.py users/validate.py
 #, python-format
 msgid "You do not have permission to change this user's account type to %s."
-msgstr "Você não tem permissão para alterar o tipo de conta deste usuário para %s."
+msgstr ""
+"Você não tem permissão para alterar o tipo de conta deste usuário para %s."
 
 #: aurweb/packages/requests.py packages/requests.py
 #, python-format
@@ -2339,7 +2494,9 @@ msgstr "Ocorreu um erro fatal."
 msgid ""
 "Details have been logged and will be reviewed by the postmaster posthaste. "
 "We apologize for any inconvenience this may have caused."
-msgstr "Os detalhes foram registrados e serão revisados ​​pelo postmaster posthaste. Pedimos desculpas por qualquer inconveniente que isso possa ter causado."
+msgstr ""
+"Os detalhes foram registrados e serão revisados ​​pelo postmaster posthaste."
+" Pedimos desculpas por qualquer inconveniente que isso possa ter causado."
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
@@ -2354,7 +2511,10 @@ msgstr "Comentários relacionados ao fechamento de requisição de pacote..."
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr "Esta ação fechará todas as requisições de pacote pendentes relacionadas a ela. Se %sComentários%s forem omitidos, um comentário de encerramento será gerado automaticamente."
+msgstr ""
+"Esta ação fechará todas as requisições de pacote pendentes relacionadas a "
+"ela. Se %sComentários%s forem omitidos, um comentário de encerramento será "
+"gerado automaticamente."
 
 #: templates/partials/tu/proposal/details.html
 msgid "assigned"
@@ -2386,19 +2546,24 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
-msgstr "Observe que se você ocultar seu endereço de e-mail, ele será incluído na lista de CCO para quaisquer notificações de requisição. Caso alguém responda a essas notificações, você não receberá um e-mail. No entanto, as respostas geralmente são enviadas para a lista de discussão e, portanto, seriam visíveis no arquivo."
+msgstr ""
+"Observe que se você ocultar seu endereço de e-mail, ele será incluído na "
+"lista de CCO para quaisquer notificações de requisição. Caso alguém responda"
+" a essas notificações, você não receberá um e-mail. No entanto, as respostas"
+" geralmente são enviadas para a lista de discussão e, portanto, seriam "
+"visíveis no arquivo."
 
 #: templates/partials/packages/comment_form.html
 msgid "Maximum number of characters"
-msgstr ""
+msgstr "Número máximo de caracteres"
 
 #: routers/sso.py
 msgid "Bad OAuth token. Please retry logging in from the start."
-msgstr ""
+msgstr "Token OAuth inválido. Tente efetuar login novamente desde o início."
 
 #: routers/sso.py
 msgid "JWT is missing its `sub` field."
-msgstr ""
+msgstr "O JWT não possui o campo `sub`."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2408,3 +2573,7 @@ msgid ""
 "--\n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""
+"{user} [1] mesclou {old} [2] em {new} [3].\n"
+"\n"
+"-\n"
+"Se não deseja mais receber notificações sobre o novo pacote, acesse [3] e clique em \"{label}\"."

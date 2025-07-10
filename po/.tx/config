@@ -1,7 +1,7 @@
 [main]
 host = https://app.transifex.com
 
-[o:lfleischer:p:aurweb:r:aurwebpot]
+[o:archlinux:p:aurweb-1:r:aurwebpot]
 source_file = aurweb.pot
 file_filter = <lang>.po
 type = PO

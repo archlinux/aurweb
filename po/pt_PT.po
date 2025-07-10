@@ -1,24 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# c0d75bae60e6967ec54315cff4da5848, 2012
-# Christophe Silva <christophesilva80@gmail.com>, 2018
-# Gaspar Santos <omeuviolino@gmail.com>, 2011
-# R00KIE <registosites@hotmail.com>, 2011,2013,2016
-# R00KIE <registosites@hotmail.com>, 2013,2016
-# R00KIE <registosites@hotmail.com>, 2011
-# c0d75bae60e6967ec54315cff4da5848, 2013-2015
-# c0d75bae60e6967ec54315cff4da5848, 2012
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: c0d75bae60e6967ec54315cff4da5848, 2012\n"
-"Language-Team: Portuguese (Portugal) (http://app.transifex.com/lfleischer/aurweb/language/pt_PT/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Portuguese (Portugal) (https://app.transifex.com/archlinux/teams/289905/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,7 +54,9 @@ msgstr "Serviço não disponível"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Não entre em pânico! Esta página encontra-se em baixo devido a manutenção. Voltaremos brevemente."
+msgstr ""
+"Não entre em pânico! Esta página encontra-se em baixo devido a manutenção. "
+"Voltaremos brevemente."
 
 #: html/account.php routers/accounts.py
 msgid "Account"
@@ -215,7 +213,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "As contribuições de PKGBUILDs %sdevem%s obedecer aos %sPadrões de Empacotamento Arch%s ou serão eliminadas!"
+msgstr ""
+"As contribuições de PKGBUILDs %sdevem%s obedecer aos %sPadrões de "
+"Empacotamento Arch%s ou serão eliminadas!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -223,7 +223,9 @@ msgstr "Lembre-se de votar nos seus pacotes favoritos!"
 
 #: html/home.php
 msgid "Some packages may be provided as binaries in [extra]."
-msgstr "Alguns dos pacotes podem ser fornecidos como binários no repositório [extra]."
+msgstr ""
+"Alguns dos pacotes podem ser fornecidos como binários no repositório "
+"[extra]."
 
 #: html/home.php
 msgid "DISCLAIMER"
@@ -233,7 +235,9 @@ msgstr "AVISO LEGAL"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Os pacotes AUR são produzidos por utilizadores. O seu uso é por sua conta e risco."
+msgstr ""
+"Os pacotes AUR são produzidos por utilizadores. O seu uso é por sua conta e "
+"risco."
 
 #: html/home.php
 msgid "Learn more..."
@@ -252,7 +256,9 @@ msgstr "Pedidos de Pacotes"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "Existem três tipos de pedidos que podem ser preenchidos na caixa %sPackageActions%s na página de detalhes de um pacote."
+msgstr ""
+"Existem três tipos de pedidos que podem ser preenchidos na caixa "
+"%sPackageActions%s na página de detalhes de um pacote."
 
 #: html/home.php
 msgid "Orphan Request"
@@ -262,7 +268,10 @@ msgstr "Pedido para Tornar Orfão"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Pedido para que um pacote dique sem dono, por exemplo, quando o atual responsável se encontra inativo e o pacote foi marcado como desatualizado há muito tempo."
+msgstr ""
+"Pedido para que um pacote dique sem dono, por exemplo, quando o atual "
+"responsável se encontra inativo e o pacote foi marcado como desatualizado há"
+" muito tempo."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -283,14 +292,19 @@ msgstr "Pedido de junção"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "Requerer que um pacote seja junto a outro. Pode ser utilizado quando é necessário mudar o nome ao pacote ou substituir o mesmo por um pacote separado."
+msgstr ""
+"Requerer que um pacote seja junto a outro. Pode ser utilizado quando é "
+"necessário mudar o nome ao pacote ou substituir o mesmo por um pacote "
+"separado."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Se quiser discutir um pedido, pode faze-lo utilizando a lista de email %saur-requests%s. Por favor não use a lista para submeter pedidos."
+msgstr ""
+"Se quiser discutir um pedido, pode faze-lo utilizando a lista de email "
+"%saur-requests%s. Por favor não use a lista para submeter pedidos."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -302,7 +316,10 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "O \"Git por SSH\" é usado agora para enviar pacotes para o AUR. Veja a seção %s Submitir pacotes %s secção da página ArchWiki do Repositório de Arquivos do Arch para mais detalhes."
+msgstr ""
+"O \"Git por SSH\" é usado agora para enviar pacotes para o AUR. Veja a seção"
+" %s Submitir pacotes %s secção da página ArchWiki do Repositório de Arquivos"
+" do Arch para mais detalhes."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -399,7 +416,9 @@ msgstr "Esqueceu-se da palavra-passe"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Início de sessão em HTTP está desactivado. Por favor %smude para HTTPs%s se pretende iniciar sessão."
+msgstr ""
+"Início de sessão em HTTP está desactivado. Por favor %smude para HTTPs%s se "
+"pretende iniciar sessão."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -479,7 +498,9 @@ msgstr "Base de pacotes"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr "Os pacotes selecionados não foram desaprovados, verifique a caixa de confirmação."
+msgstr ""
+"Os pacotes selecionados não foram desaprovados, verifique a caixa de "
+"confirmação."
 
 #: aurweb/routers/packages.py
 msgid ""
@@ -489,7 +510,8 @@ msgstr ""
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Não é possível encontrar o pacote onde juntar os votos e os comentários."
+msgstr ""
+"Não é possível encontrar o pacote onde juntar os votos e os comentários."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
@@ -499,7 +521,8 @@ msgstr "Não é possível combinar uma base de pacotes com ela própria."
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr "Os pacotes selecionados não foram apagados, marque a caixa de confirmação."
+msgstr ""
+"Os pacotes selecionados não foram apagados, marque a caixa de confirmação."
 
 #: html/pkgdel.php
 msgid "Package Deletion"
@@ -514,7 +537,9 @@ msgstr "Eliminar Pacote"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Use este formulário para eliminar o pacote base %s%s%s e os seguintes pacotes do AUR:"
+msgstr ""
+"Use este formulário para eliminar o pacote base %s%s%s e os seguintes "
+"pacotes do AUR:"
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -545,7 +570,9 @@ msgstr "Renunciar Pacote"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "Use este formulário para desaprovar os pacotes base %s %s %s que incluem os seguintes pacotes:"
+msgstr ""
+"Use este formulário para desaprovar os pacotes base %s %s %s que incluem os "
+"seguintes pacotes:"
 
 #: html/pkgdisown.php
 msgid ""
@@ -558,12 +585,15 @@ msgstr ""
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "Ao escolher na caixa de seleção, confirma que pretende desaprovar o pacote e transferir a propriedade para %s %s %s."
+msgstr ""
+"Ao escolher na caixa de seleção, confirma que pretende desaprovar o pacote e"
+" transferir a propriedade para %s %s %s."
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr "Ao escolher na caixa de seleção, confirma que pretende desaprovar o pacote."
+msgstr ""
+"Ao escolher na caixa de seleção, confirma que pretende desaprovar o pacote."
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
@@ -598,20 +628,27 @@ msgstr ""
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "Use este formulário para marcar o pacote base %s %s %s e os seguintes pacotes desatualizados:"
+msgstr ""
+"Use este formulário para marcar o pacote base %s %s %s e os seguintes "
+"pacotes desatualizados:"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "Porfavor faça %s e não %s para usar o formulário de reporte de bugs. Use os comentários do pacote em vez disso."
+msgstr ""
+"Porfavor faça %s e não %s para usar o formulário de reporte de bugs. Use os "
+"comentários do pacote em vez disso."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "Digite detalhes sobre o porquê do pacote em baixo estar desactualizado, de preferência, incluindo links para o anúncio de lançamento ou o novo lançamento de tarball."
+msgstr ""
+"Digite detalhes sobre o porquê do pacote em baixo estar desactualizado, de "
+"preferência, incluindo links para o anúncio de lançamento ou o novo "
+"lançamento de tarball."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -637,7 +674,8 @@ msgstr "Fundir Pacote"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Use este formulário para fundir o pacote base %s%s%s num outro pacote."
+msgstr ""
+"Use este formulário para fundir o pacote base %s%s%s num outro pacote."
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
@@ -710,7 +748,9 @@ msgstr "Termos do Serviço"
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr "Os seguintes documentos foram atualizados. Porfavor verifique-os com cuidado:"
+msgstr ""
+"Os seguintes documentos foram atualizados. Porfavor verifique-os com "
+"cuidado:"
 
 #: html/tos.php
 #, php-format
@@ -765,7 +805,10 @@ msgstr "Votantes"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "O registo de contas encontra-se inibido para pedidos do seu IP, provavelmente devido a continuados ataques de spam. Lamentamos o inconveniente."
+msgstr ""
+"O registo de contas encontra-se inibido para pedidos do seu IP, "
+"provavelmente devido a continuados ataques de spam. Lamentamos o "
+"inconveniente."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -802,7 +845,8 @@ msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr "A página inicial é inválida, especifique o URL de HTTP (s) completo (s)."
+msgstr ""
+"A página inicial é inválida, especifique o URL de HTTP (s) completo (s)."
 
 #: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
@@ -863,7 +907,9 @@ msgstr "A conta, %s%s%s, foi criada com sucesso."
 
 #: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
-msgstr "Uma chave de reinicialização da sua palavra-passe foi enviada para o seu endereço de e-mail."
+msgstr ""
+"Uma chave de reinicialização da sua palavra-passe foi enviada para o seu "
+"endereço de e-mail."
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
@@ -883,7 +929,10 @@ msgstr "A conta, %s%s%s, foi modificada com sucesso."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "O formulário de início de sessão encontra-se inibido para pedidos do seu IP, provavelmente devido a continuados ataques de spam. Lamentamos o inconveniente."
+msgstr ""
+"O formulário de início de sessão encontra-se inibido para pedidos do seu IP,"
+" provavelmente devido a continuados ataques de spam. Lamentamos o "
+"inconveniente."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -899,7 +948,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "A sua palavra passe foi reiniciada. Se criou uma nova conta agora, por favor siga a ligação do email de confirmação para definir uma palavra passe. Caso contrário, por favor peça um reinicio à chave na pagina %sReiniciar Password%s."
+msgstr ""
+"A sua palavra passe foi reiniciada. Se criou uma nova conta agora, por favor"
+" siga a ligação do email de confirmação para definir uma palavra passe. Caso"
+" contrário, por favor peça um reinicio à chave na pagina %sReiniciar "
+"Password%s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -944,7 +997,8 @@ msgstr "O comentário foi adicionado."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr "Tem de ter sessão iniciada antes de poder as informações de um pacote."
+msgstr ""
+"Tem de ter sessão iniciada antes de poder as informações de um pacote."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
@@ -1467,7 +1521,8 @@ msgstr "Reiniciar"
 
 #: template/account_search_results.php
 msgid "No results matched your search criteria."
-msgstr "Não existem resultados que correspondam aos seus critérios de procura."
+msgstr ""
+"Não existem resultados que correspondam aos seus critérios de procura."
 
 #: template/account_search_results.php
 msgid "Edit Account"
@@ -1818,7 +1873,9 @@ msgstr "Rejeitado"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Use este formulário para enviar um pedido sobre o pacote base %s%s%s que inclui os seguintes pacotes:"
+msgstr ""
+"Use este formulário para enviar um pedido sobre o pacote base %s%s%s que "
+"inclui os seguintes pacotes:"
 
 #: template/pkgreq_form.php
 msgid "Request type"

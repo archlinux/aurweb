@@ -1,26 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Achilleas Pipinellis, 2011-2014
-# Achilleas Pipinellis, 2014
-# Achilleas Pipinellis, 2013
-# Achilleas Pipinellis, 2013
-# Achilleas Pipinellis, 2011
-# Achilleas Pipinellis, 2012
-# flamelab <panosfilip@gmail.com>, 2011
-# Leonidas Spyropoulos, 2021-2023,2025
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# flamelab <panosfilip@gmail.com>, 2011
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Leonidas Spyropoulos, 2021-2023,2025\n"
-"Language-Team: Greek (http://app.transifex.com/lfleischer/aurweb/language/el/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Greek (https://app.transifex.com/archlinux/teams/289905/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +82,8 @@ msgstr "Άκυρος κωδικός"
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
-msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε υπάρχοντες λογαριασμούς."
+msgstr ""
+"Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε υπάρχοντες λογαριασμούς."
 
 #: html/account.php
 msgid "You must log in to view user information."
@@ -217,7 +212,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Τα συνεισφέροντα PKGBUILDs %sπρέπει%s να ακολουθούν τα %sΠρότυπα δημιουργίας πακέτων του Arch%s αλλιώς θα διαγράφονται! "
+msgstr ""
+"Τα συνεισφέροντα PKGBUILDs %sπρέπει%s να ακολουθούν τα %sΠρότυπα δημιουργίας"
+" πακέτων του Arch%s αλλιώς θα διαγράφονται! "
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -401,7 +398,9 @@ msgstr "Ξεχάσατε τον κωδικό σας"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Το HTTP είναι απενεργοποιημένο. Παρακαλώ %sγυρίστε σε HTTPs%s αν θέλετε να εισέλθετε."
+msgstr ""
+"Το HTTP είναι απενεργοποιημένο. Παρακαλώ %sγυρίστε σε HTTPs%s αν θέλετε να "
+"εισέλθετε."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -422,7 +421,9 @@ msgstr "Λείπει ένα απαραίτητο πεδίο."
 
 #: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
-msgstr "Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν είναι ίδιες."
+msgstr ""
+"Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν "
+"είναι ίδιες."
 
 #: html/passreset.php lib/acctfuncs.inc.php routers/accounts.py
 #: users/validate.py
@@ -501,7 +502,9 @@ msgstr ""
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης."
+msgstr ""
+"Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι "
+"επιβεβαίωσης."
 
 #: html/pkgdel.php
 msgid "Package Deletion"
@@ -651,7 +654,9 @@ msgstr "Μόλις το πακέτο συγχωνευτεί, η διαδικασ
 
 #: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
-msgstr "Εισάγετε το όνομα του πακέτου με το οποίο επιθυμείτε να συγχωνεύσετε το τρέχον πακέτο."
+msgstr ""
+"Εισάγετε το όνομα του πακέτου με το οποίο επιθυμείτε να συγχωνεύσετε το "
+"τρέχον πακέτο."
 
 #: html/pkgmerge.php
 msgid "Merge into:"
@@ -767,7 +772,9 @@ msgstr "Ψηφίσαντες"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Η εγγραφή λογαριασμών έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ενόχληση."
+msgstr ""
+"Η εγγραφή λογαριασμών έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω "
+"επιθέσεων spam. Μας συγχωρείτε για την ενόχληση."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -865,11 +872,15 @@ msgstr "Ο λογαριασμός, %s%s%s, δημιουργήθηκε επιτυ
 
 #: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
-msgstr "Ένα κλειδί επαναφοράς του κωδικού έχει σταλεί στην ηλεκτρονική σας διεύθυνση."
+msgstr ""
+"Ένα κλειδί επαναφοράς του κωδικού έχει σταλεί στην ηλεκτρονική σας "
+"διεύθυνση."
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr "Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό σας."
+msgstr ""
+"Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό "
+"σας."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -885,7 +896,9 @@ msgstr "Ο λογαριασμός, %s%s%s, τροποποποιήθηκε επι
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
+msgstr ""
+"Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν "
+"λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -901,7 +914,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Η επαναφορά του κωδικού σας έχει πραγματοποιηθεί. Αν μόλις δημιουργήσατε ένα νέο λογαρισμό, παρακαλώ χρησιμοποιείστε τον σύνδεσμο από το email ενεργοποίησης για να ορίσετε έναν αρχικό κωδικό. Διαφορετικά, παρακαλείσθε να ζητήσετε ένα κλειδί επαναφοράς στη σελίδα %sPassword Reset%s."
+msgstr ""
+"Η επαναφορά του κωδικού σας έχει πραγματοποιηθεί. Αν μόλις δημιουργήσατε ένα"
+" νέο λογαρισμό, παρακαλώ χρησιμοποιείστε τον σύνδεσμο από το email "
+"ενεργοποίησης για να ορίσετε έναν αρχικό κωδικό. Διαφορετικά, παρακαλείσθε "
+"να ζητήσετε ένα κλειδί επαναφοράς στη σελίδα %sPassword Reset%s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -909,7 +926,8 @@ msgstr "Λάθος όνομα χρήστη ή συνθηματικό."
 
 #: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
-msgstr "Ένα σφάλμα προέκυψε προσπαθώντας να δημιουργήσετε μια συνεδρία χρήστη."
+msgstr ""
+"Ένα σφάλμα προέκυψε προσπαθώντας να δημιουργήσετε μια συνεδρία χρήστη."
 
 #: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
@@ -946,7 +964,9 @@ msgstr "Το σχόλιο έχει προστεθεί."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr "Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις πληροφορίες του πακέτου."
+msgstr ""
+"Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις "
+"πληροφορίες του πακέτου."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
@@ -1086,7 +1106,9 @@ msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσε
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για πακέτα."
+msgstr ""
+"Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για "
+"πακέτα."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."

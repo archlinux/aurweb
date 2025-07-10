@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Arthur Țițeică <arthur.titeica@gmail.com>, 2013-2015
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Marius Tcaci, 2023
-# Marius Tcaci, 2023
-# Mihai Coman <mihai@m1x.ro>, 2011-2014
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Marius Tcaci, 2023\n"
-"Language-Team: Romanian (http://app.transifex.com/lfleischer/aurweb/language/ro/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Romanian (https://app.transifex.com/archlinux/teams/289905/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,7 +86,9 @@ msgstr "Folosește acest formular pentru a căuta conturi existente."
 
 #: html/account.php
 msgid "You must log in to view user information."
-msgstr "Trebuie să fi autentificat pentru a putea vedea informații despre utilizatori."
+msgstr ""
+"Trebuie să fi autentificat pentru a putea vedea informații despre "
+"utilizatori."
 
 #: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
@@ -212,7 +213,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "PKGBUILDurile contribuite %strebuie%s să fie conforme cu %sStandardele de Împachetare Arch%s, altfel vor fi șterse!"
+msgstr ""
+"PKGBUILDurile contribuite %strebuie%s să fie conforme cu %sStandardele de "
+"Împachetare Arch%s, altfel vor fi șterse!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -230,7 +233,9 @@ msgstr "DECLARAȚIE DE NEASUMARE A RESPONSABILITĂȚII"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Pachetele AUR sunt continut produs de utilizatori. Orice utilizare a fisierelor puse la dispozitie se face pe propriul risc."
+msgstr ""
+"Pachetele AUR sunt continut produs de utilizatori. Orice utilizare a "
+"fisierelor puse la dispozitie se face pe propriul risc."
 
 #: html/home.php
 msgid "Learn more..."
@@ -396,7 +401,9 @@ msgstr "Parolă uitată"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Autentificarea prin HTTP este dezactivată. %sSchimbă pe HTTPS%s dacă vrei să te autentifici."
+msgstr ""
+"Autentificarea prin HTTP este dezactivată. %sSchimbă pe HTTPS%s dacă vrei să"
+" te autentifici."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -511,7 +518,9 @@ msgstr "Șterge pachet"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Folosește acest formular pentru a șterge pachetul de bază %s%s%s și următoarele pachete din AUR: "
+msgstr ""
+"Folosește acest formular pentru a șterge pachetul de bază %s%s%s și "
+"următoarele pachete din AUR: "
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -634,7 +643,9 @@ msgstr "Fuzionează pachet"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Folosește acest formular pentru a îmbina pachetul de bază %s%s%s cu alt pachet."
+msgstr ""
+"Folosește acest formular pentru a îmbina pachetul de bază %s%s%s cu alt "
+"pachet."
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
@@ -762,7 +773,10 @@ msgstr "Votanți"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Înregistrarea de conturi noi a fost dezactivată pentru adresa ta IP, probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
+msgstr ""
+"Înregistrarea de conturi noi a fost dezactivată pentru adresa ta IP, "
+"probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru "
+"inconveniență."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -880,7 +894,9 @@ msgstr "Contul %s%s%s a fost modificat cu succes."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Formularul de autentificare a fost dezactivat pentru adresa ta IP, probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
+msgstr ""
+"Formularul de autentificare a fost dezactivat pentru adresa ta IP, probabil "
+"datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -896,7 +912,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Parola ta a fost resetată. Dacă tocmai ai creat un cont nou, folosește legătura din e-mailul de confirmare pentru a seta o parolă inițială. Altfel, cere o resetare a parolei din pagina %sResetare parolă%s."
+msgstr ""
+"Parola ta a fost resetată. Dacă tocmai ai creat un cont nou, folosește "
+"legătura din e-mailul de confirmare pentru a seta o parolă inițială. Altfel,"
+" cere o resetare a parolei din pagina %sResetare parolă%s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -941,7 +960,9 @@ msgstr "Comentariul a fost adăugat."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr "Trebuie să fi autentificat înainte de a putea modifica informațiile pachetului."
+msgstr ""
+"Trebuie să fi autentificat înainte de a putea modifica informațiile "
+"pachetului."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
@@ -1017,7 +1038,9 @@ msgstr "Pachetele selectate au fost marcate ca fiind Neactualizate."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
-msgstr "Trebuie să fi autentificat înainte de a putea elimina marcajul de Neactualizat al pachetelor."
+msgstr ""
+"Trebuie să fi autentificat înainte de a putea elimina marcajul de "
+"Neactualizat al pachetelor."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
@@ -1081,7 +1104,8 @@ msgstr "Trebuie să fi autentificat înainte de a putea vota pentru pachete."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "Trebuie să fi autentificat înainte de a putea șterge voturile pachetelor."
+msgstr ""
+"Trebuie să fi autentificat înainte de a putea șterge voturile pachetelor."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
@@ -1107,7 +1131,8 @@ msgstr "Ai fost adăugat în lista de notificare a comentariilor pentru %s."
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr "Ai fost șters din lista de notificare pentru comentarii pentru pachetul %s."
+msgstr ""
+"Ai fost șters din lista de notificare pentru comentarii pentru pachetul %s."
 
 #: lib/pkgbasefuncs.inc.php routers/pkgbase.py
 msgid "You are not allowed to undelete this comment."
@@ -1788,13 +1813,17 @@ msgstr "Surse"
 #: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "Folosește acest formular pentru a închide cererea pentru pachetul de bază %s%s%s."
+msgstr ""
+"Folosește acest formular pentru a închide cererea pentru pachetul de bază "
+"%s%s%s."
 
 #: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Câmpul pentru comentarii poate fi lăsat necompletat. Este totuși foarte recomandat să adaugi un comentariu când respingi o cerere."
+msgstr ""
+"Câmpul pentru comentarii poate fi lăsat necompletat. Este totuși foarte "
+"recomandat să adaugi un comentariu când respingi o cerere."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1815,7 +1844,9 @@ msgstr "Respins"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Folosește acest formular pentru a înregistra o cerere pentru pachetul de bază %s%s%s care cuprinde următoarele pachete:"
+msgstr ""
+"Folosește acest formular pentru a înregistra o cerere pentru pachetul de "
+"bază %s%s%s care cuprinde următoarele pachete:"
 
 #: template/pkgreq_form.php
 msgid "Request type"

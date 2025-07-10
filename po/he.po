@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# gk <genghiskhan@gmx.ca>, 2016
-# gk <genghiskhan@gmx.ca>, 2016
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2024
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2024\n"
-"Language-Team: Hebrew (http://app.transifex.com/lfleischer/aurweb/language/he/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Hebrew (https://app.transifex.com/archlinux/teams/289905/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -204,14 +204,18 @@ msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s for more "
 "information and the %sAUR Submission Guidelines%s if you want to contribute "
 "a PKGBUILD."
-msgstr "ברוך בואך ל־AUR! נא לקרוא את %sההנחיות למשתמשים ב־AUR%s למידע נוסף ואת %sהנחיות ההגשה ל־AUR%s אם מעניין אותך לתרום  PKGBUILD."
+msgstr ""
+"ברוך בואך ל־AUR! נא לקרוא את %sההנחיות למשתמשים ב־AUR%s למידע נוסף ואת "
+"%sהנחיות ההגשה ל־AUR%s אם מעניין אותך לתרום  PKGBUILD."
 
 #: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "הגדרות PKGBUILD שנתרמו %sחייבות%s לעמוד ב%sתקני האריזה של ארץ׳%s אחרת הן תמחקנה!"
+msgstr ""
+"הגדרות PKGBUILD שנתרמו %sחייבות%s לעמוד ב%sתקני האריזה של ארץ׳%s אחרת הן "
+"תמחקנה!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -229,7 +233,9 @@ msgstr "הבהרה"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "חבילות AUR הן תוכן שנוצר על ידי המשתמשים. כל שימוש בקבצים שסופקו הוא על אחריותך בלבד."
+msgstr ""
+"חבילות AUR הן תוכן שנוצר על ידי המשתמשים. כל שימוש בקבצים שסופקו הוא על "
+"אחריותך בלבד."
 
 #: html/home.php
 msgid "Learn more..."
@@ -248,7 +254,9 @@ msgstr "בקשות חבילה"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "ישנם שלושה סוגים של בקשות שניתן להגיש בתיבה %sפעולות על חבילה%s בעמוד פרטי החבילה:"
+msgstr ""
+"ישנם שלושה סוגים של בקשות שניתן להגיש בתיבה %sפעולות על חבילה%s בעמוד פרטי "
+"החבילה:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -258,7 +266,9 @@ msgstr "בקשת יתומה"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "הגשת בקשה לניתוק בעלות על חבילה, למשל כאשר המתחזק אינו פעיל והחבילה סומנה כלא עדכנית במשך זמן מה."
+msgstr ""
+"הגשת בקשה לניתוק בעלות על חבילה, למשל כאשר המתחזק אינו פעיל והחבילה סומנה "
+"כלא עדכנית במשך זמן מה."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -269,7 +279,10 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "אפשר לבקש הסרת חבילה ממאגר המשתמשים של Arch ‏(AUR). נא לא להשתמש בזה אם החבילה פגומה ואפשר לתקן אותה בקלות. במקום, יש ליצור קשר עם מתחזקי החבילה ולהגיש בקשת יתמות במקרה הצורך."
+msgstr ""
+"אפשר לבקש הסרת חבילה ממאגר המשתמשים של Arch ‏(AUR). נא לא להשתמש בזה אם "
+"החבילה פגומה ואפשר לתקן אותה בקלות. במקום, יש ליצור קשר עם מתחזקי החבילה "
+"ולהגיש בקשת יתמות במקרה הצורך."
 
 #: html/home.php
 msgid "Merge Request"
@@ -279,14 +292,18 @@ msgstr "בקשת מיזוג"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "הגשת בקשה למיזוג חבילה אחת לתוך חבילה אחרת. ניתן להשתמש כאשר צריך לשנות שם של חבילה או להחליף אותה בחבילה מפוצלת."
+msgstr ""
+"הגשת בקשה למיזוג חבילה אחת לתוך חבילה אחרת. ניתן להשתמש כאשר צריך לשנות שם "
+"של חבילה או להחליף אותה בחבילה מפוצלת."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "כדי לדון בבקשה, ניתן להשתמש בקבוצת הדיונים %saur-requests%s. עם זאת, נא לא להשתמש ברשימה הזאת כדי להגיש בקשות."
+msgstr ""
+"כדי לדון בבקשה, ניתן להשתמש בקבוצת הדיונים %saur-requests%s. עם זאת, נא לא "
+"להשתמש ברשימה הזאת כדי להגיש בקשות."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -298,7 +315,9 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Git על גבי SSH היא התשתית העדכנית להגשת חבילות ל־AUR. ניתן לעיין בסעיף %sהגשת חבילות%s בעמוד Arch User Repository ב־ArchWiki לקבלת פרטים נוספים."
+msgstr ""
+"Git על גבי SSH היא התשתית העדכנית להגשת חבילות ל־AUR. ניתן לעיין בסעיף "
+"%sהגשת חבילות%s בעמוד Arch User Repository ב־ArchWiki לקבלת פרטים נוספים."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -315,7 +334,10 @@ msgid ""
 "Maintainer structure takes place on %saur-general%s. For discussion relating"
 " to the development of the AUR web interface, use the %saur-dev%s mailing "
 "list."
-msgstr "דיון כללי בנוגע למאגר המשתמשים של Arch‏ (AUR) ומבנה מתחזקי החבילות מתרחש ב־%saur-general%s. לדיון בנוגע לפיתוח האתר של AUR, יש להשתמש ברשימת הדיוור %saur-dev%s."
+msgstr ""
+"דיון כללי בנוגע למאגר המשתמשים של Arch‏ (AUR) ומבנה מתחזקי החבילות מתרחש "
+"ב־%saur-general%s. לדיון בנוגע לפיתוח האתר של AUR, יש להשתמש ברשימת הדיוור "
+"%saur-dev%s."
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -328,7 +350,10 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the maintainer or leave a "
 "comment on the appropriate package page."
-msgstr "אם מצאת תקלה באתר של AUR, נא למלא דוח תקלה ב%sעוקב התקלות%s שלנו. אפשר להשתמש בעוקב כדי לדווח על תקלות באתר של AUR %sבלבד%s. כדי לדווח על תקלות עם אריזות יש ליצור קשר עם המתחזקים או להשאיר תגובה בעמוד החבילה המתאים."
+msgstr ""
+"אם מצאת תקלה באתר של AUR, נא למלא דוח תקלה ב%sעוקב התקלות%s שלנו. אפשר "
+"להשתמש בעוקב כדי לדווח על תקלות באתר של AUR %sבלבד%s. כדי לדווח על תקלות עם "
+"אריזות יש ליצור קשר עם המתחזקים או להשאיר תגובה בעמוד החבילה המתאים."
 
 #: html/home.php
 msgid "Package Search"
@@ -461,7 +486,9 @@ msgstr "המשך"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr "אם שכחת את שם המשתמש ואת כתובת הדוא״ל העיקרית בה השתמשת כדי להירשם, נא לשלוח הודעה לקבוצת הדיוור %saur-general%s."
+msgstr ""
+"אם שכחת את שם המשתמש ואת כתובת הדוא״ל העיקרית בה השתמשת כדי להירשם, נא לשלוח"
+" הודעה לקבוצת הדיוור %saur-general%s."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
@@ -510,7 +537,9 @@ msgstr "מחיקת חבילה"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "ניתן להשתמש בטופס זה כדי למחוק את בסיס החבילה %s%s%s ואת החבילות הבאות מ־AUR:"
+msgstr ""
+"ניתן להשתמש בטופס זה כדי למחוק את בסיס החבילה %s%s%s ואת החבילות הבאות "
+"מ־AUR:"
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -541,7 +570,9 @@ msgstr "ניתוק בעלות על חבילה"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "ניתן להשתמש בטופס זה כדי לשלול את הבעלות על בסיס החבילה %s%s%s שכוללת את החבילות הבאות:"
+msgstr ""
+"ניתן להשתמש בטופס זה כדי לשלול את הבעלות על בסיס החבילה %s%s%s שכוללת את "
+"החבילות הבאות:"
 
 #: html/pkgdisown.php
 msgid ""
@@ -554,7 +585,9 @@ msgstr "סימון התיבה הזאת מהווה את אישורך להסיר �
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "על ידי סימון תיבת הבחירה, ניתן אישורך לניתוק הבעלות על חבילה והעברת הבעלות אל %s%s%s."
+msgstr ""
+"על ידי סימון תיבת הבחירה, ניתן אישורך לניתוק הבעלות על חבילה והעברת הבעלות "
+"אל %s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
@@ -587,27 +620,37 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr "כנראה שזאת חבילה ממערכת ניהול גרסאות קוד. נא %sלא%s לסמן אותה כפגת תוקף אם גרסת החבילה ב־AUR אינה תואמת להגשה העדכנית ביותר. יש לסמן את החבילה רק אם המקורות הועברו או שיש צורך בשינוי ב־PKGBUILD עקב שינויים עדכניים במאגר המקורי."
+msgstr ""
+"כנראה שזאת חבילה ממערכת ניהול גרסאות קוד. נא %sלא%s לסמן אותה כפגת תוקף אם "
+"גרסת החבילה ב־AUR אינה תואמת להגשה העדכנית ביותר. יש לסמן את החבילה רק אם "
+"המקורות הועברו או שיש צורך בשינוי ב־PKGBUILD עקב שינויים עדכניים במאגר "
+"המקורי."
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "יש להשתמש בטופס זה כדי לסמן את בסיס החבילה %s%s%s ואת החבילות הבאות כלא עדכניות:"
+msgstr ""
+"יש להשתמש בטופס זה כדי לסמן את בסיס החבילה %s%s%s ואת החבילות הבאות כלא "
+"עדכניות:"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "נא %sלא%s להשתמש בטופס הזה כדי לדווח על תקלות. יש להשתמש בהערות החבילה במקום."
+msgstr ""
+"נא %sלא%s להשתמש בטופס הזה כדי לדווח על תקלות. יש להשתמש בהערות החבילה "
+"במקום."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "נא להזין את הפרטים על מדוע החבילה לא עדכנית, מומלץ להוסיף קישורים להכרזות המתאימות או לקובצי הגרסה העדכנית."
+msgstr ""
+"נא להזין את הפרטים על מדוע החבילה לא עדכנית, מומלץ להוסיף קישורים להכרזות "
+"המתאימות או לקובצי הגרסה העדכנית."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -761,7 +804,9 @@ msgstr "מצביעים"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "הרשמה לחשבון הושבתה לכתובת ה־IP שלך עקב מתקפות זבל מתמשכות. אנו מתנצלים על אי הנוחות."
+msgstr ""
+"הרשמה לחשבון הושבתה לכתובת ה־IP שלך עקב מתקפות זבל מתמשכות. אנו מתנצלים על "
+"אי הנוחות."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -879,7 +924,9 @@ msgstr "החשבון, %s%s%s, השתנה בהצלחה."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "כתובת הכניסה מנוטרלת לכתובת ה־ IP שלך, כנראה עקב מתקפות ספאם מתמשכות. אנו מתנצלים על אי הנוחות."
+msgstr ""
+"כתובת הכניסה מנוטרלת לכתובת ה־ IP שלך, כנראה עקב מתקפות ספאם מתמשכות. אנו "
+"מתנצלים על אי הנוחות."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -895,7 +942,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "הססמה שלך עברה איפוס. אם הרגע יצרת חשבון חדש, נא להשתמש בקישור מהודעת האימות כדי להגדיר ססמה ראשונית. בכל מצב אחר, נא לבקר מפתח איפוס בעמוד %sאיפוס ססמה%s."
+msgstr ""
+"הססמה שלך עברה איפוס. אם הרגע יצרת חשבון חדש, נא להשתמש בקישור מהודעת האימות"
+" כדי להגדיר ססמה ראשונית. בכל מצב אחר, נא לבקר מפתח איפוס בעמוד %sאיפוס "
+"ססמה%s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1323,7 +1373,9 @@ msgstr "נדרש"
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr "שם המשתמש שלך הוא השם שישמש אותך לכניסה למערכת. הוא גלוי לכלל, אפילו לאחר השבתת חשבונך."
+msgstr ""
+"שם המשתמש שלך הוא השם שישמש אותך לכניסה למערכת. הוא גלוי לכלל, אפילו לאחר "
+"השבתת חשבונך."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
@@ -1352,7 +1404,10 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr "אם בחירתך תהיה שלא להסתיר את כתובת הדוא״ל שלך, היא תהיה גלויה לכלל המשתמשים ב־AUR. בחירה הפוכה תגרום לכך שהכתובת תהיה גלויה בפני חברי הסגל של Arch לינוקס בלבד."
+msgstr ""
+"אם בחירתך תהיה שלא להסתיר את כתובת הדוא״ל שלך, היא תהיה גלויה לכלל המשתמשים "
+"ב־AUR. בחירה הפוכה תגרום לכך שהכתובת תהיה גלויה בפני חברי הסגל של Arch "
+"לינוקס בלבד."
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
@@ -1362,20 +1417,26 @@ msgstr "כתובת דוא״ל לגיבוי"
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr "באפשרותך לציין כתובת דוא״ל משנית בה ניתן להשתמש לשחזור החשבון שלך אם אבדה גישתך לכתובת הדוא״ל העיקרית שלך."
+msgstr ""
+"באפשרותך לציין כתובת דוא״ל משנית בה ניתן להשתמש לשחזור החשבון שלך אם אבדה "
+"גישתך לכתובת הדוא״ל העיקרית שלך."
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr "קישורים לאיפוס ססמה תמיד נשלחים לכתובת הדוא״ל העיקרית שלך ואל כתובת הדוא״ל שלך כגיבוי."
+msgstr ""
+"קישורים לאיפוס ססמה תמיד נשלחים לכתובת הדוא״ל העיקרית שלך ואל כתובת הדוא״ל "
+"שלך כגיבוי."
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr "כתובת הדוא״ל שלך כגיבוי תמיד זמינה אך ורק לחברי הסגל של Arch לינוקס ללא תלות בהגדרה %s."
+msgstr ""
+"כתובת הדוא״ל שלך כגיבוי תמיד זמינה אך ורק לחברי הסגל של Arch לינוקס ללא תלות"
+" בהגדרה %s."
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1389,7 +1450,9 @@ msgstr "אזור זמן"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr "אם ברצונך לשנות את הססמה, נא להקליד ססמה חדשה ולאשר את הססמה על ידי הקלדתה פעם נוספת."
+msgstr ""
+"אם ברצונך לשנות את הססמה, נא להקליד ססמה חדשה ולאשר את הססמה על ידי הקלדתה "
+"פעם נוספת."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1442,7 +1505,9 @@ msgstr "הססמה הנוכחית שלך"
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr "כדי להגן על AUR מפני יצירה אוטומטית של חשבונות, אנו מבקשים ממך לציין מה הפלט של הפקודה הבאה:"
+msgstr ""
+"כדי להגן על AUR מפני יצירה אוטומטית של חשבונות, אנו מבקשים ממך לציין מה הפלט"
+" של הפקודה הבאה:"
 
 #: template/account_edit_form.php
 msgid "Answer"
@@ -1493,7 +1558,8 @@ msgstr "אין יותר תוצאות להצגה."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "ניתן להשתמש בטופס זה כדי להוסיף מתחזקי משנה %s%s%s (שם משתמש אחד בשורה):"
+msgstr ""
+"ניתן להשתמש בטופס זה כדי להוסיף מתחזקי משנה %s%s%s (שם משתמש אחד בשורה):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1662,7 +1728,9 @@ msgstr "הוספת תגובה"
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr "מזהי הגשות של Git שמפנים להגשות במאגר החבילות של AUR וכתובות מומרים אוטומטית לקישורים."
+msgstr ""
+"מזהי הגשות של Git שמפנים להגשות במאגר החבילות של AUR וכתובות מומרים אוטומטית"
+" לקישורים."
 
 #: template/pkg_comment_form.php
 #, php-format
@@ -1793,7 +1861,8 @@ msgstr "ניתן להשתמש בטופס זה כדי לסגור את הבקשה 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "שדה ההערות יכול להישאר ריק. עם זאת, מומלץ מאוד להוסיף הערה כשדוחים בקשה."
+msgstr ""
+"שדה ההערות יכול להישאר ריק. עם זאת, מומלץ מאוד להוסיף הערה כשדוחים בקשה."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1814,7 +1883,9 @@ msgstr "נדחה"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "ניתן להשתמש בטופס זה כדי להגיש את הבקשה לבסיס החבילה %s%s%s שכולל את החבילות הבאות:"
+msgstr ""
+"ניתן להשתמש בטופס זה כדי להגיש את הבקשה לבסיס החבילה %s%s%s שכולל את החבילות"
+" הבאות:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -1837,7 +1908,10 @@ msgid ""
 "By submitting a deletion request, you ask a Package Maintainer to delete the"
 " package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "בקשת מחיקה היא דרישה ממתחזקי החבילה למחוק את בסיס החבילה. יש להשתמש בסוג הזה של הבקשה על כפילויות, תוכנה שננטשה במקור, וגם חבילות בלתי חוקיות ופגומות באופן שלא ניתן לתיקון."
+msgstr ""
+"בקשת מחיקה היא דרישה ממתחזקי החבילה למחוק את בסיס החבילה. יש להשתמש בסוג הזה"
+" של הבקשה על כפילויות, תוכנה שננטשה במקור, וגם חבילות בלתי חוקיות ופגומות "
+"באופן שלא ניתן לתיקון."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1845,7 +1919,10 @@ msgid ""
 "package base and transfer its votes and comments to another package base. "
 "Merging a package does not affect the corresponding Git repositories. Make "
 "sure you update the Git history of the target package yourself."
-msgstr "בקשת מיזוג היא דרישה ממתחזקי החבילה למחוק את בסיס החבילה ולהעביר את ההצבעות וההערות לבסיס חבילה אחר. מיזוג חבילה לא משפיע על מאגרי ה־Git התואמים. עדכון היסטוריית ה־Git של חבילת היעד הוא באחריותך. "
+msgstr ""
+"בקשת מיזוג היא דרישה ממתחזקי החבילה למחוק את בסיס החבילה ולהעביר את ההצבעות "
+"וההערות לבסיס חבילה אחר. מיזוג חבילה לא משפיע על מאגרי ה־Git התואמים. עדכון "
+"היסטוריית ה־Git של חבילת היעד הוא באחריותך. "
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1853,7 +1930,10 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr "בקשת יתמות היא דרישה ממתחזקי החבילה לנשל את בסיס החבילה. נא עשות את זה רק אם החבילה צריכה פעולת תחזוקה, המתחזקים לא זמינים למשך תקופה וכבר ניסית ליצור קשר עם המתחזקים בעבר."
+msgstr ""
+"בקשת יתמות היא דרישה ממתחזקי החבילה לנשל את בסיס החבילה. נא עשות את זה רק אם"
+" החבילה צריכה פעולת תחזוקה, המתחזקים לא זמינים למשך תקופה וכבר ניסית ליצור "
+"קשר עם המתחזקים בעבר."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -2038,7 +2118,9 @@ msgstr "גרסה"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr "הפופולריות מחושבת כסכום של כל ההצבעות כאשר כל הצבעה נשקלת עם מקדם של %.2f ליום מאז שנוצרה."
+msgstr ""
+"הפופולריות מחושבת כסכום של כל ההצבעות כאשר כל הצבעה נשקלת עם מקדם של %.2f "
+"ליום מאז שנוצרה."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -2192,7 +2274,10 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr "הוגשה בקשה לאיפוס ססמה לחשבון {user} שמקושר לכתובת הדוא״ל שלך. אם ברצונך לאפס את הססמה שלך עליך להיכנס לקישור [1] שלהלן, אם לא ביקשת מוטב להתעלם מההודעה הזאת ולא יתבצע אף שינוי."
+msgstr ""
+"הוגשה בקשה לאיפוס ססמה לחשבון {user} שמקושר לכתובת הדוא״ל שלך. אם ברצונך "
+"לאפס את הססמה שלך עליך להיכנס לקישור [1] שלהלן, אם לא ביקשת מוטב להתעלם "
+"מההודעה הזאת ולא יתבצע אף שינוי."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
@@ -2203,7 +2288,10 @@ msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "ברוך הבא למאגר חבילות המשתמשים של Arch! כדי להגדיר ססמה ראשונית לחשבון החדש שלך נא ללחוץ על הקישור [1] שלהלן. אם הקישור לא עובד, נא לנסות להעתיק ולהדביק אותו בדפדפן."
+msgstr ""
+"ברוך הבא למאגר חבילות המשתמשים של Arch! כדי להגדיר ססמה ראשונית לחשבון החדש "
+"שלך נא ללחוץ על הקישור [1] שלהלן. אם הקישור לא עובד, נא לנסות להעתיק ולהדביק"
+" אותו בדפדפן."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2220,7 +2308,9 @@ msgstr "התגובה הבאה נוספה על ידי {user} [1] לחבילה {pk
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr "אם לא מעניין אותך לקבל יותר הודעות על החבילה הזאת נא לגשת לעמוד החבילה [2] ולבחור ב„{label}”."
+msgstr ""
+"אם לא מעניין אותך לקבל יותר הודעות על החבילה הזאת נא לגשת לעמוד החבילה [2] "
+"ולבחור ב„{label}”."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2284,7 +2374,11 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "{old} [2] מוזג לתוך {new} [3] על ידי {user} [1].\n\n-- \nכדי לא לקבל עוד הודעות על החבילה החדשה, עליך לגשת אל [3] וללחוץ על „{label}”."
+msgstr ""
+"{old} [2] מוזג לתוך {new} [3] על ידי {user} [1].\n"
+"\n"
+"-- \n"
+"כדי לא לקבל עוד הודעות על החבילה החדשה, עליך לגשת אל [3] וללחוץ על „{label}”."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2292,7 +2386,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr " {pkgbase} [2] נמחקה על ידי{user} [1].\n\nלא תישלחנה אליך התראות נוספות על חבילה זו."
+msgstr ""
+" {pkgbase} [2] נמחקה על ידי{user} [1].\n"
+"\n"
+"לא תישלחנה אליך התראות נוספות על חבילה זו."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2336,7 +2433,9 @@ msgstr "קרתה תקלה משמעותית."
 msgid ""
 "Details have been logged and will be reviewed by the postmaster posthaste. "
 "We apologize for any inconvenience this may have caused."
-msgstr "הפרטים תועדו ויועברו לבדיקת ההנהלה במהירות האפשרות. אנו מתנצלים על אי הנוחות שנגרמה."
+msgstr ""
+"הפרטים תועדו ויועברו לבדיקת ההנהלה במהירות האפשרות. אנו מתנצלים על אי הנוחות"
+" שנגרמה."
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
@@ -2351,7 +2450,9 @@ msgstr "הערות הסגירה התואמות של בקשת החבילה…"
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr "פעולה זו תסגור בקשות חבילות ממתינות שקשורות אליה. אם %sתגובות%s מושמטות, תיווצר תגובת סגירה אוטומטית."
+msgstr ""
+"פעולה זו תסגור בקשות חבילות ממתינות שקשורות אליה. אם %sתגובות%s מושמטות, "
+"תיווצר תגובת סגירה אוטומטית."
 
 #: templates/partials/tu/proposal/details.html
 msgid "assigned"
@@ -2383,7 +2484,10 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
-msgstr "ראוי לשים לב שהסתרת כתובת הדוא״ל שלך תעביר אותה לרשימת העותק המוסתר בהתראות לבקשה. אם מישהו יגיב להתראות האלה, ההודעות לא תגענה אליך. עם זאת, תגובות בדרך כלל נשלחות לרשימת הדיוור והן אמורות להופיע בארכיון."
+msgstr ""
+"ראוי לשים לב שהסתרת כתובת הדוא״ל שלך תעביר אותה לרשימת העותק המוסתר בהתראות "
+"לבקשה. אם מישהו יגיב להתראות האלה, ההודעות לא תגענה אליך. עם זאת, תגובות "
+"בדרך כלל נשלחות לרשימת הדיוור והן אמורות להופיע בארכיון."
 
 #: templates/partials/packages/comment_form.html
 msgid "Maximum number of characters"

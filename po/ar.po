@@ -1,19 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015
-# Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015
-# صفا الفليج <safaalfulaij@hotmail.com>, 2015-2016
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015\n"
-"Language-Team: Arabic (http://app.transifex.com/lfleischer/aurweb/language/ar/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Arabic (https://app.transifex.com/archlinux/teams/289905/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -210,7 +211,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "ملفّات PKGBUILD التي تساهم بها %sيجب%s أن تتّبع %sمعايير التّحزيم في آرتش%s وإلا فستُحذف!"
+msgstr ""
+"ملفّات PKGBUILD التي تساهم بها %sيجب%s أن تتّبع %sمعايير التّحزيم في آرتش%s "
+"وإلا فستُحذف!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -228,7 +231,9 @@ msgstr "إخلاء مسؤوليّة"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "حزم م‌م‌آ هي حزم قدّمها المستخدمين. أيّ استخدام للملفّات يكون على مسؤوليّتك الخاصّة."
+msgstr ""
+"حزم م‌م‌آ هي حزم قدّمها المستخدمين. أيّ استخدام للملفّات يكون على مسؤوليّتك "
+"الخاصّة."
 
 #: html/home.php
 msgid "Learn more..."
@@ -247,7 +252,9 @@ msgstr "طلبات الحزم"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "هناك ثلاث أنواع من الحزم التي يمكن ملؤها في مربّع %sإجراءات الحزم%s في صفحة تفاصيل الحزمة:"
+msgstr ""
+"هناك ثلاث أنواع من الحزم التي يمكن ملؤها في مربّع %sإجراءات الحزم%s في صفحة "
+"تفاصيل الحزمة:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -257,7 +264,9 @@ msgstr "طلب \"يتيمة\""
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "اطلب أن يُتبرّأ من الحزمة، مثلًا عندما يكون مصينها غير نشط وقد عُلّمت الحزمة كقديمة لوقت طويل."
+msgstr ""
+"اطلب أن يُتبرّأ من الحزمة، مثلًا عندما يكون مصينها غير نشط وقد عُلّمت الحزمة"
+" كقديمة لوقت طويل."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -278,14 +287,18 @@ msgstr "طلب الدّمج"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "اطلب دمج حزمة مع أخرى. يمكن استخدامه عندما تحتاج حزمة ما إعادة تسمية أو استبدال بحزمة تقسيميّة."
+msgstr ""
+"اطلب دمج حزمة مع أخرى. يمكن استخدامه عندما تحتاج حزمة ما إعادة تسمية أو "
+"استبدال بحزمة تقسيميّة."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "إن أردت النّقاش حول طلب ما، يمكنك استخدام قائمة %saur-requests%s البريديّة. لكن فضلًا لا تستخدمها للإبلاغ عن الطلبات."
+msgstr ""
+"إن أردت النّقاش حول طلب ما، يمكنك استخدام قائمة %saur-requests%s البريديّة. "
+"لكن فضلًا لا تستخدمها للإبلاغ عن الطلبات."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -297,7 +310,10 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "غِت Git عبر SSH يُستخدم الآن لتقديم الحزم إلى مستودع مستخدمي آرتش (م‌م‌آ). طالع قسم %sتقديم الحزم%s في صفحة مستودع مستخدمي آرتش في ويكي آرتش لتفاصيل أكثر."
+msgstr ""
+"غِت Git عبر SSH يُستخدم الآن لتقديم الحزم إلى مستودع مستخدمي آرتش (م‌م‌آ). "
+"طالع قسم %sتقديم الحزم%s في صفحة مستودع مستخدمي آرتش في ويكي آرتش لتفاصيل "
+"أكثر."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -540,7 +556,8 @@ msgstr "تنازل عن حزمة"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "استخدم هذه الاستمارة للتّنازل عن أساس الحزمة %s%s%s المتضمّنة الحزم الآتية:"
+msgstr ""
+"استخدم هذه الاستمارة للتّنازل عن أساس الحزمة %s%s%s المتضمّنة الحزم الآتية:"
 
 #: html/pkgdisown.php
 msgid ""
@@ -553,7 +570,9 @@ msgstr ""
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "بتأشير مربع التّأشير، أنت تؤكّد على تنازلك عن الحزمة ونقل ملكيّتها إلى %s%s%s."
+msgstr ""
+"بتأشير مربع التّأشير، أنت تؤكّد على تنازلك عن الحزمة ونقل ملكيّتها إلى "
+"%s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
@@ -600,7 +619,9 @@ msgstr "استخدم هذه الاستمارة لتعليم أساس الحزم�
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "من فضلك %sلا%s تستخدم هذه الاستمارة للتّبليع عن العلل. علّق على الحزم بدل ذلك."
+msgstr ""
+"من فضلك %sلا%s تستخدم هذه الاستمارة للتّبليع عن العلل. علّق على الحزم بدل "
+"ذلك."
 
 #: html/pkgflag.php
 msgid ""
@@ -760,7 +781,9 @@ msgstr "المصوّتون"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "تسجيل الحسابات معطّل حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك السّخاميّة المتكرّرة. آسفون لإزاعجك"
+msgstr ""
+"تسجيل الحسابات معطّل حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك السّخاميّة"
+" المتكرّرة. آسفون لإزاعجك"
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -878,7 +901,9 @@ msgstr "عُدّل الحساب %s%s%s بنجاح."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "استمارة الولوج معطّلة حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك السّخاميّة المتكرّرة. آسفون لإزاعجك."
+msgstr ""
+"استمارة الولوج معطّلة حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك "
+"السّخاميّة المتكرّرة. آسفون لإزاعجك."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -894,7 +919,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "لقد صُفّرت كلمة مرورك. إن أنشئت حسابًا جديدًا للتّوّ، فضلًا استخدم الوصلة من الريد الإلكتروني التّأكيديّ لتعيين كلمة مرور أوّليّة. وإلّا، فضلًا اطلب مفتاح تصفير من صفحة %sصفّر كلمة المرور%s."
+msgstr ""
+"لقد صُفّرت كلمة مرورك. إن أنشئت حسابًا جديدًا للتّوّ، فضلًا استخدم الوصلة من"
+" الريد الإلكتروني التّأكيديّ لتعيين كلمة مرور أوّليّة. وإلّا، فضلًا اطلب "
+"مفتاح تصفير من صفحة %sصفّر كلمة المرور%s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1340,7 +1368,8 @@ msgstr "غير نشط"
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr "فضلًا تأكّد من إدخال البريد الإلكترونيّ الصّحيح، وإلّا فسيُقفل الحساب."
+msgstr ""
+"فضلًا تأكّد من إدخال البريد الإلكترونيّ الصّحيح، وإلّا فسيُقفل الحساب."
 
 #: template/account_edit_form.php
 msgid "Hide Email Address"
@@ -1398,7 +1427,8 @@ msgstr "أعد كتابة كلمة المرور"
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr "المعلومات الآتية مطلوبة فقط إن أردت تقديم حزم إلى مستودع مستخدمي آرتش."
+msgstr ""
+"المعلومات الآتية مطلوبة فقط إن أردت تقديم حزم إلى مستودع مستخدمي آرتش."
 
 #: templates/partials/account_form.html
 msgid ""
@@ -1492,7 +1522,8 @@ msgstr "لا نتائج أخرى لعرضها."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "استخدم هذه الاستمارة لإضافة مصينين مشاركين لِـ %s%s%s (اسم في كلّ سطر):"
+msgstr ""
+"استخدم هذه الاستمارة لإضافة مصينين مشاركين لِـ %s%s%s (اسم في كلّ سطر):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1795,7 +1826,9 @@ msgstr "استخدم هذه الاستمارة لإغلاق طلب أساس ال
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "يمكن ترك حقل التّعليقات فارغًا. مع ذلك، من المستحسن إضافة تعليق عند رفض طلب ما."
+msgstr ""
+"يمكن ترك حقل التّعليقات فارغًا. مع ذلك، من المستحسن إضافة تعليق عند رفض طلب "
+"ما."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1816,7 +1849,8 @@ msgstr "مرفوض"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "استخدم هذه الاستمارة لفتح طلب لأساس الحزمة %s%s%s المتضمّنة الحزم الآتية:"
+msgstr ""
+"استخدم هذه الاستمارة لفتح طلب لأساس الحزمة %s%s%s المتضمّنة الحزم الآتية:"
 
 #: template/pkgreq_form.php
 msgid "Request type"

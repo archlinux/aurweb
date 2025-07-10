@@ -1,26 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# tarakbumba <tarakbumba@gmail.com>, 2011,2013-2015
-# tarakbumba <tarakbumba@gmail.com>, 2012,2014
-# Demiray Muhterem <mdemiray@msn.com>, 2015,2020-2022
-# Koray Biçer <kbicer@protonmail.ch>, 2020
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Samed Beyribey <ras0ir@eventualis.org>, 2012
-# Samed Beyribey <samed@ozguryazilim.com.tr>, 2012
-# Serpil Acar <acarserpil89@gmail.com>, 2016
-# tarakbumba <tarakbumba@gmail.com>, 2012,2014
-# tarakbumba <tarakbumba@gmail.com>, 2012
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: tarakbumba <tarakbumba@gmail.com>, 2012,2014\n"
-"Language-Team: Turkish (http://app.transifex.com/lfleischer/aurweb/language/tr/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Turkish (https://app.transifex.com/archlinux/teams/289905/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -60,7 +54,9 @@ msgstr "Hizmete Erişilemiyor"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Paniklemeyin! Bu site bakım çalışmaları nedeniyle erişime kapatıldı. Kısa süre sonra yeniden çalışmaya başlayacak"
+msgstr ""
+"Paniklemeyin! Bu site bakım çalışmaları nedeniyle erişime kapatıldı. Kısa "
+"süre sonra yeniden çalışmaya başlayacak"
 
 #: html/account.php routers/accounts.py
 msgid "Account"
@@ -217,7 +213,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Eklenen PKGBUILD dosyaları %smutlaka%s %sArch Paket Standartlarına%s uymalıdır aksi takdirde silinecektir. "
+msgstr ""
+"Eklenen PKGBUILD dosyaları %smutlaka%s %sArch Paket Standartlarına%s "
+"uymalıdır aksi takdirde silinecektir. "
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -225,7 +223,8 @@ msgstr "Beğendiğiniz paketleri oylamayı unutmayın!"
 
 #: html/home.php
 msgid "Some packages may be provided as binaries in [extra]."
-msgstr "Burada listelenen paketlerin bazıları [extra] deposunda yer almaktadır."
+msgstr ""
+"Burada listelenen paketlerin bazıları [extra] deposunda yer almaktadır."
 
 #: html/home.php
 msgid "DISCLAIMER"
@@ -235,7 +234,9 @@ msgstr "FERAGATNAME"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "AUR paketleri kullanıcılar tarafından üretilirler. Bu paketlerin herhangi bir risk taşıyabileceğini unutmayın."
+msgstr ""
+"AUR paketleri kullanıcılar tarafından üretilirler. Bu paketlerin herhangi "
+"bir risk taşıyabileceğini unutmayın."
 
 #: html/home.php
 msgid "Learn more..."
@@ -254,7 +255,9 @@ msgstr "Paket Talepleri"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "Paket ayrıntıları sayfasındaki %sPaket Eylemleri%s kutusunda doldurulabilecek üç tür talep vardır:"
+msgstr ""
+"Paket ayrıntıları sayfasındaki %sPaket Eylemleri%s kutusunda "
+"doldurulabilecek üç tür talep vardır:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -264,7 +267,9 @@ msgstr "Sahipsiz Bırakma Talebi"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Bir paketin sahipliğinin bırakılması talebi, mesela bakımcısının etkin olmaması ve paketin uzun zamandır güncel değil olarak işaretlenmiş olması."
+msgstr ""
+"Bir paketin sahipliğinin bırakılması talebi, mesela bakımcısının etkin "
+"olmaması ve paketin uzun zamandır güncel değil olarak işaretlenmiş olması."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -285,14 +290,20 @@ msgstr "Birleştirme Talebi"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "Bir paketin bir başkası ile birleştirilmesi talebidir. Bir paketin yeniden adlandırılması veya bir ayrılmış paketle değiştirilmesi gerekiyorsa kullanılabilir."
+msgstr ""
+"Bir paketin bir başkası ile birleştirilmesi talebidir. Bir paketin yeniden "
+"adlandırılması veya bir ayrılmış paketle değiştirilmesi gerekiyorsa "
+"kullanılabilir."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Bir talep hakkında tartışmak istiyorsanız, %saur-requests%s e-posta listesini kullanabilirsiniz. Bununla birlikte o e-posta listesini dosya talepleri için kullanmamalısınız."
+msgstr ""
+"Bir talep hakkında tartışmak istiyorsanız, %saur-requests%s e-posta "
+"listesini kullanabilirsiniz. Bununla birlikte o e-posta listesini dosya "
+"talepleri için kullanmamalısınız."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -304,7 +315,10 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Artık AUR' a paket göndermek için SSH üzerinden Git kullanılmaktadır. Daha fazla bilgi için Arch Kullanıcı Deposu ArchWiki sayfasındaki %sPaketleri Göndermek%s bölümüne bakın."
+msgstr ""
+"Artık AUR' a paket göndermek için SSH üzerinden Git kullanılmaktadır. Daha "
+"fazla bilgi için Arch Kullanıcı Deposu ArchWiki sayfasındaki %sPaketleri "
+"Göndermek%s bölümüne bakın."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -401,7 +415,8 @@ msgstr "Parolamı Unuttum"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP oturum açma devredışı. Lütfen oturum açmak için %sHTTPS kullanın%s."
+msgstr ""
+"HTTP oturum açma devredışı. Lütfen oturum açmak için %sHTTPS kullanın%s."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -467,7 +482,9 @@ msgstr "Devam"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr "Kaydettiğiniz kullanıcı adını ve birincil e-posta adresini unuttuysanız, lütfen %s genel %s posta listesine bir mesaj gönderin."
+msgstr ""
+"Kaydettiğiniz kullanıcı adını ve birincil e-posta adresini unuttuysanız, "
+"lütfen %s genel %s posta listesine bir mesaj gönderin."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
@@ -481,7 +498,9 @@ msgstr "Paket Tabanları"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr "Seçilen paketler için sahiplik bırakılamadı. Onaylama kutucuğunu işaretleyin."
+msgstr ""
+"Seçilen paketler için sahiplik bırakılamadı. Onaylama kutucuğunu "
+"işaretleyin."
 
 #: aurweb/routers/packages.py
 msgid ""
@@ -491,7 +510,8 @@ msgstr "Seçilen paketler kabul edilmedi, onay kontrol kutusunu işaretleyin."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Oyların ve yorumların ilişkilendirilebileceği herhangi bir paket bulunamadı."
+msgstr ""
+"Oyların ve yorumların ilişkilendirilebileceği herhangi bir paket bulunamadı."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
@@ -516,7 +536,9 @@ msgstr "Paketi Sil"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Bu formu paket temeli %s%s%s ve şu paketleri AUR üzerinden silmek için kullanın: "
+msgstr ""
+"Bu formu paket temeli %s%s%s ve şu paketleri AUR üzerinden silmek için "
+"kullanın: "
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -547,25 +569,32 @@ msgstr "Paket Sahipliğini Bırak"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "Şu paketleri içeren %s%s%s paket temelinin sahipliğini bırakmak için bu formu kullanın:"
+msgstr ""
+"Şu paketleri içeren %s%s%s paket temelinin sahipliğini bırakmak için bu "
+"formu kullanın:"
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr "Onay kutusunu işaretleyerek, artık bir paket yardımcısı olmak istemediğinizi onaylarsınız."
+msgstr ""
+"Onay kutusunu işaretleyerek, artık bir paket yardımcısı olmak istemediğinizi"
+" onaylarsınız."
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "İşaretleme kutucuğunu seçerek paketin sahipliğini bırakmayı ve sahipliği %s%s%s üzerine geçirmeyi kabul ediyorsunuz."
+msgstr ""
+"İşaretleme kutucuğunu seçerek paketin sahipliğini bırakmayı ve sahipliği "
+"%s%s%s üzerine geçirmeyi kabul ediyorsunuz."
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr "Kutucuğu işaretleyerek paketin sahipliğini bırakmayı kabul ediyorsunuz."
+msgstr ""
+"Kutucuğu işaretleyerek paketin sahipliğini bırakmayı kabul ediyorsunuz."
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
@@ -593,27 +622,37 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr "Bu bir VCS paketi gibi görünüyor. AUR'daki paket sürümü en son taahhütle eşleşmiyorsa, lütfen güncelliğini %sdeğil%s olarak işaretleyin. Bu paketin işaretlenmesi, yalnızca, son yukarı akış değişiklikleri nedeniyle PKGBUILD içindeki kaynaklar taşınmışsa veya değişiklikler gerekliyse yapılmalıdır."
+msgstr ""
+"Bu bir VCS paketi gibi görünüyor. AUR'daki paket sürümü en son taahhütle "
+"eşleşmiyorsa, lütfen güncelliğini %sdeğil%s olarak işaretleyin. Bu paketin "
+"işaretlenmesi, yalnızca, son yukarı akış değişiklikleri nedeniyle PKGBUILD "
+"içindeki kaynaklar taşınmışsa veya değişiklikler gerekliyse yapılmalıdır."
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "%s%s%s paket tabanını ve aşağıdaki paketleri güncel olmayan olarak işaretlemek için bu formu kullanın:"
+msgstr ""
+"%s%s%s paket tabanını ve aşağıdaki paketleri güncel olmayan olarak "
+"işaretlemek için bu formu kullanın:"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "Lütfen %s değil, %s hataları bildirmek için bu formu kullanın. Bunun yerine paket yorumlarını kullanın."
+msgstr ""
+"Lütfen %s değil, %s hataları bildirmek için bu formu kullanın. Bunun yerine "
+"paket yorumlarını kullanın."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "Paketin neden güncel olmadığıyla ilgili detayları aşağıya girin, tercihen sürüm bildirilerinin veya yeni tarball sürümünün linklerini dahil ederek."
+msgstr ""
+"Paketin neden güncel olmadığıyla ilgili detayları aşağıya girin, tercihen "
+"sürüm bildirilerinin veya yeni tarball sürümünün linklerini dahil ederek."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -626,7 +665,8 @@ msgstr "İşaretle"
 
 #: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
-msgstr "Sadece kayıtlı kullanıcılar paketleri güncel değil olarak işaretleyebilir."
+msgstr ""
+"Sadece kayıtlı kullanıcılar paketleri güncel değil olarak işaretleyebilir."
 
 #: html/pkgmerge.php
 msgid "Package Merging"
@@ -639,7 +679,9 @@ msgstr "Paketi Birleştir"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Bu formu paket temeli %s%s%s ile bir başka paketi birleştirmek için kullanın. "
+msgstr ""
+"Bu formu paket temeli %s%s%s ile bir başka paketi birleştirmek için "
+"kullanın. "
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
@@ -767,7 +809,9 @@ msgstr "Oy verenler"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden hesap oluşturma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
+msgstr ""
+"Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden hesap "
+"oluşturma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -885,7 +929,9 @@ msgstr "Hesap, %s%s%s, başarıyla düzenlendi."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden giriş yapma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
+msgstr ""
+"Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden giriş "
+"yapma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -901,7 +947,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Parolanız sıfırlandı. Kısa süre önce yeni hesap oluşturduysanız lütfen, ilk parolanızı ayarlamak için onaylama e-postasındaki bağlantıyı kullanın. Aksi takdirde, %sParola Sıfırlama%s sayfasında bir sıfırlama anahtarı talep edin."
+msgstr ""
+"Parolanız sıfırlandı. Kısa süre önce yeni hesap oluşturduysanız lütfen, ilk "
+"parolanızı ayarlamak için onaylama e-postasındaki bağlantıyı kullanın. Aksi "
+"takdirde, %sParola Sıfırlama%s sayfasında bir sıfırlama anahtarı talep edin."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1136,7 +1185,9 @@ msgstr "Yorum düzenlendi."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr "Bu paket temelinin anahtar kelimelerini düzenleme yetkisine sahip değilsiniz."
+msgstr ""
+"Bu paket temelinin anahtar kelimelerini düzenleme yetkisine sahip "
+"değilsiniz."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
@@ -1144,7 +1195,9 @@ msgstr "Paket temeli anahtar kelimeleri güncellendi."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "Bu paket temelinin yardımcı bakımcılarını yönetme yetkisine sahip değilsiniz."
+msgstr ""
+"Bu paket temelinin yardımcı bakımcılarını yönetme yetkisine sahip "
+"değilsiniz."
 
 #: lib/pkgbasefuncs.inc.php pkgbase/util.py
 #, python-format, php-format
@@ -1319,7 +1372,8 @@ msgstr "Kullanıcı detayları için %sburaya%s tıklayın."
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s to list the comments made by this account."
-msgstr "Bu hesap tarafından yapılan yorumları listelemek için %s buraya %s tıklayın."
+msgstr ""
+"Bu hesap tarafından yapılan yorumları listelemek için %s buraya %s tıklayın."
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1329,7 +1383,9 @@ msgstr "gerekli"
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr "Kullanıcı adınız, oturum açmak için kullanacağınız addır. Hesabınız etkin olmasa bile, herkes tarafından görülebilir."
+msgstr ""
+"Kullanıcı adınız, oturum açmak için kullanacağınız addır. Hesabınız etkin "
+"olmasa bile, herkes tarafından görülebilir."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
@@ -1347,7 +1403,9 @@ msgstr "Etkin değil"
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr "Lütfen e-posta adresinizi doğru girdiğinizden emin olun, aksi halde hesabınız kilitlenecektir."
+msgstr ""
+"Lütfen e-posta adresinizi doğru girdiğinizden emin olun, aksi halde "
+"hesabınız kilitlenecektir."
 
 #: template/account_edit_form.php
 msgid "Hide Email Address"
@@ -1358,7 +1416,10 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr "E-posta adresinizi gizlemezseniz, tüm kayıtlı AUR kullanıcıları tarafından görülebilir. E-posta adresinizi gizlerseniz, adres yalnızca Arch Linux personeli tarafından görülebilir."
+msgstr ""
+"E-posta adresinizi gizlemezseniz, tüm kayıtlı AUR kullanıcıları tarafından "
+"görülebilir. E-posta adresinizi gizlerseniz, adres yalnızca Arch Linux "
+"personeli tarafından görülebilir."
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
@@ -1368,20 +1429,27 @@ msgstr "Yedekleme E-posta Adresi"
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr "İsteğe bağlı olarak, birincil e-posta adresinize erişiminizi kaybetmeniz durumunda hesabınızı geri yüklemek için kullanılabilecek ikincil bir e-posta adresi sağlayın."
+msgstr ""
+"İsteğe bağlı olarak, birincil e-posta adresinize erişiminizi kaybetmeniz "
+"durumunda hesabınızı geri yüklemek için kullanılabilecek ikincil bir e-posta"
+" adresi sağlayın."
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr "Parola sıfırlama bağlantıları her zaman hem birincil adresinize hem de yedek e-posta adresinize gönderilir."
+msgstr ""
+"Parola sıfırlama bağlantıları her zaman hem birincil adresinize hem de yedek"
+" e-posta adresinize gönderilir."
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr "Yedek e-posta adresiniz her zaman %s ayarından bağımsız olarak yalnızca Arch Linux personeli tarafından görülebilir."
+msgstr ""
+"Yedek e-posta adresiniz her zaman %s ayarından bağımsız olarak yalnızca Arch"
+" Linux personeli tarafından görülebilir."
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1395,7 +1463,9 @@ msgstr "Saat dilimi"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr "Şifreyi değiştirmek istiyorsanız, yeni bir şifre girin ve yeni şifreyi tekrar girerek onaylayın."
+msgstr ""
+"Şifreyi değiştirmek istiyorsanız, yeni bir şifre girin ve yeni şifreyi "
+"tekrar girerek onaylayın."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1405,7 +1475,9 @@ msgstr "Parolayı tekrar girin"
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr "Aşağıdaki bilgi sadece Arch Kullanıcı Deposu' na paket göndermek istiyorsanız gereklidir."
+msgstr ""
+"Aşağıdaki bilgi sadece Arch Kullanıcı Deposu' na paket göndermek "
+"istiyorsanız gereklidir."
 
 #: templates/partials/account_form.html
 msgid ""
@@ -1448,7 +1520,9 @@ msgstr "Mevcut şifreniz"
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr "AUR otomatik hesap oluşturmaya karşı korumak için sizden aşağıdaki komutun çıktısını sağlamanızı rica ediyoruz:"
+msgstr ""
+"AUR otomatik hesap oluşturmaya karşı korumak için sizden aşağıdaki komutun "
+"çıktısını sağlamanızı rica ediyoruz:"
 
 #: template/account_edit_form.php
 msgid "Answer"
@@ -1499,7 +1573,9 @@ msgstr "Gösterilecek daha fazla sonuç yok."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "%s%s%s için yardımcı bakımcı eklemek istiyorsanız bu formu kullannı (her satırda bir kullanıcı adı):"
+msgstr ""
+"%s%s%s için yardımcı bakımcı eklemek istiyorsanız bu formu kullannı (her "
+"satırda bir kullanıcı adı):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1517,7 +1593,8 @@ msgstr "Güncel olmayan olarak işaretli yorum: %s"
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr "%s%s%s, aşağıdaki nedenlerden dolayı   %s%s%s'i %s%s%s olarak işaretledi:"
+msgstr ""
+"%s%s%s, aşağıdaki nedenlerden dolayı   %s%s%s'i %s%s%s olarak işaretledi:"
 
 #: template/flag_comment.php
 #, php-format
@@ -1667,7 +1744,9 @@ msgstr "Yorum Ekle"
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr "AUR paketindeki işlemleri referans alan Git işlem tanımlayıcıları ve URL adresleri otomatik olarak bağlantılara dönüştürülür."
+msgstr ""
+"AUR paketindeki işlemleri referans alan Git işlem tanımlayıcıları ve URL "
+"adresleri otomatik olarak bağlantılara dönüştürülür."
 
 #: template/pkg_comment_form.php
 #, php-format
@@ -1792,13 +1871,16 @@ msgstr "Kaynak kodlar"
 #: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "Bu formu %s%s%s paket temeli için yapılan talebi kapatmak için kullanın."
+msgstr ""
+"Bu formu %s%s%s paket temeli için yapılan talebi kapatmak için kullanın."
 
 #: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Yorum alanı boş bırakılabilir. Ancak, bir talebi reddederken bir yorum eklemeniz şiddetle önerilir."
+msgstr ""
+"Yorum alanı boş bırakılabilir. Ancak, bir talebi reddederken bir yorum "
+"eklemeniz şiddetle önerilir."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1819,7 +1901,9 @@ msgstr "Reddedildi"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Bu formu kullanarak aşağıdaki paketleri içeren paket temeli %s%s%s için talep doldurun:"
+msgstr ""
+"Bu formu kullanarak aşağıdaki paketleri içeren paket temeli %s%s%s için "
+"talep doldurun:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -2039,7 +2123,9 @@ msgstr "Sürüm"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr "Popülarite, oluşturulmasından itibaren günlük %.2f oranı ile ağırlaştırılarak bulunan her oyun toplamı ile ölçülür."
+msgstr ""
+"Popülarite, oluşturulmasından itibaren günlük %.2f oranı ile "
+"ağırlaştırılarak bulunan her oyun toplamı ile ölçülür."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -2193,7 +2279,10 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr "E-posta adresinizle ilişkili {user} hesabı için bir şifre sıfırlama isteği gönderildi. Şifrenizi sıfırlamak isterseniz, aşağıdaki bağlantıyı [1] takip edin, aksi takdirde bu mesajı dikkate almayın; hiçbir şey olmaz."
+msgstr ""
+"E-posta adresinizle ilişkili {user} hesabı için bir şifre sıfırlama isteği "
+"gönderildi. Şifrenizi sıfırlamak isterseniz, aşağıdaki bağlantıyı [1] takip "
+"edin, aksi takdirde bu mesajı dikkate almayın; hiçbir şey olmaz."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
@@ -2204,7 +2293,10 @@ msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "Arch Kullanıcı Deposuna Hoş Geldiniz! Yeni hesabınız için bir başlangıç şifresi belirlemek için lütfen aşağıdaki bağlantıyı [1] tıklayın. Bağlantı çalışmazsa, kopyalayıp tarayıcınıza yapıştırmayı deneyin."
+msgstr ""
+"Arch Kullanıcı Deposuna Hoş Geldiniz! Yeni hesabınız için bir başlangıç "
+"şifresi belirlemek için lütfen aşağıdaki bağlantıyı [1] tıklayın. Bağlantı "
+"çalışmazsa, kopyalayıp tarayıcınıza yapıştırmayı deneyin."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2221,7 +2313,9 @@ msgstr "{user} [1], {pkgbase} [2] ürününe şu yorumu ekledi:"
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr "Artık bu paket hakkında bildirim almak istemiyorsanız, lütfen paket sayfasına [2] gidin ve \"{label}\" seçeneğini seçin."
+msgstr ""
+"Artık bu paket hakkında bildirim almak istemiyorsanız, lütfen paket "
+"sayfasına [2] gidin ve \"{label}\" seçeneğini seçin."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2241,7 +2335,8 @@ msgstr "{pkgbase} için AUR Güncel Değil Bildirimi"
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr "{pkgbase} [1] paketiniz {user} [2] tarafından eski olarak işaretlendi:"
+msgstr ""
+"{pkgbase} [1] paketiniz {user} [2] tarafından eski olarak işaretlendi:"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2285,7 +2380,11 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "{user} [1], {old} [2] ile {new} [3] arasını birleştirdi.\n\n-- \nEğer yeni paket hakkında bildirim almak istemiyorsanız, lütfen [3] 'e gidin ve \"{label}\" düğmesini tıklayın."
+msgstr ""
+"{user} [1], {old} [2] ile {new} [3] arasını birleştirdi.\n"
+"\n"
+"-- \n"
+"Eğer yeni paket hakkında bildirim almak istemiyorsanız, lütfen [3] 'e gidin ve \"{label}\" düğmesini tıklayın."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2293,7 +2392,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "{user} [1] {pkgbase} [2] paketini sildi.\n\nArtık bu paket hakkında bildirim almayacaksınız."
+msgstr ""
+"{user} [1] {pkgbase} [2] paketini sildi.\n"
+"\n"
+"Artık bu paket hakkında bildirim almayacaksınız."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2305,7 +2407,9 @@ msgstr ""
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr "Lütfen {id} [1] teklifine oy vermeyi unutmayın. Oylama süresi 48 saatten az sürer."
+msgstr ""
+"Lütfen {id} [1] teklifine oy vermeyi unutmayın. Oylama süresi 48 saatten az "
+"sürer."
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."
@@ -2337,7 +2441,9 @@ msgstr "Önemli bir hata oluştu."
 msgid ""
 "Details have been logged and will be reviewed by the postmaster posthaste. "
 "We apologize for any inconvenience this may have caused."
-msgstr "Ayrıntılar günlüğe kaydedildi ve posta yöneticisi tarafından gözden geçirilecek. Bunun neden olabileceği rahatsızlıktan dolayı özür dileriz."
+msgstr ""
+"Ayrıntılar günlüğe kaydedildi ve posta yöneticisi tarafından gözden "
+"geçirilecek. Bunun neden olabileceği rahatsızlıktan dolayı özür dileriz."
 
 #: aurweb/scripts/notify.py
 msgid "AUR Server Error"
@@ -2352,7 +2458,9 @@ msgstr "İlgili paket isteği kapatma yorumları..."
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr "Bu eylem, kendisiyle ilgili bekleyen paket isteklerini kapatacaktır. %s Yorum %s atlanırsa, bir kapatma yorumu otomatik olarak oluşturulur."
+msgstr ""
+"Bu eylem, kendisiyle ilgili bekleyen paket isteklerini kapatacaktır. %s "
+"Yorum %s atlanırsa, bir kapatma yorumu otomatik olarak oluşturulur."
 
 #: templates/partials/tu/proposal/details.html
 msgid "assigned"

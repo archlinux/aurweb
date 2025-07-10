@@ -1,29 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Feng Chao <chaofeng111@qq.com>, 2015-2016
-# dongfengweixiao <dongfengweixiao@gmail.com>, 2015
-# dongfengweixiao <dongfengweixiao@gmail.com>, 2015
-# Felix Yan <felixonmars@gmail.com>, 2014,2021
-# Feng Chao <chaofeng111@qq.com>, 2012,2021,2024
-# lakejason0 <sunliyuan200402@outlook.com>, 2022
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# pingplug <pingplug@foxmail.com>, 2017-2018
-# Feng Chao <chaofeng111@qq.com>, 2012
-# Tangyuan, 2025
-# Weiwen Zhao <panda.hust@gmail.com>, 2013
-# Xiaodong Qi <xiaodong.que+github@gmail.com>, 2016
-# 林凌儿 <308627244@qq.com>, 2021
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Tangyuan, 2025\n"
-"Language-Team: Chinese (China) (http://app.transifex.com/lfleischer/aurweb/language/zh_CN/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/archlinux/teams/289905/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -307,7 +298,9 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "现在请使用 Git over SSH 来向 AUR 提交软件包。如果想知道更多，请查看 Arch Wiki 上的 Arch User Repository (简体中文) 页面中 %s提交软件包%s 章节。"
+msgstr ""
+"现在请使用 Git over SSH 来向 AUR 提交软件包。如果想知道更多，请查看 Arch Wiki 上的 Arch User "
+"Repository (简体中文) 页面中 %s提交软件包%s 章节。"
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -324,7 +317,9 @@ msgid ""
 "Maintainer structure takes place on %saur-general%s. For discussion relating"
 " to the development of the AUR web interface, use the %saur-dev%s mailing "
 "list."
-msgstr "关于AUR及软件包维护者架构的通用讨论，请通过 %saur-general%s 邮件列表进行。有关 AUR 网页界面开发的讨论，请使用 %saur-dev %s邮件列表。"
+msgstr ""
+"关于AUR及软件包维护者架构的通用讨论，请通过 %saur-general%s 邮件列表进行。有关 AUR 网页界面开发的讨论，请使用 %saur-"
+"dev %s邮件列表。"
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -596,7 +591,9 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr "这似乎是 VCS 软件包。请%s不要%s因为 AUR 中的软件包版本与最新的 commit 不匹配就将其标记为过期。仅当来源移动或由于最新上游更改需要更改 PKGBUILD 时才标记此软件包。"
+msgstr ""
+"这似乎是 VCS 软件包。请%s不要%s因为 AUR 中的软件包版本与最新的 commit "
+"不匹配就将其标记为过期。仅当来源移动或由于最新上游更改需要更改 PKGBUILD 时才标记此软件包。"
 
 #: html/pkgflag.php
 #, php-format
@@ -2283,7 +2280,11 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "用户 {user} [1] 将原软件包 {old} [2] 并入新软件包 {new} [3]。\n\n--\n若您不愿再收到关于新软件包的通知，请到此软件包页面 [3] 并点击 \"{label}\"。"
+msgstr ""
+"用户 {user} [1] 将原软件包 {old} [2] 并入新软件包 {new} [3]。\n"
+"\n"
+"--\n"
+"若您不愿再收到关于新软件包的通知，请到此软件包页面 [3] 并点击 \"{label}\"。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2291,7 +2292,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "用户 {user} [1] 删除了软件包 {pkgbase} [2]。\n\n您将不再收到此软件包的评论通知。"
+msgstr ""
+"用户 {user} [1] 删除了软件包 {pkgbase} [2]。\n"
+"\n"
+"您将不再收到此软件包的评论通知。"
 
 #: scripts/notify.py
 #, python-brace-format

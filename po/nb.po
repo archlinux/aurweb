@@ -1,24 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alexander F. Rødseth <rodseth@gmail.com>, 2015,2017-2019
-# Alexander F. Rødseth <rodseth@gmail.com>, 2011,2013-2014
-# Harald H. <haarektrans@gmail.com>, 2015
-# Harald H. <haarektrans@gmail.com>, 2015
-# Kim Nordmo <kim.nordmo@gmail.com>, 2016
-# Kim Nordmo <kim.nordmo@gmail.com>, 2016
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Thor K. H. <nitrolinken@gmail.com>, 2016
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Thor K. H. <nitrolinken@gmail.com>, 2016\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/lfleischer/aurweb/language/nb/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Norwegian Bokmål (https://app.transifex.com/archlinux/teams/289905/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -215,7 +211,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Innsendte PKGBUILD-filer %små%s følge %sStandarden for Arch Pakker%s ellers vil de bli slettet!"
+msgstr ""
+"Innsendte PKGBUILD-filer %små%s følge %sStandarden for Arch Pakker%s ellers "
+"vil de bli slettet!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -233,7 +231,9 @@ msgstr "ANSVARSFRASKRIVELSE"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Pakker i AUR kan lages av hvem som helst. All bruk av filer herfra skjer på eget ansvar."
+msgstr ""
+"Pakker i AUR kan lages av hvem som helst. All bruk av filer herfra skjer på "
+"eget ansvar."
 
 #: html/home.php
 msgid "Learn more..."
@@ -252,7 +252,9 @@ msgstr "Pakkeforespørsler"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "Det er tre forskjellige forespørsler som kan velges i %sPakkenhandling%s-boksen på siden til en pakke:"
+msgstr ""
+"Det er tre forskjellige forespørsler som kan velges i "
+"%sPakkenhandling%s-boksen på siden til en pakke:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -262,7 +264,9 @@ msgstr "Frigjøringsforespørsel"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Forespør at pakken gjøres eierløs, f.eks. når vedlikeholderen er inaktiv og pakken har vært flagget som utdatert i en lengre periode."
+msgstr ""
+"Forespør at pakken gjøres eierløs, f.eks. når vedlikeholderen er inaktiv og "
+"pakken har vært flagget som utdatert i en lengre periode."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -283,14 +287,18 @@ msgstr "Fletteforespørsel"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "Forespør at pakken flettes inn i en annen. Kan brukes når en pakke trenger å bytte navn eller å bli erstattet av en oppsplittet pakke."
+msgstr ""
+"Forespør at pakken flettes inn i en annen. Kan brukes når en pakke trenger å"
+" bytte navn eller å bli erstattet av en oppsplittet pakke."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Hvis du vil diskutere en gitt forespørsel kan du kontakte e-postlisten %saur-request%s. Vennligst ikke send selve forespørselen dit."
+msgstr ""
+"Hvis du vil diskutere en gitt forespørsel kan du kontakte e-postlisten "
+"%saur-request%s. Vennligst ikke send selve forespørselen dit."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -302,7 +310,10 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Git over SSH brukes nå for å sende inn pakker til AUR. Ta en titt på %sSubmitting packages%s-seksjonen til Arch User Repository sin wikiside for nærmere detaljer."
+msgstr ""
+"Git over SSH brukes nå for å sende inn pakker til AUR. Ta en titt på "
+"%sSubmitting packages%s-seksjonen til Arch User Repository sin wikiside for "
+"nærmere detaljer."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -438,7 +449,8 @@ msgstr "Tilbakestill passord"
 
 #: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
-msgstr "Sjekk e-posten og bruk den tilsendte lenken for å bekrefte registreringen."
+msgstr ""
+"Sjekk e-posten og bruk den tilsendte lenken for å bekrefte registreringen."
 
 #: html/passreset.php
 msgid "Your password has been reset successfully."
@@ -479,7 +491,9 @@ msgstr "Pakkebaser"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr "De valgte pakkene har ikke blitt gjort eierløse, kryss av i boksen for å bekrefte."
+msgstr ""
+"De valgte pakkene har ikke blitt gjort eierløse, kryss av i boksen for å "
+"bekrefte."
 
 #: aurweb/routers/packages.py
 msgid ""
@@ -499,7 +513,8 @@ msgstr "Kan ikke slå sammen en basispakke med seg selv."
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr "De valgte pakkene har ikke blitt slettet, kryss av i boksen for å bekrefte."
+msgstr ""
+"De valgte pakkene har ikke blitt slettet, kryss av i boksen for å bekrefte."
 
 #: html/pkgdel.php
 msgid "Package Deletion"
@@ -514,7 +529,9 @@ msgstr "Slett pakke"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Bruk dette skjemaet for å slette basispakken %s%s%s og følgende pakker fra AUR:"
+msgstr ""
+"Bruk dette skjemaet for å slette basispakken %s%s%s og følgende pakker fra "
+"AUR:"
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -545,25 +562,32 @@ msgstr "Gjør eierløs"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "Bruk dette skjemaet for å gjøre pakkebasen %s%s%s eierløs. Den inkluderer følgende pakker:"
+msgstr ""
+"Bruk dette skjemaet for å gjøre pakkebasen %s%s%s eierløs. Den inkluderer "
+"følgende pakker:"
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr "Ved krysse av i boksen bekrefter du at du ikke lenger vil være bonusforelder for denne pakken."
+msgstr ""
+"Ved krysse av i boksen bekrefter du at du ikke lenger vil være bonusforelder"
+" for denne pakken."
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "Ved å krysse av i boksen bekrefter du at du ønsker å si fra deg pakken samt overføre eierskapet til %s%s%s."
+msgstr ""
+"Ved å krysse av i boksen bekrefter du at du ønsker å si fra deg pakken samt "
+"overføre eierskapet til %s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr "Ved å krysse av i boksen bekrefter du at du ønsker å gjøre pakken eierløs."
+msgstr ""
+"Ved å krysse av i boksen bekrefter du at du ønsker å gjøre pakken eierløs."
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
@@ -598,20 +622,26 @@ msgstr ""
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "Bruk skjemaet for å flagge pakkebasen %s%s%s og følgende pakker som utdaterte:"
+msgstr ""
+"Bruk skjemaet for å flagge pakkebasen %s%s%s og følgende pakker som "
+"utdaterte:"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "Vennligst %sikke%s bruk dette skjemaet for å rapportere feil. Bruk kommentarfeltet for pakken istedenfor."
+msgstr ""
+"Vennligst %sikke%s bruk dette skjemaet for å rapportere feil. Bruk "
+"kommentarfeltet for pakken istedenfor."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "Skriv inn hvorfor pakken er utdatert nedenfor, helst med lenker til teksten som annonserer slippet av den nye versjonen, eller den nye kildekodepakken."
+msgstr ""
+"Skriv inn hvorfor pakken er utdatert nedenfor, helst med lenker til teksten "
+"som annonserer slippet av den nye versjonen, eller den nye kildekodepakken."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -637,7 +667,8 @@ msgstr "Slå sammen med en annen"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Bruk dette skjemaet for å slå sammen basispakken %s%s%s med en annen pakke."
+msgstr ""
+"Bruk dette skjemaet for å slå sammen basispakken %s%s%s med en annen pakke."
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
@@ -765,7 +796,10 @@ msgstr "Velgere"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Funksjonen for registrering av nye kontoer har blitt slått av for din IP adresse, sannsynligvis på grunn av vedvarende spam-angrep. Vi beklager ulempen dette medfører."
+msgstr ""
+"Funksjonen for registrering av nye kontoer har blitt slått av for din IP "
+"adresse, sannsynligvis på grunn av vedvarende spam-angrep. Vi beklager "
+"ulempen dette medfører."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -883,7 +917,9 @@ msgstr "Kontoen, %s%s%s, har nå blitt endret."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Inlogging er slått av for din IP adresse, sannsynligvis på grunn av vedvarende spam-angrep. Beklager ulempen dette medfører."
+msgstr ""
+"Inlogging er slått av for din IP adresse, sannsynligvis på grunn av "
+"vedvarende spam-angrep. Beklager ulempen dette medfører."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -899,7 +935,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Passordet har blitt nullstilt. Dersom du akkurat laget en ny konto, vennligst følg lenken som ble sendt på e-post og sett så et nytt passord. Ellers kan du bruke %sNullstill Passord% siden til å få tilsendt en nullstillingskode."
+msgstr ""
+"Passordet har blitt nullstilt. Dersom du akkurat laget en ny konto, "
+"vennligst følg lenken som ble sendt på e-post og sett så et nytt passord. "
+"Ellers kan du bruke %sNullstill Passord% siden til å få tilsendt en "
+"nullstillingskode."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1012,7 +1052,8 @@ msgstr "Ingen pakker ble valgt for å bli markert."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr "De valgte pakkene har ikke blitt flagget. Vennligst skriv inn en kommentar."
+msgstr ""
+"De valgte pakkene har ikke blitt flagget. Vennligst skriv inn en kommentar."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
@@ -1142,7 +1183,8 @@ msgstr "Pakkebasenøkkelordene har blitt oppdatert."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "Du får ikke lov til å håndtere med-vedlikeholdere for denne pakkebasen."
+msgstr ""
+"Du får ikke lov til å håndtere med-vedlikeholdere for denne pakkebasen."
 
 #: lib/pkgbasefuncs.inc.php pkgbase/util.py
 #, python-format, php-format
@@ -1327,7 +1369,9 @@ msgstr "trengs"
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr "Brukernavnet er navnet du vil bruke for å logge inn med. Det er synlig for allmenheten, selv hvis kontoen din er inaktiv."
+msgstr ""
+"Brukernavnet er navnet du vil bruke for å logge inn med. Det er synlig for "
+"allmenheten, selv hvis kontoen din er inaktiv."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
@@ -1345,7 +1389,9 @@ msgstr "Inaktiv"
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr "Kontroller at du har skrevet e-postadressen din korrekt, ellers vil du bli utestengt."
+msgstr ""
+"Kontroller at du har skrevet e-postadressen din korrekt, ellers vil du bli "
+"utestengt."
 
 #: template/account_edit_form.php
 msgid "Hide Email Address"
@@ -1403,7 +1449,9 @@ msgstr "Skriv inn passordet på nytt"
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr "Følgende informasjon behøves bare hvis du har tenkt til å sende inn pakker til Arch sitt brukerstyrte pakkebibliotek."
+msgstr ""
+"Følgende informasjon behøves bare hvis du har tenkt til å sende inn pakker "
+"til Arch sitt brukerstyrte pakkebibliotek."
 
 #: templates/partials/account_form.html
 msgid ""
@@ -1497,7 +1545,9 @@ msgstr "Ingen flere resultater å vise."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "Bruk dette skjemaet for å legge til med-vedlikeholdere for %s%s%s (ett brukernavn per linje):"
+msgstr ""
+"Bruk dette skjemaet for å legge til med-vedlikeholdere for %s%s%s (ett "
+"brukernavn per linje):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1796,7 +1846,9 @@ msgstr "Bruk dette skjemaet for å lukke forespørselen for basispakken %s%s%s."
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Kommentarfeltet kan stå tomt, men det anbefales å legge igjen en melding når en forespørsel avvises."
+msgstr ""
+"Kommentarfeltet kan stå tomt, men det anbefales å legge igjen en melding når"
+" en forespørsel avvises."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1817,7 +1869,9 @@ msgstr "Avvist"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Bruk dette skjemaet for å registrere en forespørsel for basispakken %s%s%s som inkluderer følgende pakker:"
+msgstr ""
+"Bruk dette skjemaet for å registrere en forespørsel for basispakken %s%s%s "
+"som inkluderer følgende pakker:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -2037,7 +2091,9 @@ msgstr "Versjon"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr "Populariteten beregnes som summen av alle stemmer der hver stemme vekktes med en faktor på %.2f per dag siden den ble avlagt."
+msgstr ""
+"Populariteten beregnes som summen av alle stemmer der hver stemme vekktes "
+"med en faktor på %.2f per dag siden den ble avlagt."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -2191,7 +2247,11 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr "Vi fikk en forespørsel om å nullstille passordet for brukerkontoen {user}, som hører til din e-post adresse. Dersom du ikke ønsker å nullstille passordet kan du ignorere denne beskjeden. Dersom du ønsker å nullstille passordet, følg lenken [1] nedenfor."
+msgstr ""
+"Vi fikk en forespørsel om å nullstille passordet for brukerkontoen {user}, "
+"som hører til din e-post adresse. Dersom du ikke ønsker å nullstille "
+"passordet kan du ignorere denne beskjeden. Dersom du ønsker å nullstille "
+"passordet, følg lenken [1] nedenfor."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
@@ -2202,7 +2262,11 @@ msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "Velkommen til pakkebrønnen for brukerinnsendte pakker, for Arch! For å sette et nytt passord for din konto, vennligst klikk på lenken [1] nedenfor. Dersom den ikke fungerer, forsøk å kopiere og så lime den inn i din nettleser."
+msgstr ""
+"Velkommen til pakkebrønnen for brukerinnsendte pakker, for Arch! For å sette"
+" et nytt passord for din konto, vennligst klikk på lenken [1] nedenfor. "
+"Dersom den ikke fungerer, forsøk å kopiere og så lime den inn i din "
+"nettleser."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2219,7 +2283,9 @@ msgstr "{user} [1] la til følgende kommentar til {pkgbase} [2]:"
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr "Hvis du ikke lenger vil motta beskjeder om denne pakken, vennligst gå til pakkesiden [2] og velg \"{label}\"."
+msgstr ""
+"Hvis du ikke lenger vil motta beskjeder om denne pakken, vennligst gå til "
+"pakkesiden [2] og velg \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2239,7 +2305,8 @@ msgstr "AUR beskjed om utdatert pakke for {pkgbase}"
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr "Pakken din {pkgbase} [1] har blitt flagget som utdatert av {user} [2]:"
+msgstr ""
+"Pakken din {pkgbase} [1] har blitt flagget som utdatert av {user} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2291,7 +2358,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "{user} [1] slettet {pkgbase} [2].\n\nDu vil ikke få flere beskjeder om denne pakken."
+msgstr ""
+"{user} [1] slettet {pkgbase} [2].\n"
+"\n"
+"Du vil ikke få flere beskjeder om denne pakken."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2303,7 +2373,9 @@ msgstr ""
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr "Vennligst husk å stemme på forslag {id} [1]. Avstemningsperioden vil være over om mindre enn 48 timer."
+msgstr ""
+"Vennligst husk å stemme på forslag {id} [1]. Avstemningsperioden vil være "
+"over om mindre enn 48 timer."
 
 #: aurweb/routers/accounts.py
 msgid "Invalid account type provided."

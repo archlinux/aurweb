@@ -1,22 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Elias Autio, 2016
-# Elias Autio, 2016
-# Jesse Jaara <jesse.jaara@gmail.com>, 2011-2012,2015
-# Nikolay Korotkiy <sikmir@disroot.org>, 2018-2019
-# Sami Korkalainen, 2018
-# Sami Korkalainen, 2018
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Sami Korkalainen, 2018\n"
-"Language-Team: Finnish (http://app.transifex.com/lfleischer/aurweb/language/fi/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Finnish (https://app.transifex.com/archlinux/teams/289905/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -213,7 +211,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Lisättyjen PKGBUILD-tiedostojen %stulee%s olla %sArchin pakettistandardien%s mukaisia, muuten ne poistetaan!"
+msgstr ""
+"Lisättyjen PKGBUILD-tiedostojen %stulee%s olla %sArchin pakettistandardien%s"
+" mukaisia, muuten ne poistetaan!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -221,7 +221,9 @@ msgstr "Muista äänestää suosikkipakettejasi!"
 
 #: html/home.php
 msgid "Some packages may be provided as binaries in [extra]."
-msgstr "Jotkin paketit saattavat olla tarjolla valmiina paketteina [extra]-varastossa."
+msgstr ""
+"Jotkin paketit saattavat olla tarjolla valmiina paketteina "
+"[extra]-varastossa."
 
 #: html/home.php
 msgid "DISCLAIMER"
@@ -231,7 +233,9 @@ msgstr "Vastuuvapauslauseke"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "AUR-paketit ovat käyttäjien luomia eivätkä ole virallisesti tuettuja. Näiden käyttäminen on omalla vastuullasi."
+msgstr ""
+"AUR-paketit ovat käyttäjien luomia eivätkä ole virallisesti tuettuja. Näiden"
+" käyttäminen on omalla vastuullasi."
 
 #: html/home.php
 msgid "Learn more..."
@@ -250,7 +254,9 @@ msgstr "Pakettienhallintapyydöt"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "Pakettien sivuilta löytyvän %spakettitoiminnot%s -laatikon kautta voi lähettää TU-käyttäjille kolme erilaista pakettienhallintapyyntöä."
+msgstr ""
+"Pakettien sivuilta löytyvän %spakettitoiminnot%s -laatikon kautta voi "
+"lähettää TU-käyttäjille kolme erilaista pakettienhallintapyyntöä."
 
 #: html/home.php
 msgid "Orphan Request"
@@ -260,7 +266,10 @@ msgstr "Hylkäämispyyntö"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Hallintapyyntö paketin poistamiseksi sen nykyiseltä ylläpitäjältä, esimerksi jos ylläpitäjä ei vastaa kommentteihin eikä sähköpostiin ja paketti on merkitty vanhentuneeksi jo kauan sitten."
+msgstr ""
+"Hallintapyyntö paketin poistamiseksi sen nykyiseltä ylläpitäjältä, esimerksi"
+" jos ylläpitäjä ei vastaa kommentteihin eikä sähköpostiin ja paketti on "
+"merkitty vanhentuneeksi jo kauan sitten."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -281,14 +290,20 @@ msgstr "Yhdistämispyyntö"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "Hallintapyyntö kahden eri paketin yhdistämiseksi. Voidaan käyttää muun muassa silloin kun jokin paketti on nimettyuudelleen tai korvattu monipaketilla (split package)."
+msgstr ""
+"Hallintapyyntö kahden eri paketin yhdistämiseksi. Voidaan käyttää muun "
+"muassa silloin kun jokin paketti on nimettyuudelleen tai korvattu "
+"monipaketilla (split package)."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Pakettienhallintapyynnöistä voi keskustella niin yleisellä- kuin myös tiettyyn pyyntöön littyvällä tasolla %saur-requests%s -postituslistalla. Älä kuitenkaan lähetä hallintapyyntöjä postituslistalle."
+msgstr ""
+"Pakettienhallintapyynnöistä voi keskustella niin yleisellä- kuin myös "
+"tiettyyn pyyntöön littyvällä tasolla %saur-requests%s -postituslistalla. Älä"
+" kuitenkaan lähetä hallintapyyntöjä postituslistalle."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -300,7 +315,10 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Pakettien lisääminen ja päivittäminen uudessa AUR versiossa tapahtuu SSH-yhteyden yli Git-versionhallinan avulla. Tarkemman ohjeet löytyvät Arch Linuxin wiki-oppaan AUR-sivulta kohdasta %sPakettien lisääminen%s."
+msgstr ""
+"Pakettien lisääminen ja päivittäminen uudessa AUR versiossa tapahtuu SSH-"
+"yhteyden yli Git-versionhallinan avulla. Tarkemman ohjeet löytyvät Arch "
+"Linuxin wiki-oppaan AUR-sivulta kohdasta %sPakettien lisääminen%s."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -397,7 +415,9 @@ msgstr "Unohditko salasanasi?"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP:n kautta kirjoutuminen ei ole käytössä. Ole hyvä ja %svaihda HTTPS yhteyteen%s kirjautuaksesi."
+msgstr ""
+"HTTP:n kautta kirjoutuminen ei ole käytössä. Ole hyvä ja %svaihda HTTPS "
+"yhteyteen%s kirjautuaksesi."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -497,7 +517,9 @@ msgstr "Pakettikantaa ei voi yhdistää itseensä."
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr "Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin varmistusruutuun?"
+msgstr ""
+"Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin "
+"varmistusruutuun?"
 
 #: html/pkgdel.php
 msgid "Package Deletion"
@@ -512,7 +534,9 @@ msgstr "Poista paketti"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Käytä tätä lomaketta poistaaksesi pakettikannan %s%s%s ja seuraavat paketit AUR:sta:"
+msgstr ""
+"Käytä tätä lomaketta poistaaksesi pakettikannan %s%s%s ja seuraavat paketit "
+"AUR:sta:"
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -543,7 +567,9 @@ msgstr "Hylkää paketti"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "Käytä tätä lomaketta hylätäksesi pakettikannan %s%s%s joka sisältää seuraavat paketit:"
+msgstr ""
+"Käytä tätä lomaketta hylätäksesi pakettikannan %s%s%s joka sisältää "
+"seuraavat paketit:"
 
 #: html/pkgdisown.php
 msgid ""
@@ -556,7 +582,9 @@ msgstr ""
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "Valitsemalla valintaruudun, vahvista että haluat hylätä paketin ja siirtää hallinnan käyttäjälle %s%s%s."
+msgstr ""
+"Valitsemalla valintaruudun, vahvista että haluat hylätä paketin ja siirtää "
+"hallinnan käyttäjälle %s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
@@ -596,20 +624,26 @@ msgstr ""
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "Käytä tätä lomaketta merkitäksesi pakettikannan %s%s%s ja seuraavat paketit vanhentuneiksi:"
+msgstr ""
+"Käytä tätä lomaketta merkitäksesi pakettikannan %s%s%s ja seuraavat paketit "
+"vanhentuneiksi:"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "%sÄlä%s käytä tätä lomaketta ilmoittaaksesi ohjelmointivirheistä. Käytä kommentteja siihen."
+msgstr ""
+"%sÄlä%s käytä tätä lomaketta ilmoittaaksesi ohjelmointivirheistä. Käytä "
+"kommentteja siihen."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "Anna lisätietoja miksi paketti on vanhentunut, mieluiten sisältäen linkin ilmoitukseen tai uuteen tiedostoon."
+msgstr ""
+"Anna lisätietoja miksi paketti on vanhentunut, mieluiten sisältäen linkin "
+"ilmoitukseen tai uuteen tiedostoon."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -622,7 +656,8 @@ msgstr "Merkitse"
 
 #: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
-msgstr "Vain rekisteröityneet käyttäjät voivat merkitä paketteja vanhentuneiksi."
+msgstr ""
+"Vain rekisteröityneet käyttäjät voivat merkitä paketteja vanhentuneiksi."
 
 #: html/pkgmerge.php
 msgid "Package Merging"
@@ -635,7 +670,8 @@ msgstr "Yhdistä toiseen pakettiin"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Käytä tätä lomaketta yhdistääksesi pakettikannan %s%s%s toiseen pakettiin."
+msgstr ""
+"Käytä tätä lomaketta yhdistääksesi pakettikannan %s%s%s toiseen pakettiin."
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
@@ -763,7 +799,9 @@ msgstr "Äänestäjät"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Tunnuksien rekisteröinti on estetty IP-osoitteestasi, luultavasti toistuvien roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
+msgstr ""
+"Tunnuksien rekisteröinti on estetty IP-osoitteestasi, luultavasti toistuvien"
+" roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -881,7 +919,9 @@ msgstr "Käyttäjätilin %s%s%s tiedot on nyt tallennettu."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Kirjautumislomake on estetty IP-osoitteestasi, luultavasti toistuvien roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
+msgstr ""
+"Kirjautumislomake on estetty IP-osoitteestasi, luultavasti toistuvien "
+"roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -897,7 +937,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Salasanasi on palautettu. Jos loit juuri uuden tilin, käytä sähköpostitse saamaasi varmistuslinkkiä asettaaksesi ensimmäisen salasanasi. Muussa tapauksessa pyydä salasanan palauttamista %sSalasanan palautus%s -sivulla."
+msgstr ""
+"Salasanasi on palautettu. Jos loit juuri uuden tilin, käytä sähköpostitse "
+"saamaasi varmistuslinkkiä asettaaksesi ensimmäisen salasanasi. Muussa "
+"tapauksessa pyydä salasanan palauttamista %sSalasanan palautus%s -sivulla."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -2035,7 +2078,9 @@ msgstr "Versio"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr "Suosio lasketaan ottamalla äänien summa ja painottamalla jokaista ääntä kertoimella %.2f joka päivä sen luomisesta lähtien."
+msgstr ""
+"Suosio lasketaan ottamalla äänien summa ja painottamalla jokaista ääntä "
+"kertoimella %.2f joka päivä sen luomisesta lähtien."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -2200,7 +2245,10 @@ msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "Tervetuloa AUR:iin! Asettaaksesi ensimmäisen salasanan uudelle tilillesi, klikkaa alla olevaa linkkiä [1]. Jos linkki ei toimi, kokeile kopioida ja liittää se selaimeesi."
+msgstr ""
+"Tervetuloa AUR:iin! Asettaaksesi ensimmäisen salasanan uudelle tilillesi, "
+"klikkaa alla olevaa linkkiä [1]. Jos linkki ei toimi, kokeile kopioida ja "
+"liittää se selaimeesi."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2237,7 +2285,9 @@ msgstr "AUR: Ilmoitus paketin {pkgbase} vanhentumisesta"
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr "Pakettisi {pkgbase} [1] on merkitty vanhentuneeksi. Merkinnän teki käyttäjä {user} [2]:"
+msgstr ""
+"Pakettisi {pkgbase} [1] on merkitty vanhentuneeksi. Merkinnän teki käyttäjä "
+"{user} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format

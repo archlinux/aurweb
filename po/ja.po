@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# kusakata, 2013
-# kusakata, 2013
-# kusakata, 2013
-# kusakata, 2013-2018,2020-2022
-# 尾ノ上卓朗 <onoue@showway.biz>, 2017
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: 尾ノ上卓朗 <onoue@showway.biz>, 2017\n"
-"Language-Team: Japanese (http://app.transifex.com/lfleischer/aurweb/language/ja/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Japanese (https://app.transifex.com/archlinux/teams/289905/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -212,7 +211,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "PKGBUILD を投稿するつもりならば%s必ず%s %sArch Packaging Standards%s に従って下さい。従っていないパッケージは削除されます！"
+msgstr ""
+"PKGBUILD を投稿するつもりならば%s必ず%s %sArch Packaging Standards%s "
+"に従って下さい。従っていないパッケージは削除されます！"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -259,7 +260,9 @@ msgstr "孤児リクエスト"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "パッケージを孤児にするようにリクエストします。メンテナが活動を停止していてパッケージが長い間 out-of-date のまま放置されている場合などに使います。"
+msgstr ""
+"パッケージを孤児にするようにリクエストします。メンテナが活動を停止していてパッケージが長い間 out-of-date "
+"のまま放置されている場合などに使います。"
 
 #: html/home.php
 msgid "Deletion Request"
@@ -280,14 +283,17 @@ msgstr "マージリクエスト"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "あるパッケージを他のパッケージとマージするようにリクエストします。パッケージの名前を変更する必要があるときや分割パッケージによって置き換えるときに使用します。"
+msgstr ""
+"あるパッケージを他のパッケージとマージするようにリクエストします。パッケージの名前を変更する必要があるときや分割パッケージによって置き換えるときに使用します。"
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "リクエストについて議論したい場合、%saur-requests%s メーリングリストを使います。ただし、このメーリングリスト宛にリクエストを送るのは止めて下さい。"
+msgstr ""
+"リクエストについて議論したい場合、%saur-requests%s "
+"メーリングリストを使います。ただし、このメーリングリスト宛にリクエストを送るのは止めて下さい。"
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -299,7 +305,9 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "現在 AUR にパッケージを送信するときは SSH を介して Git を使うことになっています。詳しくは ArchWiki の Arch User Repository のページの%sパッケージの投稿%sセクションを見て下さい。"
+msgstr ""
+"現在 AUR にパッケージを送信するときは SSH を介して Git を使うことになっています。詳しくは ArchWiki の Arch User "
+"Repository のページの%sパッケージの投稿%sセクションを見て下さい。"
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -462,7 +470,9 @@ msgstr "続行"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr "登録したときに使用したユーザー名とメインのメールアドレスを忘れてしまった場合、メッセージを  %saur-general%s メーリングリストに送信してください。"
+msgstr ""
+"登録したときに使用したユーザー名とメインのメールアドレスを忘れてしまった場合、メッセージを  %saur-general%s "
+"メーリングリストに送信してください。"
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
@@ -588,7 +598,10 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr "このパッケージは VCS パッケージです。AUR 上のパッケージのバージョンと最新のコミットが一致してない場合でも out-of-date フラグを%s立てないでください%s。フラグを立てていいのはソースが変わってしまった場合や上流の変更によって PKGBUILD に変更が必要な場合だけです。"
+msgstr ""
+"このパッケージは VCS パッケージです。AUR 上のパッケージのバージョンと最新のコミットが一致してない場合でも out-of-date "
+"フラグを%s立てないでください%s。フラグを立てていいのはソースが変わってしまった場合や上流の変更によって PKGBUILD "
+"に変更が必要な場合だけです。"
 
 #: html/pkgflag.php
 #, php-format
@@ -608,7 +621,9 @@ msgstr "このフォームはバグを報告するためのものでは%sあり�
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "以下にパッケージが out-of-date となっている理由を記述してください。なるべくリリースアナウンスや最新の tarball へのリンクも書きましょう。"
+msgstr ""
+"以下にパッケージが out-of-date となっている理由を記述してください。なるべくリリースアナウンスや最新の tarball "
+"へのリンクも書きましょう。"
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -896,7 +911,9 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "あなたのパスワードはリセットされました。新しいアカウントを作成したときは、確認メールにあるリンクからパスワードを設定してください。もしくは、%sPassword Reset%s ページでリセットキーを申請してください。"
+msgstr ""
+"あなたのパスワードはリセットされました。新しいアカウントを作成したときは、確認メールにあるリンクからパスワードを設定してください。もしくは、%sPassword"
+" Reset%s ページでリセットキーを申請してください。"
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1353,7 +1370,9 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr "メールアドレスを非公開にしない場合、登録されている AUR ユーザー全てから閲覧できる状態になります。メールアドレスを非表示にした場合、Arch Linux のスタッフからしか表示されません。"
+msgstr ""
+"メールアドレスを非公開にしない場合、登録されている AUR ユーザー全てから閲覧できる状態になります。メールアドレスを非表示にした場合、Arch "
+"Linux のスタッフからしか表示されません。"
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
@@ -2183,7 +2202,10 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr "あなたのメールアドレスと関連付けられたアカウント {user} のパスワードのリセットリクエストが送信されました。パスワードをリセットしたいときは下のリンク [1] を開いて下さい、そうでない場合はこのメッセージは無視して下さい。"
+msgstr ""
+"あなたのメールアドレスと関連付けられたアカウント {user} "
+"のパスワードのリセットリクエストが送信されました。パスワードをリセットしたいときは下のリンク [1] "
+"を開いて下さい、そうでない場合はこのメッセージは無視して下さい。"
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
@@ -2194,7 +2216,9 @@ msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "Arch User Repository にようこそ！アカウントのパスワードを設定するために、下のリンク [1] をクリックしてください。リンクを押せないときは、一旦ブラウザにURLをコピーしてください。"
+msgstr ""
+"Arch User Repository にようこそ！アカウントのパスワードを設定するために、下のリンク [1] "
+"をクリックしてください。リンクを押せないときは、一旦ブラウザにURLをコピーしてください。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2275,7 +2299,11 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "{user} [1] によって {old} [2] は {new} [3] にマージされました。\n\n-- \n新しいパッケージの通知を受け取りたくない場合、[3] を開いて \"{label}\" をクリックしてください。"
+msgstr ""
+"{user} [1] によって {old} [2] は {new} [3] にマージされました。\n"
+"\n"
+"-- \n"
+"新しいパッケージの通知を受け取りたくない場合、[3] を開いて \"{label}\" をクリックしてください。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2283,7 +2311,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "{user} [1] は {pkgbase} [2] を削除しました。\n\nこのパッケージの通知が送信されることはありません。"
+msgstr ""
+"{user} [1] は {pkgbase} [2] を削除しました。\n"
+"\n"
+"このパッケージの通知が送信されることはありません。"
 
 #: scripts/notify.py
 #, python-brace-format

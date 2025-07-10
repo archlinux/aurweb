@@ -1,19 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# archetyp <archetyp@linuxmail.org>, 2013-2016
-# Jose Riha <jose1711@gmail.com>, 2018,2022,2024
-# Matej Ľach <matej.lach@gmail.com>, 2011
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Jose Riha <jose1711@gmail.com>, 2018,2022,2024\n"
-"Language-Team: Slovak (http://app.transifex.com/lfleischer/aurweb/language/sk/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Slovak (https://app.transifex.com/archlinux/teams/289905/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,7 +35,9 @@ msgstr "Poznámka"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr "URL adresy na klonovanie Git repozitárov nie sú určené pre otváranie v prehliadači."
+msgstr ""
+"URL adresy na klonovanie Git repozitárov nie sú určené pre otváranie v "
+"prehliadači."
 
 #: html/404.php
 #, php-format
@@ -53,7 +56,8 @@ msgstr "Služba nie je dostupná"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Zachovajte pokoj. Na stránke momentálne prebieha údržba. Vrátime sa čoskoro."
+msgstr ""
+"Zachovajte pokoj. Na stránke momentálne prebieha údržba. Vrátime sa čoskoro."
 
 #: html/account.php routers/accounts.py
 msgid "Account"
@@ -210,7 +214,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Prispené PKGBUILDy sa %smusia%s riadiť %sArch podmienkami pre balíčky%s, inak budú vymazané!"
+msgstr ""
+"Prispené PKGBUILDy sa %smusia%s riadiť %sArch podmienkami pre balíčky%s, "
+"inak budú vymazané!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -228,7 +234,9 @@ msgstr "UPOZORNENIE"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Balíčky v AUR sú výsledkom práce užívateľov. Akékoľvek použitie týchto súborov je na vlastnú zodpovednosť."
+msgstr ""
+"Balíčky v AUR sú výsledkom práce užívateľov. Akékoľvek použitie týchto "
+"súborov je na vlastnú zodpovednosť."
 
 #: html/home.php
 msgid "Learn more..."
@@ -247,7 +255,9 @@ msgstr "Žiadosti týkajúce sa balíčkov"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "V súčasnosti existujú tri typy žiadostí, ktoré možno vyplniť v časti %sAkcie balíčka%s na stránke s detailami balíčka, a to:"
+msgstr ""
+"V súčasnosti existujú tri typy žiadostí, ktoré možno vyplniť v časti %sAkcie"
+" balíčka%s na stránke s detailami balíčka, a to:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -257,7 +267,9 @@ msgstr "Žiadosť o osirenie"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Žiadosť o odobratie vlastníctva balíčka, napr. ak správca nie je aktívny a balíček bol dlhšiu dobu označený ako neaktuálny."
+msgstr ""
+"Žiadosť o odobratie vlastníctva balíčka, napr. ak správca nie je aktívny a "
+"balíček bol dlhšiu dobu označený ako neaktuálny."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -268,7 +280,11 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "Požiadať o odstránenie balíčka z Arch User Repository. Prosím, nepoužívajte túto možnosť, ak balíček nefunguje a chybu je možné jednoducho opraviť. Miesto toho kontaktujte správcu a ak je to potrebné zadajte požiadavku na vyvlastnenie."
+msgstr ""
+"Požiadať o odstránenie balíčka z Arch User Repository. Prosím, nepoužívajte "
+"túto možnosť, ak balíček nefunguje a chybu je možné jednoducho opraviť. "
+"Miesto toho kontaktujte správcu a ak je to potrebné zadajte požiadavku na "
+"vyvlastnenie."
 
 #: html/home.php
 msgid "Merge Request"
@@ -278,14 +294,19 @@ msgstr "Žiadosť o zlúčenie"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "Žiadosť o zlúčenie balíčka do iného. Možno použiť tiež v prípade, že balíček potrebuje byť premenovaný alebo nahradený rozdeleným balíčkom."
+msgstr ""
+"Žiadosť o zlúčenie balíčka do iného. Možno použiť tiež v prípade, že balíček"
+" potrebuje byť premenovaný alebo nahradený rozdeleným balíčkom."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Ak potrebujete prediskutovať nejakú požiadavku, kedykoľvek môžete napísať na mailing list %saur-requests%s. Nepoužívajte však tento mailing list na posielanie požiadaviek."
+msgstr ""
+"Ak potrebujete prediskutovať nejakú požiadavku, kedykoľvek môžete napísať na"
+" mailing list %saur-requests%s. Nepoužívajte však tento mailing list na "
+"posielanie požiadaviek."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -297,7 +318,9 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Git cez SSH sa teraz používa na podanie balíčkov do AUR. Pre ďalšie informácie pozri tiež sekciu %sPodanie balíčkov%s na AUR stránke v ArchWiki."
+msgstr ""
+"Git cez SSH sa teraz používa na podanie balíčkov do AUR. Pre ďalšie "
+"informácie pozri tiež sekciu %sPodanie balíčkov%s na AUR stránke v ArchWiki."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -394,7 +417,9 @@ msgstr "Zabudnuté heslo"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP prihlasovanie je zablokované. Pre prihlásenie prosím %sprepnite na HTTPs%s."
+msgstr ""
+"HTTP prihlasovanie je zablokované. Pre prihlásenie prosím %sprepnite na "
+"HTTPs%s."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -474,7 +499,9 @@ msgstr ""
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr "Vybrané balíčky neboli vyvlastnené, pozrite potvrdzovacie zaškrtávacie políčko."
+msgstr ""
+"Vybrané balíčky neboli vyvlastnené, pozrite potvrdzovacie zaškrtávacie "
+"políčko."
 
 #: aurweb/routers/packages.py
 msgid ""
@@ -484,7 +511,8 @@ msgstr ""
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Nepodarilo sa nájsť balíček, do ktorého sa mali zlúčiť hlasy a komentáre."
+msgstr ""
+"Nepodarilo sa nájsť balíček, do ktorého sa mali zlúčiť hlasy a komentáre."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
@@ -509,7 +537,9 @@ msgstr "Vymaž balíček"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Použite tento formulár pre vymazanie základne balíčka %s%s%s a nasledovných balíčkov z AUR: "
+msgstr ""
+"Použite tento formulár pre vymazanie základne balíčka %s%s%s a nasledovných "
+"balíčkov z AUR: "
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -540,25 +570,32 @@ msgstr "Vyvlastni balíček"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "Použite tento formulár na vyvlastnenie základne balíčka %s%s%s, ktorá zahŕňa nasledujúce balíčky:"
+msgstr ""
+"Použite tento formulár na vyvlastnenie základne balíčka %s%s%s, ktorá zahŕňa"
+" nasledujúce balíčky:"
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr "Zaškrtnutím tohto políčka potvrdzujete, že už viac nechcete byť spolupracovníkom správcu balíčka."
+msgstr ""
+"Zaškrtnutím tohto políčka potvrdzujete, že už viac nechcete byť "
+"spolupracovníkom správcu balíčka."
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "Označením zaškrtávacieho políčka potvrdzujete, že chcete vyvlastniť balíček a presunúť vlastníctvo na %s%s%s."
+msgstr ""
+"Označením zaškrtávacieho políčka potvrdzujete, že chcete vyvlastniť balíček "
+"a presunúť vlastníctvo na %s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr "Označením zaškrtávacieho políčka potvrdzujete, že chcete vyvlastniť balíček."
+msgstr ""
+"Označením zaškrtávacieho políčka potvrdzujete, že chcete vyvlastniť balíček."
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
@@ -593,20 +630,26 @@ msgstr ""
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "Použite tento formulár na označenie základne balíčka %s%s%s a nasledujúcich balíčkov ako zastarané verzie:"
+msgstr ""
+"Použite tento formulár na označenie základne balíčka %s%s%s a nasledujúcich "
+"balíčkov ako zastarané verzie:"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "Tento formulár %sneslúži%s na nahlasovanie chýb. Na to použite komentár k balíčku."
+msgstr ""
+"Tento formulár %sneslúži%s na nahlasovanie chýb. Na to použite komentár k "
+"balíčku."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "Uveďte nižšie podrobnosti o tom prečo je balíček zastaraný, podľa možnosti pridajte tiež link na oznam k novej verzii alebo nový tarball."
+msgstr ""
+"Uveďte nižšie podrobnosti o tom prečo je balíček zastaraný, podľa možnosti "
+"pridajte tiež link na oznam k novej verzii alebo nový tarball."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -632,7 +675,9 @@ msgstr "Zlúč balíček"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Použite tento formulár pre zlúčenie základne balíčka %s%s%s do iného balíčka. "
+msgstr ""
+"Použite tento formulár pre zlúčenie základne balíčka %s%s%s do iného "
+"balíčka. "
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
@@ -760,7 +805,9 @@ msgstr "Hlasujúci"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Registrácia účtu bolo zablokovaná pre vašu IP adresu, pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
+msgstr ""
+"Registrácia účtu bolo zablokovaná pre vašu IP adresu, pravdepodobne z dôvodu"
+" stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -878,7 +925,10 @@ msgstr "Účet %s%s%s bol úspešne zmenený."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Prihlasovací formulár je v súčasnosti zablokovaný pre vašu IP adresu, pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
+msgstr ""
+"Prihlasovací formulár je v súčasnosti zablokovaný pre vašu IP adresu, "
+"pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa "
+"ospravedlňujeme."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -894,7 +944,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Vaše heslo bolo obnovené. Ak ste si práve vytvorili  nový účet, použite prosím link z potvrdzovacieho emailu na nastavenie prvotného hesla. Inak prosím zašlite požiadavku na obnovenie hesla na stránku %sObnova hesla%s."
+msgstr ""
+"Vaše heslo bolo obnovené. Ak ste si práve vytvorili  nový účet, použite "
+"prosím link z potvrdzovacieho emailu na nastavenie prvotného hesla. Inak "
+"prosím zašlite požiadavku na obnovenie hesla na stránku %sObnova hesla%s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1129,7 +1182,8 @@ msgstr "Komentár bol editovaný."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr "Nemáte oprávnenie na editovanie kľúčových slov tejto základne balíčka."
+msgstr ""
+"Nemáte oprávnenie na editovanie kľúčových slov tejto základne balíčka."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
@@ -1137,7 +1191,8 @@ msgstr "Kľúčové slová základne balíčka boli aktualizované."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "Nie ste oprávnený spravovať spolupracovníkov správcu tejto základne balíčka."
+msgstr ""
+"Nie ste oprávnený spravovať spolupracovníkov správcu tejto základne balíčka."
 
 #: lib/pkgbasefuncs.inc.php pkgbase/util.py
 #, python-format, php-format
@@ -1340,7 +1395,8 @@ msgstr "Neaktívny"
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr "Overte prosím, že ste emailovú adresu zadali správne, inak budete vymknutý."
+msgstr ""
+"Overte prosím, že ste emailovú adresu zadali správne, inak budete vymknutý."
 
 #: template/account_edit_form.php
 msgid "Hide Email Address"
@@ -1398,7 +1454,9 @@ msgstr "Potvrďte heslo"
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr "Nasledujúca informácia je dôležitá iba v prípade, že chcete podať balíčky do AUR."
+msgstr ""
+"Nasledujúca informácia je dôležitá iba v prípade, že chcete podať balíčky do"
+" AUR."
 
 #: templates/partials/account_form.html
 msgid ""
@@ -1492,7 +1550,9 @@ msgstr "Nie sú ďalšie výsledky na zobrazenie."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "Použite tento formulár pre pridanie spolupracovníkov pre %s%s%s (jedno užívateľské meno na riadok):"
+msgstr ""
+"Použite tento formulár pre pridanie spolupracovníkov pre %s%s%s (jedno "
+"užívateľské meno na riadok):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1510,7 +1570,8 @@ msgstr "Komentár k označeniu balíčka ako zastaranej verzie: %s"
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr "%s%s%s bol označený %s%s%s ako zastaraný %s%s%s z nasledujúceho dôvodu:"
+msgstr ""
+"%s%s%s bol označený %s%s%s ako zastaraný %s%s%s z nasledujúceho dôvodu:"
 
 #: template/flag_comment.php
 #, php-format
@@ -1787,13 +1848,16 @@ msgstr "Zdroje"
 #: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "Použite tento formulár pre zatvorenie požiadavky na základňu balíčka %s%s%s."
+msgstr ""
+"Použite tento formulár pre zatvorenie požiadavky na základňu balíčka %s%s%s."
 
 #: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Políčko pre komentár možno nechať prázdne. Napriek tomu sa odporúča zanechať komentár pri zamietnutí požiadavky."
+msgstr ""
+"Políčko pre komentár možno nechať prázdne. Napriek tomu sa odporúča zanechať"
+" komentár pri zamietnutí požiadavky."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1814,7 +1878,9 @@ msgstr "Zamietnutý"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Použite tento formulár na vyplnenie požiadavky ohľadom základne balíčka %s%s%s ktorá zahŕňa nasledovné balíčky:"
+msgstr ""
+"Použite tento formulár na vyplnenie požiadavky ohľadom základne balíčka "
+"%s%s%s ktorá zahŕňa nasledovné balíčky:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -1837,7 +1903,11 @@ msgid ""
 "By submitting a deletion request, you ask a Package Maintainer to delete the"
 " package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Odoslaním žiadosti o vymazanie zadávate požiadavku správcovi balíčkov na vymazanie základne balíčka. Takéto typy žiadostí by ste mali používať na duplikované balíčky, softvér, ktorý už nie je v upstreame podporovaný a tiež nelegálne a chybné a zároveň neopraviteľné balíčky."
+msgstr ""
+"Odoslaním žiadosti o vymazanie zadávate požiadavku správcovi balíčkov na "
+"vymazanie základne balíčka. Takéto typy žiadostí by ste mali používať na "
+"duplikované balíčky, softvér, ktorý už nie je v upstreame podporovaný a tiež"
+" nelegálne a chybné a zároveň neopraviteľné balíčky."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1845,7 +1915,11 @@ msgid ""
 "package base and transfer its votes and comments to another package base. "
 "Merging a package does not affect the corresponding Git repositories. Make "
 "sure you update the Git history of the target package yourself."
-msgstr "Odoslaním žiadosti o zlúčenie zadávate požiadavku správcovi balíčkov na vymazanie základne balíčka a presun jej hlasov a komentárov k základni iného balíčka. Zlúčenie balíčka nemá vplyv na príslušné repozitáre Git. Aktualizáciu Git histórie cieľového balíčka preto prosím zabezpečte ručne."
+msgstr ""
+"Odoslaním žiadosti o zlúčenie zadávate požiadavku správcovi balíčkov na "
+"vymazanie základne balíčka a presun jej hlasov a komentárov k základni iného"
+" balíčka. Zlúčenie balíčka nemá vplyv na príslušné repozitáre Git. "
+"Aktualizáciu Git histórie cieľového balíčka preto prosím zabezpečte ručne."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -2042,7 +2116,9 @@ msgstr "Verzia"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr "Popularita sa počíta ako súčet všetkých hlasov, pričom každý hlas je prenásobený váhovým koeficientom %.2f každý deň od jeho pridania."
+msgstr ""
+"Popularita sa počíta ako súčet všetkých hlasov, pričom každý hlas je "
+"prenásobený váhovým koeficientom %.2f každý deň od jeho pridania."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -2224,7 +2300,9 @@ msgstr ""
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr "Ak si už viac neželáte dostávať upozornenia na tento balíček, prejdite prosím na stránku balíčku [2] a vyberte \"{label}\"."
+msgstr ""
+"Ak si už viac neželáte dostávať upozornenia na tento balíček, prejdite "
+"prosím na stránku balíčku [2] a vyberte \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2288,7 +2366,11 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "{user} [1] zlúčil(a) {old} [2] do {new} [3].\n\n-- \nAk si už viac neželáte dostávať upozornenia na tento balíček, prejdite prosím na stránku balíčku [2] a vyberte \"{label}\"."
+msgstr ""
+"{user} [1] zlúčil(a) {old} [2] do {new} [3].\n"
+"\n"
+"-- \n"
+"Ak si už viac neželáte dostávať upozornenia na tento balíček, prejdite prosím na stránku balíčku [2] a vyberte \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2296,7 +2378,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "{user} [1] odstránil(a) {pkgbase} [2].\n\nUpozornenia na tento balíček už viac nebudete dostávať."
+msgstr ""
+"{user} [1] odstránil(a) {pkgbase} [2].\n"
+"\n"
+"Upozornenia na tento balíček už viac nebudete dostávať."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2355,7 +2440,9 @@ msgstr "Súvisiace komentáre k žiadosti o uzatvorenie balíčka..."
 msgid ""
 "This action will close any pending package requests related to it. If "
 "%sComments%s are omitted, a closure comment will be autogenerated."
-msgstr "Táto operácia uzavrie všetky súvisiace nevybavené žiadosti balíčkov. Ak %sComments%s vynecháte, použije sa automaticky generovaný komentár."
+msgstr ""
+"Táto operácia uzavrie všetky súvisiace nevybavené žiadosti balíčkov. Ak "
+"%sComments%s vynecháte, použije sa automaticky generovaný komentár."
 
 #: templates/partials/tu/proposal/details.html
 msgid "assigned"

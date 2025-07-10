@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Adolfo Jayme-Barrientos, 2014
-# Adolfo Jayme Barrientos, 2014
-# Hector Mtz-Seara <hseara@gmail.com>, 2011,2013
-# Ícar <icar.nin@gmail.com>, 2021
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>, 2011\n"
-"Language-Team: Catalan (http://app.transifex.com/lfleischer/aurweb/language/ca/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Catalan (https://app.transifex.com/archlinux/teams/289905/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,7 +35,9 @@ msgstr "Nota"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr "Les URL de clonació del Git no estan destinades a ser obertes en un navegador."
+msgstr ""
+"Les URL de clonació del Git no estan destinades a ser obertes en un "
+"navegador."
 
 #: html/404.php
 #, php-format
@@ -55,7 +56,9 @@ msgstr "Servei no disponible"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "No pateixis! Aquest lloc està caigut a causa d'un manteniment. Tornarem aviat."
+msgstr ""
+"No pateixis! Aquest lloc està caigut a causa d'un manteniment. Tornarem "
+"aviat."
 
 #: html/account.php routers/accounts.py
 msgid "Account"
@@ -212,7 +215,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "És %sobligatori%s que els PKGBUILDs amb que es contribueix s'ajustin als %sEstandars d'empaquetament d'Arc%s, en cas contrari seran esborrats!"
+msgstr ""
+"És %sobligatori%s que els PKGBUILDs amb que es contribueix s'ajustin als "
+"%sEstandars d'empaquetament d'Arc%s, en cas contrari seran esborrats!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -230,7 +235,9 @@ msgstr "Avís legal"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Els paquets de l'AUR són contingut produït per usuaris. Qualsevol ús dels fitxers proporcionats és sota el seu propi risc."
+msgstr ""
+"Els paquets de l'AUR són contingut produït per usuaris. Qualsevol ús dels "
+"fitxers proporcionats és sota el seu propi risc."
 
 #: html/home.php
 msgid "Learn more..."
@@ -249,7 +256,9 @@ msgstr "Sol·licituds de paquets"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "Hi ha tres tipus de sol·licituds que es poden presentar al quadre %sAccions del paquet%s a la pàgina de detalls del paquet:"
+msgstr ""
+"Hi ha tres tipus de sol·licituds que es poden presentar al quadre %sAccions "
+"del paquet%s a la pàgina de detalls del paquet:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -259,7 +268,9 @@ msgstr "Sol·licitud d'orfenat"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Sol·licita que un paquet sigui renegat, per exemple quan el mantenidor estigui inactiu i el paquet s'ha marcat com a obsolet durant molt de temps."
+msgstr ""
+"Sol·licita que un paquet sigui renegat, per exemple quan el mantenidor "
+"estigui inactiu i el paquet s'ha marcat com a obsolet durant molt de temps."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -280,14 +291,19 @@ msgstr "Sol·licitud de fusió"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "Sol·licita que un paquet es fusioni en un altre. Es pot utilitzar quan un paquet s'ha de reanomenar o substituir per un paquet dividit."
+msgstr ""
+"Sol·licita que un paquet es fusioni en un altre. Es pot utilitzar quan un "
+"paquet s'ha de reanomenar o substituir per un paquet dividit."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Si voleu debatre una sol·licitud, podeu utilitzar la llista de correu %saur-requests%s. No obstant això, si us plau, no utilitzeu aquesta llista per a enviar una petició."
+msgstr ""
+"Si voleu debatre una sol·licitud, podeu utilitzar la llista de correu %saur-"
+"requests%s. No obstant això, si us plau, no utilitzeu aquesta llista per a "
+"enviar una petició."
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -299,7 +315,10 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Ara s'utilitza Git a sobre d'SSH per enviar paquets a l'AUR. Feu un cop d'ull a la secció \"%sSubmitting packages%s\" de la pàgina de l'ArchWIki de l'AUR per més detalls."
+msgstr ""
+"Ara s'utilitza Git a sobre d'SSH per enviar paquets a l'AUR. Feu un cop "
+"d'ull a la secció \"%sSubmitting packages%s\" de la pàgina de l'ArchWIki de "
+"l'AUR per més detalls."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -396,7 +415,9 @@ msgstr "Has oblidat la teva contrasenya"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "L'inici de sessió HTTP està deshabilitat. Si us plau %s canvia a HTTPs %s si voleu iniciar la sessió."
+msgstr ""
+"L'inici de sessió HTTP està deshabilitat. Si us plau %s canvia a HTTPs %s si"
+" voleu iniciar la sessió."
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -443,7 +464,8 @@ msgstr "La seva contrasenya s'ha restablert correctament."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr "Confirmeu el vostre nom d'usuari o l'adreça de correu electrònic primària:"
+msgstr ""
+"Confirmeu el vostre nom d'usuari o l'adreça de correu electrònic primària:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -462,11 +484,16 @@ msgstr "Continuar"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr "Si heu oblidat el nom d'usuari i l'adreça de correu electrònic primària utilitzada al registrar-vos, si us plau envieu un missatge a la llista de correu %saur-general%s."
+msgstr ""
+"Si heu oblidat el nom d'usuari i l'adreça de correu electrònic primària "
+"utilitzada al registrar-vos, si us plau envieu un missatge a la llista de "
+"correu %saur-general%s."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr "Entreu el vostre nom d'usuari o la vostra adreça de correu electrònic primària:"
+msgstr ""
+"Entreu el vostre nom d'usuari o la vostra adreça de correu electrònic "
+"primària:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -476,7 +503,9 @@ msgstr "Bases del paquet"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr "Els paquets seleccionats no han sigut renegats, marqueu la casella de confirmació."
+msgstr ""
+"Els paquets seleccionats no han sigut renegats, marqueu la casella de "
+"confirmació."
 
 #: aurweb/routers/packages.py
 msgid ""
@@ -496,7 +525,9 @@ msgstr "No es pot fusionar la base d'un paquet amb la mateixa."
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr "Els paquets seleccionats no s'han esborrat, marqui la casella de confirmació."
+msgstr ""
+"Els paquets seleccionats no s'han esborrat, marqui la casella de "
+"confirmació."
 
 #: html/pkgdel.php
 msgid "Package Deletion"
@@ -511,7 +542,9 @@ msgstr "Esborrar el paquet"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Utilitzeu aquest formulari per eliminar la base del paquet %s%s%s i els següents paquets de l'AUR:"
+msgstr ""
+"Utilitzeu aquest formulari per eliminar la base del paquet %s%s%s i els "
+"següents paquets de l'AUR:"
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -762,7 +795,9 @@ msgstr "Votants"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "El registre de comptes ha estat inhabilitat per la seva adreça IP, probablement a causa de continus atacs d'spam. Disculpeu les molèsties."
+msgstr ""
+"El registre de comptes ha estat inhabilitat per la seva adreça IP, "
+"probablement a causa de continus atacs d'spam. Disculpeu les molèsties."
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
@@ -864,7 +899,8 @@ msgstr "S'ha enviat una contrasenya nova al seu correu electrònic."
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr "Feu clic a l'enllaç superior d'Inici de sessió per utilitzar el seu compte."
+msgstr ""
+"Feu clic a l'enllaç superior d'Inici de sessió per utilitzar el seu compte."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -880,7 +916,9 @@ msgstr "El compte, %s%s%s, s'ha modificat correctament."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "El formulari de registre està deshabilitat per la seva adreça IP, probablement a causa de continus atacs d'spam. Disculpeu les molèsties."
+msgstr ""
+"El formulari de registre està deshabilitat per la seva adreça IP, "
+"probablement a causa de continus atacs d'spam. Disculpeu les molèsties."
 
 #: lib/acctfuncs.inc.php routers/sso.py
 msgid "Account suspended"
@@ -896,7 +934,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "La seva contrasenya s'ha restablert. Si acaba de crear un nou compte, si us plau utilitzeu l'enllaç al correu electrònic de confirmació per configurar una contrasenya inicial. En cas contrari, sol·liciti una clau de reinici a la pàgina %s de restabliment de contanenya %s."
+msgstr ""
+"La seva contrasenya s'ha restablert. Si acaba de crear un nou compte, si us "
+"plau utilitzeu l'enllaç al correu electrònic de confirmació per configurar "
+"una contrasenya inicial. En cas contrari, sol·liciti una clau de reinici a "
+"la pàgina %s de restabliment de contanenya %s."
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -908,7 +950,9 @@ msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
-msgstr "Direcció de correu electrònic i combinació de tecles de restabliment no vàlida."
+msgstr ""
+"Direcció de correu electrònic i combinació de tecles de restabliment no "
+"vàlida."
 
 #: lib/aur.inc.php template/pkg_details.php
 msgid "None"

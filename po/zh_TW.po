@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# pan93412 <pan93412@gmail.com>, 2018
-# Cycatz <thesummernightcat@gmail.com>, 2022
-# 黃柏諺 <s8321414@gmail.com>, 2014-2017
-# pan93412 <pan93412@gmail.com>, 2018
-# 黃柏諺 <s8321414@gmail.com>, 2020-2023
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Cycatz <thesummernightcat@gmail.com>, 2022\n"
-"Language-Team: Chinese (Taiwan) (http://app.transifex.com/lfleischer/aurweb/language/zh_TW/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Chinese (Taiwan) (https://app.transifex.com/archlinux/teams/289905/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -270,7 +269,8 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the maintainer and file orphan request if necessary."
-msgstr "請求軟體包從 Arch 使用者軟體庫中移除。如果軟體包損毀但可以很容易的被修復，請不要使用這個請求。您應該聯絡維護者，並在必要時提出棄置請求。"
+msgstr ""
+"請求軟體包從 Arch 使用者軟體庫中移除。如果軟體包損毀但可以很容易的被修復，請不要使用這個請求。您應該聯絡維護者，並在必要時提出棄置請求。"
 
 #: html/home.php
 msgid "Merge Request"
@@ -299,7 +299,9 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "現在遞交套件到 AUR 上的方法是透過 SSH 的 Git。參見 ArchWiki 上的 Arch User Repository 頁面之 %s遞交套件%s 章節以取得更多資訊。"
+msgstr ""
+"現在遞交套件到 AUR 上的方法是透過 SSH 的 Git。參見 ArchWiki 上的 Arch User Repository 頁面之 "
+"%s遞交套件%s 章節以取得更多資訊。"
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
@@ -316,7 +318,9 @@ msgid ""
 "Maintainer structure takes place on %saur-general%s. For discussion relating"
 " to the development of the AUR web interface, use the %saur-dev%s mailing "
 "list."
-msgstr "與 Arch 使用者軟體庫 (AUR) 與軟體包維護者結構相關的一般性討論請見 %saur-general%s 。討論關於 AUR 網頁介面的開發，請使用 %saur-dev%s 郵件列表。"
+msgstr ""
+"與 Arch 使用者軟體庫 (AUR) 與軟體包維護者結構相關的一般性討論請見 %saur-general%s 。討論關於 AUR "
+"網頁介面的開發，請使用 %saur-dev%s 郵件列表。"
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -329,7 +333,9 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the maintainer or leave a "
 "comment on the appropriate package page."
-msgstr "如果您在 AUR 網頁介面中發現了臭蟲，請在我們的 %s臭蟲追蹤系統%s 中回報。請%s只%s回報 AUR 網頁介面本身的臭蟲。要回報打包臭蟲，請連絡維護者或是在對應的軟體包頁面中留下評論。"
+msgstr ""
+"如果您在 AUR 網頁介面中發現了臭蟲，請在我們的 %s臭蟲追蹤系統%s 中回報。請%s只%s回報 AUR "
+"網頁介面本身的臭蟲。要回報打包臭蟲，請連絡維護者或是在對應的軟體包頁面中留下評論。"
 
 #: html/home.php
 msgid "Package Search"
@@ -588,7 +594,9 @@ msgid ""
 " package version in the AUR does not match the most recent commit. Flagging "
 "this package should only be done if the sources moved or changes in the "
 "PKGBUILD are required because of recent upstream changes."
-msgstr "這似乎是 VCS 軟體包。請%s不要%s因為 AUR 中的軟體包版本與最新的 commit 不相符就將其標記為過期。僅當來源移動或是因為最新的上游變更而需要變更 PKGBUILD 時才標記此軟體包。"
+msgstr ""
+"這似乎是 VCS 軟體包。請%s不要%s因為 AUR 中的軟體包版本與最新的 commit "
+"不相符就將其標記為過期。僅當來源移動或是因為最新的上游變更而需要變更 PKGBUILD 時才標記此軟體包。"
 
 #: html/pkgflag.php
 #, php-format
@@ -896,7 +904,8 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "您的密碼已成功重置。如果您剛建立了一個新帳號，請使用確認郵件中的連結來設定一個初始密碼。否則，請在 %s密碼重置%s 頁面上請求一個重置密鑰。"
+msgstr ""
+"您的密碼已成功重置。如果您剛建立了一個新帳號，請使用確認郵件中的連結來設定一個初始密碼。否則，請在 %s密碼重置%s 頁面上請求一個重置密鑰。"
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -1353,7 +1362,8 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr "如果您不隱藏您的電子郵件地址，它就是對所有已註冊的 AUR 使用者可見。如果您隱藏您的電子郵件地址，它就只對 Arch Linux 工作人員可見。"
+msgstr ""
+"如果您不隱藏您的電子郵件地址，它就是對所有已註冊的 AUR 使用者可見。如果您隱藏您的電子郵件地址，它就只對 Arch Linux 工作人員可見。"
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
@@ -1844,7 +1854,9 @@ msgid ""
 "package base and transfer its votes and comments to another package base. "
 "Merging a package does not affect the corresponding Git repositories. Make "
 "sure you update the Git history of the target package yourself."
-msgstr "透過遞交合併請求，您會請求軟體包維護者刪除軟體包基礎並轉移其投票數到其他的軟體包基礎。合併一個軟體包不會影響相對應的 Git 倉庫。確保您可以自己更新目標軟體包的 Git 歷史。"
+msgstr ""
+"透過遞交合併請求，您會請求軟體包維護者刪除軟體包基礎並轉移其投票數到其他的軟體包基礎。合併一個軟體包不會影響相對應的 Git "
+"倉庫。確保您可以自己更新目標軟體包的 Git 歷史。"
 
 #: template/pkgreq_form.php
 msgid ""
@@ -2194,7 +2206,8 @@ msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr "歡迎來到 Arch 使用者軟體庫！為了要設定您新帳號的初始密碼，請點擊以下的連結 [1]。若連結沒辦法點擊，請嘗試複製並貼上連結到您的瀏覽器中。 "
+msgstr ""
+"歡迎來到 Arch 使用者軟體庫！為了要設定您新帳號的初始密碼，請點擊以下的連結 [1]。若連結沒辦法點擊，請嘗試複製並貼上連結到您的瀏覽器中。 "
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2275,7 +2288,11 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "{user} [1] 已合併 {old} [2] 到 {new} [3].\n\n-- \n如果您不想要再收到關於新軟體包的通知，請到 [3] 然後點擊「{label}」。"
+msgstr ""
+"{user} [1] 已合併 {old} [2] 到 {new} [3].\n"
+"\n"
+"-- \n"
+"如果您不想要再收到關於新軟體包的通知，請到 [3] 然後點擊「{label}」。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2283,7 +2300,10 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr "{user} [1] 已經刪除 {pkgbase} [2]。\n\n您將再也不會收到此軟體包的通知。"
+msgstr ""
+"{user} [1] 已經刪除 {pkgbase} [2]。\n"
+"\n"
+"您將再也不會收到此軟體包的通知。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2374,7 +2394,8 @@ msgid ""
 "any request notifications. In case someone replies to these notifications, "
 "you won't receive an email. However, replies are typically sent to the "
 "mailing-list and would then be visible in the archive."
-msgstr "請注意，如果您隱藏您的電子郵件地址，它最終會出現在任何要求通知的密件副本清單中。如果有人回覆這些通知，您將不會收到電子郵件。但是，回覆通常會傳送到郵遞論壇，然後在存檔中可見。"
+msgstr ""
+"請注意，如果您隱藏您的電子郵件地址，它最終會出現在任何要求通知的密件副本清單中。如果有人回覆這些通知，您將不會收到電子郵件。但是，回覆通常會傳送到郵遞論壇，然後在存檔中可見。"
 
 #: templates/partials/packages/comment_form.html
 msgid "Maximum number of characters"

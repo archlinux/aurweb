@@ -1,19 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AURWEB package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Linuxbruger <y.z@live.dk>, 2018
-# Louis Tim Larsen <louis@louis.dk>, 2015
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Archlinux DevOps account, 2025
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: aurweb\n"
+"Project-Id-Version: AURWEB v6.2.17\n"
 "Report-Msgid-Bugs-To: https://gitlab.archlinux.org/archlinux/aurweb/-/issues\n"
 "POT-Creation-Date: 2025-06-30 21:27+0100\n"
-"PO-Revision-Date: 2011-04-10 13:21+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>, 2011\n"
-"Language-Team: Danish (http://app.transifex.com/lfleischer/aurweb/language/da/)\n"
+"PO-Revision-Date: 2025-07-03 18:30+0000\n"
+"Last-Translator: Archlinux DevOps account, 2025\n"
+"Language-Team: Danish (https://app.transifex.com/archlinux/teams/289905/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -53,7 +54,9 @@ msgstr "Service utilgængelig"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Lad vær med at gå i panik! Denne side er nede på grund af vedligeholdelse. Vi vil være tilbage snart."
+msgstr ""
+"Lad vær med at gå i panik! Denne side er nede på grund af vedligeholdelse. "
+"Vi vil være tilbage snart."
 
 #: html/account.php routers/accounts.py
 msgid "Account"
@@ -210,7 +213,9 @@ msgstr ""
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Bidragede PKGBUILDs %sskal%s være i overensstemmelse med %sArch Pakke Standarder%s ellers vil de blive slettet!"
+msgstr ""
+"Bidragede PKGBUILDs %sskal%s være i overensstemmelse med %sArch Pakke "
+"Standarder%s ellers vil de blive slettet!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -228,7 +233,9 @@ msgstr "ANSVARSFRASKRIVELSE"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "AUR pakker er bruger produceret materiale. Hvilken som helst brug af de filer der er stillet til rådighed er på din egen risiko."
+msgstr ""
+"AUR pakker er bruger produceret materiale. Hvilken som helst brug af de "
+"filer der er stillet til rådighed er på din egen risiko."
 
 #: html/home.php
 msgid "Learn more..."
@@ -247,7 +254,9 @@ msgstr "Pakke Forespørgelser"
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr "Der er tre typer af forespørgelser der kan udfyldes i%sPakke Handlinger%s boxen på pakke detaljer siden:"
+msgstr ""
+"Der er tre typer af forespørgelser der kan udfyldes i%sPakke Handlinger%s "
+"boxen på pakke detaljer siden:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -257,7 +266,9 @@ msgstr ""
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "Forespørg en pakke til at blive forstødt, f.eks når vedligeholderen er inaktiv og pakkerne er blevet markeret som dato-udløbet i lang tid."
+msgstr ""
+"Forespørg en pakke til at blive forstødt, f.eks når vedligeholderen er "
+"inaktiv og pakkerne er blevet markeret som dato-udløbet i lang tid."
 
 #: html/home.php
 msgid "Deletion Request"
