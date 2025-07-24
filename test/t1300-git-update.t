@@ -306,6 +306,60 @@ test_expect_success 'Pushing a tree with an allowed subdirectory with pgp keys.'
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
 '
 
+test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; wrong files.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/LICENSES/ &&
+	touch aur.git/LICENSES/Nonsense-2.0-or-later.txt &&
+	git -C aur.git add LICENSES/Nonsense-2.0-or-later.txt &&
+	git -C aur.git commit -q -m "Add unacceptable license" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: files in this subdir must either be named after an acceptable SPDX license or start with \`LicenseRef-\`$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; missing file extension.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/LICENSES/ &&
+	touch aur.git/LICENSES/GPL-3.0-or-later &&
+	git -C aur.git add LICENSES/GPL-3.0-or-later &&
+	git -C aur.git commit -q -m "Add file with no extension" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: the subdir may only contain files with a \\.txt extension$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; another subdir.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/LICENSES/bla/ &&
+	touch aur.git/LICENSES/bla/LicenseRef-EULA.txt &&
+	git -C aur.git add LICENSES/bla/LicenseRef-EULA.txt &&
+	git -C aur.git commit -q -m "Add nonsense subdirectory" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: the subdir may only contain files with a \\.txt extension$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory with RFC52-style licenses.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	mkdir -p aur.git/LICENSES &&
+	touch aur.git/LICENSES/{Apache-2.0,Classpath-exception-2.0,GPL-2.0-only,LicenseRef-EULA}.txt &&
+	git -C aur.git add LICENSES &&
+	git -C aur.git commit -q -m "Add license files according to REUSE" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
+'
+
 test_expect_success 'Pushing a tree with a large blob.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
