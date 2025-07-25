@@ -12,8 +12,6 @@ notify_cmd = aurweb.config.get("notifications", "notify-cmd")
 
 max_blob_size = aurweb.config.getint("update", "max-blob-size")
 
-allowed_license_file_exts = ("md", "txt")
-
 
 def size_humanize(num):
     for unit in ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB"]:

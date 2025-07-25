@@ -23,6 +23,7 @@ socket = /var/run/mysqld/mysqld.sock
 [options]
 aurwebdir = YOUR_AUR_ROOT
 aur_location = http://127.0.0.1:8080
+license_check_timeout = 15
 disable_http_login = 0
 enable-maintenance = 0
 localedir = YOUR_AUR_ROOT/web/locale
@@ -34,6 +35,7 @@ cache = none
 redis_address = redis://127.0.0.1
 aur_request_ml = aur-requests@localhost
 traceback = 1
+pkgctl_executable = /usr/bin/pkgctl
 
 [notifications]
 ; For development/testing, use /usr/bin/sendmail

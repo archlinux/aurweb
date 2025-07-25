@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 
 import os
+import subprocess
 import sys
+import tempfile
 import time
+from collections.abc import Generator
+from contextlib import contextmanager
 
 import pygit2
 from alpm.alpm_srcinfo import MergedPackage, SourceInfoError, source_info_from_str
@@ -18,7 +22,6 @@ from alpm.type_aliases import RelationOrSoname, SourceInfo
 import aurweb.config
 import aurweb.db
 from aurweb.git.update_common import (
-    allowed_license_file_exts,
     create_pkgbase,
     die,
     die_commit,
@@ -269,6 +272,15 @@ def save_metadata(metadata: SourceInfo, conn, user):  # noqa: C901
     conn.commit()
 
 
+@contextmanager
+def temporary_checkout(repo: pygit2.Repository) -> Generator[str]:
+    basename = os.path.basename(os.path.splitext(repo.path.rstrip("/"))[0])
+    with tempfile.TemporaryDirectory(prefix="aurweb-") as tmpdirname:
+        workdir = os.path.join(tmpdirname, basename)
+        repo.checkout(refname=repo.head, directory=workdir)
+        yield workdir
+
+
 def validate_metadata(metadata: SourceInfo, commit):  # noqa: C901
     for pkg_overrides in metadata.packages:
         # Architecture doesn't matter here, as we are only reading
@@ -419,31 +431,40 @@ def main() -> None:  # noqa: C901
                     validate_blob_size(pgpobj, commit)
 
         # If we got a subdir LICENSES/,
-        # make sure it only contains file names that comply to REUSE.
+        # then the repository must comply with REUSE.
         # See also: https://reuse.software/spec-3.3/#license-files
         if "LICENSES" in commit.tree:
-            # Check for forbidden files in LICENSES/
+            # Check for forbidden subdirs in LICENSES/
+            # (REUSE allows them but we don't)
             for license_obj in commit.tree["LICENSES"]:
-                if not isinstance(license_obj, pygit2.Blob) or not any(
-                    (
-                        license_obj.name.endswith(f".{ext}")
-                        for ext in allowed_license_file_exts
-                    )
-                ):
+                if not isinstance(license_obj, pygit2.Blob):
                     die_commit(
-                        "the subdir may only contain files ending in "
-                        + " or ".join(f".{ext}" for ext in allowed_license_file_exts),
+                        "the subdir may only contain files",
                         str(commit.id),
                     )
 
-                if (
-                    basename := os.path.splitext(os.path.basename(license_obj.name))[0]
-                ) not in acceptable_basenames and not basename.startswith(
-                    "LicenseRef-"
-                ):
+            # Check REUSE compliance
+            timeout_seconds = aurweb.config.getint("options", "license_check_timeout")
+            pkgctl = aurweb.config.get("options", "pkgctl_executable")
+            if timeout_seconds is None:
+                die("license_check_timeout needs to be configured")
+            if pkgctl is None:
+                die("pkgctl_executable needs to be configured")
+            with temporary_checkout(repo) as workdir:
+                try:
+                    subprocess.run(
+                        [pkgctl, "license", "check"],
+                        check=True,
+                        cwd=workdir,
+                        stderr=sys.stdout,
+                        timeout=timeout_seconds,
+                    )
+                except FileNotFoundError:
+                    die(f"Executable not found: {pkgctl}")
+                except subprocess.TimeoutExpired:
                     die_commit(
-                        "files in this subdir must either be named after an "
-                        "acceptable SPDX license or start with `LicenseRef-`",
+                        "License compliance check did not complete within "
+                        f"{timeout_seconds} seconds",
                         str(commit.id),
                     )
 

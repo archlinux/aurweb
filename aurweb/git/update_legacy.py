@@ -12,7 +12,6 @@ import srcinfo.utils
 import aurweb.config
 import aurweb.db
 from aurweb.git.update_common import (
-    allowed_license_file_exts,
     create_pkgbase,
     die,
     die_commit,
@@ -20,6 +19,8 @@ from aurweb.git.update_common import (
     validate_blob_size,
     warn,
 )
+
+allowed_license_file_exts = ("md", "txt")
 
 repo_path = aurweb.config.get("serve", "repo-path")
 repo_regex = aurweb.config.get("serve", "repo-regex")
