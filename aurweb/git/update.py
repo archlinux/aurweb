@@ -436,29 +436,41 @@ def main():  # noqa: C901
                     validate_blob_size(pgpobj, commit)
 
         # If we got a subdir LICENSES/,
-        # make sure it only contains file names that comply to REUSE.
+        # then the repository must comply with REUSE.
         # See also: https://reuse.software/spec-3.3/#license-files
         if "LICENSES" in commit.tree:
-            # Check for forbidden files in LICENSES/
+            # Check for forbidden subdirs in LICENSES/
+            # (REUSE allows them but we don't)
             for license_obj in commit.tree["LICENSES"]:
-                if not isinstance(
-                    license_obj, pygit2.Blob
-                ) or not license_obj.name.endswith(".txt"):
+                if not isinstance(license_obj, pygit2.Blob):
                     die_commit(
-                        "the subdir may only contain files with a .txt extension",
+                        "the subdir may only contain files",
                         str(commit.id),
                     )
 
-                if (
-                    basename := os.path.splitext(os.path.basename(license_obj.name))[0]
-                ) not in acceptable_basenames and not basename.startswith(
-                    "LicenseRef-"
-                ):
-                    die_commit(
-                        "files in this subdir must either be named after an "
-                        "acceptable SPDX license or start with `LicenseRef-`",
-                        str(commit.id),
-                    )
+            # Check REUSE compliance
+            timeout_seconds = aurweb.config.getint("options", "license_check_timeout")
+            pkgctl = aurweb.config.get("options", "pkgctl_executable")
+            if timeout_seconds is None:
+                die("license_check_timeout needs to be configured")
+            if pkgctl is None:
+                die("pkgctl_executable needs to be configured")
+            try:
+                subprocess.run(
+                    [pkgctl, "license", "check"],
+                    check=True,
+                    cwd=repo_path,
+                    stderr=sys.stdout,
+                    timeout=timeout_seconds,
+                )
+            except FileNotFoundError:
+                die(f"Executable not found: {pkgctl}")
+            except subprocess.TimeoutExpired:
+                die_commit(
+                    "License compliance check did not complete within "
+                    f"{timeout_seconds} seconds",
+                    str(commit.id),
+                )
 
     # Display a warning if .SRCINFO is unchanged.
     if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):

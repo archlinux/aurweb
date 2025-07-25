@@ -85,7 +85,7 @@ read the instructions below.
 4) Install system-wide dependencies:
 
     # pacman -S git gpgme cgit curl openssh uwsgi uwsgi-plugin-cgi \
-        python-poetry
+        python-poetry devtools reuse
 
 5) Create a new user:
 

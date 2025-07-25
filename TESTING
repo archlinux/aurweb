@@ -62,7 +62,7 @@ INSTALL.
 
 2) Install the necessary packages:
 
-    # pacman -S --needed python-poetry mariadb words fortune-mod nginx
+    # pacman -S --needed python-poetry mariadb words fortune-mod nginx devtools reuse
 
 3) Install the package/dependencies via `poetry`:
 
@@ -121,7 +121,7 @@ In case you did the bare-metal install, steps 2, 3, 4 and 5 should be skipped.
 
 1) Install the necessary packages:
 
-    # pacman -S --needed python-poetry mariadb-libs asciidoc openssh
+    # pacman -S --needed python-poetry mariadb-libs asciidoc openssh devtools reuse
 
 2) Install the package/dependencies via `poetry`:
 

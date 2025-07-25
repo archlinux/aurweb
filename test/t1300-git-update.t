@@ -4,6 +4,8 @@ test_description='git-update tests'
 
 . "$(dirname "$0")/setup.sh"
 
+pkgctl_executable="$(awk -F " " -e "/pkgctl_executable/ { print \$3 }" "${AUR_CONFIG}")"
+
 dump_package_info() {
 	for t in Packages Licenses PackageLicenses Groups PackageGroups \
 		PackageDepends PackageRelations PackageSources \
@@ -309,51 +311,83 @@ test_expect_success 'Pushing a tree with an allowed subdirectory with pgp keys.'
 test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; wrong files.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
-	mkdir -p aur.git/LICENSES/ &&
-	touch aur.git/LICENSES/Nonsense-2.0-or-later.txt &&
-	git -C aur.git add LICENSES/Nonsense-2.0-or-later.txt &&
-	git -C aur.git commit -q -m "Add unacceptable license" &&
+	"${pkgctl_executable}" license setup --no-check aur.git 2>/dev/null &&
+	touch aur.git/bad.md aur.git/LICENSES/Nonsense-2.0-or-later.txt &&
+	reuse annotate -c "Copyright" -l Nonsense-2.0-or-later aur.git/bad.md >/dev/null 2>&1 &&
+	git -C aur.git add bad.md LICENSE LICENSES REUSE.toml &&
+	git -C aur.git commit -q -m "Add REUSE files with unacceptable license" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^error: files in this subdir must either be named after an acceptable SPDX license or start with \`LicenseRef-\`$" actual
+	grep -q "^\\* Bad licenses: Nonsense-2.0-or-later$" actual
 '
 
 test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; missing file extension.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
-	mkdir -p aur.git/LICENSES/ &&
+	"${pkgctl_executable}" license setup --no-check aur.git 2>/dev/null &&
 	touch aur.git/LICENSES/GPL-3.0-or-later &&
-	git -C aur.git add LICENSES/GPL-3.0-or-later &&
+	git -C aur.git add LICENSE LICENSES REUSE.toml &&
 	git -C aur.git commit -q -m "Add file with no extension" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^error: the subdir may only contain files with a \\.txt extension$" actual
+	grep -q "^\\* Licenses without file extension: GPL-3.0-or-later$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; missing LICENSE file.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	"${pkgctl_executable}" license setup --no-check aur.git 2>/dev/null &&
+	rm aur.git/LICENSE &&
+	git -C aur.git add LICENSES REUSE.toml
+	git -C aur.git commit -q -m "Add license files, REUSE.toml" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "foobar: is missing the LICENSE file$" actual
+'
+
+test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; unused license.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	"${pkgctl_executable}" license setup --no-check aur.git 2>/dev/null &&
+	touch aur.git/LICENSES/GPL-3.0-or-later.txt &&
+	git -C aur.git add LICENSE LICENSES REUSE.toml &&
+	git -C aur.git commit -q -m "Add REUSE files with unused license" &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^\\* Unused licenses: GPL-3.0-or-later$" actual
 '
 
 test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style licenses; another subdir.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
+	"${pkgctl_executable}" license setup --no-check aur.git 2>/dev/null &&
 	mkdir -p aur.git/LICENSES/bla/ &&
 	touch aur.git/LICENSES/bla/LicenseRef-EULA.txt &&
-	git -C aur.git add LICENSES/bla/LicenseRef-EULA.txt &&
-	git -C aur.git commit -q -m "Add nonsense subdirectory" &&
+	git -C aur.git add LICENSE LICENSES REUSE.toml &&
+	git -C aur.git commit -q -m "Add REUSE files with nonsense subdirectory" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^error: the subdir may only contain files with a \\.txt extension$" actual
+	grep -q "^error: the subdir may only contain files$" actual
 '
 
 test_expect_success 'Pushing a tree with an allowed subdirectory with RFC52-style licenses.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
-	mkdir -p aur.git/LICENSES &&
+	"${pkgctl_executable}" license setup --no-check aur.git 2>/dev/null &&
+	touch aur.git/multiply-licensed-document.md &&
+	reuse annotate -c "Copyright" -l Apache-2.0 -l Classpath-exception-2.0 -l GPL-2.0-only -l LicenseRef-EULA aur.git/multiply-licensed-document.md >/dev/null 2>&1 &&
 	touch aur.git/LICENSES/{Apache-2.0,Classpath-exception-2.0,GPL-2.0-only,LicenseRef-EULA}.txt &&
-	git -C aur.git add LICENSES &&
+	git -C aur.git add multiply-licensed-document.md LICENSE LICENSES REUSE.toml &&
 	git -C aur.git commit -q -m "Add license files according to REUSE" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
