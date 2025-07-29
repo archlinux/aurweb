@@ -380,18 +380,6 @@ def main():  # noqa: C901
     # check if there is a correct .SRCINFO file in the latest revision
     validate_metadata(metadata, head_commit)
 
-    # Compile list of acceptable SPDX license identifiers
-    with (
-        open(
-            "/usr/share/licenses/known_spdx_license_identifiers.txt", encoding="ASCII"
-        ) as spdx_identifiers_io,
-        open(
-            "/usr/share/licenses/known_spdx_license_exceptions.txt", encoding="ASCII"
-        ) as spdx_exceptions_io,
-    ):
-        acceptable_basenames = spdx_identifiers_io.read().splitlines()
-        acceptable_basenames += spdx_exceptions_io.read().splitlines()
-
     # Validate all new commits.
     for commit in walker:
         if "PKGBUILD" not in commit.tree:
