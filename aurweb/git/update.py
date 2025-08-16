@@ -20,6 +20,8 @@ repo_regex = aurweb.config.get("serve", "repo-regex")
 
 max_blob_size = aurweb.config.getint("update", "max-blob-size")
 
+allowed_license_file_exts = ("md", "txt")
+
 
 def size_humanize(num):
     for unit in ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB"]:
@@ -380,6 +382,18 @@ def main():  # noqa: C901
     # check if there is a correct .SRCINFO file in the latest revision
     validate_metadata(metadata, head_commit)
 
+    # Compile list of acceptable SPDX license identifiers
+    with (
+        open(
+            "/usr/share/licenses/known_spdx_license_identifiers.txt", encoding="ASCII"
+        ) as spdx_identifiers_io,
+        open(
+            "/usr/share/licenses/known_spdx_license_exceptions.txt", encoding="ASCII"
+        ) as spdx_exceptions_io,
+    ):
+        acceptable_basenames = spdx_identifiers_io.read().splitlines()
+        acceptable_basenames += spdx_exceptions_io.read().splitlines()
+
     # Validate all new commits.
     for commit in walker:
         if "PKGBUILD" not in commit.tree:
@@ -387,8 +401,11 @@ def main():  # noqa: C901
 
         # Iterate over files in root dir
         for treeobj in commit.tree:
-            # Don't allow any subdirs besides "keys/"
-            if isinstance(treeobj, pygit2.Tree) and treeobj.name != "keys":
+            # Don't allow any subdirs besides "keys/" and "LICENSES/"
+            if isinstance(treeobj, pygit2.Tree) and treeobj.name not in [
+                "keys",
+                "LICENSES",
+            ]:
                 die_commit(
                     "the repository must not contain subdirectories",
                     str(commit.id),
@@ -419,6 +436,35 @@ def main():  # noqa: C901
                         )
                     # Check file size for pgp key files
                     validate_blob_size(pgpobj, commit)
+
+        # If we got a subdir LICENSES/,
+        # make sure it only contains file names that comply to REUSE.
+        # See also: https://reuse.software/spec-3.3/#license-files
+        if "LICENSES" in commit.tree:
+            # Check for forbidden files in LICENSES/
+            for license_obj in commit.tree["LICENSES"]:
+                if not isinstance(license_obj, pygit2.Blob) or not any(
+                    (
+                        license_obj.name.endswith(f".{ext}")
+                        for ext in allowed_license_file_exts
+                    )
+                ):
+                    die_commit(
+                        "the subdir may only contain files ending in "
+                        + " or ".join(f".{ext}" for ext in allowed_license_file_exts),
+                        str(commit.id),
+                    )
+
+                if (
+                    basename := os.path.splitext(os.path.basename(license_obj.name))[0]
+                ) not in acceptable_basenames and not basename.startswith(
+                    "LicenseRef-"
+                ):
+                    die_commit(
+                        "files in this subdir must either be named after an "
+                        "acceptable SPDX license or start with `LicenseRef-`",
+                        str(commit.id),
+                    )
 
     # Display a warning if .SRCINFO is unchanged.
     if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):
