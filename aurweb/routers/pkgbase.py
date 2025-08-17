@@ -624,6 +624,7 @@ async def pkgbase_disown_post(
                 "check the confirmation checkbox."
             )
         ]
+        context["next"] = next
         return render_template(
             request, "pkgbase/disown.html", context, status_code=HTTPStatus.BAD_REQUEST
         )
@@ -872,6 +873,7 @@ async def pkgbase_delete_post(
                 "check the confirmation checkbox."
             )
         ]
+        context["next"] = next
         return render_template(
             request, "pkgbase/delete.html", context, status_code=HTTPStatus.BAD_REQUEST
         )
@@ -953,6 +955,7 @@ async def pkgbase_merge_post(
             "The selected packages have not been deleted, "
             "check the confirmation checkbox."
         ]
+        context["next"] = next
         return render_template(
             request, "pkgbase/merge.html", context, status_code=HTTPStatus.BAD_REQUEST
         )
