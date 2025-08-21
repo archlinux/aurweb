@@ -1,4 +1,4 @@
-""" Test our Session model. """
+"""Test our Session model."""
 
 from unittest import mock
 

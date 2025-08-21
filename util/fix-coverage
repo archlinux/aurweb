@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" A simple script which updates paths for .coverage executed
+"""A simple script which updates paths for .coverage executed
 in another directory. This is particularly useful for fixing
 .coverage files received via ./cache/.coverage after Docker runs.
 

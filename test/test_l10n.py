@@ -1,4 +1,4 @@
-""" Test our l10n module. """
+"""Test our l10n module."""
 
 from aurweb import config, filters, l10n
 from aurweb.testing.requests import Request
