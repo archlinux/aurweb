@@ -115,9 +115,7 @@ def test_markdown_in_html_block(user: User, pkgbase: PackageBase):
     # with "markdown" attribute
     text = "<details markdown><summary>test</summary>*Hello*</details>"
     comment = create_comment(user, pkgbase, text)
-    expected = (
-        "<details>\n<p></p><summary>test</summary><em>Hello</em><p></p>\n</details>"
-    )
+    expected = "<details>\n<summary>test</summary>\n<p><em>Hello</em></p>\n</details>"
     assert comment.RenderedComment == expected
 
 
