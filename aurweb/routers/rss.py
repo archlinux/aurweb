@@ -1,3 +1,5 @@
+import hashlib
+
 from fastapi import APIRouter, Request
 from fastapi.responses import Response
 from feedgen.feed import FeedGenerator
@@ -61,7 +63,24 @@ async def rss(request: Request):
     cache_expire = config.getint("cache", "expiry_time_rss", 300)
     feed = lambda_cache("rss", lambda: make_rss_feed(request, packages), cache_expire)
 
+    latest_timestamp = None
+    if packages.count() > 0:
+        last_modified = filters.timestamp_to_datetime(packages[-1].Timestamp)
+        last_modified = filters.as_timezone(last_modified, request.user.Timezone)
+        latest_timestamp = last_modified.strftime("%Y-%m-%d %H:%M:%S%z")
+
     response = Response(feed, media_type="application/rss+xml")
+    add_cache_headers(response, latest_timestamp, cache_expire)
+
+    # Handle conditional request
+    if_none_match = request.headers.get("If-None-Match")
+    if (
+        if_none_match
+        and "ETag" in response.headers
+        and if_none_match == response.headers["ETag"]
+    ):
+        return Response(status_code=304)
+
     return response
 
 
@@ -85,5 +104,43 @@ async def rss_modified(request: Request):
         "rss_modified", lambda: make_rss_feed(request, packages), cache_expire
     )
 
+    latest_timestamp = None
+    if packages.count() > 0:
+        last_modified = filters.timestamp_to_datetime(packages[-1].Timestamp)
+        last_modified = filters.as_timezone(last_modified, request.user.Timezone)
+        latest_timestamp = last_modified.strftime("%Y-%m-%d %H:%M:%S%z")
+
     response = Response(feed, media_type="application/rss+xml")
+    add_cache_headers(response, latest_timestamp, cache_expire)
+
+    # Handle conditional request
+    if_none_match = request.headers.get("If-None-Match")
+    if (
+        if_none_match
+        and "ETag" in response.headers
+        and if_none_match == response.headers["ETag"]
+    ):
+        return Response(status_code=304)
+
     return response
+
+
+def add_cache_headers(
+    response: Response, latest_timestamp: str | None, cache_expire: int
+) -> None:
+    """Add HTTP caching headers to the RSS feed response.
+
+    :param response: The FastAPI Response object
+    :param cache_expire: Cache expiration time in seconds
+    """
+    # Set Cache-Control header
+    response.headers["Cache-Control"] = f"public, max-age={cache_expire}"
+
+    # Set Last-Modified header if not None
+    if latest_timestamp is not None:
+        response.headers["Last-Modified"] = latest_timestamp
+
+    # Set ETag header (based on content hash)
+    if hasattr(response, "body") and response.body:
+        etag = hashlib.md5(response.body).hexdigest()
+        response.headers["ETag"] = f'"{etag}"'
