@@ -9,12 +9,12 @@ class Benchmark:
         """Generate a timestamp."""
         return float(datetime.now(UTC).timestamp())
 
-    def start(self) -> int:
+    def start(self) -> float:
         """Start a benchmark."""
         self.current = self._timestamp()
         return self.current
 
-    def end(self):
+    def end(self) -> float:
         """Return the diff between now - start()."""
         n = self._timestamp() - self.current
         self.current = float(0)
