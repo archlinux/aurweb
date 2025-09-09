@@ -5,6 +5,40 @@ line-length = 88
 profile = "black"
 combine_as_imports = true
 
+[tool.mypy]
+follow_imports = 'silent'  # https://github.com/python-lsp/pylsp-mypy/issues/81
+scripts_are_modules = true  # allow checking all scripts in one invocation
+explicit_package_bases = true
+exclude = [
+    'migrations/',
+]
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = [
+    "MySQLdb",
+    "alembic.*",
+    "authlib.*",
+    "bleach",
+    "email_validator",
+    "fakeredis",
+    "fastapi.*",
+    "feedgen.*",
+    "lxml.*",
+    "markdown",
+    "opentelemetry.*",
+    "paginate",
+    "posix_ipc",
+    "prometheus_client",
+    "prometheus_fastapi_instrumentator.*",
+    "pyalpm",
+    "pygit2",
+    "redis.*",
+    "requests",
+    "sqlalchemy.*",
+    "srcinfo.*",
+    "starlette.*",
+]
 
 # Poetry build configuration for the aurweb project.
 #
