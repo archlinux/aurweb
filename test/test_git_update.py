@@ -1,4 +1,5 @@
 import json
+from typing import Any
 
 import pytest
 from srcinfo import parse
@@ -149,7 +150,7 @@ def test_git_update_extract_arch_fields():
         (2560000000000000000000000, "2.12YiB"),
     ],
 )
-def test_size_humanize(size: any, expected: str):
+def test_size_humanize(size: Any, expected: str):
     assert size_humanize(size) == expected
 
 
