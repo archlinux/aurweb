@@ -12,7 +12,7 @@ def setup(email_test):
     return
 
 
-def sendmail(from_: str, to_: str, content: str) -> Email:
+def sendmail(from_: str, to_: str, content: str) -> None:
     binary = config.get("notifications", "sendmail")
     proc = Popen(binary, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     content = f"From: {from_}\nTo: {to_}\n\n{content}"
