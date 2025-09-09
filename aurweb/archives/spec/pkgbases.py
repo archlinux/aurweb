@@ -11,7 +11,7 @@ ORJSON_OPTS = orjson.OPT_SORT_KEYS | orjson.OPT_INDENT_2
 
 
 class Spec(SpecBase):
-    def __init__(self) -> "Spec":
+    def __init__(self) -> None:
         self.pkgbases_repo = GitInfo(config.get("git-archive", "pkgbases-repo"))
 
     def generate(self) -> Iterable[SpecOutput]:

@@ -390,7 +390,7 @@ please go to [3] and click "Disable notifications".
     assert email.body == expected
 
 
-def set_pm(users: list[User]) -> User:
+def set_pm(users: list[User]) -> None:
     with db.begin():
         for user in users:
             user.AccountTypeID = PACKAGE_MAINTAINER_ID
