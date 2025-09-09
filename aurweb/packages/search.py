@@ -274,7 +274,7 @@ class RPCSearch(PackageSearch):
 
     keys_removed = ("b", "N", "B", "M")
 
-    def __init__(self) -> "RPCSearch":
+    def __init__(self) -> None:
         super().__init__()
 
         # Fix-up inherited search_by_cb to reflect RPC-specific by params.

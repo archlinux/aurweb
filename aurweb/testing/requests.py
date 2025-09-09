@@ -44,7 +44,7 @@ class Request:
         cookies: dict[str, str] = dict(),
         url: str = "/",
         query_params: dict[str, str] = dict(),
-    ) -> "Request":
+    ) -> None:
         self.user = user
         self.user.authenticated = authenticated
 

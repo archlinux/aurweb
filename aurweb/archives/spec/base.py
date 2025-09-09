@@ -11,7 +11,7 @@ class GitInfo:
     """ Local Git repository configuration. """
     config: Dict[str, Any]
 
-    def __init__(self, path: str, config: Dict[str, Any] = dict()) -> "GitInfo":
+    def __init__(self, path: str, config: Dict[str, Any] = dict()) -> None:
         self.path = Path(path)
         self.config = config
 
@@ -28,7 +28,7 @@ class SpecOutput:
     """ Bytes bound for `SpecOutput.filename`. """
     data: bytes
 
-    def __init__(self, filename: str, git_info: GitInfo, data: bytes) -> "SpecOutput":
+    def __init__(self, filename: str, git_info: GitInfo, data: bytes) -> None:
         self.filename = filename
         self.git_info = git_info
         self.data = data
