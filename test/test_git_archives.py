@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Tuple
+from typing import Generator, Tuple
 from unittest import mock
 
 import py
@@ -17,7 +17,7 @@ from aurweb.testing.requests import Request
 @pytest.fixture
 def mock_metadata_archive(
     tmp_path: py.path.local,
-) -> Tuple[py.path.local, py.path.local]:
+) -> Generator[Tuple[py.path.local, py.path.local]]:
     metadata_path = tmp_path / "metadata.git"
 
     get_ = config.get
@@ -114,7 +114,7 @@ def client() -> TestClient:
 
 
 @pytest.fixture
-def user(db_test: None) -> User:
+def user(db_test: None) -> Generator[User]:
     with db.begin():
         user_ = db.create(
             User,
@@ -127,7 +127,7 @@ def user(db_test: None) -> User:
 
 
 @pytest.fixture
-def package(user: User) -> Package:
+def package(user: User) -> Generator[Package]:
     with db.begin():
         pkgbase_ = db.create(
             PackageBase,

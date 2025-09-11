@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 from sqlalchemy.exc import IntegrityError
 
@@ -25,7 +27,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -39,7 +41,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def pkgbase(user: User) -> PackageBase:
+def pkgbase(user: User) -> Generator[PackageBase]:
     with db.begin():
         pkgbase = db.create(PackageBase, Name="test-package", Maintainer=user)
     yield pkgbase

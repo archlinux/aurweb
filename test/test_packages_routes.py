@@ -1,5 +1,6 @@
 import re
 from http import HTTPStatus
+from typing import Generator
 from unittest import mock
 
 import pytest
@@ -92,14 +93,14 @@ def create_user(username: str) -> User:
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     """Yield a user."""
     user = create_user("test")
     yield user
 
 
 @pytest.fixture
-def maintainer() -> User:
+def maintainer() -> Generator[User]:
     """Yield a specific User used to maintain packages."""
     account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
     with db.begin():
@@ -131,7 +132,7 @@ def pm_user():
 
 
 @pytest.fixture
-def user_who_hates_grey_comments() -> User:
+def user_who_hates_grey_comments() -> Generator[User]:
     """Yield a specific User who doesn't like grey comments."""
     account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
     with db.begin():
@@ -147,7 +148,7 @@ def user_who_hates_grey_comments() -> User:
 
 
 @pytest.fixture
-def package(maintainer: User) -> Package:
+def package(maintainer: User) -> Generator[Package]:
     """Yield a Package created by user."""
     now = time.utcnow()
     with db.begin():
@@ -164,12 +165,12 @@ def package(maintainer: User) -> Package:
 
 
 @pytest.fixture
-def pkgbase(package: Package) -> PackageBase:
+def pkgbase(package: Package) -> Generator[PackageBase]:
     yield package.PackageBase
 
 
 @pytest.fixture
-def target(maintainer: User) -> PackageBase:
+def target(maintainer: User) -> Generator[PackageBase]:
     """Merge target."""
     now = time.utcnow()
     with db.begin():
@@ -186,7 +187,7 @@ def target(maintainer: User) -> PackageBase:
 
 
 @pytest.fixture
-def pkgreq(user: User, pkgbase: PackageBase) -> PackageRequest:
+def pkgreq(user: User, pkgbase: PackageBase) -> Generator[PackageRequest]:
     """Yield a PackageRequest related to `pkgbase`."""
     with db.begin():
         pkgreq = db.create(
@@ -202,7 +203,7 @@ def pkgreq(user: User, pkgbase: PackageBase) -> PackageRequest:
 
 
 @pytest.fixture
-def comment(user: User, package: Package) -> PackageComment:
+def comment(user: User, package: Package) -> Generator[PackageComment]:
     pkgbase = package.PackageBase
     now = time.utcnow()
     with db.begin():
@@ -218,7 +219,7 @@ def comment(user: User, package: Package) -> PackageComment:
 
 
 @pytest.fixture
-def deleted_comment(user: User, package: Package) -> PackageComment:
+def deleted_comment(user: User, package: Package) -> Generator[PackageComment]:
     pkgbase = package.PackageBase
     now = time.utcnow()
     with db.begin():
@@ -235,7 +236,7 @@ def deleted_comment(user: User, package: Package) -> PackageComment:
 
 
 @pytest.fixture
-def packages(maintainer: User) -> list[Package]:
+def packages(maintainer: User) -> Generator[list[Package]]:
     """Yield 55 packages named pkg_0 .. pkg_54."""
     packages_ = []
     now = time.utcnow()

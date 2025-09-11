@@ -1,6 +1,7 @@
 import hashlib
 import json
 from datetime import UTC, datetime, timedelta
+from typing import Generator
 
 import bcrypt
 import pytest
@@ -46,31 +47,31 @@ def create_user(username: str, account_type_id: int):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     user = create_user("test", USER_ID)
     yield user
 
 
 @pytest.fixture
-def pm_user() -> User:
+def pm_user() -> Generator[User]:
     user = create_user("test_pm", PACKAGE_MAINTAINER_ID)
     yield user
 
 
 @pytest.fixture
-def dev_user() -> User:
+def dev_user() -> Generator[User]:
     user = create_user("test_dev", DEVELOPER_ID)
     yield user
 
 
 @pytest.fixture
-def pm_and_dev_user() -> User:
+def pm_and_dev_user() -> Generator[User]:
     user = create_user("test_pm_and_dev", PACKAGE_MAINTAINER_AND_DEV_ID)
     yield user
 
 
 @pytest.fixture
-def package(user: User) -> Package:
+def package(user: User) -> Generator[Package]:
     with db.begin():
         pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
         pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)

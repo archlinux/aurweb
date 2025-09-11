@@ -1,6 +1,7 @@
 import re
 import urllib.parse
 from http import HTTPStatus
+from typing import Generator
 
 import lxml.etree
 import pytest
@@ -28,7 +29,7 @@ def client() -> TestClient:
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,

@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 
 from aurweb import db, time
@@ -12,7 +14,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,

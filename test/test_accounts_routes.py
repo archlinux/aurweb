@@ -4,6 +4,7 @@ from datetime import UTC, datetime
 from http import HTTPStatus
 from logging import DEBUG
 from subprocess import Popen
+from typing import Generator
 
 import lxml.html
 import pytest
@@ -89,7 +90,7 @@ def create_user(username: str) -> User:
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = create_user(TEST_USERNAME)
     yield user

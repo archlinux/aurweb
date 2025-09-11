@@ -1,5 +1,6 @@
 from datetime import datetime
 from http import HTTPStatus
+from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient
@@ -37,7 +38,7 @@ def client() -> TestClient:
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,

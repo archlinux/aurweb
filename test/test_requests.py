@@ -1,6 +1,7 @@
 import re
 from http import HTTPStatus
 from logging import DEBUG
+from typing import Generator
 
 import pytest
 from fastapi import HTTPException
@@ -56,14 +57,14 @@ def create_user(username: str, email: str) -> User:
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     """Yield a User instance."""
     user = create_user("test", "test@example.org")
     yield user
 
 
 @pytest.fixture
-def auser(user: User) -> User:
+def auser(user: User) -> Generator[User]:
     """Yield an authenticated User instance."""
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     user.cookies = cookies
@@ -71,14 +72,14 @@ def auser(user: User) -> User:
 
 
 @pytest.fixture
-def user2() -> User:
+def user2() -> Generator[User]:
     """Yield a secondary non-maintainer User instance."""
     user = create_user("test2", "test2@example.org")
     yield user
 
 
 @pytest.fixture
-def auser2(user2: User) -> User:
+def auser2(user2: User) -> Generator[User]:
     """Yield an authenticated secondary non-maintainer User instance."""
     cookies = {"AURSID": user2.login(Request(), "testPassword")}
     user2.cookies = cookies
@@ -86,7 +87,7 @@ def auser2(user2: User) -> User:
 
 
 @pytest.fixture
-def maintainer() -> User:
+def maintainer() -> Generator[User]:
     """Yield a specific User used to maintain packages."""
     with db.begin():
         maintainer = db.create(
@@ -100,7 +101,7 @@ def maintainer() -> User:
 
 
 @pytest.fixture
-def maintainer2() -> User:
+def maintainer2() -> Generator[User]:
     """Yield a specific User used to maintain packages."""
     with db.begin():
         maintainer = db.create(
@@ -114,7 +115,7 @@ def maintainer2() -> User:
 
 
 @pytest.fixture
-def packages(maintainer: User, maintainer2: User) -> list[Package]:
+def packages(maintainer: User, maintainer2: User) -> Generator[list[Package]]:
     """Yield 55 packages named pkg_0 .. pkg_54."""
     packages_ = []
     now = time.utcnow()
@@ -137,7 +138,7 @@ def packages(maintainer: User, maintainer2: User) -> list[Package]:
 @pytest.fixture
 def requests(
     user: User, maintainer2: User, packages: list[Package]
-) -> list[PackageRequest]:
+) -> Generator[list[PackageRequest]]:
     pkgreqs = []
     with db.begin():
         for i in range(55):
@@ -159,7 +160,7 @@ def requests(
 
 
 @pytest.fixture
-def pm_user() -> User:
+def pm_user() -> Generator[User]:
     """Yield an authenticated Package Maintainer instance."""
     user = create_user("test_pm", "test_pm@example.org")
     with db.begin():
@@ -194,14 +195,14 @@ def create_pkgbase(user: User, name: str) -> PackageBase:
 
 
 @pytest.fixture
-def pkgbase(user: User) -> PackageBase:
+def pkgbase(user: User) -> Generator[PackageBase]:
     """Yield a package base."""
     pkgbase = create_pkgbase(user, "test-package")
     yield pkgbase
 
 
 @pytest.fixture
-def target(user: User) -> PackageBase:
+def target(user: User) -> Generator[PackageBase]:
     """Yield a merge target (package base)."""
     with db.begin():
         target = db.create(

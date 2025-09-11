@@ -41,6 +41,7 @@ ahead of each function takes too long when compared to this method.
 import os
 import pathlib
 from multiprocessing import Lock
+from typing import Generator
 
 import py
 import pytest
@@ -150,7 +151,7 @@ def setup_email():
 
 
 @pytest.fixture(scope="module")
-def setup_database(tmp_path_factory: pathlib.Path, worker_id: str) -> None:
+def setup_database(tmp_path_factory: pathlib.Path, worker_id: str) -> Generator[None]:
     """Create and drop a database for the suite this fixture is used in."""
     engine = test_engine()
     dbname = aurweb.db.name()
@@ -198,7 +199,7 @@ def db_test(db_session: scoped_session) -> None:
 
 
 @pytest.fixture
-def git(tmpdir: py.path.local) -> GitRepository:
+def git(tmpdir: py.path.local) -> Generator[GitRepository]:
     yield GitRepository(tmpdir)
 
 

@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -24,7 +26,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def maintainer() -> User:
+def maintainer() -> Generator[User]:
     with db.begin():
         maintainer = db.create(
             User,
@@ -37,7 +39,7 @@ def maintainer() -> User:
 
 
 @pytest.fixture
-def package(maintainer: User) -> Package:
+def package(maintainer: User) -> Generator[Package]:
     with db.begin():
         pkgbase = db.create(
             PackageBase, Name="test-pkg", Packager=maintainer, Maintainer=maintainer

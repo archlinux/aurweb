@@ -1,5 +1,6 @@
 import warnings
 from datetime import UTC, datetime, timedelta
+from typing import Generator
 
 import pytest
 from sqlalchemy import exc as sa_exc
@@ -16,7 +17,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def ban() -> Ban:
+def ban() -> Generator[Ban]:
     ts = datetime.now(UTC) + timedelta(seconds=30)
     with db.begin():
         ban = create(Ban, IPAddress="127.0.0.1", BanTS=ts)

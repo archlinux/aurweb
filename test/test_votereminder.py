@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Generator, Tuple
 
 import pytest
 
@@ -46,22 +46,22 @@ def email_pieces(voteinfo: VoteInfo) -> Tuple[str, str]:
 
 
 @pytest.fixture
-def user(db_test) -> User:
+def user(db_test) -> Generator[User]:
     yield create_user("test", PACKAGE_MAINTAINER_ID)
 
 
 @pytest.fixture
-def user2() -> User:
+def user2() -> Generator[User]:
     yield create_user("test2", PACKAGE_MAINTAINER_ID)
 
 
 @pytest.fixture
-def user3() -> User:
+def user3() -> Generator[User]:
     yield create_user("test3", PACKAGE_MAINTAINER_ID)
 
 
 @pytest.fixture
-def voteinfo(user: User) -> VoteInfo:
+def voteinfo(user: User) -> Generator[VoteInfo]:
     now = time.utcnow()
     start = config.getint("votereminder", "range_start")
     with db.begin():

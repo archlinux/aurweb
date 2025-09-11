@@ -1,4 +1,5 @@
 import tempfile
+from typing import Generator
 from unittest import mock
 
 import py
@@ -11,18 +12,18 @@ from aurweb.testing.alpm import AlpmDatabase
 
 
 @pytest.fixture
-def tempdir() -> str:
+def tempdir() -> Generator[str]:
     with tempfile.TemporaryDirectory() as name:
         yield name
 
 
 @pytest.fixture
-def alpm_db(tempdir: py.path.local) -> AlpmDatabase:
+def alpm_db(tempdir: py.path.local) -> Generator[AlpmDatabase]:
     yield AlpmDatabase(tempdir)
 
 
 @pytest.fixture(autouse=True)
-def setup(db_test, alpm_db: AlpmDatabase, tempdir: py.path.local) -> None:
+def setup(db_test, alpm_db: AlpmDatabase, tempdir: py.path.local) -> Generator[None]:
     config_get = config.get
 
     def mock_config_get(section: str, key: str) -> str:

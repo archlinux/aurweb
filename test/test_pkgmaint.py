@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 
 from aurweb import db, time
@@ -12,7 +14,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -25,7 +27,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def packages(user: User) -> list[Package]:
+def packages(user: User) -> Generator[list[Package]]:
     output = []
 
     now = time.utcnow()

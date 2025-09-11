@@ -1,5 +1,6 @@
 import re
 from http import HTTPStatus
+from typing import Generator
 from unittest import mock
 
 import pytest
@@ -40,7 +41,7 @@ def client() -> TestClient:
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,

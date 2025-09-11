@@ -1,5 +1,5 @@
 import re
-from typing import Any
+from typing import Any, Generator
 
 import pytest
 
@@ -58,13 +58,13 @@ def create_pkgrel(package: Package, reltype_id: int, relname: str) -> PackageRel
 
 
 @pytest.fixture
-def user(db_test) -> User:
+def user(db_test) -> Generator[User]:
     user = create_user("test")
     yield user
 
 
 @pytest.fixture
-def pkgbase(user: User) -> PackageBase:
+def pkgbase(user: User) -> Generator[PackageBase]:
     now = time.utcnow()
     with db.begin():
         pkgbase = db.create(
@@ -78,7 +78,7 @@ def pkgbase(user: User) -> PackageBase:
 
 
 @pytest.fixture
-def package(user: User, pkgbase: PackageBase) -> Package:
+def package(user: User, pkgbase: PackageBase) -> Generator[Package]:
     with db.begin():
         pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
     yield pkg

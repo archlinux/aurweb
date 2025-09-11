@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 
 from aurweb import db
@@ -11,7 +13,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def account_type() -> AccountType:
+def account_type() -> Generator[AccountType]:
     with db.begin():
         account_type_ = db.create(AccountType, AccountType="TestUser")
 

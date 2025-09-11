@@ -4,6 +4,7 @@ import hashlib
 import os
 import tempfile
 from http import HTTPStatus
+from typing import Generator
 from unittest import mock
 
 import fastapi
@@ -30,7 +31,7 @@ def client() -> TestClient:
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -43,14 +44,14 @@ def user() -> User:
 
 
 @pytest.fixture
-def package_maintainer(user: User) -> User:
+def package_maintainer(user: User) -> Generator[User]:
     with db.begin():
         user.AccountTypeID = PACKAGE_MAINTAINER_ID
     yield user
 
 
 @pytest.fixture
-def pkgbase(user: User) -> PackageBase:
+def pkgbase(user: User) -> Generator[PackageBase]:
     with db.begin():
         pkgbase = db.create(PackageBase, Name="test-pkg", Maintainer=user)
     yield pkgbase

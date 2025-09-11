@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 from prometheus_client import REGISTRY, generate_latest
 
@@ -13,7 +15,7 @@ def setup(db_test, prometheus_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,

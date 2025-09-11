@@ -1,4 +1,5 @@
 from subprocess import PIPE, Popen
+from typing import Generator
 
 import pytest
 
@@ -25,7 +26,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -39,7 +40,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def pubkey(user: User) -> SSHPubKey:
+def pubkey(user: User) -> Generator[SSHPubKey]:
     with db.begin():
         pubkey = db.create(
             SSHPubKey, User=user, Fingerprint="testFingerprint", PubKey="testPubKey"

@@ -1,6 +1,7 @@
 import gzip
 import json
 import os
+from typing import Generator
 from unittest import mock
 
 import py
@@ -44,7 +45,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -57,7 +58,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def packages(user: User) -> list[Package]:
+def packages(user: User) -> Generator[list[Package]]:
     output = []
     with db.begin():
         lic = db.create(License, Name="GPL")
@@ -90,7 +91,7 @@ def packages(user: User) -> list[Package]:
 
 
 @pytest.fixture
-def config_mock(tmpdir: py.path.local) -> None:
+def config_mock(tmpdir: py.path.local) -> Generator[None]:
     config_get = config.get
     archivedir = config.get("mkpkglists", "archivedir")
 

@@ -1,4 +1,5 @@
 from logging import ERROR
+from typing import Generator
 from unittest import mock
 
 import pytest
@@ -21,7 +22,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -34,7 +35,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def user1() -> User:
+def user1() -> Generator[User]:
     with db.begin():
         user1 = db.create(
             User,
@@ -47,7 +48,7 @@ def user1() -> User:
 
 
 @pytest.fixture
-def user2() -> User:
+def user2() -> Generator[User]:
     with db.begin():
         user2 = db.create(
             User,
@@ -60,7 +61,7 @@ def user2() -> User:
 
 
 @pytest.fixture
-def pkgbases(user: User) -> list[PackageBase]:
+def pkgbases(user: User) -> Generator[list[PackageBase]]:
     now = time.utcnow()
 
     output = []
@@ -96,7 +97,7 @@ def pkgreq(user2: User, pkgbases: list[PackageBase]):
 
 
 @pytest.fixture
-def packages(pkgbases: list[PackageBase]) -> list[Package]:
+def packages(pkgbases: list[PackageBase]) -> Generator[list[Package]]:
     output = []
     with db.begin():
         for i, pkgbase in enumerate(pkgbases):

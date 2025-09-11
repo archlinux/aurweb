@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 from sqlalchemy.exc import IntegrityError
 
@@ -14,7 +16,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = create(
             User,

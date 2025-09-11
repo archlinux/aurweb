@@ -1,3 +1,5 @@
+from typing import Generator
+
 import pytest
 from prometheus_client import REGISTRY, generate_latest
 
@@ -85,7 +87,7 @@ def test_data():
 
 
 @pytest.fixture
-def stats() -> Statistics:
+def stats() -> Generator[Statistics]:
     yield Statistics()
 
 

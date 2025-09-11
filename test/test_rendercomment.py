@@ -1,4 +1,5 @@
 import os
+from typing import Generator
 from unittest import mock
 
 import pygit2
@@ -31,7 +32,7 @@ def setup(db_test, git: GitRepository):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -44,7 +45,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def pkgbase(user: User) -> PackageBase:
+def pkgbase(user: User) -> Generator[PackageBase]:
     now = time.utcnow()
     with db.begin():
         pkgbase = db.create(
@@ -58,7 +59,7 @@ def pkgbase(user: User) -> PackageBase:
 
 
 @pytest.fixture
-def package(pkgbase: PackageBase) -> Package:
+def package(pkgbase: PackageBase) -> Generator[Package]:
     with db.begin():
         package = db.create(
             Package, PackageBase=pkgbase, Name=pkgbase.Name, Version="1.0"

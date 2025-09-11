@@ -1,5 +1,6 @@
 import re
 from http import HTTPStatus
+from typing import Generator
 from unittest import mock
 
 import orjson
@@ -34,7 +35,7 @@ def client() -> TestClient:
 
 
 @pytest.fixture
-def user(db_test) -> User:
+def user(db_test) -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -48,7 +49,7 @@ def user(db_test) -> User:
 
 
 @pytest.fixture
-def user2() -> User:
+def user2() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -62,7 +63,7 @@ def user2() -> User:
 
 
 @pytest.fixture
-def user3() -> User:
+def user3() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -76,7 +77,7 @@ def user3() -> User:
 
 
 @pytest.fixture
-def packages(user: User, user2: User, user3: User) -> list[Package]:
+def packages(user: User, user2: User, user3: User) -> Generator[list[Package]]:
     output = []
 
     # Create package records used in our tests.
@@ -181,7 +182,7 @@ def packages(user: User, user2: User, user3: User) -> list[Package]:
 
 
 @pytest.fixture
-def depends(packages: list[Package]) -> list[PackageDependency]:
+def depends(packages: list[Package]) -> Generator[list[PackageDependency]]:
     output = []
 
     with db.begin():
@@ -230,7 +231,7 @@ def depends(packages: list[Package]) -> list[PackageDependency]:
 
 
 @pytest.fixture
-def relations(user: User, packages: list[Package]) -> list[PackageRelation]:
+def relations(user: User, packages: list[Package]) -> Generator[list[PackageRelation]]:
     output = []
 
     with db.begin():
@@ -275,7 +276,7 @@ def relations(user: User, packages: list[Package]) -> list[PackageRelation]:
 @pytest.fixture
 def comaintainer(
     user2: User, user3: User, packages: list[Package]
-) -> list[PackageComaintainer]:
+) -> Generator[list[PackageComaintainer]]:
     output = []
 
     with db.begin():

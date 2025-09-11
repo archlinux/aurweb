@@ -1,5 +1,6 @@
 import re
 from http import HTTPStatus
+from typing import Generator
 from unittest.mock import patch
 
 import pytest
@@ -78,7 +79,7 @@ def redis():
 
 
 @pytest.fixture
-def package(user: User) -> Package:
+def package(user: User) -> Generator[Package]:
     now = time.utcnow()
     with db.begin():
         pkgbase = db.create(

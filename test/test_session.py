@@ -1,5 +1,6 @@
 """Test our Session model."""
 
+from typing import Generator
 from unittest import mock
 
 import pytest
@@ -17,7 +18,7 @@ def setup(db_test):
 
 
 @pytest.fixture
-def user() -> User:
+def user() -> Generator[User]:
     with db.begin():
         user = db.create(
             User,
@@ -31,7 +32,7 @@ def user() -> User:
 
 
 @pytest.fixture
-def session(user: User) -> Session:
+def session(user: User) -> Generator[Session]:
     with db.begin():
         session = db.create(
             Session, User=user, SessionID="testSession", LastUpdateTS=time.utcnow()
