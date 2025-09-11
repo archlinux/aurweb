@@ -92,7 +92,7 @@ def test_login_suspended(client: TestClient, user: User):
     assert errors[0].text.strip() == "Account Suspended"
 
 
-def test_login_email(client: TestClient, user: user):
+def test_login_email(client: TestClient, user: User):
     post_data = {"user": user.Email, "passwd": "testPassword", "next": "/"}
 
     with client as request:
