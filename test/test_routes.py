@@ -130,6 +130,7 @@ def test_nonce_csp(client: TestClient):
     data = response.headers.get("Content-Security-Policy")
     nonce = next(field for field in data.split("; ") if "nonce" in field)
     match = re.match(r"^script-src .*'nonce-([a-fA-F0-9]{8})' .*$", nonce)
+    assert match is not None, "script without a nonce"
     nonce = match.group(1)
     assert nonce is not None and len(nonce) == 8
 
