@@ -15,7 +15,7 @@ def get_captcha_salts():
     count = query(func.count(User.ID)).scalar()
 
     salts = []
-    for i in range(0, 6):
+    for i in range(6):
         salts.append(f"aurweb-{count - i}")
     return salts
 

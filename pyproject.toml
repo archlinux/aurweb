@@ -9,6 +9,7 @@ select = [
     "F",       # pyflakes
     "G",       # flake8-logging-format
     "I",       # isort
+    "PIE",     # flake8-pie
     "RSE",     # flake8-raise
     "UP032",   # f-string
     "W",       # warnings (mostly whitespace)

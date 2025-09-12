@@ -408,7 +408,7 @@ for p in list(seen_pkgs.keys()):
     # create random comments for this package
     #
     num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
-    for i in range(0, num_comments):
+    for i in range(num_comments):
         now = NOW + random.randrange(400, 86400 * 3)
         s = (
             "INSERT INTO PackageComments (PackageBaseID, UsersID,"
@@ -456,7 +456,7 @@ log.debug("Creating statements for package depends/sources.")
 seen_pkgs_keys = list(seen_pkgs.keys())
 for p in seen_pkgs_keys:
     num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
-    for i in range(0, num_deps):
+    for i in range(num_deps):
         # random probability if its an AUR or official package
         official = random.random() < OFFICIAL_PACKAGE_PROBABILITY
         none_existing = random.random() < NONE_EXISTING_PACKAGE_PROBABILITY
@@ -480,7 +480,7 @@ for p in seen_pkgs_keys:
         out.write(s)
 
     num_rels = random.randrange(PKG_RELS[0], PKG_RELS[1])
-    for i in range(0, num_rels):
+    for i in range(num_rels):
         # make aur packages provide official packages
         official = random.random() < OFFICIAL_PACKAGE_PROBABILITY
         reltype = random.randrange(1, 4)
@@ -513,7 +513,7 @@ for p in seen_pkgs_keys:
 #
 log.debug("Creating SQL statements for package maintainer proposals.")
 count = 0
-for t in range(0, OPEN_PROPOSALS + CLOSE_PROPOSALS):
+for t in range(OPEN_PROPOSALS + CLOSE_PROPOSALS):
     now = int(time.time())
     if count < CLOSE_PROPOSALS:
         start = now - random.randrange(3600 * 24 * 7, 3600 * 24 * 21)
