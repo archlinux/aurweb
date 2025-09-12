@@ -301,7 +301,7 @@ def validate_metadata(metadata, commit):  # noqa: C901
                 )
 
         for field in ("install", "changelog"):
-            if field in pkginfo and not pkginfo[field] in commit.tree:
+            if field in pkginfo and pkginfo[field] not in commit.tree:
                 die_commit(
                     "missing {:s} file: {:s}".format(field, pkginfo[field]),
                     str(commit.id),
