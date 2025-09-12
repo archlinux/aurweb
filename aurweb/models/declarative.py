@@ -9,7 +9,7 @@ def to_dict(model):
     return {c.name: getattr(model, c.name) for c in model.__table__.columns}
 
 
-def to_json(model, indent: int = None):
+def to_json(model, indent: int | None = None):
     return json.dumps(
         {k: util.jsonify(v) for k, v in to_dict(model).items()}, indent=indent
     )

@@ -16,7 +16,7 @@ from aurweb.templates import make_context as _make_context
 
 
 def make_context(
-    request: Request, pkgbase: PackageBase, context: dict[str, Any] = None
+    request: Request, pkgbase: PackageBase, context: dict[str, Any] | None = None
 ) -> dict[str, Any]:
     """Make a basic context for package or pkgbase.
 

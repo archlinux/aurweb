@@ -102,7 +102,7 @@ class RPC:
         "comaintainers": "c",
     }
 
-    def __init__(self, version: int = 0, type: str = None) -> None:
+    def __init__(self, version: int = 0, type: str | None = None) -> None:
         self.version = version
         self.type = RPC.TYPE_ALIASES.get(type, type)
 

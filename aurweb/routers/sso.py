@@ -29,7 +29,7 @@ oauth.register(
 
 
 @router.get("/sso/login")
-async def login(request: Request, redirect: str = None):
+async def login(request: Request, redirect: str | None = None):
     """
     Redirect the user to the SSO provider’s login page.
 
@@ -106,7 +106,7 @@ def is_aur_url(url):
 
 @router.get("/sso/authenticate")
 async def authenticate(
-    request: Request, redirect: str = None, conn=Depends(aurweb.db.connect)
+    request: Request, redirect: str | None = None, conn=Depends(aurweb.db.connect)
 ):
     """
     Receive an OpenID Connect ID token, validate it, then process it to create

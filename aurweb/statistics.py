@@ -51,7 +51,7 @@ class Statistics:
     one_hour = 3600
     year = seven_days * 52
 
-    def __init__(self, cache_expire: int = None) -> None:
+    def __init__(self, cache_expire: int | None = None) -> None:
         self.expiry_time = cache_expire
         self.now = time.utcnow()
         self.seven_days_ago = self.now - self.seven_days

@@ -272,7 +272,7 @@ def setup_sqlite(engine) -> None:  # pragma: no cover
 _engines = dict()
 
 
-def get_engine(dbname: str = None, echo: bool = False):
+def get_engine(dbname: str | None = None, echo: bool = False):
     """
     Return the SQLAlchemy engine for `dbname`.
 

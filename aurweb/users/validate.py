@@ -27,14 +27,20 @@ def invalid_fields(E: str = str(), U: str = str(), **kwargs) -> None:
 
 
 def invalid_suspend_permission(
-    request: Request = None, user: models.User = None, S: str = "False", **kwargs
+    request: Request | None = None,
+    user: models.User | None = None,
+    S: str = "False",
+    **kwargs,
 ) -> None:
     if not request.user.is_elevated() and strtobool(S) != bool(user.Suspended):
         raise ValidationError(["You do not have permission to suspend accounts."])
 
 
 def invalid_username(
-    request: Request = None, U: str = str(), _: l10n.Translator = None, **kwargs
+    request: Request | None = None,
+    U: str = str(),
+    _: l10n.Translator | None = None,
+    **kwargs,
 ) -> None:
     if not util.valid_username(U):
         username_min_len = config.getint("options", "username_min_len")
@@ -53,7 +59,7 @@ def invalid_username(
 
 
 def invalid_password(
-    P: str = str(), C: str = str(), _: l10n.Translator = None, **kwargs
+    P: str = str(), C: str = str(), _: l10n.Translator | None = None, **kwargs
 ) -> None:
     if P:
         if not util.valid_password(P):
@@ -67,7 +73,7 @@ def invalid_password(
             raise ValidationError(["Password fields do not match."])
 
 
-def is_banned(request: Request = None, **kwargs) -> None:
+def is_banned(request: Request | None = None, **kwargs) -> None:
     host = util.get_client_ip(request)
     exists = db.query(models.Ban, models.Ban.IPAddress == host).exists()
     if db.query(exists).scalar():
@@ -81,7 +87,7 @@ def is_banned(request: Request = None, **kwargs) -> None:
 
 
 def invalid_user_password(
-    request: Request = None, passwd: str = str(), **kwargs
+    request: Request | None = None, passwd: str = str(), **kwargs
 ) -> None:
     if request.user.is_authenticated():
         if not request.user.valid_password(passwd):
@@ -118,7 +124,10 @@ def invalid_pgp_key(K: str = str(), **kwargs) -> None:
 
 
 def invalid_ssh_pubkey(
-    PK: str = str(), user: models.User = None, _: l10n.Translator = None, **kwargs
+    PK: str = str(),
+    user: models.User | None = None,
+    _: l10n.Translator | None = None,
+    **kwargs,
 ) -> None:
     if not PK:
         return
@@ -161,7 +170,10 @@ def invalid_timezone(TZ: str = str(), **kwargs) -> None:
 
 
 def username_in_use(
-    U: str = str(), user: models.User = None, _: l10n.Translator = None, **kwargs
+    U: str = str(),
+    user: models.User | None = None,
+    _: l10n.Translator | None = None,
+    **kwargs,
 ) -> None:
     exists = (
         db.query(models.User)
@@ -179,7 +191,10 @@ def username_in_use(
 
 
 def email_in_use(
-    E: str = str(), user: models.User = None, _: l10n.Translator = None, **kwargs
+    E: str = str(),
+    user: models.User | None = None,
+    _: l10n.Translator | None = None,
+    **kwargs,
 ) -> None:
     exists = (
         db.query(models.User)
@@ -197,10 +212,10 @@ def email_in_use(
 
 
 def invalid_account_type(
-    T: int = None,
-    request: Request = None,
-    user: models.User = None,
-    _: l10n.Translator = None,
+    T: int | None = None,
+    request: Request | None = None,
+    user: models.User | None = None,
+    _: l10n.Translator | None = None,
     **kwargs,
 ) -> None:
     if T is not None and (T := int(T)) != user.AccountTypeID:
@@ -231,7 +246,9 @@ def invalid_account_type(
         )
 
 
-def invalid_captcha(captcha_salt: str = None, captcha: str = None, **kwargs) -> None:
+def invalid_captcha(
+    captcha_salt: str | None = None, captcha: str | None = None, **kwargs
+) -> None:
     if captcha_salt and captcha_salt not in get_captcha_salts():
         raise ValidationError(["This CAPTCHA has expired. Please try again."])
 

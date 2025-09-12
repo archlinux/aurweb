@@ -113,7 +113,7 @@ def test_commit_hash():
     long_commit_hash = commit_hash + "1234567"
 
     def config_get_with_fallback(
-        section: str, option: str, fallback: str = None
+        section: str, option: str, fallback: str | None = None
     ) -> str:
         if section == "devel" and option == "commit_hash":
             return long_commit_hash

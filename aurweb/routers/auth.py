@@ -15,7 +15,7 @@ from aurweb.templates import make_variable_context, render_template
 router = APIRouter()
 
 
-async def login_template(request: Request, next: str, errors: list = None):
+async def login_template(request: Request, next: str, errors: list | None = None):
     """Provide login-specific template context to render_template."""
     context = await make_variable_context(request, "Login", next)
     context["errors"] = errors

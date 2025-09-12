@@ -24,7 +24,7 @@ class PackageSearch:
     # A constant mapping of short to full name sort orderings.
     FULL_SORT_ORDER = {"d": "desc", "a": "asc"}
 
-    def __init__(self, user: models.User = None):
+    def __init__(self, user: models.User | None = None):
         self.query = db.query(Package).join(PackageBase)
 
         self.user = user

@@ -41,7 +41,7 @@ async def requests(  # noqa: C901
     filter_accepted: bool = False,
     filter_rejected: bool = False,
     filter_maintainer_requests: bool = False,
-    filter_pkg_name: str = None,
+    filter_pkg_name: str | None = None,
 ):
     context = make_context(request, "Requests")
 

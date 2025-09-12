@@ -64,7 +64,7 @@ def register_function(name: str) -> Callable:
     return decorator
 
 
-def make_context(request: Request, title: str, next: str = None):
+def make_context(request: Request, title: str, next: str | None = None):
     """Create a context for a jinja2 TemplateResponse."""
     import aurweb.auth.creds
 
@@ -97,7 +97,7 @@ def make_context(request: Request, title: str, next: str = None):
     }
 
 
-async def make_variable_context(request: Request, title: str, next: str = None):
+async def make_variable_context(request: Request, title: str, next: str | None = None):
     """Make a context with variables provided by the user
     (query params via GET or form data via POST)."""
     context = make_context(request, title, next)

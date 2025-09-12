@@ -24,7 +24,7 @@ def simple(
     ON: bool = False,
     HDC: bool = False,
     S: bool = False,
-    user: models.User = None,
+    user: models.User | None = None,
     **kwargs,
 ) -> None:
     now = time.utcnow()
@@ -48,8 +48,8 @@ def simple(
 @db.retry_deadlock
 def language(
     L: str = str(),
-    request: Request = None,
-    user: models.User = None,
+    request: Request | None = None,
+    user: models.User | None = None,
     context: dict[str, Any] = {},
     **kwargs,
 ) -> None:
@@ -62,8 +62,8 @@ def language(
 @db.retry_deadlock
 def timezone(
     TZ: str = str(),
-    request: Request = None,
-    user: models.User = None,
+    request: Request | None = None,
+    user: models.User | None = None,
     context: dict[str, Any] = {},
     **kwargs,
 ) -> None:
@@ -74,7 +74,7 @@ def timezone(
 
 
 @db.retry_deadlock
-def ssh_pubkey(PK: str = str(), user: models.User = None, **kwargs) -> None:
+def ssh_pubkey(PK: str = str(), user: models.User | None = None, **kwargs) -> None:
     if not PK:
         # If no pubkey is provided, wipe out any pubkeys the user
         # has and return out early.
@@ -108,7 +108,9 @@ def ssh_pubkey(PK: str = str(), user: models.User = None, **kwargs) -> None:
 
 
 @db.retry_deadlock
-def account_type(T: int = None, user: models.User = None, **kwargs) -> None:
+def account_type(
+    T: int | None = None, user: models.User | None = None, **kwargs
+) -> None:
     if T is not None and (T := int(T)) != user.AccountTypeID:
         with db.begin():
             user.AccountTypeID = T
@@ -117,8 +119,8 @@ def account_type(T: int = None, user: models.User = None, **kwargs) -> None:
 @db.retry_deadlock
 def password(
     P: str = str(),
-    request: Request = None,
-    user: models.User = None,
+    request: Request | None = None,
+    user: models.User | None = None,
     context: dict[str, Any] = {},
     **kwargs,
 ) -> None:
@@ -139,8 +141,8 @@ def password(
 @db.retry_deadlock
 def suspend(
     S: bool = False,
-    request: Request = None,
-    user: models.User = None,
+    request: Request | None = None,
+    user: models.User | None = None,
     context: dict[str, Any] = {},
     **kwargs,
 ) -> None:

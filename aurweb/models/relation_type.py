@@ -15,5 +15,5 @@ class RelationType(Base):
     __tablename__ = __table__.name
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
-    def __init__(self, Name: str = None):
+    def __init__(self, Name: str | None = None):
         self.Name = Name

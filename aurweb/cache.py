@@ -10,7 +10,7 @@ from aurweb.prometheus import SEARCH_REQUESTS
 _redis = redis_connection()
 
 
-def lambda_cache(key: str, value: Callable[[], Any], expire: int = None) -> list:
+def lambda_cache(key: str, value: Callable[[], Any], expire: int | None = None) -> list:
     """Store and retrieve lambda results via redis cache.
 
     :param key: Redis key
@@ -26,7 +26,7 @@ def lambda_cache(key: str, value: Callable[[], Any], expire: int = None) -> list
     return result
 
 
-def db_count_cache(key: str, query: orm.Query, expire: int = None) -> int:
+def db_count_cache(key: str, query: orm.Query, expire: int | None = None) -> int:
     """Store and retrieve a query.count() via redis cache.
 
     :param key: Redis key
@@ -42,7 +42,7 @@ def db_count_cache(key: str, query: orm.Query, expire: int = None) -> int:
     return int(result)
 
 
-def db_query_cache(key: str, query: orm.Query, expire: int = None) -> list:
+def db_query_cache(key: str, query: orm.Query, expire: int | None = None) -> list:
     """Store and retrieve query results via redis cache.
 
     :param key: Redis key
