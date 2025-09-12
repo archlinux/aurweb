@@ -4,6 +4,7 @@ line-length = 88
 
 [tool.ruff.lint]
 select = [
+    "C90",     # mccabe
     "E",       # pycodestyle
     "F",       # pyflakes
     "I",       # isort

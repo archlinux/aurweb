@@ -64,7 +64,7 @@ class Statistics:
         )
         self.request_query = db.query(PackageRequest)
 
-    def get_count(self, counter: str) -> int:
+    def get_count(self, counter: str) -> int:  # noqa: C901
         query = None
         match counter:
             # Packages
