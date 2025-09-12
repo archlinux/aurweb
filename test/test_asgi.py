@@ -118,7 +118,7 @@ async def test_asgi_app_disabled_metrics(caplog: pytest.LogCaptureFixture):
         await aurweb.asgi.app_startup()
 
     expected = (
-        "$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics " "endpoint is disabled."
+        "$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics endpoint is disabled."
     )
     assert expected in caplog.text
 

@@ -32,8 +32,7 @@ class Session(Base):
         if not db.query(user_exists).scalar():
             raise IntegrityError(
                 statement=(
-                    "Foreign key UsersID cannot be null and "
-                    "must be a valid user's ID."
+                    "Foreign key UsersID cannot be null and must be a valid user's ID."
                 ),
                 orig="Sessions.UsersID",
                 params=("NULL"),

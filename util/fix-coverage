@@ -6,6 +6,7 @@ in another directory. This is particularly useful for fixing
 Copyright (C) 2021 aurweb Development
 All Rights Reserved.
 """
+
 import os
 import re
 import sqlite3

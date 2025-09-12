@@ -84,7 +84,7 @@ def save_metadata(metadata, conn, user):  # noqa: C901
     # Obtain package base ID and previous maintainer.
     pkgbase = metadata["pkgbase"]
     cur = conn.execute(
-        "SELECT ID, MaintainerUID FROM PackageBases " "WHERE Name = ?", [pkgbase]
+        "SELECT ID, MaintainerUID FROM PackageBases WHERE Name = ?", [pkgbase]
     )
     (pkgbase_id, maintainer_uid) = cur.fetchone()
     was_orphan = not maintainer_uid
@@ -214,7 +214,7 @@ def save_metadata(metadata, conn, user):  # noqa: C901
                     conn.commit()
                     groupid = cur.lastrowid
                 conn.execute(
-                    "INSERT INTO PackageGroups (PackageID, " "GroupID) VALUES (?, ?)",
+                    "INSERT INTO PackageGroups (PackageID, GroupID) VALUES (?, ?)",
                     [pkgid, groupid],
                 )
 
@@ -371,7 +371,7 @@ def main():  # noqa: C901
     (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
     if errors:
         sys.stderr.write(
-            "error: The following errors occurred " "when parsing .SRCINFO in commit\n"
+            "error: The following errors occurred when parsing .SRCINFO in commit\n"
         )
         sys.stderr.write("error: {:s}:\n".format(str(head_commit.id)))
         for error in errors:
@@ -471,7 +471,7 @@ def main():  # noqa: C901
         srcinfo_id_old = repo[sha1_old].tree[".SRCINFO"].id
         srcinfo_id_new = repo[sha1_new].tree[".SRCINFO"].id
         if srcinfo_id_old == srcinfo_id_new:
-            warn(".SRCINFO unchanged. " "The package database will not be updated!")
+            warn(".SRCINFO unchanged. The package database will not be updated!")
 
     # Ensure that the package base name matches the repository name.
     metadata_pkgbase = metadata["pkgbase"]

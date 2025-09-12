@@ -360,7 +360,7 @@ class FlagNotification(Notification):
 
     def get_body(self, lang):
         body = aurweb.l10n.translator.translate(
-            "Your package {pkgbase} [1] has been flagged out-of-date by " "{user} [2]:",
+            "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:",
             lang,
         ).format(pkgbase=self._pkgbase, user=self._user)
         body += "\n\n" + self._text
@@ -430,7 +430,7 @@ class AdoptNotification(OwnershipEventNotification):
 class DisownNotification(OwnershipEventNotification):
     def get_body(self, lang):
         return aurweb.l10n.translator.translate(
-            "The package {pkgbase} [1] was disowned by {user} " "[2].", lang
+            "The package {pkgbase} [1] was disowned by {user} [2].", lang
         ).format(pkgbase=self._pkgbase, user=self._user)
 
 
@@ -474,7 +474,7 @@ class ComaintainerAddNotification(ComaintainershipEventNotification):
 class ComaintainerRemoveNotification(ComaintainershipEventNotification):
     def get_body(self, lang):
         return aurweb.l10n.translator.translate(
-            "You were removed from the co-maintainer list of {pkgbase} " "[1].", lang
+            "You were removed from the co-maintainer list of {pkgbase} [1].", lang
         ).format(pkgbase=self._pkgbase)
 
 

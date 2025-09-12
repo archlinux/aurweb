@@ -1575,8 +1575,7 @@ def test_pkgbase_merge_post_unconfirmed(
     assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
     errors = get_errors(resp.text)
     expected = (
-        "The selected packages have not been deleted, "
-        "check the confirmation checkbox."
+        "The selected packages have not been deleted, check the confirmation checkbox."
     )
     assert errors[0].text.strip() == expected
 

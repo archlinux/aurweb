@@ -60,7 +60,7 @@ def test_spawn_generate_nginx_config():
     fastapi_address = aurweb.config.get("fastapi", "bind_address")
     fastapi_host = fastapi_address.split(":")[0]
     expected_content = [
-        f'listen {fastapi_host}:{TEST_ENVIRONMENT.get("FASTAPI_NGINX_PORT")}',
+        f"listen {fastapi_host}:{TEST_ENVIRONMENT.get('FASTAPI_NGINX_PORT')}",
         f"proxy_pass http://{fastapi_address}",
     ]
     for expected in expected_content:

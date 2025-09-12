@@ -78,9 +78,9 @@ class AlpmDatabase:
         self.clean()
         cmdline = ["bash", "-c", "bsdtar -czvf ../test.db *"]
         proc = subprocess.run(cmdline, cwd=self.repopath)
-        assert (
-            proc.returncode == 0
-        ), f"Bad return code while creating alpm database: {proc.returncode}"
+        assert proc.returncode == 0, (
+            f"Bad return code while creating alpm database: {proc.returncode}"
+        )
 
         # Print out the md5 hash value of the new test.db.
         test_db = os.path.join(self.remote, "test.db")

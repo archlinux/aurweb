@@ -153,7 +153,7 @@ async def pkgbase_flag_post(
         context = templates.make_context(request, "Flag Package Out-Of-Date")
         context["pkgbase"] = pkgbase
         context["errors"] = [
-            "The selected packages have not been flagged, " "please enter a comment."
+            "The selected packages have not been flagged, please enter a comment."
         ]
         return render_template(
             request, "pkgbase/flag.html", context, status_code=HTTPStatus.BAD_REQUEST
@@ -712,7 +712,7 @@ async def pkgbase_comaintainers_post(
     users_to_rm = records.difference(users)
     pkgbaseutil.remove_comaintainers(pkgbase, users_to_rm)
     logger.debug(
-        f"{request.user} removed comaintainers from " f"{pkgbase.Name}: {users_to_rm}"
+        f"{request.user} removed comaintainers from {pkgbase.Name}: {users_to_rm}"
     )
 
     users_to_add = users.difference(records)
@@ -725,7 +725,7 @@ async def pkgbase_comaintainers_post(
         return render_template(request, "pkgbase/comaintainers.html", context)
 
     logger.debug(
-        f"{request.user} added comaintainers to " f"{pkgbase.Name}: {users_to_add}"
+        f"{request.user} added comaintainers to {pkgbase.Name}: {users_to_add}"
     )
 
     return RedirectResponse(

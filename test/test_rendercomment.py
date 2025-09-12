@@ -102,7 +102,7 @@ def test_rendercomment_main(user: User, pkgbase: PackageBase):
 def test_markdown_conversion(user: User, pkgbase: PackageBase):
     text = "*Hello* [world](https://aur.archlinux.org)!"
     comment = create_comment(user, pkgbase, text)
-    expected = "<p><em>Hello</em> " '<a href="https://aur.archlinux.org">world</a>!</p>'
+    expected = '<p><em>Hello</em> <a href="https://aur.archlinux.org">world</a>!</p>'
     assert comment.RenderedComment == expected
 
 

@@ -452,7 +452,7 @@ Request #{pkgreq.ID} has been rejected by {user2.Username} [1].
     email = Email(3).parse()
     assert email.headers.get("To") == aur_request_ml
     assert email.headers.get("Cc") == ", ".join([user.Email, user2.Email])
-    expected = f"[PRQ#{pkgreq.ID}] Orphan Request for " f"{pkgbase.Name} Accepted"
+    expected = f"[PRQ#{pkgreq.ID}] Orphan Request for {pkgbase.Name} Accepted"
     assert email.headers.get("Subject") == expected
 
     expected = (

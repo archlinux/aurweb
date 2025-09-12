@@ -41,9 +41,7 @@ def get_captcha_answer(token):
  '--'
                        This program may be freely redistributed under
                        the terms of the GNU General Public License.
-""" % tuple(
-        [token] * 10
-    )
+""" % tuple([token] * 10)
     return hashlib.md5((text + "\n").encode()).hexdigest()[:6]
 
 

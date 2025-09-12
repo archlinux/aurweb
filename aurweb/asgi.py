@@ -98,8 +98,7 @@ async def app_startup():
 
     if not os.environ.get("PROMETHEUS_MULTIPROC_DIR", None):
         logger.warning(
-            "$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics "
-            "endpoint is disabled."
+            "$PROMETHEUS_MULTIPROC_DIR is not set, the /metrics endpoint is disabled."
         )
 
     app.mount("/static", StaticFiles(directory="static"), name="static_files")
@@ -165,8 +164,7 @@ async def internal_server_error(request: Request, exc: Exception) -> Response:
                 "**This issue is confidential** and should be sanitized "
                 "before sharing with users or developers. Please ensure "
                 "you've completed the following tasks:",
-                "- [ ] I have removed any sensitive data and "
-                "the description history.",
+                "- [ ] I have removed any sensitive data and the description history.",
                 "",
                 "Exception Details",
                 "-----------------",

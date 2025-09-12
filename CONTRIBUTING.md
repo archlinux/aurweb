@@ -31,7 +31,7 @@ Test patches that increase coverage in the codebase are always welcome.
 
 ### Coding Style
 
-We use `autoflake`, `isort`, `black` and `flake8` to enforce coding style in a
+We use `autoflake`, `isort`, `ruff` and `flake8` to enforce coding style in a
 PEP-8 compliant way. These tools run in GitLab CI using `pre-commit` to verify
 that any pushed code changes comply with this.
 
@@ -45,7 +45,7 @@ example plugins:
 
 - [tenfyzhong/autoflake.vim](https://github.com/tenfyzhong/autoflake.vim)
 - [fisadev/vim-isort](https://github.com/fisadev/vim-isort)
-- [psf/black](https://github.com/psf/black)
+- [astral-sh/ruff](https://github.com/astral-sh/ruff)
 - [nvie/vim-flake8](https://github.com/nvie/vim-flake8)
 - [prabirshrestha/vim-lsp](https://github.com/prabirshrestha/vim-lsp)
 - [dense-analysis/ale](https://github.com/dense-analysis/ale)
