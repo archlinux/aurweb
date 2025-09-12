@@ -455,8 +455,9 @@ async def packages_delete(
 
     # Log out the fact that this happened for accountability.
     logger.info(
-        f"Privileged user '{request.user.Username}' deleted the "
-        f"following package bases: {str(deleted_bases)}."
+        "Privileged user '%s' deleted the following package bases: %s.",
+        request.user.Username,
+        deleted_bases,
     )
 
     util.apply_all(notifs, lambda n: n.send())

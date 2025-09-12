@@ -83,7 +83,7 @@ def test_rss(client, user, packages):
 
     for i, item in enumerate(items):
         title = next(iter(item.xpath("./title")))
-        logger.debug(f"title: '{title.text}' vs name: '{packages[i].Name}'")
+        logger.debug("title: '%s' vs name: '%s'", title.text, packages[i].Name)
         assert title.text == packages[i].Name
 
 
@@ -107,7 +107,7 @@ def test_rss_modified(client, user, packages):
 
     for i, item in enumerate(items):
         title = next(iter(item.xpath("./title")))
-        logger.debug(f"title: '{title.text}' vs name: '{packages[i].Name}'")
+        logger.debug("title: '%s' vs name: '%s'", title.text, packages[i].Name)
         assert title.text == packages[i].Name
 
 

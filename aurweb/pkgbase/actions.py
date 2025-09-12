@@ -187,8 +187,10 @@ def pkgbase_merge_instance(
 
     # Log this out for accountability purposes.
     logger.info(
-        f"Package Maintainer '{request.user.Username}' merged "
-        f"'{pkgbasename}' into '{target.Name}'."
+        "Package Maintainer '%s' merged '%s' into '%s'.",
+        request.user.Username,
+        pkgbasename,
+        target.Name,
     )
 
     # Send notifications.

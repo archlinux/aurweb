@@ -166,7 +166,7 @@ async def error_or_result(next: Callable, *args, **kwargs) -> fastapi.Response:
     try:
         response = await next(*args, **kwargs)
     except RuntimeError as exc:
-        logger.error(f"RuntimeError: {exc}")
+        logger.error("RuntimeError: %s", exc)
         status_code = HTTPStatus.INTERNAL_SERVER_ERROR
         return JSONResponse({"error": str(exc)}, status_code=status_code)
     return response

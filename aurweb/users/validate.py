@@ -240,9 +240,10 @@ def invalid_account_type(
             raise ValidationError([error])
 
         logger.debug(
-            f"Package Maintainer '{request.user.Username}' has "
-            f"modified '{user.Username}' account's type to"
-            f" {name}."
+            "Package Maintainer '%s' has modified '%s' account's type to %s.",
+            request.user.Username,
+            user.Username,
+            name,
         )
 
 

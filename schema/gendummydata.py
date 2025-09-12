@@ -358,12 +358,12 @@ for u in user_keys:
     s = s % (seen_users[u], account_type, u, u, h.hexdigest(), salt)
     out.write(s)
 
-log.debug("Number of developers: %d" % len(developers))
-log.debug("Number of package maintainers: %d" % len(packagemaintainers))
+log.debug("Number of developers: %d", len(developers))
+log.debug("Number of package maintainers: %d", len(packagemaintainers))
 log.debug(
-    "Number of users: %d" % (MAX_USERS - len(developers) - len(packagemaintainers))
+    "Number of users: %d", (MAX_USERS - len(developers) - len(packagemaintainers))
 )
-log.debug("Number of packages: %d" % MAX_PKGS)
+log.debug("Number of packages: %d", MAX_PKGS)
 
 log.debug("Gathering text from fortune file...")
 fp = open(FORTUNE_FILE, "r", encoding="utf-8")

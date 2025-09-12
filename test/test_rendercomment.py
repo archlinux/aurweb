@@ -159,8 +159,8 @@ Visit <a href="https://www.archlinux.org/">Arch Linux</a>.</p>\
 
 def test_git_commit_link(git: GitRepository, user: User, package: Package):
     commit_hash = git.commit(package, "Initial commit.")
-    logger.info(f"Created commit: {commit_hash}")
-    logger.info(f"Short hash: {commit_hash[:7]}")
+    logger.info("Created commit: %s", commit_hash)
+    logger.info("Short hash: %s", commit_hash[:7])
 
     text = f"""\
 {commit_hash}

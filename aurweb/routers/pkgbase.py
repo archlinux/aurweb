@@ -713,7 +713,7 @@ async def pkgbase_comaintainers_post(
     users_to_rm = records.difference(users)
     pkgbaseutil.remove_comaintainers(pkgbase, users_to_rm)
     logger.debug(
-        f"{request.user} removed comaintainers from {pkgbase.Name}: {users_to_rm}"
+        "%s removed comaintainers from %s: %s", request.user, pkgbase.Name, users_to_rm
     )
 
     users_to_add = users.difference(records)
@@ -726,7 +726,7 @@ async def pkgbase_comaintainers_post(
         return render_template(request, "pkgbase/comaintainers.html", context)
 
     logger.debug(
-        f"{request.user} added comaintainers to {pkgbase.Name}: {users_to_add}"
+        "%s added comaintainers to %s: %s", request.user, pkgbase.Name, users_to_add
     )
 
     return RedirectResponse(
@@ -776,7 +776,7 @@ async def pkgbase_request_post(
     try:
         validate.request(pkgbase, type, comments, merge_into, context)
     except ValidationError as exc:
-        logger.error(f"Request Validation Error: {str(exc.data)}")
+        logger.error("Request Validation Error: %s", exc.data)
         context["errors"] = exc.data
         return render_template(request, "pkgbase/request.html", context)
 
@@ -824,12 +824,12 @@ async def pkgbase_request_post(
             request.user.ID, pkgreq.ID, pkgreq.status_display()
         )
         notif.send()
-        logger.debug(f"New request #{pkgreq.ID} is marked for auto-orphan.")
+        logger.debug("New request #%s is marked for auto-orphan.", pkgreq.ID)
     elif type == "deletion" and is_maintainer and outdated:
         # This request should be auto-accepted.
         notifs = actions.pkgbase_delete_instance(request, pkgbase, comments=comments)
         util.apply_all(notifs, lambda n: n.send())
-        logger.debug(f"New request #{pkgreq.ID} is marked for auto-deletion.")
+        logger.debug("New request #%s is marked for auto-deletion.", pkgreq.ID)
 
     # Redirect the submitting user to /packages.
     return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)

@@ -55,13 +55,13 @@ class AlpmDatabase:
 
     def remove(self, pkgname: str):
         files = os.listdir(self.repopath)
-        logger.info(f"Files: {files}")
+        logger.info("Files: %s", files)
         expr = "^" + pkgname + r"-[0-9.]+-1$"
-        logger.info(f"Expression: {expr}")
+        logger.info("Expression: %s", expr)
         to_delete = filter(lambda e: re.match(expr, e), files)
 
         for target in to_delete:
-            logger.info(f"Deleting {target}")
+            logger.info("Deleting %s", target)
             path = os.path.join(self.repopath, target)
             shutil.rmtree(path)
 
@@ -85,4 +85,4 @@ class AlpmDatabase:
         # Print out the md5 hash value of the new test.db.
         test_db = os.path.join(self.remote, "test.db")
         db_hash = util.file_hash(test_db, hashlib.md5)
-        logger.debug(f"{test_db}: {db_hash}")
+        logger.debug("%s: %s", test_db, db_hash)

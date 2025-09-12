@@ -10,7 +10,7 @@ logger = aur_logging.get_logger(__name__)
 
 
 def default_on_create(path):
-    logger.info(f"Filelock at {path} acquired.")
+    logger.info("Filelock at %s acquired.", path)
 
 
 class FileLock:

@@ -41,7 +41,7 @@ def run_migrations_offline():
 
     """
     dbname = aurweb.db.name()
-    logging.info(f"Performing offline migration on database '{dbname}'.")
+    logging.info("Performing offline migration on database '%s'.", dbname)
     context.configure(
         url=aurweb.db.get_sqlalchemy_url(),
         target_metadata=target_metadata,
@@ -61,7 +61,7 @@ def run_migrations_online():
 
     """
     dbname = aurweb.db.name()
-    logging.info(f"Performing online migration on database '{dbname}'.")
+    logging.info("Performing online migration on database '%s'.", dbname)
     connectable = sqlalchemy.create_engine(
         aurweb.db.get_sqlalchemy_url(),
         poolclass=sqlalchemy.pool.NullPool,

@@ -112,6 +112,6 @@ def check_ratelimit(request: Request):
     limit = config.getint("ratelimit", "request_limit")
     exceeded_ratelimit = requests > limit
     if exceeded_ratelimit:
-        logger.debug(f"{host} has exceeded the ratelimit.")
+        logger.debug("%s has exceeded the ratelimit.", host)
 
     return exceeded_ratelimit

@@ -194,7 +194,7 @@ async def internal_server_error(request: Request, exc: Exception) -> Response:
             logger.info(endp)
             resp = requests.post(endp, json=data, headers=headers)
             if resp.status_code != http.HTTPStatus.CREATED:
-                logger.error(f"Unable to report exception to {repo}: {resp.text}")
+                logger.error("Unable to report exception to %s: %s", repo, resp.text)
         else:
             logger.warning(
                 "Unable to report an exception found due to "
@@ -202,7 +202,7 @@ async def internal_server_error(request: Request, exc: Exception) -> Response:
             )
 
         # Log details about the exception traceback.
-        logger.error(f"FATAL[{tb_id}]: An unexpected exception has occurred.")
+        logger.error("FATAL[%s]: An unexpected exception has occurred.", tb_id)
         logger.error(tb)
     else:
         retval = retval.decode()

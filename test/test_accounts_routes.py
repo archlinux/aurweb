@@ -1536,8 +1536,7 @@ def test_post_accounts(client: TestClient, user: User, pm_user: User):
             assert not edit
 
         logger.debug(
-            'Checked user row {"id": %s, "username": "%s"}.'
-            % (_user.ID, _user.Username)
+            'Checked user row {"id": %s, "username": "%s"}.', _user.ID, _user.Username
         )
 
 

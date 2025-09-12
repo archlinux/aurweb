@@ -200,7 +200,7 @@ def _main():
     USERS = aurweb.config.get("mkpkglists", "userfile")
 
     bench = Benchmark()
-    logger.warning(f"{sys.argv[0]} is deprecated and will be soon be removed")
+    logger.warning("%s is deprecated and will be soon be removed", sys.argv[0])
     logger.info("Started re-creating archives, wait a while...")
 
     Submitter = orm.aliased(User)
@@ -330,7 +330,7 @@ def _main():
         shutil.move(src, dst)
 
     seconds = filters.number_format(bench.end(), 4)
-    logger.info(f"Completed in {seconds} seconds.")
+    logger.info("Completed in %s seconds.", seconds)
 
 
 def main():

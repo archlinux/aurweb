@@ -103,7 +103,7 @@ class GitCommitsExtension(markdown.extensions.Extension):
             processor = GitCommitsInlineProcessor(md, self._head)
             md.inlinePatterns.register(processor, "git-commits", 117)
         except pygit2.GitError:
-            logger.error(f"No git repository found for '{self._head}'.")
+            logger.error("No git repository found for '%s'.", self._head)
 
 
 class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
