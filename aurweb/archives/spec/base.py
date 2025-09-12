@@ -55,7 +55,7 @@ class SpecBase:
         `SpecBase.outputs` and `SpecBase.repos` should be populated within an
         overridden version of this function in SpecBase derivatives.
         """
-        raise NotImplementedError()
+        raise NotImplementedError
 
     def add_output(self, filename: str, git_info: GitInfo, data: bytes) -> None:
         """
