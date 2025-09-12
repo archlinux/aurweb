@@ -426,7 +426,7 @@ def test_pkgbase_comments(
 
     # Make sure we got our checkbox for enabling notifications
     root = parse_root(resp.text)
-    input = root.find('//input[@id="id_enable_notifications"]')
+    input = root.find('.//input[@id="id_enable_notifications"]')
     assert input is not None
 
     # create notification
@@ -467,7 +467,7 @@ def test_pkgbase_comments(
 
     # Since we've enabled notifications already,
     # there should be no checkbox on our page
-    input = root.find('//input[@id="id_enable_notifications"]')
+    input = root.find('.//input[@id="id_enable_notifications"]')
     assert input is None
 
     # Test the non-javascript version of comment editing by
