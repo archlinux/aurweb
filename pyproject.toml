@@ -7,6 +7,7 @@ select = [
     "E",       # pycodestyle
     "F",       # pyflakes
     "I",       # isort
+    "UP032",   # f-string
     "W",       # warnings (mostly whitespace)
 ]
 ignore = [

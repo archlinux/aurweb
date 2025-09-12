@@ -255,7 +255,7 @@ def pkgbase_disown(pkgbase, user, privileged):
     # TODO: Support disowning package bases via package request.
 
     # Scan through pending orphan requests and close them.
-    comment = "The user {:s} disowned the package.".format(user)
+    comment = f"The user {user:s} disowned the package."
     for reqid in pkgreq_by_pkgbase(pkgbase_id, "orphan"):
         pkgreq_close(reqid, user, "accepted", comment, True)
 
@@ -481,16 +481,16 @@ def bans_match(remote_addr):
 
 
 def die(msg):
-    sys.stderr.write("{:s}\n".format(msg))
+    sys.stderr.write(f"{msg:s}\n")
     exit(1)
 
 
 def die_with_help(msg):
-    die(msg + "\nTry `{:s} help` for a list of commands.".format(ssh_cmdline))
+    die(msg + f"\nTry `{ssh_cmdline:s} help` for a list of commands.")
 
 
 def warn(msg):
-    sys.stderr.write("warning: {:s}\n".format(msg))
+    sys.stderr.write(f"warning: {msg:s}\n")
 
 
 def usage(cmds):
@@ -503,7 +503,7 @@ def usage(cmds):
 
 def checkarg_atleast(cmdargv, *argdesc):
     if len(cmdargv) - 1 < len(argdesc):
-        msg = "missing {:s}".format(argdesc[len(cmdargv) - 1])
+        msg = f"missing {argdesc[len(cmdargv) - 1]:s}"
         raise aurweb.exceptions.InvalidArgumentsException(msg)
 
 
@@ -623,7 +623,7 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
         }
         usage(cmds)
     else:
-        msg = "invalid command: {:s}".format(action)
+        msg = f"invalid command: {action:s}"
         raise aurweb.exceptions.InvalidArgumentsException(msg)
 
 
@@ -646,9 +646,9 @@ def main():
     except aurweb.exceptions.BannedException:
         die("The SSH interface is disabled for your IP address.")
     except aurweb.exceptions.InvalidArgumentsException as e:
-        die_with_help("{:s}: {}".format(action, e))
+        die_with_help(f"{action:s}: {e}")
     except aurweb.exceptions.AurwebException as e:
-        die("{:s}: {}".format(action, e))
+        die(f"{action:s}: {e}")
 
 
 if __name__ == "__main__":

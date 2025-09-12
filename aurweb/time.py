@@ -36,7 +36,7 @@ def tz_offset(name: str):
     minutes = int((offset - hours) * 60)
 
     # Pad the hours and minutes by two places.
-    offset_string += "{:0>2}:{:0>2}".format(hours, minutes)
+    offset_string += f"{hours:0>2}:{minutes:0>2}"
     return offset_string
 
 

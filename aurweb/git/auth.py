@@ -11,15 +11,15 @@ import aurweb.db
 def format_command(env_vars, command, ssh_opts, ssh_key):
     environment = ""
     for key, var in env_vars.items():
-        environment += "{}={} ".format(key, shlex.quote(var))
+        environment += f"{key}={shlex.quote(var)} "
 
     command = shlex.quote(command)
-    command = "{}{}".format(environment, command)
+    command = f"{environment}{command}"
 
     # The command is being substituted into an authorized_keys line below,
     # so we need to escape the double quotes.
     command = command.replace('"', '\\"')
-    msg = 'command="{}",{} {}'.format(command, ssh_opts, ssh_key)
+    msg = f'command="{command}",{ssh_opts} {ssh_key}'
     return msg
 
 

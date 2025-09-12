@@ -27,9 +27,9 @@ def size_humanize(num):
     for unit in ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB"]:
         if abs(num) < 2048.0:
             if isinstance(num, int):
-                return "{}{}".format(num, unit)
+                return f"{num}{unit}"
             else:
-                return "{:.2f}{}".format(num, unit)
+                return f"{num:.2f}{unit}"
         num /= 1024.0
     return "{:.2f}{}".format(num, "YiB")
 
@@ -245,18 +245,18 @@ def update_notify(conn, user, pkgbase_id):
 
 
 def die(msg):
-    sys.stderr.write("error: {:s}\n".format(msg))
+    sys.stderr.write(f"error: {msg:s}\n")
     exit(1)
 
 
 def warn(msg):
-    sys.stderr.write("warning: {:s}\n".format(msg))
+    sys.stderr.write(f"warning: {msg:s}\n")
 
 
 def die_commit(msg, commit):
     sys.stderr.write("error: The following error " + "occurred when parsing commit\n")
-    sys.stderr.write("error: {:s}:\n".format(commit))
-    sys.stderr.write("error: {:s}\n".format(msg))
+    sys.stderr.write(f"error: {commit:s}:\n")
+    sys.stderr.write(f"error: {msg:s}\n")
     exit(1)
 
 
@@ -269,7 +269,7 @@ def validate_metadata(metadata, commit):  # noqa: C901
             str(commit.id),
         )
     if not re.match(repo_regex, metadata_pkgbase):
-        die_commit("invalid pkgbase: {:s}".format(metadata_pkgbase), str(commit.id))
+        die_commit(f"invalid pkgbase: {metadata_pkgbase:s}", str(commit.id))
 
     if not metadata["packages"]:
         die_commit("missing pkgname entry", str(commit.id))
@@ -279,9 +279,7 @@ def validate_metadata(metadata, commit):  # noqa: C901
 
         for field in ("pkgver", "pkgrel", "pkgname"):
             if field not in pkginfo:
-                die_commit(
-                    "missing mandatory field: {:s}".format(field), str(commit.id)
-                )
+                die_commit(f"missing mandatory field: {field:s}", str(commit.id))
 
         if "epoch" in pkginfo and not pkginfo["epoch"].isdigit():
             die_commit("invalid epoch: {:s}".format(pkginfo["epoch"]), str(commit.id))
@@ -296,31 +294,31 @@ def validate_metadata(metadata, commit):  # noqa: C901
         for field in max_len.keys():
             if field in pkginfo and len(pkginfo[field]) > max_len[field]:
                 die_commit(
-                    "{:s} field too long: {:s}".format(field, pkginfo[field]),
+                    f"{field:s} field too long: {pkginfo[field]:s}",
                     str(commit.id),
                 )
 
         for field in ("install", "changelog"):
             if field in pkginfo and pkginfo[field] not in commit.tree:
                 die_commit(
-                    "missing {:s} file: {:s}".format(field, pkginfo[field]),
+                    f"missing {field:s} file: {pkginfo[field]:s}",
                     str(commit.id),
                 )
 
         for field in extract_arch_fields(pkginfo, "source"):
             fname = field["value"]
             if len(fname) > 8000:
-                die_commit("source entry too long: {:s}".format(fname), str(commit.id))
+                die_commit(f"source entry too long: {fname:s}", str(commit.id))
             if "://" in fname or "lp:" in fname:
                 continue
             if fname not in commit.tree:
-                die_commit("missing source file: {:s}".format(fname), str(commit.id))
+                die_commit(f"missing source file: {fname:s}", str(commit.id))
 
 
 def validate_blob_size(blob: pygit2.Object, commit: pygit2.Commit):
     if isinstance(blob, pygit2.Blob) and blob.size > max_blob_size:
         die_commit(
-            "maximum blob size ({:s}) exceeded".format(size_humanize(max_blob_size)),
+            f"maximum blob size ({size_humanize(max_blob_size):s}) exceeded",
             str(commit.id),
         )
 
@@ -336,7 +334,7 @@ def main():  # noqa: C901
 
     if len(sys.argv) == 2 and sys.argv[1] == "restore":
         if "refs/heads/" + pkgbase not in repo.listall_references():
-            die("{:s}: repository not found: {:s}".format(sys.argv[1], pkgbase))
+            die(f"{sys.argv[1]:s}: repository not found: {pkgbase:s}")
         refname = "refs/heads/master"
         branchref = "refs/heads/" + pkgbase
         sha1_old = sha1_new = repo.lookup_reference(branchref).target
@@ -373,7 +371,7 @@ def main():  # noqa: C901
         sys.stderr.write(
             "error: The following errors occurred when parsing .SRCINFO in commit\n"
         )
-        sys.stderr.write("error: {:s}:\n".format(str(head_commit.id)))
+        sys.stderr.write(f"error: {str(head_commit.id):s}:\n")
         for error in errors:
             for err in error["error"]:
                 sys.stderr.write("error: line {:d}: {:s}\n".format(error["line"], err))
@@ -476,7 +474,7 @@ def main():  # noqa: C901
     # Ensure that the package base name matches the repository name.
     metadata_pkgbase = metadata["pkgbase"]
     if metadata_pkgbase != pkgbase:
-        die("invalid pkgbase: {:s}, expected {:s}".format(metadata_pkgbase, pkgbase))
+        die(f"invalid pkgbase: {metadata_pkgbase:s}, expected {pkgbase:s}")
 
     # Ensure that packages are neither blacklisted nor overwritten.
     pkgbase = metadata["pkgbase"]
@@ -487,7 +485,7 @@ def main():  # noqa: C901
     cur = conn.execute("SELECT Name FROM PackageBlacklist")
     blacklist = [row[0] for row in cur.fetchall()]
     if pkgbase in blacklist:
-        warn_or_die("pkgbase is blacklisted: {:s}".format(pkgbase))
+        warn_or_die(f"pkgbase is blacklisted: {pkgbase:s}")
 
     cur = conn.execute("SELECT Name, Repo FROM OfficialProviders")
     providers = dict(cur.fetchall())
@@ -497,12 +495,10 @@ def main():  # noqa: C901
         pkgname = pkginfo["pkgname"]
 
         if pkgname in blacklist:
-            warn_or_die("package is blacklisted: {:s}".format(pkgname))
+            warn_or_die(f"package is blacklisted: {pkgname:s}")
         if pkgname in providers:
             warn_or_die(
-                "package already provided by [{:s}]: {:s}".format(
-                    providers[pkgname], pkgname
-                )
+                f"package already provided by [{providers[pkgname]:s}]: {pkgname:s}"
             )
 
         cur = conn.execute(
@@ -510,7 +506,7 @@ def main():  # noqa: C901
             [pkgname, pkgbase_id],
         )
         if cur.fetchone()[0] > 0:
-            die("cannot overwrite package: {:s}".format(pkgname))
+            die(f"cannot overwrite package: {pkgname:s}")
 
     # Create a new package base if it does not exist yet.
     if pkgbase_id == 0:
