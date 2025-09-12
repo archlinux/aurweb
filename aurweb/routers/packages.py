@@ -12,7 +12,8 @@ from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.packages import util as pkgutil
 from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base
-from aurweb.pkgbase import actions as pkgbase_actions, util as pkgbaseutil
+from aurweb.pkgbase import actions as pkgbase_actions
+from aurweb.pkgbase import util as pkgbaseutil
 from aurweb.templates import make_context, make_variable_context, render_template
 from aurweb.util import hash_query
 

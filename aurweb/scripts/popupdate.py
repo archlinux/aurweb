@@ -2,7 +2,8 @@
 from datetime import datetime
 
 from sqlalchemy import and_, func
-from sqlalchemy.sql.functions import coalesce, sum as _sum
+from sqlalchemy.sql.functions import coalesce
+from sqlalchemy.sql.functions import sum as _sum
 
 from aurweb import config, db, time
 from aurweb.models import PackageBase, PackageVote

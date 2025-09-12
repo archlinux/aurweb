@@ -16,7 +16,8 @@ from aurweb.models.package_vote import PackageVote
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
 from aurweb.packages.requests import update_closure_comment
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment
-from aurweb.pkgbase import actions, util as pkgbaseutil, validate
+from aurweb.pkgbase import actions, validate
+from aurweb.pkgbase import util as pkgbaseutil
 from aurweb.scripts import notify, popupdate
 from aurweb.scripts.rendercomment import update_comment_render_fastapi
 from aurweb.templates import make_variable_context, render_template

@@ -5,7 +5,8 @@ import pytest
 
 import aurweb.filters  # noqa: F401
 from aurweb import config, db, templates, time
-from aurweb.filters import as_timezone, number_format, timestamp_to_datetime as to_dt
+from aurweb.filters import as_timezone, number_format
+from aurweb.filters import timestamp_to_datetime as to_dt
 from aurweb.models import Package, PackageBase, User
 from aurweb.models.account_type import USER_ID
 from aurweb.models.group import Group

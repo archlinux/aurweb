@@ -1,9 +1,21 @@
-[tool.isort]
-profile = "black"
-combine_as_imports = true
-
 [tool.ruff]
+target-version = "py312"
 line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",       # pycodestyle
+    "F",       # pyflakes
+    "I",       # isort
+    "W",       # warnings (mostly whitespace)
+]
+ignore = [
+    "E203",  # whitespace-before-punctuation
+    "E741",  # The 'I', 'O', 'l' are ambiguous variable names, used in HTTP forms
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.mypy]
 follow_imports = 'silent'  # https://github.com/python-lsp/pylsp-mypy/issues/81
