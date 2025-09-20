@@ -144,8 +144,8 @@ def pkgbase_delete_instance(
 def _retry_merge(pkgbase: PackageBase, target: PackageBase) -> None:
     # Target votes and notifications sets of user IDs that are
     # looking to be migrated.
-    target_votes = set(v.UsersID for v in target.package_votes)
-    target_notifs = set(n.UserID for n in target.notifications)
+    target_votes = {v.UsersID for v in target.package_votes}
+    target_notifs = {n.UserID for n in target.notifications}
 
     with db.begin():
         # Merge pkgbase's comments.

@@ -210,7 +210,7 @@ def handle_request(
 
     # Build an accept list out of `accept_query`.
     to_accept: list[PackageRequest] = accept_query.all()
-    accepted_ids: Set[int] = set(p.ID for p in to_accept)
+    accepted_ids: Set[int] = {p.ID for p in to_accept}
 
     # Build a reject list out of `query` filtered by IDs not found
     # in `to_accept`. That is, unmatched records of the same base

@@ -135,7 +135,7 @@ class PackageSearch:
     def _search_by_keywords(self, keywords: Set[str]) -> orm.Query:
         self._join_user()
         self._join_keywords()
-        keywords = set(k.lower() for k in keywords)
+        keywords = {k.lower() for k in keywords}
         self.query = self.query.filter(PackageKeyword.Keyword.in_(keywords)).group_by(
             models.Package.Name
         )
