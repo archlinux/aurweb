@@ -15,6 +15,7 @@ line-length = 88
 
 [tool.ruff.lint]
 select = [
+    "C4",      # flake8-comprehensions
     "C90",     # mccabe
     "E",       # pycodestyle
     "F",       # pyflakes
@@ -28,6 +29,7 @@ select = [
 ignore = [
     "E203",  # whitespace-before-punctuation
     "E741",  # The 'I', 'O', 'l' are ambiguous variable names, used in HTTP forms
+    "C416",  # Unnecessary dict comprehension
 ]
 
 [tool.ruff.lint.mccabe]
