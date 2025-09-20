@@ -302,7 +302,7 @@ def lookup_aur_packages(dependency_names: list[str]) -> set[str]:
         )
         .filter(models.Package.Name.in_(dependency_names))
     )
-    return set([dep.DepName for dep in aur_dep_packages_query.all()])
+    return {dep.DepName for dep in aur_dep_packages_query.all()}
 
 
 def lookup_dependencies(

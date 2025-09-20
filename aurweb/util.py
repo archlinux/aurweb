@@ -194,7 +194,7 @@ def parse_ssh_key(string: str) -> Tuple[str, str]:
 
 def parse_ssh_keys(string: str) -> set[Tuple[str, str]]:
     """Parse a list of SSH public keys."""
-    return set([parse_ssh_key(e) for e in string.strip().splitlines(True) if e.strip()])
+    return {parse_ssh_key(e) for e in string.strip().splitlines(True) if e.strip()}
 
 
 def shell_exec(cmdline: str, cwd: str) -> Tuple[int, str, str]:

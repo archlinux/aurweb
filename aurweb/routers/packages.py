@@ -212,7 +212,7 @@ async def package(
     context["groups"] = pkg.package_groups.all()
 
     # Collect all dependency names for batched lookups
-    dependency_names = set([dep.DepName for dep in dependencies])
+    dependency_names = {dep.DepName for dep in dependencies}
     aur_packages, official_packages, dependency_providers = pkgutil.lookup_dependencies(
         dependency_names
     )
