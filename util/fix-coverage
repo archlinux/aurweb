@@ -44,7 +44,7 @@ def main():
     cursor = db.cursor()
     results = cursor.execute("SELECT * FROM file")
 
-    files = dict()
+    files = {}
     for i, path in results:
         files[i] = path
 

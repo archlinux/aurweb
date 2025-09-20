@@ -99,7 +99,7 @@ def http_requests_total() -> Callable[[Info], None]:
             return None
 
         root_path = scope.get("root_path", str())
-        app = scope.get("app", dict())
+        app = scope.get("app", {})
 
         if hasattr(app, "root_path"):
             app_root_path = getattr(app, "root_path")

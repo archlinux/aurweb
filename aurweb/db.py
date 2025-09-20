@@ -62,7 +62,7 @@ def name() -> str:
 
 
 # Module-private global memo used to store SQLAlchemy sessions.
-_sessions = dict()
+_sessions = {}
 
 
 def get_session(engine=None):
@@ -269,7 +269,7 @@ def setup_sqlite(engine) -> None:  # pragma: no cover
 
 
 # Module-private global memo used to store SQLAlchemy engines.
-_engines = dict()
+_engines = {}
 
 
 def get_engine(dbname: str | None = None, echo: bool = False):
@@ -291,7 +291,7 @@ def get_engine(dbname: str | None = None, echo: bool = False):
     global _engines
     if dbname not in _engines:
         db_backend = aurweb.config.get("database", "backend")
-        connect_args = dict()
+        connect_args = {}
 
         is_sqlite = bool(db_backend == "sqlite")
         if is_sqlite:  # pragma: no cover

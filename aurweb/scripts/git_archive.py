@@ -90,7 +90,7 @@ def main() -> int:
     # Track repositories that the spec modifies. After we run
     # through specs, we want to make a single commit for all
     # repositories that contain changes.
-    repos = dict()
+    repos = {}
 
     print(f"running '{args.spec}' spec...")
     spec = spec_module.Spec()

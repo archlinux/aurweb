@@ -11,7 +11,7 @@ class GitInfo:
     """ Local Git repository configuration. """
     config: Dict[str, Any]
 
-    def __init__(self, path: str, config: Dict[str, Any] = dict()) -> None:
+    def __init__(self, path: str, config: Dict[str, Any] = {}) -> None:
         self.path = Path(path)
         self.config = config
 
@@ -43,7 +43,7 @@ class SpecBase:
     """
 
     """ A list of SpecOutputs, each of which contain output file data. """
-    outputs: List[SpecOutput] = list()
+    outputs: List[SpecOutput] = []
 
     """ A set of repositories to commit changes to. """
     repos: Set[str] = set()

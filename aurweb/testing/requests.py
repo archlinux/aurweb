@@ -40,10 +40,10 @@ class Request:
         user: User = User(),
         authenticated: bool = False,
         method: str = "GET",
-        headers: dict[str, str] = dict(),
-        cookies: dict[str, str] = dict(),
+        headers: dict[str, str] = {},
+        cookies: dict[str, str] = {},
         url: str = "/",
-        query_params: dict[str, str] = dict(),
+        query_params: dict[str, str] = {},
     ) -> None:
         self.user = user
         self.user.authenticated = authenticated

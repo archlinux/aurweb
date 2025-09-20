@@ -13,7 +13,7 @@ from aurweb.models import OfficialProvider
 def _main(force: bool = False):
     blacklist = set()
     providers = set()
-    repomap = dict()
+    repomap = {}
 
     db_path = aurweb.config.get("aurblup", "db-path")
     sync_dbs = aurweb.config.get("aurblup", "sync-dbs").split(" ")

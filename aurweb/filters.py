@@ -23,7 +23,7 @@ def pager_nav(context: dict[str, Any], page: int, total: int, prefix: str) -> st
     pp = context.get("PP", 50)
 
     # Setup a local query string dict, optionally passed by caller.
-    q = context.get("q", dict())
+    q = context.get("q", {})
 
     search_by = context.get("SeB", None)
     if search_by:

@@ -76,7 +76,7 @@ cred_filters = {
 }
 
 
-def has_credential(user: User, credential: int, approved: list = tuple()):
+def has_credential(user: User, credential: int, approved: list = []):
     if user in approved:
         return True
     return user.AccountTypeID in cred_filters[credential]

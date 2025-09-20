@@ -719,9 +719,9 @@ def test_smtp_ssl(user: User):
 
 def test_notification_defaults():
     notif = notify.Notification()
-    assert notif.get_refs() == tuple()
-    assert notif.get_headers() == dict()
-    assert notif.get_cc() == list()
+    assert notif.get_refs() == ()
+    assert notif.get_headers() == {}
+    assert notif.get_cc() == []
 
 
 def test_notification_oserror(user: User, caplog: pytest.LogCaptureFixture):

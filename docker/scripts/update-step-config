@@ -8,9 +8,9 @@ with open(CA_CONFIG) as f:
     data = json.load(f)
 
 if "authority" not in data:
-    data["authority"] = dict()
+    data["authority"] = {}
 if "claims" not in data["authority"]:
-    data["authority"]["claims"] = dict()
+    data["authority"]["claims"] = {}
 
 # One year of certificate duration.
 data["authority"]["claims"] = {"maxTLSCertDuration": "8800h"}

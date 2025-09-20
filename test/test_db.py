@@ -232,7 +232,7 @@ def test_name_without_pytest_current_test():
 def test_retry_deadlock():
     @db.retry_deadlock
     def func():
-        raise OperationalError("Deadlock found", tuple(), "")
+        raise OperationalError("Deadlock found", (), "")
 
     with pytest.raises(OperationalError):
         func()
@@ -242,7 +242,7 @@ def test_retry_deadlock():
 async def test_async_retry_deadlock():
     @db.async_retry_deadlock
     async def func():
-        raise OperationalError("Deadlock found", tuple(), "")
+        raise OperationalError("Deadlock found", (), "")
 
     with pytest.raises(OperationalError):
         await func()

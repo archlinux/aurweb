@@ -146,7 +146,7 @@ class User(Base):
 
         return self.session.SessionID
 
-    def has_credential(self, credential: Set[int], approved: list["User"] = list()):
+    def has_credential(self, credential: Set[int], approved: list["User"] = []):
         from aurweb.auth.creds import has_credential
 
         return has_credential(self, credential, approved)

@@ -230,7 +230,7 @@ def _main():
     )
 
     # Produce packages-meta-v1.json.gz
-    output = list()
+    output = []
     snapshot_uri = aurweb.config.get("options", "snapshot_uri")
 
     tmp_packages = f"{PACKAGES}.tmp"

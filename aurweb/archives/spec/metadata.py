@@ -33,7 +33,7 @@ class Spec(SpecBase):
         print("performing package database subqueries")
         rpc.subquery({pkg.ID for pkg in packages})
 
-        pkgbases, pkgnames = dict(), dict()
+        pkgbases, pkgnames = {}, {}
         for package in packages:
             # Produce RPC type=info data for `package`
             data = rpc.get_info_json_data(package)

@@ -260,7 +260,7 @@ async def account_register(
 ):
     context = await make_variable_context(request, "Register")
     context["captcha_salt"] = get_captcha_salts()[0]
-    context = make_account_form_context(context, request, None, dict())
+    context = make_account_form_context(context, request, None, {})
     return render_template(request, "register.html", context)
 
 
@@ -397,7 +397,7 @@ async def account_edit(request: Request, username: str):
     context = await make_variable_context(request, "Accounts")
     context["user"] = db.refresh(user)
 
-    context = make_account_form_context(context, request, user, dict())
+    context = make_account_form_context(context, request, user, {})
     return render_template(request, "account/edit.html", context)
 
 

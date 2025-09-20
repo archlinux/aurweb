@@ -154,7 +154,7 @@ def update_prometheus_metrics():
 
 def _get_counts(counters: list[str]) -> dict[str, int]:
     stats = Statistics(cache_expire)
-    result = dict()
+    result = {}
     for counter in counters:
         result[counter] = stats.get_count(counter)
 
