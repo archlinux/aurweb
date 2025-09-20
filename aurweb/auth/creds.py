@@ -35,14 +35,19 @@ PM_LIST_VOTES = 20
 PM_VOTE = 21
 PKGBASE_MERGE = 29
 
-user_developer_or_package_maintainer = set(
-    [USER_ID, PACKAGE_MAINTAINER_ID, DEVELOPER_ID, PACKAGE_MAINTAINER_AND_DEV_ID]
-)
-package_maintainer_or_dev = set(
-    [PACKAGE_MAINTAINER_ID, DEVELOPER_ID, PACKAGE_MAINTAINER_AND_DEV_ID]
-)
-developer = set([DEVELOPER_ID, PACKAGE_MAINTAINER_AND_DEV_ID])
-package_maintainer = set([PACKAGE_MAINTAINER_ID, PACKAGE_MAINTAINER_AND_DEV_ID])
+user_developer_or_package_maintainer = {
+    USER_ID,
+    PACKAGE_MAINTAINER_ID,
+    DEVELOPER_ID,
+    PACKAGE_MAINTAINER_AND_DEV_ID,
+}
+package_maintainer_or_dev = {
+    PACKAGE_MAINTAINER_ID,
+    DEVELOPER_ID,
+    PACKAGE_MAINTAINER_AND_DEV_ID,
+}
+developer = {DEVELOPER_ID, PACKAGE_MAINTAINER_AND_DEV_ID}
+package_maintainer = {PACKAGE_MAINTAINER_ID, PACKAGE_MAINTAINER_AND_DEV_ID}
 
 cred_filters = {
     PKGBASE_FLAG: user_developer_or_package_maintainer,
