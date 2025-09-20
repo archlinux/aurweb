@@ -828,7 +828,7 @@ def test_rpc_msearch(client: TestClient, user: User, packages: list[Package]):
 
     # user1 maintains 4 packages; assert that we got them all.
     assert data.get("resultcount") == 4
-    names = list(sorted(r.get("Name") for r in data.get("results")))
+    names = sorted(r.get("Name") for r in data.get("results"))
     expected_results = ["big-chungus", "chungy-chungus", "gluggly-chungus", "other-pkg"]
     assert names == expected_results
 
@@ -983,7 +983,7 @@ def test_rpc_search_submitter(client: TestClient, user2: User, packages: list[Pa
 
     # user2 submitted 2 packages
     assert data.get("resultcount") == 2
-    names = list(sorted(r.get("Name") for r in data.get("results")))
+    names = sorted(r.get("Name") for r in data.get("results"))
     expected_results = ["big-chungus", "chungy-chungus"]
     assert names == expected_results
 
@@ -1002,7 +1002,7 @@ def test_rpc_search_keywords(client: TestClient, packages: list[Package]):
 
     # should get 2 packages
     assert data.get("resultcount") == 1
-    names = list(sorted(r.get("Name") for r in data.get("results")))
+    names = sorted(r.get("Name") for r in data.get("results"))
     expected_results = ["big-chungus"]
     assert names == expected_results
 
@@ -1023,7 +1023,7 @@ def test_rpc_search_comaintainers(
 
     # should get 1 package
     assert data.get("resultcount") == 1
-    names = list(sorted(r.get("Name") for r in data.get("results")))
+    names = sorted(r.get("Name") for r in data.get("results"))
     expected_results = ["big-chungus"]
     assert names == expected_results
 

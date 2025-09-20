@@ -72,7 +72,7 @@ def test_rss(client, user, packages):
     def key_(pkg):
         return pkg.PackageBase.SubmittedTS
 
-    packages = list(reversed(sorted(packages, key=key_)))
+    packages = sorted(packages, key=key_, reverse=True)
 
     # Just take the first 100.
     packages = packages[:100]
@@ -96,7 +96,7 @@ def test_rss_modified(client, user, packages):
     def key_(pkg):
         return pkg.PackageBase.ModifiedTS
 
-    packages = list(reversed(sorted(packages, key=key_)))
+    packages = sorted(packages, key=key_, reverse=True)
 
     # Just take the first 100.
     packages = packages[:100]
