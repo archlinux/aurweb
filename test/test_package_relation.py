@@ -65,7 +65,7 @@ def test_package_relation(package: Package):
         pkgrel.RelTypeID = REPLACES_ID
 
 
-def test_package_relation_null_package_raises():
+def test_package_relation_null_package_raises() -> None:
     with pytest.raises(IntegrityError):
         PackageRelation(RelTypeID=CONFLICTS_ID, RelName="test-relation")
 

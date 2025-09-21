@@ -9,7 +9,7 @@ def setup(db_test):
     return
 
 
-def test_relation_type_creation():
+def test_relation_type_creation() -> None:
     with db.begin():
         relation_type = db.create(RelationType, Name="test-relation")
 
@@ -20,7 +20,7 @@ def test_relation_type_creation():
         db.delete(relation_type)
 
 
-def test_relation_types():
+def test_relation_types() -> None:
     conflicts = db.query(RelationType, RelationType.Name == "conflicts").first()
     assert conflicts is not None
     assert conflicts.Name == "conflicts"

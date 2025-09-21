@@ -109,7 +109,7 @@ EXPECTED = """
 """
 
 
-def test_srcinfo_parse():
+def test_srcinfo_parse() -> None:
     (info, error) = parse.parse_srcinfo(SRCINFO)
 
     assert not error
@@ -118,7 +118,7 @@ def test_srcinfo_parse():
     assert json.loads(EXPECTED) == info
 
 
-def test_git_update_extract_arch_fields():
+def test_git_update_extract_arch_fields() -> None:
     (info, error) = parse.parse_srcinfo(SRCINFO)
 
     assert not error
@@ -150,7 +150,7 @@ def test_git_update_extract_arch_fields():
         (2560000000000000000000000, "2.12YiB"),
     ],
 )
-def test_size_humanize(size: Any, expected: str):
+def test_size_humanize(size: Any, expected: str) -> None:
     assert size_humanize(size) == expected
 
 
@@ -197,7 +197,7 @@ def test_size_humanize(size: Any, expected: str):
 )
 def test_parse_dep(
     depstring: str, exp_depname: str, exp_depdesc: str, exp_depcond: str
-):
+) -> None:
     depname, depdesc, depcond = parse_dep(depstring)
     assert depname == exp_depname
     assert depdesc == exp_depdesc

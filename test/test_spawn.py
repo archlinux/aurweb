@@ -49,7 +49,7 @@ class MockFakeProcess:
 
 
 @mock.patch.dict("os.environ", TEST_ENVIRONMENT)
-def test_spawn_generate_nginx_config():
+def test_spawn_generate_nginx_config() -> None:
     ctx = tempfile.TemporaryDirectory()
     with ctx and mock.patch("aurweb.spawn.temporary_dir", ctx.name):
         aurweb.spawn.generate_nginx_config()
@@ -70,7 +70,7 @@ def test_spawn_generate_nginx_config():
 @mock.patch("aurweb.spawn.asgi_backend", "uvicorn")
 @mock.patch("aurweb.spawn.verbosity", 1)
 @mock.patch("aurweb.spawn.workers", 1)
-def test_spawn_start_stop():
+def test_spawn_start_stop() -> None:
     ctx = tempfile.TemporaryDirectory()
     with ctx and mock.patch("aurweb.spawn.temporary_dir", ctx.name):
         aurweb.spawn.start()
@@ -81,7 +81,7 @@ def test_spawn_start_stop():
 @mock.patch("aurweb.spawn.verbosity", 1)
 @mock.patch("aurweb.spawn.workers", 1)
 @mock.patch("aurweb.spawn.children", [MockFakeProcess().process()])
-def test_spawn_start_noop_with_children():
+def test_spawn_start_noop_with_children() -> None:
     aurweb.spawn.start()
 
 
@@ -89,7 +89,7 @@ def test_spawn_start_noop_with_children():
 @mock.patch("aurweb.spawn.verbosity", 1)
 @mock.patch("aurweb.spawn.workers", 1)
 @mock.patch("aurweb.spawn.children", [MockFakeProcess().process()])
-def test_spawn_stop_terminate_failure():
+def test_spawn_stop_terminate_failure() -> None:
     ctx = tempfile.TemporaryDirectory()
     with ctx and mock.patch("aurweb.spawn.temporary_dir", ctx.name):
         match = r"^Errors terminating the child processes"
@@ -101,7 +101,7 @@ def test_spawn_stop_terminate_failure():
 @mock.patch("aurweb.spawn.verbosity", 1)
 @mock.patch("aurweb.spawn.workers", 1)
 @mock.patch("aurweb.spawn.children", [MockFakeProcess(1).process()])
-def test_spawn_stop_wait_failure():
+def test_spawn_stop_wait_failure() -> None:
     ctx = tempfile.TemporaryDirectory()
     with ctx and mock.patch("aurweb.spawn.temporary_dir", ctx.name):
         match = r"^Errors terminating the child processes"

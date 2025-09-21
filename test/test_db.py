@@ -105,7 +105,7 @@ def setup(db_test):
         os.remove("/tmp/aurweb.sqlite3")
 
 
-def test_sqlalchemy_sqlite_url():
+def test_sqlalchemy_sqlite_url() -> None:
     tmpctx, tmp = make_temp_sqlite_config()
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -114,7 +114,7 @@ def test_sqlalchemy_sqlite_url():
     aurweb.config.rehash()
 
 
-def test_sqlalchemy_mysql_url():
+def test_sqlalchemy_mysql_url() -> None:
     tmpctx, tmp = make_temp_mysql_config()
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -123,7 +123,7 @@ def test_sqlalchemy_mysql_url():
     aurweb.config.rehash()
 
 
-def test_sqlalchemy_mysql_port_url():
+def test_sqlalchemy_mysql_port_url() -> None:
     tmpctx, tmp = make_temp_config((r";port = 3306", "port = 3306"))
 
     with tmpctx:
@@ -133,7 +133,7 @@ def test_sqlalchemy_mysql_port_url():
         aurweb.config.rehash()
 
 
-def test_sqlalchemy_mysql_socket_url():
+def test_sqlalchemy_mysql_socket_url() -> None:
     tmpctx, tmp = make_temp_config()
 
     with tmpctx:
@@ -143,7 +143,7 @@ def test_sqlalchemy_mysql_socket_url():
         aurweb.config.rehash()
 
 
-def test_sqlalchemy_unknown_backend():
+def test_sqlalchemy_unknown_backend() -> None:
     tmpctx, tmp = make_temp_config((r"backend = .+", "backend = blah"))
 
     with tmpctx:
@@ -154,12 +154,12 @@ def test_sqlalchemy_unknown_backend():
         aurweb.config.rehash()
 
 
-def test_db_connects_without_fail():
+def test_db_connects_without_fail() -> None:
     """This only tests the actual config supplied to pytest."""
     db.connect()
 
 
-def test_connection_class_unsupported_backend():
+def test_connection_class_unsupported_backend() -> None:
     tmpctx, tmp = make_temp_config((r"backend = .+", "backend = blah"))
 
     with tmpctx:
@@ -171,7 +171,7 @@ def test_connection_class_unsupported_backend():
 
 
 @mock.patch("MySQLdb.connect", mock.MagicMock(return_value=True))
-def test_connection_mysql():
+def test_connection_mysql() -> None:
     tmpctx, tmp = make_temp_mysql_config()
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -180,7 +180,7 @@ def test_connection_mysql():
         aurweb.config.rehash()
 
 
-def test_create_delete():
+def test_create_delete() -> None:
     with db.begin():
         account_type = db.create(AccountType, AccountType="test")
 
@@ -194,7 +194,7 @@ def test_create_delete():
     assert record is None
 
 
-def test_add_commit():
+def test_add_commit() -> None:
     # Use db.add and db.commit to add a temporary record.
     account_type = AccountType(AccountType="test")
     with db.begin():
@@ -212,26 +212,26 @@ def test_add_commit():
         db.delete(account_type)
 
 
-def test_connection_executor_mysql_paramstyle():
+def test_connection_executor_mysql_paramstyle() -> None:
     executor = db.ConnectionExecutor(None, backend="mysql")
     assert executor.paramstyle() == "format"
 
 
 @mock.patch("sqlite3.paramstyle", "pyformat")
-def test_connection_executor_sqlite_paramstyle():
+def test_connection_executor_sqlite_paramstyle() -> None:
     executor = db.ConnectionExecutor(None, backend="sqlite")
     assert executor.paramstyle() == sqlite3.paramstyle
 
 
-def test_name_without_pytest_current_test():
+def test_name_without_pytest_current_test() -> None:
     with mock.patch.dict("os.environ", {}, clear=True):
         dbname = aurweb.db.name()
     assert dbname == aurweb.config.get("database", "name")
 
 
-def test_retry_deadlock():
+def test_retry_deadlock() -> None:
     @db.retry_deadlock
-    def func():
+    def func() -> None:
         raise OperationalError("Deadlock found", (), "")
 
     with pytest.raises(OperationalError):
@@ -239,9 +239,9 @@ def test_retry_deadlock():
 
 
 @pytest.mark.asyncio
-async def test_async_retry_deadlock():
+async def test_async_retry_deadlock() -> None:
     @db.async_retry_deadlock
-    async def func():
+    async def func() -> None:
         raise OperationalError("Deadlock found", (), "")
 
     with pytest.raises(OperationalError):

@@ -717,7 +717,7 @@ def test_smtp_ssl(user: User):
     assert smtp.passwd
 
 
-def test_notification_defaults():
+def test_notification_defaults() -> None:
     notif = notify.Notification()
     assert notif.get_refs() == ()
     assert notif.get_headers() == {}

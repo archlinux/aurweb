@@ -26,19 +26,19 @@ def run_main(args: list[str] = []):
         adduser.main()
 
 
-def test_adduser_no_args():
+def test_adduser_no_args() -> None:
     with pytest.raises(SystemExit):
         run_main()
 
 
-def test_adduser():
+def test_adduser() -> None:
     run_main(["-u", "test", "-e", "test@example.org", "-p", "abcd1234"])
     test = db.query(User).filter(User.Username == "test").first()
     assert test is not None
     assert test.login(Request(), "abcd1234")
 
 
-def test_adduser_pm():
+def test_adduser_pm() -> None:
     run_main(
         [
             "-u",
@@ -56,7 +56,7 @@ def test_adduser_pm():
     assert test.AccountTypeID == at.PACKAGE_MAINTAINER_ID
 
 
-def test_adduser_ssh_pk():
+def test_adduser_ssh_pk() -> None:
     run_main(
         [
             "-u",

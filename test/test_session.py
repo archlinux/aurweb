@@ -45,7 +45,7 @@ def test_session(user: User, session: Session):
     assert session.UsersID == user.ID
 
 
-def test_session_cs():
+def test_session_cs() -> None:
     """Test case sensitivity of the database table."""
     with db.begin():
         user2 = db.create(
@@ -66,17 +66,17 @@ def test_session_cs():
     assert session_cs.SessionID != "testSession"
 
 
-def test_session_user_association(user: User, session: Session):
+def test_session_user_association(user: User, session: Session) -> None:
     # Make sure that the Session user attribute is correct.
     assert session.User == user
 
 
-def test_session_null_user_raises():
+def test_session_null_user_raises() -> None:
     with pytest.raises(IntegrityError):
         Session()
 
 
-def test_generate_unique_sid(session: Session):
+def test_generate_unique_sid(session: Session) -> None:
     # Mock up aurweb.models.session.generate_sid by returning
     # sids[i % 2] from 0 .. n. This will swap between each sid
     # between each call.

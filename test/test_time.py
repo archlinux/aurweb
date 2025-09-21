@@ -3,17 +3,17 @@ from aurweb.testing.requests import Request
 from aurweb.time import get_request_timezone, tz_offset
 
 
-def test_tz_offset_utc():
+def test_tz_offset_utc() -> None:
     offset = tz_offset("UTC")
     assert offset == "+00:00"
 
 
-def test_tz_offset_mst():
+def test_tz_offset_mst() -> None:
     offset = tz_offset("MST")
     assert offset == "-07:00"
 
 
-def test_request_timezone():
+def test_request_timezone() -> None:
     request = Request()
 
     # Default timezone

@@ -28,7 +28,7 @@ def user() -> Generator[User]:
 
 
 @pytest.fixture(autouse=True)
-def clear_fakeredis_cache():
+def clear_fakeredis_cache() -> None:
     cache._redis.flushall()
 
 

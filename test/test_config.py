@@ -14,15 +14,15 @@ def noop(*args, **kwargs) -> None:
     return
 
 
-def test_get():
+def test_get() -> None:
     assert config.get("options", "disable_http_login") == "0"
 
 
-def test_getboolean():
+def test_getboolean() -> None:
     assert not config.getboolean("options", "disable_http_login")
 
 
-def test_getint():
+def test_getint() -> None:
     assert config.getint("options", "disable_http_login") == 0
 
 
@@ -130,7 +130,7 @@ def test_config_main_set_real(tmpdir: py.path.local):
     assert config.getint("options", "fake-key") is None
 
 
-def test_config_main_set_immutable():
+def test_config_main_set_immutable() -> None:
     data = None
 
     def mock_set_option(section: str, option: str, value: str) -> None:
@@ -147,7 +147,7 @@ def test_config_main_set_immutable():
     assert data == expected
 
 
-def test_config_main_set_invalid_value():
+def test_config_main_set_invalid_value() -> None:
     stderr = io.StringIO()
 
     args = ["aurweb-config", "set", "options", "salt_rounds"]

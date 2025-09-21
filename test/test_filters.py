@@ -6,24 +6,24 @@ import pytest
 from aurweb import filters, time
 
 
-def test_timestamp_to_datetime():
+def test_timestamp_to_datetime() -> None:
     ts = time.utcnow()
     dt = datetime.fromtimestamp(ts, UTC)
     assert filters.timestamp_to_datetime(ts) == dt
 
 
-def test_as_timezone():
+def test_as_timezone() -> None:
     ts = time.utcnow()
     dt = filters.timestamp_to_datetime(ts)
     assert filters.as_timezone(dt, "UTC") == dt.astimezone(tz=ZoneInfo("UTC"))
 
 
-def test_number_format():
+def test_number_format() -> None:
     assert filters.number_format(0.222, 2) == "0.22"
     assert filters.number_format(0.226, 2) == "0.23"
 
 
-def test_extend_query():
+def test_extend_query() -> None:
     """Test extension of a query via extend_query."""
     query = {"a": "b"}
     extended = filters.extend_query(query, ("a", "c"), ("b", "d"))
@@ -31,7 +31,7 @@ def test_extend_query():
     assert extended.get("b") == "d"
 
 
-def test_to_qs():
+def test_to_qs() -> None:
     """Test conversion from a query dictionary to a query string."""
     query = {"a": "b", "c": [1, 2, 3]}
     qs = filters.to_qs(query)
@@ -49,5 +49,5 @@ def test_to_qs():
         ("%s%d", ("a", 1), "a1"),
     ],
 )
-def test_safe_format(value: str, args: tuple, expected: str):
+def test_safe_format(value: str, args: tuple, expected: str) -> None:
     assert filters.safe_format(value, *args) == expected

@@ -4,13 +4,13 @@ from aurweb import config, filters, l10n
 from aurweb.testing.requests import Request
 
 
-def test_translator():
+def test_translator() -> None:
     """Test creating l10n translation tools."""
     de_home = l10n.translator.translate("Home", "de")
     assert de_home == "Startseite"
 
 
-def test_get_request_language():
+def test_get_request_language() -> None:
     """Test getting the language setting from a request."""
     # Default language
     default_lang = config.get("options", "default_lang")
@@ -61,7 +61,7 @@ def test_get_request_language():
     assert l10n.get_request_language(request) == "de"
 
 
-def test_get_raw_translator_for_request():
+def test_get_raw_translator_for_request() -> None:
     """Make sure that get_raw_translator_for_request is giving us
     the translator we expect."""
     request = Request()
@@ -70,7 +70,7 @@ def test_get_raw_translator_for_request():
     assert translator.gettext("Home") == l10n.translator.translate("Home", "de")
 
 
-def test_get_translator_for_request():
+def test_get_translator_for_request() -> None:
     """Make sure that get_translator_for_request is giving us back
     our expected translation function."""
     request = Request()
@@ -80,7 +80,7 @@ def test_get_translator_for_request():
     assert translate("Home") == "Startseite"
 
 
-def test_tn_filter():
+def test_tn_filter() -> None:
     request = Request()
     request.cookies["AURLANG"] = "en"
     context = {"language": "en", "request": request}

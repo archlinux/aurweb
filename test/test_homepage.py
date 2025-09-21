@@ -57,7 +57,7 @@ def user2():
 def redis():
     redis = redis_connection()
 
-    def delete_keys():
+    def delete_keys() -> None:
         # Cleanup keys if they exist.
         for key in (
             "package_count",
@@ -119,7 +119,7 @@ def packages(user):
     yield pkgs
 
 
-def test_homepage():
+def test_homepage() -> None:
     with client as request:
         response = request.get("/")
     assert response.status_code == int(HTTPStatus.OK)

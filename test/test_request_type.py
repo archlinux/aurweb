@@ -9,7 +9,7 @@ def setup(db_test):
     return
 
 
-def test_request_type_creation():
+def test_request_type_creation() -> None:
     with db.begin():
         request_type = db.create(RequestType, Name="Test Request")
 
@@ -20,7 +20,7 @@ def test_request_type_creation():
         db.delete(request_type)
 
 
-def test_request_type_null_name_returns_empty_string():
+def test_request_type_null_name_returns_empty_string() -> None:
     with db.begin():
         request_type = db.create(RequestType)
 
@@ -31,7 +31,7 @@ def test_request_type_null_name_returns_empty_string():
         db.delete(request_type)
 
 
-def test_request_type_name_display():
+def test_request_type_name_display() -> None:
     deletion = db.query(RequestType, RequestType.ID == DELETION_ID).first()
     assert deletion.name_display() == "Deletion"
 

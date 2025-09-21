@@ -36,13 +36,13 @@ def pkgbase(user: User) -> Generator[PackageBase]:
     yield pkgbase
 
 
-def test_package_keyword(pkgbase: PackageBase):
+def test_package_keyword(pkgbase: PackageBase) -> None:
     with db.begin():
         pkg_keyword = db.create(PackageKeyword, PackageBase=pkgbase, Keyword="test")
     assert pkg_keyword in pkgbase.keywords
     assert pkgbase == pkg_keyword.PackageBase
 
 
-def test_package_keyword_null_pkgbase_raises_exception():
+def test_package_keyword_null_pkgbase_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         PackageKeyword(Keyword="test")

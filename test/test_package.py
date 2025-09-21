@@ -63,7 +63,7 @@ def test_package(package: Package):
     assert record is not None
 
 
-def test_package_null_pkgbase_raises():
+def test_package_null_pkgbase_raises() -> None:
     with pytest.raises(IntegrityError):
         Package(
             Name="some-package",

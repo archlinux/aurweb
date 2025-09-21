@@ -16,7 +16,7 @@ class Args:
     verbose = True
 
 
-def test_run():
+def test_run() -> None:
     from aurweb.schema import metadata
 
     aurweb.db.kill_engine()

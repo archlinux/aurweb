@@ -21,7 +21,7 @@ def sendmail(from_: str, to_: str, content: str) -> None:
     assert proc.returncode == 0
 
 
-def test_email_glue():
+def test_email_glue() -> None:
     """Test that Email.glue() decodes both base64 and decoded content."""
     body = "Test email."
     sendmail("test@example.org", "test@example.org", body)
@@ -32,7 +32,7 @@ def test_email_glue():
     assert email1.glue() == email2.glue()
 
 
-def test_email_dump():
+def test_email_dump() -> None:
     """Test that Email.dump() dumps a single email."""
     body = "Test email."
     sendmail("test@example.org", "test@example.org", body)
@@ -44,7 +44,7 @@ def test_email_dump():
     assert "== Email #1 ==" in content
 
 
-def test_email_dump_multiple():
+def test_email_dump_multiple() -> None:
     """Test that Email.dump() dumps multiple emails."""
     body = "Test email."
     sendmail("test@example.org", "test@example.org", body)

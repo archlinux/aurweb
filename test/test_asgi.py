@@ -68,7 +68,7 @@ async def test_asgi_startup_session_secret_exception(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_asgi_startup_exception():
+async def test_asgi_startup_exception() -> None:
     # save proper session secret
     prev_secret = aurweb.asgi.session_secret
 
@@ -84,7 +84,7 @@ async def test_asgi_startup_exception():
 
 
 @pytest.mark.asyncio
-async def test_asgi_http_exception_handler():
+async def test_asgi_http_exception_handler() -> None:
     exc = HTTPException(status_code=422, detail="EXCEPTION!")
     phrase = http.HTTPStatus(exc.status_code).phrase
     response = await aurweb.asgi.http_exception_handler(Request(), exc)

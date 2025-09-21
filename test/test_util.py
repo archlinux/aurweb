@@ -10,13 +10,13 @@ from aurweb.models.user import User
 from aurweb.testing.requests import Request
 
 
-def test_round():
+def test_round() -> None:
     assert filters.do_round(1.3) == 1
     assert filters.do_round(1.5) == 2
     assert filters.do_round(2.0) == 2
 
 
-def test_git_search():
+def test_git_search() -> None:
     """Test that git_search matches the full commit if necessary."""
     commit_hash = "0123456789abcdef"
     repo = {commit_hash}
@@ -24,7 +24,7 @@ def test_git_search():
     assert prefixlen == 16
 
 
-def test_git_search_double_commit():
+def test_git_search_double_commit() -> None:
     """Test that git_search matches a shorter prefix length."""
     commit_hash = "0123456789abcdef"
     repo = {commit_hash[:13]}
@@ -34,7 +34,7 @@ def test_git_search_double_commit():
 
 
 @pytest.mark.asyncio
-async def test_error_or_result():
+async def test_error_or_result() -> None:
     async def route(request: fastapi.Request):
         raise RuntimeError("No response returned.")
 
@@ -51,7 +51,7 @@ async def test_error_or_result():
     assert response.status_code == HTTPStatus.OK
 
 
-def test_valid_homepage():
+def test_valid_homepage() -> None:
     assert util.valid_homepage("http://google.com")
     assert util.valid_homepage("https://google.com")
     assert not util.valid_homepage("http://[google.com/broken-ipv6")
@@ -60,7 +60,7 @@ def test_valid_homepage():
     assert not util.valid_homepage("gopher://gopher.hprc.utoronto.ca/")
 
 
-def test_parse_ssh_key():
+def test_parse_ssh_key() -> None:
     # Test a valid key.
     pk = """ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyN\
 TYAAABBBEURnkiY6JoLyqDE8Li1XuAW+LHmkmLDMW/GL5wY7k4/A+Ta7bjA3MOKrF9j4EuUTvCuNX\
@@ -85,7 +85,7 @@ ULxvpfSqheTFWZc+g="""
         util.parse_ssh_key("invalid-prefix fake-content")
 
 
-def test_parse_ssh_keys():
+def test_parse_ssh_keys() -> None:
     pks = """ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyN\
 TYAAABBBEURnkiY6JoLyqDE8Li1XuAW+LHmkmLDMW/GL5wY7k4/A+Ta7bjA3MOKrF9j4EuUTvCuNX\
 ULxvpfSqheTFWZc+g=
@@ -100,7 +100,7 @@ fRSo6OFcejKc="""
     assert_multiple_keys(pks)
 
 
-def test_parse_ssh_keys_with_extra_lines():
+def test_parse_ssh_keys_with_extra_lines() -> None:
     pks = """ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyN\
 TYAAABBBEURnkiY6JoLyqDE8Li1XuAW+LHmkmLDMW/GL5wY7k4/A+Ta7bjA3MOKrF9j4EuUTvCuNX\
 ULxvpfSqheTFWZc+g=
@@ -134,11 +134,13 @@ fRSo6OFcejKc=
         ("0", "0", (0, 50)),
     ],
 )
-def test_sanitize_params(offset_str: str, per_page_str: str, expected: tuple[int, int]):
+def test_sanitize_params(
+    offset_str: str, per_page_str: str, expected: tuple[int, int]
+) -> None:
     assert util.sanitize_params(offset_str, per_page_str) == expected
 
 
-def assert_multiple_keys(pks):
+def assert_multiple_keys(pks) -> None:
     keys = util.parse_ssh_keys(pks)
     assert len(keys) == 2
     pfx1, key1, pfx2, key2 = pks.split()
@@ -146,7 +148,7 @@ def assert_multiple_keys(pks):
     assert (pfx2, key2) in keys
 
 
-def test_hash_query():
+def test_hash_query() -> None:
     # No conditions
     query = db.query(User)
     assert util.hash_query(query) == "75e76026b7d576536e745ec22892cf8f5d7b5d62"

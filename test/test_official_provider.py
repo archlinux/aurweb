@@ -10,7 +10,7 @@ def setup(db_test):
     return
 
 
-def test_official_provider_creation():
+def test_official_provider_creation() -> None:
     with db.begin():
         oprovider = db.create(
             OfficialProvider,
@@ -24,7 +24,7 @@ def test_official_provider_creation():
     assert oprovider.Provides == "some-provides"
 
 
-def test_official_provider_cs():
+def test_official_provider_cs() -> None:
     """Test case sensitivity of the database table."""
     with db.begin():
         oprovider = db.create(
@@ -55,16 +55,16 @@ def test_official_provider_cs():
     assert oprovider_cs.Provides == "SOME-PROVIDES"
 
 
-def test_official_provider_null_name_raises_exception():
+def test_official_provider_null_name_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         OfficialProvider(Repo="some-repo", Provides="some-provides")
 
 
-def test_official_provider_null_repo_raises_exception():
+def test_official_provider_null_repo_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         OfficialProvider(Name="some-name", Provides="some-provides")
 
 
-def test_official_provider_null_provides_raises_exception():
+def test_official_provider_null_provides_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         OfficialProvider(Name="some-name", Repo="some-repo")

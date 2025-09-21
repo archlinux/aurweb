@@ -31,12 +31,12 @@ GIT_CLONE_URI_PRIV = "priv_%s"
 
 
 @register_filter("func")
-def func():
+def func() -> None:
     pass
 
 
 @register_function("function")
-def function():
+def function() -> None:
     pass
 
 
@@ -97,17 +97,17 @@ def create_group(pkg: Package, group_name: str) -> PackageGroup:
     return pkggrp
 
 
-def test_register_function_exists_key_error():
+def test_register_function_exists_key_error() -> None:
     """Most instances of register_filter are tested through module
     imports or template renders, so we only test failures here."""
     with pytest.raises(KeyError):
 
         @register_function("function")
-        def some_func():
+        def some_func() -> None:
             pass
 
 
-def test_commit_hash():
+def test_commit_hash() -> None:
     # Hashes we'll use for this test. long_commit_hash should be
     # shortened to commit_hash for rendering.
     commit_hash = "abcdefg"
@@ -159,7 +159,7 @@ def pager_context(num_packages: int) -> dict[str, Any]:
     }
 
 
-def test_pager_no_results():
+def test_pager_no_results() -> None:
     """Test the pager partial with no results."""
     num_packages = 0
     context = pager_context(num_packages)
@@ -171,7 +171,7 @@ def test_pager_no_results():
     assert stats[0].text.strip() == expected
 
 
-def test_pager():
+def test_pager() -> None:
     """Test the pager partial with two pages of results."""
     num_packages = 100
     context = pager_context(num_packages)
@@ -303,7 +303,7 @@ def check_package_details(content: str, pkg: Package) -> None:
     assert last_updated.text.strip() == expected
 
 
-def test_package_details(user: User, package: Package):
+def test_package_details(user: User, package: Package) -> None:
     """Test package details with most fields populated, but not all."""
     request = Request(user=user, authenticated=True)
     context = make_context(request, "Test Details")
@@ -325,7 +325,7 @@ def test_package_details(user: User, package: Package):
     check_package_details(body, package)
 
 
-def test_package_details_filled(user: User, package: Package):
+def test_package_details_filled(user: User, package: Package) -> None:
     """Test package details with all fields populated."""
 
     pkgbase = package.PackageBase
@@ -374,7 +374,7 @@ def test_package_details_filled(user: User, package: Package):
     check_package_details(body, package)
 
 
-def test_make_context_timezone(user: User, package: Package):
+def test_make_context_timezone(user: User, package: Package) -> None:
     request = Request(
         user=user, authenticated=True, url="/packages/test?timezone=foobar"
     )
@@ -383,7 +383,7 @@ def test_make_context_timezone(user: User, package: Package):
 
 
 @pytest.mark.asyncio
-async def test_make_variable_context_timezone(user: User, package: Package):
+async def test_make_variable_context_timezone(user: User, package: Package) -> None:
     request = Request(
         user=user, authenticated=True, url="/packages/test?timezone=foobar"
     )
@@ -394,7 +394,7 @@ async def test_make_variable_context_timezone(user: User, package: Package):
 
 
 @pytest.mark.asyncio
-async def test_make_variable_context_params():
+async def test_make_variable_context_params() -> None:
     request = Request(url="/test", query_params={"request": "test", "x": "test"})
     context = await make_variable_context(request, "Test")
 

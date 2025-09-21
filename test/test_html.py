@@ -105,7 +105,7 @@ def test_archdev_navbar_authenticated_pm(client: TestClient, package_maintainer:
         assert item.text.strip() == expected[i]
 
 
-def test_get_errors():
+def test_get_errors() -> None:
     html = """
     <ul class="errorlist">
         <li>Test</li>
@@ -115,7 +115,7 @@ def test_get_errors():
     assert errors[0].text.strip() == "Test"
 
 
-def test_get_successes():
+def test_get_successes() -> None:
     html = """
     <ul class="success">
         <li>Test</li>

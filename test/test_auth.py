@@ -62,7 +62,7 @@ async def test_auth_backend_invalid_sid(backend: BasicAuthBackend):
 
 
 @pytest.mark.asyncio
-async def test_auth_backend_invalid_user_id():
+async def test_auth_backend_invalid_user_id() -> None:
     # Create a new session with a fake user id.
     now_ts = time.utcnow()
     with pytest.raises(IntegrityError):
@@ -108,7 +108,7 @@ async def test_expired_session(backend: BasicAuthBackend, user: User):
 
 
 @pytest.mark.asyncio
-async def test_auth_required_redirection_bad_referrer():
+async def test_auth_required_redirection_bad_referrer() -> None:
     # Create a fake route function which can be wrapped by auth_required.
     def bad_referrer_route(request: fastapi.Request):
         pass
@@ -125,7 +125,7 @@ async def test_auth_required_redirection_bad_referrer():
         assert exc.detail == "Bad Referer header."
 
 
-def test_account_type_required():
+def test_account_type_required() -> None:
     """This test merely asserts that a few different paths
     do not raise exceptions."""
     # This one shouldn't raise.
@@ -139,26 +139,26 @@ def test_account_type_required():
         account_type_required({"FAKE"})
 
 
-def test_is_package_maintainer():
+def test_is_package_maintainer() -> None:
     user_ = AnonymousUser()
     assert not user_.is_package_maintainer()
 
 
-def test_is_developer():
+def test_is_developer() -> None:
     user_ = AnonymousUser()
     assert not user_.is_developer()
 
 
-def test_is_elevated():
+def test_is_elevated() -> None:
     user_ = AnonymousUser()
     assert not user_.is_elevated()
 
 
-def test_voted_for():
+def test_voted_for() -> None:
     user_ = AnonymousUser()
     assert not user_.voted_for(None)
 
 
-def test_notified():
+def test_notified() -> None:
     user_ = AnonymousUser()
     assert not user_.notified(None)

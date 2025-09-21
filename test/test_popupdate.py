@@ -8,5 +8,5 @@ def setup(db_test):
     return
 
 
-def test_popupdate():
+def test_popupdate() -> None:
     popupdate.main()

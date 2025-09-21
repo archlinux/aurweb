@@ -10,7 +10,7 @@ def setup(db_test):
     return
 
 
-def test_term_creation():
+def test_term_creation() -> None:
     with db.begin():
         term = db.create(
             Term, Description="Term description", URL="https://fake_url.io"
@@ -21,11 +21,11 @@ def test_term_creation():
     assert term.Revision == 1
 
 
-def test_term_null_description_raises_exception():
+def test_term_null_description_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         Term(URL="https://fake_url.io")
 
 
-def test_term_null_url_raises_exception():
+def test_term_null_url_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         Term(Description="Term description")

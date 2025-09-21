@@ -78,7 +78,7 @@ def package(user: User) -> Generator[Package]:
     yield pkg
 
 
-def test_user_login_logout(user: User):
+def test_user_login_logout(user: User) -> None:
     """Test creating a user and reading its columns."""
     # Assert that make_user created a valid user.
     assert bool(user.ID)
@@ -128,13 +128,13 @@ def test_user_login_logout(user: User):
     assert not user.is_authenticated()
 
 
-def test_user_login_twice(user: User):
+def test_user_login_twice(user: User) -> None:
     request = Request()
     assert user.login(request, "testPassword")
     assert user.login(request, "testPassword")
 
 
-def test_user_login_banned(user: User):
+def test_user_login_banned(user: User) -> None:
     # Add ban for the next 30 seconds.
     banned_timestamp = datetime.now(UTC) + timedelta(seconds=30)
     with db.begin():
@@ -145,13 +145,13 @@ def test_user_login_banned(user: User):
     assert not user.login(request, "testPassword")
 
 
-def test_user_login_suspended(user: User):
+def test_user_login_suspended(user: User) -> None:
     with db.begin():
         user.Suspended = True
     assert not user.login(Request(), "testPassword")
 
 
-def test_legacy_user_authentication(user: User):
+def test_legacy_user_authentication(user: User) -> None:
     with db.begin():
         user.Salt = bcrypt.gensalt().decode()
         user.Passwd = hashlib.md5(f"{user.Salt}testPassword".encode()).hexdigest()
@@ -163,7 +163,7 @@ def test_legacy_user_authentication(user: User):
     assert not user.valid_password(None)
 
 
-def test_user_login_with_outdated_sid(user: User):
+def test_user_login_with_outdated_sid(user: User) -> None:
     # Make a session with a LastUpdateTS 5 seconds ago, causing
     # user.login to update it with a new sid.
     with db.begin():
@@ -178,22 +178,22 @@ def test_user_login_with_outdated_sid(user: User):
     assert sid != "stub"
 
 
-def test_user_update_password(user: User):
+def test_user_update_password(user: User) -> None:
     user.update_password("secondPassword")
     assert not user.valid_password("testPassword")
     assert user.valid_password("secondPassword")
 
 
-def test_user_minimum_passwd_length():
+def test_user_minimum_passwd_length() -> None:
     passwd_min_len = aurweb.config.getint("options", "passwd_min_len")
     assert User.minimum_passwd_length() == passwd_min_len
 
 
-def test_user_has_credential(user: User):
+def test_user_has_credential(user: User) -> None:
     assert not user.has_credential(creds.ACCOUNT_CHANGE_TYPE)
 
 
-def test_user_ssh_pub_key(user: User):
+def test_user_ssh_pub_key(user: User) -> None:
     assert user.ssh_pub_keys.first() is None
 
     with db.begin():
@@ -207,7 +207,7 @@ def test_user_ssh_pub_key(user: User):
     assert user.ssh_pub_keys.first() == ssh_pub_key
 
 
-def test_user_credential_types(user: User):
+def test_user_credential_types(user: User) -> None:
     assert user.AccountTypeID in creds.user_developer_or_package_maintainer
     assert user.AccountTypeID not in creds.package_maintainer
     assert user.AccountTypeID not in creds.developer
@@ -238,7 +238,7 @@ def test_user_credential_types(user: User):
     assert user.is_developer()
 
 
-def test_user_json(user: User):
+def test_user_json(user: User) -> None:
     data = json.loads(user.json())
     assert data.get("ID") == user.ID
     assert data.get("Username") == user.Username
@@ -247,7 +247,7 @@ def test_user_json(user: User):
     assert isinstance(data.get("RegistrationTS"), int)
 
 
-def test_user_as_dict(user: User):
+def test_user_as_dict(user: User) -> None:
     data = user.as_dict()
     assert data.get("ID") == user.ID
     assert data.get("Username") == user.Username
@@ -256,7 +256,7 @@ def test_user_as_dict(user: User):
     assert isinstance(data.get("RegistrationTS"), datetime)
 
 
-def test_user_is_package_maintainer(user: User):
+def test_user_is_package_maintainer(user: User) -> None:
     with db.begin():
         user.AccountTypeID = at.PACKAGE_MAINTAINER_ID
     assert user.is_package_maintainer() is True
@@ -267,7 +267,7 @@ def test_user_is_package_maintainer(user: User):
     assert user.is_package_maintainer() is True
 
 
-def test_user_is_developer(user: User):
+def test_user_is_developer(user: User) -> None:
     with db.begin():
         user.AccountTypeID = at.DEVELOPER_ID
     assert user.is_developer() is True
@@ -278,7 +278,7 @@ def test_user_is_developer(user: User):
     assert user.is_developer() is True
 
 
-def test_user_voted_for(user: User, package: Package):
+def test_user_voted_for(user: User, package: Package) -> None:
     pkgbase = package.PackageBase
     now = int(datetime.now(UTC).timestamp())
     with db.begin():
@@ -286,20 +286,20 @@ def test_user_voted_for(user: User, package: Package):
     assert user.voted_for(package)
 
 
-def test_user_notified(user: User, package: Package):
+def test_user_notified(user: User, package: Package) -> None:
     pkgbase = package.PackageBase
     with db.begin():
         db.create(PackageNotification, PackageBase=pkgbase, User=user)
     assert user.notified(package)
 
 
-def test_user_packages(user: User, package: Package):
+def test_user_packages(user: User, package: Package) -> None:
     assert package in user.packages()
 
 
 def test_can_edit_user(
     user: User, pm_user: User, dev_user: User, pm_and_dev_user: User
-):
+) -> None:
     # User can edit.
     assert user.can_edit_user(user)
 

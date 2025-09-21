@@ -9,14 +9,14 @@ def setup(db_test):
     return
 
 
-def test_dependency_types():
+def test_dependency_types() -> None:
     dep_types = ["depends", "makedepends", "checkdepends", "optdepends"]
     for dep_type in dep_types:
         dependency_type = query(DependencyType, DependencyType.Name == dep_type).first()
         assert dependency_type is not None
 
 
-def test_dependency_type_creation():
+def test_dependency_type_creation() -> None:
     with begin():
         dependency_type = create(DependencyType, Name="Test Type")
     assert bool(dependency_type.ID)
@@ -25,7 +25,7 @@ def test_dependency_type_creation():
         delete(dependency_type)
 
 
-def test_dependency_type_null_name_uses_default():
+def test_dependency_type_null_name_uses_default() -> None:
     with begin():
         dependency_type = create(DependencyType)
     assert dependency_type.Name == str()

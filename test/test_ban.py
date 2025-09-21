@@ -29,7 +29,7 @@ def test_ban(ban: Ban):
     assert bool(ban.BanTS)
 
 
-def test_invalid_ban():
+def test_invalid_ban() -> None:
     with pytest.raises(sa_exc.IntegrityError):
         bad_ban = Ban(BanTS=datetime.now(UTC))
 

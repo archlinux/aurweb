@@ -10,13 +10,13 @@ def setup(db_test):
     return
 
 
-def test_captcha_salts():
+def test_captcha_salts() -> None:
     """Make sure we can get some captcha salts."""
     salts = captcha.get_captcha_salts()
     assert len(salts) == 6
 
 
-def test_captcha_token():
+def test_captcha_token() -> None:
     """Make sure getting a captcha salt's token matches up against
     the first three digits of the md5 hash of the salt."""
     salts = captcha.get_captcha_salts()
@@ -28,7 +28,7 @@ def test_captcha_token():
     assert token1 == token2
 
 
-def test_captcha_challenge_answer():
+def test_captcha_challenge_answer() -> None:
     """Make sure that executing the captcha challenge via shell
     produces the correct result by comparing it against a straight
     up token conversion."""
@@ -43,7 +43,7 @@ def test_captcha_challenge_answer():
     assert challenge == challenge2
 
 
-def test_captcha_salt_filter():
+def test_captcha_salt_filter() -> None:
     """Make sure captcha_salt_filter returns the first salt from
     get_captcha_salts().
 
@@ -54,7 +54,7 @@ def test_captcha_salt_filter():
     assert salt == captcha.get_captcha_salts()[0]
 
 
-def test_captcha_cmdline_filter():
+def test_captcha_cmdline_filter() -> None:
     """Make sure that the captcha_cmdline filter gives us the
     same challenge that get_captcha_challenge does.
 

@@ -10,13 +10,13 @@ def setup(db_test):
     return
 
 
-def test_license_creation():
+def test_license_creation() -> None:
     with db.begin():
         license = db.create(License, Name="Test License")
     assert bool(license.ID)
     assert license.Name == "Test License"
 
 
-def test_license_null_name_raises_exception():
+def test_license_null_name_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         License()

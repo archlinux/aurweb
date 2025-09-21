@@ -97,7 +97,7 @@ def test_package_dependencies(user: User, package: Package):
     assert not is_aur_package(pkgdep)
 
 
-def test_package_dependencies_null_package_raises():
+def test_package_dependencies_null_package_raises() -> None:
     with pytest.raises(IntegrityError):
         PackageDependency(DepTypeID=DEPENDS_ID, DepName="test-dep")
 

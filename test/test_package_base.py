@@ -35,7 +35,7 @@ def pkgbase(user: User) -> Generator[PackageBase]:
     yield pkgbase
 
 
-def test_package_base(user: User, pkgbase: PackageBase):
+def test_package_base(user: User, pkgbase: PackageBase) -> None:
     assert pkgbase in user.maintained_bases
     assert not pkgbase.OutOfDateTS
     assert pkgbase.SubmittedTS > 0
@@ -48,7 +48,7 @@ def test_package_base(user: User, pkgbase: PackageBase):
     assert pkgbase.Popularity == 0.0
 
 
-def test_package_base_ci(user: User, pkgbase: PackageBase):
+def test_package_base_ci(user: User, pkgbase: PackageBase) -> None:
     """Test case insensitivity of the database table."""
     with pytest.raises(IntegrityError):
         with db.begin():
@@ -56,7 +56,7 @@ def test_package_base_ci(user: User, pkgbase: PackageBase):
     db.rollback()
 
 
-def test_package_base_relationships(user: User, pkgbase: PackageBase):
+def test_package_base_relationships(user: User, pkgbase: PackageBase) -> None:
     with db.begin():
         pkgbase.Flagger = user
         pkgbase.Submitter = user
@@ -67,6 +67,6 @@ def test_package_base_relationships(user: User, pkgbase: PackageBase):
     assert pkgbase in user.package_bases
 
 
-def test_package_base_null_name_raises_exception():
+def test_package_base_null_name_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         PackageBase()

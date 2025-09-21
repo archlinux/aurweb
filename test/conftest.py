@@ -137,7 +137,7 @@ def _drop_database(engine: Engine, dbname: str) -> None:
     conn.close()
 
 
-def setup_email():
+def setup_email() -> None:
     if not os.path.exists(Email.TEST_DIR):
         # Create the directory.
         os.makedirs(Email.TEST_DIR, exist_ok=True)
@@ -216,7 +216,7 @@ def email_test() -> None:
 
 
 @pytest.fixture
-def prometheus_test():
+def prometheus_test() -> None:
     """
     Prometheus test fixture
 

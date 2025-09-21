@@ -152,7 +152,7 @@ def commit_count(repo: pygit2.Repository) -> int:
     return commits
 
 
-def test_specbase_raises_notimplementederror():
+def test_specbase_raises_notimplementederror() -> None:
     spec = SpecBase()
     with pytest.raises(NotImplementedError):
         spec.generate()

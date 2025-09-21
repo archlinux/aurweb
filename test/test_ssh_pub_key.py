@@ -48,14 +48,14 @@ def pubkey(user: User) -> Generator[SSHPubKey]:
     yield pubkey
 
 
-def test_pubkey(user: User, pubkey: SSHPubKey):
+def test_pubkey(user: User, pubkey: SSHPubKey) -> None:
     assert pubkey.UserID == user.ID
     assert pubkey.User == user
     assert pubkey.Fingerprint == "testFingerprint"
     assert pubkey.PubKey == "testPubKey"
 
 
-def test_pubkey_cs(user: User):
+def test_pubkey_cs(user: User) -> None:
     """Test case sensitivity of the database table."""
     with db.begin():
         pubkey_cs = db.create(
@@ -68,13 +68,13 @@ def test_pubkey_cs(user: User):
     assert pubkey_cs.PubKey != "testPubKey"
 
 
-def test_pubkey_fingerprint():
+def test_pubkey_fingerprint() -> None:
     proc = Popen(["ssh-keygen", "-l", "-f", "-"], stdin=PIPE, stdout=PIPE)
     out, _ = proc.communicate(TEST_SSH_PUBKEY.encode())
     expected = out.decode().split()[1].split(":", 1)[1]
     assert get_fingerprint(TEST_SSH_PUBKEY) == expected
 
 
-def test_pubkey_invalid_fingerprint():
+def test_pubkey_invalid_fingerprint() -> None:
     with pytest.raises(ValueError):
         get_fingerprint("invalid-prefix some-fake-content")

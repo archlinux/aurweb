@@ -47,6 +47,6 @@ def test_package_source(package: Package):
     assert pkgsource.SourceArch is None
 
 
-def test_package_source_null_package_raises():
+def test_package_source_null_package_raises() -> None:
     with pytest.raises(IntegrityError):
         PackageSource()

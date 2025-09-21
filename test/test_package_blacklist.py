@@ -10,13 +10,13 @@ def setup(db_test):
     return
 
 
-def test_package_blacklist_creation():
+def test_package_blacklist_creation() -> None:
     with db.begin():
         package_blacklist = db.create(PackageBlacklist, Name="evil-package")
     assert bool(package_blacklist.ID)
     assert package_blacklist.Name == "evil-package"
 
 
-def test_package_blacklist_null_name_raises_exception():
+def test_package_blacklist_null_name_raises_exception() -> None:
     with pytest.raises(IntegrityError):
         PackageBlacklist()
