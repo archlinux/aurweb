@@ -45,7 +45,7 @@ RIGHT_TO_LEFT_LANGUAGES = ("he", "ar")
 
 
 class Translator:
-    def __init__(self):
+    def __init__(self) -> None:
         self._localedir = aurweb.config.get("options", "localedir")
         self._translator = {}
 

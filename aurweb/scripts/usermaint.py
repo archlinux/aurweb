@@ -6,7 +6,7 @@ from aurweb import db, time
 from aurweb.models import User
 
 
-def _main():
+def _main() -> None:
     limit_to = time.utcnow() - 86400 * 7
 
     update_ = (
@@ -22,7 +22,7 @@ def _main():
     db.get_session().execute(update_)
 
 
-def main():
+def main() -> None:
     db.get_engine()
     with db.begin():
         _main()

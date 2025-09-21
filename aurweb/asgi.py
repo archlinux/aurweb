@@ -71,7 +71,7 @@ if aurweb.config.get("tracing", "otlp_endpoint"):
     trace.get_tracer_provider().add_span_processor(span_processor)
 
 
-async def app_startup():
+async def app_startup() -> None:
     # https://stackoverflow.com/questions/67054759/about-the-maximum-recursion-error-in-fastapi
     # Test failures have been observed by internal starlette code when
     # using starlette.testclient.TestClient. Looking around in regards

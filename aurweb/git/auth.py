@@ -23,7 +23,7 @@ def format_command(env_vars, command, ssh_opts, ssh_key):
     return msg
 
 
-def main():
+def main() -> None:
     valid_keytypes = aurweb.config.get("auth", "valid-keytypes").split()
     username_regex = aurweb.config.get("auth", "username-regex")
     git_serve_cmd = aurweb.config.get("auth", "git-serve-cmd")

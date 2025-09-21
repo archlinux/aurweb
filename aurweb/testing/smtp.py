@@ -7,7 +7,7 @@ class FakeSMTP:
     starttls_enabled = False
     use_ssl = False
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.emails = []
         self.count = 0
         self.ehlo_count = 0

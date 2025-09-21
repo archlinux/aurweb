@@ -627,7 +627,7 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
         raise aurweb.exceptions.InvalidArgumentsException(msg)
 
 
-def main():
+def main() -> None:
     user = os.environ.get("AUR_USER")
     privileged = os.environ.get("AUR_PRIVILEGED", "0") == "1"
     ssh_cmd = os.environ.get("SSH_ORIGINAL_COMMAND")

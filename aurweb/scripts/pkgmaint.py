@@ -6,7 +6,7 @@ from aurweb import db, time
 from aurweb.models import PackageBase
 
 
-def _main():
+def _main() -> None:
     # One day behind.
     limit_to = time.utcnow() - 86400
 
@@ -16,7 +16,7 @@ def _main():
     db.delete_all(query)
 
 
-def main():
+def main() -> None:
     # Previously used to clean up "reserved" packages which never got pushed.
     # Let's deactivate this for now since "setup-repo" is gone and we see
     # other issue where deletion of a user account might cause unintended

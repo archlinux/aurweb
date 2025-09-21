@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 
 
 class Benchmark:
-    def __init__(self):
+    def __init__(self) -> None:
         self.start()
 
     def _timestamp(self) -> float:

@@ -25,10 +25,10 @@ class FakeConnectionPool:
     redis_connection() user's perspective.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.handle = fakeredis.FakeStrictRedis()
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         pass
 
 
@@ -53,7 +53,7 @@ def redis_connection():  # pragma: no cover
     return Redis(connection_pool=pool)
 
 
-def kill_redis():
+def kill_redis() -> None:
     global pool
     if pool:
         pool.disconnect()

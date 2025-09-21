@@ -93,7 +93,7 @@ def spawn_child(_args):
     children.append(subprocess.Popen(_args))
 
 
-def start():
+def start() -> None:
     """
     Spawn the test server. If it is already running, do nothing.
 

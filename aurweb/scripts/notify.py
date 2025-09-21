@@ -783,7 +783,7 @@ class VoteReminderNotification(Notification):
         return (aur_location + "/package-maintainer/?id=" + str(self._vote_id),)
 
 
-def main():
+def main() -> None:
     db.get_engine()
     action = sys.argv[1]
     action_map = {

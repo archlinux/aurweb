@@ -24,7 +24,7 @@ def _get_parser():
     return _parser
 
 
-def rehash():
+def rehash() -> None:
     """Globally rehash the configuration parser."""
     global _parser
     _parser = None

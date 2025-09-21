@@ -17,7 +17,7 @@ class PackageKeyword(Base):
         foreign_keys=[__table__.c.PackageBaseID],
     )
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 
         if not self.PackageBase and not self.PackageBaseID:

@@ -323,7 +323,7 @@ def validate_blob_size(blob: pygit2.Object, commit: pygit2.Commit):
         )
 
 
-def main():  # noqa: C901
+def main() -> None:  # noqa: C901
     repo = pygit2.Repository(repo_path)
 
     user = os.environ.get("AUR_USER")

@@ -178,7 +178,7 @@ def update_comment_render(comment: PackageComment) -> None:
     db.refresh(comment)
 
 
-def main():
+def main() -> None:
     db.get_engine()
     comment_id = int(sys.argv[1])
     comment = db.query(PackageComment).filter(PackageComment.ID == comment_id).first()

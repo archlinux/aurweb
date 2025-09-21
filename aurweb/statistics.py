@@ -125,7 +125,7 @@ class Statistics:
         return db_count_cache(counter, query, expire=self.expiry_time)
 
 
-def update_prometheus_metrics():
+def update_prometheus_metrics() -> None:
     stats = Statistics(cache_expire)
     # Users gauge
     for counter, utype in PROMETHEUS_USER_COUNTERS:

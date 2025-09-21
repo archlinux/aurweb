@@ -63,7 +63,7 @@ class AnonymousUser:
     # A nonce attribute, needed for all browser sessions; set in __init__.
     nonce = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.nonce = util.make_nonce()
 
     @staticmethod

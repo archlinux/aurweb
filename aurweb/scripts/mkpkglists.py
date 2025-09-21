@@ -333,7 +333,7 @@ def _main():
     logger.info("Completed in %s seconds.", seconds)
 
 
-def main():
+def main() -> None:
     db.get_engine()
     with db.begin():
         _main()

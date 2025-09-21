@@ -82,7 +82,7 @@ def run_single(pkgbase: PackageBase) -> None:
     db.refresh(pkgbase)
 
 
-def main():
+def main() -> None:
     db.get_engine()
     run_variable()
 

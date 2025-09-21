@@ -384,10 +384,10 @@ class ConnectionExecutor:
 
         return cur
 
-    def commit(self):
+    def commit(self) -> None:
         self._conn.commit()
 
-    def close(self):
+    def close(self) -> None:
         self._conn.close()
 
 
@@ -395,7 +395,7 @@ class Connection:
     _executor = None
     _conn = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         import aurweb.config
 
         aur_db_backend = aurweb.config.get("database", "backend")
@@ -432,8 +432,8 @@ class Connection:
     def execute(self, query, params=()):
         return self._conn.execute(query, params)
 
-    def commit(self):
+    def commit(self) -> None:
         self._conn.commit()
 
-    def close(self):
+    def close(self) -> None:
         self._conn.close()
