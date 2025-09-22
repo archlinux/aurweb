@@ -362,6 +362,19 @@ def lookup_dependencies(
     return aur_packages, official_packages, dependency_providers
 
 
+def strip_vcs_prefix(source: str) -> str:
+    """
+    Strip a VCS prefix (like "git+") from the source if it appears before "://".
+
+    :param source: the source to strip
+    :return the stripped source
+    """
+    if "+" in source.split("://", 1)[0]:
+        return source.split("+", 1)[1]
+    else:
+        return source
+
+
 @register_filter("source_uri")
 def source_uri(pkgsrc: models.PackageSource) -> Tuple[str, str]:
     """
@@ -371,19 +384,23 @@ def source_uri(pkgsrc: models.PackageSource) -> Tuple[str, str]:
     1. If "::" is anywhere in the Source column, split the string,
        which should produce a (text, uri), where text is before "::"
        and uri is after "::".
-    2. Otherwise, if "://" is anywhere in the Source column, it's just
-       some sort of URI, which we'll return varbatim as both text and uri.
+    2. If "://" is anywhere in the Source column, it's just
+       some sort of URI, which we'll return verbatim as both text and uri.
     3. Otherwise, we'll return a path to the source file in a uri produced
        out of options.source_file_uri formatted with the source file and
        the package base name.
 
+    In case 1 and 2, if a VCS prefix like "git+" appears before "://",
+    the VCS prefix is stripped from the uri.
+
     :param pkgsrc: PackageSource instance
-    :return text, uri)tuple
+    :return (text, uri) tuple
     """
     if "::" in pkgsrc.Source:
-        return pkgsrc.Source.split("::", 1)
+        name, uri = pkgsrc.Source.split("::", 1)
+        return name, strip_vcs_prefix(uri)
     elif "://" in pkgsrc.Source:
-        return pkgsrc.Source, pkgsrc.Source
+        return pkgsrc.Source, strip_vcs_prefix(pkgsrc.Source)
     path = config.get("options", "source_file_uri")
     pkgbasename = quote_plus(pkgsrc.Package.PackageBase.Name)
     return pkgsrc.Source, path % (pkgsrc.Source, pkgbasename)

@@ -101,6 +101,13 @@ def test_query_notified(maintainer: User, package: Package):
     assert query_notified[package.PackageBase.ID]
 
 
+def test_strip_vcs_prefix():
+    URL = "https://test.xyz"
+    assert util.strip_vcs_prefix(URL) == URL
+    assert util.strip_vcs_prefix("git+" + URL) == URL
+    assert util.strip_vcs_prefix("svn+" + URL) == URL
+
+
 def test_source_uri_file(package: Package):
     FILE = "test_file"
 
