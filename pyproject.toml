@@ -142,7 +142,7 @@ lxml = "^6.0.0"
 orjson = "^3.10.0"
 pygit2 = "^1.17.0"
 python-multipart = "0.0.20"
-redis = "^5.0.3"
+redis = "^6.0.0"
 requests = "^2.31.0"
 paginate = "^0.5.6"
 
