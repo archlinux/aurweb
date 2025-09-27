@@ -157,7 +157,7 @@ SQLAlchemy = "^1.4.52"
 greenlet = "3.2.4" # Explicitly add greenlet (dependency of SQLAlchemy) for python 3.13 support
 
 # ASGI
-uvicorn = "^0.35.0"
+uvicorn = "^0.37.0"
 gunicorn = "^22.0.0"
 Hypercorn = "^0.17.0"
 pytest-xdist = "^3.5.0"
