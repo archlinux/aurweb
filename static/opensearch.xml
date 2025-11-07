@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>AUR Packages</ShortName>
+	<LongName>Arch Linux User Repository (AUR) Package Search</LongName>
+	<Description>Search the Arch Linux User Repository by keyword in package names and descriptions.</Description>
+	<Tags>linux archlinux aur package software</Tags>
+	<Image height="16" width="16" type="image/x-icon">https://aur.archlinux.org/static/images/favicon.ico</Image>
+	<Language>en-us</Language>
+	<InputEncoding>UTF-8</InputEncoding>
+	<OutputEncoding>UTF-8</OutputEncoding>
+	<Query role="example" searchTerms="autojump"/>
+	<Url type="text/html" template="https://aur.archlinux.org/packages?K={searchTerms}"/>
+	<Url rel="self" type="application/opensearchdescription+xml"
+		template="https://archlinux.org/static/opensearch.xml"/>
+</OpenSearchDescription>
