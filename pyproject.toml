@@ -136,14 +136,14 @@ bleach = "^6.1.0"
 email-validator = "^2.1.1"
 fakeredis = "^2.21.3"
 feedgen = "^1.0.0"
-httpx = "^0.28.0"
+httpx = "^0.28.1"
 itsdangerous = "^2.1.2"
 lxml = "^6.0.0"
 orjson = "^3.10.0"
 pygit2 = "^1.17.0"
 python-multipart = "0.0.20"
 redis = "^5.0.3"
-requests = "^2.31.0"
+requests = "^2.32.5"
 paginate = "^0.5.6"
 
 # SQL
@@ -157,8 +157,8 @@ SQLAlchemy = "^1.4.52"
 greenlet = "3.2.4" # Explicitly add greenlet (dependency of SQLAlchemy) for python 3.13 support
 
 # ASGI
-uvicorn = "^0.35.0"
-gunicorn = "^22.0.0"
+uvicorn = "^0.38.0"
+gunicorn = "^23.0.0"
 Hypercorn = "^0.17.0"
 pytest-xdist = "^3.5.0"
 filelock = "^3.13.3"
@@ -177,7 +177,7 @@ opentelemetry-instrumentation-fastapi = "^0.47b0"
 opentelemetry-instrumentation-redis = "^0.47b0"
 opentelemetry-instrumentation-sqlalchemy = "^0.47b0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 coverage = "^7.4.4"
 pytest = "^8.1.1"
 pytest-asyncio = "^1.0.0"
