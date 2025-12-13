@@ -110,7 +110,7 @@ provision_review:
     - git clone $INFRASTRUCTURE_REPO
     - cd infrastructure
       # Remove vault files
-    - rm $(git grep -l 'ANSIBLE_VAULT;1.1;AES256$')
+    - find . -type f -name "*vault*.yml*" -delete
       # Remove vault config
     - sed -i '/^vault/d' ansible.cfg
       # Add host config
