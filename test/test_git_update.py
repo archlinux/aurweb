@@ -71,6 +71,47 @@ def test_size_humanize(size: Any, expected: str) -> None:
             "optional kids support",
             ">=7.1",
         ),
+        # An alpm-sonamev1 (see https://alpm.archlinux.page/specifications/alpm-sonamev1.7.html).
+        # basic
+        (
+            "libfoo.so",
+            "libfoo.so",
+            "",
+            "",
+        ),
+        # explicit
+        (
+            "libfoo.so=1-64",
+            "libfoo.so",
+            "",
+            "=1-64",
+        ),
+        # unversioned
+        (
+            "libfoo.so=libfoo.so-64",
+            "libfoo.so",
+            "",
+            "=libfoo.so-64",
+        ),
+        # Edge case:
+        # Dependency on a soname described as normal package relation (e.g. paru
+        # dependency on libalpm.so>=14). These are "valid" package relations but do not
+        # make sense as version requirements towards a soname, as sonames require a
+        # strict (equals to) relation for a consumer to be able to use them.
+        # See also: https://alpm.archlinux.page/specifications/alpm-package-relation.7.html
+        (
+            "libfoo.so>=4",
+            "libfoo.so",
+            "",
+            ">=4",
+        ),
+        # An alpm-sonamev2 (see https://alpm.archlinux.page/specifications/alpm-sonamev2.7.html).
+        (
+            "lib:libfoo.so.1",
+            "lib:libfoo.so.1",
+            "",
+            "",
+        ),
     ],
 )
 @pytest.mark.parametrize("alpm_parser", [True, False])
