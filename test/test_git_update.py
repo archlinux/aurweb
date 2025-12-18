@@ -182,10 +182,10 @@ def test_size_humanize(size: Any, expected: str) -> None:
             "<7",
         ),
         (
-            "my-little-pony=<7",
+            "my-little-pony<=7",
             "my-little-pony",
             "",
-            "=<7",
+            "<=7",
         ),
         (
             "my-little-pony>=7.1: optional kids support",
