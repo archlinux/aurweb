@@ -166,6 +166,7 @@ posix-ipc = "^1.1.1"
 pyalpm = "^0.10.12"
 fastapi = "^0.112.0"
 srcinfo = "^0.1.2"
+python-alpm = "^0.4.0"
 tomlkit = "^0.13.0"
 
 # Tracing
