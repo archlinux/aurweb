@@ -1,7 +1,14 @@
 from typing import Any
 
 import pytest
+from alpm.alpm_types import ALPMError, OptionalDependency, relation_or_soname_from_str
 
+from aurweb.git.update import (
+    GenericRelation,
+    sql_rel_description,
+    sql_rel_name,
+    sql_rel_requirement,
+)
 from aurweb.git.update_common import size_humanize
 from aurweb.git.update_legacy import parse_dep
 
@@ -66,10 +73,24 @@ def test_size_humanize(size: Any, expected: str) -> None:
         ),
     ],
 )
+@pytest.mark.parametrize("alpm_parser", [True, False])
 def test_parse_dep(
-    depstring: str, exp_depname: str, exp_depdesc: str, exp_depcond: str
+    depstring: str,
+    exp_depname: str,
+    exp_depdesc: str,
+    exp_depcond: str,
+    alpm_parser: bool,
 ) -> None:
-    depname, depdesc, depcond = parse_dep(depstring)
-    assert depname == exp_depname
-    assert depdesc == exp_depdesc
-    assert depcond == exp_depcond
+    if alpm_parser:
+        try:
+            relation: GenericRelation = relation_or_soname_from_str(depstring)
+        except ALPMError:
+            relation: GenericRelation = OptionalDependency.from_str(depstring)
+        assert sql_rel_name(relation) == exp_depname
+        assert sql_rel_description(relation) == exp_depdesc
+        assert sql_rel_requirement(relation) == exp_depcond
+    else:
+        depname, depdesc, depcond = parse_dep(depstring)
+        assert depname == exp_depname
+        assert depdesc == exp_depdesc
+        assert depcond == exp_depcond
