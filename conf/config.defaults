@@ -122,6 +122,8 @@ ssh-cmdline = ssh aur@aur.archlinux.org
 
 [update]
 max-blob-size = 256000
+; Whether to use the new python-alpm .SRCINFO parser.
+alpm-parser = 0
 
 [aurblup]
 db-path = /srv/http/aurweb/aurblup/

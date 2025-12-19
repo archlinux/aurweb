@@ -30,7 +30,7 @@ from aurweb.git.update_common import (
 
 repo_path = aurweb.config.get("serve", "repo-path")
 
-legacy_parser = aurweb.config.getboolean("update", "legacy-parser")
+alpm_parser = aurweb.config.getboolean("update", "alpm-parser")
 
 
 # A generic relation that can be either a PackageRelation, SonameV1, SonameV2,
@@ -518,6 +518,9 @@ def main() -> None:  # noqa: C901
 
 
 if __name__ == "__main__":
-    from aurweb.git.update_legacy import main as legacy_main
+    if alpm_parser:
+        main()
+    else:
+        from aurweb.git.update_legacy import main as legacy_main
 
-    legacy_main()
+        legacy_main()

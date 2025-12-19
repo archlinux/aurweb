@@ -1,8 +1,7 @@
 #!/bin/sh
 
-test_description='git-update tests (ALPM parser)'
+test_description='git-update tests (legacy parser)'
 
-USE_ALPM_PARSER=1
 . "$(dirname "$0")/setup.sh"
 
 dump_package_info() {
@@ -423,7 +422,7 @@ test_expect_success 'Pushing .SRCINFO without pkgver.' '
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^error: The SRCINFO data misses the required keyword '"'"'pkgver'"'"'$" actual
+	grep -q "^error: missing mandatory field: pkgver$" actual
 '
 
 test_expect_success 'Pushing .SRCINFO without pkgrel.' '
@@ -439,7 +438,7 @@ test_expect_success 'Pushing .SRCINFO without pkgrel.' '
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^error: The SRCINFO data misses the required keyword '"'"'pkgrel'"'"'$" actual
+	grep -q "^error: missing mandatory field: pkgrel$" actual
 '
 
 test_expect_success 'Pushing .SRCINFO with epoch.' '
@@ -475,7 +474,7 @@ test_expect_success 'Pushing .SRCINFO with invalid pkgname.' '
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^invalid first character of package name$" actual
+	grep -q "^error: invalid package name: !$" actual
 '
 
 test_expect_success 'Pushing .SRCINFO with invalid epoch.' '
@@ -491,7 +490,7 @@ test_expect_success 'Pushing .SRCINFO with invalid epoch.' '
 	test_must_fail \
 	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
 	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
-	grep -q "^invalid package epoch$" actual
+	grep -q "^error: invalid epoch: !$" actual
 '
 
 test_expect_success 'Pushing .SRCINFO with too long URL.' '

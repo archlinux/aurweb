@@ -23,6 +23,9 @@ RENDERCOMMENT="$TOPLEVEL/aurweb/scripts/rendercomment.py"
 PATH="${PATH}:${TOPLEVEL}/test/scripts"
 export PATH
 
+# Whether to use python-alpm .SRCINFO parser
+USE_ALPM_PARSER="${USE_ALPM_PARSER:-0}"
+
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
 [database]
@@ -61,6 +64,7 @@ ssh-cmdline = ssh aur@aur.archlinux.org
 
 [update]
 max-blob-size = 256000
+alpm-parser = $USE_ALPM_PARSER
 
 [aurblup]
 db-path = $(pwd)/sync/
