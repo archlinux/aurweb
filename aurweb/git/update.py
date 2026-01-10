@@ -12,7 +12,6 @@ from alpm.alpm_types import (
     OptionalDependency,
     PackageRelation,
     SonameV1,
-    SonameV1Type,
 )
 from alpm.type_aliases import RelationOrSoname, SourceInfo
 
@@ -75,12 +74,13 @@ def sql_rel_requirement(relation: GenericRelation) -> str:
         return str(relation.version_requirement)
 
     if isinstance(relation, SonameV1):
-        elf_arch = "" if relation.architecture is None else f"-{relation.architecture}"
-        match relation.form:
-            case SonameV1Type.UNVERSIONED:
-                return f"={relation.soname}{elf_arch}"
-            case SonameV1Type.EXPLICIT:
-                return f"={relation.version}{elf_arch}"
+        elf_arch = (
+            "" if relation.architecture is None else f"-{int(relation.architecture)}"
+        )
+        if relation.soname is not None:
+            return f"={relation.soname}{elf_arch}"
+        elif relation.version is not None:
+            return f"={relation.version}{elf_arch}"
 
     return ""
 
