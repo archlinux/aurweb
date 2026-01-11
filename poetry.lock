@@ -2205,16 +2205,16 @@ testing = ["filelock"]
 
 [[package]]
 name = "python-alpm"
-version = "0.4.0"
+version = "0.4.1"
 description = "Python bindings for the Rust-based ALPM project"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "python_alpm-0.4.0-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:dc941bc783424bc13362289614a1d9e8d0b108588991fba3c8ce5d0be3bd5d0c"},
-    {file = "python_alpm-0.4.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:47d36ebd57aa137f2aa1f4bf41e3a14c78da860570a9d83a51c03e46d82a55ab"},
-    {file = "python_alpm-0.4.0-cp310-abi3-manylinux_2_31_riscv64.whl", hash = "sha256:197a27fa80d62b714fd4247a880a58b6e6b6971faa98e5caf674100a3bfc5025"},
-    {file = "python_alpm-0.4.0.tar.gz", hash = "sha256:69f45480a72ba85beacbc24a9fb86d37bc639fa5c6db832e86240c4193c7fea7"},
+    {file = "python_alpm-0.4.1-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a83b19c5f2309350ed7b8570fb6edf40fe9999651223cdc69836cc00bae6f862"},
+    {file = "python_alpm-0.4.1-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:02258abb1c1a8ba4c3ac810c45dff01dacd02851e880e4169f551fce98b638fc"},
+    {file = "python_alpm-0.4.1-cp310-abi3-manylinux_2_31_riscv64.whl", hash = "sha256:71ddf84c537bbac860866806c1f59780ece5b47212c489180f0f8e6d35bab4e1"},
+    {file = "python_alpm-0.4.1.tar.gz", hash = "sha256:333c202ba541d887caea5fb63fde75fa9cc727f9195f583fcbe38ca133c600e3"},
 ]
 
 [[package]]
@@ -2818,4 +2818,4 @@ test = ["big-O", "importlib-resources ; python_version < \"3.9\"", "jaraco.funct
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.15"
-content-hash = "5a970555ad5c1d2cf3bc5990b5ff859497467c757e2a23477e6d443257cfe970"
+content-hash = "70986da84a0e224313e499611a9e0b23f42ae11223e1e6e4b9867e6d70152e52"
