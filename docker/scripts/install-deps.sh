@@ -17,6 +17,6 @@ pacman -Syu --noconfirm --noprogressbar \
     mariadb mariadb-libs cgit-aurweb uwsgi uwsgi-plugin-cgi \
     python-pip pyalpm python-srcinfo python-alpm curl libeatmydata cronie \
     python-poetry python-poetry-core step-cli step-ca asciidoc \
-    python-virtualenv python-pre-commit
+    python-virtualenv python-pre-commit libgit2
 
 exec "$@"
