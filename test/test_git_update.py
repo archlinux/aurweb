@@ -135,3 +135,58 @@ def test_parse_dep(
         assert depname == exp_depname
         assert depdesc == exp_depdesc
         assert depcond == exp_depcond
+
+
+def test_cli_main_dispatches_to_legacy_parser() -> None:
+    """Test that cli_main() calls legacy parser when alpm-parser = 0."""
+    from unittest import mock
+
+    # Mock the module-level alpm_parser variable to False
+    with mock.patch("aurweb.git.update.alpm_parser", False):
+        # Mock both main functions
+        with mock.patch("aurweb.git.update.main") as mock_alpm_main:
+            with mock.patch("aurweb.git.update_legacy.main") as mock_legacy_main:
+                from aurweb.git.update import cli_main
+
+                # Mock sys.argv to prevent argument parsing issues
+                with mock.patch(
+                    "sys.argv",
+                    ["aurweb-git-update", "refs/heads/master", "0" * 40, "1" * 40],
+                ):
+                    try:
+                        cli_main()
+                    except SystemExit:
+                        pass  # Expected if main() calls sys.exit
+                    except Exception:
+                        pass  # Other errors are OK for this test
+
+                    # Verify legacy parser was called, ALPM was not
+                    mock_legacy_main.assert_called_once()
+                    mock_alpm_main.assert_not_called()
+
+
+def test_cli_main_dispatches_to_alpm_parser() -> None:
+    """Test that cli_main() calls ALPM parser when alpm-parser = 1."""
+    from unittest import mock
+
+    # Mock the module-level alpm_parser variable to True
+    with mock.patch("aurweb.git.update.alpm_parser", True):
+        # Mock both main functions
+        with mock.patch("aurweb.git.update.main") as mock_alpm_main:
+            with mock.patch("aurweb.git.update_legacy.main") as mock_legacy_main:
+                from aurweb.git.update import cli_main
+
+                with mock.patch(
+                    "sys.argv",
+                    ["aurweb-git-update", "refs/heads/master", "0" * 40, "1" * 40],
+                ):
+                    try:
+                        cli_main()
+                    except SystemExit:
+                        pass
+                    except Exception:
+                        pass
+
+                    # Verify ALPM parser was called, legacy was not
+                    mock_alpm_main.assert_called_once()
+                    mock_legacy_main.assert_not_called()

@@ -517,10 +517,14 @@ def main() -> None:  # noqa: C901
     conn.close()
 
 
-if __name__ == "__main__":
+def cli_main():
     if alpm_parser:
         main()
     else:
         from aurweb.git.update_legacy import main as legacy_main
 
         legacy_main()
+
+
+if __name__ == "__main__":
+    cli_main()

@@ -189,7 +189,7 @@ watchfiles = "^1.0.4"
 [tool.poetry.scripts]
 aurweb-git-auth = "aurweb.git.auth:main"
 aurweb-git-serve = "aurweb.git.serve:main"
-aurweb-git-update = "aurweb.git.update:main"
+aurweb-git-update = "aurweb.git.update:cli_main"
 aurweb-aurblup = "aurweb.scripts.aurblup:main"
 aurweb-mkpkglists = "aurweb.scripts.mkpkglists:main"
 aurweb-notify = "aurweb.scripts.notify:main"
