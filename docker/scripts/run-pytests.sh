@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eou pipefail
 
 COVERAGE=1
 PARAMS=()
