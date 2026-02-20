@@ -136,7 +136,12 @@ SSHPubKeys = Table(
 Sessions = Table(
     "Sessions",
     metadata,
-    Column("UsersID", ForeignKey("Users.ID", ondelete="CASCADE"), nullable=False),
+    Column(
+        "UsersID",
+        ForeignKey("Users.ID", ondelete="CASCADE"),
+        nullable=False,
+        primary_key=True,
+    ),
     Column("SessionID", CHAR(32), nullable=False, unique=True),
     Column("LastUpdateTS", BIGINT(unsigned=True), nullable=False),
     mysql_engine="InnoDB",

@@ -123,16 +123,18 @@ class User(Base):
                 with db.begin():
                     self.LastLogin = now_ts
                     self.LastLoginIPAddress = util.get_client_ip(request)
-                    if not self.session:
+
+                    current_session = self.session
+                    if not current_session:
                         sid = generate_unique_sid()
                         self.session = db.create(
                             Session, User=self, SessionID=sid, LastUpdateTS=now_ts
                         )
                     else:
-                        last_updated = self.session.LastUpdateTS
+                        last_updated = current_session.LastUpdateTS
                         if last_updated and last_updated < now_ts:
-                            self.session.SessionID = generate_unique_sid()
-                        self.session.LastUpdateTS = now_ts
+                            current_session.SessionID = generate_unique_sid()
+                        current_session.LastUpdateTS = now_ts
 
                     # Unset InactivityTS, we've logged in!
                     self.InactivityTS = 0
@@ -140,6 +142,7 @@ class User(Base):
                     break
             except IntegrityError as exc_:
                 exc = exc_
+                db.get_session().expire(self, ["session"])
 
         if exc:
             raise exc
