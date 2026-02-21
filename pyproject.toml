@@ -158,7 +158,7 @@ greenlet = "3.2.4" # Explicitly add greenlet (dependency of SQLAlchemy) for pyth
 
 # ASGI
 uvicorn = "^0.38.0"
-gunicorn = "^23.0.0"
+gunicorn = "^25.0.0"
 Hypercorn = "^0.17.0"
 pytest-xdist = "^3.5.0"
 filelock = "^3.13.3"
