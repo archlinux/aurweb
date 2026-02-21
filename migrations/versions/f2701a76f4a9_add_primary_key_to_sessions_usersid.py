@@ -14,12 +14,29 @@ Create Date: 2026-02-20 00:00:00.000000
 """
 
 from alembic import op
+from sqlalchemy import text
 
 # revision identifiers, used by Alembic.
 revision = "f2701a76f4a9"
 down_revision = "38e5b9982eea"
 branch_labels = None
 depends_on = None
+
+_FK_QUERY = text(
+    """
+    SELECT CONSTRAINT_NAME
+    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME   = 'Sessions'
+      AND COLUMN_NAME  = 'UsersID'
+      AND REFERENCED_TABLE_NAME IS NOT NULL
+    LIMIT 1
+    """
+)
+
+
+def _get_fk_name(conn):
+    return conn.execute(_FK_QUERY).scalar()
 
 
 def upgrade():
@@ -33,12 +50,42 @@ def upgrade():
            AND s1.SessionID < s2.SessionID
         """
     )
-    # Drop the plain index now that we are promoting it to a PRIMARY KEY.
-    op.execute("ALTER TABLE Sessions DROP KEY UsersID")
-    # Add the PRIMARY KEY — enforces one session per user at the DB level.
-    op.execute("ALTER TABLE Sessions ADD PRIMARY KEY (UsersID)")
+
+    # MySQL/MariaDB refuses to drop an index that backs a foreign key.
+    # We must drop the FK first, then swap plain KEY → PRIMARY KEY, then
+    # re-add the FK — all in a single ALTER TABLE so the table is never
+    # left without an index to support the constraint.
+    fk_name = _get_fk_name(op.get_bind())
+    if fk_name:
+        op.execute(
+            f"""
+            ALTER TABLE Sessions
+              DROP FOREIGN KEY `{fk_name}`,
+              DROP KEY UsersID,
+              ADD PRIMARY KEY (UsersID),
+              ADD CONSTRAINT `{fk_name}` FOREIGN KEY (UsersID)
+                REFERENCES Users(ID) ON DELETE CASCADE
+            """
+        )
+    else:
+        # No FK found — plain index swap is safe.
+        op.execute("ALTER TABLE Sessions DROP KEY UsersID")
+        op.execute("ALTER TABLE Sessions ADD PRIMARY KEY (UsersID)")
 
 
 def downgrade():
-    op.execute("ALTER TABLE Sessions DROP PRIMARY KEY")
-    op.execute("ALTER TABLE Sessions ADD KEY UsersID (UsersID)")
+    fk_name = _get_fk_name(op.get_bind())
+    if fk_name:
+        op.execute(
+            f"""
+            ALTER TABLE Sessions
+              DROP FOREIGN KEY `{fk_name}`,
+              DROP PRIMARY KEY,
+              ADD KEY UsersID (UsersID),
+              ADD CONSTRAINT `{fk_name}` FOREIGN KEY (UsersID)
+                REFERENCES Users(ID) ON DELETE CASCADE
+            """
+        )
+    else:
+        op.execute("ALTER TABLE Sessions DROP PRIMARY KEY")
+        op.execute("ALTER TABLE Sessions ADD KEY UsersID (UsersID)")
