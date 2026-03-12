@@ -7,7 +7,7 @@ from sqlalchemy import and_
 from aurweb import aur_logging, config, db, l10n, templates, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import InvariantError, ValidationError, handle_form_exceptions
-from aurweb.models import PackageBase
+from aurweb.models import PackageBase, User
 from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
@@ -73,6 +73,13 @@ async def pkgbase_voters(request: Request, name: str) -> Response:
 
     context = templates.make_context(request, "Voters")
     context["pkgbase"] = pkgbase
+    context["voters"] = (
+        db.get_session()
+        .query(User.Username, PackageVote.VoteTS)
+        .join(PackageVote, PackageVote.UsersID == User.ID)
+        .filter(PackageVote.PackageBaseID == pkgbase.ID)
+        .all()
+    )
     return render_template(request, "pkgbase/voters.html", context)
 
 

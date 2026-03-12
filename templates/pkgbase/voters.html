@@ -11,13 +11,13 @@
 
         <div class="boxbody">
             <ul>
-                {% for pkg_vote in pkgbase.package_votes %}
+                {% for username, vote_ts in voters %}
                     <li>
-                        <a href="/account/{{ pkg_vote.User.Username }}">
-                            {{ pkg_vote.User.Username }}
+                        <a href="/account/{{ username }}">
+                            {{ username }}
                         </a>
 
-                        ({{ datetime_display(pkg_vote.VoteTS) }})
+                        ({{ datetime_display(vote_ts) }})
                     </li>
                 {% endfor %}
             </ul>
