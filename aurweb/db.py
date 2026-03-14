@@ -296,6 +296,13 @@ def get_engine(dbname: str | None = None, echo: bool = False):
         is_sqlite = bool(db_backend == "sqlite")
         if is_sqlite:  # pragma: no cover
             connect_args["check_same_thread"] = False
+        elif db_backend == "mysql":
+            # Force UTC for every connection so that TIMESTAMP columns (which
+            # MySQL/MariaDB stores in UTC) always use consistent timezone
+            # arithmetic. Without this, servers running in a non-UTC system
+            # timezone may reject valid epoch-adjacent TIMESTAMP defaults such
+            # as '1970-01-01 00:00:01' with error 1067.
+            connect_args["init_command"] = "SET time_zone = '+00:00'"
 
         kwargs = {"echo": echo, "connect_args": connect_args}
         from sqlalchemy import create_engine
