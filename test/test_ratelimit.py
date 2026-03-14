@@ -4,7 +4,7 @@ import pytest
 from redis.client import Pipeline
 
 from aurweb import aur_logging, config, db
-from aurweb.aur_redis import redis_connection
+from aurweb.aur_redis import kill_redis, redis_connection
 from aurweb.models import ApiRateLimit
 from aurweb.ratelimit import check_ratelimit
 from aurweb.testing.requests import Request
@@ -77,6 +77,8 @@ def test_ratelimit_redis(
     path if a real Redis server is configured. Otherwise,
     it'll use the database."""
 
+    kill_redis()  # Reset pool so the mock forces a fresh fake instance.
+
     # We'll need a Request for everything here.
     request = Request()
 
@@ -87,11 +89,12 @@ def test_ratelimit_redis(
     # This check_ratelimit should fail, being the 4001th request.
     assert check_ratelimit(request)
 
-    # Delete the Redis keys.
+    # Delete the Redis keys using a fresh connection on the now-fake pool.
     host = request.client.host
-    pipeline.delete(f"ratelimit-ws:{host}")
-    pipeline.delete(f"ratelimit:{host}")
-    one, two = pipeline.execute()
+    cleanup = redis_connection().pipeline()
+    cleanup.delete(f"ratelimit-ws:{host}")
+    cleanup.delete(f"ratelimit:{host}")
+    one, two = cleanup.execute()
     assert one and two
 
     # Should be good to go again!
