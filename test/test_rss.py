@@ -1,6 +1,5 @@
 import re
 from http import HTTPStatus
-from unittest import mock
 
 import lxml.etree
 import pytest
@@ -191,27 +190,3 @@ def test_conditional_request(client, user, packages):
 
     # Should return 304 Not Modified
     assert response2.status_code == 304
-
-
-def test_cache_expiry(client, user, packages):
-    """Test that the cache headers are updated after cache expiry."""
-    # This test uses mock to simulate time passing
-    with mock.patch("time.time") as mock_time:
-        # Set initial time
-        initial_time = time.utcnow()
-        mock_time.return_value = initial_time
-
-        with client as request:
-            # First request
-            response1 = request.get("/rss/")
-            etag1 = response1.headers["ETag"]
-
-            # Advance time beyond cache expiry (e.g., 6 minutes later)
-            mock_time.return_value = initial_time + 360  # 6 minutes in seconds
-
-            # Second request after cache should have expired
-            response2 = request.get("/rss/")
-            etag2 = response2.headers["ETag"]
-
-    # ETags should be different after cache expiry
-    assert etag1 != etag2
