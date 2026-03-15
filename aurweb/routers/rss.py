@@ -57,6 +57,7 @@ async def rss(request: Request):
             Package.Description,
             PackageBase.SubmittedTS.label("Timestamp"),
         )
+        .all()
     )
 
     # we use redis for caching the results of the feedgen
@@ -64,7 +65,7 @@ async def rss(request: Request):
     feed = lambda_cache("rss", lambda: make_rss_feed(request, packages), cache_expire)
 
     latest_timestamp = None
-    if packages.count() > 0:
+    if packages:
         last_modified = filters.timestamp_to_datetime(packages[-1].Timestamp)
         last_modified = filters.as_timezone(last_modified, request.user.Timezone)
         latest_timestamp = last_modified.strftime("%Y-%m-%d %H:%M:%S%z")
@@ -96,6 +97,7 @@ async def rss_modified(request: Request):
             Package.Description,
             PackageBase.ModifiedTS.label("Timestamp"),
         )
+        .all()
     )
 
     # we use redis for caching the results of the feedgen
@@ -105,7 +107,7 @@ async def rss_modified(request: Request):
     )
 
     latest_timestamp = None
-    if packages.count() > 0:
+    if packages:
         last_modified = filters.timestamp_to_datetime(packages[-1].Timestamp)
         last_modified = filters.as_timezone(last_modified, request.user.Timezone)
         latest_timestamp = last_modified.strftime("%Y-%m-%d %H:%M:%S%z")
