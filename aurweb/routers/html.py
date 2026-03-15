@@ -13,7 +13,7 @@ from prometheus_client import (
     generate_latest,
     multiprocess,
 )
-from sqlalchemy import case, or_
+from sqlalchemy import case, or_, select
 
 import aurweb.config
 import aurweb.models.package_request
@@ -99,10 +99,10 @@ async def index(request: Request):
     if request.user.is_authenticated():
         # Authenticated users get a few extra pieces of data for
         # the dashboard display.
-        packages = db.query(models.Package).join(models.PackageBase)
+        packages_stmt = select(models.Package).join(models.PackageBase)
 
         maintained = (
-            packages.join(
+            packages_stmt.join(
                 models.PackageComaintainer,
                 models.PackageComaintainer.PackageBaseID == models.PackageBase.ID,
                 isouter=True,
@@ -119,9 +119,16 @@ async def index(request: Request):
 
         # Packages maintained by the user that have been flagged.
         context["flagged_packages"] = (
-            maintained.filter(models.PackageBase.OutOfDateTS.isnot(None))
-            .order_by(models.PackageBase.ModifiedTS.desc(), models.Package.Name.asc())
-            .limit(50)
+            db.get_session()
+            .execute(
+                maintained.filter(models.PackageBase.OutOfDateTS.isnot(None))
+                .order_by(
+                    models.PackageBase.ModifiedTS.desc(),
+                    models.Package.Name.asc(),
+                )
+                .limit(50)
+            )
+            .scalars()
             .all()
         )
 
@@ -155,9 +162,16 @@ async def index(request: Request):
 
         # Packages that the request user maintains or comaintains.
         context["packages"] = (
-            maintained.filter(models.User.ID == models.PackageBase.MaintainerUID)
-            .order_by(models.PackageBase.ModifiedTS.desc(), models.Package.Name.desc())
-            .limit(50)
+            db.get_session()
+            .execute(
+                maintained.filter(models.User.ID == models.PackageBase.MaintainerUID)
+                .order_by(
+                    models.PackageBase.ModifiedTS.desc(),
+                    models.Package.Name.desc(),
+                )
+                .limit(50)
+            )
+            .scalars()
             .all()
         )
 
@@ -171,10 +185,17 @@ async def index(request: Request):
 
         # Any packages that the request user comaintains.
         context["comaintained"] = (
-            packages.join(models.PackageComaintainer)
-            .filter(models.PackageComaintainer.UsersID == request.user.ID)
-            .order_by(models.PackageBase.ModifiedTS.desc(), models.Package.Name.desc())
-            .limit(50)
+            db.get_session()
+            .execute(
+                packages_stmt.join(models.PackageComaintainer)
+                .filter(models.PackageComaintainer.UsersID == request.user.ID)
+                .order_by(
+                    models.PackageBase.ModifiedTS.desc(),
+                    models.Package.Name.desc(),
+                )
+                .limit(50)
+            )
+            .scalars()
             .all()
         )
 

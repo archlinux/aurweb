@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
-from sqlalchemy import or_
+from sqlalchemy import or_, select
 
 import aurweb.config
 from aurweb import cookies, db
@@ -54,13 +54,16 @@ async def login_post(
         )
 
     user = (
-        db.query(User)
-        .filter(
-            or_(
-                User.Username == user,
-                User.Email == user,
+        db.get_session()
+        .execute(
+            select(User).filter(
+                or_(
+                    User.Username == user,
+                    User.Email == user,
+                )
             )
         )
+        .scalars()
         .first()
     )
     if not user:

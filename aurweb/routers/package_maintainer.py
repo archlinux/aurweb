@@ -1,11 +1,10 @@
 import html
-import typing
 from http import HTTPStatus
 from typing import Any
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
-from sqlalchemy import and_, func, or_
+from sqlalchemy import and_, func, or_, select
 
 from aurweb import aur_logging, db, l10n, models, time
 from aurweb.auth import creds, requires_auth
@@ -37,19 +36,24 @@ ADDVOTE_SPECIFICS = {
 
 
 def populate_package_maintainer_counts(context: dict[str, Any]) -> None:
-    pm_query = db.query(User).filter(
+    session = db.get_session()
+    pm_query = select(User).filter(
         or_(
             User.AccountTypeID == PACKAGE_MAINTAINER_ID,
             User.AccountTypeID == PACKAGE_MAINTAINER_AND_DEV_ID,
         )
     )
-    context["package_maintainer_count"] = pm_query.count()
+    context["package_maintainer_count"] = session.execute(
+        select(func.count()).select_from(pm_query.subquery())
+    ).scalar()
 
     # In case any records have a None InactivityTS.
     active_pm_query = pm_query.filter(
         or_(User.InactivityTS.is_(None), User.InactivityTS == 0)
     )
-    context["active_package_maintainer_count"] = active_pm_query.count()
+    context["active_package_maintainer_count"] = session.execute(
+        select(func.count()).select_from(active_pm_query.subquery())
+    ).scalar()
 
 
 @router.get("/package-maintainer")
@@ -86,36 +90,49 @@ async def package_maintainer(
         past_by = "desc"
     context["past_by"] = past_by
 
+    session = db.get_session()
+
     current_votes = (
-        db.query(models.VoteInfo)
+        select(models.VoteInfo)
         .filter(models.VoteInfo.End > ts)
         .order_by(models.VoteInfo.Submitted.desc())
     )
-    context["current_votes_count"] = current_votes.count()
-    current_votes = current_votes.limit(pp).offset(current_off)
+    context["current_votes_count"] = session.execute(
+        select(func.count()).select_from(current_votes.subquery())
+    ).scalar()
+    current_votes_results = (
+        session.execute(current_votes.limit(pp).offset(current_off)).scalars().all()
+    )
     context["current_votes"] = (
-        reversed(current_votes.all()) if current_by == "asc" else current_votes.all()
+        list(reversed(current_votes_results))
+        if current_by == "asc"
+        else current_votes_results
     )
     context["current_off"] = current_off
 
     past_votes = (
-        db.query(models.VoteInfo)
+        select(models.VoteInfo)
         .filter(models.VoteInfo.End <= ts)
         .order_by(models.VoteInfo.Submitted.desc())
     )
-    context["past_votes_count"] = past_votes.count()
-    past_votes = past_votes.limit(pp).offset(past_off)
+    context["past_votes_count"] = session.execute(
+        select(func.count()).select_from(past_votes.subquery())
+    ).scalar()
+    past_votes_results = (
+        session.execute(past_votes.limit(pp).offset(past_off)).scalars().all()
+    )
     context["past_votes"] = (
-        reversed(past_votes.all()) if past_by == "asc" else past_votes.all()
+        list(reversed(past_votes_results)) if past_by == "asc" else past_votes_results
     )
     context["past_off"] = past_off
 
     last_vote = func.max(models.Vote.VoteID).label("LastVote")
     last_votes_by_pm = (
-        db.query(models.Vote)
+        select(models.Vote.UserID, last_vote, models.User.Username)
+        .select_from(models.Vote)
         .join(models.User)
         .join(models.VoteInfo, models.VoteInfo.ID == models.Vote.VoteID)
-        .filter(
+        .where(
             and_(
                 models.Vote.VoteID == models.VoteInfo.ID,
                 models.User.ID == models.Vote.UserID,
@@ -123,11 +140,10 @@ async def package_maintainer(
                 or_(models.User.AccountTypeID == 2, models.User.AccountTypeID == 4),
             )
         )
-        .with_entities(models.Vote.UserID, last_vote, models.User.Username)
         .group_by(models.Vote.UserID)
         .order_by(last_vote.desc(), models.User.Username.asc())
     )
-    context["last_votes_by_pm"] = last_votes_by_pm.all()
+    context["last_votes_by_pm"] = session.execute(last_votes_by_pm).all()
 
     context["current_by_next"] = "asc" if current_by == "desc" else "desc"
     context["past_by_next"] = "asc" if past_by == "desc" else "desc"
@@ -149,14 +165,15 @@ def render_proposal(
     context: dict,
     proposal: int,
     voteinfo: models.VoteInfo,
-    voters: typing.Iterable[models.User],
+    voters_stmt,
     vote: models.Vote,
     status_code: HTTPStatus = HTTPStatus.OK,
 ):
     """Render a single PM proposal."""
+    session = db.get_session()
     context["proposal"] = proposal
     context["voteinfo"] = voteinfo
-    context["voters"] = voters.all()
+    context["voters"] = session.execute(voters_stmt).scalars().all()
 
     total = voteinfo.total_votes()
     participation = (total / voteinfo.ActiveUsers) if voteinfo.ActiveUsers else 0
@@ -167,7 +184,12 @@ def render_proposal(
     )
     context["accepted"] = accepted
 
-    can_vote = voters.filter(models.Vote.User == request.user).first() is None
+    can_vote = (
+        session.execute(voters_stmt.filter(models.Vote.User == request.user))
+        .scalars()
+        .first()
+        is None
+    )
     context["can_vote"] = can_vote
 
     if not voteinfo.is_running():
@@ -190,23 +212,29 @@ async def package_maintainer_proposal(request: Request, proposal: int):
     context = await make_variable_context(request, "Package Maintainer")
     proposal = int(proposal)
 
-    voteinfo = db.query(models.VoteInfo).filter(models.VoteInfo.ID == proposal).first()
+    voteinfo = (
+        db.get_session()
+        .execute(select(models.VoteInfo).filter(models.VoteInfo.ID == proposal))
+        .scalars()
+        .first()
+    )
     if not voteinfo:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
-    voters = (
-        db.query(models.User)
-        .join(models.Vote)
-        .filter(models.Vote.VoteID == voteinfo.ID)
+    voters_stmt = (
+        select(models.User).join(models.Vote).filter(models.Vote.VoteID == voteinfo.ID)
     )
     vote = (
-        db.query(models.Vote)
-        .filter(
-            and_(
-                models.Vote.UserID == request.user.ID,
-                models.Vote.VoteID == voteinfo.ID,
+        db.get_session()
+        .execute(
+            select(models.Vote).filter(
+                and_(
+                    models.Vote.UserID == request.user.ID,
+                    models.Vote.VoteID == voteinfo.ID,
+                )
             )
         )
+        .scalars()
         .first()
     )
     if not request.user.has_credential(creds.PM_VOTE):
@@ -217,7 +245,7 @@ async def package_maintainer_proposal(request: Request, proposal: int):
         context["error"] = "You've already voted for this proposal."
 
     context["vote"] = vote
-    return render_proposal(request, context, proposal, voteinfo, voters, vote)
+    return render_proposal(request, context, proposal, voteinfo, voters_stmt, vote)
 
 
 @db.async_retry_deadlock
@@ -233,23 +261,29 @@ async def package_maintainer_proposal_post(
     context = await make_variable_context(request, "Package Maintainer")
     proposal = int(proposal)  # Make sure it's an int.
 
-    voteinfo = db.query(models.VoteInfo).filter(models.VoteInfo.ID == proposal).first()
+    voteinfo = (
+        db.get_session()
+        .execute(select(models.VoteInfo).filter(models.VoteInfo.ID == proposal))
+        .scalars()
+        .first()
+    )
     if not voteinfo:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
-    voters = (
-        db.query(models.User)
-        .join(models.Vote)
-        .filter(models.Vote.VoteID == voteinfo.ID)
+    voters_stmt = (
+        select(models.User).join(models.Vote).filter(models.Vote.VoteID == voteinfo.ID)
     )
     vote = (
-        db.query(models.Vote)
-        .filter(
-            and_(
-                models.Vote.UserID == request.user.ID,
-                models.Vote.VoteID == voteinfo.ID,
+        db.get_session()
+        .execute(
+            select(models.Vote).filter(
+                and_(
+                    models.Vote.UserID == request.user.ID,
+                    models.Vote.VoteID == voteinfo.ID,
+                )
             )
         )
+        .scalars()
         .first()
     )
 
@@ -266,7 +300,13 @@ async def package_maintainer_proposal_post(
 
     if status_code != HTTPStatus.OK:
         return render_proposal(
-            request, context, proposal, voteinfo, voters, vote, status_code=status_code
+            request,
+            context,
+            proposal,
+            voteinfo,
+            voters_stmt,
+            vote,
+            status_code=status_code,
         )
 
     with db.begin():
@@ -281,7 +321,7 @@ async def package_maintainer_proposal_post(
         vote = db.create(models.Vote, User=request.user, VoteInfo=voteinfo)
 
     context["error"] = "You've already voted for this proposal."
-    return render_proposal(request, context, proposal, voteinfo, voters, vote)
+    return render_proposal(request, context, proposal, voteinfo, voters_stmt, vote)
 
 
 @router.get("/addvote")
@@ -331,18 +371,34 @@ async def package_maintainer_addvote_post(
 
     # Alright, get some database records, if we can.
     if type != "bylaws":
-        user_record = db.query(models.User).filter(models.User.Username == user).first()
+        user_record = (
+            db.get_session()
+            .execute(select(models.User).filter(models.User.Username == user))
+            .scalars()
+            .first()
+        )
         if user_record is None:
             context["error"] = "Username does not exist."
             return render_addvote(context, HTTPStatus.NOT_FOUND)
 
         utcnow = time.utcnow()
-        voteinfo = (
-            db.query(models.VoteInfo)
-            .filter(and_(models.VoteInfo.User == user, models.VoteInfo.End > utcnow))
-            .count()
+        voteinfo_count = (
+            db.get_session()
+            .execute(
+                select(func.count()).select_from(
+                    select(models.VoteInfo)
+                    .filter(
+                        and_(
+                            models.VoteInfo.User == user,
+                            models.VoteInfo.End > utcnow,
+                        )
+                    )
+                    .subquery()
+                )
+            )
+            .scalar()
         )
-        if voteinfo:
+        if voteinfo_count:
             _ = l10n.get_translator_for_request(request)
             context["error"] = _("%s already has proposal running for them.") % (
                 html.escape(user),
@@ -368,15 +424,21 @@ async def package_maintainer_addvote_post(
     # Create a new VoteInfo (proposal)!
     with db.begin():
         active_pms = (
-            db.query(User)
-            .filter(
-                and_(
-                    User.Suspended == 0,
-                    User.InactivityTS.isnot(None),
-                    User.AccountTypeID.in_(types),
+            db.get_session()
+            .execute(
+                select(func.count()).select_from(
+                    select(User)
+                    .filter(
+                        and_(
+                            User.Suspended == 0,
+                            User.InactivityTS.isnot(None),
+                            User.AccountTypeID.in_(types),
+                        )
+                    )
+                    .subquery()
                 )
             )
-            .count()
+            .scalar()
         )
         voteinfo = db.create(
             models.VoteInfo,

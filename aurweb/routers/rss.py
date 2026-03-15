@@ -3,6 +3,7 @@ import hashlib
 from fastapi import APIRouter, Request
 from fastapi.responses import Response
 from feedgen.feed import FeedGenerator
+from sqlalchemy import select
 
 from aurweb import config, db, filters
 from aurweb.cache import lambda_cache
@@ -48,14 +49,17 @@ def make_rss_feed(request: Request, packages: list):
 @router.get("/rss/")
 async def rss(request: Request):
     packages = (
-        db.query(Package)
-        .join(PackageBase)
-        .order_by(PackageBase.SubmittedTS.desc())
-        .limit(100)
-        .with_entities(
-            Package.Name,
-            Package.Description,
-            PackageBase.SubmittedTS.label("Timestamp"),
+        db.get_session()
+        .execute(
+            select(
+                Package.Name,
+                Package.Description,
+                PackageBase.SubmittedTS.label("Timestamp"),
+            )
+            .select_from(Package)
+            .join(PackageBase)
+            .order_by(PackageBase.SubmittedTS.desc())
+            .limit(100)
         )
         .all()
     )
@@ -88,14 +92,17 @@ async def rss(request: Request):
 @router.get("/rss/modified")
 async def rss_modified(request: Request):
     packages = (
-        db.query(Package)
-        .join(PackageBase)
-        .order_by(PackageBase.ModifiedTS.desc())
-        .limit(100)
-        .with_entities(
-            Package.Name,
-            Package.Description,
-            PackageBase.ModifiedTS.label("Timestamp"),
+        db.get_session()
+        .execute(
+            select(
+                Package.Name,
+                Package.Description,
+                PackageBase.ModifiedTS.label("Timestamp"),
+            )
+            .select_from(Package)
+            .join(PackageBase)
+            .order_by(PackageBase.ModifiedTS.desc())
+            .limit(100)
         )
         .all()
     )

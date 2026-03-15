@@ -2,8 +2,9 @@ from http import HTTPStatus
 from typing import Any
 
 from fastapi import APIRouter, Form, Query, Request, Response
+from sqlalchemy import exists as sa_exists
+from sqlalchemy import select
 
-import aurweb.filters  # noqa: F401
 from aurweb import aur_logging, config, db, defaults, models, util
 from aurweb.auth import creds, requires_auth
 from aurweb.cache import db_count_cache, db_query_cache
@@ -232,7 +233,12 @@ async def packages_unflag(request: Request, package_ids: list[int] = [], **kwarg
     bases = set()
 
     package_ids = set(package_ids)  # Convert this to a set for O(1).
-    packages = db.query(models.Package).filter(models.Package.ID.in_(package_ids)).all()
+    packages = (
+        db.get_session()
+        .execute(select(models.Package).filter(models.Package.ID.in_(package_ids)))
+        .scalars()
+        .all()
+    )
     for pkg in packages:
         has_cred = request.user.has_credential(
             creds.PKGBASE_UNFLAG, approved=[pkg.PackageBase.Flagger]
@@ -258,7 +264,12 @@ async def packages_notify(request: Request, package_ids: list[int] = [], **kwarg
 
     bases = set()
     package_ids = set(package_ids)
-    packages = db.query(models.Package).filter(models.Package.ID.in_(package_ids)).all()
+    packages = (
+        db.get_session()
+        .execute(select(models.Package).filter(models.Package.ID.in_(package_ids)))
+        .scalars()
+        .all()
+    )
 
     for pkg in packages:
         if pkg.PackageBase not in bases:
@@ -266,11 +277,18 @@ async def packages_notify(request: Request, package_ids: list[int] = [], **kwarg
 
     # Perform some checks on what the user selected for notify.
     for pkgbase in bases:
-        notif = db.query(
-            pkgbase.notifications.filter(
-                models.PackageNotification.UserID == request.user.ID
-            ).exists()
-        ).scalar()
+        notif = (
+            db.get_session()
+            .execute(
+                select(
+                    sa_exists().where(
+                        models.PackageNotification.PackageBaseID == pkgbase.ID,
+                        models.PackageNotification.UserID == request.user.ID,
+                    )
+                )
+            )
+            .scalar()
+        )
         has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
 
         # If the request user either does not have credentials
@@ -299,7 +317,12 @@ async def packages_unnotify(request: Request, package_ids: list[int] = [], **kwa
 
     bases = set()
     package_ids = set(package_ids)
-    packages = db.query(models.Package).filter(models.Package.ID.in_(package_ids)).all()
+    packages = (
+        db.get_session()
+        .execute(select(models.Package).filter(models.Package.ID.in_(package_ids)))
+        .scalars()
+        .all()
+    )
 
     for pkg in packages:
         if pkg.PackageBase not in bases:
@@ -307,11 +330,18 @@ async def packages_unnotify(request: Request, package_ids: list[int] = [], **kwa
 
     # Perform some checks on what the user selected for notify.
     for pkgbase in bases:
-        notif = db.query(
-            pkgbase.notifications.filter(
-                models.PackageNotification.UserID == request.user.ID
-            ).exists()
-        ).scalar()
+        notif = (
+            db.get_session()
+            .execute(
+                select(
+                    sa_exists().where(
+                        models.PackageNotification.PackageBaseID == pkgbase.ID,
+                        models.PackageNotification.UserID == request.user.ID,
+                    )
+                )
+            )
+            .scalar()
+        )
         if not notif:
             return error_tuple
 
@@ -339,7 +369,12 @@ async def packages_adopt(
 
     bases = set()
     package_ids = set(package_ids)
-    packages = db.query(models.Package).filter(models.Package.ID.in_(package_ids)).all()
+    packages = (
+        db.get_session()
+        .execute(select(models.Package).filter(models.Package.ID.in_(package_ids)))
+        .scalars()
+        .all()
+    )
 
     for pkg in packages:
         if pkg.PackageBase not in bases:
@@ -389,7 +424,12 @@ async def packages_disown(
 
     bases = set()
     package_ids = set(package_ids)
-    packages = db.query(models.Package).filter(models.Package.ID.in_(package_ids)).all()
+    packages = (
+        db.get_session()
+        .execute(select(models.Package).filter(models.Package.ID.in_(package_ids)))
+        .scalars()
+        .all()
+    )
 
     for pkg in packages:
         if pkg.PackageBase not in bases:
@@ -438,7 +478,12 @@ async def packages_delete(
 
     # set-ify package_ids and query the database for related records.
     package_ids = set(package_ids)
-    packages = db.query(models.Package).filter(models.Package.ID.in_(package_ids)).all()
+    packages = (
+        db.get_session()
+        .execute(select(models.Package).filter(models.Package.ID.in_(package_ids)))
+        .scalars()
+        .all()
+    )
 
     if len(packages) != len(package_ids):
         # Let the user know there was an issue with their input: they have

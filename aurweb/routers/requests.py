@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Form, Query, Request
 from fastapi.responses import RedirectResponse
-from sqlalchemy import case, orm
+from sqlalchemy import case, func, orm, select
 
 from aurweb import db, defaults, time, util
 from aurweb.auth import creds, requires_auth
@@ -70,7 +70,7 @@ async def requests(  # noqa: C901
     Maintainer = orm.aliased(User)
     # A PackageRequest query
     query = (
-        db.query(PackageRequest)
+        select(PackageRequest)
         .join(PackageBase)
         .join(User, PackageRequest.UsersID == User.ID, isouter=True)
         .join(Maintainer, PackageBase.MaintainerUID == Maintainer.ID, isouter=True)
@@ -105,16 +105,24 @@ async def requests(  # noqa: C901
     if not request.user.is_elevated():
         filtered = filtered.filter(PackageRequest.UsersID == request.user.ID)
 
-    context["total"] = filtered.count()
+    context["total"] = (
+        db.get_session()
+        .execute(select(func.count()).select_from(filtered.subquery()))
+        .scalar()
+    )
     context["results"] = (
-        filtered.order_by(
-            # Order primarily by the Status column being PENDING_ID,
-            # and secondarily by RequestTS; both in descending order.
-            case((PackageRequest.Status == PENDING_ID, 1), else_=0).desc(),
-            PackageRequest.RequestTS.desc(),
+        db.get_session()
+        .execute(
+            filtered.order_by(
+                # Order primarily by the Status column being PENDING_ID,
+                # and secondarily by RequestTS; both in descending order.
+                case((PackageRequest.Status == PENDING_ID, 1), else_=0).desc(),
+                PackageRequest.RequestTS.desc(),
+            )
+            .limit(PP)
+            .offset(O)
         )
-        .limit(PP)
-        .offset(O)
+        .scalars()
         .all()
     )
     return render_template(request, "requests.html", context)

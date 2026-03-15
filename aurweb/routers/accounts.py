@@ -5,7 +5,7 @@ from typing import Any
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, func, or_, select
 
 import aurweb.config
 from aurweb import aur_logging, db, l10n, models, util
@@ -47,7 +47,12 @@ async def passreset_post(
 
     # The user parameter being required, we can match against
     criteria = or_(models.User.Username == user, models.User.Email == user)
-    db_user = db.query(models.User, and_(criteria, models.User.Suspended == 0)).first()
+    db_user = (
+        db.get_session()
+        .execute(select(models.User).filter(and_(criteria, models.User.Suspended == 0)))
+        .scalars()
+        .first()
+    )
     if db_user is None:
         context["errors"] = ["Invalid e-mail."]
         return render_template(
@@ -317,9 +322,14 @@ async def account_register_post(
     resetkey = generate_resetkey()
 
     # By default, we grab the User account type to associate with.
-    atype = db.query(
-        models.AccountType, models.AccountType.AccountType == "User"
-    ).first()
+    atype = (
+        db.get_session()
+        .execute(
+            select(models.AccountType).filter(models.AccountType.AccountType == "User")
+        )
+        .scalars()
+        .first()
+    )
 
     # Create a user given all parameters available.
     with db.begin():
@@ -388,7 +398,12 @@ def cannot_edit(
 @router.get("/account/{username}/edit", response_class=HTMLResponse)
 @requires_auth
 async def account_edit(request: Request, username: str):
-    user = db.query(models.User, models.User.Username == username).first()
+    user = (
+        db.get_session()
+        .execute(select(models.User).filter(models.User.Username == username))
+        .scalars()
+        .first()
+    )
 
     response = cannot_edit(request, user)
     if response:
@@ -429,7 +444,12 @@ async def account_edit_post(
     T: int = Form(default=None),
     passwd: str = Form(default=str()),
 ):
-    user = db.query(models.User).filter(models.User.Username == username).first()
+    user = (
+        db.get_session()
+        .execute(select(models.User).filter(models.User.Username == username))
+        .scalars()
+        .first()
+    )
     response = cannot_edit(request, user)
     if response:
         return response
@@ -497,7 +517,12 @@ async def account(request: Request, username: str):
     context["pgp_key"] = " ".join([k[i : i + 4] for i in range(0, len(k), 4)])
 
     login_ts = None
-    session = db.query(models.Session).filter(models.Session.UsersID == user.ID).first()
+    session = (
+        db.get_session()
+        .execute(select(models.Session).filter(models.Session.UsersID == user.ID))
+        .scalars()
+        .first()
+    )
     if session:
         login_ts = user.session.LastUpdateTS
     context["login_ts"] = login_ts
@@ -576,7 +601,7 @@ async def accounts_post(
 
     # Get a query handle to users, populate the total user
     # count into a jinja2 context variable.
-    query = db.query(models.User).join(models.AccountType)
+    query = select(models.User).join(models.AccountType)
 
     # Populate this list with any additional statements to
     # be ANDed together.
@@ -600,10 +625,19 @@ async def accounts_post(
     if statements:
         query = query.filter(and_(*statements))
 
-    context["total_users"] = query.count()
+    context["total_users"] = (
+        db.get_session()
+        .execute(select(func.count()).select_from(query.subquery()))
+        .scalar()
+    )
 
     # Finally, order and truncate our users for the current page.
-    users = query.order_by(*order_by).limit(pp).offset(offset).all()
+    users = (
+        db.get_session()
+        .execute(query.order_by(*order_by).limit(pp).offset(offset))
+        .scalars()
+        .all()
+    )
     context["users"] = util.apply_all(users, db.refresh)
 
     return render_template(request, "account/index.html", context)
@@ -612,7 +646,12 @@ async def accounts_post(
 @router.get("/account/{name}/delete")
 @requires_auth
 async def account_delete(request: Request, name: str):
-    user = db.query(models.User).filter(models.User.Username == name).first()
+    user = (
+        db.get_session()
+        .execute(select(models.User).filter(models.User.Username == name))
+        .scalars()
+        .first()
+    )
     if not user:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
@@ -639,7 +678,12 @@ async def account_delete_post(
     passwd: str = Form(default=str()),
     confirm: bool = Form(default=False),
 ):
-    user = db.query(models.User).filter(models.User.Username == name).first()
+    user = (
+        db.get_session()
+        .execute(select(models.User).filter(models.User.Username == name))
+        .scalars()
+        .first()
+    )
     if not user:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
@@ -694,16 +738,25 @@ async def terms_of_service(request: Request):
     # Query the database for terms that were previously accepted,
     # but now have a bumped Revision that needs to be accepted.
     diffs = (
-        db.query(models.Term)
-        .join(models.AcceptedTerm)
-        .filter(models.AcceptedTerm.Revision < models.Term.Revision)
+        db.get_session()
+        .execute(
+            select(models.Term)
+            .join(models.AcceptedTerm)
+            .filter(models.AcceptedTerm.Revision < models.Term.Revision)
+        )
+        .scalars()
         .all()
     )
 
     # Query the database for any terms that have not yet been accepted.
     unaccepted = (
-        db.query(models.Term)
-        .filter(~models.Term.ID.in_(db.query(models.AcceptedTerm.TermsID)))
+        db.get_session()
+        .execute(
+            select(models.Term).filter(
+                ~models.Term.ID.in_(select(models.AcceptedTerm.TermsID))
+            )
+        )
+        .scalars()
         .all()
     )
 
@@ -727,16 +780,25 @@ async def terms_of_service_post(request: Request, accept: bool = Form(default=Fa
     # Query the database for terms that were previously accepted,
     # but now have a bumped Revision that needs to be accepted.
     diffs = (
-        db.query(models.Term)
-        .join(models.AcceptedTerm)
-        .filter(models.AcceptedTerm.Revision < models.Term.Revision)
+        db.get_session()
+        .execute(
+            select(models.Term)
+            .join(models.AcceptedTerm)
+            .filter(models.AcceptedTerm.Revision < models.Term.Revision)
+        )
+        .scalars()
         .all()
     )
 
     # Query the database for any terms that have not yet been accepted.
     unaccepted = (
-        db.query(models.Term)
-        .filter(~models.Term.ID.in_(db.query(models.AcceptedTerm.TermsID)))
+        db.get_session()
+        .execute(
+            select(models.Term).filter(
+                ~models.Term.ID.in_(select(models.AcceptedTerm.TermsID))
+            )
+        )
+        .scalars()
         .all()
     )
 
