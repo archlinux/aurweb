@@ -1,9 +1,10 @@
 import pickle
 from typing import Any, Callable
 
-from sqlalchemy import orm
+from sqlalchemy import func, orm, select
+from sqlalchemy.sql import Select
 
-from aurweb import config
+from aurweb import config, db
 from aurweb.aur_redis import redis_connection
 from aurweb.prometheus import SEARCH_REQUESTS
 
@@ -26,36 +27,55 @@ def lambda_cache(key: str, value: Callable[[], Any], expire: int | None = None) 
     return result
 
 
-def db_count_cache(key: str, query: orm.Query, expire: int | None = None) -> int:
-    """Store and retrieve a query.count() via redis cache.
+def db_count_cache(
+    key: str, query: "Select | orm.Query", expire: int | None = None
+) -> int:
+    """Store and retrieve a count query result via redis cache.
 
     :param key: Redis key
-    :param query: SQLAlchemy ORM query
+    :param query: SA 2.0 Select statement or legacy orm.Query
     :param expire: Optional expiration in seconds
-    :return: query.count()
+    :return: count of results
     """
     result = _redis.get(key)
     if result is None:
-        _redis.set(key, (result := int(query.count())))
+        if isinstance(query, orm.Query):
+            # TODO: remove legacy path once packages/search.py migrated to select()
+            count = int(query.count())
+        else:
+            count = (
+                db.get_session()
+                .execute(select(func.count()).select_from(query.subquery()))
+                .scalar()
+            )
+        _redis.set(key, count)
         if expire:
             _redis.expire(key, expire)
+        result = count
     return int(result)
 
 
-def db_query_cache(key: str, query: orm.Query, expire: int | None = None) -> list:
+def db_query_cache(
+    key: str, query: "Select | orm.Query", expire: int | None = None
+) -> list:
     """Store and retrieve query results via redis cache.
 
     :param key: Redis key
-    :param query: SQLAlchemy ORM query
+    :param query: SA 2.0 Select statement or legacy orm.Query
     :param expire: Optional expiration in seconds
-    :return: query.all()
+    :return: list of result rows
     """
     result = _redis.get(key)
     if result is None:
         SEARCH_REQUESTS.labels(cache="miss").inc()
+        if isinstance(query, orm.Query):
+            # TODO: remove legacy path once packages/search.py migrated to select()
+            rows = query.all()
+        else:
+            rows = db.get_session().execute(query).all()
         if _redis.dbsize() > config.getint("cache", "max_search_entries", 50000):
-            return query.all()
-        _redis.set(key, (result := pickle.dumps(query.all())))
+            return rows
+        _redis.set(key, (result := pickle.dumps(rows)))
         if expire:
             _redis.expire(key, expire)
     else:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import and_
+from sqlalchemy import and_, select
 
 import aurweb.config
 from aurweb import db, time
@@ -23,11 +23,17 @@ def main() -> None:
     assert end is not None, "range_end is missing in votereminder section"
     filter_to = now + end
 
-    query = db.query(VoteInfo.ID).filter(
-        and_(VoteInfo.End >= filter_from, VoteInfo.End <= filter_to)
+    vote_ids = (
+        db.get_session()
+        .execute(
+            select(VoteInfo.ID).filter(
+                and_(VoteInfo.End >= filter_from, VoteInfo.End <= filter_to)
+            )
+        )
+        .scalars()
     )
-    for voteinfo in query:
-        notif = notify.VoteReminderNotification(voteinfo.ID)
+    for vote_id in vote_ids:
+        notif = notify.VoteReminderNotification(vote_id)
         notif.send()
 
 

@@ -11,6 +11,8 @@ import argparse
 import sys
 import traceback
 
+from sqlalchemy import select
+
 import aurweb.models.account_type as at
 from aurweb import db
 from aurweb.models.account_type import AccountType
@@ -41,7 +43,12 @@ def main():
     args = parse_args()
 
     db.get_engine()
-    type = db.query(AccountType, AccountType.AccountType == args.type).first()
+    type = (
+        db.get_session()
+        .execute(select(AccountType).filter(AccountType.AccountType == args.type))
+        .scalars()
+        .first()
+    )
     with db.begin():
         user = db.create(
             User,

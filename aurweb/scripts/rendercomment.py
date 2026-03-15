@@ -7,6 +7,7 @@ from xml.etree.ElementTree import Element
 import bleach
 import markdown
 import pygit2
+from sqlalchemy import select
 
 import aurweb.config
 from aurweb import aur_logging, db, util
@@ -181,7 +182,12 @@ def update_comment_render(comment: PackageComment) -> None:
 def main() -> None:
     db.get_engine()
     comment_id = int(sys.argv[1])
-    comment = db.query(PackageComment).filter(PackageComment.ID == comment_id).first()
+    comment = (
+        db.get_session()
+        .execute(select(PackageComment).filter(PackageComment.ID == comment_id))
+        .scalars()
+        .first()
+    )
     update_comment_render(comment)
 
 

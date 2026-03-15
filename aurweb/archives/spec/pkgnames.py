@@ -1,6 +1,7 @@
 from typing import Iterable
 
 import orjson
+from sqlalchemy import select
 
 from aurweb import config, db
 from aurweb.models import Package, PackageBase
@@ -15,13 +16,16 @@ class Spec(SpecBase):
         self.pkgnames_repo = GitInfo(config.get("git-archive", "pkgnames-repo"))
 
     def generate(self) -> Iterable[SpecOutput]:
-        query = (
-            db.query(Package.Name)
-            .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
-            .order_by(Package.Name.asc())
+        pkgnames = (
+            db.get_session()
+            .execute(
+                select(Package.Name)
+                .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
+                .order_by(Package.Name.asc())
+            )
+            .scalars()
             .all()
         )
-        pkgnames = [pkg.Name for pkg in query]
 
         self.add_output(
             "pkgname.json",

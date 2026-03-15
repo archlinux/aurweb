@@ -7,7 +7,7 @@ import subprocess
 import sys
 import textwrap
 
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, select
 
 import aurweb.config
 import aurweb.db
@@ -135,16 +135,18 @@ class Notification:
 class ResetKeyNotification(Notification):
     def __init__(self, uid):
         user = (
-            db.query(User)
-            .filter(and_(User.ID == uid, User.Suspended == 0))
-            .with_entities(
-                User.Username,
-                User.Email,
-                User.BackupEmail,
-                User.LangPreference,
-                User.ResetKey,
+            db.get_session()
+            .execute(
+                select(
+                    User.Username,
+                    User.Email,
+                    User.BackupEmail,
+                    User.LangPreference,
+                    User.ResetKey,
+                )
+                .filter(and_(User.ID == uid, User.Suspended == 0))
+                .order_by(User.Username.asc())
             )
-            .order_by(User.Username.asc())
             .first()
         )
 
@@ -196,33 +198,43 @@ class WelcomeNotification(ResetKeyNotification):
 
 class CommentNotification(Notification):
     def __init__(self, uid, pkgbase_id, comment_id):
-        self._user = db.query(User.Username).filter(User.ID == uid).first().Username
+        self._user = (
+            db.get_session()
+            .execute(select(User.Username).filter(User.ID == uid))
+            .scalar()
+        )
         self._pkgbase = (
-            db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
+            db.get_session()
+            .execute(select(PackageBase.Name).filter(PackageBase.ID == pkgbase_id))
+            .scalar()
         )
 
         query = (
-            db.query(User)
-            .join(PackageNotification)
-            .filter(
-                and_(
-                    User.CommentNotify == 1,
-                    PackageNotification.UserID != uid,
-                    PackageNotification.PackageBaseID == pkgbase_id,
-                    User.Suspended == 0,
+            db.get_session()
+            .execute(
+                select(User.Email, User.LangPreference)
+                .join(PackageNotification)
+                .filter(
+                    and_(
+                        User.CommentNotify == 1,
+                        PackageNotification.UserID != uid,
+                        PackageNotification.PackageBaseID == pkgbase_id,
+                        User.Suspended == 0,
+                    )
                 )
+                .distinct()
             )
-            .with_entities(User.Email, User.LangPreference)
-            .distinct()
+            .all()
         )
         self._recipients = [(u.Email, u.LangPreference) for u in query]
 
-        pkgcomment = (
-            db.query(PackageComment.Comments)
-            .filter(PackageComment.ID == comment_id)
-            .first()
+        self._text = (
+            db.get_session()
+            .execute(
+                select(PackageComment.Comments).filter(PackageComment.ID == comment_id)
+            )
+            .scalar()
         )
-        self._text = pkgcomment.Comments
 
         super().__init__()
 
@@ -261,24 +273,33 @@ class CommentNotification(Notification):
 
 class UpdateNotification(Notification):
     def __init__(self, uid, pkgbase_id):
-        self._user = db.query(User.Username).filter(User.ID == uid).first().Username
+        self._user = (
+            db.get_session()
+            .execute(select(User.Username).filter(User.ID == uid))
+            .scalar()
+        )
         self._pkgbase = (
-            db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
+            db.get_session()
+            .execute(select(PackageBase.Name).filter(PackageBase.ID == pkgbase_id))
+            .scalar()
         )
 
         query = (
-            db.query(User)
-            .join(PackageNotification)
-            .filter(
-                and_(
-                    User.UpdateNotify == 1,
-                    PackageNotification.UserID != uid,
-                    PackageNotification.PackageBaseID == pkgbase_id,
-                    User.Suspended == 0,
+            db.get_session()
+            .execute(
+                select(User.Email, User.LangPreference)
+                .join(PackageNotification)
+                .filter(
+                    and_(
+                        User.UpdateNotify == 1,
+                        PackageNotification.UserID != uid,
+                        PackageNotification.PackageBaseID == pkgbase_id,
+                        User.Suspended == 0,
+                    )
                 )
+                .distinct()
             )
-            .with_entities(User.Email, User.LangPreference)
-            .distinct()
+            .all()
         )
         self._recipients = [(u.Email, u.LangPreference) for u in query]
 
@@ -319,34 +340,44 @@ class UpdateNotification(Notification):
 
 class FlagNotification(Notification):
     def __init__(self, uid, pkgbase_id):
-        self._user = db.query(User.Username).filter(User.ID == uid).first().Username
+        self._user = (
+            db.get_session()
+            .execute(select(User.Username).filter(User.ID == uid))
+            .scalar()
+        )
         self._pkgbase = (
-            db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
+            db.get_session()
+            .execute(select(PackageBase.Name).filter(PackageBase.ID == pkgbase_id))
+            .scalar()
         )
 
         query = (
-            db.query(User)
-            .join(PackageComaintainer, isouter=True)
-            .join(
-                PackageBase,
-                or_(
-                    PackageBase.MaintainerUID == User.ID,
-                    PackageBase.ID == PackageComaintainer.PackageBaseID,
-                ),
+            db.get_session()
+            .execute(
+                select(User.Email, User.LangPreference)
+                .join(PackageComaintainer, isouter=True)
+                .join(
+                    PackageBase,
+                    or_(
+                        PackageBase.MaintainerUID == User.ID,
+                        PackageBase.ID == PackageComaintainer.PackageBaseID,
+                    ),
+                )
+                .filter(and_(PackageBase.ID == pkgbase_id, User.Suspended == 0))
+                .distinct()
+                .order_by(User.Email)
             )
-            .filter(and_(PackageBase.ID == pkgbase_id, User.Suspended == 0))
-            .with_entities(User.Email, User.LangPreference)
-            .distinct()
-            .order_by(User.Email)
+            .all()
         )
         self._recipients = [(u.Email, u.LangPreference) for u in query]
 
-        pkgbase = (
-            db.query(PackageBase.FlaggerComment)
-            .filter(PackageBase.ID == pkgbase_id)
-            .first()
+        self._text = (
+            db.get_session()
+            .execute(
+                select(PackageBase.FlaggerComment).filter(PackageBase.ID == pkgbase_id)
+            )
+            .scalar()
         )
-        self._text = pkgbase.FlaggerComment
 
         super().__init__()
 
@@ -375,33 +406,43 @@ class FlagNotification(Notification):
 
 class OwnershipEventNotification(Notification):
     def __init__(self, uid, pkgbase_id):
-        self._user = db.query(User.Username).filter(User.ID == uid).first().Username
+        self._user = (
+            db.get_session()
+            .execute(select(User.Username).filter(User.ID == uid))
+            .scalar()
+        )
         self._pkgbase = (
-            db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
+            db.get_session()
+            .execute(select(PackageBase.Name).filter(PackageBase.ID == pkgbase_id))
+            .scalar()
         )
 
         query = (
-            db.query(User)
-            .join(PackageNotification)
-            .filter(
-                and_(
-                    User.OwnershipNotify == 1,
-                    PackageNotification.UserID != uid,
-                    PackageNotification.PackageBaseID == pkgbase_id,
-                    User.Suspended == 0,
+            db.get_session()
+            .execute(
+                select(User.Email, User.LangPreference)
+                .join(PackageNotification)
+                .filter(
+                    and_(
+                        User.OwnershipNotify == 1,
+                        PackageNotification.UserID != uid,
+                        PackageNotification.PackageBaseID == pkgbase_id,
+                        User.Suspended == 0,
+                    )
                 )
+                .distinct()
             )
-            .with_entities(User.Email, User.LangPreference)
-            .distinct()
+            .all()
         )
         self._recipients = [(u.Email, u.LangPreference) for u in query]
 
-        pkgbase = (
-            db.query(PackageBase.FlaggerComment)
-            .filter(PackageBase.ID == pkgbase_id)
-            .first()
+        self._text = (
+            db.get_session()
+            .execute(
+                select(PackageBase.FlaggerComment).filter(PackageBase.ID == pkgbase_id)
+            )
+            .scalar()
         )
-        self._text = pkgbase.FlaggerComment
 
         super().__init__()
 
@@ -437,13 +478,14 @@ class DisownNotification(OwnershipEventNotification):
 class ComaintainershipEventNotification(Notification):
     def __init__(self, uid, pkgbase_id):
         self._pkgbase = (
-            db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
+            db.get_session()
+            .execute(select(PackageBase.Name).filter(PackageBase.ID == pkgbase_id))
+            .scalar()
         )
 
         user = (
-            db.query(User)
-            .filter(User.ID == uid)
-            .with_entities(User.Email, User.LangPreference)
+            db.get_session()
+            .execute(select(User.Email, User.LangPreference).filter(User.ID == uid))
             .first()
         )
 
@@ -480,35 +522,42 @@ class ComaintainerRemoveNotification(ComaintainershipEventNotification):
 
 class DeleteNotification(Notification):
     def __init__(self, uid, old_pkgbase_id, new_pkgbase_id=None):
-        self._user = db.query(User.Username).filter(User.ID == uid).first().Username
+        self._user = (
+            db.get_session()
+            .execute(select(User.Username).filter(User.ID == uid))
+            .scalar()
+        )
         self._old_pkgbase = (
-            db.query(PackageBase.Name)
-            .filter(PackageBase.ID == old_pkgbase_id)
-            .first()
-            .Name
+            db.get_session()
+            .execute(select(PackageBase.Name).filter(PackageBase.ID == old_pkgbase_id))
+            .scalar()
         )
 
         self._new_pkgbase = None
         if new_pkgbase_id:
             self._new_pkgbase = (
-                db.query(PackageBase.Name)
-                .filter(PackageBase.ID == new_pkgbase_id)
-                .first()
-                .Name
+                db.get_session()
+                .execute(
+                    select(PackageBase.Name).filter(PackageBase.ID == new_pkgbase_id)
+                )
+                .scalar()
             )
 
         query = (
-            db.query(User)
-            .join(PackageNotification)
-            .filter(
-                and_(
-                    PackageNotification.UserID != uid,
-                    PackageNotification.PackageBaseID == old_pkgbase_id,
-                    User.Suspended == 0,
+            db.get_session()
+            .execute(
+                select(User.Email, User.LangPreference)
+                .join(PackageNotification)
+                .filter(
+                    and_(
+                        PackageNotification.UserID != uid,
+                        PackageNotification.PackageBaseID == old_pkgbase_id,
+                        User.Suspended == 0,
+                    )
                 )
+                .distinct()
             )
-            .with_entities(User.Email, User.LangPreference)
-            .distinct()
+            .all()
         )
         self._recipients = [(u.Email, u.LangPreference) for u in query]
 
@@ -557,41 +606,51 @@ class DeleteNotification(Notification):
 
 class RequestOpenNotification(Notification):
     def __init__(self, uid, reqid, reqtype, pkgbase_id, merge_into=None):
-        self._user = db.query(User.Username).filter(User.ID == uid).first().Username
+        self._user = (
+            db.get_session()
+            .execute(select(User.Username).filter(User.ID == uid))
+            .scalar()
+        )
         self._pkgbase = (
-            db.query(PackageBase.Name).filter(PackageBase.ID == pkgbase_id).first().Name
+            db.get_session()
+            .execute(select(PackageBase.Name).filter(PackageBase.ID == pkgbase_id))
+            .scalar()
         )
 
         self._to = aurweb.config.get("options", "aur_request_ml")
 
         query = (
-            db.query(PackageRequest)
-            .join(PackageBase)
-            .join(
-                PackageComaintainer,
-                PackageComaintainer.PackageBaseID == PackageRequest.PackageBaseID,
-                isouter=True,
+            db.get_session()
+            .execute(
+                select(User.Email, User.HideEmail)
+                .select_from(PackageRequest)
+                .join(PackageBase)
+                .join(
+                    PackageComaintainer,
+                    PackageComaintainer.PackageBaseID == PackageRequest.PackageBaseID,
+                    isouter=True,
+                )
+                .join(
+                    User,
+                    or_(
+                        User.ID == PackageRequest.UsersID,
+                        User.ID == PackageBase.MaintainerUID,
+                        User.ID == PackageComaintainer.UsersID,
+                    ),
+                )
+                .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
+                .distinct()
             )
-            .join(
-                User,
-                or_(
-                    User.ID == PackageRequest.UsersID,
-                    User.ID == PackageBase.MaintainerUID,
-                    User.ID == PackageComaintainer.UsersID,
-                ),
-            )
-            .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
-            .with_entities(User.Email, User.HideEmail)
-            .distinct()
+            .all()
         )
         self._cc = [u.Email for u in query if u.HideEmail == 0]
         self._bcc = [u.Email for u in query if u.HideEmail == 1]
 
-        pkgreq = (
-            db.query(PackageRequest.Comments).filter(PackageRequest.ID == reqid).first()
+        self._text = (
+            db.get_session()
+            .execute(select(PackageRequest.Comments).filter(PackageRequest.ID == reqid))
+            .scalar()
         )
-
-        self._text = pkgreq.Comments
         self._reqid = int(reqid)
         self._reqtype = reqtype
         self._merge_into = merge_into
@@ -650,42 +709,51 @@ class RequestOpenNotification(Notification):
 
 class RequestCloseNotification(Notification):
     def __init__(self, uid, reqid, reason):
-        user = db.query(User.Username).filter(User.ID == uid).first()
-        self._user = user.Username if user else None
+        self._user = (
+            db.get_session()
+            .execute(select(User.Username).filter(User.ID == uid))
+            .scalar()
+        )
 
         self._to = aurweb.config.get("options", "aur_request_ml")
 
         query = (
-            db.query(PackageRequest)
-            .join(PackageBase)
-            .join(
-                PackageComaintainer,
-                PackageComaintainer.PackageBaseID == PackageRequest.PackageBaseID,
-                isouter=True,
+            db.get_session()
+            .execute(
+                select(User.Email, User.HideEmail)
+                .select_from(PackageRequest)
+                .join(PackageBase)
+                .join(
+                    PackageComaintainer,
+                    PackageComaintainer.PackageBaseID == PackageRequest.PackageBaseID,
+                    isouter=True,
+                )
+                .join(
+                    User,
+                    or_(
+                        User.ID == PackageRequest.UsersID,
+                        User.ID == PackageBase.MaintainerUID,
+                        User.ID == PackageComaintainer.UsersID,
+                    ),
+                )
+                .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
+                .distinct()
             )
-            .join(
-                User,
-                or_(
-                    User.ID == PackageRequest.UsersID,
-                    User.ID == PackageBase.MaintainerUID,
-                    User.ID == PackageComaintainer.UsersID,
-                ),
-            )
-            .filter(and_(PackageRequest.ID == reqid, User.Suspended == 0))
-            .with_entities(User.Email, User.HideEmail)
-            .distinct()
+            .all()
         )
         self._cc = [u.Email for u in query if u.HideEmail == 0]
         self._bcc = [u.Email for u in query if u.HideEmail == 1]
 
         pkgreq = (
-            db.query(PackageRequest)
-            .join(RequestType)
-            .filter(PackageRequest.ID == reqid)
-            .with_entities(
-                PackageRequest.ClosureComment,
-                RequestType.Name,
-                PackageRequest.PackageBaseName,
+            db.get_session()
+            .execute(
+                select(
+                    PackageRequest.ClosureComment,
+                    RequestType.Name,
+                    PackageRequest.PackageBaseName,
+                )
+                .join(RequestType)
+                .filter(PackageRequest.ID == reqid)
             )
             .first()
         )
@@ -748,17 +816,19 @@ class VoteReminderNotification(Notification):
     def __init__(self, vote_id):
         self._vote_id = int(vote_id)
 
-        subquery = db.query(Vote.UserID).filter(Vote.VoteID == vote_id)
+        subquery = select(Vote.UserID).filter(Vote.VoteID == vote_id)
         query = (
-            db.query(User)
-            .filter(
-                and_(
-                    User.AccountTypeID.in_((2, 4)),
-                    ~User.ID.in_(subquery),
-                    User.Suspended == 0,
+            db.get_session()
+            .execute(
+                select(User.Email, User.LangPreference).filter(
+                    and_(
+                        User.AccountTypeID.in_((2, 4)),
+                        ~User.ID.in_(subquery),
+                        User.Suspended == 0,
+                    )
                 )
             )
-            .with_entities(User.Email, User.LangPreference)
+            .all()
         )
         self._recipients = [(u.Email, u.LangPreference) for u in query]
 

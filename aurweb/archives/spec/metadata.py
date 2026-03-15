@@ -1,6 +1,7 @@
 from typing import Iterable
 
 import orjson
+from sqlalchemy import select
 
 from aurweb import config, db
 from aurweb.models import Package, PackageBase, User
@@ -20,7 +21,7 @@ class Spec(SpecBase):
     def generate(self) -> Iterable[SpecOutput]:
         # Base query used by the RPC.
         base_query = (
-            db.query(Package)
+            select(Package)
             .join(PackageBase)
             .join(User, PackageBase.MaintainerUID == User.ID, isouter=True)
         )
@@ -29,7 +30,7 @@ class Spec(SpecBase):
         # our query and perform a metadata subquery for all packages.
         rpc = RPC(version=5, type="info")
         print("performing package database query")
-        packages = rpc.entities(base_query).all()
+        packages = db.get_session().execute(rpc.entities(base_query)).all()
         print("performing package database subqueries")
         rpc.subquery({pkg.ID for pkg in packages})
 

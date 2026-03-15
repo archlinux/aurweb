@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import and_
+from sqlalchemy import and_, select
 
 from aurweb import db, time
 from aurweb.models import PackageBase
@@ -10,10 +10,20 @@ def _main() -> None:
     # One day behind.
     limit_to = time.utcnow() - 86400
 
-    query = db.query(PackageBase).filter(
-        and_(PackageBase.SubmittedTS < limit_to, PackageBase.PackagerUID.is_(None))
+    rows = (
+        db.get_session()
+        .execute(
+            select(PackageBase).filter(
+                and_(
+                    PackageBase.SubmittedTS < limit_to,
+                    PackageBase.PackagerUID.is_(None),
+                )
+            )
+        )
+        .scalars()
+        .all()
     )
-    db.delete_all(query)
+    db.delete_all(rows)
 
 
 def main() -> None:

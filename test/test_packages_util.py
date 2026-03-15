@@ -162,10 +162,11 @@ def test_pkg_required(package: Package):
     # We want to make sure "Package" data is included
     # to avoid lazy-loading the information for each dependency
     qry = util.pkg_required("test", [])
-    assert "Packages_ID" in str(qry)
+    assert "Packages" in str(qry)
 
     # We should have 1 record
-    assert qry.count() == 1
+    results = db.get_session().execute(qry).scalars().all()
+    assert len(results) == 1
 
 
 def test_provides_markup_aur(package: Package):

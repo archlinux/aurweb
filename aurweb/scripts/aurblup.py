@@ -3,7 +3,7 @@
 import re
 
 import pyalpm
-from sqlalchemy import and_
+from sqlalchemy import and_, select
 
 import aurweb.config
 from aurweb import db, util
@@ -38,26 +38,34 @@ def _main(force: bool = False):
                 repomap[(pkg.name, provisionname)] = repo.name
 
     with db.begin():
-        old_providers = set(
-            db.query(OfficialProvider)
-            .with_entities(
-                OfficialProvider.Name.label("Name"),
-                OfficialProvider.Provides.label("Provides"),
+        old_providers = {
+            (row.Name, row.Provides)
+            for row in db.get_session()
+            .execute(
+                select(
+                    OfficialProvider.Name.label("Name"),
+                    OfficialProvider.Provides.label("Provides"),
+                )
+                .distinct()
+                .order_by("Name")
             )
-            .distinct()
-            .order_by("Name")
             .all()
-        )
+        }
 
         # delete providers not existing in any of our alpm repos
         for name, provides in old_providers.difference(providers):
             db.delete_all(
-                db.query(OfficialProvider).filter(
-                    and_(
-                        OfficialProvider.Name == name,
-                        OfficialProvider.Provides == provides,
+                db.get_session()
+                .execute(
+                    select(OfficialProvider).filter(
+                        and_(
+                            OfficialProvider.Name == name,
+                            OfficialProvider.Provides == provides,
+                        )
                     )
                 )
+                .scalars()
+                .all()
             )
 
         # add new providers that do not yet exist in our DB
@@ -66,7 +74,9 @@ def _main(force: bool = False):
             db.create(OfficialProvider, Name=name, Repo=repo, Provides=provides)
 
         # update providers where a pkg was moved from one repo to another
-        all_providers = db.query(OfficialProvider)
+        all_providers = (
+            db.get_session().execute(select(OfficialProvider)).scalars().all()
+        )
 
         for op in all_providers:
             new_repo = repomap.get((op.Name, op.Provides))

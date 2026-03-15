@@ -3,7 +3,7 @@ from collections import defaultdict
 from typing import Any, Callable, NewType, Union
 
 from fastapi.responses import HTMLResponse
-from sqlalchemy import and_, literal, orm
+from sqlalchemy import and_, literal, orm, select
 
 import aurweb.config as config
 from aurweb import db, defaults, models, time
@@ -191,37 +191,40 @@ class RPC:
         """
         return [data_generator(pkg) for pkg in packages]
 
-    def entities(self, query: orm.Query) -> orm.Query:
+    def entities(self, query):
         """Select specific RPC columns on `query`."""
         Submitter = orm.aliased(models.User)
 
-        query = (
-            query.join(
-                Submitter,
-                Submitter.ID == models.PackageBase.SubmitterUID,
-                isouter=True,
-            )
-            .with_entities(
-                models.Package.ID,
-                models.Package.Name,
-                models.Package.Version,
-                models.Package.Description,
-                models.Package.URL,
-                models.Package.PackageBaseID,
-                models.PackageBase.Name.label("PackageBaseName"),
-                models.PackageBase.NumVotes,
-                models.PackageBase.Popularity,
-                models.PackageBase.PopularityUpdated,
-                models.PackageBase.OutOfDateTS,
-                models.PackageBase.SubmittedTS,
-                models.PackageBase.ModifiedTS,
-                models.User.Username.label("Maintainer"),
-                Submitter.Username.label("Submitter"),
-            )
-            .group_by(models.Package.ID)
+        cols = (
+            models.Package.ID,
+            models.Package.Name,
+            models.Package.Version,
+            models.Package.Description,
+            models.Package.URL,
+            models.Package.PackageBaseID,
+            models.PackageBase.Name.label("PackageBaseName"),
+            models.PackageBase.NumVotes,
+            models.PackageBase.Popularity,
+            models.PackageBase.PopularityUpdated,
+            models.PackageBase.OutOfDateTS,
+            models.PackageBase.SubmittedTS,
+            models.PackageBase.ModifiedTS,
+            models.User.Username.label("Maintainer"),
+            Submitter.Username.label("Submitter"),
         )
 
-        return query
+        q = query.join(
+            Submitter,
+            Submitter.ID == models.PackageBase.SubmitterUID,
+            isouter=True,
+        )
+
+        # Legacy orm.Query uses with_entities(); SA 2.0 Select uses
+        # with_only_columns().  PackageSearch still yields a legacy Query,
+        # so we keep both paths until that module is migrated.
+        if isinstance(q, orm.Query):
+            return q.with_entities(*cols).group_by(models.Package.ID)
+        return q.with_only_columns(*cols).group_by(models.Package.ID)
 
     def subquery(self, ids: set[int]):
         Package = models.Package
@@ -229,31 +232,37 @@ class RPC:
 
         subqueries = [
             # PackageDependency
-            db.query(models.PackageDependency)
-            .join(models.DependencyType)
-            .filter(models.PackageDependency.PackageID.in_(ids))
-            .with_entities(
+            select(
                 models.PackageDependency.PackageID.label("ID"),
                 models.DependencyType.Name.label("Type"),
                 models.PackageDependency.DepName.label("Name"),
                 models.PackageDependency.DepCondition.label("Cond"),
             )
+            .select_from(models.PackageDependency)
+            .join(models.DependencyType)
+            .where(models.PackageDependency.PackageID.in_(ids))
             .distinct()
             .order_by("Name"),
             # PackageRelation
-            db.query(models.PackageRelation)
-            .join(models.RelationType)
-            .filter(models.PackageRelation.PackageID.in_(ids))
-            .with_entities(
+            select(
                 models.PackageRelation.PackageID.label("ID"),
                 models.RelationType.Name.label("Type"),
                 models.PackageRelation.RelName.label("Name"),
                 models.PackageRelation.RelCondition.label("Cond"),
             )
+            .select_from(models.PackageRelation)
+            .join(models.RelationType)
+            .where(models.PackageRelation.PackageID.in_(ids))
             .distinct()
             .order_by("Name"),
             # Groups
-            db.query(models.PackageGroup)
+            select(
+                models.PackageGroup.PackageID.label("ID"),
+                literal("Groups").label("Type"),
+                models.Group.Name.label("Name"),
+                literal(str()).label("Cond"),
+            )
+            .select_from(models.PackageGroup)
             .join(
                 models.Group,
                 and_(
@@ -261,63 +270,57 @@ class RPC:
                     models.PackageGroup.PackageID.in_(ids),
                 ),
             )
-            .with_entities(
-                models.PackageGroup.PackageID.label("ID"),
-                literal("Groups").label("Type"),
-                models.Group.Name.label("Name"),
-                literal(str()).label("Cond"),
-            )
             .distinct()
             .order_by("Name"),
             # Licenses
-            db.query(models.PackageLicense)
-            .join(models.License, models.PackageLicense.LicenseID == models.License.ID)
-            .filter(models.PackageLicense.PackageID.in_(ids))
-            .with_entities(
+            select(
                 models.PackageLicense.PackageID.label("ID"),
                 literal("License").label("Type"),
                 models.License.Name.label("Name"),
                 literal(str()).label("Cond"),
             )
+            .select_from(models.PackageLicense)
+            .join(models.License, models.PackageLicense.LicenseID == models.License.ID)
+            .where(models.PackageLicense.PackageID.in_(ids))
             .distinct()
             .order_by("Name"),
             # Keywords
-            db.query(models.PackageKeyword)
+            select(
+                Package.ID.label("ID"),
+                literal("Keywords").label("Type"),
+                PackageKeyword.Keyword.label("Name"),
+                literal(str()).label("Cond"),
+            )
+            .select_from(PackageKeyword)
             .join(
-                models.Package,
+                Package,
                 and_(
                     Package.PackageBaseID == PackageKeyword.PackageBaseID,
                     Package.ID.in_(ids),
                 ),
             )
-            .with_entities(
-                models.Package.ID.label("ID"),
-                literal("Keywords").label("Type"),
-                models.PackageKeyword.Keyword.label("Name"),
-                literal(str()).label("Cond"),
-            )
             .distinct()
             .order_by("Name"),
             # Co-Maintainer
-            db.query(models.PackageComaintainer)
-            .join(models.User, models.User.ID == models.PackageComaintainer.UsersID)
-            .join(
-                models.Package,
-                models.Package.PackageBaseID
-                == models.PackageComaintainer.PackageBaseID,
-            )
-            .with_entities(
-                models.Package.ID,
+            select(
+                Package.ID,
                 literal("CoMaintainers").label("Type"),
                 models.User.Username.label("Name"),
                 literal(str()).label("Cond"),
+            )
+            .select_from(models.PackageComaintainer)
+            .join(models.User, models.User.ID == models.PackageComaintainer.UsersID)
+            .join(
+                Package,
+                Package.PackageBaseID == models.PackageComaintainer.PackageBaseID,
             )
             .distinct()  # A package could have the same co-maintainer multiple times
             .order_by("Name"),
         ]
 
-        # Union all subqueries together.
-        query = subqueries[0].union_all(*subqueries[1:]).all()
+        # Union all subqueries together and execute.
+        combined = subqueries[0].union_all(*subqueries[1:])
+        query = db.get_session().execute(combined).all()
 
         # Store our extra information in a class-wise dictionary,
         # which contains package id -> extra info dict mappings.
@@ -337,27 +340,28 @@ class RPC:
         self._enforce_args(args)
         args = set(args)
 
-        packages = (
-            db.query(models.Package)
+        base_query = (
+            select(models.Package)
             .join(models.PackageBase)
             .join(
                 models.User,
                 models.User.ID == models.PackageBase.MaintainerUID,
                 isouter=True,
             )
-            .filter(models.Package.Name.in_(args))
+            .where(models.Package.Name.in_(args))
         )
 
         max_results = config.getint("options", "max_rpc_results")
-        packages = self.entities(packages).limit(max_results + 1)
+        query = self.entities(base_query).limit(max_results + 1)
+        results = db.get_session().execute(query).all()
 
-        if packages.count() > max_results:
+        if len(results) > max_results:
             raise RPCError("Too many package results.")
 
-        ids = {pkg.ID for pkg in packages}
+        ids = {pkg.ID for pkg in results}
         self.subquery(ids)
 
-        return self._assemble_json_data(packages, self.get_info_json_data)
+        return self._assemble_json_data(results, self.get_info_json_data)
 
     def _handle_search_type(
         self, by: str = defaults.RPC_SEARCH_BY, args: list[str] = []
@@ -409,27 +413,35 @@ class RPC:
             return []
 
         arg = args[0]
-        packages = (
-            db.query(models.Package.Name)
-            .join(models.PackageBase)
-            .filter(models.Package.Name.like(f"{arg}%"))
-            .order_by(models.Package.Name.asc())
-            .limit(20)
+        return (
+            db.get_session()
+            .execute(
+                select(models.Package.Name)
+                .join(models.PackageBase)
+                .where(models.Package.Name.like(f"{arg}%"))
+                .order_by(models.Package.Name.asc())
+                .limit(20)
+            )
+            .scalars()
+            .all()
         )
-        return [pkg.Name for pkg in packages]
 
     def _handle_suggest_pkgbase_type(self, args: list[str] = [], **kwargs) -> list[str]:
         if not args:
             return []
 
         arg = args[0]
-        packages = (
-            db.query(models.PackageBase.Name)
-            .filter(models.PackageBase.Name.like(f"{arg}%"))
-            .order_by(models.PackageBase.Name.asc())
-            .limit(20)
+        return (
+            db.get_session()
+            .execute(
+                select(models.PackageBase.Name)
+                .where(models.PackageBase.Name.like(f"{arg}%"))
+                .order_by(models.PackageBase.Name.asc())
+                .limit(20)
+            )
+            .scalars()
+            .all()
         )
-        return [pkg.Name for pkg in packages]
 
     def _is_suggestion(self) -> bool:
         return self.type.startswith("suggest")

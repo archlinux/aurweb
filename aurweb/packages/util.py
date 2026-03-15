@@ -5,7 +5,7 @@ from urllib.parse import quote_plus
 
 import orjson
 from fastapi import HTTPException
-from sqlalchemy import and_, literal, orm
+from sqlalchemy import and_, func, literal, orm, select
 
 from aurweb import config, db, models
 from aurweb.aur_redis import redis_connection
@@ -101,7 +101,9 @@ def get_pkg_or_base(
     :raises HTTPException: With status code 404 if record doesn't exist
     :return: {Package,PackageBase} instance
     """
-    instance = db.query(cls).filter(cls.Name == name).first()
+    instance = (
+        db.get_session().execute(select(cls).filter(cls.Name == name)).scalars().first()
+    )
     if not instance:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
     return instance
@@ -134,17 +136,17 @@ def updated_packages(limit: int = 0, cache_ttl: int = 600) -> list[models.Packag
         # If we already have a cache, deserialize it and return.
         return orjson.loads(packages)
 
-    query = (
-        db.query(models.Package)
+    stmt = (
+        select(models.Package)
         .join(models.PackageBase)
         .order_by(models.PackageBase.ModifiedTS.desc())
     )
 
     if limit:
-        query = query.limit(limit)
+        stmt = stmt.limit(limit)
 
     packages = []
-    for pkg in query:
+    for pkg in db.get_session().execute(stmt).scalars():
         # For each Package returned by the query, append a dict
         # containing Package columns we're interested in.
         packages.append(
@@ -175,9 +177,13 @@ def query_voted(query: list[models.Package], user: models.User) -> dict[int, boo
     output = defaultdict(bool)
     query_set = {pkg.PackageBaseID for pkg in query}
     voted = (
-        db.query(models.PackageVote)
-        .join(models.PackageBase, models.PackageBase.ID.in_(query_set))
-        .filter(models.PackageVote.UsersID == user.ID)
+        db.get_session()
+        .execute(
+            select(models.PackageVote)
+            .join(models.PackageBase, models.PackageBase.ID.in_(query_set))
+            .filter(models.PackageVote.UsersID == user.ID)
+        )
+        .scalars()
     )
     for vote in voted:
         output[vote.PackageBase.ID] = True
@@ -196,9 +202,13 @@ def query_notified(query: list[models.Package], user: models.User) -> dict[int, 
     output = defaultdict(bool)
     query_set = {pkg.PackageBaseID for pkg in query}
     notified = (
-        db.query(models.PackageNotification)
-        .join(models.PackageBase, models.PackageBase.ID.in_(query_set))
-        .filter(models.PackageNotification.UserID == user.ID)
+        db.get_session()
+        .execute(
+            select(models.PackageNotification)
+            .join(models.PackageBase, models.PackageBase.ID.in_(query_set))
+            .filter(models.PackageNotification.UserID == user.ID)
+        )
+        .scalars()
     )
     for notif in notified:
         output[notif.PackageBase.ID] = True
@@ -245,14 +255,13 @@ def pkg_required(pkgname: str, provides: list[str]) -> list[PackageDependency]:
     :return: List of PackageDependency instances
     """
     targets = set([pkgname] + provides)
-    query = (
-        db.query(PackageDependency)
+    return (
+        select(PackageDependency)
         .join(Package)
         .options(orm.contains_eager(PackageDependency.Package))
         .filter(PackageDependency.DepName.in_(targets))
         .order_by(Package.Name.asc(), PackageDependency.DepTypeID.asc())
     )
-    return query
 
 
 def query_required_by_package_dependencies(
@@ -272,18 +281,21 @@ def query_required_by_package_dependencies(
     :return: tuple of a List of PackageDependency and total count
     """
     required_by_query = pkg_required(pkg.Name, [p.RelName for p in provides])
+    session = db.get_session()
 
     if all_reqs:
-        required_by = required_by_query.all()
+        required_by = session.execute(required_by_query).scalars().all()
         total_count = len(required_by)
         return required_by, total_count
 
-    required_by = required_by_query.limit(max_listing).all()
+    required_by = session.execute(required_by_query.limit(max_listing)).scalars().all()
     total_count = len(required_by)
 
     # if the fetched count equals the limit, check the total count with no limits
     if total_count >= max_listing:
-        total_count = required_by_query.count()
+        total_count = session.execute(
+            select(func.count()).select_from(required_by_query.subquery())
+        ).scalar()
 
     return required_by, total_count
 
@@ -295,14 +307,16 @@ def lookup_aur_packages(dependency_names: list[str]) -> set[str]:
     :param dependency_names: List of dependency names for which to do the lookup
     :return: set of package names that can be looked up in the AUR
     """
-    aur_dep_packages_query = (
-        db.query(models.Package)
-        .with_entities(
-            models.Package.Name.label("DepName"),
+    rows = (
+        db.get_session()
+        .execute(
+            select(models.Package.Name.label("DepName")).filter(
+                models.Package.Name.in_(dependency_names)
+            )
         )
-        .filter(models.Package.Name.in_(dependency_names))
+        .all()
     )
-    return {dep.DepName for dep in aur_dep_packages_query.all()}
+    return {row.DepName for row in rows}
 
 
 def lookup_dependencies(
@@ -317,13 +331,13 @@ def lookup_dependencies(
     :return: set of AUR packages, set of official packages, dict of providers
     """
     aur_dep_provides_query = (
-        db.query(models.PackageRelation)
-        .join(models.Package)
-        .with_entities(
+        select(
             models.Package.Name.label("Name"),
             models.PackageRelation.RelName.label("provides"),
             literal(False).label("is_official"),
         )
+        .select_from(models.PackageRelation)
+        .join(models.Package)
         .filter(
             and_(
                 models.PackageRelation.RelTypeID == PROVIDES_ID,
@@ -334,8 +348,7 @@ def lookup_dependencies(
     )
 
     official_dep_provides_query = (
-        db.query(models.OfficialProvider)
-        .with_entities(
+        select(
             models.OfficialProvider.Name.label("Name"),
             models.OfficialProvider.Provides.label("provides"),
             literal(True).label("is_official"),
@@ -344,9 +357,11 @@ def lookup_dependencies(
         .order_by(models.OfficialProvider.Name.asc())
     )
 
-    combined_provider = aur_dep_provides_query.union_all(
-        official_dep_provides_query
-    ).all()
+    combined_provider = (
+        db.get_session()
+        .execute(aur_dep_provides_query.union_all(official_dep_provides_query))
+        .all()
+    )
 
     aur_packages = lookup_aur_packages(dependency_names)
     dependency_providers = defaultdict(list)

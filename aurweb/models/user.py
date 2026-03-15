@@ -250,27 +250,32 @@ class User(Base):
         )
 
     def packages(self):
-        """Returns an ORM query to Package objects owned by this user.
+        """Returns a list of Package objects owned by this user.
 
         This should really be replaced with an internal ORM join
         configured for the User model. This has not been done yet
         due to issues I've been encountering in the process, so
         sticking with this function until we can properly implement it.
 
-        :return: ORM query of User-packaged or maintained Package objects
+        :return: list of Package objects packaged or maintained by this user
         """
         from aurweb.models.package import Package
         from aurweb.models.package_base import PackageBase
 
         return (
-            db.query(Package)
-            .join(PackageBase)
-            .filter(
-                or_(
-                    PackageBase.PackagerUID == self.ID,
-                    PackageBase.MaintainerUID == self.ID,
+            db.get_session()
+            .execute(
+                select(Package)
+                .join(PackageBase)
+                .filter(
+                    or_(
+                        PackageBase.PackagerUID == self.ID,
+                        PackageBase.MaintainerUID == self.ID,
+                    )
                 )
             )
+            .scalars()
+            .all()
         )
 
     def __repr__(self):

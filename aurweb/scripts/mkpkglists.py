@@ -28,7 +28,7 @@ from collections import defaultdict
 from typing import Any
 
 import orjson
-from sqlalchemy import literal, orm
+from sqlalchemy import literal, orm, select
 
 import aurweb.config
 from aurweb import aur_logging, db, filters, models, util
@@ -49,7 +49,7 @@ TYPE_MAP = {
 }
 
 
-def get_extended_dict(query: orm.Query):
+def get_extended_dict(query):
     """
     Produce data in the form in a single bulk SQL query:
 
@@ -86,77 +86,79 @@ def get_extended_dict(query: orm.Query):
 def get_extended_fields():
     subqueries = [
         # PackageDependency
-        db.query(models.PackageDependency)
-        .join(models.DependencyType)
-        .with_entities(
+        select(
             models.PackageDependency.PackageID.label("ID"),
             models.DependencyType.Name.label("Type"),
             models.PackageDependency.DepName.label("Name"),
             models.PackageDependency.DepCondition.label("Cond"),
         )
+        .select_from(models.PackageDependency)
+        .join(models.DependencyType)
         .distinct()  # A package could have the same dependency multiple times
         .order_by("Name"),
         # PackageRelation
-        db.query(models.PackageRelation)
-        .join(models.RelationType)
-        .with_entities(
+        select(
             models.PackageRelation.PackageID.label("ID"),
             models.RelationType.Name.label("Type"),
             models.PackageRelation.RelName.label("Name"),
             models.PackageRelation.RelCondition.label("Cond"),
         )
+        .select_from(models.PackageRelation)
+        .join(models.RelationType)
         .distinct()  # A package could have the same relation multiple times
         .order_by("Name"),
         # Groups
-        db.query(models.PackageGroup)
-        .join(models.Group, models.PackageGroup.GroupID == models.Group.ID)
-        .with_entities(
+        select(
             models.PackageGroup.PackageID.label("ID"),
             literal("Groups").label("Type"),
             models.Group.Name.label("Name"),
             literal(str()).label("Cond"),
         )
+        .select_from(models.PackageGroup)
+        .join(models.Group, models.PackageGroup.GroupID == models.Group.ID)
         .order_by("Name"),
         # Licenses
-        db.query(models.PackageLicense)
-        .join(models.License, models.PackageLicense.LicenseID == models.License.ID)
-        .with_entities(
+        select(
             models.PackageLicense.PackageID.label("ID"),
             literal("License").label("Type"),
             models.License.Name.label("Name"),
             literal(str()).label("Cond"),
         )
+        .select_from(models.PackageLicense)
+        .join(models.License, models.PackageLicense.LicenseID == models.License.ID)
         .order_by("Name"),
         # Keywords
-        db.query(models.PackageKeyword)
-        .join(
-            models.Package, Package.PackageBaseID == models.PackageKeyword.PackageBaseID
-        )
-        .with_entities(
+        select(
             models.Package.ID.label("ID"),
             literal("Keywords").label("Type"),
             models.PackageKeyword.Keyword.label("Name"),
             literal(str()).label("Cond"),
         )
-        .order_by("Name"),
-        # Co-Maintainer
-        db.query(models.PackageComaintainer)
-        .join(models.User, models.User.ID == models.PackageComaintainer.UsersID)
+        .select_from(models.PackageKeyword)
         .join(
             models.Package,
-            models.Package.PackageBaseID == models.PackageComaintainer.PackageBaseID,
+            Package.PackageBaseID == models.PackageKeyword.PackageBaseID,
         )
-        .with_entities(
+        .order_by("Name"),
+        # Co-Maintainer
+        select(
             models.Package.ID,
             literal("CoMaintainers").label("Type"),
             models.User.Username.label("Name"),
             literal(str()).label("Cond"),
         )
+        .select_from(models.PackageComaintainer)
+        .join(models.User, models.User.ID == models.PackageComaintainer.UsersID)
+        .join(
+            models.Package,
+            models.Package.PackageBaseID == models.PackageComaintainer.PackageBaseID,
+        )
         .distinct()  # A package could have the same co-maintainer multiple times
         .order_by("Name"),
     ]
     query = subqueries[0].union_all(*subqueries[1:])
-    return get_extended_dict(query)
+    results = db.get_session().execute(query).all()
+    return get_extended_dict(results)
 
 
 EXTENDED_FIELD_HANDLERS = {"--extended": get_extended_fields}
@@ -206,11 +208,7 @@ def _main():
     Submitter = orm.aliased(User)
 
     query = (
-        db.query(Package)
-        .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
-        .join(User, PackageBase.MaintainerUID == User.ID, isouter=True)
-        .join(Submitter, PackageBase.SubmitterUID == Submitter.ID, isouter=True)
-        .with_entities(
+        select(
             Package.ID,
             Package.Name,
             PackageBase.ID.label("PackageBaseID"),
@@ -226,6 +224,10 @@ def _main():
             PackageBase.SubmittedTS.label("FirstSubmitted"),
             PackageBase.ModifiedTS.label("LastModified"),
         )
+        .select_from(Package)
+        .join(PackageBase, PackageBase.ID == Package.PackageBaseID)
+        .join(User, PackageBase.MaintainerUID == User.ID, isouter=True)
+        .join(Submitter, PackageBase.SubmitterUID == Submitter.ID, isouter=True)
         .order_by("Name")
     )
 
@@ -258,7 +260,7 @@ def _main():
         data = f()
         extended = True
 
-    results = query.all()
+    results = db.get_session().execute(query).all()
     n = len(results) - 1
     with io.TextIOWrapper(gzips.get("packages")) as p:
         for i, result in enumerate(results):
@@ -293,20 +295,20 @@ def _main():
     util.apply_all(gzips.values(), lambda gz: gz.close())
 
     # Produce pkgbase.gz
-    query = db.query(PackageBase.Name).all()
+    pkgbase_names = db.get_session().execute(select(PackageBase.Name)).scalars().all()
     tmp_pkgbase = f"{PKGBASE}.tmp"
     pkgbase_gzip = gzip.GzipFile(
         filename=PKGBASE, mode="wb", fileobj=open(tmp_pkgbase, "wb")
     )
     with io.TextIOWrapper(pkgbase_gzip) as f:
-        f.writelines([f"{base.Name}\n" for i, base in enumerate(query)])
+        f.writelines([f"{name}\n" for name in pkgbase_names])
 
     # Produce users.gz
-    query = db.query(User.Username).all()
+    user_names = db.get_session().execute(select(User.Username)).scalars().all()
     tmp_users = f"{USERS}.tmp"
     users_gzip = gzip.GzipFile(filename=USERS, mode="wb", fileobj=open(tmp_users, "wb"))
     with io.TextIOWrapper(users_gzip) as f:
-        f.writelines([f"{user.Username}\n" for i, user in enumerate(query)])
+        f.writelines([f"{name}\n" for name in user_names])
 
     files = [
         (tmp_packages, PACKAGES),

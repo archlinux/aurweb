@@ -1,6 +1,6 @@
-from sqlalchemy import func
+from sqlalchemy import func, select
 
-from aurweb import config, db, time
+from aurweb import config, time
 from aurweb.cache import db_count_cache, db_query_cache
 from aurweb.models import PackageBase, PackageRequest, RequestType, User
 from aurweb.models.account_type import (
@@ -57,12 +57,12 @@ class Statistics:
         self.seven_days_ago = self.now - self.seven_days
         self.year_ago = self.now - self.year
 
-        self.user_query = db.query(User)
-        self.bases_query = db.query(PackageBase)
-        self.updated_query = db.query(PackageBase).filter(
+        self.user_query = select(User)
+        self.bases_query = select(PackageBase)
+        self.updated_query = select(PackageBase).where(
             PackageBase.ModifiedTS - PackageBase.SubmittedTS >= self.one_hour
         )
-        self.request_query = db.query(PackageRequest)
+        self.request_query = select(PackageRequest)
 
     def get_count(self, counter: str) -> int:  # noqa: C901
         query = None
@@ -71,25 +71,25 @@ class Statistics:
             case "package_count":
                 query = self.bases_query
             case "orphan_count":
-                query = self.bases_query.filter(PackageBase.MaintainerUID.is_(None))
+                query = self.bases_query.where(PackageBase.MaintainerUID.is_(None))
             case "seven_days_old_added":
-                query = self.bases_query.filter(
+                query = self.bases_query.where(
                     PackageBase.SubmittedTS >= self.seven_days_ago
                 )
             case "seven_days_old_updated":
-                query = self.updated_query.filter(
+                query = self.updated_query.where(
                     PackageBase.ModifiedTS >= self.seven_days_ago
                 )
             case "year_old_updated":
-                query = self.updated_query.filter(
+                query = self.updated_query.where(
                     PackageBase.ModifiedTS >= self.year_ago
                 )
             case "never_updated":
-                query = self.bases_query.filter(
+                query = self.bases_query.where(
                     PackageBase.ModifiedTS - PackageBase.SubmittedTS < self.one_hour
                 )
             case "updated_packages":
-                query = self.bases_query.filter(
+                query = self.bases_query.where(
                     PackageBase.ModifiedTS - PackageBase.SubmittedTS > self.one_hour,
                     ~PackageBase.MaintainerUID.is_(None),
                 )
@@ -97,7 +97,7 @@ class Statistics:
             case "user_count":
                 query = self.user_query
             case "package_maintainer_count":
-                query = self.user_query.filter(
+                query = self.user_query.where(
                     User.AccountTypeID.in_(
                         (
                             PACKAGE_MAINTAINER_ID,
@@ -106,19 +106,19 @@ class Statistics:
                     )
                 )
             case "regular_user_count":
-                query = self.user_query.filter(User.AccountTypeID == USER_ID)
+                query = self.user_query.where(User.AccountTypeID == USER_ID)
 
             # Requests
             case "total_requests":
                 query = self.request_query
             case "pending_requests":
-                query = self.request_query.filter(PackageRequest.Status == PENDING_ID)
+                query = self.request_query.where(PackageRequest.Status == PENDING_ID)
             case "closed_requests":
-                query = self.request_query.filter(PackageRequest.Status == CLOSED_ID)
+                query = self.request_query.where(PackageRequest.Status == CLOSED_ID)
             case "accepted_requests":
-                query = self.request_query.filter(PackageRequest.Status == ACCEPTED_ID)
+                query = self.request_query.where(PackageRequest.Status == ACCEPTED_ID)
             case "rejected_requests":
-                query = self.request_query.filter(PackageRequest.Status == REJECTED_ID)
+                query = self.request_query.where(PackageRequest.Status == REJECTED_ID)
             case _:
                 return -1
 
@@ -139,8 +139,8 @@ def update_prometheus_metrics() -> None:
 
     # Requests gauge
     query = (
-        db.get_session()
-        .query(PackageRequest, func.count(PackageRequest.ID), RequestType.Name)
+        select(PackageRequest, func.count(PackageRequest.ID), RequestType.Name)
+        .select_from(PackageRequest)
         .join(RequestType)
         .group_by(RequestType.Name, PackageRequest.Status)
     )

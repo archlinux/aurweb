@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from datetime import datetime
 
-from sqlalchemy import and_, func
+from sqlalchemy import and_, func, select
+from sqlalchemy import update as sa_update
 from sqlalchemy.sql.functions import coalesce
 from sqlalchemy.sql.functions import sum as _sum
 
@@ -22,20 +23,18 @@ def run_variable(pkgbases: list[PackageBase] = []) -> None:
 
     # NumVotes subquery.
     votes_subq = (
-        db.get_session()
-        .query(func.count("*"))
+        select(func.count("*"))
         .select_from(PackageVote)
-        .filter(PackageVote.PackageBaseID == PackageBase.ID)
+        .where(PackageVote.PackageBaseID == PackageBase.ID)
     )
 
     # Popularity subquery.
     pop_subq = (
-        db.get_session()
-        .query(
+        select(
             coalesce(_sum(func.pow(0.98, (now - PackageVote.VoteTS) / 86400)), 0.0),
         )
         .select_from(PackageVote)
-        .filter(
+        .where(
             and_(
                 PackageVote.PackageBaseID == PackageBase.ID,
                 PackageVote.VoteTS.isnot(None),
@@ -44,30 +43,27 @@ def run_variable(pkgbases: list[PackageBase] = []) -> None:
     )
 
     with db.begin():
-        query = db.query(PackageBase)
+        stmt = sa_update(PackageBase).values(
+            NumVotes=votes_subq.scalar_subquery(),
+            Popularity=pop_subq.scalar_subquery(),
+            PopularityUpdated=datetime.fromtimestamp(now),
+        )
 
-        ids = set()
         if pkgbases:
             # If `pkgbases` were given, we should forcefully update the given
             # package base records' popularities.
             ids = {pkgbase.ID for pkgbase in pkgbases}
-            query = query.filter(PackageBase.ID.in_(ids))
+            stmt = stmt.where(PackageBase.ID.in_(ids))
         else:
             # Otherwise, we should only update popularities which have exceeded
             # the popularity interval length.
             interval = config.getint("git-archive", "popularity-interval")
-            query = query.filter(
+            stmt = stmt.where(
                 PackageBase.PopularityUpdated
                 <= datetime.fromtimestamp((now - interval))
             )
 
-        query.update(
-            {
-                "NumVotes": votes_subq.scalar_subquery(),
-                "Popularity": pop_subq.scalar_subquery(),
-                "PopularityUpdated": datetime.fromtimestamp(now),
-            }
-        )
+        db.get_session().execute(stmt)
 
 
 def run_single(pkgbase: PackageBase) -> None:

@@ -1,6 +1,7 @@
 from typing import Iterable
 
 import orjson
+from sqlalchemy import select
 
 from aurweb import config, db
 from aurweb.models import User
@@ -15,8 +16,12 @@ class Spec(SpecBase):
         self.users_repo = GitInfo(config.get("git-archive", "users-repo"))
 
     def generate(self) -> Iterable[SpecOutput]:
-        query = db.query(User.Username).order_by(User.Username.asc()).all()
-        users = [user.Username for user in query]
+        users = (
+            db.get_session()
+            .execute(select(User.Username).order_by(User.Username.asc()))
+            .scalars()
+            .all()
+        )
 
         self.add_output(
             "users.json",
