@@ -76,9 +76,7 @@ def get_session(engine=None):
         if not engine:  # pragma: no cover
             engine = get_engine()
 
-        Session = scoped_session(
-            sessionmaker(autocommit=True, autoflush=False, bind=engine)
-        )
+        Session = scoped_session(sessionmaker(engine, autoflush=False))
         _sessions[dbname] = Session()
 
     return _sessions.get(dbname)
@@ -157,8 +155,26 @@ def add(model):
 
 
 def begin():
-    """Begin an SQLAlchemy SessionTransaction."""
-    return get_session().begin()
+    """Context manager providing a transaction scope.
+
+    On success the session is committed; on any exception it is rolled back.
+    Using a context manager rather than session.begin() avoids SA 2.0's
+    restriction that prohibits calling begin() on a session that already has
+    an autobegun transaction (triggered by the first query in a session).
+    """
+    from contextlib import contextmanager
+
+    @contextmanager
+    def _begin():
+        session = get_session()
+        try:
+            yield
+            session.commit()
+        except Exception:
+            session.rollback()
+            raise
+
+    return _begin()
 
 
 def retry_deadlock(func):
@@ -207,18 +223,9 @@ def get_sqlalchemy_url():
 
     :return: sqlalchemy.engine.url.URL
     """
-    import sqlalchemy
-    from sqlalchemy.engine.url import URL
+    from sqlalchemy.engine import URL
 
     import aurweb.config
-
-    constructor = URL
-
-    parts = sqlalchemy.__version__.split(".")
-    major = int(parts[0])
-    minor = int(parts[1])
-    if major == 1 and minor >= 4:  # pragma: no cover
-        constructor = URL.create
 
     aur_db_backend = aurweb.config.get("database", "backend")
     if aur_db_backend == "mysql":
@@ -227,7 +234,7 @@ def get_sqlalchemy_url():
         if not port:
             param_query["unix_socket"] = aurweb.config.get("database", "socket")
 
-        return constructor(
+        return URL.create(
             DRIVERS.get(aur_db_backend),
             username=aurweb.config.get("database", "user"),
             password=aurweb.config.get_with_fallback(
@@ -239,7 +246,7 @@ def get_sqlalchemy_url():
             query=param_query,
         )
     elif aur_db_backend == "sqlite":
-        return constructor(
+        return URL.create(
             "sqlite",
             database=aurweb.config.get("database", "name"),
         )

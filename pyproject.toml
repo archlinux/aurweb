@@ -39,7 +39,7 @@ max-complexity = 10
 # This is coming from https://github.com/pytest-dev/pytest-xdist/issues/825 and it's caused from pytest-cov
 # Remove once fixed: https://github.com/pytest-dev/pytest-cov/issues/557
 filterwarnings = ['ignore:The --rsyncdir command line argument and rsyncdirs config variable are deprecated.:DeprecationWarning']
-addopts = '--cov=aurweb --cov-append --dist load --dist loadfile -n auto'
+addopts = '--cov=aurweb --cov-append --dist load --dist loadfile -n auto --timeout=30'
 testpaths = ['test']
 
 [tool.mypy]
@@ -100,8 +100,7 @@ authors = [
     "Kevin Morris <kevr@0cost.org>"
 ]
 maintainers = [
-    "Leonidas Spyropoulos <artafinde@archlinux.org>",
-    "Mario Oenning <moson@archlinux.org>"
+    "Leonidas Spyropoulos <artafinde@archlinux.org>"
 ]
 packages = [
     { include = "aurweb" }
@@ -153,8 +152,8 @@ Authlib = "^1.3.0"
 Jinja2 = "^3.1.3"
 Markdown = "^3.6"
 Werkzeug = "^3.0.2"
-SQLAlchemy = "^1.4.52"
-greenlet = "3.2.4" # Explicitly add greenlet (dependency of SQLAlchemy) for python 3.13 support
+SQLAlchemy = "^2.0"
+greenlet = ">=3.0.0" # Explicitly add greenlet (dependency of SQLAlchemy) for python 3.13 support
 
 # ASGI
 uvicorn = "^0.38.0"
@@ -184,6 +183,7 @@ pytest = "^8.1.1"
 pytest-asyncio = "^1.0.0"
 pytest-cov = "^7.0.0"
 pytest-tap = "^3.4"
+pytest-timeout = "^2.3.1"
 watchfiles = "^1.0.4"
 
 [tool.poetry.scripts]

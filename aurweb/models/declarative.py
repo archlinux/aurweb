@@ -1,6 +1,6 @@
 import json
 
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 
 from aurweb import util
 
@@ -16,6 +16,11 @@ def to_json(model, indent: int | None = None):
 
 
 Base = declarative_base()
+
+# Allow legacy-style model definitions (no Mapped[] annotations) to coexist
+# with SQLAlchemy 2.0's new declarative system. Remove in Phase 6 once all
+# models are updated to use Mapped[].
+Base.__allow_unmapped__ = True
 
 # Setup __table_args__ applicable to every table.
 Base.__table_args__ = {"autoload": False, "extend_existing": True}
