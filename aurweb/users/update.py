@@ -1,6 +1,8 @@
 from typing import Any
 
 from fastapi import Request
+from sqlalchemy import exists as sa_exists
+from sqlalchemy import select
 
 from aurweb import db, models, time, util
 from aurweb.models import SSHPubKey
@@ -88,16 +90,35 @@ def ssh_pubkey(PK: str = str(), user: models.User | None = None, **kwargs) -> No
 
     with db.begin():
         # Delete any existing keys we can't find.
-        to_remove = user.ssh_pub_keys.filter(~SSHPubKey.Fingerprint.in_(fprints))
+        to_remove = (
+            db.get_session()
+            .execute(
+                select(SSHPubKey).where(
+                    SSHPubKey.UserID == user.ID,
+                    ~SSHPubKey.Fingerprint.in_(fprints),
+                )
+            )
+            .scalars()
+            .all()
+        )
         db.delete_all(to_remove)
 
         # For each key, if it does not yet exist, create it.
         for i, full_key in enumerate(keys):
             prefix, key = full_key
-            exists = user.ssh_pub_keys.filter(
-                SSHPubKey.Fingerprint == fprints[i]
-            ).exists()
-            if not db.query(exists).scalar():
+            key_exists = (
+                db.get_session()
+                .execute(
+                    select(
+                        sa_exists().where(
+                            SSHPubKey.UserID == user.ID,
+                            SSHPubKey.Fingerprint == fprints[i],
+                        )
+                    )
+                )
+                .scalar()
+            )
+            if not key_exists:
                 # No public key exists, create one.
                 db.create(
                     models.SSHPubKey,
@@ -150,5 +171,10 @@ def suspend(
         context["S"] = None
         with db.begin():
             db.delete_all(
-                db.query(models.Session).filter(models.Session.UsersID == user.ID)
+                db.get_session()
+                .execute(
+                    select(models.Session).filter(models.Session.UsersID == user.ID)
+                )
+                .scalars()
+                .all()
             )

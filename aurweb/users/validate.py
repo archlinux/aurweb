@@ -8,7 +8,8 @@ when encountering invalid criteria and return silently otherwise.
 """
 
 from fastapi import Request
-from sqlalchemy import and_
+from sqlalchemy import and_, select
+from sqlalchemy import exists as sa_exists
 
 from aurweb import aur_logging, config, db, l10n, models, time, util
 from aurweb.auth import creds
@@ -75,8 +76,11 @@ def invalid_password(
 
 def is_banned(request: Request | None = None, **kwargs) -> None:
     host = util.get_client_ip(request)
-    exists = db.query(models.Ban, models.Ban.IPAddress == host).exists()
-    if db.query(exists).scalar():
+    if (
+        db.get_session()
+        .execute(select(sa_exists().where(models.Ban.IPAddress == host)))
+        .scalar()
+    ):
         raise ValidationError(
             [
                 "Account registration has been disabled for your "
@@ -140,17 +144,20 @@ def invalid_ssh_pubkey(
     for prefix, key in keys:
         fingerprint = get_fingerprint(f"{prefix} {key}")
 
-        exists = (
-            db.query(models.SSHPubKey)
-            .filter(
-                and_(
-                    models.SSHPubKey.UserID != user.ID,
-                    models.SSHPubKey.Fingerprint == fingerprint,
+        if (
+            db.get_session()
+            .execute(
+                select(
+                    sa_exists().where(
+                        and_(
+                            models.SSHPubKey.UserID != user.ID,
+                            models.SSHPubKey.Fingerprint == fingerprint,
+                        )
+                    )
                 )
             )
-            .exists()
-        )
-        if db.query(exists).scalar():
+            .scalar()
+        ):
             raise ValidationError(
                 [
                     _("The SSH public key, %s%s%s, is already in use.")
@@ -175,12 +182,17 @@ def username_in_use(
     _: l10n.Translator | None = None,
     **kwargs,
 ) -> None:
-    exists = (
-        db.query(models.User)
-        .filter(and_(models.User.ID != user.ID, models.User.Username == U))
-        .exists()
-    )
-    if db.query(exists).scalar():
+    if (
+        db.get_session()
+        .execute(
+            select(
+                sa_exists().where(
+                    and_(models.User.ID != user.ID, models.User.Username == U)
+                )
+            )
+        )
+        .scalar()
+    ):
         # If the username already exists...
         raise ValidationError(
             [
@@ -196,12 +208,17 @@ def email_in_use(
     _: l10n.Translator | None = None,
     **kwargs,
 ) -> None:
-    exists = (
-        db.query(models.User)
-        .filter(and_(models.User.ID != user.ID, models.User.Email == E))
-        .exists()
-    )
-    if db.query(exists).scalar():
+    if (
+        db.get_session()
+        .execute(
+            select(
+                sa_exists().where(
+                    and_(models.User.ID != user.ID, models.User.Email == E)
+                )
+            )
+        )
+        .scalar()
+    ):
         # If the email already exists...
         raise ValidationError(
             [

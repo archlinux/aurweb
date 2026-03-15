@@ -1,7 +1,8 @@
 from typing import Any
 
 from fastapi import Request
-from sqlalchemy import and_
+from sqlalchemy import and_, select
+from sqlalchemy import exists as sa_exists
 from sqlalchemy.orm import joinedload
 
 from aurweb import config, db, defaults, l10n, time, util
@@ -74,11 +75,18 @@ def make_context(
     context["out_of_date"] = bool(pkgbase.OutOfDateTS)
 
     if is_authenticated:
-        context["voted"] = db.query(
-            request.user.package_votes.filter(
-                PackageVote.PackageBaseID == pkgbase.ID
-            ).exists()
-        ).scalar()
+        context["voted"] = (
+            db.get_session()
+            .execute(
+                select(
+                    sa_exists().where(
+                        PackageVote.UsersID == request.user.ID,
+                        PackageVote.PackageBaseID == pkgbase.ID,
+                    )
+                )
+            )
+            .scalar()
+        )
     else:
         context["voted"] = False
 
@@ -210,7 +218,12 @@ def add_comaintainers(
     # and append the User record to `users` if no errors occur.
     users = []
     for username in usernames:
-        user = db.query(User).filter(User.Username == username).first()
+        user = (
+            db.get_session()
+            .execute(select(User).filter(User.Username == username))
+            .scalars()
+            .first()
+        )
         if not user:
             _ = l10n.get_translator_for_request(request)
             return _("Invalid user name: %s") % username

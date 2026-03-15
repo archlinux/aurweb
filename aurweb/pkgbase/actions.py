@@ -1,4 +1,6 @@
 from fastapi import Request
+from sqlalchemy import exists as sa_exists
+from sqlalchemy import select
 
 from aurweb import aur_logging, db, util
 from aurweb.auth import creds
@@ -20,11 +22,18 @@ def _retry_notify(user: User, pkgbase: PackageBase) -> None:
 
 
 def pkgbase_notify_instance(request: Request, pkgbase: PackageBase) -> None:
-    notif = db.query(
-        pkgbase.notifications.filter(
-            PackageNotification.UserID == request.user.ID
-        ).exists()
-    ).scalar()
+    notif = (
+        db.get_session()
+        .execute(
+            select(
+                sa_exists().where(
+                    PackageNotification.PackageBaseID == pkgbase.ID,
+                    PackageNotification.UserID == request.user.ID,
+                )
+            )
+        )
+        .scalar()
+    )
     has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
     if has_cred and not notif:
         _retry_notify(request.user, pkgbase)

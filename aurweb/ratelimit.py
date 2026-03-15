@@ -1,5 +1,6 @@
 from fastapi import Request
 from redis.client import Pipeline
+from sqlalchemy import select
 
 from aurweb import aur_logging, config, db, time
 from aurweb.aur_redis import redis_connection
@@ -44,7 +45,12 @@ def _update_ratelimit_db(request: Request):
         with db.begin():
             db.delete_all(records)
 
-    records = db.query(ApiRateLimit).filter(ApiRateLimit.WindowStart < time_to_delete)
+    records = (
+        db.get_session()
+        .execute(select(ApiRateLimit).filter(ApiRateLimit.WindowStart < time_to_delete))
+        .scalars()
+        .all()
+    )
     retry_delete(records)
 
     @db.retry_deadlock
@@ -57,7 +63,12 @@ def _update_ratelimit_db(request: Request):
         return record
 
     host = get_client_ip(request)
-    record = db.query(ApiRateLimit, ApiRateLimit.IP == host).first()
+    record = (
+        db.get_session()
+        .execute(select(ApiRateLimit).filter(ApiRateLimit.IP == host))
+        .scalars()
+        .first()
+    )
     record = retry_create(record, now, host)
 
     logger.debug(record.Requests)

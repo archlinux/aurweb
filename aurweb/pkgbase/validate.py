@@ -2,6 +2,7 @@ from http import HTTPStatus
 from typing import Any
 
 from fastapi import HTTPException
+from sqlalchemy import select
 
 from aurweb import config, db
 from aurweb.exceptions import ValidationError
@@ -24,7 +25,12 @@ def request(
             # TODO: This error needs to be translated.
             raise ValidationError(['The "Merge into" field must not be empty.'])
 
-        target = db.query(PackageBase).filter(PackageBase.Name == merge_into).first()
+        target = (
+            db.get_session()
+            .execute(select(PackageBase).filter(PackageBase.Name == merge_into))
+            .scalars()
+            .first()
+        )
         if not target:
             # TODO: This error needs to be translated.
             raise ValidationError(
