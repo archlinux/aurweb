@@ -2,6 +2,7 @@ from typing import Generator
 
 import pytest
 from prometheus_client import REGISTRY, generate_latest
+from sqlalchemy import select
 
 from aurweb import db
 from aurweb.cache import db_query_cache
@@ -31,7 +32,7 @@ def user() -> Generator[User]:
 def test_search_cache_metrics(user: User):
     # Fire off 3 identical queries for caching
     for _ in range(3):
-        db_query_cache("key", db.query(User))
+        db_query_cache("key", select(User))
 
     # Get metrics
     metrics = str(generate_latest(REGISTRY))

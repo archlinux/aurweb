@@ -105,7 +105,7 @@ async def packages_get(
     search.sort_by(sort_by, sort_order)
 
     # Insert search results into the context.
-    results = search.results().with_entities(
+    results = search.results().with_only_columns(
         models.Package.ID,
         models.Package.Name,
         models.Package.PackageBaseID,

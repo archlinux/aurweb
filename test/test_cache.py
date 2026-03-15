@@ -2,6 +2,7 @@ from typing import Generator
 from unittest import mock
 
 import pytest
+from sqlalchemy import select
 
 from aurweb import cache, config, db
 from aurweb.models.account_type import USER_ID
@@ -33,13 +34,15 @@ def clear_fakeredis_cache() -> None:
 
 
 def test_db_count_cache(user):
-    query = db.query(User)
+    query = select(User.ID, User.Username)
+    session = db.get_session()
 
     # We have no cached value yet.
     assert cache._redis.get("key1") is None
 
     # Add to cache
-    assert cache.db_count_cache("key1", query) == query.count()
+    expected_count = len(session.execute(query).all())
+    assert cache.db_count_cache("key1", query) == expected_count
 
     # It's cached now.
     assert cache._redis.get("key1") is not None
@@ -49,13 +52,14 @@ def test_db_count_cache(user):
 
     # Cache a query with an expire.
     value = cache.db_count_cache("key2", query, 100)
-    assert value == query.count()
+    assert value == expected_count
 
     assert cache._redis.ttl("key2") == 100
 
 
 def test_db_query_cache(user):
-    query = db.query(User)
+    query = select(User.ID, User.Username)
+    session = db.get_session()
 
     # We have no cached value yet.
     assert cache._redis.get("key1") is None
@@ -66,18 +70,21 @@ def test_db_query_cache(user):
     # It's cached now.
     assert cache._redis.get("key1") is not None
 
-    # Modify our user and make sure we got a cached value
-    user.Username = "changed"
+    # Modify our user in the DB and make sure we got a stale cached value
+    with db.begin():
+        user.Username = "changed"
     cached = cache.db_query_cache("key1", query)
-    assert cached[0].Username != query.all()[0].Username
+    live = session.execute(query).first()
+    assert cached[0].Username != live.Username
 
     # It does not expire
     assert cache._redis.ttl("key1") == -1
 
     # Cache a query with an expire.
+    rows = session.execute(query).all()
     value = cache.db_query_cache("key2", query, 100)
-    assert len(value) == query.count()
-    assert value[0].Username == query.all()[0].Username
+    assert len(value) == len(rows)
+    assert value[0].Username == rows[0].Username
 
     assert cache._redis.ttl("key2") == 100
 

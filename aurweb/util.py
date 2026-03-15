@@ -14,7 +14,6 @@ import fastapi
 import pygit2
 from email_validator import EmailSyntaxError, validate_email
 from fastapi.responses import JSONResponse
-from sqlalchemy.orm import Query
 
 import aurweb.config
 from aurweb import aur_logging, defaults
@@ -204,9 +203,10 @@ def shell_exec(cmdline: str, cwd: str) -> Tuple[int, str, str]:
     return proc.returncode, out.decode().strip(), err.decode().strip()
 
 
-def hash_query(query: Query):
+def hash_query(query):
+    stmt = query.statement if hasattr(query, "statement") else query
     return sha1(
-        str(query.statement.compile(compile_kwargs={"literal_binds": True})).encode()
+        str(stmt.compile(compile_kwargs={"literal_binds": True})).encode()
     ).hexdigest()
 
 

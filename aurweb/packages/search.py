@@ -1,6 +1,6 @@
 from typing import Set
 
-from sqlalchemy import and_, case, or_, orm
+from sqlalchemy import Select, and_, case, func, or_, select
 
 from aurweb import db, models
 from aurweb.models import Group, Package, PackageBase, User
@@ -25,7 +25,7 @@ class PackageSearch:
     FULL_SORT_ORDER = {"d": "desc", "a": "asc"}
 
     def __init__(self, user: models.User | None = None):
-        self.query = db.query(Package).join(PackageBase)
+        self.query = select(Package).join(PackageBase)
 
         self.user = user
         if self.user:
@@ -76,7 +76,7 @@ class PackageSearch:
         self._joined_keywords = False
         self._joined_comaint = False
 
-    def _join_user(self, outer: bool = True) -> orm.Query:
+    def _join_user(self, outer: bool = True) -> Select:
         """Centralized joining of a package base's maintainer."""
         if not self._joined_user:
             self.query = self.query.join(
@@ -85,13 +85,13 @@ class PackageSearch:
             self._joined_user = True
         return self.query
 
-    def _join_keywords(self) -> orm.Query:
+    def _join_keywords(self) -> Select:
         if not self._joined_keywords:
             self.query = self.query.join(PackageKeyword)
             self._joined_keywords = True
         return self.query
 
-    def _join_comaint(self, isouter: bool = False) -> orm.Query:
+    def _join_comaint(self, isouter: bool = False) -> Select:
         if not self._joined_comaint:
             self.query = self.query.join(
                 PackageComaintainer,
@@ -101,7 +101,7 @@ class PackageSearch:
             self._joined_comaint = True
         return self.query
 
-    def _search_by_namedesc(self, keywords: str) -> orm.Query:
+    def _search_by_namedesc(self, keywords: str) -> "PackageSearch":
         self._join_user()
         self.query = self.query.filter(
             or_(
@@ -111,28 +111,28 @@ class PackageSearch:
         )
         return self
 
-    def _search_by_name(self, keywords: str) -> orm.Query:
+    def _search_by_name(self, keywords: str) -> "PackageSearch":
         self._join_user()
         self.query = self.query.filter(Package.Name.like(f"%{keywords}%"))
         return self
 
-    def _search_by_exact_name(self, keywords: str) -> orm.Query:
+    def _search_by_exact_name(self, keywords: str) -> "PackageSearch":
         self._join_user()
         self.query = self.query.filter(Package.Name == keywords)
         return self
 
-    def _search_by_pkgbase(self, keywords: str) -> orm.Query:
+    def _search_by_pkgbase(self, keywords: str) -> "PackageSearch":
         self._join_user()
         self.query = self.query.filter(PackageBase.Name.like(f"%{keywords}%"))
 
         return self
 
-    def _search_by_exact_pkgbase(self, keywords: str) -> orm.Query:
+    def _search_by_exact_pkgbase(self, keywords: str) -> "PackageSearch":
         self._join_user()
         self.query = self.query.filter(PackageBase.Name == keywords)
         return self
 
-    def _search_by_keywords(self, keywords: Set[str]) -> orm.Query:
+    def _search_by_keywords(self, keywords: Set[str]) -> "PackageSearch":
         self._join_user()
         self._join_keywords()
         keywords = {k.lower() for k in keywords}
@@ -142,7 +142,7 @@ class PackageSearch:
 
         return self
 
-    def _search_by_maintainer(self, keywords: str) -> orm.Query:
+    def _search_by_maintainer(self, keywords: str) -> "PackageSearch":
         self._join_user()
         if keywords:
             self.query = self.query.filter(
@@ -152,36 +152,51 @@ class PackageSearch:
             self.query = self.query.filter(PackageBase.MaintainerUID.is_(None))
         return self
 
-    def _search_by_comaintainer(self, keywords: str) -> orm.Query:
+    def _search_by_comaintainer(self, keywords: str) -> "PackageSearch":
         self._join_user()
         self._join_comaint()
-        user = db.query(User).filter(User.Username == keywords).first()
+        user = (
+            db.get_session()
+            .execute(select(User).filter(User.Username == keywords))
+            .scalars()
+            .first()
+        )
         uid = 0 if not user else user.ID
         self.query = self.query.filter(PackageComaintainer.UsersID == uid)
         return self
 
-    def _search_by_co_or_maintainer(self, keywords: str) -> orm.Query:
+    def _search_by_co_or_maintainer(self, keywords: str) -> "PackageSearch":
         self._join_user()
         self._join_comaint(True)
-        user = db.query(User).filter(User.Username == keywords).first()
+        user = (
+            db.get_session()
+            .execute(select(User).filter(User.Username == keywords))
+            .scalars()
+            .first()
+        )
         uid = 0 if not user else user.ID
         self.query = self.query.filter(
             or_(PackageComaintainer.UsersID == uid, User.ID == uid)
         )
         return self
 
-    def _search_by_submitter(self, keywords: str) -> orm.Query:
+    def _search_by_submitter(self, keywords: str) -> "PackageSearch":
         self._join_user()
 
         uid = 0
-        user = db.query(User).filter(User.Username == keywords).first()
+        user = (
+            db.get_session()
+            .execute(select(User).filter(User.Username == keywords))
+            .scalars()
+            .first()
+        )
         if user:
             uid = user.ID
 
         self.query = self.query.filter(PackageBase.SubmitterUID == uid)
         return self
 
-    def search_by(self, search_by: str, keywords: str) -> orm.Query:
+    def search_by(self, search_by: str, keywords: str) -> "PackageSearch":
         if search_by not in self.search_by_cb:
             search_by = "nd"  # Default: Name, Description
         callback = self.search_by_cb.get(search_by)
@@ -240,7 +255,7 @@ class PackageSearch:
         self.query = self.query.order_by(column(), name())
         return self
 
-    def sort_by(self, sort_by: str, ordering: str = "d") -> orm.Query:
+    def sort_by(self, sort_by: str, ordering: str = "d") -> "PackageSearch":
         if sort_by not in self.sort_by_cb:
             sort_by = "p"  # Default: Popularity
         callback = self.sort_by_cb.get(sort_by)
@@ -251,9 +266,13 @@ class PackageSearch:
 
     def count(self) -> int:
         """Return internal query's count."""
-        return self.query.count()
+        return (
+            db.get_session()
+            .execute(select(func.count()).select_from(self.query.subquery()))
+            .scalar()
+        )
 
-    def results(self) -> orm.Query:
+    def results(self) -> Select:
         """Return internal query."""
         return self.query
 
@@ -301,34 +320,34 @@ class RPCSearch(PackageSearch):
         # We always want an optional Maintainer in the RPC.
         self._join_user()
 
-    def _join_depends(self, dep_type_id: int) -> orm.Query:
+    def _join_depends(self, dep_type_id: int) -> Select:
         """Join Package with PackageDependency and filter results
         based on `dep_type_id`.
 
         :param dep_type_id: DependencyType ID
-        :returns: PackageDependency-joined orm.Query
+        :returns: PackageDependency-joined Select
         """
         self.query = self.query.join(models.PackageDependency).filter(
             models.PackageDependency.DepTypeID == dep_type_id
         )
         return self.query
 
-    def _join_relations(self, rel_type_id: int) -> orm.Query:
+    def _join_relations(self, rel_type_id: int) -> Select:
         """Join Package with PackageRelation and filter results
         based on `rel_type_id`.
 
         :param rel_type_id: RelationType ID
-        :returns: PackageRelation-joined orm.Query
+        :returns: PackageRelation-joined Select
         """
         self.query = self.query.join(models.PackageRelation).filter(
             models.PackageRelation.RelTypeID == rel_type_id
         )
         return self.query
 
-    def _join_groups(self) -> orm.Query:
+    def _join_groups(self) -> Select:
         """Join Package with PackageGroup and Group.
 
-        :returns: PackageGroup/Group-joined orm.Query
+        :returns: PackageGroup/Group-joined Select
         """
         self.query = self.query.join(PackageGroup).join(Group)
         return self.query
@@ -399,5 +418,5 @@ class RPCSearch(PackageSearch):
         result = callback(keywords)
         return result
 
-    def results(self) -> orm.Query:
+    def results(self) -> Select:
         return self.query

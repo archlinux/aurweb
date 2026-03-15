@@ -213,18 +213,15 @@ class RPC:
             Submitter.Username.label("Submitter"),
         )
 
-        q = query.join(
-            Submitter,
-            Submitter.ID == models.PackageBase.SubmitterUID,
-            isouter=True,
+        return (
+            query.join(
+                Submitter,
+                Submitter.ID == models.PackageBase.SubmitterUID,
+                isouter=True,
+            )
+            .with_only_columns(*cols)
+            .group_by(models.Package.ID)
         )
-
-        # Legacy orm.Query uses with_entities(); SA 2.0 Select uses
-        # with_only_columns().  PackageSearch still yields a legacy Query,
-        # so we keep both paths until that module is migrated.
-        if isinstance(q, orm.Query):
-            return q.with_entities(*cols).group_by(models.Package.ID)
-        return q.with_only_columns(*cols).group_by(models.Package.ID)
 
     def subquery(self, ids: set[int]):
         Package = models.Package
@@ -391,7 +388,7 @@ class RPC:
             search._search_by_exact_name(arg)
             query = query.union(self.entities(search.results()))
 
-        results = query.all()
+        results = db.get_session().execute(query).all()
         if len(results) > max_results:
             raise RPCError("Too many package results.")
 
