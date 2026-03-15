@@ -46,7 +46,7 @@ from typing import Generator
 import py
 import pytest
 from prometheus_client import values
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.engine import URL
 from sqlalchemy.engine.base import Engine
 from sqlalchemy.exc import ProgrammingError
@@ -110,17 +110,16 @@ def _create_database(engine: Engine, dbname: str) -> None:
     :param engine: Engine returned by test_engine()
     :param dbname: Database name to create
     """
-    conn = engine.connect()
-    try:
-        conn.execute(f"CREATE DATABASE {dbname}")
-    except ProgrammingError:  # pragma: no cover
-        # The database most likely already existed if we hit
-        # a ProgrammingError. Just drop the database and try
-        # again. If at that point things still fail, any
-        # exception will be propogated up to the caller.
-        conn.execute(f"DROP DATABASE {dbname}")
-        conn.execute(f"CREATE DATABASE {dbname}")
-    conn.close()
+    with engine.connect() as conn:
+        try:
+            conn.execute(text(f"CREATE DATABASE {dbname}"))
+        except ProgrammingError:  # pragma: no cover
+            # The database most likely already existed if we hit
+            # a ProgrammingError. Just drop the database and try
+            # again. If at that point things still fail, any
+            # exception will be propogated up to the caller.
+            conn.execute(text(f"DROP DATABASE {dbname}"))
+            conn.execute(text(f"CREATE DATABASE {dbname}"))
     initdb.run(AlembicArgs)
 
 
@@ -131,10 +130,20 @@ def _drop_database(engine: Engine, dbname: str) -> None:
     :param engine: Engine returned by test_engine()
     :param dbname: Database name to drop
     """
-    aurweb.schema.metadata.drop_all(bind=engine)
-    conn = engine.connect()
-    conn.execute(f"DROP DATABASE {dbname}")
-    conn.close()
+    with engine.connect() as conn:
+        # Kill all connections to this DB to release any metadata locks
+        # before dropping. SA 2.0 connection pools can hold connections
+        # open after session.close() which would block DROP DATABASE.
+        rows = conn.execute(
+            text("SELECT ID FROM information_schema.PROCESSLIST WHERE DB = :db"),
+            {"db": dbname},
+        ).fetchall()
+        for row in rows:
+            try:
+                conn.execute(text(f"KILL {row[0]}"))
+            except Exception:
+                pass
+        conn.execute(text(f"DROP DATABASE IF EXISTS `{dbname}`"))
 
 
 def setup_email() -> None:
@@ -169,16 +178,24 @@ def db_session(setup_database: None) -> scoped_session:
 
     The returned session is popped out of persistence after the test is run.
     """
-    # After the test runs, aurweb.db.name() ends up returning the
-    # configured database, because PYTEST_CURRENT_TEST is removed.
+    # Capture dbname and engine NOW — after the module completes,
+    # PYTEST_CURRENT_TEST is removed so aurweb.db.name() returns the
+    # configured DB name, not the test DB name.
     dbname = aurweb.db.name()
+    engine = aurweb.db.get_engine()
     session = aurweb.db.get_session()
 
     yield session
 
-    # Close the session and pop it.
+    # Close the session and pop it, then dispose the captured engine to
+    # release all pooled connections. SA 2.0 connection pools hold physical
+    # connections open after session.close(); those idle connections retain
+    # an open transaction which blocks DROP DATABASE with a metadata lock.
+    session.rollback()
     session.close()
     aurweb.db.pop_session(dbname)
+    engine.dispose()
+    aurweb.db.pop_engine(dbname)
 
 
 @pytest.fixture
