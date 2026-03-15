@@ -5,6 +5,7 @@ from typing import Callable
 import fastapi
 from fastapi import HTTPException
 from fastapi.responses import RedirectResponse
+from sqlalchemy import select
 from starlette.authentication import AuthCredentials, AuthenticationBackend
 from starlette.requests import HTTPConnection
 
@@ -110,7 +111,12 @@ class BasicAuthBackend(AuthenticationBackend):
 
         # If no session with sid and a LastUpdateTS now or later exists.
         now_ts = time.utcnow()
-        record = db.query(Session).filter(Session.SessionID == sid).first()
+        record = (
+            db.get_session()
+            .execute(select(Session).filter(Session.SessionID == sid))
+            .scalars()
+            .first()
+        )
         if not record:
             return unauthenticated
         elif record.LastUpdateTS < (now_ts - timeout):
@@ -121,7 +127,12 @@ class BasicAuthBackend(AuthenticationBackend):
         # At this point, we cannot have an invalid user if the record
         # exists, due to ForeignKey constraints in the schema upheld
         # by mysqlclient.
-        user = db.query(User).filter(User.ID == record.UsersID).first()
+        user = (
+            db.get_session()
+            .execute(select(User).filter(User.ID == record.UsersID))
+            .scalars()
+            .first()
+        )
         user.nonce = util.make_nonce()
         user.authenticated = True
 

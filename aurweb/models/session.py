@@ -1,3 +1,4 @@
+from sqlalchemy import exists, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
@@ -28,8 +29,10 @@ class Session(Base):
         except AttributeError:
             uid = 0
 
-        user_exists = db.query(_User).filter(_User.ID == uid).exists()
-        if not db.query(user_exists).scalar():
+        user_exists = (
+            db.get_session().execute(select(exists().where(_User.ID == uid))).scalar()
+        )
+        if not user_exists:
             raise IntegrityError(
                 statement=(
                     "Foreign key UsersID cannot be null and must be a valid user's ID."

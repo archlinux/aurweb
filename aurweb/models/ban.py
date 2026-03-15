@@ -1,4 +1,5 @@
 from fastapi import Request
+from sqlalchemy import exists, select
 
 from aurweb import db, schema
 from aurweb.models.declarative import Base
@@ -16,5 +17,6 @@ class Ban(Base):
 
 def is_banned(request: Request):
     ip = get_client_ip(request)
-    exists = db.query(Ban).filter(Ban.IPAddress == ip).exists()
-    return db.query(exists).scalar()
+    return bool(
+        db.get_session().execute(select(exists().where(Ban.IPAddress == ip))).scalar()
+    )

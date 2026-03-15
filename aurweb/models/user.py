@@ -3,7 +3,7 @@ from typing import Set
 
 import bcrypt
 from fastapi import Request
-from sqlalchemy import or_
+from sqlalchemy import exists, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
@@ -206,9 +206,16 @@ class User(Base):
         from aurweb.models.package_vote import PackageVote
 
         return bool(
-            package.PackageBase.package_votes.filter(
-                PackageVote.UsersID == self.ID
-            ).scalar()
+            db.get_session()
+            .execute(
+                select(
+                    exists().where(
+                        PackageVote.PackageBaseID == package.PackageBase.ID,
+                        PackageVote.UsersID == self.ID,
+                    )
+                )
+            )
+            .scalar()
         )
 
     def notified(self, package) -> bool:
@@ -222,18 +229,24 @@ class User(Base):
         from aurweb.models.package_base import PackageBase
         from aurweb.models.package_notification import PackageNotification
 
-        query = None
         if isinstance(package, Package):
-            query = package.PackageBase.notifications
+            pkgbase_id = package.PackageBase.ID
         elif isinstance(package, PackageBase):
-            query = package.notifications
+            pkgbase_id = package.ID
+        else:
+            return False
 
-        # Run an exists() query where a pkgbase-related
-        # PackageNotification exists for self (a user).
         return bool(
-            db.query(
-                query.filter(PackageNotification.UserID == self.ID).exists()
-            ).scalar()
+            db.get_session()
+            .execute(
+                select(
+                    exists().where(
+                        PackageNotification.PackageBaseID == pkgbase_id,
+                        PackageNotification.UserID == self.ID,
+                    )
+                )
+            )
+            .scalar()
         )
 
     def packages(self):
