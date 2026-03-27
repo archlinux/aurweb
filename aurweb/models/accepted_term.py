@@ -14,13 +14,13 @@ class AcceptedTerm(Base):
 
     User = relationship(
         _User,
-        backref=backref("accepted_terms", lazy="dynamic"),
+        backref=backref("accepted_terms"),
         foreign_keys=[__table__.c.UsersID],
     )
 
     Term = relationship(
         _Term,
-        backref=backref("accepted_terms", lazy="dynamic"),
+        backref=backref("accepted_terms"),
         foreign_keys=[__table__.c.TermsID],
     )
 

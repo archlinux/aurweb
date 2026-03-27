@@ -87,4 +87,4 @@ def test_adduser_ssh_pk() -> None:
         .first()
     )
     assert test is not None
-    assert TEST_SSH_PUBKEY.startswith(test.ssh_pub_keys.first().PubKey)
+    assert TEST_SSH_PUBKEY.startswith(test.ssh_pub_keys[0].PubKey)

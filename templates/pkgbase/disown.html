@@ -22,7 +22,7 @@
         </p>
 
         <ul>
-            {% for package in pkgbase.packages.all() %}
+            {% for package in pkgbase.packages %}
                 <li>{{ package.Name }}</li>
             {% endfor %}
         </ul>

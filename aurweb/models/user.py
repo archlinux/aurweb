@@ -29,7 +29,7 @@ class User(Base):
 
     AccountType = relationship(
         _AccountType,
-        backref=backref("users", lazy="dynamic"),
+        backref=backref("users"),
         foreign_keys=[__table__.c.AccountTypeID],
         uselist=False,
     )

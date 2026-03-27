@@ -13,7 +13,7 @@ class PackageSource(Base):
 
     Package = relationship(
         _Package,
-        backref=backref("package_sources", lazy="dynamic", cascade="all, delete"),
+        backref=backref("package_sources", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageID],
     )
 

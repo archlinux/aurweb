@@ -15,7 +15,7 @@ class VoteInfo(Base):
 
     Submitter = relationship(
         _User,
-        backref=backref("voteinfo_set", lazy="dynamic"),
+        backref=backref("voteinfo_set"),
         foreign_keys=[__table__.c.SubmitterID],
     )
 

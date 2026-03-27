@@ -219,7 +219,7 @@ def check_package_details(content: str, pkg: Package) -> None:
     assert keywords.attrib["value"] == str()
 
     i = 4
-    licenses = pkg.package_licenses.all()
+    licenses = pkg.package_licenses
     if licenses:
         i += 1
         expected = ", ".join([p.License.Name for p in licenses])
@@ -228,7 +228,7 @@ def check_package_details(content: str, pkg: Package) -> None:
     else:
         assert "Licenses" not in content
 
-    groups = pkg.package_groups.all()
+    groups = pkg.package_groups
     if groups:
         i += 1
         expected = ", ".join([p.Group.Name for p in groups])
@@ -237,9 +237,7 @@ def check_package_details(content: str, pkg: Package) -> None:
     else:
         assert "Groups" not in content
 
-    provides = pkg.package_relations.filter(
-        PackageRelation.RelTypeID == PROVIDES_ID
-    ).all()
+    provides = [r for r in pkg.package_relations if r.RelTypeID == PROVIDES_ID]
     if provides:
         i += 1
         expected = ", ".join([p.RelName for p in provides])
@@ -248,9 +246,7 @@ def check_package_details(content: str, pkg: Package) -> None:
     else:
         assert "Provides" not in content
 
-    replaces = pkg.package_relations.filter(
-        PackageRelation.RelTypeID == REPLACES_ID
-    ).all()
+    replaces = [r for r in pkg.package_relations if r.RelTypeID == REPLACES_ID]
     if replaces:
         i += 1
         expected = ", ".join([r.RelName for r in replaces])
@@ -360,12 +356,12 @@ def test_package_details_filled(user: User, package: Package) -> None:
             "comaintainers": [],
             "licenses": package.package_licenses,
             "groups": package.package_groups,
-            "provides": package.package_relations.filter(
-                PackageRelation.RelTypeID == PROVIDES_ID
-            ),
-            "replaces": package.package_relations.filter(
-                PackageRelation.RelTypeID == REPLACES_ID
-            ),
+            "provides": [
+                r for r in package.package_relations if r.RelTypeID == PROVIDES_ID
+            ],
+            "replaces": [
+                r for r in package.package_relations if r.RelTypeID == REPLACES_ID
+            ],
         }
     )
 

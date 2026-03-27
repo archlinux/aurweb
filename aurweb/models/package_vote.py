@@ -14,13 +14,13 @@ class PackageVote(Base):
 
     User = relationship(
         _User,
-        backref=backref("package_votes", lazy="dynamic", cascade="all, delete"),
+        backref=backref("package_votes", cascade="all, delete"),
         foreign_keys=[__table__.c.UsersID],
     )
 
     PackageBase = relationship(
         _PackageBase,
-        backref=backref("package_votes", lazy="dynamic", cascade="all, delete"),
+        backref=backref("package_votes", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID],
     )
 

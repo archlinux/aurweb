@@ -511,9 +511,17 @@ def test_pkgbase_comments(
     # that the notification was created and clears it up so we can
     # test enabling it during edit.
     pkgbase = package.PackageBase
-    db_notif = pkgbase.notifications.filter(
-        PackageNotification.UserID == maintainer.ID
-    ).first()
+    db_notif = (
+        db.get_session()
+        .execute(
+            select(PackageNotification).where(
+                PackageNotification.PackageBaseID == pkgbase.ID,
+                PackageNotification.UserID == maintainer.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     with db.begin():
         db.delete(db_notif)
 
@@ -542,9 +550,17 @@ def test_pkgbase_comments(
     assert bodies[0].text.strip() == "Edited comment."
 
     # Ensure that a notification was created.
-    db_notif = pkgbase.notifications.filter(
-        PackageNotification.UserID == maintainer.ID
-    ).first()
+    db_notif = (
+        db.get_session()
+        .execute(
+            select(PackageNotification).where(
+                PackageNotification.PackageBaseID == pkgbase.ID,
+                PackageNotification.UserID == maintainer.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     assert db_notif is not None
 
     # Now, let's edit again, but cancel.
@@ -582,9 +598,17 @@ def test_pkgbase_comments(
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Ensure that a notification was created.
-    db_notif = pkgbase.notifications.filter(
-        PackageNotification.UserID == maintainer.ID
-    ).first()
+    db_notif = (
+        db.get_session()
+        .execute(
+            select(PackageNotification).where(
+                PackageNotification.PackageBaseID == pkgbase.ID,
+                PackageNotification.UserID == maintainer.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     assert db_notif is not None
 
     # Don't supply a comment; should return BAD_REQUEST.
@@ -1222,7 +1246,20 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
     pkgbase = package.PackageBase
 
     # We have no notif record yet; assert that.
-    notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
+    def get_notif() -> PackageNotification | None:
+        return (
+            db.get_session()
+            .execute(
+                select(PackageNotification).where(
+                    PackageNotification.PackageBaseID == pkgbase.ID,
+                    PackageNotification.UserID == user.ID,
+                )
+            )
+            .scalars()
+            .first()
+        )
+
+    notif = get_notif()
     assert notif is None
 
     # Enable notifications.
@@ -1233,7 +1270,7 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
+    notif = get_notif()
     assert notif is not None
 
     # Disable notifications.
@@ -1243,7 +1280,7 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    notif = pkgbase.notifications.filter(PackageNotification.UserID == user.ID).first()
+    notif = get_notif()
     assert notif is None
 
 
@@ -1251,7 +1288,20 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
     pkgbase = package.PackageBase
 
     # We haven't voted yet.
-    vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
+    def get_vote() -> PackageVote | None:
+        return (
+            db.get_session()
+            .execute(
+                select(PackageVote).where(
+                    PackageVote.PackageBaseID == pkgbase.ID,
+                    PackageVote.UsersID == user.ID,
+                )
+            )
+            .scalars()
+            .first()
+        )
+
+    vote = get_vote()
     assert vote is None
 
     # Vote for the package.
@@ -1262,7 +1312,7 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
+    vote = get_vote()
     assert vote is not None
     assert pkgbase.NumVotes == 1
 
@@ -1273,7 +1323,7 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
+    vote = get_vote()
     assert vote is None
     assert pkgbase.NumVotes == 0
 
@@ -1314,7 +1364,7 @@ def test_pkgbase_disown_as_maint_with_comaint(
     pkgbase = package.PackageBase
 
     assert pkgbase.Maintainer == user
-    assert pkgbase.comaintainers.count() == 0
+    assert not pkgbase.comaintainers
 
 
 def test_pkgbase_disown(
@@ -1690,9 +1740,9 @@ def test_pkgbase_merge_post(
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Save these relationships for later comparison.
-    comments = package.PackageBase.comments.all()
-    notifs = package.PackageBase.notifications.all()
-    votes = package.PackageBase.package_votes.all()
+    comments = list(package.PackageBase.comments)
+    notifs = list(package.PackageBase.notifications)
+    votes = list(package.PackageBase.package_votes)
 
     # Merge the package into target.
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
@@ -1710,9 +1760,10 @@ def test_pkgbase_merge_post(
 
     # Assert that the original comments, notifs and votes we setup
     # got migrated to target as intended.
-    assert comments == target.comments.all()
-    assert notifs == target.notifications.all()
-    assert votes == target.package_votes.all()
+    db.get_session().expire_all()
+    assert comments == list(target.comments)
+    assert notifs == list(target.notifications)
+    assert votes == list(target.package_votes)
 
     # ...and that the package got deleted.
     package = (

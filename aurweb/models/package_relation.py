@@ -20,13 +20,13 @@ class PackageRelation(Base):
 
     Package = relationship(
         _Package,
-        backref=backref("package_relations", lazy="dynamic", cascade="all, delete"),
+        backref=backref("package_relations", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageID],
     )
 
     RelationType = relationship(
         _RelationType,
-        backref=backref("package_relations", lazy="dynamic"),
+        backref=backref("package_relations"),
         foreign_keys=[__table__.c.RelTypeID],
     )
 

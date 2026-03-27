@@ -722,14 +722,25 @@ def test_package_dependencies(client: TestClient, maintainer: User, package: Pac
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Let's make sure all the non-broken deps are ordered as we expect.
-    all_deps = [dep.DepName for dep in package.package_dependencies.all()]
+    all_deps = [dep.DepName for dep in package.package_dependencies]
     aur_packages, official_packages, _ = pkgutil.lookup_dependencies(all_deps)
+    ordered_deps = (
+        db.get_session()
+        .execute(
+            select(PackageDependency)
+            .where(PackageDependency.PackageID == package.ID)
+            .order_by(
+                PackageDependency.DepTypeID.asc(),
+                PackageDependency.DepName.asc(),
+            )
+        )
+        .scalars()
+        .all()
+    )
     expected = list(
         filter(
             lambda e: e.DepName in aur_packages or e.DepName in official_packages,
-            package.package_dependencies.order_by(
-                PackageDependency.DepTypeID.asc(), PackageDependency.DepName.asc()
-            ).all(),
+            ordered_deps,
         )
     )
     root = parse_root(resp.text)
@@ -1587,9 +1598,17 @@ def test_packages_post_unflag(
 
 
 def test_packages_post_notify(client: TestClient, user: User, package: Package):
-    notif = package.PackageBase.notifications.filter(
-        PackageNotification.UserID == user.ID
-    ).first()
+    notif = (
+        db.get_session()
+        .execute(
+            select(PackageNotification).where(
+                PackageNotification.PackageBaseID == package.PackageBase.ID,
+                PackageNotification.UserID == user.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     assert notif is None
 
     # Try to enable notifications but supply no packages, causing
@@ -1654,9 +1673,17 @@ def test_packages_post_unnotify(client: TestClient, user: User, package: Package
     assert successes[0].text.strip() == expected
 
     # Let's ensure the record got removed.
-    notif = package.PackageBase.notifications.filter(
-        PackageNotification.UserID == user.ID
-    ).first()
+    notif = (
+        db.get_session()
+        .execute(
+            select(PackageNotification).where(
+                PackageNotification.PackageBaseID == package.PackageBase.ID,
+                PackageNotification.UserID == user.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     assert notif is None
 
     # Try it again. The notif no longer exists.

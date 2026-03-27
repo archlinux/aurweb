@@ -20,13 +20,13 @@ class PackageDependency(Base):
 
     Package = relationship(
         _Package,
-        backref=backref("package_dependencies", lazy="dynamic", cascade="all, delete"),
+        backref=backref("package_dependencies", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageID],
     )
 
     DependencyType = relationship(
         _DependencyType,
-        backref=backref("package_dependencies", lazy="dynamic"),
+        backref=backref("package_dependencies"),
         foreign_keys=[__table__.c.DepTypeID],
         lazy="joined",
     )

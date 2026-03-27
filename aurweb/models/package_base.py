@@ -13,25 +13,25 @@ class PackageBase(Base):
 
     Flagger = relationship(
         _User,
-        backref=backref("flagged_bases", lazy="dynamic"),
+        backref=backref("flagged_bases"),
         foreign_keys=[__table__.c.FlaggerUID],
     )
 
     Submitter = relationship(
         _User,
-        backref=backref("submitted_bases", lazy="dynamic"),
+        backref=backref("submitted_bases"),
         foreign_keys=[__table__.c.SubmitterUID],
     )
 
     Maintainer = relationship(
         _User,
-        backref=backref("maintained_bases", lazy="dynamic"),
+        backref=backref("maintained_bases"),
         foreign_keys=[__table__.c.MaintainerUID],
     )
 
     Packager = relationship(
         _User,
-        backref=backref("package_bases", lazy="dynamic"),
+        backref=backref("package_bases"),
         foreign_keys=[__table__.c.PackagerUID],
     )
 

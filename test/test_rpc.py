@@ -377,7 +377,7 @@ def test_rpc_singular_info(
                 "CoMaintainers": ["user2", "user3"],
                 "Provides": ["chungus-provides<=200"],
                 "Replaces": ["chungus-replaces<=200"],
-                "License": [pkg.package_licenses.first().License.Name],
+                "License": [pkg.package_licenses[0].License.Name],
                 "Keywords": ["big-chungus", "sizeable-chungus", "smol-chungus"],
                 "Groups": ["testgroup"],
             }

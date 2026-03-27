@@ -32,7 +32,7 @@
             </td>
         </tr>
     {% endif %}
-    {% if pkgbase.keywords.count() or request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer] + comaintainers) %}
+    {% if pkgbase.keywords or request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer] + comaintainers) %}
         <tr>
             <th>{{ "Keywords" | tr }}:</th>
             {% if request.user.has_credential(creds.PKGBASE_SET_KEYWORDS, approved=[pkgbase.Maintainer] + comaintainers) %}
@@ -51,7 +51,7 @@
             </td>
             {% else %}
             <td>
-                {% for keyword in pkgbase.keywords.all() %}
+                {% for keyword in pkgbase.keywords %}
                     <a class="keyword"
                        href="/packages/?K={{ keyword.Keyword }}&amp;SeB=k"
                     >

@@ -167,7 +167,16 @@ async def package(
     conflicts = []
     provides = []
     replaces = []
-    relations = pkg.package_relations.order_by(models.PackageRelation.RelName.asc())
+    relations = (
+        db.get_session()
+        .execute(
+            select(models.PackageRelation)
+            .where(models.PackageRelation.PackageID == pkg.ID)
+            .order_by(models.PackageRelation.RelName.asc())
+        )
+        .scalars()
+        .all()
+    )
     for relation in relations:
         if relation.RelTypeID == CONFLICTS_ID:
             conflicts.append(relation)
@@ -188,9 +197,16 @@ async def package(
     context["replaces"] = replaces
 
     # Package sources.
-    context["sources"] = pkg.package_sources.order_by(
-        models.PackageSource.Source.asc()
-    ).all()
+    context["sources"] = (
+        db.get_session()
+        .execute(
+            select(models.PackageSource)
+            .where(models.PackageSource.PackageID == pkg.ID)
+            .order_by(models.PackageSource.Source.asc())
+        )
+        .scalars()
+        .all()
+    )
 
     # Listing metadata.
     context["max_listing"] = max_listing = 20
@@ -209,8 +225,8 @@ async def package(
     context["required_by"] = required_by
     context["required_by_count"] = required_by_count
 
-    context["licenses"] = pkg.package_licenses.all()
-    context["groups"] = pkg.package_groups.all()
+    context["licenses"] = list(pkg.package_licenses)
+    context["groups"] = list(pkg.package_groups)
 
     # Collect all dependency names for batched lookups
     dependency_names = {dep.DepName for dep in dependencies}

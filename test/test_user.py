@@ -205,7 +205,15 @@ def test_user_has_credential(user: User) -> None:
 
 
 def test_user_ssh_pub_key(user: User) -> None:
-    assert user.ssh_pub_keys.first() is None
+    def get_first_key() -> SSHPubKey | None:
+        return (
+            db.get_session()
+            .execute(select(SSHPubKey).where(SSHPubKey.UserID == user.ID))
+            .scalars()
+            .first()
+        )
+
+    assert get_first_key() is None
 
     with db.begin():
         ssh_pub_key = db.create(
@@ -215,7 +223,7 @@ def test_user_ssh_pub_key(user: User) -> None:
             PubKey="testPubKey",
         )
 
-    assert user.ssh_pub_keys.first() == ssh_pub_key
+    assert get_first_key() == ssh_pub_key
 
 
 def test_user_credential_types(user: User) -> None:

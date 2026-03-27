@@ -14,13 +14,13 @@ class Vote(Base):
 
     VoteInfo = relationship(
         _VoteInfo,
-        backref=backref("votes", lazy="dynamic"),
+        backref=backref("votes"),
         foreign_keys=[__table__.c.VoteID],
     )
 
     User = relationship(
         _User,
-        backref=backref("votes", lazy="dynamic"),
+        backref=backref("votes"),
         foreign_keys=[__table__.c.UserID],
     )
 

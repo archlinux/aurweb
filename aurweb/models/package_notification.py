@@ -14,13 +14,13 @@ class PackageNotification(Base):
 
     User = relationship(
         _User,
-        backref=backref("notifications", lazy="dynamic", cascade="all, delete"),
+        backref=backref("notifications", cascade="all, delete"),
         foreign_keys=[__table__.c.UserID],
     )
 
     PackageBase = relationship(
         _PackageBase,
-        backref=backref("notifications", lazy="dynamic", cascade="all, delete"),
+        backref=backref("notifications", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID],
     )
 

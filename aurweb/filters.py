@@ -118,9 +118,22 @@ def to_qs(query: dict[str, Any]) -> str:
 
 @register_filter("get_vote")
 def get_vote(voteinfo, request: fastapi.Request):
+    from sqlalchemy import select
+
+    from aurweb import db
     from aurweb.models import Vote
 
-    return voteinfo.votes.filter(Vote.User == request.user).first()
+    return (
+        db.get_session()
+        .execute(
+            select(Vote).where(
+                Vote.VoteID == voteinfo.ID,
+                Vote.UserID == request.user.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
 
 
 @register_filter("number_format")

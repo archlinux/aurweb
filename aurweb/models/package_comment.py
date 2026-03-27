@@ -14,25 +14,25 @@ class PackageComment(Base):
 
     PackageBase = relationship(
         _PackageBase,
-        backref=backref("comments", lazy="dynamic", cascade="all, delete"),
+        backref=backref("comments", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID],
     )
 
     User = relationship(
         _User,
-        backref=backref("package_comments", lazy="dynamic"),
+        backref=backref("package_comments"),
         foreign_keys=[__table__.c.UsersID],
     )
 
     Editor = relationship(
         _User,
-        backref=backref("edited_comments", lazy="dynamic"),
+        backref=backref("edited_comments"),
         foreign_keys=[__table__.c.EditedUsersID],
     )
 
     Deleter = relationship(
         _User,
-        backref=backref("deleted_comments", lazy="dynamic"),
+        backref=backref("deleted_comments"),
         foreign_keys=[__table__.c.DelUsersID],
     )
 

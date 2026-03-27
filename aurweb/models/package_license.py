@@ -14,13 +14,13 @@ class PackageLicense(Base):
 
     Package = relationship(
         _Package,
-        backref=backref("package_licenses", lazy="dynamic", cascade="all, delete"),
+        backref=backref("package_licenses", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageID],
     )
 
     License = relationship(
         _License,
-        backref=backref("package_licenses", lazy="dynamic", cascade="all, delete"),
+        backref=backref("package_licenses", cascade="all, delete"),
         foreign_keys=[__table__.c.LicenseID],
     )
 

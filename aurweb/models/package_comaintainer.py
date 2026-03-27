@@ -14,13 +14,13 @@ class PackageComaintainer(Base):
 
     User = relationship(
         _User,
-        backref=backref("comaintained", lazy="dynamic", cascade="all, delete"),
+        backref=backref("comaintained", cascade="all, delete"),
         foreign_keys=[__table__.c.UsersID],
     )
 
     PackageBase = relationship(
         _PackageBase,
-        backref=backref("comaintainers", lazy="dynamic", cascade="all, delete"),
+        backref=backref("comaintainers", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID],
     )
 

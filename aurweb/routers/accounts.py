@@ -827,9 +827,17 @@ async def terms_of_service_post(request: Request, accept: bool = Form(default=Fa
         # and update its Revision to the term's current Revision.
         for term in diffs:
             db.refresh(term)
-            accepted_term = request.user.accepted_terms.filter(
-                models.AcceptedTerm.TermsID == term.ID
-            ).first()
+            accepted_term = (
+                db.get_session()
+                .execute(
+                    select(models.AcceptedTerm).where(
+                        models.AcceptedTerm.UsersID == request.user.ID,
+                        models.AcceptedTerm.TermsID == term.ID,
+                    )
+                )
+                .scalars()
+                .first()
+            )
             accepted_term.Revision = term.Revision
 
         # For each term that was never accepted, accept it!

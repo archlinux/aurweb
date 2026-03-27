@@ -29,25 +29,25 @@ class PackageRequest(Base):
 
     RequestType = relationship(
         _RequestType,
-        backref=backref("package_requests", lazy="dynamic"),
+        backref=backref("package_requests"),
         foreign_keys=[__table__.c.ReqTypeID],
     )
 
     User = relationship(
         _User,
-        backref=backref("package_requests", lazy="dynamic"),
+        backref=backref("package_requests"),
         foreign_keys=[__table__.c.UsersID],
     )
 
     PackageBase = relationship(
         _PackageBase,
-        backref=backref("requests", lazy="dynamic"),
+        backref=backref("requests"),
         foreign_keys=[__table__.c.PackageBaseID],
     )
 
     Closer = relationship(
         _User,
-        backref=backref("closed_requests", lazy="dynamic"),
+        backref=backref("closed_requests"),
         foreign_keys=[__table__.c.ClosedUID],
     )
 

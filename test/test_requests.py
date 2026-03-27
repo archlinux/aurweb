@@ -272,7 +272,14 @@ def test_request_post_deletion(client: TestClient, auser2: User, pkgbase: Packag
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    pkgreq = pkgbase.requests.first()
+    pkgreq = (
+        db.get_session()
+        .execute(
+            select(PackageRequest).where(PackageRequest.PackageBaseID == pkgbase.ID)
+        )
+        .scalars()
+        .first()
+    )
     assert pkgreq is not None
     assert pkgreq.ReqTypeID == DELETION_ID
     assert pkgreq.Status == PENDING_ID
@@ -382,7 +389,14 @@ def test_request_post_merge(
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    pkgreq = pkgbase.requests.first()
+    pkgreq = (
+        db.get_session()
+        .execute(
+            select(PackageRequest).where(PackageRequest.PackageBaseID == pkgbase.ID)
+        )
+        .scalars()
+        .first()
+    )
     assert pkgreq is not None
     assert pkgreq.ReqTypeID == MERGE_ID
     assert pkgreq.Status == PENDING_ID
@@ -407,7 +421,14 @@ def test_request_post_orphan(client: TestClient, auser: User, pkgbase: PackageBa
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    pkgreq = pkgbase.requests.first()
+    pkgreq = (
+        db.get_session()
+        .execute(
+            select(PackageRequest).where(PackageRequest.PackageBaseID == pkgbase.ID)
+        )
+        .scalars()
+        .first()
+    )
     assert pkgreq is not None
     assert pkgreq.ReqTypeID == ORPHAN_ID
     assert pkgreq.Status == PENDING_ID
@@ -661,7 +682,7 @@ def test_orphan_request(
     assert pkgbase.Maintainer is None
 
     # We should have removed the comaintainers.
-    assert not pkgbase.comaintainers.all()
+    assert not pkgbase.comaintainers
 
     # Ensure that `pkgreq`.ClosureComment was left alone when specified.
     assert pkgreq.ClosureComment == comments
@@ -723,7 +744,14 @@ def test_request_post_orphan_autoaccept(
         resp = request.post(endpoint, data=data)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    pkgreq = pkgbase.requests.first()
+    pkgreq = (
+        db.get_session()
+        .execute(
+            select(PackageRequest).where(PackageRequest.PackageBaseID == pkgbase.ID)
+        )
+        .scalars()
+        .first()
+    )
     assert pkgreq is not None
     assert pkgreq.ReqTypeID == ORPHAN_ID
 

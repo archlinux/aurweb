@@ -13,7 +13,7 @@ class PackageKeyword(Base):
 
     PackageBase = relationship(
         _PackageBase,
-        backref=backref("keywords", lazy="dynamic", cascade="all, delete"),
+        backref=backref("keywords", cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID],
     )
 
