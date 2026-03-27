@@ -40,6 +40,7 @@ max-complexity = 10
 # Remove once fixed: https://github.com/pytest-dev/pytest-cov/issues/557
 filterwarnings = ['ignore:The --rsyncdir command line argument and rsyncdirs config variable are deprecated.:DeprecationWarning']
 addopts = '--cov=aurweb --cov-append --dist load --dist loadfile -n auto --timeout=30'
+timeout_func_only = true
 testpaths = ['test']
 
 [tool.mypy]
