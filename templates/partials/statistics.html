@@ -1,7 +1,6 @@
 <div id="my-stats" class="widget box">
     <h3>{{ "My Statistics" | tr }}</h3>
 
-    {% set bases = request.user.maintained_bases %}
     <table>
         <tbody>
             <tr>
@@ -10,16 +9,15 @@
                         {{ "Packages" | tr }}
                     </a>
                 </td>
-                <td>{{ bases.count() }}</td>
+                <td>{{ maintained_bases_count }}</td>
             </tr>
-            {% set out_of_date_packages = bases | out_of_date %}
             <tr>
                 <td>
                     <a href="/packages/?SeB=m&outdated=on&K={{ request.user.Username }}">
                         {{ "Out of Date" | tr }}
                     </a>
                 </td>
-                <td>{{ out_of_date_packages.count() }}</td>
+                <td>{{ maintained_bases_out_of_date_count }}</td>
             </tr>
         </tbody>
     </table>

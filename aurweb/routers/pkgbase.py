@@ -2,12 +2,13 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Query, Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
-from sqlalchemy import and_
+from sqlalchemy import select
 
 from aurweb import aur_logging, config, db, l10n, templates, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import InvariantError, ValidationError, handle_form_exceptions
 from aurweb.models import PackageBase
+from aurweb.models.package import Package
 from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
@@ -40,7 +41,12 @@ async def pkgbase(request: Request, name: str) -> Response:
 
     # Redirect to /packages if there's only one related Package
     # and its name matches its PackageBase.
-    packages = pkgbase.packages.all()
+    packages = (
+        db.get_session()
+        .execute(select(Package).where(Package.PackageBaseID == pkgbase.ID))
+        .scalars()
+        .all()
+    )
     pkg = packages[0]
     if len(packages) == 1 and pkg.Name == pkgbase.Name:
         return RedirectResponse(
@@ -109,14 +115,30 @@ async def pkgbase_keywords(
 
     # Delete all keywords which are not supplied by the user.
     with db.begin():
-        other_keywords = pkgbase.keywords.filter(~PackageKeyword.Keyword.in_(keywords))
+        other_keywords = (
+            db.get_session()
+            .execute(
+                select(PackageKeyword).where(
+                    PackageKeyword.PackageBaseID == pkgbase.ID,
+                    ~PackageKeyword.Keyword.in_(keywords),
+                )
+            )
+            .scalars()
+            .all()
+        )
         other_keyword_strings = {kwd.Keyword.lower() for kwd in other_keywords}
 
         existing_keywords = {
             kwd.Keyword.lower()
-            for kwd in pkgbase.keywords.filter(
-                ~PackageKeyword.Keyword.in_(other_keyword_strings)
+            for kwd in db.get_session()
+            .execute(
+                select(PackageKeyword).where(
+                    PackageKeyword.PackageBaseID == pkgbase.ID,
+                    ~PackageKeyword.Keyword.in_(other_keyword_strings),
+                )
             )
+            .scalars()
+            .all()
         }
 
         db.delete_all(other_keywords)
@@ -238,7 +260,17 @@ async def pkgbase_comment_form(
     :return: JSONResponse
     """
     pkgbase = get_pkg_or_base(name, PackageBase)
-    comment = pkgbase.comments.filter(PackageComment.ID == id).first()
+    comment = (
+        db.get_session()
+        .execute(
+            select(PackageComment).where(
+                PackageComment.PackageBaseID == pkgbase.ID,
+                PackageComment.ID == id,
+            )
+        )
+        .scalars()
+        .first()
+    )
     if not comment:
         return JSONResponse({}, status_code=HTTPStatus.NOT_FOUND)
 
@@ -322,9 +354,17 @@ async def pkgbase_comment_post(
 
     if enable_notifications:
         with db.begin():
-            db_notif = request.user.notifications.filter(
-                PackageNotification.PackageBaseID == pkgbase.ID
-            ).first()
+            db_notif = (
+                db.get_session()
+                .execute(
+                    select(PackageNotification).where(
+                        PackageNotification.PackageBaseID == pkgbase.ID,
+                        PackageNotification.UserID == request.user.ID,
+                    )
+                )
+                .scalars()
+                .first()
+            )
             if not db_notif:
                 db.create(PackageNotification, User=request.user, PackageBase=pkgbase)
 
@@ -508,7 +548,17 @@ async def pkgbase_comment_undelete(
 async def pkgbase_vote(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
-    vote = pkgbase.package_votes.filter(PackageVote.UsersID == request.user.ID).first()
+    vote = (
+        db.get_session()
+        .execute(
+            select(PackageVote).where(
+                PackageVote.PackageBaseID == pkgbase.ID,
+                PackageVote.UsersID == request.user.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     has_cred = request.user.has_credential(creds.PKGBASE_VOTE)
     if has_cred and not vote:
         now = time.utcnow()
@@ -528,7 +578,17 @@ async def pkgbase_vote(request: Request, name: str):
 async def pkgbase_unvote(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
-    vote = pkgbase.package_votes.filter(PackageVote.UsersID == request.user.ID).first()
+    vote = (
+        db.get_session()
+        .execute(
+            select(PackageVote).where(
+                PackageVote.PackageBaseID == pkgbase.ID,
+                PackageVote.UsersID == request.user.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     has_cred = request.user.has_credential(creds.PKGBASE_VOTE)
     if has_cred and vote:
         with db.begin():
@@ -883,11 +943,17 @@ async def pkgbase_delete_post(
         validate.comment_raise_http_ex(comments)
         # Update any existing deletion requests' ClosureComment.
         with db.begin():
-            requests = pkgbase.requests.filter(
-                and_(
-                    PackageRequest.Status == PENDING_ID,
-                    PackageRequest.ReqTypeID == DELETION_ID,
+            requests = (
+                db.get_session()
+                .execute(
+                    select(PackageRequest).where(
+                        PackageRequest.PackageBaseID == pkgbase.ID,
+                        PackageRequest.Status == PENDING_ID,
+                        PackageRequest.ReqTypeID == DELETION_ID,
+                    )
                 )
+                .scalars()
+                .all()
             )
             for pkgreq in requests:
                 pkgreq.ClosureComment = comments

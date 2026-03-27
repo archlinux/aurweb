@@ -12,7 +12,7 @@
 </div>
 {% endif %}
 
-{% if pinned_comments.count() %}
+{% if pinned_comments %}
     <div class="comments package-comments">
         <div class="comments-header">
             <h3>
@@ -20,7 +20,7 @@
                 <span class="arrow"></span>
             </h3>
         </div>
-        {% for comment in pinned_comments.all() %}
+        {% for comment in pinned_comments %}
             {% include "partials/packages/comment.html" %}
         {% endfor %}
     </div>
@@ -42,7 +42,7 @@
             </p>
             {% endif %}
         </div>
-        {% for comment in comments.all() %}
+        {% for comment in comments %}
             {% include "partials/packages/comment.html" %}
         {% endfor %}
         <div class="comments-footer">

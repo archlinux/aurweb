@@ -15,7 +15,7 @@ import aurweb.config
 import aurweb.models.account_type as at
 from aurweb import aur_logging, captcha, db, time
 from aurweb.asgi import app
-from aurweb.db import create, query
+from aurweb.db import create
 from aurweb.models.accepted_term import AcceptedTerm
 from aurweb.models.account_type import (
     DEVELOPER_ID,
@@ -866,7 +866,12 @@ def test_post_account_edit_invalid_type_as_pm(client: TestClient, pm_user: User)
 def test_post_account_edit_dev(client: TestClient, pm_user: User):
     # Modify our user to be a "Package Maintainer & Developer"
     name = "Package Maintainer & Developer"
-    pm_or_dev = query(AccountType, AccountType.AccountType == name).first()
+    pm_or_dev = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == name))
+        .scalars()
+        .first()
+    )
     with db.begin():
         user.AccountType = pm_or_dev
 
@@ -1568,7 +1573,12 @@ def test_post_accounts_account_type(client: TestClient, user: User, pm_user: Use
 
     # Make a user with the "User" role here so we can
     # test the `u` parameter.
-    account_type = query(AccountType, AccountType.AccountType == "User").first()
+    account_type = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "User"))
+        .scalars()
+        .first()
+    )
     with db.begin():
         create(
             User,
@@ -1603,7 +1613,10 @@ def test_post_accounts_account_type(client: TestClient, user: User, pm_user: Use
     # Set our only user to a Package Maintainer.
     with db.begin():
         user.AccountType = (
-            query(AccountType).filter(AccountType.ID == PACKAGE_MAINTAINER_ID).first()
+            db.get_session()
+            .execute(select(AccountType).where(AccountType.ID == PACKAGE_MAINTAINER_ID))
+            .scalars()
+            .first()
         )
 
     with client as request:
@@ -1621,7 +1634,10 @@ def test_post_accounts_account_type(client: TestClient, user: User, pm_user: Use
 
     with db.begin():
         user.AccountType = (
-            query(AccountType).filter(AccountType.ID == DEVELOPER_ID).first()
+            db.get_session()
+            .execute(select(AccountType).where(AccountType.ID == DEVELOPER_ID))
+            .scalars()
+            .first()
         )
 
     with client as request:
@@ -1639,8 +1655,13 @@ def test_post_accounts_account_type(client: TestClient, user: User, pm_user: Use
 
     with db.begin():
         user.AccountType = (
-            query(AccountType)
-            .filter(AccountType.ID == PACKAGE_MAINTAINER_AND_DEV_ID)
+            db.get_session()
+            .execute(
+                select(AccountType).where(
+                    AccountType.ID == PACKAGE_MAINTAINER_AND_DEV_ID
+                )
+            )
+            .scalars()
             .first()
         )
 
@@ -1787,8 +1808,13 @@ def test_post_accounts_sortby(client: TestClient, user: User, pm_user: User):
 
     with db.begin():
         user.AccountType = (
-            query(AccountType)
-            .filter(AccountType.ID == PACKAGE_MAINTAINER_AND_DEV_ID)
+            db.get_session()
+            .execute(
+                select(AccountType).where(
+                    AccountType.ID == PACKAGE_MAINTAINER_AND_DEV_ID
+                )
+            )
+            .scalars()
             .first()
         )
 
@@ -1833,7 +1859,12 @@ def test_post_accounts_pgp_key(client: TestClient, user: User, pm_user: User):
 def test_post_accounts_paged(client: TestClient, user: User, pm_user: User):
     # Create 150 users.
     users = [user]
-    account_type = query(AccountType, AccountType.AccountType == "User").first()
+    account_type = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "User"))
+        .scalars()
+        .first()
+    )
     with db.begin():
         for i in range(150):
             _user = create(
@@ -2004,7 +2035,12 @@ def test_post_terms_of_service(client: TestClient, user: User):
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Query the db for the record created by the post request.
-    accepted_term = query(AcceptedTerm, AcceptedTerm.TermsID == term.ID).first()
+    accepted_term = (
+        db.get_session()
+        .execute(select(AcceptedTerm).where(AcceptedTerm.TermsID == term.ID))
+        .scalars()
+        .first()
+    )
     assert accepted_term.User == user
     assert accepted_term.Term == term
 

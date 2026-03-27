@@ -110,15 +110,27 @@ def get_pkg_or_base(
 
 
 def get_pkgbase_comment(pkgbase: models.PackageBase, id: int) -> models.PackageComment:
-    comment = pkgbase.comments.filter(models.PackageComment.ID == id).first()
+    comment = (
+        db.get_session()
+        .execute(
+            select(models.PackageComment).where(
+                models.PackageComment.PackageBaseID == pkgbase.ID,
+                models.PackageComment.ID == id,
+            )
+        )
+        .scalars()
+        .first()
+    )
     if not comment:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
     return db.refresh(comment)
 
 
 @register_filter("out_of_date")
-def out_of_date(packages: orm.Query) -> orm.Query:
-    return packages.filter(models.PackageBase.OutOfDateTS.isnot(None))
+def out_of_date(
+    packages: list[models.PackageBase],
+) -> list[models.PackageBase]:
+    return [p for p in packages if p.OutOfDateTS is not None]
 
 
 def updated_packages(limit: int = 0, cache_ttl: int = 600) -> list[models.Package]:
@@ -226,21 +238,27 @@ def query_package_dependencies(
     :param max_listing: Maximum numbers to fetch
     :return: tuple of a List of PackageDependency and total count
     """
-    dependencies_query = pkg.package_dependencies.order_by(
-        PackageDependency.DepTypeID.asc(), PackageDependency.DepName.asc()
+    dep_stmt = (
+        select(PackageDependency)
+        .where(PackageDependency.PackageID == pkg.ID)
+        .order_by(PackageDependency.DepTypeID.asc(), PackageDependency.DepName.asc())
     )
 
     if all_deps:
-        dependencies = dependencies_query.all()
+        dependencies = db.get_session().execute(dep_stmt).scalars().all()
         total_count = len(dependencies)
         return dependencies, total_count
 
-    dependencies = dependencies_query.limit(max_listing).all()
+    dependencies = db.get_session().execute(dep_stmt.limit(max_listing)).scalars().all()
     total_count = len(dependencies)
 
     # if the fetched count equals the limit, check the total count with no limits
     if total_count >= max_listing:
-        total_count = dependencies_query.count()
+        total_count = (
+            db.get_session()
+            .execute(select(func.count()).select_from(dep_stmt.subquery()))
+            .scalar()
+        )
 
     return dependencies, total_count
 

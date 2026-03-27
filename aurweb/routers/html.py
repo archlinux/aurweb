@@ -13,7 +13,7 @@ from prometheus_client import (
     generate_latest,
     multiprocess,
 )
-from sqlalchemy import case, or_, select
+from sqlalchemy import case, func, or_, select
 
 import aurweb.config
 import aurweb.models.package_request
@@ -147,16 +147,24 @@ async def index(request: Request):
 
         # Package requests created by request.user.
         context["package_requests"] = (
-            request.user.package_requests.filter(
-                models.PackageRequest.RequestTS >= start
+            db.get_session()
+            .execute(
+                select(models.PackageRequest)
+                .where(
+                    models.PackageRequest.UsersID == request.user.ID,
+                    models.PackageRequest.RequestTS >= start,
+                )
+                .order_by(
+                    # Order primarily by the Status column being PENDING_ID,
+                    # and secondarily by RequestTS; both in descending order.
+                    case(
+                        (models.PackageRequest.Status == PENDING_ID, 1), else_=0
+                    ).desc(),
+                    models.PackageRequest.RequestTS.desc(),
+                )
+                .limit(50)
             )
-            .order_by(
-                # Order primarily by the Status column being PENDING_ID,
-                # and secondarily by RequestTS; both in descending order.
-                case((models.PackageRequest.Status == PENDING_ID, 1), else_=0).desc(),
-                models.PackageRequest.RequestTS.desc(),
-            )
-            .limit(50)
+            .scalars()
             .all()
         )
 
@@ -181,6 +189,27 @@ async def index(request: Request):
         # Packages that request.user is being notified about.
         context["packages_notified"] = query_notified(
             context.get("packages"), request.user
+        )
+
+        # Stats for the statistics partial (maintained_bases).
+        context["maintained_bases_count"] = (
+            db.get_session()
+            .execute(
+                select(func.count(models.PackageBase.ID)).where(
+                    models.PackageBase.MaintainerUID == request.user.ID
+                )
+            )
+            .scalar()
+        )
+        context["maintained_bases_out_of_date_count"] = (
+            db.get_session()
+            .execute(
+                select(func.count(models.PackageBase.ID)).where(
+                    models.PackageBase.MaintainerUID == request.user.ID,
+                    models.PackageBase.OutOfDateTS.isnot(None),
+                )
+            )
+            .scalar()
         )
 
         # Any packages that the request user comaintains.

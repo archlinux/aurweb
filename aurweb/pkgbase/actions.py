@@ -46,9 +46,17 @@ def _retry_unnotify(notif: PackageNotification, pkgbase: PackageBase) -> None:
 
 
 def pkgbase_unnotify_instance(request: Request, pkgbase: PackageBase) -> None:
-    notif = pkgbase.notifications.filter(
-        PackageNotification.UserID == request.user.ID
-    ).first()
+    notif = (
+        db.get_session()
+        .execute(
+            select(PackageNotification).where(
+                PackageNotification.PackageBaseID == pkgbase.ID,
+                PackageNotification.UserID == request.user.ID,
+            )
+        )
+        .scalars()
+        .first()
+    )
     has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
     if has_cred and notif:
         _retry_unnotify(notif, pkgbase)
@@ -78,17 +86,32 @@ def _retry_disown(request: Request, pkgbase: PackageBase):
 
     is_maint = request.user == pkgbase.Maintainer
 
-    comaint = pkgbase.comaintainers.filter(
-        PackageComaintainer.User == request.user
-    ).one_or_none()
+    comaint = (
+        db.get_session()
+        .execute(
+            select(PackageComaintainer).where(
+                PackageComaintainer.PackageBaseID == pkgbase.ID,
+                PackageComaintainer.User == request.user,
+            )
+        )
+        .scalars()
+        .one_or_none()
+    )
     is_comaint = comaint is not None
 
     if is_maint:
         with db.begin():
             # Comaintainer with the lowest Priority value; next-in-line.
-            prio_comaint = pkgbase.comaintainers.order_by(
-                PackageComaintainer.Priority.asc()
-            ).first()
+            prio_comaint = (
+                db.get_session()
+                .execute(
+                    select(PackageComaintainer)
+                    .where(PackageComaintainer.PackageBaseID == pkgbase.ID)
+                    .order_by(PackageComaintainer.Priority.asc())
+                )
+                .scalars()
+                .first()
+            )
             if prio_comaint:
                 # If there is such a comaintainer, promote them to maint.
                 pkgbase.Maintainer = prio_comaint.User
@@ -107,7 +130,17 @@ def _retry_disown(request: Request, pkgbase: PackageBase):
         notifs += handle_request(request, ORPHAN_ID, pkgbase)
         with db.begin():
             pkgbase.Maintainer = None
-            db.delete_all(pkgbase.comaintainers)
+            comaintainers = (
+                db.get_session()
+                .execute(
+                    select(PackageComaintainer).where(
+                        PackageComaintainer.PackageBaseID == pkgbase.ID
+                    )
+                )
+                .scalars()
+                .all()
+            )
+            db.delete_all(comaintainers)
 
     return notifs
 

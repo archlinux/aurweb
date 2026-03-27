@@ -1,7 +1,7 @@
 from typing import Optional, Set
 
 from fastapi import Request
-from sqlalchemy import and_, orm
+from sqlalchemy import select
 
 from aurweb import config, db, l10n, time, util
 from aurweb.exceptions import InvariantError
@@ -100,21 +100,32 @@ def update_closure_comment(
     if not comments:
         return
 
-    query: orm.Query = pkgbase.requests.filter(
-        and_(
-            PackageRequest.ReqTypeID == reqtype_id, PackageRequest.Status == PENDING_ID
-        )
+    base_stmt = select(PackageRequest).where(
+        PackageRequest.PackageBaseID == pkgbase.ID,
+        PackageRequest.ReqTypeID == reqtype_id,
+        PackageRequest.Status == PENDING_ID,
     )
     if reqtype_id == MERGE_ID:
-        query = query.filter(PackageRequest.MergeBaseName == target.Name)
+        base_stmt = base_stmt.where(PackageRequest.MergeBaseName == target.Name)
 
+    query: list[PackageRequest] = db.get_session().execute(base_stmt).scalars().all()
     for pkgreq in query:
         pkgreq.ClosureComment = comments
 
 
 def verify_orphan_request(user: User, pkgbase: PackageBase):
     """Verify that an undue orphan request exists in `requests`."""
-    requests = pkgbase.requests.filter(PackageRequest.ReqTypeID == ORPHAN_ID)
+    requests = (
+        db.get_session()
+        .execute(
+            select(PackageRequest).where(
+                PackageRequest.PackageBaseID == pkgbase.ID,
+                PackageRequest.ReqTypeID == ORPHAN_ID,
+            )
+        )
+        .scalars()
+        .all()
+    )
     for pkgreq in requests:
         idle_time = config.getint("options", "request_idle_time")
         time_delta = time.utcnow() - pkgreq.RequestTS
@@ -191,33 +202,37 @@ def handle_request(
 
     # Produce a base query for requests related to `pkgbase`, based
     # on ReqTypeID matching `reqtype_id`, pending status and a correct
-    # PackagBaseName column.
-    query: orm.Query = pkgbase.requests.filter(
-        and_(
-            PackageRequest.ReqTypeID == reqtype_id,
-            PackageRequest.Status == PENDING_ID,
-            PackageRequest.PackageBaseName == pkgbase.Name,
-        )
+    # PackageBaseName column.
+    base_stmt = select(PackageRequest).where(
+        PackageRequest.PackageBaseID == pkgbase.ID,
+        PackageRequest.ReqTypeID == reqtype_id,
+        PackageRequest.Status == PENDING_ID,
+        PackageRequest.PackageBaseName == pkgbase.Name,
     )
 
     # Build a query for records we should accept. For merge requests,
     # this is specific to a matching MergeBaseName. For others, this
-    # just ends up becoming `query`.
-    accept_query: orm.Query = query
+    # just ends up becoming `base_stmt`.
+    accept_stmt = base_stmt
     if target:
         # If a `target` was supplied, filter by MergeBaseName
-        accept_query = query.filter(PackageRequest.MergeBaseName == target.Name)
+        accept_stmt = base_stmt.where(PackageRequest.MergeBaseName == target.Name)
 
-    # Build an accept list out of `accept_query`.
-    to_accept: list[PackageRequest] = accept_query.all()
+    # Build an accept list out of `accept_stmt`.
+    to_accept: list[PackageRequest] = (
+        db.get_session().execute(accept_stmt).scalars().all()
+    )
     accepted_ids: Set[int] = {p.ID for p in to_accept}
 
-    # Build a reject list out of `query` filtered by IDs not found
+    # Build a reject list out of `base_stmt` filtered by IDs not found
     # in `to_accept`. That is, unmatched records of the same base
     # query properties.
-    to_reject: list[PackageRequest] = query.filter(
-        ~PackageRequest.ID.in_(accepted_ids)
-    ).all()
+    to_reject: list[PackageRequest] = (
+        db.get_session()
+        .execute(base_stmt.where(~PackageRequest.ID.in_(accepted_ids)))
+        .scalars()
+        .all()
+    )
 
     # If we have no requests to accept, create a new one.
     # This is done to increase tracking of actions occurring

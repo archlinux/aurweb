@@ -537,8 +537,15 @@ async def account_comments(request: Request, username: str):
     user = get_user_by_name(username)
     context = make_context(request, "Accounts")
     context["username"] = username
-    context["comments"] = user.package_comments.order_by(
-        models.PackageComment.CommentTS.desc()
+    context["comments"] = (
+        db.get_session()
+        .execute(
+            select(models.PackageComment)
+            .where(models.PackageComment.UsersID == user.ID)
+            .order_by(models.PackageComment.CommentTS.desc())
+        )
+        .scalars()
+        .all()
     )
     return render_template(request, "account/comments.html", context)
 

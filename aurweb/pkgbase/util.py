@@ -1,12 +1,13 @@
 from typing import Any
 
 from fastapi import Request
-from sqlalchemy import and_, select
 from sqlalchemy import exists as sa_exists
+from sqlalchemy import func, select
 from sqlalchemy.orm import joinedload
 
 from aurweb import config, db, defaults, l10n, time, util
 from aurweb.models import PackageBase, User
+from aurweb.models.package import Package
 from aurweb.models.package_base import popularity
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
@@ -42,8 +43,14 @@ def make_context(
     context["pkgbase"] = pkgbase
     context["comaintainers"] = [
         c.User
-        for c in pkgbase.comaintainers.options(joinedload(PackageComaintainer.User))
-        .order_by(PackageComaintainer.Priority.asc())
+        for c in db.get_session()
+        .execute(
+            select(PackageComaintainer)
+            .where(PackageComaintainer.PackageBaseID == pkgbase.ID)
+            .options(joinedload(PackageComaintainer.User))
+            .order_by(PackageComaintainer.Priority.asc())
+        )
+        .scalars()
         .all()
     ]
     if is_authenticated:
@@ -52,19 +59,50 @@ def make_context(
     else:
         context["unflaggers"] = []
 
-    context["packages_count"] = pkgbase.packages.count()
-    context["keywords"] = pkgbase.keywords
-    context["comments_total"] = pkgbase.comments.order_by(
-        PackageComment.CommentTS.desc()
-    ).count()
-    context["comments"] = (
-        pkgbase.comments.order_by(PackageComment.CommentTS.desc())
-        .limit(per_page)
-        .offset(offset)
+    context["packages_count"] = (
+        db.get_session()
+        .execute(
+            select(func.count())
+            .select_from(Package)
+            .where(Package.PackageBaseID == pkgbase.ID)
+        )
+        .scalar()
     )
-    context["pinned_comments"] = pkgbase.comments.filter(
-        PackageComment.PinnedTS != 0
-    ).order_by(PackageComment.CommentTS.desc())
+    context["keywords"] = pkgbase.keywords
+    context["comments_total"] = (
+        db.get_session()
+        .execute(
+            select(func.count())
+            .select_from(PackageComment)
+            .where(PackageComment.PackageBaseID == pkgbase.ID)
+        )
+        .scalar()
+    )
+    context["comments"] = (
+        db.get_session()
+        .execute(
+            select(PackageComment)
+            .where(PackageComment.PackageBaseID == pkgbase.ID)
+            .order_by(PackageComment.CommentTS.desc())
+            .limit(per_page)
+            .offset(offset)
+        )
+        .scalars()
+        .all()
+    )
+    context["pinned_comments"] = (
+        db.get_session()
+        .execute(
+            select(PackageComment)
+            .where(
+                PackageComment.PackageBaseID == pkgbase.ID,
+                PackageComment.PinnedTS != 0,
+            )
+            .order_by(PackageComment.CommentTS.desc())
+        )
+        .scalars()
+        .all()
+    )
 
     context["is_maintainer"] = bool(request.user == pkgbase.Maintainer)
     if is_authenticated:
@@ -91,9 +129,19 @@ def make_context(
         context["voted"] = False
 
     if is_authenticated:
-        context["requests"] = pkgbase.requests.filter(
-            and_(PackageRequest.Status == PENDING_ID, PackageRequest.ClosedTS.is_(None))
-        ).count()
+        context["requests"] = (
+            db.get_session()
+            .execute(
+                select(func.count())
+                .select_from(PackageRequest)
+                .where(
+                    PackageRequest.PackageBaseID == pkgbase.ID,
+                    PackageRequest.Status == PENDING_ID,
+                    PackageRequest.ClosedTS.is_(None),
+                )
+            )
+            .scalar()
+        )
     else:
         context["requests"] = []
 
@@ -135,7 +183,17 @@ def remove_comaintainers(pkgbase: PackageBase, usernames: list[str]) -> None:
     notifications = []
     with db.begin():
         comaintainers = (
-            pkgbase.comaintainers.join(User).filter(User.Username.in_(usernames)).all()
+            db.get_session()
+            .execute(
+                select(PackageComaintainer)
+                .join(User)
+                .where(
+                    PackageComaintainer.PackageBaseID == pkgbase.ID,
+                    User.Username.in_(usernames),
+                )
+            )
+            .scalars()
+            .all()
         )
         notifications = [
             notify.ComaintainerRemoveNotification(co.User.ID, pkgbase.ID)
@@ -160,7 +218,16 @@ def latest_priority(pkgbase: PackageBase) -> int:
     """
 
     # Order comaintainers related to pkgbase by Priority DESC.
-    record = pkgbase.comaintainers.order_by(PackageComaintainer.Priority.desc()).first()
+    record = (
+        db.get_session()
+        .execute(
+            select(PackageComaintainer)
+            .where(PackageComaintainer.PackageBaseID == pkgbase.ID)
+            .order_by(PackageComaintainer.Priority.desc())
+        )
+        .scalars()
+        .first()
+    )
 
     # Use Priority column if record exists, otherwise 0.
     return record.Priority if record else 0
@@ -254,6 +321,14 @@ def rotate_comaintainers(pkgbase: PackageBase) -> None:
 
     :param pkgbase: PackageBase instance
     """
-    comaintainers = pkgbase.comaintainers.order_by(PackageComaintainer.Priority.asc())
+    comaintainers = (
+        db.get_session()
+        .execute(
+            select(PackageComaintainer)
+            .where(PackageComaintainer.PackageBaseID == pkgbase.ID)
+            .order_by(PackageComaintainer.Priority.asc())
+        )
+        .scalars()
+    )
     for i, comaint in enumerate(comaintainers):
         comaint.Priority = i + 1

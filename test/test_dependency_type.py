@@ -1,6 +1,8 @@
 import pytest
+from sqlalchemy import select
 
-from aurweb.db import begin, create, delete, query
+from aurweb import db
+from aurweb.db import begin, create, delete
 from aurweb.models.dependency_type import DependencyType
 
 
@@ -12,7 +14,12 @@ def setup(db_test):
 def test_dependency_types() -> None:
     dep_types = ["depends", "makedepends", "checkdepends", "optdepends"]
     for dep_type in dep_types:
-        dependency_type = query(DependencyType, DependencyType.Name == dep_type).first()
+        dependency_type = (
+            db.get_session()
+            .execute(select(DependencyType).where(DependencyType.Name == dep_type))
+            .scalars()
+            .first()
+        )
         assert dependency_type is not None
 
 
