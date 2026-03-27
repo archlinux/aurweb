@@ -3,6 +3,7 @@ from typing import Generator
 import fastapi
 import pytest
 from fastapi import HTTPException
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import config, db, time
@@ -103,7 +104,12 @@ async def test_expired_session(backend: BasicAuthBackend, user: User):
     # Run through authentication backend and get the session
     # deleted due to its expiration.
     await backend.authenticate(request)
-    session = db.query(Session).filter(Session.SessionID == sid).first()
+    session = (
+        db.get_session()
+        .execute(select(Session).where(Session.SessionID == sid))
+        .scalars()
+        .first()
+    )
     assert session is None
 
 

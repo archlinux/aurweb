@@ -4,6 +4,7 @@ from unittest import mock
 
 import py
 import pytest
+from sqlalchemy import select
 
 from aurweb import config, db
 from aurweb.models import OfficialProvider
@@ -51,7 +52,12 @@ def test_aurblup(alpm_db: AlpmDatabase):
 
     # Test that the package got added to the database.
     for name in ("pkg", "pkg2"):
-        pkg = db.query(OfficialProvider).filter(OfficialProvider.Name == name).first()
+        pkg = (
+            db.get_session()
+            .execute(select(OfficialProvider).where(OfficialProvider.Name == name))
+            .scalars()
+            .first()
+        )
         assert pkg is not None
 
     # Test that we can remove the package.
@@ -61,9 +67,19 @@ def test_aurblup(alpm_db: AlpmDatabase):
     aurblup.main(True)
 
     # Expect that the database got updated accordingly.
-    pkg = db.query(OfficialProvider).filter(OfficialProvider.Name == "pkg").first()
+    pkg = (
+        db.get_session()
+        .execute(select(OfficialProvider).where(OfficialProvider.Name == "pkg"))
+        .scalars()
+        .first()
+    )
     assert pkg is None
-    pkg2 = db.query(OfficialProvider).filter(OfficialProvider.Name == "pkg2").first()
+    pkg2 = (
+        db.get_session()
+        .execute(select(OfficialProvider).where(OfficialProvider.Name == "pkg2"))
+        .scalars()
+        .first()
+    )
     assert pkg2 is not None
 
 
@@ -85,7 +101,12 @@ def test_aurblup_cleanup(alpm_db: AlpmDatabase):
     # Expect that the fake package got deleted because it's
     # not in alpm_db anymore.
     providers = (
-        db.query(OfficialProvider).filter(OfficialProvider.Name == "fake package").all()
+        db.get_session()
+        .execute(
+            select(OfficialProvider).where(OfficialProvider.Name == "fake package")
+        )
+        .scalars()
+        .all()
     )
     assert len(providers) == 0
 
@@ -96,7 +117,12 @@ def test_aurblup_repo_change(alpm_db: AlpmDatabase):
     aurblup.main()
 
     # We should find an entry with repo "test"
-    op = db.query(OfficialProvider).filter(OfficialProvider.Name == "pkg").first()
+    op = (
+        db.get_session()
+        .execute(select(OfficialProvider).where(OfficialProvider.Name == "pkg"))
+        .scalars()
+        .first()
+    )
     assert op.Repo == "test"
 
     # Modify the repo to something that does not exist.

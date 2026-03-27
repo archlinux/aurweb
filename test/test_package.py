@@ -1,7 +1,7 @@
 from typing import Generator
 
 import pytest
-from sqlalchemy import and_
+from sqlalchemy import and_, select
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -56,8 +56,13 @@ def test_package(package: Package):
 
     # Make sure it got updated in the database.
     record = (
-        db.query(Package)
-        .filter(and_(Package.ID == package.ID, Package.Version == "1.2.3"))
+        db.get_session()
+        .execute(
+            select(Package).where(
+                and_(Package.ID == package.ID, Package.Version == "1.2.3")
+            )
+        )
+        .scalars()
         .first()
     )
     assert record is not None

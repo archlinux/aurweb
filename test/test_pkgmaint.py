@@ -1,6 +1,7 @@
 from typing import Generator
 
 import pytest
+from sqlalchemy import select
 
 from aurweb import db, time
 from aurweb.models import Package, PackageBase, User
@@ -46,7 +47,7 @@ def packages(user: User) -> Generator[list[Package]]:
 def test_pkgmaint_noop(packages: list[Package]):
     assert len(packages) == 5
     pkgmaint.main()
-    packages = db.query(Package).all()
+    packages = db.get_session().execute(select(Package)).scalars().all()
     assert len(packages) == 5
 
 
@@ -63,7 +64,7 @@ def test_pkgmaint(packages: list[Package]):
 
     # Query package objects again and assert that the
     # first package was deleted but all others are intact.
-    packages = db.query(Package).all()
+    packages = db.get_session().execute(select(Package)).scalars().all()
 
     # !Cleanup of packages without last packager deactivated.
     # We should still have 5 packages

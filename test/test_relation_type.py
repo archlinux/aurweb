@@ -1,4 +1,5 @@
 import pytest
+from sqlalchemy import select
 
 from aurweb import db
 from aurweb.models.relation_type import RelationType
@@ -21,14 +22,29 @@ def test_relation_type_creation() -> None:
 
 
 def test_relation_types() -> None:
-    conflicts = db.query(RelationType, RelationType.Name == "conflicts").first()
+    conflicts = (
+        db.get_session()
+        .execute(select(RelationType).where(RelationType.Name == "conflicts"))
+        .scalars()
+        .first()
+    )
     assert conflicts is not None
     assert conflicts.Name == "conflicts"
 
-    provides = db.query(RelationType, RelationType.Name == "provides").first()
+    provides = (
+        db.get_session()
+        .execute(select(RelationType).where(RelationType.Name == "provides"))
+        .scalars()
+        .first()
+    )
     assert provides is not None
     assert provides.Name == "provides"
 
-    replaces = db.query(RelationType, RelationType.Name == "replaces").first()
+    replaces = (
+        db.get_session()
+        .execute(select(RelationType).where(RelationType.Name == "replaces"))
+        .scalars()
+        .first()
+    )
     assert replaces is not None
     assert replaces.Name == "replaces"

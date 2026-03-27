@@ -5,6 +5,7 @@ import tempfile
 from unittest import mock
 
 import pytest
+from sqlalchemy import select
 from sqlalchemy.exc import OperationalError
 
 import aurweb.config
@@ -184,13 +185,23 @@ def test_create_delete() -> None:
     with db.begin():
         account_type = db.create(AccountType, AccountType="test")
 
-    record = db.query(AccountType, AccountType.AccountType == "test").first()
+    record = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "test"))
+        .scalars()
+        .first()
+    )
     assert record is not None
 
     with db.begin():
         db.delete(account_type)
 
-    record = db.query(AccountType, AccountType.AccountType == "test").first()
+    record = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "test"))
+        .scalars()
+        .first()
+    )
     assert record is None
 
 
@@ -204,7 +215,12 @@ def test_add_commit() -> None:
     assert bool(account_type.ID)
 
     # Query the DB for it and compare the record with our object.
-    record = db.query(AccountType, AccountType.AccountType == "test").first()
+    record = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "test"))
+        .scalars()
+        .first()
+    )
     assert record == account_type
 
     # Remove the record.

@@ -2,6 +2,7 @@ from typing import Generator
 
 import pytest
 from prometheus_client import REGISTRY, generate_latest
+from sqlalchemy import select
 
 from aurweb import cache, db, time
 from aurweb.models import Package, PackageBase, PackageRequest
@@ -125,10 +126,15 @@ def test_get_count_change(stats: Statistics, test_data):
 
     # Let's delete a package and promote a user to TU
     with db.begin():
-        pkgbase = db.query(PackageBase).first()
+        pkgbase = db.get_session().execute(select(PackageBase)).scalars().first()
         db.delete(pkgbase)
 
-        user = db.query(User).filter(User.AccountTypeID == USER_ID).first()
+        user = (
+            db.get_session()
+            .execute(select(User).where(User.AccountTypeID == USER_ID))
+            .scalars()
+            .first()
+        )
         user.AccountTypeID = PACKAGE_MAINTAINER_ID
 
     # Values should end up in (fake) redis cache so they should be the same

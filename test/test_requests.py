@@ -6,6 +6,7 @@ from typing import Generator
 import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 
 from aurweb import asgi, config, db, defaults, time
 from aurweb.models import Package, PackageBase, PackageRequest, User
@@ -295,7 +296,7 @@ def test_request_post_deletion_as_maintainer(
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Check the pkgreq record got created and accepted.
-    pkgreq = db.query(PackageRequest).first()
+    pkgreq = db.get_session().execute(select(PackageRequest)).scalars().first()
     assert pkgreq is not None
     assert pkgreq.ReqTypeID == DELETION_ID
     assert pkgreq.Status == ACCEPTED_ID
@@ -336,8 +337,11 @@ def test_request_post_deletion_autoaccept(
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     pkgreq = (
-        db.query(PackageRequest)
-        .filter(PackageRequest.PackageBaseName == pkgbase.Name)
+        db.get_session()
+        .execute(
+            select(PackageRequest).where(PackageRequest.PackageBaseName == pkgbase.Name)
+        )
+        .scalars()
         .first()
     )
     assert pkgreq is not None

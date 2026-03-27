@@ -6,6 +6,7 @@ from typing import Tuple
 import lxml.etree
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 
 from aurweb import config, db, filters, time
 from aurweb.models.account_type import DEVELOPER_ID, PACKAGE_MAINTAINER_ID, AccountType
@@ -90,9 +91,14 @@ def client():
 
 @pytest.fixture
 def pm_user():
-    pm_type = db.query(
-        AccountType, AccountType.AccountType == "Package Maintainer"
-    ).first()
+    pm_type = (
+        db.get_session()
+        .execute(
+            select(AccountType).where(AccountType.AccountType == "Package Maintainer")
+        )
+        .scalars()
+        .first()
+    )
     with db.begin():
         pm_user = db.create(
             User,
@@ -121,7 +127,12 @@ def pm_user2():
 
 @pytest.fixture
 def user():
-    user_type = db.query(AccountType, AccountType.AccountType == "User").first()
+    user_type = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "User"))
+        .scalars()
+        .first()
+    )
     with db.begin():
         user = db.create(
             User,
@@ -771,7 +782,12 @@ def test_pm_proposal_vote(client, proposal):
     assert voteinfo.Yes == yes + 1
 
     # Check that the new PMVote exists.
-    vote = db.query(Vote, Vote.VoteInfo == voteinfo, Vote.User == pm_user).first()
+    vote = (
+        db.get_session()
+        .execute(select(Vote).where(Vote.VoteInfo == voteinfo, Vote.User == pm_user))
+        .scalars()
+        .first()
+    )
     assert vote is not None
 
     root = parse_root(response.text)
@@ -929,7 +945,12 @@ def test_pm_addvote_post(client: TestClient, pm_user: User, user: User):
         response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    voteinfo = db.query(VoteInfo, VoteInfo.Agenda == "Blah").first()
+    voteinfo = (
+        db.get_session()
+        .execute(select(VoteInfo).where(VoteInfo.Agenda == "Blah"))
+        .scalars()
+        .first()
+    )
     assert voteinfo is not None
 
 
@@ -945,7 +966,12 @@ def test_pm_addvote_post_cant_duplicate_username(
         response = request.post("/addvote", data=data)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    voteinfo = db.query(VoteInfo, VoteInfo.Agenda == "Blah").first()
+    voteinfo = (
+        db.get_session()
+        .execute(select(VoteInfo).where(VoteInfo.Agenda == "Blah"))
+        .scalars()
+        .first()
+    )
     assert voteinfo is not None
 
     with client as request:

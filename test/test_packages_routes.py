@@ -5,6 +5,7 @@ from unittest import mock
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 
 from aurweb import asgi, cache, config, db, time
 from aurweb.filters import datetime_display
@@ -47,14 +48,24 @@ def create_package(pkgname: str, maintainer: User) -> Package:
 def create_package_dep(
     package: Package, depname: str, dep_type_name: str = "depends"
 ) -> PackageDependency:
-    dep_type = db.query(DependencyType, DependencyType.Name == dep_type_name).first()
+    dep_type = (
+        db.get_session()
+        .execute(select(DependencyType).where(DependencyType.Name == dep_type_name))
+        .scalars()
+        .first()
+    )
     return db.create(
         PackageDependency, DependencyType=dep_type, Package=package, DepName=depname
     )
 
 
 def create_package_rel(package: Package, relname: str) -> PackageRelation:
-    rel_type = db.query(RelationType, RelationType.ID == PROVIDES_ID).first()
+    rel_type = (
+        db.get_session()
+        .execute(select(RelationType).where(RelationType.ID == PROVIDES_ID))
+        .scalars()
+        .first()
+    )
     return db.create(
         PackageRelation, RelationType=rel_type, Package=package, RelName=relname
     )
@@ -102,7 +113,12 @@ def user() -> Generator[User]:
 @pytest.fixture
 def maintainer() -> Generator[User]:
     """Yield a specific User used to maintain packages."""
-    account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
+    account_type = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.ID == USER_ID))
+        .scalars()
+        .first()
+    )
     with db.begin():
         maintainer = db.create(
             User,
@@ -116,9 +132,14 @@ def maintainer() -> Generator[User]:
 
 @pytest.fixture
 def pm_user():
-    pm_type = db.query(
-        AccountType, AccountType.AccountType == "Package Maintainer"
-    ).first()
+    pm_type = (
+        db.get_session()
+        .execute(
+            select(AccountType).where(AccountType.AccountType == "Package Maintainer")
+        )
+        .scalars()
+        .first()
+    )
     with db.begin():
         pm_user = db.create(
             User,
@@ -134,7 +155,12 @@ def pm_user():
 @pytest.fixture
 def user_who_hates_grey_comments() -> Generator[User]:
     """Yield a specific User who doesn't like grey comments."""
-    account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
+    account_type = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.ID == USER_ID))
+        .scalars()
+        .first()
+    )
     with db.begin():
         user_who_hates_grey_comments = db.create(
             User,
@@ -520,7 +546,12 @@ def test_package_requests_display(
     target = root.xpath(selector)[0]
     assert target.text.strip() == "1 pending request"
 
-    type_ = db.query(RequestType, RequestType.ID == DELETION_ID).first()
+    type_ = (
+        db.get_session()
+        .execute(select(RequestType).where(RequestType.ID == DELETION_ID))
+        .scalars()
+        .first()
+    )
     with db.begin():
         db.create(
             PackageRequest,

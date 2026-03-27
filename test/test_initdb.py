@@ -1,4 +1,5 @@
 import pytest
+from sqlalchemy import select
 
 import aurweb.config
 import aurweb.db
@@ -24,5 +25,10 @@ def test_run() -> None:
     aurweb.initdb.run(Args())
 
     # Check that constant table rows got added via initdb.
-    record = aurweb.db.query(AccountType, AccountType.AccountType == "User").first()
+    record = (
+        aurweb.db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "User"))
+        .scalars()
+        .first()
+    )
     assert record is not None

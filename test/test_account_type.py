@@ -1,6 +1,7 @@
 from typing import Generator
 
 import pytest
+from sqlalchemy import select
 
 from aurweb import db
 from aurweb.models.account_type import AccountType
@@ -34,7 +35,12 @@ def test_account_type(account_type):
         account_type.ID
     )
 
-    record = db.query(AccountType, AccountType.AccountType == "TestUser").first()
+    record = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "TestUser"))
+        .scalars()
+        .first()
+    )
     assert account_type == record
 
 

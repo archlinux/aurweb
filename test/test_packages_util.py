@@ -2,6 +2,7 @@ from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 
 from aurweb import asgi, config, db, time
 from aurweb.aur_redis import kill_redis
@@ -87,7 +88,12 @@ def test_query_voted(maintainer: User, package: Package):
             PackageVote, User=maintainer, VoteTS=now, PackageBase=package.PackageBase
         )
 
-    query = db.query(Package).filter(Package.ID == package.ID).all()
+    query = (
+        db.get_session()
+        .execute(select(Package).where(Package.ID == package.ID))
+        .scalars()
+        .all()
+    )
     query_voted = util.query_voted(query, maintainer)
     assert query_voted[package.PackageBase.ID]
 
@@ -96,7 +102,12 @@ def test_query_notified(maintainer: User, package: Package):
     with db.begin():
         db.create(PackageNotification, User=maintainer, PackageBase=package.PackageBase)
 
-    query = db.query(Package).filter(Package.ID == package.ID).all()
+    query = (
+        db.get_session()
+        .execute(select(Package).where(Package.ID == package.ID))
+        .scalars()
+        .all()
+    )
     query_notified = util.query_notified(query, maintainer)
     assert query_notified[package.PackageBase.ID]
 

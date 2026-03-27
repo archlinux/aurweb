@@ -9,6 +9,7 @@ from typing import Generator
 import lxml.html
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import delete, select
 
 import aurweb.config
 import aurweb.models.account_type as at
@@ -648,7 +649,7 @@ def test_post_register_with_ssh_pubkey(client: TestClient):
 
     # Let's create another user accidentally pasting their key twice
     with db.begin():
-        db.query(SSHPubKey).delete()
+        db.get_session().execute(delete(SSHPubKey))
 
     pk_double = pk + "\n" + pk
     with client as request:
@@ -2132,7 +2133,12 @@ def test_account_delete_self(client: TestClient, user: User):
     assert resp.status_code == HTTPStatus.SEE_OTHER
 
     # Check that our User record no longer exists in the database
-    record = db.query(User).filter(User.Username == username).first()
+    record = (
+        db.get_session()
+        .execute(select(User).where(User.Username == username))
+        .scalars()
+        .first()
+    )
     assert record is None
 
 
@@ -2162,9 +2168,19 @@ def test_account_delete_self_with_ssh_public_key(client: TestClient, user: User)
     assert resp.status_code == HTTPStatus.SEE_OTHER
 
     # Check that our User record no longer exists in the database
-    user_record = db.query(User).filter(User.Username == username).first()
+    user_record = (
+        db.get_session()
+        .execute(select(User).where(User.Username == username))
+        .scalars()
+        .first()
+    )
     assert user_record is None
-    sshpubkey_record = db.query(SSHPubKey).filter(SSHPubKey.User == user).first()
+    sshpubkey_record = (
+        db.get_session()
+        .execute(select(SSHPubKey).where(SSHPubKey.User == user))
+        .scalars()
+        .first()
+    )
     assert sshpubkey_record is None
 
 
@@ -2186,5 +2202,10 @@ def test_account_delete_as_pm(client: TestClient, pm_user: User):
     assert resp.status_code == HTTPStatus.SEE_OTHER
 
     # Check that our User record no longer exists in the database
-    record = db.query(User).filter(User.Username == username).first()
+    record = (
+        db.get_session()
+        .execute(select(User).where(User.Username == username))
+        .scalars()
+        .first()
+    )
     assert record is None

@@ -2,6 +2,7 @@ from unittest import mock
 
 import pytest
 from redis.client import Pipeline
+from sqlalchemy import select
 
 from aurweb import aur_logging, config, db
 from aurweb.aur_redis import kill_redis, redis_connection
@@ -122,7 +123,7 @@ def test_ratelimit_db(
 
     # Delete the ApiRateLimit record.
     with db.begin():
-        db.delete(db.query(ApiRateLimit).first())
+        db.delete(db.get_session().execute(select(ApiRateLimit)).scalars().first())
 
     # Should be good to go again!
     assert not check_ratelimit(request)

@@ -1,6 +1,7 @@
 from unittest import mock
 
 import pytest
+from sqlalchemy import select
 
 import aurweb.models.account_type as at
 from aurweb import db
@@ -33,7 +34,12 @@ def test_adduser_no_args() -> None:
 
 def test_adduser() -> None:
     run_main(["-u", "test", "-e", "test@example.org", "-p", "abcd1234"])
-    test = db.query(User).filter(User.Username == "test").first()
+    test = (
+        db.get_session()
+        .execute(select(User).where(User.Username == "test"))
+        .scalars()
+        .first()
+    )
     assert test is not None
     assert test.login(Request(), "abcd1234")
 
@@ -51,7 +57,12 @@ def test_adduser_pm() -> None:
             at.PACKAGE_MAINTAINER,
         ]
     )
-    test = db.query(User).filter(User.Username == "test").first()
+    test = (
+        db.get_session()
+        .execute(select(User).where(User.Username == "test"))
+        .scalars()
+        .first()
+    )
     assert test is not None
     assert test.AccountTypeID == at.PACKAGE_MAINTAINER_ID
 
@@ -69,6 +80,11 @@ def test_adduser_ssh_pk() -> None:
             TEST_SSH_PUBKEY,
         ]
     )
-    test = db.query(User).filter(User.Username == "test").first()
+    test = (
+        db.get_session()
+        .execute(select(User).where(User.Username == "test"))
+        .scalars()
+        .first()
+    )
     assert test is not None
     assert TEST_SSH_PUBKEY.startswith(test.ssh_pub_keys.first().PubKey)

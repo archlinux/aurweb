@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 
 from aurweb import db, time
 from aurweb.asgi import app
@@ -254,7 +255,12 @@ def test_homepage_dashboard_requests(redis, packages, user):
     now = time.utcnow()
 
     pkg = packages[0]
-    reqtype = db.query(RequestType, RequestType.ID == DELETION_ID).first()
+    reqtype = (
+        db.get_session()
+        .execute(select(RequestType).where(RequestType.ID == DELETION_ID))
+        .scalars()
+        .first()
+    )
     with db.begin():
         pkgreq = db.create(
             PackageRequest,

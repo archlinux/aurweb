@@ -1,4 +1,5 @@
 import pytest
+from sqlalchemy import select
 
 from aurweb import db
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID, RequestType
@@ -32,11 +33,26 @@ def test_request_type_null_name_returns_empty_string() -> None:
 
 
 def test_request_type_name_display() -> None:
-    deletion = db.query(RequestType, RequestType.ID == DELETION_ID).first()
+    deletion = (
+        db.get_session()
+        .execute(select(RequestType).where(RequestType.ID == DELETION_ID))
+        .scalars()
+        .first()
+    )
     assert deletion.name_display() == "Deletion"
 
-    orphan = db.query(RequestType, RequestType.ID == ORPHAN_ID).first()
+    orphan = (
+        db.get_session()
+        .execute(select(RequestType).where(RequestType.ID == ORPHAN_ID))
+        .scalars()
+        .first()
+    )
     assert orphan.name_display() == "Orphan"
 
-    merge = db.query(RequestType, RequestType.ID == MERGE_ID).first()
+    merge = (
+        db.get_session()
+        .execute(select(RequestType).where(RequestType.ID == MERGE_ID))
+        .scalars()
+        .first()
+    )
     assert merge.name_display() == "Merge"

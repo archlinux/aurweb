@@ -4,6 +4,7 @@ from http import HTTPStatus
 import lxml.etree
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 
 from aurweb import aur_logging, db, time
 from aurweb.asgi import app
@@ -27,7 +28,12 @@ def client():
 
 @pytest.fixture
 def user():
-    account_type = db.query(AccountType, AccountType.AccountType == "User").first()
+    account_type = (
+        db.get_session()
+        .execute(select(AccountType).where(AccountType.AccountType == "User"))
+        .scalars()
+        .first()
+    )
     yield db.create(
         User,
         Username="test",

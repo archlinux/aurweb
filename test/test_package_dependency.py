@@ -1,6 +1,7 @@
 from typing import Generator
 
 import pytest
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
@@ -47,15 +48,15 @@ def package(user: User) -> Generator[Package]:
 
 
 def is_aur_package(dep: PackageDependency) -> bool:
-    exists = db.query(Package).filter(Package.Name == dep.DepName).exists()
-    return db.query(exists).scalar()
+    exists = select(Package).where(Package.Name == dep.DepName).exists()
+    return db.get_session().execute(select(exists)).scalar()
 
 
 def is_official_package(dep: PackageDependency) -> bool:
     exists = (
-        db.query(OfficialProvider).filter(OfficialProvider.Name == dep.DepName).exists()
+        select(OfficialProvider).where(OfficialProvider.Name == dep.DepName).exists()
     )
-    return db.query(exists).scalar()
+    return db.get_session().execute(select(exists)).scalar()
 
 
 def is_package(dep: PackageDependency) -> bool:

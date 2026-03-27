@@ -5,6 +5,7 @@ from unittest import mock
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import select
 
 import aurweb.config
 from aurweb import db, time
@@ -179,7 +180,12 @@ def test_secure_login(getboolean: mock.Mock, client: TestClient, user: User):
 
     # Let's make sure we actually have a session relationship
     # with the AURSID we ended up with.
-    record = db.query(Session, Session.SessionID == cookie.value).first()
+    record = (
+        db.get_session()
+        .execute(select(Session).where(Session.SessionID == cookie.value))
+        .scalars()
+        .first()
+    )
     assert record is not None and record.User == user
     assert user.session == record
 
@@ -241,7 +247,12 @@ def test_login_remember_me(client: TestClient, user: User):
 
     cookie_timeout = aurweb.config.getint("options", "persistent_cookie_timeout")
     now_ts = time.utcnow()
-    session = db.query(Session).filter(Session.UsersID == user.ID).first()
+    session = (
+        db.get_session()
+        .execute(select(Session).where(Session.UsersID == user.ID))
+        .scalars()
+        .first()
+    )
 
     # Expect that LastUpdateTS is not past the cookie timeout
     # for a remembered session.
