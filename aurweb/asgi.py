@@ -14,7 +14,7 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from jinja2 import TemplateNotFound
-from sqlalchemy import and_
+from sqlalchemy import and_, func, select
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -25,7 +25,7 @@ import aurweb.filters  # noqa: F401
 from aurweb import aur_logging, prometheus, util
 from aurweb.aur_redis import redis_connection
 from aurweb.auth import BasicAuthBackend
-from aurweb.db import get_engine, query
+from aurweb.db import get_engine, get_session
 from aurweb.models import AcceptedTerm, Term
 from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
@@ -298,18 +298,21 @@ async def check_terms_of_service(request: Request, call_next: typing.Callable):
     """This middleware function redirects authenticated users if they
     have any outstanding Terms to agree to."""
     if request.user.is_authenticated() and request.url.path != "/tos":
-        accepted = (
-            query(Term)
+        session = get_session()
+        total = session.execute(select(func.count()).select_from(Term)).scalar()
+        accepted_count = session.execute(
+            select(func.count())
+            .select_from(Term)
             .join(AcceptedTerm)
-            .filter(
+            .where(
                 and_(
                     AcceptedTerm.UsersID == request.user.ID,
                     AcceptedTerm.TermsID == Term.ID,
                     AcceptedTerm.Revision >= Term.Revision,
-                ),
+                )
             )
-        )
-        if query(Term).count() - accepted.count() > 0:
+        ).scalar()
+        if total - accepted_count > 0:
             return RedirectResponse("/tos", status_code=int(http.HTTPStatus.SEE_OTHER))
 
     return await util.error_or_result(call_next, request)

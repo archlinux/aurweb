@@ -100,7 +100,7 @@ def update_closure_comment(
     if not comments:
         return
 
-    query = pkgbase.requests.filter(
+    query: orm.Query = pkgbase.requests.filter(
         and_(
             PackageRequest.ReqTypeID == reqtype_id, PackageRequest.Status == PENDING_ID
         )

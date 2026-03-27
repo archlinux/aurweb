@@ -3,16 +3,16 @@
 import hashlib
 
 from jinja2 import pass_context
-from sqlalchemy import func
+from sqlalchemy import func, select
 
-from aurweb.db import query
+from aurweb.db import get_session
 from aurweb.models import User
 from aurweb.templates import register_filter
 
 
 def get_captcha_salts():
     """Produce salts based on the current user count."""
-    count = query(func.count(User.ID)).scalar()
+    count = get_session().execute(select(func.count(User.ID))).scalar()
 
     salts = []
     for i in range(6):
