@@ -1,16 +1,27 @@
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from sqlalchemy import orm
+
 # Supported database drivers.
 DRIVERS = {"mysql": "mysql+mysqldb"}
 
 
-def make_random_value(table: str, column: str, length: int):
+def make_random_value(
+    table: type, column: "orm.InstrumentedAttribute", length: int
+) -> str:
     """Generate a unique, random value for a string column in a table.
 
     :return: A unique string that is not in the database
     """
+    from sqlalchemy import select
+
     import aurweb.util
 
     string = aurweb.util.make_random_string(length)
-    while query(table).filter(column == string).first():
+    while (
+        get_session().execute(select(table).where(column == string)).scalars().first()
+    ):
         string = aurweb.util.make_random_string(length)
     return string
 
@@ -101,18 +112,6 @@ def refresh(model):
     """
     get_session().refresh(model)
     return model
-
-
-def query(Model, *args, **kwargs):
-    """
-    Perform an ORM query against the database session.
-
-    This method also runs Query.filter on the resulting model
-    query with *args and **kwargs.
-
-    :param Model: Declarative ORM class
-    """
-    return get_session().query(Model).filter(*args, **kwargs)
 
 
 def create(Model, *args, **kwargs):
