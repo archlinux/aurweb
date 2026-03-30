@@ -449,6 +449,8 @@ def main() -> None:  # noqa: C901
                     )
                 except FileNotFoundError:
                     die(f"Executable not found: {pkgctl}")
+                except subprocess.CalledProcessError:
+                    die_commit("License compliance check failed", str(commit.id))
                 except subprocess.TimeoutExpired:
                     die_commit(
                         "License compliance check did not complete within "
