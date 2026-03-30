@@ -343,7 +343,7 @@ test_expect_success 'Pushing a tree with an allowed subdirectory for RFC52-style
 	test_when_finished "git -C aur.git reset --hard $old" &&
 	"${pkgctl_executable}" license setup --no-check aur.git 2>/dev/null &&
 	rm aur.git/LICENSE &&
-	git -C aur.git add LICENSES REUSE.toml
+	git -C aur.git add LICENSES REUSE.toml &&
 	git -C aur.git commit -q -m "Add license files, REUSE.toml" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
 	test_must_fail \
