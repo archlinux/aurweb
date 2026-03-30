@@ -444,7 +444,7 @@ def main() -> None:  # noqa: C901
                         [pkgctl, "license", "check"],
                         check=True,
                         cwd=workdir,
-                        stderr=sys.stdout,
+                        stderr=subprocess.STDOUT,
                         timeout=timeout_seconds,
                     )
                 except FileNotFoundError:
