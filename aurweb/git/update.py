@@ -273,11 +273,13 @@ def save_metadata(metadata: SourceInfo, conn, user):  # noqa: C901
 
 
 @contextmanager
-def temporary_checkout(repo: pygit2.Repository) -> Generator[str]:
+def temporary_checkout(
+    repo: pygit2.Repository, commit: pygit2.Commit
+) -> Generator[str]:
     basename = os.path.basename(os.path.splitext(repo.path.rstrip("/"))[0])
     with tempfile.TemporaryDirectory(prefix="aurweb-") as tmpdirname:
         workdir = os.path.join(tmpdirname, basename)
-        repo.checkout(refname=repo.head, directory=workdir)
+        repo.checkout_tree(treeish=commit.tree, directory=workdir)
         yield workdir
 
 
@@ -438,7 +440,7 @@ def main() -> None:  # noqa: C901
                 die("license_check_timeout needs to be configured")
             if pkgctl is None:
                 die("pkgctl_executable needs to be configured")
-            with temporary_checkout(repo) as workdir:
+            with temporary_checkout(repo, commit) as workdir:
                 try:
                     subprocess.run(
                         [pkgctl, "license", "check"],
