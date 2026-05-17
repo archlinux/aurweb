@@ -123,6 +123,8 @@ provision_review:
       # Add our pubkey and hostkeys
     - ssh-keyscan $DEV_FQDN >> ~/.ssh/known_hosts
     - ssh-keygen -f ~/.ssh/id_ed25519 -y > pubkeys/aurweb-dev.pub
+      # Drop the aur database to ensure a clean state on re-runs (no-op if MariaDB not yet installed)
+    - ansible -i hosts all -m shell -a "mysql -u root --password=aur -e 'DROP DATABASE IF EXISTS aur'" || true
       # Run our ansible playbook
     - >
       ansible-playbook playbooks/aur-dev.archlinux.org.yml \
