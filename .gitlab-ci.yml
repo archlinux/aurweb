@@ -113,6 +113,8 @@ provision_review:
     - find . -type f -name "*vault*.yml*" -delete
       # Remove vault config
     - sed -i '/^vault/d' ansible.cfg
+      # Disable geoipupdate role (requires credentials not available in review)
+    - echo "---" > roles/geoipupdate/tasks/main.yml
       # Add host config
     - mkdir -p host_vars/$DEV_FQDN
     - 'echo "filesystem: btrfs" > host_vars/$DEV_FQDN/misc'
