@@ -115,6 +115,7 @@ class User(Base):
         # generation in an HTTPException.
         tries = 36
 
+        sid = None
         exc = None
         for i in range(tries):
             exc = None
@@ -135,6 +136,7 @@ class User(Base):
                         if last_updated and last_updated < now_ts:
                             current_session.SessionID = generate_unique_sid()
                         current_session.LastUpdateTS = now_ts
+                        sid = current_session.SessionID
 
                     # Unset InactivityTS, we've logged in!
                     self.InactivityTS = 0
@@ -147,7 +149,7 @@ class User(Base):
         if exc:
             raise exc
 
-        return self.session.SessionID
+        return sid
 
     def has_credential(self, credential: Set[int], approved: list["User"] = []):
         from aurweb.auth.creds import has_credential

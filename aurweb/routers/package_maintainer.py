@@ -310,14 +310,13 @@ async def package_maintainer_proposal_post(
         )
 
     with db.begin():
-        if decision in {"Yes", "No", "Abstain"}:
-            # Increment whichever decision was given to us.
-            setattr(voteinfo, decision, getattr(voteinfo, decision) + 1)
-        else:
+        if decision not in {"Yes", "No", "Abstain"}:
             return Response(
                 "Invalid 'decision' value.", status_code=HTTPStatus.BAD_REQUEST
             )
 
+        db.get_session().refresh(voteinfo, with_for_update=True)
+        setattr(voteinfo, decision, getattr(voteinfo, decision) + 1)
         vote = db.create(models.Vote, User=request.user, VoteInfo=voteinfo)
 
     context["error"] = "You've already voted for this proposal."

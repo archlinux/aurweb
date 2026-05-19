@@ -856,6 +856,32 @@ def test_pm_proposal_vote_cant_self_vote(client, proposal):
     assert status == "You cannot vote in an proposal about you."
 
 
+def test_pm_proposal_vote_two_voters_both_counted(
+    client: TestClient, proposal: Tuple[User, User, VoteInfo], pm_user2: User
+):
+    pm_user, user, voteinfo = proposal
+
+    cookies1 = {"AURSID": pm_user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = cookies1
+        response = request.post(
+            f"/package-maintainer/{voteinfo.ID}", data={"decision": "Yes"}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+
+    cookies2 = {"AURSID": pm_user2.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = cookies2
+        response = request.post(
+            f"/package-maintainer/{voteinfo.ID}", data={"decision": "No"}
+        )
+    assert response.status_code == int(HTTPStatus.OK)
+
+    db.get_session().refresh(voteinfo)
+    assert voteinfo.Yes == 1
+    assert voteinfo.No == 1
+
+
 def test_pm_proposal_vote_already_voted(client, proposal):
     pm_user, user, voteinfo = proposal
 
