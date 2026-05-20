@@ -96,7 +96,6 @@ async def passreset_post(
         # We got to this point; everything matched up. Update the password
         # and remove the ResetKey.
         with db.begin():
-            db.get_session().refresh(db_user, with_for_update=True)
             db_user.ResetKey = str()
             if db_user.session:
                 db.delete(db_user.session)
@@ -110,7 +109,6 @@ async def passreset_post(
     # If we got here, we continue with issuing a resetkey for the user.
     resetkey = generate_resetkey()
     with db.begin():
-        db.get_session().refresh(db_user, with_for_update=True)
         db_user.ResetKey = resetkey
 
     ResetKeyNotification(db_user.ID).send()

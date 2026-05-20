@@ -262,3 +262,52 @@ async def test_async_retry_deadlock() -> None:
 
     with pytest.raises(OperationalError):
         await func()
+
+
+def test_db_begin_uses_fresh_snapshot() -> None:
+    """db.begin() must open a transaction with a current MVCC snapshot.
+
+    Regression for MariaDB error 1020 ("Record has changed since last read")
+    under innodb_snapshot_isolation. Seeds a row, races it from a second
+    engine, then mutates it inside db.begin() — should not raise.
+    """
+    from sqlalchemy import create_engine, text
+
+    from aurweb.models.account_type import USER_ID
+    from aurweb.models.user import User
+
+    with db.begin():
+        seeded = db.create(
+            User,
+            Username="snapshot_user",
+            Email="snapshot@example.invalid",
+            RealName="initial",
+            Passwd="x",
+            AccountTypeID=USER_ID,
+        )
+    user_id = seeded.ID
+
+    sess = db.get_session()
+    sess.expire_all()
+    # Seed the session's MVCC snapshot (mirrors auth middleware's SELECT).
+    cached = sess.execute(select(User).filter(User.ID == user_id)).scalars().one()
+    assert cached.RealName == "initial"
+
+    # Concurrent UPDATE through a separate engine.
+    other = create_engine(db.get_sqlalchemy_url())
+    try:
+        with other.begin() as conn:
+            conn.execute(
+                text("UPDATE Users SET RealName = :name WHERE ID = :id"),
+                {"name": "concurrent", "id": user_id},
+            )
+    finally:
+        other.dispose()
+
+    try:
+        with db.begin():
+            cached.RealName = "from-begin"
+    except OperationalError as exc:
+        if "1020" in str(exc) or "Record has changed" in str(exc):
+            pytest.fail(f"snapshot-isolation conflict (1020): {exc}")
+        raise

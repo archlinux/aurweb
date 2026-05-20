@@ -72,25 +72,70 @@ def name() -> str:
     return "db" + sha1
 
 
-# Module-private global memo used to store SQLAlchemy sessions.
+from contextvars import ContextVar  # noqa: E402
+
+# Process-global session memory, used as a fallback outside HTTP requests
+# (scripts, CLI, tests). HTTP requests get a per-request session via
+# RequestSessionMiddleware.
 _sessions = {}
+_sessionmakers = {}
+_request_session: ContextVar = ContextVar("aurweb_request_session", default=None)
 
 
-def get_session(engine=None):
-    """Return aurweb.db's global session."""
+def _get_sessionmaker(engine=None):
     dbname = name()
-
-    global _sessions
-    if dbname not in _sessions:
-        from sqlalchemy.orm import scoped_session, sessionmaker
+    global _sessionmakers
+    if dbname not in _sessionmakers:
+        from sqlalchemy.orm import sessionmaker
 
         if not engine:  # pragma: no cover
             engine = get_engine()
+        _sessionmakers[dbname] = sessionmaker(engine, autoflush=False)
+    return _sessionmakers[dbname]
 
-        Session = scoped_session(sessionmaker(engine, autoflush=False))
-        _sessions[dbname] = Session()
+
+def get_session(engine=None):
+    """Return the active SQLAlchemy session."""
+    sess = _request_session.get()
+    if sess is not None:
+        return sess
+
+    dbname = name()
+    global _sessions
+    if dbname not in _sessions:
+        from sqlalchemy.orm import scoped_session
+
+        _sessions[dbname] = scoped_session(_get_sessionmaker(engine))()
 
     return _sessions.get(dbname)
+
+
+class RequestSessionMiddleware:
+    """ASGI middleware: scope a fresh SQLAlchemy session per HTTP request."""
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+
+        # Under pytest the db_session fixture owns the session, so don't
+        # shadow it - tests need fixtures and routes to share one identity map.
+        import os
+
+        if os.environ.get("PYTEST_CURRENT_TEST") or _request_session.get():
+            await self.app(scope, receive, send)
+            return
+
+        session = _get_sessionmaker()()
+        token = _request_session.set(session)
+        try:
+            await self.app(scope, receive, send)
+        finally:
+            session.close()
+            _request_session.reset(token)
 
 
 def pop_session(dbname: str) -> None:
@@ -154,18 +199,18 @@ def add(model):
 
 
 def begin():
-    """Context manager providing a transaction scope.
+    """Transaction context manager.
 
-    On success the session is committed; on any exception it is rolled back.
-    Using a context manager rather than session.begin() avoids SA 2.0's
-    restriction that prohibits calling begin() on a session that already has
-    an autobegun transaction (triggered by the first query in a session).
+    Commits any pre-existing autobegun transaction first so the block
+    runs with a fresh MVCC snapshot.
     """
     from contextlib import contextmanager
 
     @contextmanager
     def _begin():
         session = get_session()
+        if session.in_transaction():
+            session.commit()
         try:
             yield
             session.commit()
@@ -188,9 +233,7 @@ def retry_deadlock(func):
             return func(*args, **kwargs)
         except OperationalError as exc:
             if _i < limit and "Deadlock found" in str(exc):
-                # Retry on deadlock by recursing into `wrapper`
                 return wrapper(*args, _i=_i + 1, **kwargs)
-            # Otherwise, just raise the exception
             raise exc
 
     return wrapper
@@ -208,9 +251,7 @@ def async_retry_deadlock(func):
             return await func(*args, **kwargs)
         except OperationalError as exc:
             if _i < limit and "Deadlock found" in str(exc):
-                # Retry on deadlock by recursing into `wrapper`
                 return await wrapper(*args, _i=_i + 1, **kwargs)
-            # Otherwise, just raise the exception
             raise exc
 
     return wrapper

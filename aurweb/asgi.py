@@ -25,7 +25,7 @@ import aurweb.filters  # noqa: F401
 from aurweb import aur_logging, prometheus, util
 from aurweb.aur_redis import redis_connection
 from aurweb.auth import BasicAuthBackend
-from aurweb.db import get_engine, get_session
+from aurweb.db import RequestSessionMiddleware, get_engine, get_session
 from aurweb.models import AcceptedTerm, Term
 from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
@@ -337,5 +337,8 @@ async def id_redirect_middleware(request: Request, call_next: typing.Callable):
 
 
 # Add application middlewares.
+# RequestSessionMiddleware is added last so it wraps the auth middleware
+# (last added = outermost), keeping auth's SELECTs inside the request session.
 app.add_middleware(AuthenticationMiddleware, backend=BasicAuthBackend())
 app.add_middleware(SessionMiddleware, secret_key=session_secret)
+app.add_middleware(RequestSessionMiddleware)

@@ -144,7 +144,6 @@ class User(Base):
                     break
             except IntegrityError as exc_:
                 exc = exc_
-                db.get_session().expire(self, ["session"])
 
         if exc:
             raise exc

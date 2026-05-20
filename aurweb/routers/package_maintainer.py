@@ -315,7 +315,6 @@ async def package_maintainer_proposal_post(
                 "Invalid 'decision' value.", status_code=HTTPStatus.BAD_REQUEST
             )
 
-        db.get_session().refresh(voteinfo, with_for_update=True)
         setattr(voteinfo, decision, getattr(voteinfo, decision) + 1)
         vote = db.create(models.Vote, User=request.user, VoteInfo=voteinfo)
 

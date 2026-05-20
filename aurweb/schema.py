@@ -354,6 +354,7 @@ RelationTypes = Table(
 PackageRelations = Table(
     "PackageRelations",
     metadata,
+    Column("ID", INTEGER(unsigned=True), primary_key=True),
     Column("PackageID", ForeignKey("Packages.ID", ondelete="CASCADE"), nullable=False),
     Column(
         "RelTypeID",
