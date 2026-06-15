@@ -35,6 +35,14 @@ def pkgbase_exists(pkgbase):
     return pkgbase_from_name(pkgbase) is not None
 
 
+def user_email_verified(user):
+    conn = aurweb.db.Connection()
+    cur = conn.execute("SELECT EmailVerified FROM Users WHERE Username = ?", [user])
+    row = cur.fetchone()
+    conn.close()
+    return row is not None and row[0] == 1
+
+
 def list_repos(user):
     conn = aurweb.db.Connection()
 
@@ -523,6 +531,14 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
         raise aurweb.exceptions.BannedException
     log_ssh_login(user, remote_addr)
 
+    # Mutating actions require a verified email. Read-only actions (clone/pull,
+    # repo listing, help) are always allowed.
+    readonly = action in ("git-upload-pack", "list-repos", "help") or (
+        action == "git" and len(cmdargv) > 1 and cmdargv[1] == "upload-pack"
+    )
+    if not readonly and not user_email_verified(user):
+        raise aurweb.exceptions.EmailNotVerifiedException
+
     if action == "git" and cmdargv[1] in ("upload-pack", "receive-pack"):
         action = action + "-" + cmdargv[1]
         del cmdargv[1]
@@ -643,6 +659,11 @@ def main() -> None:
         die("The AUR is down due to maintenance. We will be back soon.")
     except aurweb.exceptions.BannedException:
         die("The SSH interface is disabled for your IP address.")
+    except aurweb.exceptions.EmailNotVerifiedException:
+        die(
+            "Your account email is not verified. Verify it from your "
+            "profile on the AUR website before pushing."
+        )
     except aurweb.exceptions.InvalidArgumentsException as e:
         die_with_help(f"{action:s}: {e}")
     except aurweb.exceptions.AurwebException as e:

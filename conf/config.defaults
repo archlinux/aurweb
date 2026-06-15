@@ -57,6 +57,10 @@ traceback = 0
 ; Maximum number of characters for a comment
 max_chars_comment = 5000
 pkgctl_executable = /usr/bin/pkgctl
+; email verification token in seconds - 1 day
+email_verification_ttl = 86400
+; email verification cooldown in seconds - 10 minutes
+email_verification_cooldown = 600
 
 [ratelimit]
 request_limit = 4000

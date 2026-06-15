@@ -5,6 +5,8 @@ from fastapi import Request
 from aurweb import db, models, time, util
 from aurweb.models import SSHPubKey
 from aurweb.models.ssh_pub_key import get_fingerprint
+from aurweb.scripts.notify import VerificationNotification
+from aurweb.users import verify
 from aurweb.util import strtobool
 
 
@@ -28,9 +30,16 @@ def simple(
     **kwargs,
 ) -> None:
     now = time.utcnow()
+    # Changing the primary email invalidates verification
+    email_changed = bool(E) and E != user.Email
+    reverify = email_changed and not verify.in_cooldown(user)
     with db.begin():
         user.Username = U or user.Username
         user.Email = E or user.Email
+        if email_changed:
+            user.EmailVerified = False
+        if reverify:
+            verify.issue(user)
         user.HideEmail = strtobool(H)
         user.BackupEmail = user.BackupEmail if BE is None else BE
         user.RealName = user.RealName if R is None else R
@@ -43,6 +52,9 @@ def simple(
         user.UpdateNotify = strtobool(UN)
         user.OwnershipNotify = strtobool(ON)
         user.HideDeletedComments = strtobool(HDC)
+
+    if reverify:
+        VerificationNotification(user.ID).send()
 
 
 @db.retry_deadlock

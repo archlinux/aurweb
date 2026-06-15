@@ -124,15 +124,15 @@ export SSH_CLIENT SSH_CONNECTION SSH_TTY
 # Initialize the test database.
 python -m aurweb.initdb --no-alembic
 
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (1, 'user', '!', 'user@localhost', 'en', 1);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (2, 'pm', '!', 'pm@localhost', 'en', 2);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (3, 'dev', '!', 'dev@localhost', 'en', 3);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (4, 'user2', '!', 'user2@localhost', 'en', 1);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (5, 'user3', '!', 'user3@localhost', 'en', 1);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (6, 'user4', '!', 'user4@localhost', 'en', 1);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (7, 'pm2', '!', 'pm2@localhost', 'en', 2);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (8, 'pm3', '!', 'pm3@localhost', 'en', 2);" | sqlite3 aur.db
-echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (9, 'pm4', '!', 'pm4@localhost', 'en', 2);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (1, 'user', '!', 'user@localhost', 'en', 1, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (2, 'pm', '!', 'pm@localhost', 'en', 2, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (3, 'dev', '!', 'dev@localhost', 'en', 3, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (4, 'user2', '!', 'user2@localhost', 'en', 1, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (5, 'user3', '!', 'user3@localhost', 'en', 1, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (6, 'user4', '!', 'user4@localhost', 'en', 1, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (7, 'pm2', '!', 'pm2@localhost', 'en', 2, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (8, 'pm3', '!', 'pm3@localhost', 'en', 2, 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID, EmailVerified) VALUES (9, 'pm4', '!', 'pm4@localhost', 'en', 2, 1);" | sqlite3 aur.db
 
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (1, '$AUTH_FINGERPRINT_USER', '$AUTH_KEYTYPE_USER $AUTH_KEYTEXT_USER');" | sqlite3 aur.db
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (2, '$AUTH_FINGERPRINT_PM', '$AUTH_KEYTYPE_PM $AUTH_KEYTEXT_PM');" | sqlite3 aur.db
