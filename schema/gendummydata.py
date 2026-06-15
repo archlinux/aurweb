@@ -351,11 +351,14 @@ for u in user_keys:
 
     h = hashlib.new("md5")
     h.update(to_hash.encode())
+    # Leave ~10% of accounts unverified to exercise the verification flow.
+    email_verified = 0 if random.random() < 0.10 else 1
     s = (
-        "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd, Salt)"
-        " VALUES (%d, %d, '%s', '%s@example.com', '%s', '%s');\n"
+        "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd, Salt,"
+        " EmailVerified)"
+        " VALUES (%d, %d, '%s', '%s@example.com', '%s', '%s', %d);\n"
     )
-    s = s % (seen_users[u], account_type, u, u, h.hexdigest(), salt)
+    s = s % (seen_users[u], account_type, u, u, h.hexdigest(), salt, email_verified)
     out.write(s)
 
 log.debug("Number of developers: %d", len(developers))

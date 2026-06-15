@@ -1,0 +1,21 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{% trans %}Email Verification{% endtrans %}</h2>
+
+        <p>
+            {% if step == "complete" %}
+                {% trans %}Your email address has been verified successfully. You may now push to the AUR.{% endtrans %}
+            {% elif step == "confirm" %}
+                {% trans %}Check your e-mail for the verification link.{% endtrans %}
+            {% elif step == "already" %}
+                {% trans %}Your email address is already verified.{% endtrans %}
+            {% elif step == "cooldown" %}
+                {% trans %}A verification email was sent recently. Please wait a few minutes before requesting another.{% endtrans %}
+            {% elif step == "invalid" %}
+                {% trans %}This verification link is invalid or has expired. You can request a new one from your account page.{% endtrans %}
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}

@@ -93,6 +93,27 @@ test_expect_success 'Test git-receive-pack with an invalid repository name.' '
 	cover "$GIT_SERVE" 2>&1 >actual
 '
 
+test_expect_success 'Test git-receive-pack is rejected for an unverified email.' '
+	echo "UPDATE Users SET EmailVerified = 0 WHERE UserName = '"'"'user'"'"';" | sqlite3 aur.db &&
+	test_must_fail \
+	env SSH_ORIGINAL_COMMAND="git-receive-pack /foobar.git/" \
+	AUR_USER=user AUR_PRIVILEGED=0 \
+	cover "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	Your account email is not verified. Verify it from your profile on the AUR website before pushing.
+	EOF
+	test_cmp expected actual &&
+	echo "UPDATE Users SET EmailVerified = 1 WHERE UserName = '"'"'user'"'"';" | sqlite3 aur.db
+'
+
+test_expect_success 'Test git-upload-pack is allowed for an unverified email.' '
+	echo "UPDATE Users SET EmailVerified = 0 WHERE UserName = '"'"'user'"'"';" | sqlite3 aur.db &&
+	SSH_ORIGINAL_COMMAND="git-upload-pack /foobar.git/" \
+	AUR_USER=user AUR_PRIVILEGED=0 \
+	cover "$GIT_SERVE" 2>&1 >actual &&
+	echo "UPDATE Users SET EmailVerified = 1 WHERE UserName = '"'"'user'"'"';" | sqlite3 aur.db
+'
+
 test_expect_success "Test git-upload-pack." '
 	cat >expected <<-EOF &&
 	user

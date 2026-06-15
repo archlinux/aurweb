@@ -151,15 +151,15 @@ def assert_multiple_keys(pks) -> None:
 def test_hash_query() -> None:
     # No conditions
     query = db.query(User)
-    assert util.hash_query(query) == "75e76026b7d576536e745ec22892cf8f5d7b5d62"
+    assert util.hash_query(query) == "18b22ae5da52bed4ca542c9b36f99f3bb37a089c"
 
     # With where clause
     query = db.query(User).filter(User.Username == "bla")
-    assert util.hash_query(query) == "4dca710f33b1344c27ec6a3c266970f4fa6a8a00"
+    assert util.hash_query(query) == "bd85f8dbf1df3218c8b8d5e65be69e03d65e982a"
 
     # With where clause and sorting
     query = db.query(User).filter(User.Username == "bla").order_by(User.Username)
-    assert util.hash_query(query) == "ee2c7846fede430776e140f8dfe1d83cd21d2eed"
+    assert util.hash_query(query) == "593a0890290a328dced82aff48eb776a392cd9cb"
 
     # With where clause, sorting and specific columns
     query = (

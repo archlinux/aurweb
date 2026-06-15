@@ -39,6 +39,19 @@
                 </p>
             {% endif %}
 
+            <p>
+                {% if user.EmailVerified %}
+                    {% trans %}Email address: verified.{% endtrans %}
+                {% else %}
+                    {{ "Email address: %snot verified%s. A verified email is required to push to the AUR."
+                    | tr | format("<strong>", "</strong>") | safe }}
+                    <form method="post" action="{{ user | account_url }}/verify" style="display:inline">
+                        <input class="button" type="submit"
+                               value="{% trans %}Resend verification email{% endtrans %}">
+                    </form>
+                {% endif %}
+            </p>
+
             {% set form_type = "UpdateAccount" %}
             {% include "partials/account_form.html" %}
         {% endif %}

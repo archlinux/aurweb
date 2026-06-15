@@ -70,6 +70,14 @@ Users = Table(
     Column(
         "Suspended", TINYINT(unsigned=True), nullable=False, server_default=text("0")
     ),
+    Column(
+        "EmailVerified",
+        TINYINT(unsigned=True),
+        nullable=False,
+        server_default=text("0"),
+    ),
+    Column("EmailVerificationToken", CHAR(32)),
+    Column("EmailVerificationExpiry", BIGINT(unsigned=True)),
     Column("Username", String(32), nullable=False, unique=True),
     Column("Email", String(254), nullable=False, unique=True),
     Column("BackupEmail", String(254)),

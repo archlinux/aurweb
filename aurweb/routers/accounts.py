@@ -1,4 +1,5 @@
 import copy
+import secrets
 import typing
 from http import HTTPStatus
 from typing import Any
@@ -16,9 +17,13 @@ from aurweb.l10n import get_translator_for_request
 from aurweb.models import account_type as at
 from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.models.user import generate_resetkey
-from aurweb.scripts.notify import ResetKeyNotification, WelcomeNotification
+from aurweb.scripts.notify import (
+    ResetKeyNotification,
+    VerificationNotification,
+    WelcomeNotification,
+)
 from aurweb.templates import make_context, make_variable_context, render_template
-from aurweb.users import update, validate
+from aurweb.users import update, validate, verify
 from aurweb.users.util import get_user_by_name
 
 router = APIRouter()
@@ -353,8 +358,11 @@ async def account_register_post(
                 fprint = get_fingerprint(pk)
                 db.create(models.SSHPubKey, User=user, PubKey=pk, Fingerprint=fprint)
 
-    # Send a reset key notification to the new user.
+        verify.issue(user)
+
+    # Send the welcome (set-password) and email-verification notifications.
     WelcomeNotification(user.ID).send()
+    VerificationNotification(user.ID).send()
 
     context["complete"] = True
     context["user"] = user
@@ -383,6 +391,70 @@ def cannot_edit(
             to = f"/account/{user.Username}"
         return RedirectResponse(to, status_code=HTTPStatus.SEE_OTHER)
     return None
+
+
+@router.get("/account/verify", response_class=HTMLResponse)
+async def account_verify_status(request: Request, step: str | None = None):
+    context = await make_variable_context(request, "Email Verification")
+    context["step"] = step
+    return render_template(request, "account/verify.html", context)
+
+
+@router.get("/account/verify/{token}", response_class=HTMLResponse)
+async def account_verify(request: Request, token: str):
+    user = (
+        db.query(models.User)
+        .filter(models.User.EmailVerificationToken == token)
+        .first()
+    )
+
+    token_ok = (
+        user is not None
+        and user.EmailVerificationToken is not None
+        and secrets.compare_digest(user.EmailVerificationToken, token)
+    )
+
+    if user is None or not token_ok:
+        step = "invalid"
+    elif user.EmailVerified:
+        step = "already"
+    elif verify.is_expired(user):
+        step = "invalid"
+    else:
+        with db.begin():
+            user.EmailVerified = True
+            user.EmailVerificationToken = None
+            user.EmailVerificationExpiry = None
+        step = "complete"
+
+    return RedirectResponse(
+        url=f"/account/verify?step={step}", status_code=HTTPStatus.SEE_OTHER
+    )
+
+
+@db.async_retry_deadlock
+@router.post("/account/{username}/verify", response_class=HTMLResponse)
+@handle_form_exceptions
+@requires_auth
+async def account_verify_resend(request: Request, username: str):
+    user = db.query(models.User).filter(models.User.Username == username).first()
+    response = cannot_edit(request, user)
+    if response:
+        return response
+
+    if user.EmailVerified:
+        step = "already"
+    elif verify.in_cooldown(user):
+        step = "cooldown"
+    else:
+        with db.begin():
+            verify.issue(user)
+        VerificationNotification(user.ID).send()
+        step = "confirm"
+
+    return RedirectResponse(
+        url=f"/account/verify?step={step}", status_code=HTTPStatus.SEE_OTHER
+    )
 
 
 @router.get("/account/{username}/edit", response_class=HTMLResponse)

@@ -16,6 +16,10 @@ class BannedException(AurwebException):
     pass
 
 
+class EmailNotVerifiedException(AurwebException):
+    pass
+
+
 class PermissionDeniedException(AurwebException):
     def __init__(self, user):
         msg = f"permission denied: {user:s}"

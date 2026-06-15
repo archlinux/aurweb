@@ -194,6 +194,52 @@ class WelcomeNotification(ResetKeyNotification):
         )
 
 
+class VerificationNotification(Notification):
+    def __init__(self, uid):
+        user = (
+            db.query(User)
+            .filter(and_(User.ID == uid, User.Suspended == 0))
+            .with_entities(
+                User.Username,
+                User.Email,
+                User.BackupEmail,
+                User.LangPreference,
+                User.EmailVerificationToken,
+            )
+            .order_by(User.Username.asc())
+            .first()
+        )
+
+        self._username = user.Username
+        self._to = user.Email
+        self._backup = user.BackupEmail
+        self._lang = user.LangPreference
+        self._token = user.EmailVerificationToken
+
+        super().__init__()
+
+    def get_recipients(self):
+        if self._backup:
+            return [(self._to, self._lang), (self._backup, self._lang)]
+        else:
+            return [(self._to, self._lang)]
+
+    def get_subject(self, lang):
+        return aurweb.l10n.translator.translate("AUR Email Verification", lang)
+
+    def get_body(self, lang):
+        return aurweb.l10n.translator.translate(
+            "A verification request was submitted for the email address "
+            "associated with the account {user}. To verify your address "
+            "and enable pushing to the AUR, follow the link [1] below. "
+            "If you did not request this, ignore this message.",
+            lang,
+        ).format(user=self._username)
+
+    def get_refs(self):
+        return (aur_location + "/account/verify/" + self._token,)
+
+
 class CommentNotification(Notification):
     def __init__(self, uid, pkgbase_id, comment_id):
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username
