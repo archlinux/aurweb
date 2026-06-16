@@ -12,6 +12,7 @@ from urllib.parse import urlparse
 
 import fastapi
 import pygit2
+from disposable_email_domains import blocklist as disposable_email_blocklist
 from email_validator import EmailSyntaxError, validate_email
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Query
@@ -54,6 +55,11 @@ def valid_email(email):
     except EmailSyntaxError:
         return False
     return True
+
+
+def is_disposable_email(email):
+    domain = email.rsplit("@", 1)[-1].lower()
+    return domain in disposable_email_blocklist
 
 
 def valid_homepage(homepage):

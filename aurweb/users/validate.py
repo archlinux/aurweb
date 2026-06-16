@@ -94,14 +94,25 @@ def invalid_user_password(
             raise ValidationError(["Invalid password."])
 
 
+def _is_disposable_email(email: str) -> bool:
+    return config.getboolean("options", "disposable_email_check") and (
+        util.is_disposable_email(email)
+    )
+
+
 def invalid_email(E: str = str(), **kwargs) -> None:
     if not util.valid_email(E):
         raise ValidationError(["The email address is invalid."])
+    if _is_disposable_email(E):
+        raise ValidationError(["Disposable email addresses are not allowed."])
 
 
 def invalid_backup_email(BE: str = str(), **kwargs) -> None:
-    if BE and not util.valid_email(BE):
-        raise ValidationError(["The backup email address is invalid."])
+    if BE:
+        if not util.valid_email(BE):
+            raise ValidationError(["The backup email address is invalid."])
+        if _is_disposable_email(BE):
+            raise ValidationError(["Disposable email addresses are not allowed."])
 
 
 def invalid_homepage(HP: str = str(), **kwargs) -> None:

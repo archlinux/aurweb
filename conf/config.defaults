@@ -11,6 +11,9 @@ user = aur
 username_min_len = 3
 username_max_len = 16
 passwd_min_len = 8
+; Reject registration/email changes that use a known disposable
+; email provider (https://github.com/disposable-email-domains).
+disposable_email_check = 1
 default_lang = en
 default_timezone = UTC
 sql_debug = 0

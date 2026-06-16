@@ -5,6 +5,7 @@ from http import HTTPStatus
 from logging import DEBUG
 from subprocess import Popen
 from typing import Generator
+from unittest import mock
 
 import lxml.html
 import pytest
@@ -491,6 +492,42 @@ def test_post_register_invalid_backup_email(client: TestClient):
 
     content = response.content.decode()
     assert "The backup email address is invalid." in content
+
+
+def test_post_register_error_disposable_email(client: TestClient):
+    with client as request:
+        response = post_register(request, E="newUser@mailinator.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    assert "Disposable email addresses are not allowed." in content
+
+
+def test_post_register_disposable_backup_email(client: TestClient):
+    with client as request:
+        response = post_register(request, BE="newUser@mailinator.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    assert "Disposable email addresses are not allowed." in content
+
+
+def test_post_register_disposable_email_check_disabled(client: TestClient):
+    config_getboolean = aurweb.config.getboolean
+
+    def mock_getboolean(section: str, key: str) -> bool:
+        if section == "options" and key == "disposable_email_check":
+            return False
+        return config_getboolean(section, key)
+
+    with mock.patch("aurweb.config.getboolean", side_effect=mock_getboolean):
+        with client as request:
+            response = post_register(request, E="newUser@mailinator.com")
+
+    # With the check disabled, a disposable address registers successfully.
+    assert response.status_code == int(HTTPStatus.OK)
 
 
 def test_post_register_error_invalid_homepage(client: TestClient):
