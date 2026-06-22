@@ -75,7 +75,7 @@ class Notification:
             msg["Reply-to"] = reply_to
             msg["To"] = to
             if self.get_cc():
-                msg["Cc"] = str.join(", ", self.get_cc())
+                msg["Cc"] = ", ".join(self.get_cc())
             msg["X-AUR-Reason"] = reason
             msg["Date"] = email.utils.formatdate(localtime=True)
 
