@@ -26,7 +26,7 @@ logger = aur_logging.get_logger(__name__)
 
 def make_random_string(length: int) -> str:
     alphanumerics = string.ascii_lowercase + string.digits
-    return "".join([secrets.choice(alphanumerics) for i in range(length)])
+    return "".join(secrets.choice(alphanumerics) for i in range(length))
 
 
 def make_nonce(length: int = 8):
