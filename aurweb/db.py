@@ -297,7 +297,8 @@ def get_engine(dbname: str | None = None, echo: bool = False):
         if is_sqlite:  # pragma: no cover
             connect_args["check_same_thread"] = False
 
-        kwargs = {"echo": echo, "connect_args": connect_args}
+        sql_debug = aurweb.config.getboolean("options", "sql_debug", False)
+        kwargs = {"echo": echo or sql_debug, "connect_args": connect_args}
         from sqlalchemy import create_engine
 
         if aurweb.config.get("tracing", "otlp_endpoint"):
