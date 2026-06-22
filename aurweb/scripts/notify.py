@@ -86,8 +86,7 @@ class Notification:
             if sendmail:
                 # send email using the sendmail binary specified in the
                 # configuration file
-                p = subprocess.Popen([sendmail, "-t", "-oi"], stdin=subprocess.PIPE)
-                p.communicate(msg.as_bytes())
+                subprocess.run([sendmail, "-t", "-oi"], input=msg.as_bytes())
             else:
                 # send email using smtplib; no local MTA required
                 server_addr = aurweb.config.get("notifications", "smtp-server")

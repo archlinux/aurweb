@@ -106,7 +106,7 @@ def pkgbase_adopt(pkgbase, user, privileged):
         )
     conn.commit()
 
-    subprocess.Popen((notify_cmd, "adopt", str(userid), str(pkgbase_id)))
+    subprocess.run((notify_cmd, "adopt", str(userid), str(pkgbase_id)))
 
     conn.close()
 
@@ -168,7 +168,7 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
                 + "VALUES (?, ?, ?)",
                 [pkgbase_id, userid, i],
             )
-            subprocess.Popen(
+            subprocess.run(
                 (notify_cmd, "comaintainer-add", str(userid), str(pkgbase_id))
             )
         else:
@@ -186,7 +186,7 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
             + "WHERE PackageBaseID = ? AND UsersID = ?",
             [pkgbase_id, userid],
         )
-        subprocess.Popen(
+        subprocess.run(
             (notify_cmd, "comaintainer-remove", str(userid), str(pkgbase_id))
         )
 
@@ -238,9 +238,7 @@ def pkgreq_close(reqid, user, reason, comments, autoclose=False):
 
     if not userid:
         userid = 0
-    subprocess.Popen(
-        (notify_cmd, "request-close", str(userid), str(reqid), reason)
-    ).wait()
+    subprocess.run((notify_cmd, "request-close", str(userid), str(reqid), reason))
 
 
 def pkgbase_disown(pkgbase, user, privileged):
@@ -289,7 +287,7 @@ def pkgbase_disown(pkgbase, user, privileged):
     if userid == 0:
         raise aurweb.exceptions.InvalidUserException(user)
 
-    subprocess.Popen((notify_cmd, "disown", str(userid), str(pkgbase_id)))
+    subprocess.run((notify_cmd, "disown", str(userid), str(pkgbase_id)))
 
     conn.close()
 
@@ -318,7 +316,7 @@ def pkgbase_flag(pkgbase, user, comment):
 
     conn.commit()
 
-    subprocess.Popen((notify_cmd, "flag", str(userid), str(pkgbase_id)))
+    subprocess.run((notify_cmd, "flag", str(userid), str(pkgbase_id)))
 
 
 def pkgbase_unflag(pkgbase, user):

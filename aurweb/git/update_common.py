@@ -53,7 +53,7 @@ def update_notify(conn, user, pkgbase_id):
     user_id = int(cur.fetchone()[0])
 
     # Execute the notification script.
-    subprocess.Popen((notify_cmd, "update", str(user_id), str(pkgbase_id)))
+    subprocess.run((notify_cmd, "update", str(user_id), str(pkgbase_id)))
 
 
 def die(msg):
