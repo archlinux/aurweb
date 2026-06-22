@@ -60,7 +60,6 @@ class Notification:
         return body.rstrip()
 
     def _send(self) -> None:
-        sendmail = aurweb.config.get("notifications", "sendmail")
         sender = aurweb.config.get("notifications", "sender")
         reply_to = aurweb.config.get("notifications", "reply-to")
         reason = self.__class__.__name__
