@@ -51,8 +51,8 @@ def _get_project_meta():
 AURWEB_VERSION = str(_get_project_meta()["version"])
 
 
-def getboolean(section, option):
-    return _get_parser().getboolean(section, option)
+def getboolean(section, option, fallback=None):
+    return _get_parser().getboolean(section, option, fallback=fallback)
 
 
 def getint(section, option, fallback=None):
