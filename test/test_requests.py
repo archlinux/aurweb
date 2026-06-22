@@ -1,7 +1,7 @@
 import re
+from collections.abc import Generator
 from http import HTTPStatus
 from logging import DEBUG
-from typing import Generator
 
 import pytest
 from fastapi import HTTPException

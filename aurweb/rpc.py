@@ -1,6 +1,7 @@
 import os
 from collections import defaultdict
-from typing import Any, Callable, NewType, Union
+from collections.abc import Callable
+from typing import Any, NewType, Union
 
 from fastapi.responses import HTMLResponse
 from sqlalchemy import and_, func, literal, orm

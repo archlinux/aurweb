@@ -1,4 +1,5 @@
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from typing import Any, Optional
 
 from prometheus_client import Counter, Gauge
 from prometheus_fastapi_instrumentator import Instrumentator

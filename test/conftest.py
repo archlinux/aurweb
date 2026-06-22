@@ -40,8 +40,8 @@ ahead of each function takes too long when compared to this method.
 
 import os
 import pathlib
+from collections.abc import Generator
 from multiprocessing import Lock
-from typing import Generator
 
 import py
 import pytest

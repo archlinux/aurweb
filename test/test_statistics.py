@@ -1,4 +1,4 @@
-from typing import Generator
+from collections.abc import Generator
 
 import pytest
 from prometheus_client import REGISTRY, generate_latest

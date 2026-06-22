@@ -1,6 +1,6 @@
 import re
+from collections.abc import Generator
 from http import HTTPStatus
-from typing import Generator
 from unittest import mock
 
 import orjson

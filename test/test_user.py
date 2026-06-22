@@ -1,7 +1,7 @@
 import hashlib
 import json
+from collections.abc import Generator
 from datetime import UTC, datetime, timedelta
-from typing import Generator
 
 import bcrypt
 import pytest

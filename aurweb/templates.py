@@ -1,8 +1,8 @@
 import copy
 import functools
 import os
+from collections.abc import Callable
 from http import HTTPStatus
-from typing import Callable
 
 import jinja2
 from fastapi import Request

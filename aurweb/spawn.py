@@ -15,7 +15,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from typing import Iterable
+from collections.abc import Iterable
 
 import aurweb.config
 import aurweb.schema

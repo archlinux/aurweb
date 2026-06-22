@@ -1,10 +1,10 @@
 import re
 import tempfile
+from collections.abc import Generator
 from datetime import UTC, datetime
 from http import HTTPStatus
 from logging import DEBUG
 from subprocess import Popen
-from typing import Generator
 from unittest import mock
 
 import lxml.html

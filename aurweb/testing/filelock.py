@@ -1,6 +1,6 @@
 import hashlib
 import os
-from typing import Callable
+from collections.abc import Callable
 
 from posix_ipc import O_CREAT, Semaphore
 

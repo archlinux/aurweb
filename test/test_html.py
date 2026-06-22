@@ -3,8 +3,8 @@
 import hashlib
 import os
 import tempfile
+from collections.abc import Generator
 from http import HTTPStatus
-from typing import Generator
 from unittest import mock
 
 import fastapi

@@ -3,11 +3,12 @@ import re
 import secrets
 import shlex
 import string
+from collections.abc import Callable, Iterable
 from datetime import datetime
 from hashlib import sha1
 from http import HTTPStatus
 from subprocess import PIPE, Popen
-from typing import Callable, Iterable, Tuple, Union
+from typing import Tuple, Union
 from urllib.parse import urlparse
 
 import fastapi

@@ -1,5 +1,6 @@
+from collections.abc import Generator
 from http import HTTPStatus
-from typing import Generator, Tuple
+from typing import Tuple
 from unittest import mock
 
 import py

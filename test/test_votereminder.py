@@ -1,4 +1,5 @@
-from typing import Generator, Tuple
+from collections.abc import Generator
+from typing import Tuple
 
 import pytest
 

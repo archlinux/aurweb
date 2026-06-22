@@ -1,7 +1,7 @@
 import re
 import urllib.parse
+from collections.abc import Generator
 from http import HTTPStatus
-from typing import Generator
 
 import lxml.etree
 import pytest

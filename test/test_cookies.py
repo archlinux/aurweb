@@ -1,6 +1,6 @@
+from collections.abc import Generator
 from datetime import datetime
 from http import HTTPStatus
-from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient

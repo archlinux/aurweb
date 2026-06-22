@@ -1,6 +1,6 @@
 import functools
+from collections.abc import Callable
 from http import HTTPStatus
-from typing import Callable
 
 import fastapi
 from fastapi import HTTPException

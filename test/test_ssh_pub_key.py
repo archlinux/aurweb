@@ -1,5 +1,5 @@
+from collections.abc import Generator
 from subprocess import PIPE, Popen
-from typing import Generator
 
 import pytest
 

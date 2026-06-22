@@ -1,5 +1,5 @@
+from collections.abc import Generator
 from logging import ERROR
-from typing import Generator
 from unittest import mock
 
 import pytest
