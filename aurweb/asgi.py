@@ -267,7 +267,7 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
     nonce = request.user.nonce
     csp = "default-src 'self'; "
 
-    csp += f"script-src 'self' 'unsafe-inline' 'nonce-{nonce}'"
+    csp += f"script-src 'self' 'nonce-{nonce}'"
 
     csp += "; style-src 'self' 'unsafe-inline'"
     response.headers["Content-Security-Policy"] = csp
