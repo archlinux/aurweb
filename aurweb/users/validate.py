@@ -16,6 +16,7 @@ from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_to
 from aurweb.exceptions import ValidationError
 from aurweb.models.account_type import ACCOUNT_TYPE_NAME
 from aurweb.models.ssh_pub_key import get_fingerprint
+from aurweb.users import verify
 from aurweb.util import strtobool
 
 logger = aur_logging.get_logger(__name__)
@@ -105,6 +106,24 @@ def invalid_email(E: str = str(), **kwargs) -> None:
         raise ValidationError(["The email address is invalid."])
     if _is_disposable_email(E):
         raise ValidationError(["Disposable email addresses are not allowed."])
+
+
+def email_in_cooldown(
+    request: Request | None = None,
+    E: str = str(),
+    user: models.User | None = None,
+    **kwargs,
+) -> None:
+    # Reject an email change while a verification is in cooldown
+    if not request.user.is_authenticated():
+        return
+    if E and E != user.Email and verify.in_cooldown(user):
+        raise ValidationError(
+            [
+                "A verification email was sent recently. You can change "
+                "your email address again in a few minutes."
+            ]
+        )
 
 
 def invalid_backup_email(BE: str = str(), **kwargs) -> None:

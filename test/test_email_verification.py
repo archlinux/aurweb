@@ -8,11 +8,12 @@ import aurweb.config
 from aurweb import db, time
 from aurweb.asgi import app
 from aurweb.db import create
+from aurweb.exceptions import ValidationError
 from aurweb.git import serve
 from aurweb.models.account_type import USER_ID
 from aurweb.models.user import User
 from aurweb.testing.requests import Request
-from aurweb.users import update, verify
+from aurweb.users import update, validate, verify
 
 TEST_REFERER = {
     "referer": aurweb.config.get("options", "aur_location") + "/login",
@@ -252,6 +253,65 @@ def test_unchanged_email_keeps_verification(user: User):
 
     user = db.refresh(user)
     assert user.EmailVerified
+
+
+def test_email_in_cooldown_blocks_change(user: User):
+    with db.begin():
+        verify.issue(user)
+
+    request = Request(authenticated=True)
+    with pytest.raises(ValidationError):
+        validate.email_in_cooldown(request=request, E="changed@example.org", user=user)
+
+
+def test_email_in_cooldown_allows_after_cooldown(user: User):
+    with db.begin():
+        verify.issue(user)
+        user.EmailVerificationExpiry = time.utcnow() + verify.TTL - verify.COOLDOWN - 60
+
+    request = Request(authenticated=True)
+    # Should not raise.
+    validate.email_in_cooldown(request=request, E="changed@example.org", user=user)
+
+
+def test_email_in_cooldown_allows_same_email(user: User):
+    with db.begin():
+        verify.issue(user)
+
+    request = Request(authenticated=True)
+    # Should not raise.
+    validate.email_in_cooldown(request=request, E=user.Email, user=user)
+
+
+def test_email_in_cooldown_skips_unauthenticated(user: User):
+    with db.begin():
+        verify.issue(user)
+
+    # Registration runs with an anonymous request; the check must not block it.
+    request = Request(authenticated=False)
+    validate.email_in_cooldown(request=request, E="changed@example.org", user=user)
+
+
+def test_account_edit_blocks_email_change_in_cooldown(client: TestClient, user: User):
+    with db.begin():
+        verify.issue(user)
+
+    sid = user.login(Request(), "testPassword")
+    post_data = {
+        "U": user.Username,
+        "E": "changed@example.org",
+        "passwd": "testPassword",
+    }
+    with client as request:
+        request.cookies = {"AURSID": sid}
+        response = request.post(f"/account/{user.Username}/edit", data=post_data)
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+    assert "A verification email was sent recently" in response.content.decode()
+
+    # The email must not have changed.
+    user = db.refresh(user)
+    assert user.Email == "verifyuser@example.org"
 
 
 def test_user_email_verified_helper(user: User, other: User):

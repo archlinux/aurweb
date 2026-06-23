@@ -149,6 +149,7 @@ def process_account_form(request: Request, user: models.User, args: dict[str, An
         validate.invalid_username,
         validate.invalid_password,
         validate.invalid_email,
+        validate.email_in_cooldown,
         validate.invalid_backup_email,
         validate.invalid_homepage,
         validate.invalid_pgp_key,

@@ -30,15 +30,15 @@ def simple(
     **kwargs,
 ) -> None:
     now = time.utcnow()
-    # Changing the primary email invalidates verification
+    # Changing the primary email invalidates verification and issues a fresh
+    # token. Changes during cooldown are rejected upstream in validation, so by
+    # the time we get here we can always re-issue.
     email_changed = bool(E) and E != user.Email
-    reverify = email_changed and not verify.in_cooldown(user)
     with db.begin():
         user.Username = U or user.Username
         user.Email = E or user.Email
         if email_changed:
             user.EmailVerified = False
-        if reverify:
             verify.issue(user)
         user.HideEmail = strtobool(H)
         user.BackupEmail = user.BackupEmail if BE is None else BE
@@ -53,7 +53,7 @@ def simple(
         user.OwnershipNotify = strtobool(ON)
         user.HideDeletedComments = strtobool(HDC)
 
-    if reverify:
+    if email_changed:
         VerificationNotification(user.ID).send()
 
 
