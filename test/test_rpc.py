@@ -24,8 +24,10 @@ from aurweb.models.package_group import PackageGroup
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_relation import PackageRelation
+from aurweb.models.package_request import ACCEPTED_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID
+from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
 
 
@@ -380,11 +382,36 @@ def test_rpc_singular_info(
                 "License": [pkg.package_licenses.first().License.Name],
                 "Keywords": ["big-chungus", "sizeable-chungus", "smol-chungus"],
                 "Groups": ["testgroup"],
+                "PendingRequests": 1,
             }
         ],
         "resultcount": 1,
         "type": "multiinfo",
     }
+
+    # Only a pending request is counted.
+    deletion = db.query(RequestType).filter(RequestType.ID == DELETION_ID).first()
+    with db.begin():
+        db.create(
+            PackageRequest,
+            PackageBase=pkg.PackageBase,
+            PackageBaseName=pkg.PackageBase.Name,
+            User=user,
+            RequestType=deletion,
+            Comments="Pending.",
+            ClosureComment=str(),
+        )
+        db.create(
+            PackageRequest,
+            PackageBase=pkg.PackageBase,
+            PackageBaseName=pkg.PackageBase.Name,
+            User=user,
+            RequestType=deletion,
+            Status=ACCEPTED_ID,
+            ClosedTS=time.utcnow(),
+            Comments="Closed.",
+            ClosureComment=str(),
+        )
 
     # Make dummy request.
     with client as request:
@@ -530,6 +557,7 @@ def test_rpc_no_dependencies_omits_key(
                 "Conflicts": ["chungy-conflicts"],
                 "License": [],
                 "Keywords": [],
+                "PendingRequests": 0,
             }
         ],
         "resultcount": 1,

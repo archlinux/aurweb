@@ -3,13 +3,14 @@ from collections import defaultdict
 from typing import Any, Callable, NewType, Union
 
 from fastapi.responses import HTMLResponse
-from sqlalchemy import and_, literal, orm
+from sqlalchemy import and_, func, literal, orm
 
 import aurweb.config as config
 from aurweb import db, defaults, models, time
 from aurweb.exceptions import RPCError
 from aurweb.filters import number_format
 from aurweb.models.package_base import popularity
+from aurweb.models.package_request import PENDING_ID
 from aurweb.packages.search import RPCSearch
 
 TYPE_MAPPING = {
@@ -170,8 +171,8 @@ class RPC:
         data = self.get_json_data(package)
 
         # All info results have _at least_ an empty list of
-        # License and Keywords.
-        data.update({"License": [], "Keywords": []})
+        # License and Keywords, and a zero PendingRequests count.
+        data.update({"License": [], "Keywords": [], "PendingRequests": 0})
 
         # If we actually got extra_info records, update data with
         # them for this particular package.
@@ -330,6 +331,27 @@ class RPC:
                 name += record.Cond
 
             self.extra_info[record.ID][type_].append(name)
+
+        # Open request count per package.
+        open_requests = (
+            db.query(models.PackageRequest)
+            .join(
+                models.Package,
+                models.Package.PackageBaseID == models.PackageRequest.PackageBaseID,
+            )
+            .filter(
+                models.Package.ID.in_(ids),
+                models.PackageRequest.Status == PENDING_ID,
+                models.PackageRequest.ClosedTS.is_(None),
+            )
+            .with_entities(
+                models.Package.ID.label("ID"),
+                func.count(models.PackageRequest.ID).label("Count"),
+            )
+            .group_by(models.Package.ID)
+        )
+        for record in open_requests:
+            self.extra_info[record.ID]["PendingRequests"] = record.Count
 
     def _handle_multiinfo_type(
         self, args: list[str] = [], **kwargs
