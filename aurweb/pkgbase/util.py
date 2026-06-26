@@ -82,12 +82,9 @@ def make_context(
     else:
         context["voted"] = False
 
-    if is_authenticated:
-        context["requests"] = pkgbase.requests.filter(
-            and_(PackageRequest.Status == PENDING_ID, PackageRequest.ClosedTS.is_(None))
-        ).count()
-    else:
-        context["requests"] = []
+    context["requests"] = pkgbase.requests.filter(
+        and_(PackageRequest.Status == PENDING_ID, PackageRequest.ClosedTS.is_(None))
+    ).count()
 
     context["popularity"] = popularity(pkgbase, time.utcnow())
 

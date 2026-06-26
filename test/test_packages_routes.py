@@ -544,6 +544,20 @@ def test_package_requests_display(
     assert target.text.strip() == "2 pending requests"
 
 
+def test_package_requests_display_anonymous(
+    client: TestClient, package: Package, pkgreq: PackageRequest
+):
+    # Anonymous users see the pending count as plain text (no link).
+    with client as request:
+        resp = request.get(package_endpoint(package))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    selector = '//div[@id="actionlist"]/ul/li/span[@class="flagged"]'
+    target = root.xpath(selector)[0]
+    assert target.text.strip() == "1 pending request"
+
+
 def test_package_authenticated(client: TestClient, user: User, package: Package):
     """We get the same here for either authenticated or not
     authenticated. Form inputs are presented to maintainers.
