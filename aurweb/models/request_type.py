@@ -4,10 +4,12 @@ from aurweb.models.declarative import Base
 DELETION = "deletion"
 ORPHAN = "orphan"
 MERGE = "merge"
+MALICIOUS = "malicious"
 
 DELETION_ID = 1
 ORPHAN_ID = 2
 MERGE_ID = 3
+MALICIOUS_ID = 4
 
 
 class RequestType(Base):

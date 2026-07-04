@@ -35,6 +35,12 @@ class PackageBase(Base):
         foreign_keys=[__table__.c.PackagerUID],
     )
 
+    MaliciousFlagger = relationship(
+        _User,
+        backref=backref("flagged_malicious_bases", lazy="dynamic"),
+        foreign_keys=[__table__.c.FlaggedMaliciousUID],
+    )
+
     # A set used to check for floatable values.
     TO_FLOAT = {"Popularity"}
 

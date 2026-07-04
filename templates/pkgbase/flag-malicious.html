@@ -1,0 +1,65 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box">
+        <h2>{{ "Flag Package as Malicious" | tr }}: {{ pkgbase.Name }}</h2>
+
+        <p>
+            {{
+                "Use this form to flag the package base %s%s%s as malicious. "
+                "This displays a warning to users and AUR clients, but does "
+                "not remove or block the package."
+                | tr | format("<strong>", pkgbase.Name, "</strong>") | safe
+            }}
+        </p>
+
+        <p>
+            {{
+                "This action will accept any pending malicious requests "
+                "related to it. The comment below is pre-filled with what "
+                "the reporter(s) submitted; edit it as needed. %sThis comment "
+                "is shown publicly on the package page%s, so write it for "
+                "users to read."
+                | tr | format("<strong>", "</strong>") | safe
+            }}
+        </p>
+
+        <form action="/pkgbase/{{ pkgbase.Name }}/flag-malicious" method="post">
+            <fieldset>
+                <input type="hidden" name="next" value="{{ next }}" />
+
+                <p>
+                    <label for="id_comments">{{ "Comments" | tr }}:</label>
+                    <textarea id="id_comments" name="comments"
+                              rows="5" cols="50" maxlength="{{ max_chars_comment }}"
+                              placeholder="Reason for flagging as malicious..."
+                    >{{ comments or '' }}</textarea>
+                </p>
+
+                <p>
+                    <label class="confirmation">
+                        <input type="checkbox" name="confirm" value="1" />
+                        {{ "Confirm malicious flag" | tr }}
+                    </label>
+                </p>
+
+                <p>
+                    <input class="button"
+                           type="submit"
+                           value="{{ 'Flag as Malicious' | tr }}"
+                    />
+                </p>
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}

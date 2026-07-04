@@ -13,7 +13,12 @@ from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
-from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
+from aurweb.models.request_type import (
+    DELETION_ID,
+    MALICIOUS_ID,
+    MERGE_ID,
+    ORPHAN_ID,
+)
 from aurweb.packages.requests import update_closure_comment
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment
 from aurweb.pkgbase import actions, validate
@@ -771,7 +776,12 @@ async def pkgbase_request_post(
     context = await make_variable_context(request, "Submit Request")
     context["pkgbase"] = pkgbase
 
-    types = {"deletion": DELETION_ID, "merge": MERGE_ID, "orphan": ORPHAN_ID}
+    types = {
+        "deletion": DELETION_ID,
+        "merge": MERGE_ID,
+        "orphan": ORPHAN_ID,
+        "malicious": MALICIOUS_ID,
+    }
 
     if type not in types:
         # In the case that someone crafted a POST request with an invalid
@@ -802,17 +812,18 @@ async def pkgbase_request_post(
             ClosureComment=str(),
         )
 
-    # Prepare notification object.
-    notif = notify.RequestOpenNotification(
-        request.user.ID,
-        pkgreq.ID,
-        type,
-        pkgreq.PackageBase.ID,
-        merge_into=merge_into or None,
-    )
+    if type != "malicious":
+        # Prepare notification object.
+        notif = notify.RequestOpenNotification(
+            request.user.ID,
+            pkgreq.ID,
+            type,
+            pkgreq.PackageBase.ID,
+            merge_into=merge_into or None,
+        )
 
-    # Send the notification now that we're out of the DB scope.
-    notif.send()
+        # Send the notification now that we're out of the DB scope.
+        notif.send()
 
     auto_orphan_age = config.getint("options", "auto_orphan_age")
     auto_delete_age = config.getint("options", "auto_delete_age")
@@ -901,6 +912,92 @@ async def pkgbase_delete_post(
 
     notifs = actions.pkgbase_delete_instance(request, pkgbase, comments=comments)
     util.apply_all(notifs, lambda n: n.send())
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
+
+
+@router.get("/pkgbase/{name}/flag-malicious")
+@requires_auth
+async def pkgbase_flag_malicious_get(
+    request: Request, name: str, next: str = Query(default=str())
+):
+    if not request.user.has_credential(creds.PKGBASE_FLAG_MALICIOUS):
+        return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
+
+    pkgbase = get_pkg_or_base(name, PackageBase)
+    context = templates.make_context(request, "Flag Package as Malicious")
+    context["pkgbase"] = pkgbase
+    context["next"] = next or "/packages"
+
+    pending = pkgbase.requests.filter(
+        and_(
+            PackageRequest.ReqTypeID == MALICIOUS_ID,
+            PackageRequest.Status == PENDING_ID,
+        )
+    ).all()
+    context["comments"] = "\n\n".join(r.Comments for r in pending if r.Comments)
+
+    return render_template(request, "pkgbase/flag-malicious.html", context)
+
+
+@db.async_retry_deadlock
+@router.post("/pkgbase/{name}/flag-malicious")
+@handle_form_exceptions
+@requires_auth
+async def pkgbase_flag_malicious_post(
+    request: Request,
+    name: str,
+    confirm: bool = Form(default=False),
+    comments: str = Form(default=str()),
+    next: str = Form(default="/packages"),
+):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    if not request.user.has_credential(creds.PKGBASE_FLAG_MALICIOUS):
+        return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
+
+    context = templates.make_context(request, "Flag Package as Malicious")
+    context["pkgbase"] = pkgbase
+    context["next"] = next
+    context["comments"] = comments
+
+    if not confirm:
+        context["errors"] = [
+            ("The package base has not been flagged, check the confirmation checkbox.")
+        ]
+        return render_template(
+            request,
+            "pkgbase/flag-malicious.html",
+            context,
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+
+    if not comments:
+        context["errors"] = ["The comments field must not be empty."]
+        return render_template(
+            request,
+            "pkgbase/flag-malicious.html",
+            context,
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+    validate.comment_raise_http_ex(comments)
+
+    actions.pkgbase_flag_malicious_instance(request, pkgbase, comments=comments)
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
+
+
+@db.async_retry_deadlock
+@router.post("/pkgbase/{name}/unflag-malicious")
+@handle_form_exceptions
+@requires_auth
+async def pkgbase_unflag_malicious_post(
+    request: Request, name: str, next: str = Form(default="/packages")
+):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    if not request.user.has_credential(creds.PKGBASE_UNFLAG_MALICIOUS):
+        return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
+
+    actions.pkgbase_unflag_malicious_instance(request, pkgbase)
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 

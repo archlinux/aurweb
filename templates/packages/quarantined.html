@@ -1,0 +1,14 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Package Quarantined" | tr }}</h2>
+        <p>
+            {{
+                "This package base has been quarantined and is not "
+                "currently available. It was reported as malicious and "
+                "is being reviewed" | tr
+            }}
+        </p>
+    </div>
+{% endblock %}

@@ -1,6 +1,11 @@
 {% extends 'partials/layout.html' %}
 
 {% block pageContent %}
+    <div class="box" id="registration-notice">
+        <p class="important">
+            {% trans %}Account registration is currently disabled.{% endtrans %}
+        </p>
+    </div>
     <div id="content-left-wrapper">
         <div id="content-left">
             {% if request.user.is_authenticated() %}

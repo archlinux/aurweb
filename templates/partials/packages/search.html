@@ -66,6 +66,11 @@
                 </select>
             </div>
             <div>
+                <label for="id_include_malicious">{{ "Include malicious" | tr }}</label>
+                <input type="checkbox" name="include_malicious" id="id_include_malicious"
+                       value="1" {{ "checked" if include_malicious }}/>
+            </div>
+            <div>
                 <label>&nbsp;</label>
                 <button type='submit' class='button' name='submit' value='Go'>
                     {{ "Go" | tr }}

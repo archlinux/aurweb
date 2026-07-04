@@ -14,6 +14,16 @@ from aurweb.models.package_request import (
     PENDING_ID,
     REJECTED_ID,
 )
+from aurweb.models.request_type import (
+    DELETION,
+    DELETION_ID,
+    MALICIOUS,
+    MALICIOUS_ID,
+    MERGE,
+    MERGE_ID,
+    ORPHAN,
+    ORPHAN_ID,
+)
 from aurweb.requests.util import get_pkgreq_by_id
 from aurweb.scripts import notify
 from aurweb.statistics import get_request_counts
@@ -25,6 +35,13 @@ FILTER_PARAMS = {
     "filter_accepted",
     "filter_rejected",
     "filter_maintainers_requests",
+}
+
+REQ_TYPE_FILTERS = {
+    DELETION: DELETION_ID,
+    ORPHAN: ORPHAN_ID,
+    MERGE: MERGE_ID,
+    MALICIOUS: MALICIOUS_ID,
 }
 
 router = APIRouter()
@@ -42,6 +59,7 @@ async def requests(  # noqa: C901
     filter_rejected: bool = False,
     filter_maintainer_requests: bool = False,
     filter_pkg_name: str | None = None,
+    filter_req_type: str | None = None,
 ):
     context = make_context(request, "Requests")
 
@@ -66,6 +84,8 @@ async def requests(  # noqa: C901
     context["filter_rejected"] = filter_rejected
     context["filter_maintainer_requests"] = filter_maintainer_requests
     context["filter_pkg_name"] = filter_pkg_name
+    context["filter_req_type"] = filter_req_type
+    context["req_types"] = list(REQ_TYPE_FILTERS.keys())
 
     Maintainer = orm.aliased(User)
     # A PackageRequest query
@@ -96,6 +116,11 @@ async def requests(  # noqa: C901
     # Name filter (contains)
     if filter_pkg_name:
         filtered = filtered.filter(PackageBase.Name.like(f"%{filter_pkg_name}%"))
+
+    if filter_req_type in REQ_TYPE_FILTERS:
+        filtered = filtered.filter(
+            PackageRequest.ReqTypeID == REQ_TYPE_FILTERS[filter_req_type]
+        )
 
     # Additionally filter for requests made from package maintainer
     if filter_maintainer_requests:
@@ -158,9 +183,10 @@ async def request_close_post(
         pkgreq.ClosedTS = now
         pkgreq.Status = REJECTED_ID
 
-    notify_ = notify.RequestCloseNotification(
-        request.user.ID, pkgreq.ID, pkgreq.status_display()
-    )
-    notify_.send()
+    if pkgreq.ReqTypeID != MALICIOUS_ID:
+        notify_ = notify.RequestCloseNotification(
+            request.user.ID, pkgreq.ID, pkgreq.status_display()
+        )
+        notify_.send()
 
     return RedirectResponse("/requests", status_code=HTTPStatus.SEE_OTHER)

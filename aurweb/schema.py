@@ -184,6 +184,12 @@ PackageBases = Table(
     ),  # who submitted it?
     Column("MaintainerUID", ForeignKey("Users.ID", ondelete="SET NULL")),  # User
     Column("PackagerUID", ForeignKey("Users.ID", ondelete="SET NULL")),  # Last packager
+    # malicious flag state; FlaggedMaliciousTS is NULL when not flagged
+    Column("FlaggedMaliciousTS", BIGINT(unsigned=True)),
+    Column(
+        "FlaggedMaliciousUID", ForeignKey("Users.ID", ondelete="SET NULL")
+    ),  # who flagged it as malicious
+    Column("FlaggedMaliciousComment", Text),  # why it was flagged
     Index("BasesMaintainerUID", "MaintainerUID"),
     Index("BasesNumVotes", "NumVotes"),
     Index("BasesPackagerUID", "PackagerUID"),

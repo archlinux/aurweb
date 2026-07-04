@@ -62,6 +62,17 @@
                                value="True" {{ "checked" if filter_maintainer_requests == true }}/>
                     </div>
                     <div>
+                        <label for="id_filter_req_type" title="Request type">{{ "Request type" | tr }}</label>
+                        <select name="filter_req_type" id="id_filter_req_type">
+                            <option value="">{{ "Any type" | tr }}</option>
+                            {% for req_type in req_types %}
+                                <option value="{{ req_type }}" {{ "selected" if filter_req_type == req_type }}>
+                                    {{ req_type | title | tr }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
                         <label for="id_filter_pkg_name" title="Package name">{{ "Package name" | tr }}</label>
                         <input type="text" name="filter_pkg_name" id="id_filter_pkg_name" autocomplete="off"
                                value="{{ filter_pkg_name if filter_pkg_name }}"/>
@@ -159,6 +170,8 @@
                                         {% set temp_q = temp_q | extend_query(
                                             ["into", result.MergeBaseName]
                                         ) %}
+                                    {% elif result.RequestType.ID == 4 %}
+                                        {% set action = "flag-malicious" %}
                                     {% endif %}
 
                                     {% if request.user.is_elevated() and not result.ClosedTS %}

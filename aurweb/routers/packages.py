@@ -93,6 +93,13 @@ async def packages_get(
         # orphaned packages.
         search.query = search.query.filter(models.PackageBase.MaintainerUID.is_(None))
 
+    include_malicious = request.query_params.get("include_malicious")
+    context["include_malicious"] = bool(include_malicious)
+    if not include_malicious:
+        search.query = search.query.filter(
+            models.PackageBase.FlaggedMaliciousTS.is_(None)
+        )
+
     # Collect search result count here; we've applied our keywords.
     # Including more query operations below, like ordering, will
     # increase the amount of time required to collect a count.
@@ -117,6 +124,7 @@ async def packages_get(
         models.User.Username.label("Maintainer"),
         models.PackageVote.PackageBaseID.label("Voted"),
         models.PackageNotification.PackageBaseID.label("Notify"),
+        models.PackageBase.FlaggedMaliciousTS,
     )
 
     # paging
@@ -464,6 +472,42 @@ async def packages_delete(
     return True, ["The selected packages have been deleted."]
 
 
+async def packages_unflag_malicious(
+    request: Request, package_ids: list[int] = [], confirm: bool = False, **kwargs
+):
+    if not package_ids:
+        return False, ["You did not select any packages to unflag."]
+
+    if not confirm:
+        return (
+            False,
+            [
+                "The selected packages have not been unflagged, "
+                "check the confirmation checkbox."
+            ],
+        )
+
+    if not request.user.has_credential(creds.PKGBASE_UNFLAG_MALICIOUS):
+        return False, ["You do not have permission to unflag packages."]
+
+    package_ids = set(package_ids)
+    packages = db.query(models.Package).filter(models.Package.ID.in_(package_ids)).all()
+
+    bases = {pkg.PackageBase for pkg in packages}
+    unflagged_bases = []
+    for pkgbase in bases:
+        unflagged_bases.append(pkgbase.Name)
+        pkgbase_actions.pkgbase_unflag_malicious_instance(request, pkgbase)
+
+    logger.info(
+        "Privileged user '%s' unflagged the following package bases as malicious: %s.",
+        request.user.Username,
+        unflagged_bases,
+    )
+
+    return True, ["The selected packages have been unflagged as malicious."]
+
+
 # A mapping of action string -> callback functions used within the
 # `packages_post` route below. We expect any action callback to
 # return a tuple in the format: (succeeded: bool, message: list[str]).
@@ -474,6 +518,7 @@ PACKAGE_ACTIONS = {
     "adopt": packages_adopt,
     "disown": packages_disown,
     "delete": packages_delete,
+    "unflag_malicious": packages_unflag_malicious,
 }
 
 

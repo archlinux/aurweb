@@ -1,11 +1,16 @@
 from fastapi import Request
 
-from aurweb import aur_logging, db, util
+from aurweb import aur_logging, db, time, util
 from aurweb.auth import creds
 from aurweb.models import PackageBase, User
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_notification import PackageNotification
-from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
+from aurweb.models.request_type import (
+    DELETION_ID,
+    MALICIOUS_ID,
+    MERGE_ID,
+    ORPHAN_ID,
+)
 from aurweb.packages.requests import handle_request, update_closure_comment
 from aurweb.pkgbase import util as pkgbaseutil
 from aurweb.scripts import notify, popupdate
@@ -138,6 +143,46 @@ def pkgbase_delete_instance(
     _retry_delete(pkgbase, comments)
 
     return notifs
+
+
+@db.retry_deadlock
+def _retry_flag_malicious(
+    request: Request, pkgbase: PackageBase, comments: str
+) -> None:
+    with db.begin():
+        pkgbase.FlaggedMaliciousTS = time.utcnow()
+        pkgbase.MaliciousFlagger = request.user
+        pkgbase.FlaggedMaliciousComment = comments
+
+
+def pkgbase_flag_malicious_instance(
+    request: Request, pkgbase: PackageBase, comments: str = str()
+) -> None:
+    if comments:
+        update_closure_comment(pkgbase, MALICIOUS_ID, comments)
+    handle_request(request, MALICIOUS_ID, pkgbase, comments=comments)
+
+    _retry_flag_malicious(request, pkgbase, comments)
+
+    logger.info(
+        "Package Maintainer '%s' flagged '%s' as malicious.",
+        request.user.Username,
+        pkgbase.Name,
+    )
+
+
+@db.retry_deadlock
+def pkgbase_unflag_malicious_instance(request: Request, pkgbase: PackageBase) -> None:
+    with db.begin():
+        pkgbase.FlaggedMaliciousTS = None
+        pkgbase.MaliciousFlagger = None
+        pkgbase.FlaggedMaliciousComment = None
+
+    logger.info(
+        "Package Maintainer '%s' unflagged '%s' as malicious.",
+        request.user.Username,
+        pkgbase.Name,
+    )
 
 
 @db.retry_deadlock

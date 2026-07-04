@@ -1,4 +1,18 @@
 <table id="pkginfo">
+    {% if pkgbase.FlaggedMaliciousTS %}
+        <tr>
+            <th><span class="error">{{ "Flagged Malicious" | tr }}:</span></th>
+            <td class="wrap">
+                <span class="error">{{ pkgbase.FlaggedMaliciousComment }}</span>
+                {% if pkgbase.MaliciousFlagger %}
+                    <br />
+                    {{ "By" | tr }}
+                    <a href="/account/{{ pkgbase.MaliciousFlagger.Username }}">{{ pkgbase.MaliciousFlagger.Username }}</a>
+                    {{ "on" | tr }} {{ datetime_display(pkgbase.FlaggedMaliciousTS) }}
+                {% endif %}
+            </td>
+        </tr>
+    {% endif %}
     <tr>
         <th>{{ "Git Clone URL" | tr }}:</th>
         <td>

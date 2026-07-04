@@ -93,6 +93,9 @@
                     <a href="/packages/{{ pkg.Name }}">
                         {{ pkg.Name }}
                     </a>
+                    {% if pkg.FlaggedMaliciousTS %}
+                        <span class="error" title="{{ 'Flagged as malicious' | tr }}">[{{ "malicious" | tr }}]</span>
+                    {% endif %}
                 </td>
                 {% if flagged %}
                     <td class="flagged">{{ pkg.Version }}</td>

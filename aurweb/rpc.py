@@ -162,6 +162,7 @@ class RPC:
             "NumVotes": package.NumVotes,
             "Popularity": pop,
             "OutOfDate": package.OutOfDateTS,
+            "FlaggedMalicious": package.FlaggedMaliciousTS,
             "FirstSubmitted": package.SubmittedTS,
             "LastModified": package.ModifiedTS,
         }
@@ -213,6 +214,7 @@ class RPC:
                 models.PackageBase.Popularity,
                 models.PackageBase.PopularityUpdated,
                 models.PackageBase.OutOfDateTS,
+                models.PackageBase.FlaggedMaliciousTS,
                 models.PackageBase.SubmittedTS,
                 models.PackageBase.ModifiedTS,
                 models.User.Username.label("Maintainer"),

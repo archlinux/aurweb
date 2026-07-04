@@ -135,6 +135,17 @@
                     </a>
                 </li>
             {% endif %}
+            {% if pkgbase.FlaggedMaliciousTS and request.user.has_credential(creds.PKGBASE_UNFLAG_MALICIOUS) %}
+                <li>
+                    <form action="/pkgbase/{{ pkgbase.Name }}/unflag-malicious" method="post">
+                        <input type="hidden" name="next" value="/pkgbase/{{ pkgbase.Name }}" />
+                        <input type="submit"
+                               class="button text-button"
+                               value="{{ 'Unflag as Malicious' | tr }}"
+                        />
+                    </form>
+                </li>
+            {% endif %}
             {% if not pkgbase.Maintainer %}
                 <li>
                     <form action="/pkgbase/{{ pkgbase.Name }}/adopt" method="post">

@@ -41,6 +41,7 @@ def feed_initial_data(conn):
             {"ID": 1, "Name": "deletion"},
             {"ID": 2, "Name": "orphan"},
             {"ID": 3, "Name": "merge"},
+            {"ID": 4, "Name": "malicious"},
         ],
     )
 

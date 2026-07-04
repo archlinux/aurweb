@@ -34,6 +34,8 @@ PM_ADD_VOTE = 19
 PM_LIST_VOTES = 20
 PM_VOTE = 21
 PKGBASE_MERGE = 29
+PKGBASE_FLAG_MALICIOUS = 30
+PKGBASE_UNFLAG_MALICIOUS = 31
 
 user_developer_or_package_maintainer = {
     USER_ID,
@@ -78,6 +80,8 @@ cred_filters = {
     PM_VOTE: package_maintainer,
     ACCOUNT_EDIT_DEV: developer,
     PKGBASE_MERGE: package_maintainer_or_dev,
+    PKGBASE_FLAG_MALICIOUS: package_maintainer_or_dev,
+    PKGBASE_UNFLAG_MALICIOUS: package_maintainer_or_dev,
 }
 
 

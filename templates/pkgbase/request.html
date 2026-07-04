@@ -47,6 +47,11 @@
                                 selected
                             {% endif %}
                         >{{ "Orphan" | tr }}</option>
+                        <option value="malicious"
+                            {% if type == "malicious" %}
+                                selected
+                            {% endif %}
+                        >{{ "Malicious" | tr }}</option>
                     </select>
                 </p>
 
@@ -96,6 +101,16 @@
                         "if the package needs maintainer action, the "
                         "maintainer is MIA and you already tried to contact "
                         "the maintainer previously." | tr
+                    }}
+                </p>
+
+                <p id="malicious_hint" style="display: none">
+                    {{
+                        "By submitting a malicious request, you report the "
+                        "package base as malware or otherwise harmful (e.g. "
+                        "credential theft, backdoors, or bad-faith commits). "
+                        "Please describe what is malicious in the comments. "
+                        "Misuse of this option may result in penalties." | tr
                     }}
                 </p>
 

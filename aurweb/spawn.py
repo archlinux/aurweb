@@ -133,7 +133,7 @@ def start() -> None:
 
     backend_args = {
         "hypercorn": ["-b", f"{fastapi_host}:{fastapi_port}"],
-        "uvicorn": ["--host", fastapi_host, "--port", fastapi_port],
+        "uvicorn": ["--reload", "--host", fastapi_host, "--port", fastapi_port],
         "gunicorn": [
             "--bind",
             f"{fastapi_host}:{fastapi_port}",
@@ -146,7 +146,10 @@ def start() -> None:
     backend_args = backend_args.get(asgi_backend)
     spawn_child(
         [
-            "python",
+            # Use the same interpreter running spawn, so the ASGI
+            # backend inherits this environment's installed dependencies,
+            # rather than a bare "python" resolved from PATH.
+            sys.executable,
             "-m",
             asgi_backend,
             "--log-config",
