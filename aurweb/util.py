@@ -63,6 +63,52 @@ def is_disposable_email(email):
     return domain in disposable_email_blocklist
 
 
+# domain -> (strip_dots, canonical_domain). Only domains here get "+tag"
+# stripped too. Unlisted domains are left alone besides lowercasing.
+# Yahoo/AOL/ymail.com excluded: their "+" scheme isn't simple subaddressing.
+# outlook.com/hotmail.com/live.com/msn.com are NOT folded together: each is
+# a separately-owned mailbox, not an alias of one inbox (same for Yahoo/AOL).
+_GMAIL = (True, "gmail.com")
+_APPLE = (False, "icloud.com")
+_PROTON = (False, "proton.me")
+_PLUS_ONLY = (False, None)
+EMAIL_PROVIDER_RULES: dict[str, tuple[bool, str | None]] = {
+    "gmail.com": _GMAIL,
+    "googlemail.com": _GMAIL,
+    "icloud.com": _APPLE,
+    "me.com": _APPLE,
+    "mac.com": _APPLE,
+    "protonmail.com": _PROTON,
+    "proton.me": _PROTON,
+    "pm.me": _PROTON,
+    "outlook.com": _PLUS_ONLY,
+    "hotmail.com": _PLUS_ONLY,
+    "live.com": _PLUS_ONLY,
+    "msn.com": _PLUS_ONLY,
+    "yandex.com": _PLUS_ONLY,
+    "yandex.ru": _PLUS_ONLY,
+    "ya.ru": _PLUS_ONLY,
+    "zoho.com": _PLUS_ONLY,
+    "zohomail.com": _PLUS_ONLY,
+    "fastmail.com": _PLUS_ONLY,
+    "fastmail.fm": _PLUS_ONLY,
+}
+
+
+def normalize_email(email: str) -> str:
+    """Canonicalize an email address for uniqueness comparisons only."""
+    local, _, domain = email.rpartition("@")
+    domain = domain.lower()
+    rule = EMAIL_PROVIDER_RULES.get(domain)
+    if rule:
+        strip_dots, canonical_domain = rule
+        local = local.split("+", 1)[0]
+        if strip_dots:
+            local = local.replace(".", "")
+        domain = canonical_domain or domain
+    return f"{local.lower()}@{domain}"
+
+
 def valid_homepage(homepage):
     try:
         parts = urlparse(homepage)

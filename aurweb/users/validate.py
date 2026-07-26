@@ -8,7 +8,7 @@ when encountering invalid criteria and return silently otherwise.
 """
 
 from fastapi import Request
-from sqlalchemy import and_
+from sqlalchemy import and_, func
 
 from aurweb import aur_logging, config, db, l10n, models, time, util
 from aurweb.auth import creds
@@ -226,12 +226,30 @@ def email_in_use(
     _: l10n.Translator | None = None,
     **kwargs,
 ) -> None:
-    exists = (
-        db.query(models.User)
-        .filter(and_(models.User.ID != user.ID, models.User.Email == E))
-        .exists()
-    )
-    if db.query(exists).scalar():
+    domain = E.rsplit("@", 1)[-1].lower()
+
+    if domain not in util.EMAIL_PROVIDER_RULES:
+        in_use = db.query(
+            db.query(models.User)
+            .filter(and_(models.User.ID != user.ID, models.User.Email == E))
+            .exists()
+        ).scalar()
+    else:
+        normalized = util.normalize_email(E)
+        candidates = (
+            db.query(models.User.Email)
+            .filter(
+                and_(
+                    models.User.ID != user.ID,
+                    func.lower(models.User.Email).like(f"%@{domain}"),
+                )
+            )
+            .all()
+        )
+        in_use = any(
+            util.normalize_email(email) == normalized for (email,) in candidates
+        )
+    if in_use:
         # If the email already exists...
         raise ValidationError(
             [

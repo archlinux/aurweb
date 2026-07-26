@@ -60,6 +60,48 @@ def test_valid_homepage() -> None:
     assert not util.valid_homepage("gopher://gopher.hprc.utoronto.ca/")
 
 
+def test_normalize_email_strips_dots_only_for_gmail() -> None:
+    assert util.normalize_email("a.b.c@gmail.com") == "abc@gmail.com"
+    assert util.normalize_email("a.b.c@outlook.com") == "a.b.c@outlook.com"
+    assert util.normalize_email("a.b.c@example.org") == "a.b.c@example.org"
+
+
+def test_normalize_email_strips_plus_tag_for_known_providers() -> None:
+    assert util.normalize_email("abc+aur@gmail.com") == "abc@gmail.com"
+    assert util.normalize_email("abc+aur@outlook.com") == "abc@outlook.com"
+    assert util.normalize_email("abc+aur@icloud.com") == "abc@icloud.com"
+
+
+def test_normalize_email_combines_dot_and_plus_stripping() -> None:
+    assert util.normalize_email("a.b.c+aur@gmail.com") == "abc@gmail.com"
+
+
+def test_normalize_email_folds_alias_domains() -> None:
+    assert util.normalize_email("abc@googlemail.com") == "abc@gmail.com"
+    assert util.normalize_email("abc@me.com") == "abc@icloud.com"
+    assert util.normalize_email("abc@mac.com") == "abc@icloud.com"
+    assert util.normalize_email("abc@protonmail.com") == "abc@proton.me"
+    assert util.normalize_email("abc@pm.me") == "abc@proton.me"
+
+
+def test_normalize_email_does_not_fold_separate_provider_domains() -> None:
+    # outlook.com/hotmail.com and yahoo.com/aol.com share a provider but
+    # are independently-owned mailboxes, not aliases of one inbox.
+    assert util.normalize_email("abc@outlook.com") != util.normalize_email(
+        "abc@hotmail.com"
+    )
+
+
+def test_normalize_email_is_case_insensitive() -> None:
+    assert util.normalize_email("A.B.C+AUR@GMAIL.com") == "abc@gmail.com"
+    assert util.normalize_email("ABC@Example.ORG") == "abc@example.org"
+
+
+def test_normalize_email_leaves_unlisted_domains_untouched() -> None:
+    assert util.normalize_email("abc+aur@example.org") == "abc+aur@example.org"
+    assert util.normalize_email("abc-tag@yahoo.com") == "abc-tag@yahoo.com"
+
+
 def test_parse_ssh_key() -> None:
     # Test a valid key.
     pk = """ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyN\

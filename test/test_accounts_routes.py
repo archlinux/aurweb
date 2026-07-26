@@ -80,6 +80,10 @@ def client() -> TestClient:
 
 def create_user(username: str) -> User:
     email = f"{username}@example.org"
+    return create_user_with_email(username, email)
+
+
+def create_user_with_email(username: str, email: str) -> User:
     user = create(
         User,
         Username=username,
@@ -622,6 +626,55 @@ def test_post_register_error_email_taken(client: TestClient, user: User):
     content = response.content.decode()
     expected = r"The address, .*, is already in use."
     assert re.search(expected, content)
+
+
+def test_post_register_error_email_taken_gmail_dot_variant(client: TestClient):
+    with db.begin():
+        create_user_with_email("gmailuser", "abcdef@gmail.com")
+
+    with client as request:
+        response = post_register(request, E="a.b.c.d.e.f@gmail.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
+
+
+def test_post_register_error_email_taken_gmail_plus_tag(client: TestClient):
+    with db.begin():
+        create_user_with_email("gmailuser2", "someone@gmail.com")
+
+    with client as request:
+        response = post_register(request, E="someone+aur@gmail.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
+
+
+def test_post_register_gmail_dot_variant_allowed_when_no_conflict(
+    client: TestClient,
+):
+    with client as request:
+        response = post_register(
+            request, U="newGmailUser", E="new.gmail.user@gmail.com"
+        )
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_post_register_dots_still_distinct_on_other_domains(client: TestClient):
+    with db.begin():
+        create_user_with_email("otherdomainuser", "ab@example.org")
+
+    with client as request:
+        response = post_register(request, E="a.b@example.org")
+
+    assert response.status_code == int(HTTPStatus.OK)
 
 
 def test_post_register_error_ssh_pubkey_taken(client: TestClient, user: User):
