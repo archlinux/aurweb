@@ -102,6 +102,27 @@ def test_normalize_email_leaves_unlisted_domains_untouched() -> None:
     assert util.normalize_email("abc-tag@yahoo.com") == "abc-tag@yahoo.com"
 
 
+def test_normalize_email_folds_fullwidth_domain() -> None:
+    assert util.normalize_email("abc@ＧＭＡＩＬ.com") == "abc@gmail.com"
+
+
+def test_normalize_email_folds_punycode_and_unicode_domains() -> None:
+    assert util.normalize_email("abc@аррӏе.com") == "abc@xn--80ak6aa92e.com"
+    assert util.normalize_email("abc@xn--80ak6aa92e.com") == "abc@xn--80ak6aa92e.com"
+
+
+def test_normalize_email_keeps_leading_plus_locals_distinct() -> None:
+    assert util.normalize_email("+a@gmail.com") == "+a@gmail.com"
+    assert util.normalize_email("+b@gmail.com") == "+b@gmail.com"
+    assert util.normalize_email("abc+@gmail.com") == "abc@gmail.com"
+
+
+def test_normalize_email_returns_invalid_input_lowercased() -> None:
+    assert util.normalize_email("random_user") == "random_user"
+    assert util.normalize_email("USER@localhost") == "user@localhost"
+    assert util.normalize_email("") == ""
+
+
 def test_parse_ssh_key() -> None:
     # Test a valid key.
     pk = """ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyN\

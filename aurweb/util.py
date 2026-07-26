@@ -14,7 +14,7 @@ from urllib.parse import urlparse
 import fastapi
 import pygit2
 from disposable_email_domains import blocklist as disposable_email_blocklist
-from email_validator import EmailSyntaxError, validate_email
+from email_validator import EmailNotValidError, validate_email
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Query
 
@@ -53,7 +53,7 @@ def valid_username(username):
 def valid_email(email):
     try:
         validate_email(email, check_deliverability=False)
-    except EmailSyntaxError:
+    except EmailNotValidError:
         return False
     return True
 
@@ -63,11 +63,11 @@ def is_disposable_email(email):
     return domain in disposable_email_blocklist
 
 
-# domain -> (strip_dots, canonical_domain). Only domains here get "+tag"
-# stripped too. Unlisted domains are left alone besides lowercasing.
-# Yahoo/AOL/ymail.com excluded: their "+" scheme isn't simple subaddressing.
-# outlook.com/hotmail.com/live.com/msn.com are NOT folded together: each is
-# a separately-owned mailbox, not an alias of one inbox (same for Yahoo/AOL).
+# domain => (strip_dots, canonical_domain). Yahoo and AOL are absent because
+# their "+" scheme is not simple subaddressing. outlook/hotmail/live/msn are
+# separately-owned mailboxes rather than aliases of one inbox.
+# Stored canonical addresses derive from this table, so changing an entry
+# invalidates existing rows and requires a migration that recomputes them.
 _GMAIL = (True, "gmail.com")
 _APPLE = (False, "icloud.com")
 _PROTON = (False, "proton.me")
@@ -96,13 +96,24 @@ EMAIL_PROVIDER_RULES: dict[str, tuple[bool, str | None]] = {
 
 
 def normalize_email(email: str) -> str:
-    """Canonicalize an email address for uniqueness comparisons only."""
-    local, _, domain = email.rpartition("@")
-    domain = domain.lower()
+    """Canonicalize an email address for uniqueness comparisons only.
+
+    Input that does not parse is lowercased and returned, so any string is
+    accepted and callers need not validate first.
+    """
+    try:
+        parsed = validate_email(email, check_deliverability=False)
+    except EmailNotValidError:
+        return email.lower()
+
+    # ascii_domain is IDNA/UTS-46 folded, so fullwidth, unicode and punycode
+    # spellings of one domain collapse to a single key.
+    local, domain = parsed.local_part, parsed.ascii_domain
     rule = EMAIL_PROVIDER_RULES.get(domain)
     if rule:
         strip_dots, canonical_domain = rule
-        local = local.split("+", 1)[0]
+        # A bare "+tag" local part would strip to nothing and collide.
+        local = local.split("+", 1)[0] or local
         if strip_dots:
             local = local.replace(".", "")
         domain = canonical_domain or domain
