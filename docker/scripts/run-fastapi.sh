@@ -10,8 +10,7 @@ export FASTAPI_BACKEND="$1"
 echo "FASTAPI_BACKEND: $FASTAPI_BACKEND"
 echo "FASTAPI_WORKERS: $FASTAPI_WORKERS"
 
-# Perform migrations.
-alembic upgrade head
+alembic upgrade head || exit 1
 
 if [ "$1" == "uvicorn" ] || [ "$1" == "" ]; then
     exec uvicorn --reload \
