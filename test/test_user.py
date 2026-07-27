@@ -5,6 +5,7 @@ from datetime import UTC, datetime, timedelta
 
 import bcrypt
 import pytest
+from sqlalchemy.exc import IntegrityError
 
 import aurweb.auth
 import aurweb.config
@@ -76,6 +77,57 @@ def package(user: User) -> Generator[Package]:
         pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
         pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
     yield pkg
+
+
+def test_user_normalized_email_derived_on_create() -> None:
+    with db.begin():
+        user = db.create(
+            User,
+            Username="gmailer",
+            Email="A.B.C+aur@GoogleMail.com",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
+    assert user.NormalizedEmail == "abc@gmail.com"
+
+
+def test_user_normalized_email_follows_email_updates(user: User) -> None:
+    with db.begin():
+        user.Email = "x.y+tag@gmail.com"
+    assert user.NormalizedEmail == "xy@gmail.com"
+
+
+def test_user_normalized_email_noop_assignment_keeps_null(user: User) -> None:
+    with db.begin():
+        user.NormalizedEmail = None
+    with db.begin():
+        user.Email = user.Email
+    assert user.NormalizedEmail is None
+
+    with db.begin():
+        user.Email = "new.addr+tag@gmail.com"
+    assert user.NormalizedEmail == "newaddr@gmail.com"
+
+
+def test_user_normalized_email_is_unique() -> None:
+    with db.begin():
+        db.create(
+            User,
+            Username="gmail1",
+            Email="abc@gmail.com",
+            Passwd="testPassword",
+            AccountTypeID=USER_ID,
+        )
+    # Distinct Email values, so only the NormalizedEmail index can reject this.
+    with pytest.raises(IntegrityError, match="UsersNormalizedEmail"):
+        with db.begin():
+            db.create(
+                User,
+                Username="gmail2",
+                Email="a.b.c+aur@googlemail.com",
+                Passwd="testPassword",
+                AccountTypeID=USER_ID,
+            )
 
 
 def test_user_login_logout(user: User) -> None:

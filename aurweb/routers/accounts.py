@@ -7,6 +7,7 @@ from typing import Any
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import and_, or_
+from sqlalchemy.exc import IntegrityError
 
 import aurweb.config
 from aurweb import aur_logging, db, l10n, models, util
@@ -328,38 +329,50 @@ async def account_register_post(
     ).first()
 
     # Create a user given all parameters available.
-    with db.begin():
-        user = db.create(
-            models.User,
-            Username=U,
-            Email=E,
-            HideEmail=H,
-            BackupEmail=BE,
-            RealName=R,
-            Homepage=HP,
-            IRCNick=I,
-            PGPKey=K,
-            LangPreference=L,
-            Timezone=TZ,
-            CommentNotify=CN,
-            UpdateNotify=UN,
-            OwnershipNotify=ON,
-            HideDeletedComments=HDC,
-            ResetKey=resetkey,
-            AccountType=atype,
+    try:
+        with db.begin():
+            user = db.create(
+                models.User,
+                Username=U,
+                Email=E,
+                HideEmail=H,
+                BackupEmail=BE,
+                RealName=R,
+                Homepage=HP,
+                IRCNick=I,
+                PGPKey=K,
+                LangPreference=L,
+                Timezone=TZ,
+                CommentNotify=CN,
+                UpdateNotify=UN,
+                OwnershipNotify=ON,
+                HideDeletedComments=HDC,
+                ResetKey=resetkey,
+                AccountType=atype,
+            )
+
+            # If a PK was given and either one does not exist or the given
+            # PK mismatches the existing user's SSHPubKey.PubKey.
+            if PK:
+                # Get the second element in the PK, which is the actual key.
+                keys = util.parse_ssh_keys(PK.strip())
+                for k in keys:
+                    pk = " ".join(k)
+                    fprint = get_fingerprint(pk)
+                    db.create(
+                        models.SSHPubKey, User=user, PubKey=pk, Fingerprint=fprint
+                    )
+
+            verify.issue(user)
+    except IntegrityError as exc:
+        # email_in_use passed but a concurrent commit took the address first.
+        if "UsersNormalizedEmail" not in str(exc.orig):
+            raise
+        _ = get_translator_for_request(request)
+        context["errors"] = [validate.email_taken_error(E, _)]
+        return render_template(
+            request, "register.html", context, status_code=HTTPStatus.BAD_REQUEST
         )
-
-        # If a PK was given and either one does not exist or the given
-        # PK mismatches the existing user's SSHPubKey.PubKey.
-        if PK:
-            # Get the second element in the PK, which is the actual key.
-            keys = util.parse_ssh_keys(PK.strip())
-            for k in keys:
-                pk = " ".join(k)
-                fprint = get_fingerprint(pk)
-                db.create(models.SSHPubKey, User=user, PubKey=pk, Fingerprint=fprint)
-
-        verify.issue(user)
 
     # Send the welcome (set-password) and email-verification notifications.
     WelcomeNotification(user.ID).send()
@@ -543,8 +556,18 @@ async def account_edit_post(
 
     # These update functions are all guarded by retry_deadlock;
     # there's no need to guard this route itself.
-    for f in updates:
-        f(**args, request=request, user=user, context=context)
+    try:
+        for f in updates:
+            f(**args, request=request, user=user, context=context)
+    except IntegrityError as exc:
+        # email_in_use passed but a concurrent commit took the address first.
+        if "UsersNormalizedEmail" not in str(exc.orig):
+            raise
+        _ = get_translator_for_request(request)
+        context["errors"] = [validate.email_taken_error(E, _)]
+        return render_template(
+            request, "account/edit.html", context, status_code=HTTPStatus.BAD_REQUEST
+        )
 
     if not errors:
         context["complete"] = True

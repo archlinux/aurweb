@@ -32,6 +32,7 @@ from aurweb.models.term import Term
 from aurweb.models.user import User
 from aurweb.testing.html import get_errors
 from aurweb.testing.requests import Request
+from aurweb.users import validate
 
 logger = aur_logging.get_logger(__name__)
 
@@ -656,6 +657,21 @@ def test_post_register_error_email_taken_gmail_plus_tag(client: TestClient):
     assert re.search(expected, content)
 
 
+def test_post_register_error_email_taken_grandfathered(client: TestClient):
+    with db.begin():
+        grand = create_user_with_email("grand", "grand+tag@gmail.com")
+        grand.NormalizedEmail = None
+
+    with client as request:
+        response = post_register(request, E="grand@gmail.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
+
+
 def test_post_register_gmail_dot_variant_allowed_when_no_conflict(
     client: TestClient,
 ):
@@ -675,6 +691,68 @@ def test_post_register_dots_still_distinct_on_other_domains(client: TestClient):
         response = post_register(request, E="a.b@example.org")
 
     assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_post_register_error_email_taken_alias_domain(client: TestClient):
+    with db.begin():
+        create_user_with_email("gmailuser3", "abcdef@gmail.com")
+
+    with client as request:
+        response = post_register(request, E="a.b.c.d.e.f@googlemail.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
+
+
+def test_post_register_error_email_taken_fullwidth_domain(client: TestClient):
+    with db.begin():
+        create_user_with_email("gmailuser4", "someone@gmail.com")
+
+    with client as request:
+        response = post_register(request, E="some.one@ＧＭＡＩＬ.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
+
+
+def test_post_register_leading_plus_locals_stay_distinct(client: TestClient):
+    with db.begin():
+        create_user_with_email("plususer", "+a@gmail.com")
+
+    with client as request:
+        response = post_register(request, E="+b@gmail.com")
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    expected = "The account, <strong>'newUser'</strong>, "
+    expected += "has been successfully created."
+    assert expected in response.content.decode()
+
+    created = db.query(User).filter(User.Username == "newUser").first()
+    assert created.NormalizedEmail == "+b@gmail.com"
+
+
+def test_post_register_error_email_taken_race(client: TestClient, monkeypatch):
+    with db.begin():
+        create_user_with_email("gmailuser5", "race@gmail.com")
+
+    # Validation passes; the unique index catches the lost race.
+    monkeypatch.setattr(validate, "email_in_use", lambda **kwargs: None)
+
+    with client as request:
+        response = post_register(request, E="r.a.c.e@googlemail.com")
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
 
 
 def test_post_register_error_ssh_pubkey_taken(client: TestClient, user: User):
@@ -885,6 +963,79 @@ def test_post_account_edit(client: TestClient, user: User):
     expected = "The account, <strong>test</strong>, "
     expected += "has been successfully modified."
     assert expected in response.content.decode()
+
+
+def test_post_account_edit_error_email_taken_variant(client: TestClient, user: User):
+    with db.begin():
+        create_user_with_email("gmailuser6", "taken@gmail.com")
+
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "t.a.k.e.n+x@googlemail.com",
+        "passwd": "testPassword",
+    }
+
+    with client as request:
+        request.cookies = {"AURSID": sid}
+        response = request.post("/account/test/edit", data=post_data)
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
+
+
+def test_post_account_edit_grandfathered_duplicate_keeps_address(client: TestClient):
+    with db.begin():
+        grand = create_user_with_email("grand", "grand+tag@gmail.com")
+        grand.NormalizedEmail = None
+        create_user_with_email("grandprimary", "grand@gmail.com")
+
+    request = Request()
+    sid = grand.login(request, "testPassword")
+
+    post_data = {"U": "grand", "E": "grand+tag@gmail.com", "passwd": "testPassword"}
+
+    with client as request:
+        request.cookies = {"AURSID": sid}
+        response = request.post("/account/grand/edit", data=post_data)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    expected = "The account, <strong>grand</strong>, "
+    expected += "has been successfully modified."
+    assert expected in response.content.decode()
+
+    db.refresh(grand)
+    assert grand.NormalizedEmail is None
+
+
+def test_post_account_edit_error_email_taken_race(
+    client: TestClient, user: User, monkeypatch
+):
+    with db.begin():
+        create_user_with_email("gmailuser7", "raced@gmail.com")
+
+    monkeypatch.setattr(validate, "email_in_use", lambda **kwargs: None)
+
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {"U": "test", "E": "r.a.c.e.d@googlemail.com", "passwd": "testPassword"}
+
+    with client as request:
+        request.cookies = {"AURSID": sid}
+        response = request.post("/account/test/edit", data=post_data)
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    expected = r"The address, .*, is already in use."
+    assert re.search(expected, content)
 
 
 def test_post_account_edit_type_as_pm(client: TestClient, pm_user: User):

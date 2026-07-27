@@ -121,6 +121,10 @@ Users = Table(
         nullable=False,
         server_default=text("0"),
     ),
+    # Folding an alias domain can lengthen the address past Email's width.
+    # NULL for grandfathered pre-migration duplicates; exempt from the index.
+    Column("NormalizedEmail", String(320)),
+    Index("UsersNormalizedEmail", "NormalizedEmail", unique=True),
     mysql_engine="InnoDB",
     mysql_charset="utf8mb4",
     mysql_collate="utf8mb4_general_ci",

@@ -32,10 +32,11 @@ def test_adduser_no_args() -> None:
 
 
 def test_adduser() -> None:
-    run_main(["-u", "test", "-e", "test@example.org", "-p", "abcd1234"])
+    run_main(["-u", "test", "-e", "Test.User@example.org", "-p", "abcd1234"])
     test = db.query(User).filter(User.Username == "test").first()
     assert test is not None
     assert test.login(Request(), "abcd1234")
+    assert test.NormalizedEmail == "test.user@example.org"
 
 
 def test_adduser_pm() -> None:

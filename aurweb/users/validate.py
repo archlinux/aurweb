@@ -8,7 +8,7 @@ when encountering invalid criteria and return silently otherwise.
 """
 
 from fastapi import Request
-from sqlalchemy import and_, func
+from sqlalchemy import and_
 
 from aurweb import aur_logging, config, db, l10n, models, time, util
 from aurweb.auth import creds
@@ -220,43 +220,49 @@ def username_in_use(
         )
 
 
+def email_taken_error(E: str, _: l10n.Translator) -> str:
+    return _("The address, %s%s%s, is already in use.") % ("<strong>", E, "</strong>")
+
+
 def email_in_use(
     E: str = str(),
     user: models.User | None = None,
     _: l10n.Translator | None = None,
     **kwargs,
 ) -> None:
-    domain = E.rsplit("@", 1)[-1].lower()
-
-    if domain not in util.EMAIL_PROVIDER_RULES:
-        in_use = db.query(
-            db.query(models.User)
-            .filter(and_(models.User.ID != user.ID, models.User.Email == E))
-            .exists()
-        ).scalar()
-    else:
-        normalized = util.normalize_email(E)
-        candidates = (
+    # Keeping the current address is always allowed; grandfathered accounts
+    # with a NULL NormalizedEmail would otherwise collide with their primary.
+    if user and E == user.Email:
+        return
+    normalized_email = util.normalize_email(E)
+    exists = (
+        db.query(models.User)
+        .filter(
+            and_(
+                models.User.ID != user.ID,
+                models.User.NormalizedEmail == normalized_email,
+            )
+        )
+        .exists()
+    )
+    in_use = db.query(exists).scalar()
+    if not in_use:
+        legacy_emails = (
             db.query(models.User.Email)
             .filter(
                 and_(
                     models.User.ID != user.ID,
-                    func.lower(models.User.Email).like(f"%@{domain}"),
+                    models.User.NormalizedEmail.is_(None),
                 )
             )
             .all()
         )
         in_use = any(
-            util.normalize_email(email) == normalized for (email,) in candidates
+            util.normalize_email(email) == normalized_email
+            for (email,) in legacy_emails
         )
     if in_use:
-        # If the email already exists...
-        raise ValidationError(
-            [
-                _("The address, %s%s%s, is already in use.")
-                % ("<strong>", E, "</strong>")
-            ]
-        )
+        raise ValidationError([email_taken_error(E, _)])
 
 
 def invalid_account_type(

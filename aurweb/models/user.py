@@ -5,7 +5,7 @@ import bcrypt
 from fastapi import Request
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import backref, relationship
+from sqlalchemy.orm import backref, relationship, validates
 
 import aurweb.config
 import aurweb.models.account_type
@@ -56,6 +56,15 @@ class User(Base):
         self.Passwd = bcrypt.hashpw(
             password.encode(), bcrypt.gensalt(rounds=self.salt_rounds)
         ).decode()
+
+    @validates("Email")
+    def _sync_normalized_email(self, key: str, value: str) -> str:
+        """Query.update() and bulk_* bypass this hook and must set NormalizedEmail."""
+        # A no-op assignment must not resurrect a normalized value on
+        # grandfathered accounts whose NormalizedEmail is NULL.
+        if value != self.Email:
+            self.NormalizedEmail = util.normalize_email(value) if value else value
+        return value
 
     @staticmethod
     def minimum_passwd_length():
