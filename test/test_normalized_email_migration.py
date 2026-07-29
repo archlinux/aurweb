@@ -64,12 +64,6 @@ package_notifications = sa.Table(
     sa.Column("UserID", sa.Integer, primary_key=True),
 )
 
-ssh_pubkeys = sa.Table(
-    "SSHPubKeys",
-    metadata,
-    sa.Column("UserID", sa.Integer, primary_key=True),
-)
-
 vote_info = sa.Table(
     "VoteInfo",
     metadata,
@@ -210,3 +204,40 @@ def test_null_duplicates_clears_unverified_group_without_content() -> None:
         rows = normalized_emails(conn)
 
     assert rows == [(1, None), (2, None)]
+
+
+def test_delete_spam_accounts_deletes_only_suspended_and_empty() -> None:
+    spared = {
+        2: (package_bases, {"ID": 2, "MaintainerUID": 2}),
+        3: (package_bases, {"ID": 3, "SubmitterUID": 3}),
+        4: (package_bases, {"ID": 4, "PackagerUID": 4}),
+        5: (package_bases, {"ID": 5, "FlaggerUID": 5}),
+        6: (package_comments, {"ID": 6, "UsersID": 6}),
+        7: (package_comments, {"ID": 7, "EditedUsersID": 7}),
+        8: (package_comments, {"ID": 8, "DelUsersID": 8}),
+        9: (package_votes, {"UsersID": 9}),
+        10: (package_comaintainers, {"UsersID": 10}),
+        11: (package_requests, {"ID": 11, "UsersID": 11}),
+        12: (package_requests, {"ID": 12, "ClosedUID": 12}),
+        13: (package_notifications, {"UserID": 13}),
+        14: (vote_info, {"ID": 14, "SubmitterID": 14}),
+        15: (votes, {"UserID": 15}),
+    }
+
+    with make_conn() as conn:
+        conn.execute(
+            users.insert(),
+            [user(uid, f"user{uid}@example.com", Suspended=1) for uid in spared]
+            + [
+                user(90, "bot@example.com", Suspended=1),
+                user(91, "verified@example.com", Suspended=1, EmailVerified=1),
+                user(92, "unsuspended@example.com"),
+            ],
+        )
+        for table, row in spared.values():
+            conn.execute(table.insert(), [row])
+
+        migration._delete_spam_accounts(conn)
+        survivors = conn.execute(sa.select(users.c.ID).order_by(users.c.ID))
+
+    assert survivors.scalars().all() == sorted(spared) + [92]

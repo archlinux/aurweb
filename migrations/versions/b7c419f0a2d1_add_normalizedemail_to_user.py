@@ -24,9 +24,10 @@ column = "NormalizedEmail"
 index = "UsersNormalizedEmail"
 
 
-# Sessions and AcceptedTerms are left out because a bot registration gets both
-# for free. VoteInfo and Votes are in because deleting a submitter cascades the
-# whole proposal and every vote cast on it.
+# Sessions, AcceptedTerms and SSHPubKeys are left out because registration
+# takes all three in one POST, before any verification. VoteInfo and Votes are
+# in because deleting a submitter cascades the whole proposal and every vote
+# cast on it.
 content_columns = {
     "PackageComments": ["UsersID", "EditedUsersID", "DelUsersID"],
     "PackageBases": ["MaintainerUID", "SubmitterUID", "PackagerUID", "FlaggerUID"],
@@ -34,7 +35,6 @@ content_columns = {
     "PackageComaintainers": ["UsersID"],
     "PackageRequests": ["UsersID", "ClosedUID"],
     "PackageNotifications": ["UserID"],
-    "SSHPubKeys": ["UserID"],
     "VoteInfo": ["SubmitterID"],
     "Votes": ["UserID"],
 }
@@ -50,6 +50,27 @@ def _has_content(uid: str) -> str:
         for name, columns in content_columns.items()
         for col in columns
     )
+
+
+def _delete_spam_accounts(conn) -> None:
+    """Suspended accounts with no footprint anywhere are bot registrations.
+
+    EmailVerified is not part of the test, because a3f1c2d4e5b6 granted it
+    to every account that had a password and so says nothing about an
+    account that predates the column.
+
+    Runs before the backfill and dedupe so a spam account never becomes a
+    collision group's primary. Every FK to Users cascades or nulls, so
+    dependents go with the row.
+    """
+    result = conn.execute(
+        sa.text(
+            f"DELETE FROM `{table.name}` WHERE `Suspended` = 1 "
+            f"AND NOT {_has_content(f'`{table.name}`.`ID`')}"
+        )
+    )
+    if result.rowcount:
+        print(f"Deleted {result.rowcount} spam accounts.")
 
 
 def _backfill(conn) -> None:
@@ -152,6 +173,7 @@ def upgrade():
     else:
         print(f"Column {column} already exists in '{table.name}', skipping.")
 
+    _delete_spam_accounts(conn)
     _backfill(conn)
     _null_duplicates(conn)
 
