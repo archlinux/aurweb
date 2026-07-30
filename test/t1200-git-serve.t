@@ -4,6 +4,12 @@ test_description='git-serve tests'
 
 . "$(dirname $0)/setup.sh"
 
+# Unprivileged `adopt` only files an adoption request now, so tests that
+# just need a maintainer in place assign one directly.
+set_maintainer() {
+	echo "UPDATE PackageBases SET MaintainerUID = (SELECT ID FROM Users WHERE Username = '$2') WHERE Name = '$1';" | sqlite3 aur.db
+}
+
 test_expect_success 'Test interactive shell.' '
 	cover "$GIT_SERVE" 2>&1 | grep -q "Interactive shell is disabled."
 '
@@ -198,22 +204,42 @@ test_expect_success "Disown all package bases." '
 	test_cmp expected actual
 '
 
-test_expect_success "Adopt a package base as a regular user." '
+test_expect_success "File an adoption request as a regular user." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
-	 foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	adoption|0
+	EOF
+	echo "SELECT RequestTypes.Name, PackageRequests.Status FROM PackageRequests INNER JOIN RequestTypes ON RequestTypes.ID = PackageRequests.ReqTypeID WHERE PackageRequests.PackageBaseName = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db >actual &&
 	test_cmp expected actual
 '
 
-test_expect_success "Adopt an already adopted package base." '
+test_expect_success "Try to file a second adoption request." '
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="adopt foobar" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1
+'
+
+test_expect_success "A Package Maintainer grants the pending adoption request." '
+	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
+	cover "$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	2
+	EOF
+	echo "SELECT Status FROM PackageRequests WHERE PackageBaseName = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
+	cover "$GIT_SERVE" 2>&1 &&
+	echo "DELETE FROM PackageRequests WHERE PackageBaseName = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db
 '
 
 test_expect_success "Adopt a package base as a Package Maintainer." '
@@ -228,6 +254,7 @@ test_expect_success "Adopt a package base as a Package Maintainer." '
 '
 
 test_expect_success "Disown one's own package base as a regular user." '
+	set_maintainer foobar user &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
@@ -270,8 +297,7 @@ test_expect_success "Try to steal another user's package as a regular user." '
 '
 
 test_expect_success "Try to steal another user's package as a Package Maintainer." '
-	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar user &&
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
@@ -307,8 +333,7 @@ test_expect_success "Try to disown another user's package as a regular user." '
 '
 
 test_expect_success "Try to disown another user's package as a Package Maintainer." '
-	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar user &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
@@ -321,8 +346,7 @@ test_expect_success "Try to disown another user's package as a Package Maintaine
 '
 
 test_expect_success "Adopt a package base and add co-maintainers." '
-	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar user &&
 	SSH_ORIGINAL_COMMAND="set-comaintainers foobar user3 user4" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
@@ -398,8 +422,7 @@ test_expect_success "Force-disown a package base and check (co-)maintainer list.
 '
 
 test_expect_success "Check whether package requests are closed when disowning." '
-	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar user &&
 	cat <<-EOD | sqlite3 aur.db &&
 	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (1, 2, 3, '"'"'foobar'"'"', 4, '"'"''"'"', '"'"''"'"');
 	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (2, 3, 3, '"'"'foobar'"'"', 5, '"'"''"'"', '"'"''"'"');
@@ -443,8 +466,7 @@ test_expect_success "Unflag a package base as flagger." '
 '
 
 test_expect_success "Unflag a package base as maintainer." '
-	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar user &&
 	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
 	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user AUR_PRIVILEGED=0 \

@@ -136,14 +136,16 @@
                 </li>
             {% endif %}
             {% if not pkgbase.Maintainer %}
-                <li>
-                    <form action="/pkgbase/{{ pkgbase.Name }}/adopt" method="post">
-                        <input type="submit"
-                               class="button text-button"
-                               value="{{ 'Adopt Package' | tr }}"
-                        />
-                    </form>
-                </li>
+                {% if request.user.has_credential(creds.PKGBASE_ADOPT) %}
+                    <li>
+                        <form action="/pkgbase/{{ pkgbase.Name }}/adopt" method="post">
+                            <input type="submit"
+                                   class="button text-button"
+                                   value="{{ 'Adopt Package' | tr }}"
+                            />
+                        </form>
+                    </li>
+                {% endif %}
             {% elif request.user.has_credential(creds.PKGBASE_DISOWN, approved=[pkgbase.Maintainer] + comaintainers) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/disown?{{ {'next': '/pkgbase/%s' | format(pkgbase.Name)} | urlencode }}">

@@ -47,6 +47,11 @@
                                 selected
                             {% endif %}
                         >{{ "Orphan" | tr }}</option>
+                        <option value="adoption"
+                            {% if type == "adoption" %}
+                                selected
+                            {% endif %}
+                        >{{ "Adoption" | tr }}</option>
                     </select>
                 </p>
 
@@ -96,6 +101,16 @@
                         "if the package needs maintainer action, the "
                         "maintainer is MIA and you already tried to contact "
                         "the maintainer previously." | tr
+                    }}
+                </p>
+
+                <p id="adoption_hint" style="display: none">
+                    {{
+                        "By submitting an adoption request, you ask a Package "
+                        "Maintainer to hand you maintainership of this "
+                        "orphaned package base. Please describe how you intend "
+                        "to maintain it. Only one adoption request can be "
+                        "pending per package base at a time." | tr
                     }}
                 </p>
 

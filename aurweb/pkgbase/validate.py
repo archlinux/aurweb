@@ -5,7 +5,9 @@ from fastapi import HTTPException
 
 from aurweb import config, db
 from aurweb.exceptions import ValidationError
-from aurweb.models import PackageBase
+from aurweb.models import PackageBase, PackageRequest
+from aurweb.models.package_request import PENDING_ID
+from aurweb.models.request_type import ADOPTION_ID
 
 
 def request(
@@ -35,6 +37,24 @@ def request(
         if target.ID == pkgbase.ID:
             # TODO: This error needs to be translated.
             raise ValidationError(["You cannot merge a package base into itself."])
+
+    elif type == "adoption":
+        if pkgbase.Maintainer:
+            raise ValidationError(
+                [
+                    "You cannot request adoption of a package base that "
+                    "already has a maintainer."
+                ]
+            )
+
+        pending = pkgbase.requests.filter(
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+            PackageRequest.Status == PENDING_ID,
+        ).first()
+        if pending:
+            raise ValidationError(
+                ["There is already a pending adoption request for this package base."]
+            )
 
 
 def comment(comment: str):

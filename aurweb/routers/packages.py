@@ -359,7 +359,9 @@ async def packages_adopt(
     for pkgbase in bases:
         pkgbase_actions.pkgbase_adopt_instance(request, pkgbase)
 
-    return True, ["The selected packages have been adopted."]
+    if request.user.has_credential(creds.PKGBASE_ADOPT):
+        return True, ["The selected packages have been adopted."]
+    return True, ["Adoption requests have been filed for the selected packages."]
 
 
 def disown_all(request: Request, pkgbases: list[models.PackageBase]) -> list[str]:

@@ -28,7 +28,7 @@ from aurweb.models.relation_type import (
     REPLACES_ID,
     RelationType,
 )
-from aurweb.models.request_type import DELETION_ID, RequestType
+from aurweb.models.request_type import ADOPTION_ID, DELETION_ID, RequestType
 from aurweb.models.user import User
 from aurweb.packages import util as pkgutil
 from aurweb.testing.html import get_errors, get_successes, parse_root
@@ -1703,8 +1703,18 @@ def test_packages_post_adopt(client: TestClient, user: User, package: Package):
         )
     assert resp.status_code == int(HTTPStatus.OK)
     successes = get_successes(resp.text)
-    expected = "The selected packages have been adopted."
+    expected = "Adoption requests have been filed for the selected packages."
     assert successes[0].text.strip() == expected
+    assert package.PackageBase.Maintainer is None
+    assert (
+        db.query(PackageRequest)
+        .filter(
+            PackageRequest.PackageBaseName == package.PackageBase.Name,
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+        )
+        .count()
+        == 1
+    )
 
 
 def test_packages_post_disown_as_maintainer(

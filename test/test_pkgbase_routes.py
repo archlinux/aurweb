@@ -17,10 +17,10 @@ from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
-from aurweb.models.package_request import ACCEPTED_ID, PackageRequest
+from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
-from aurweb.models.request_type import DELETION_ID, MERGE_ID, RequestType
+from aurweb.models.request_type import ADOPTION_ID, DELETION_ID, MERGE_ID, RequestType
 from aurweb.models.user import User
 from aurweb.testing.email import Email
 from aurweb.testing.html import get_errors, get_successes, parse_root
@@ -1378,12 +1378,72 @@ def test_pkgbase_adopt(
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbasename}/adopt"
 
-    # Adopt the package base.
+    # An unprivileged user cannot adopt an orphaned, they request
+    # pending adoption request.
     with client as request:
         request.cookies = cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert package.PackageBase.Maintainer == maintainer
+    assert package.PackageBase.Maintainer is None
+
+    pkgreq = (
+        db.query(PackageRequest)
+        .filter(
+            PackageRequest.PackageBaseName == pkgbasename,
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+        )
+        .one()
+    )
+    assert pkgreq.User == maintainer
+    assert pkgreq.Status == PENDING_ID
+
+    # Posting again as the same user does not file a second request.
+    with client as request:
+        request.cookies = cookies
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert (
+        db.query(PackageRequest)
+        .filter(
+            PackageRequest.PackageBaseName == pkgbasename,
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+        )
+        .count()
+        == 1
+    )
+
+    # A different user does not get to file an adoption request either.
+    other_cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = other_cookies
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert (
+        db.query(PackageRequest)
+        .filter(
+            PackageRequest.PackageBaseName == pkgbasename,
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+        )
+        .count()
+        == 1
+    )
+
+    # The pending request still belongs to whoever asked first.
+    db.refresh(pkgreq)
+    assert pkgreq.User == maintainer
+    assert pkgreq.Status == PENDING_ID
+
+    # A PM/Developer grants the request by adopting for
+    # real; this also closes out the pending request as accepted.
+    pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = pm_cookies
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert package.PackageBase.Maintainer == pm_user
+
+    db.refresh(pkgreq)
+    assert pkgreq.Status == ACCEPTED_ID
 
     # Try to adopt it when it already has a maintainer; nothing changes.
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -1391,10 +1451,9 @@ def test_pkgbase_adopt(
         request.cookies = user_cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert package.PackageBase.Maintainer == maintainer
+    assert package.PackageBase.Maintainer == pm_user
 
     # Steal the package as a PM.
-    pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = pm_cookies
         resp = request.post(endpoint)
