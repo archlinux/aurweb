@@ -153,6 +153,8 @@
                                         {% set action = "delete" %}
                                     {% elif result.RequestType.ID == 2 %}
                                         {% set action = "disown" %}
+                                    {% elif result.RequestType.ID == 4 %}
+                                        {% set action = "adopt" %}
                                     {% elif result.RequestType.ID == 3 %}
                                         {% set action = "merge" %}
                                         {# Add the 'via' url query parameter. #}

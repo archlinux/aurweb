@@ -150,29 +150,41 @@ def pkgbase_adopt(pkgbase, user, privileged):
         )
         return
 
+    # Granting a pending request hands the package to whoever asked for it;
+    # adopting an unrequested orphan takes it for oneself.
+    cur = conn.execute(
+        "SELECT UsersID FROM PackageRequests WHERE PackageBaseID = ? "
+        + "AND Status = 0 AND ReqTypeID = "
+        + "(SELECT ID FROM RequestTypes WHERE Name = ?) "
+        + "ORDER BY ID LIMIT 1",
+        [pkgbase_id, "adoption"],
+    )
+    row = cur.fetchone()
+    new_maintainer_uid = row[0] if row and row[0] else userid
+
     comment = f"The user {user:s} adopted the package."
     for reqid in pkgreq_by_pkgbase(pkgbase_id, "adoption"):
         pkgreq_close(reqid, user, "accepted", comment, True)
 
     cur = conn.execute(
         "UPDATE PackageBases SET MaintainerUID = ? " + "WHERE ID = ?",
-        [userid, pkgbase_id],
+        [new_maintainer_uid, pkgbase_id],
     )
 
     cur = conn.execute(
         "SELECT COUNT(*) FROM PackageNotifications WHERE "
         + "PackageBaseID = ? AND UserID = ?",
-        [pkgbase_id, userid],
+        [pkgbase_id, new_maintainer_uid],
     )
     if cur.fetchone()[0] == 0:
         cur = conn.execute(
             "INSERT INTO PackageNotifications "
             + "(PackageBaseID, UserID) VALUES (?, ?)",
-            [pkgbase_id, userid],
+            [pkgbase_id, new_maintainer_uid],
         )
     conn.commit()
 
-    subprocess.run((notify_cmd, "adopt", str(userid), str(pkgbase_id)))
+    subprocess.run((notify_cmd, "adopt", str(new_maintainer_uid), str(pkgbase_id)))
 
     conn.close()
 

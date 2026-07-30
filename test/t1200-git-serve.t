@@ -236,6 +236,13 @@ test_expect_success "A Package Maintainer grants the pending adoption request." 
 	echo "SELECT Status FROM PackageRequests WHERE PackageBaseName = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual &&
+	# The requester becomes the maintainer, not the granting PM.
+	cat >expected <<-EOF &&
+	user
+	EOF
+	echo "SELECT Users.Username FROM PackageBases INNER JOIN Users ON Users.ID = PackageBases.MaintainerUID WHERE PackageBases.Name = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
 	cover "$GIT_SERVE" 2>&1 &&
 	echo "DELETE FROM PackageRequests WHERE PackageBaseName = '"'"'foobar'"'"';" | \

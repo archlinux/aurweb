@@ -653,11 +653,38 @@ async def pkgbase_disown_post(
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
+@router.get("/pkgbase/{name}/adopt")
+@requires_auth
+async def pkgbase_adopt_get(
+    request: Request, name: str, next: str = Query(default=str())
+):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    has_cred = request.user.has_credential(creds.PKGBASE_ADOPT)
+    if not has_cred:
+        return RedirectResponse(f"/pkgbase/{name}", HTTPStatus.SEE_OTHER)
+
+    pkgreq = pkgbase.requests.filter(
+        and_(
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+            PackageRequest.Status == PENDING_ID,
+        )
+    ).first()
+
+    context = templates.make_context(request, "Adopt Package")
+    context["pkgbase"] = pkgbase
+    context["next"] = next or f"/pkgbase/{name}"
+    context["pkgreq"] = pkgreq
+    return render_template(request, "pkgbase/adopt.html", context)
+
+
 @db.async_retry_deadlock
 @router.post("/pkgbase/{name}/adopt")
 @handle_form_exceptions
 @requires_auth
-async def pkgbase_adopt_post(request: Request, name: str):
+async def pkgbase_adopt_post(
+    request: Request, name: str, next: str = Form(default=str())
+):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     has_cred = request.user.has_credential(creds.PKGBASE_ADOPT)
@@ -667,7 +694,9 @@ async def pkgbase_adopt_post(request: Request, name: str):
         # if no maintainer currently exists.
         actions.pkgbase_adopt_instance(request, pkgbase)
 
-    return RedirectResponse(f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER)
+    return RedirectResponse(
+        next or f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER
+    )
 
 
 @router.get("/pkgbase/{name}/comaintainers")

@@ -1,0 +1,60 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box">
+        <h2>{{ "Adopt Package" | tr }}: {{ pkgbase.Name }}</h2>
+
+        {% if pkgreq %}
+            <p>
+                {{
+                    "%s%s%s requested adoption of this package base. "
+                    "Granting the request makes them its maintainer."
+                    | tr | format("<strong>", pkgreq.User.Username, "</strong>")
+                    | safe
+                }}
+            </p>
+
+            {% if pkgreq.Comments %}
+                <p>
+                    <em>{{ pkgreq.Comments }}</em>
+                </p>
+            {% endif %}
+        {% else %}
+            <p>
+                {{
+                    "Use this form to adopt the package base %s%s%s which "
+                    "includes the following packages: "
+                    | tr | format("<strong>", pkgbase.Name, "</strong>") | safe
+                }}
+            </p>
+
+            <ul>
+                {% for package in pkgbase.packages.all() %}
+                    <li>{{ package.Name }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form action="/pkgbase/{{ pkgbase.Name }}/adopt" method="post">
+            <fieldset>
+                <input type="hidden" name="next" value="{{ next }}" />
+                <p>
+                    <input class="button"
+                           type="submit"
+                           value="{{ (pkgreq and 'Grant' or 'Adopt') | tr }}"
+                    />
+                </p>
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}

@@ -119,9 +119,9 @@ def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
 
 
 @db.retry_deadlock
-def _retry_adopt(request: Request, pkgbase: PackageBase) -> None:
+def _retry_adopt(pkgbase: PackageBase, user: User) -> None:
     with db.begin():
-        pkgbase.Maintainer = request.user
+        pkgbase.Maintainer = user
 
 
 @db.retry_deadlock
@@ -141,21 +141,23 @@ def _retry_request_adoption(request: Request, pkgbase: PackageBase) -> PackageRe
 
 
 def pkgbase_adopt_instance(request: Request, pkgbase: PackageBase) -> None:
-    if request.user.has_credential(creds.PKGBASE_ADOPT):
-        # PMs/Developers adopt instantly and close out any
-        # pending adoption request for this pkgbase.
-        _retry_adopt(request, pkgbase)
-        notifs = handle_request(request, ADOPTION_ID, pkgbase)
-        notifs.append(notify.AdoptNotification(request.user.ID, pkgbase.ID))
-        util.apply_all(notifs, lambda n: n.send())
-        return
-
     pending = pkgbase.requests.filter(
         and_(
             PackageRequest.ReqTypeID == ADOPTION_ID,
             PackageRequest.Status == PENDING_ID,
         )
     ).first()
+
+    if request.user.has_credential(creds.PKGBASE_ADOPT):
+        # Granting a pending request hands the package to whoever asked for
+        # it; a PM adopting an unrequested orphan takes it themselves.
+        new_maintainer = pending.User if pending else request.user
+        _retry_adopt(pkgbase, new_maintainer)
+        notifs = handle_request(request, ADOPTION_ID, pkgbase)
+        notifs.append(notify.AdoptNotification(new_maintainer.ID, pkgbase.ID))
+        util.apply_all(notifs, lambda n: n.send())
+        return
+
     if pending:
         return
 

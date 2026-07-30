@@ -1433,14 +1433,14 @@ def test_pkgbase_adopt(
     assert pkgreq.User == maintainer
     assert pkgreq.Status == PENDING_ID
 
-    # A PM/Developer grants the request by adopting for
-    # real; this also closes out the pending request as accepted.
+    # A PM/Developer grants the request which hands the package to the
+    # user who asked for it and closes out the pending request as accepted.
     pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = pm_cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert package.PackageBase.Maintainer == pm_user
+    assert package.PackageBase.Maintainer == maintainer
 
     db.refresh(pkgreq)
     assert pkgreq.Status == ACCEPTED_ID
@@ -1451,7 +1451,7 @@ def test_pkgbase_adopt(
         request.cookies = user_cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert package.PackageBase.Maintainer == pm_user
+    assert package.PackageBase.Maintainer == maintainer
 
     # Steal the package as a PM.
     with client as request:
@@ -1459,6 +1459,51 @@ def test_pkgbase_adopt(
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert package.PackageBase.Maintainer == pm_user
+
+
+def test_pkgbase_adopt_grant_from_requests(
+    client: TestClient, user: User, pm_user: User, maintainer: User, package: Package
+):
+    with db.begin():
+        package.PackageBase.Maintainer = None
+
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/adopt"
+
+    # The requester files an adoption request.
+    with client as request:
+        request.cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    pkgreq = (
+        db.query(PackageRequest)
+        .filter(
+            PackageRequest.PackageBaseName == pkgbasename,
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+        )
+        .one()
+    )
+
+    # The PM follows the Accept link
+    pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
+    with client as request:
+        request.cookies = pm_cookies
+        resp = request.get(endpoint, params={"next": "/requests"})
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert maintainer.Username in resp.text
+
+    # Submitting it grants the package to the requester and returns the PM
+    # to /requests.
+    with client as request:
+        request.cookies = pm_cookies
+        resp = request.post(endpoint, data={"next": "/requests"})
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == "/requests"
+
+    assert package.PackageBase.Maintainer == maintainer
+    db.refresh(pkgreq)
+    assert pkgreq.Status == ACCEPTED_ID
 
 
 def test_pkgbase_delete_unauthorized(client: TestClient, user: User, package: Package):
