@@ -155,6 +155,10 @@
                                         {% set action = "disown" %}
                                     {% elif result.RequestType.ID == 4 %}
                                         {% set action = "adopt" %}
+                                        {# Add the 'via' url query parameter. #}
+                                        {% set temp_q = temp_q | extend_query(
+                                            ["via", result.ID]
+                                        ) %}
                                     {% elif result.RequestType.ID == 3 %}
                                         {% set action = "merge" %}
                                         {# Add the 'via' url query parameter. #}

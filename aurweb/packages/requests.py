@@ -176,6 +176,7 @@ def handle_request(
     pkgbase: PackageBase,
     target: PackageBase | None = None,
     comments: str = str(),
+    accept_ids: set[int] | None = None,
 ) -> list[notify.Notification]:
     """
     Handle package requests before performing an action.
@@ -224,6 +225,9 @@ def handle_request(
     if target:
         # If a `target` was supplied, filter by MergeBaseName
         accept_query = query.filter(PackageRequest.MergeBaseName == target.Name)
+    elif accept_ids is not None:
+        # Empty set accepts none, rejecting everything pending.
+        accept_query = query.filter(PackageRequest.ID.in_(accept_ids))
 
     # Build an accept list out of `accept_query`.
     to_accept: list[PackageRequest] = accept_query.all()

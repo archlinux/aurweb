@@ -120,7 +120,8 @@ def pkgreq_open_adoption(pkgbase_id, pkgbase, userid):
     return reqid
 
 
-def pkgbase_adopt(pkgbase, user, privileged):
+def pkgbase_adopt(pkgbase, user):
+    # Files a request; no privileged path, granting happens on the website.
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
         raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
@@ -131,62 +132,26 @@ def pkgbase_adopt(pkgbase, user, privileged):
         "SELECT ID FROM PackageBases WHERE ID = ? AND " + "MaintainerUID IS NULL",
         [pkgbase_id],
     )
-    if not privileged and not cur.fetchone():
-        raise aurweb.exceptions.PermissionDeniedException(user)
+    orphan = cur.fetchone() is not None
 
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
         raise aurweb.exceptions.InvalidUserException(user)
 
-    if not privileged:
-        conn.close()
-        if pkgreq_by_pkgbase(pkgbase_id, "adoption"):
-            die(f"There is already a pending adoption request for {pkgbase:s}.")
-        pkgreq_open_adoption(pkgbase_id, pkgbase, userid)
-        warn(
-            f"An adoption request for {pkgbase:s} has been filed. A Package "
-            "Maintainer must grant it before you become the maintainer."
-        )
-        return
-
-    # Granting a pending request hands the package to whoever asked for it;
-    # adopting an unrequested orphan takes it for oneself.
-    cur = conn.execute(
-        "SELECT UsersID FROM PackageRequests WHERE PackageBaseID = ? "
-        + "AND Status = 0 AND ReqTypeID = "
-        + "(SELECT ID FROM RequestTypes WHERE Name = ?) "
-        + "ORDER BY ID LIMIT 1",
-        [pkgbase_id, "adoption"],
-    )
-    row = cur.fetchone()
-    new_maintainer_uid = row[0] if row and row[0] else userid
-
-    comment = f"The user {user:s} adopted the package."
-    for reqid in pkgreq_by_pkgbase(pkgbase_id, "adoption"):
-        pkgreq_close(reqid, user, "accepted", comment, True)
-
-    cur = conn.execute(
-        "UPDATE PackageBases SET MaintainerUID = ? " + "WHERE ID = ?",
-        [new_maintainer_uid, pkgbase_id],
-    )
-
-    cur = conn.execute(
-        "SELECT COUNT(*) FROM PackageNotifications WHERE "
-        + "PackageBaseID = ? AND UserID = ?",
-        [pkgbase_id, new_maintainer_uid],
-    )
-    if cur.fetchone()[0] == 0:
-        cur = conn.execute(
-            "INSERT INTO PackageNotifications "
-            + "(PackageBaseID, UserID) VALUES (?, ?)",
-            [pkgbase_id, new_maintainer_uid],
-        )
-    conn.commit()
-
-    subprocess.run((notify_cmd, "adopt", str(new_maintainer_uid), str(pkgbase_id)))
-
     conn.close()
+
+    if not orphan:
+        raise aurweb.exceptions.PermissionDeniedException(user)
+
+    if pkgreq_by_pkgbase(pkgbase_id, "adoption"):
+        die(f"There is already a pending adoption request for {pkgbase:s}.")
+
+    pkgreq_open_adoption(pkgbase_id, pkgbase, userid)
+    warn(
+        f"An adoption request for {pkgbase:s} has been filed. A Package "
+        "Maintainer must grant it before you become the maintainer."
+    )
 
 
 def pkgbase_get_comaintainers(pkgbase):
@@ -656,7 +621,7 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
         checkarg(cmdargv, "repository name")
 
         pkgbase = cmdargv[1]
-        pkgbase_adopt(pkgbase, user, privileged)
+        pkgbase_adopt(pkgbase, user)
     elif action == "disown":
         checkarg(cmdargv, "repository name")
 
@@ -691,7 +656,7 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
         pkgbase_set_comaintainers(pkgbase, userlist, user, privileged)
     elif action == "help":
         cmds = {
-            "adopt <name>": "Adopt a package base.",
+            "adopt <name>": "Request adoption of an orphan package base.",
             "disown <name>": "Disown a package base.",
             "flag <name> <comment>": "Flag a package base out-of-date.",
             "help": "Show this help message and exit.",

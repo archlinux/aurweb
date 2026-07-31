@@ -47,6 +47,7 @@
         <form action="/pkgbase/{{ pkgbase.Name }}/adopt" method="post">
             <fieldset>
                 <input type="hidden" name="next" value="{{ next }}" />
+                <input type="hidden" name="via" value="{{ via }}" />
                 <p>
                     <input class="button"
                            type="submit"

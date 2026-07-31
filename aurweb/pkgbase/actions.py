@@ -140,24 +140,31 @@ def _retry_request_adoption(request: Request, pkgbase: PackageBase) -> PackageRe
     return pkgreq
 
 
-def pkgbase_adopt_instance(request: Request, pkgbase: PackageBase) -> None:
+def pkgbase_adopt_instance(
+    request: Request, pkgbase: PackageBase, pkgreq: PackageRequest | None = None
+) -> None:
+    if request.user.has_credential(creds.PKGBASE_ADOPT):
+        # pkgreq is set only when granting from /requests; a bare adopt is
+        # the PM taking it themselves.
+        if pkgreq and pkgreq.User:
+            new_maintainer = pkgreq.User
+            accept_ids = {pkgreq.ID}
+        else:
+            new_maintainer = request.user
+            accept_ids = set()
+
+        _retry_adopt(pkgbase, new_maintainer)
+        notifs = handle_request(request, ADOPTION_ID, pkgbase, accept_ids=accept_ids)
+        notifs.append(notify.AdoptNotification(new_maintainer.ID, pkgbase.ID))
+        util.apply_all(notifs, lambda n: n.send())
+        return
+
     pending = pkgbase.requests.filter(
         and_(
             PackageRequest.ReqTypeID == ADOPTION_ID,
             PackageRequest.Status == PENDING_ID,
         )
     ).first()
-
-    if request.user.has_credential(creds.PKGBASE_ADOPT):
-        # Granting a pending request hands the package to whoever asked for
-        # it; a PM adopting an unrequested orphan takes it themselves.
-        new_maintainer = pending.User if pending else request.user
-        _retry_adopt(pkgbase, new_maintainer)
-        notifs = handle_request(request, ADOPTION_ID, pkgbase)
-        notifs.append(notify.AdoptNotification(new_maintainer.ID, pkgbase.ID))
-        util.apply_all(notifs, lambda n: n.send())
-        return
-
     if pending:
         return
 

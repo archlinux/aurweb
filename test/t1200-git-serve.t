@@ -227,31 +227,28 @@ test_expect_success "Try to file a second adoption request." '
 	cover "$GIT_SERVE" 2>&1
 '
 
-test_expect_success "A Package Maintainer grants the pending adoption request." '
-	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
+test_expect_success "A Package Maintainer gets no special treatment from adopt." '
+	test_must_fail \
+	env SSH_ORIGINAL_COMMAND="adopt foobar" \
+	AUR_USER=pm AUR_PRIVILEGED=1 \
 	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
-	2
+	0
 	EOF
 	echo "SELECT Status FROM PackageRequests WHERE PackageBaseName = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual &&
-	# The requester becomes the maintainer, not the granting PM.
 	cat >expected <<-EOF &&
-	user
 	EOF
 	echo "SELECT Users.Username FROM PackageBases INNER JOIN Users ON Users.ID = PackageBases.MaintainerUID WHERE PackageBases.Name = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db >actual &&
 	test_cmp expected actual &&
-	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
-	cover "$GIT_SERVE" 2>&1 &&
 	echo "DELETE FROM PackageRequests WHERE PackageBaseName = '"'"'foobar'"'"';" | \
 	sqlite3 aur.db
 '
 
 test_expect_success "Adopt a package base as a Package Maintainer." '
-	SSH_ORIGINAL_COMMAND="adopt foobar2" AUR_USER=pm AUR_PRIVILEGED=1 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar2 pm &&
 	cat >expected <<-EOF &&
 	*foobar2
 	EOF
@@ -282,8 +279,7 @@ test_expect_success "Disown one's own package base as a Package Maintainer." '
 '
 
 test_expect_success "Try to steal another user's package as a regular user." '
-	SSH_ORIGINAL_COMMAND="adopt foobar2" AUR_USER=pm AUR_PRIVILEGED=1 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar2 pm &&
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="adopt foobar2" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
@@ -305,8 +301,7 @@ test_expect_success "Try to steal another user's package as a regular user." '
 
 test_expect_success "Try to steal another user's package as a Package Maintainer." '
 	set_maintainer foobar user &&
-	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=pm AUR_PRIVILEGED=1 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar pm &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
@@ -323,8 +318,7 @@ test_expect_success "Try to steal another user's package as a Package Maintainer
 '
 
 test_expect_success "Try to disown another user's package as a regular user." '
-	SSH_ORIGINAL_COMMAND="adopt foobar2" AUR_USER=pm AUR_PRIVILEGED=1 \
-	cover "$GIT_SERVE" 2>&1 &&
+	set_maintainer foobar2 pm &&
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="disown foobar2" \
 	AUR_USER=user AUR_PRIVILEGED=0 \

@@ -653,10 +653,28 @@ async def pkgbase_disown_post(
     return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
+def pending_adoption_request(
+    pkgbase: PackageBase, via: int | None
+) -> PackageRequest | None:
+    if not via:
+        return None
+
+    return pkgbase.requests.filter(
+        and_(
+            PackageRequest.ID == via,
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+            PackageRequest.Status == PENDING_ID,
+        )
+    ).first()
+
+
 @router.get("/pkgbase/{name}/adopt")
 @requires_auth
 async def pkgbase_adopt_get(
-    request: Request, name: str, next: str = Query(default=str())
+    request: Request,
+    name: str,
+    next: str = Query(default=str()),
+    via: int = Query(default=0),
 ):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
@@ -664,17 +682,11 @@ async def pkgbase_adopt_get(
     if not has_cred:
         return RedirectResponse(f"/pkgbase/{name}", HTTPStatus.SEE_OTHER)
 
-    pkgreq = pkgbase.requests.filter(
-        and_(
-            PackageRequest.ReqTypeID == ADOPTION_ID,
-            PackageRequest.Status == PENDING_ID,
-        )
-    ).first()
-
     context = templates.make_context(request, "Adopt Package")
     context["pkgbase"] = pkgbase
     context["next"] = next or f"/pkgbase/{name}"
-    context["pkgreq"] = pkgreq
+    context["pkgreq"] = pending_adoption_request(pkgbase, via)
+    context["via"] = via
     return render_template(request, "pkgbase/adopt.html", context)
 
 
@@ -683,7 +695,10 @@ async def pkgbase_adopt_get(
 @handle_form_exceptions
 @requires_auth
 async def pkgbase_adopt_post(
-    request: Request, name: str, next: str = Form(default=str())
+    request: Request,
+    name: str,
+    next: str = Form(default=str()),
+    via: int = Form(default=0),
 ):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
@@ -692,7 +707,8 @@ async def pkgbase_adopt_post(
         # If the user has credentials, they'll adopt the package regardless
         # of maintainership. Otherwise, we'll promote the user to maintainer
         # if no maintainer currently exists.
-        actions.pkgbase_adopt_instance(request, pkgbase)
+        pkgreq = pending_adoption_request(pkgbase, via) if has_cred else None
+        actions.pkgbase_adopt_instance(request, pkgbase, pkgreq)
 
     return RedirectResponse(
         next or f"/pkgbase/{name}", status_code=HTTPStatus.SEE_OTHER

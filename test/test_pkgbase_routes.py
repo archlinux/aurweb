@@ -17,7 +17,12 @@ from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
-from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, PackageRequest
+from aurweb.models.package_request import (
+    ACCEPTED_ID,
+    PENDING_ID,
+    REJECTED_ID,
+    PackageRequest,
+)
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
 from aurweb.models.request_type import ADOPTION_ID, DELETION_ID, MERGE_ID, RequestType
@@ -1433,17 +1438,16 @@ def test_pkgbase_adopt(
     assert pkgreq.User == maintainer
     assert pkgreq.Status == PENDING_ID
 
-    # A PM/Developer grants the request which hands the package to the
-    # user who asked for it and closes out the pending request as accepted.
+    # Adopt from the package base page: PM takes it, request rejected.
     pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = pm_cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert package.PackageBase.Maintainer == maintainer
+    assert package.PackageBase.Maintainer == pm_user
 
     db.refresh(pkgreq)
-    assert pkgreq.Status == ACCEPTED_ID
+    assert pkgreq.Status == REJECTED_ID
 
     # Try to adopt it when it already has a maintainer; nothing changes.
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -1451,13 +1455,83 @@ def test_pkgbase_adopt(
         request.cookies = user_cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert package.PackageBase.Maintainer == maintainer
+    assert package.PackageBase.Maintainer == pm_user
 
     # Steal the package as a PM.
     with client as request:
         request.cookies = pm_cookies
         resp = request.post(endpoint)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert package.PackageBase.Maintainer == pm_user
+
+
+def test_pkgbase_adopt_requester_deleted(
+    client: TestClient, pm_user: User, maintainer: User, package: Package
+):
+    """Account deletion SET NULLs UsersID; granting must not orphan the
+    package base."""
+
+    with db.begin():
+        package.PackageBase.Maintainer = None
+
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/adopt"
+
+    with client as request:
+        request.cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    pkgreq = (
+        db.query(PackageRequest)
+        .filter(
+            PackageRequest.PackageBaseName == pkgbasename,
+            PackageRequest.ReqTypeID == ADOPTION_ID,
+        )
+        .one()
+    )
+    assert pkgreq.Status == PENDING_ID
+
+    with client as request:
+        request.cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+        resp = request.post(
+            f"/account/{maintainer.Username}/delete",
+            data={"passwd": "testPassword", "confirm": True},
+        )
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    db.refresh(pkgreq)
+    assert pkgreq.UsersID is None
+    assert pkgreq.Status == PENDING_ID
+
+    with client as request:
+        request.cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert package.PackageBase.Maintainer == pm_user
+
+
+def test_pkgbase_adopt_as_pm_with_pending_request(
+    client: TestClient, pm_user: User, maintainer: User, package: Package
+):
+    """Adopting from the package base page takes it for the PM."""
+
+    with db.begin():
+        package.PackageBase.Maintainer = None
+
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/adopt"
+
+    with client as request:
+        request.cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    with client as request:
+        request.cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
+        resp = request.post(endpoint)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
     assert package.PackageBase.Maintainer == pm_user
 
 
@@ -1489,7 +1563,7 @@ def test_pkgbase_adopt_grant_from_requests(
     pm_cookies = {"AURSID": pm_user.login(Request(), "testPassword")}
     with client as request:
         request.cookies = pm_cookies
-        resp = request.get(endpoint, params={"next": "/requests"})
+        resp = request.get(endpoint, params={"next": "/requests", "via": pkgreq.ID})
     assert resp.status_code == int(HTTPStatus.OK)
     assert maintainer.Username in resp.text
 
@@ -1497,7 +1571,7 @@ def test_pkgbase_adopt_grant_from_requests(
     # to /requests.
     with client as request:
         request.cookies = pm_cookies
-        resp = request.post(endpoint, data={"next": "/requests"})
+        resp = request.post(endpoint, data={"next": "/requests", "via": pkgreq.ID})
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert resp.headers.get("location") == "/requests"
 

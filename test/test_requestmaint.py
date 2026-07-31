@@ -81,6 +81,20 @@ def test_requestmaint_rejects_idle_adoption(user: User, pkgbase: PackageBase):
     assert "Rejected adoption for test-package" in pkgreq.ClosureComment
 
 
+def test_requestmaint_rejects_request_with_deleted_requester(
+    user: User, pkgbase: PackageBase
+):
+    idle_time = config.getint("options", "request_idle_time")
+    pkgreq = make_request(user, pkgbase, ADOPTION_ID, age=idle_time + 666)
+    with db.begin():
+        pkgreq.User = None
+
+    requestmaint.main()
+
+    assert pkgreq.UsersID is None
+    assert pkgreq.Status == REJECTED_ID
+
+
 def test_requestmaint_leaves_other_types(user: User, pkgbase: PackageBase):
     idle_time = config.getint("options", "request_idle_time")
     pkgreq = make_request(user, pkgbase, ORPHAN_ID, age=idle_time + 666)
