@@ -471,6 +471,8 @@ def pkgbase_set_keywords(pkgbase, keywords):
 
 
 def pkgbase_has_write_access(pkgbase, user):
+    # Orphans excluded on purpose: pushing to one used to grant
+    # maintainership with no review. Adopt first.
     conn = aurweb.db.Connection()
 
     cur = conn.execute(
@@ -479,10 +481,20 @@ def pkgbase_has_write_access(pkgbase, user):
         + "ON PackageComaintainers.PackageBaseID = PackageBases.ID "
         + "INNER JOIN Users "
         + "ON Users.ID = PackageBases.MaintainerUID "
-        + "OR PackageBases.MaintainerUID IS NULL "
         + "OR Users.ID = PackageComaintainers.UsersID "
         + "WHERE Name = ? AND Username = ?",
         [pkgbase, user],
+    )
+    return cur.fetchone()[0] > 0
+
+
+def pkgbase_is_orphan(pkgbase):
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute(
+        "SELECT COUNT(*) FROM PackageBases "
+        + "WHERE Name = ? AND MaintainerUID IS NULL",
+        [pkgbase],
     )
     return cur.fetchone()[0] > 0
 
@@ -592,6 +604,10 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
 
         if action == "git-receive-pack" and pkgbase_exists(pkgbase):
             if not privileged and not pkgbase_has_write_access(pkgbase, user):
+                if pkgbase_is_orphan(pkgbase):
+                    raise aurweb.exceptions.OrphanPackageBaseException(
+                        pkgbase, ssh_cmdline
+                    )
                 raise aurweb.exceptions.PermissionDeniedException(user)
 
         if not os.access(git_update_cmd, os.R_OK | os.X_OK):

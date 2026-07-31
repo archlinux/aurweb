@@ -151,6 +151,41 @@ test_expect_success "Try to push to someone else's repository." '
 	cover "$GIT_SERVE" 2>&1
 '
 
+test_expect_success "Try to push to an orphan package base." '
+	echo "UPDATE PackageBases SET MaintainerUID = NULL WHERE Name = '"'"'foobar2'"'"';" | \
+	sqlite3 aur.db &&
+	test_must_fail \
+	env SSH_ORIGINAL_COMMAND="git-receive-pack /foobar2.git/" \
+	AUR_USER=user AUR_PRIVILEGED=0 \
+	cover "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	git-receive-pack: foobar2 is orphaned. Run \`ssh aur@aur.archlinux.org adopt foobar2\` to request adoption; a Package Maintainer must grant it before you can push.
+	EOF
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	EOF
+	echo "SELECT Users.Username FROM PackageBases INNER JOIN Users ON Users.ID = PackageBases.MaintainerUID WHERE PackageBases.Name = '"'"'foobar2'"'"';" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	set_maintainer foobar2 user2
+'
+
+test_expect_success "Push to an orphan package base as a Package Maintainer." '
+	# pkgctl aur drop-from-repo re-drops onto an existing orphan.
+	echo "UPDATE PackageBases SET MaintainerUID = NULL WHERE Name = '"'"'foobar2'"'"';" | \
+	sqlite3 aur.db &&
+	cat >expected <<-EOF &&
+	pm
+	foobar2
+	foobar2
+	EOF
+	SSH_ORIGINAL_COMMAND="git-receive-pack /foobar2.git/" \
+	AUR_USER=pm AUR_PRIVILEGED=1 \
+	cover "$GIT_SERVE" 2>&1 >actual &&
+	test_cmp expected actual &&
+	set_maintainer foobar2 user2
+'
+
 test_expect_success "Try to push to someone else's repository as Package Maintainer." '
 	cat >expected <<-EOF &&
 	pm

@@ -27,6 +27,16 @@ class PermissionDeniedException(AurwebException):
         super().__init__(msg)
 
 
+class OrphanPackageBaseException(AurwebException):
+    def __init__(self, pkgbase, cmdline):
+        msg = (
+            f"{pkgbase:s} is orphaned. Run `{cmdline:s} adopt {pkgbase:s}` to "
+            "request adoption; a Package Maintainer must grant it before you "
+            "can push."
+        )
+        super().__init__(msg)
+
+
 class BrokenUpdateHookException(AurwebException):
     def __init__(self, cmd):
         msg = f"broken update hook: {cmd:s}"
