@@ -1073,6 +1073,18 @@ def test_requests_filter_req_type_with_status(
     assert type_cell_text(resp.text) == ["Adoption"]
 
 
+def test_requests_maintainer_filter_keeps_pending_default(
+    client: TestClient, pm_user: User, user: User, pkgbase: PackageBase
+) -> None:
+    create_request(DELETION_ID, user, pkgbase, "Test request.")
+
+    with client as request:
+        request.cookies = pm_user.cookies
+        resp = request.get("/requests", params={"filter_maintainer_requests": True})
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert type_cell_text(resp.text) == ["Deletion"]
+
+
 def test_requests_with_filters(
     client: TestClient,
     pm_user: User,

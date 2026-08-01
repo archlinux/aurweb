@@ -19,12 +19,11 @@ from aurweb.scripts import notify
 from aurweb.statistics import get_request_counts
 from aurweb.templates import make_context, render_template
 
-FILTER_PARAMS = {
+STATUS_FILTER_PARAMS = {
     "filter_pending",
     "filter_closed",
     "filter_accepted",
     "filter_rejected",
-    "filter_maintainers_requests",
 }
 
 router = APIRouter()
@@ -51,7 +50,7 @@ async def requests(  # noqa: C901
     # Set pending filter by default if no status filter was provided.
     # In case we got a package name filter, but no status filter,
     # we enable the other ones too.
-    if not dict(request.query_params).keys() & FILTER_PARAMS:
+    if not dict(request.query_params).keys() & STATUS_FILTER_PARAMS:
         filter_pending = True
         if filter_pkg_name:
             filter_closed = True
