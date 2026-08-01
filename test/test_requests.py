@@ -13,7 +13,7 @@ from aurweb.models.account_type import PACKAGE_MAINTAINER_ID, USER_ID
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
-from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
+from aurweb.models.request_type import ADOPTION_ID, DELETION_ID, MERGE_ID, ORPHAN_ID
 from aurweb.packages.requests import ClosureFactory
 from aurweb.requests.util import get_pkgreq_by_id
 from aurweb.testing.email import Email
@@ -848,6 +848,229 @@ def test_requests(
         resp = request.get("/requests")
 
     assert "(deleted)" in resp.text
+
+
+def element_text(element) -> str:
+    return " ".join("".join(element.itertext()).split())
+
+
+def status_cell_text(resp_text: str) -> list[str]:
+    root = parse_root(resp_text)
+    cells = root.xpath('//table[@class="results"]/tbody/tr/td[last()]')
+    return [element_text(cell) for cell in cells]
+
+
+def expiry_spans(resp_text: str) -> list:
+    root = parse_root(resp_text)
+    return root.xpath(
+        '//table[@class="results"]/tbody/tr/td/span[contains(@class, "hover-help")]'
+    )
+
+
+@pytest.fixture
+def adoption_request(user: User, pkgbase: PackageBase) -> Generator[PackageRequest]:
+    with db.begin():
+        pkgbase.Maintainer = None
+    yield create_request(ADOPTION_ID, user, pkgbase, "Test request.")
+
+
+def test_requests_adoption_shows_expiry(
+    client: TestClient, auser: User, adoption_request: PackageRequest
+) -> None:
+    with client as request:
+        request.cookies = auser.cookies
+        resp = request.get("/requests")
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    spans = expiry_spans(resp.text)
+    assert len(spans) == 1
+
+    idle_time = config.getint("options", "request_idle_time")
+    days = round(idle_time / (24 * 3600))
+    assert element_text(spans[0]) == f"Expires (~{days} days left)"
+
+    # Not due yet, so it is not highlighted.
+    assert "flagged" not in spans[0].get("class")
+
+
+def test_requests_adoption_expiring_soon(
+    client: TestClient, auser: User, adoption_request: PackageRequest
+) -> None:
+    idle_time = config.getint("options", "request_idle_time")
+    with db.begin():
+        adoption_request.RequestTS = time.utcnow() - idle_time - 10
+
+    with client as request:
+        request.cookies = auser.cookies
+        resp = request.get("/requests")
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    spans = expiry_spans(resp.text)
+    assert len(spans) == 1
+    assert element_text(spans[0]) == "Expiring soon"
+    assert "flagged" in spans[0].get("class")
+
+
+def test_requests_adoption_expiry_hidden_when_closed(
+    client: TestClient, auser: User, adoption_request: PackageRequest
+) -> None:
+    with db.begin():
+        adoption_request.Status = REJECTED_ID
+        adoption_request.ClosedTS = time.utcnow()
+
+    with client as request:
+        request.cookies = auser.cookies
+        resp = request.get("/requests", params={"filter_rejected": True})
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert not expiry_spans(resp.text)
+    assert "Expires" not in resp.text
+
+
+def test_requests_expiry_only_for_adoption(
+    client: TestClient, auser: User, adoption_request: PackageRequest
+) -> None:
+    with db.begin():
+        adoption_request.ReqTypeID = DELETION_ID
+
+    with client as request:
+        request.cookies = auser.cookies
+        resp = request.get("/requests")
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert not expiry_spans(resp.text)
+    assert "Expires" not in resp.text
+
+
+def test_requests_orphan_locked(
+    client: TestClient, pm_user: User, user: User, pkgbase: PackageBase
+) -> None:
+    create_request(ORPHAN_ID, user, pkgbase, "Test request.")
+
+    with client as request:
+        request.cookies = pm_user.cookies
+        resp = request.get("/requests")
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    idle_time = config.getint("options", "request_idle_time")
+    days = round(idle_time / (24 * 3600))
+    assert status_cell_text(resp.text) == [f"Locked (~{days} days left) Close"]
+
+    # An orphan request is not auto-expired, so no expiry hint is shown.
+    assert not expiry_spans(resp.text)
+
+
+@pytest.fixture
+def typed_requests(user: User) -> Generator[dict[int, PackageRequest]]:
+    names = {
+        DELETION_ID: "deletion",
+        ORPHAN_ID: "orphan",
+        MERGE_ID: "merge",
+        ADOPTION_ID: "adoption",
+    }
+    pkgreqs = {}
+    for reqtype_id, name in names.items():
+        pkgbase = create_pkgbase(user, f"pkg-{name}")
+        pkgreqs[reqtype_id] = create_request(
+            reqtype_id, user, pkgbase, f"{name.title()} request."
+        )
+    yield pkgreqs
+
+
+def type_cell_text(resp_text: str) -> list[str]:
+    root = parse_root(resp_text)
+    cells = root.xpath('//table[@class="results"]/tbody/tr/td[2]')
+    return [element_text(cell) for cell in cells]
+
+
+def test_requests_filter_req_type(
+    client: TestClient, pm_user: User, typed_requests: dict[int, PackageRequest]
+) -> None:
+    expected = {
+        DELETION_ID: "Deletion",
+        ORPHAN_ID: "Orphan",
+        MERGE_ID: "Merge",
+        ADOPTION_ID: "Adoption",
+    }
+    for reqtype_id, name in expected.items():
+        with client as request:
+            request.cookies = pm_user.cookies
+            resp = request.get("/requests", params={"filter_req_type": reqtype_id})
+        assert resp.status_code == int(HTTPStatus.OK)
+        assert type_cell_text(resp.text) == [name]
+
+
+def test_requests_filter_req_type_all(
+    client: TestClient, pm_user: User, typed_requests: dict[int, PackageRequest]
+) -> None:
+    with client as request:
+        request.cookies = pm_user.cookies
+        resp = request.get("/requests", params={"filter_req_type": 0})
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert sorted(type_cell_text(resp.text)) == [
+        "Adoption",
+        "Deletion",
+        "Merge",
+        "Orphan",
+    ]
+
+
+def test_requests_filter_req_type_unknown(
+    client: TestClient, pm_user: User, typed_requests: dict[int, PackageRequest]
+) -> None:
+    with client as request:
+        request.cookies = pm_user.cookies
+        resp = request.get("/requests", params={"filter_req_type": 666})
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert len(type_cell_text(resp.text)) == len(typed_requests)
+
+    options = parse_root(resp.text).xpath('//select[@id="id_filter_req_type"]/option')
+    selected = [opt for opt in options if opt.get("selected") is not None]
+    assert not selected
+
+
+def test_requests_req_type_dropdown(
+    client: TestClient, pm_user: User, typed_requests: dict[int, PackageRequest]
+) -> None:
+    with client as request:
+        request.cookies = pm_user.cookies
+        resp = request.get("/requests", params={"filter_req_type": ADOPTION_ID})
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    options = parse_root(resp.text).xpath('//select[@id="id_filter_req_type"]/option')
+    assert [opt.get("value") for opt in options] == ["0", "1", "2", "3", "4"]
+    assert [element_text(opt) for opt in options] == [
+        "All",
+        "Deletion",
+        "Orphan",
+        "Merge",
+        "Adoption",
+    ]
+
+    selected = [opt for opt in options if opt.get("selected") is not None]
+    assert len(selected) == 1
+    assert selected[0].get("value") == str(ADOPTION_ID)
+
+
+def test_requests_filter_req_type_with_status(
+    client: TestClient, pm_user: User, typed_requests: dict[int, PackageRequest]
+) -> None:
+    with db.begin():
+        typed_requests[ADOPTION_ID].Status = REJECTED_ID
+
+    params = {"filter_req_type": ADOPTION_ID, "filter_pending": True}
+    with client as request:
+        request.cookies = pm_user.cookies
+        resp = request.get("/requests", params=params)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert not type_cell_text(resp.text)
+
+    params["filter_rejected"] = True
+    with client as request:
+        request.cookies = pm_user.cookies
+        resp = request.get("/requests", params=params)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert type_cell_text(resp.text) == ["Adoption"]
 
 
 def test_requests_with_filters(

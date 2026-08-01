@@ -3,6 +3,18 @@
 {% set singular = "%d package request found." %}
 {% set plural = "%d package requests found." %}
 
+{% macro time_left_display(time_left) %}
+    {%- if time_left > 48 * 3600 -%}
+        {%- set n = round(time_left / (24 * 3600)) -%}
+        {{- n | tn("~%d day left", "~%d days left") | format(n) -}}
+    {%- elif time_left > 3600 -%}
+        {%- set n = round(time_left / 3600) -%}
+        {{- n | tn("~%d hour left", "~%d hours left") | format(n) -}}
+    {%- else -%}
+        {{- "<1 hour left" | tr -}}
+    {%- endif -%}
+{% endmacro %}
+
 {% block pageContent %}
     <div class="box">
         <h2>{{ "Requests" | tr }}</h2>
@@ -60,6 +72,17 @@
                         <label for="id_filter_maintainer_requests" title="Maintainer's requests">{{ "Maintainer's requests" | tr }}</label>
                         <input type="checkbox" name="filter_maintainer_requests" id="id_filter_maintainer_requests"
                                value="True" {{ "checked" if filter_maintainer_requests == true }}/>
+                    </div>
+                    <div>
+                        <label for="id_filter_req_type" title="Request type">{{ "Request type" | tr }}</label>
+                        <select name="filter_req_type" id="id_filter_req_type">
+                            <option value="0">{{ "All" | tr }}</option>
+                            {% for req_type in request_types %}
+                                <option value="{{ req_type.ID }}"
+                                    {{ "selected" if filter_req_type == req_type.ID }}
+                                >{{ req_type.name_display() | tr }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div>
                         <label for="id_filter_pkg_name" title="Package name">{{ "Package name" | tr }}</label>
@@ -166,6 +189,20 @@
                                             ["into", result.MergeBaseName]
                                         ) %}
                                     {% endif %}
+                                    {% if result.RequestType.ID == 4 and not result.ClosedTS %}
+                                        {% set expiry_hint = "Unhandled adoption requests are rejected automatically if no Package Maintainer acts on them in time." | tr %}
+                                        {% if due %}
+                                            <span class="flagged hover-help" title="{{ expiry_hint }}">
+                                                {{ "Expiring soon" | tr }}
+                                            </span>
+                                        {% else %}
+                                            <span class="hover-help" title="{{ expiry_hint }}">
+                                                {{ "Expires" | tr }}
+                                                ({{ time_left_display(idle_time - time_delta) }})
+                                            </span>
+                                        {% endif %}
+                                        <br />
+                                    {% endif %}
 
                                     {% if request.user.is_elevated() and not result.ClosedTS %}
                                         {#
@@ -175,18 +212,8 @@
                                         On request, orphans are locked for two weeks.
                                         #}
                                         {% if result.RequestType.ID == 2 and not due %}
-                                            {% set time_left = idle_time - time_delta %}
-                                            {% if time_left > 48 * 3600 %}
-                                                {% set n = round(time_left / (24 * 3600)) %}
-                                                {% set time_left_fmt = (n | tn("~%d day left", "~%d days left") | format(n)) %}
-                                            {% elif time_left > 3600 %}
-                                                {% set n = round(time_left / 3600) %}
-                                                {% set time_left_fmt = (n | tn("~%d hour left", "~%d hours left") | format(n)) %}
-                                            {% else %}
-                                                {% set time_left_fmt = ("<1 hour left" | tr) %}
-                                            {% endif %}
                                             {{ "Locked" | tr }}
-                                            ({{ time_left_fmt }})
+                                            ({{ time_left_display(idle_time - time_delta) }})
                                         {% else %}
                                             {# Only elevated users (PM or Dev) are allowed to accept requests. #}
                                             <a href="/pkgbase/{{ result.PackageBaseName }}/{{ action }}?{{ temp_q | urlencode }}">

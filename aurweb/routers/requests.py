@@ -7,7 +7,7 @@ from sqlalchemy import case, orm
 from aurweb import db, defaults, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import handle_form_exceptions
-from aurweb.models import PackageBase, PackageRequest, User
+from aurweb.models import PackageBase, PackageRequest, RequestType, User
 from aurweb.models.package_request import (
     ACCEPTED_ID,
     CLOSED_ID,
@@ -42,6 +42,7 @@ async def requests(  # noqa: C901
     filter_rejected: bool = False,
     filter_maintainer_requests: bool = False,
     filter_pkg_name: str | None = None,
+    filter_req_type: int = 0,
 ):
     context = make_context(request, "Requests")
 
@@ -66,6 +67,12 @@ async def requests(  # noqa: C901
     context["filter_rejected"] = filter_rejected
     context["filter_maintainer_requests"] = filter_maintainer_requests
     context["filter_pkg_name"] = filter_pkg_name
+
+    request_types = db.query(RequestType).order_by(RequestType.ID.asc()).all()
+    if filter_req_type not in {req_type.ID for req_type in request_types}:
+        filter_req_type = 0
+    context["request_types"] = request_types
+    context["filter_req_type"] = filter_req_type
 
     Maintainer = orm.aliased(User)
     # A PackageRequest query
@@ -96,6 +103,10 @@ async def requests(  # noqa: C901
     # Name filter (contains)
     if filter_pkg_name:
         filtered = filtered.filter(PackageBase.Name.like(f"%{filter_pkg_name}%"))
+
+    # Request type filter
+    if filter_req_type:
+        filtered = filtered.filter(PackageRequest.ReqTypeID == filter_req_type)
 
     # Additionally filter for requests made from package maintainer
     if filter_maintainer_requests:

@@ -157,7 +157,7 @@ p.important {
 }
 
 span.hover-help {
-	border-bottom: 1px dotted black;
+	border-bottom: 1px dotted currentColor;
 	cursor:help;
 }
 

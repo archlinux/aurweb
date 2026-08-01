@@ -1901,6 +1901,20 @@ msgstr ""
 msgid "Locked"
 msgstr ""
 
+#: templates/requests.html
+msgid "Expires"
+msgstr ""
+
+#: templates/requests.html
+msgid "Expiring soon"
+msgstr ""
+
+#: templates/requests.html
+msgid ""
+"Unhandled adoption requests are rejected automatically if no Package "
+"Maintainer acts on them in time."
+msgstr ""
+
 #: template/pkgreq_results.php
 msgid "Close"
 msgstr ""
