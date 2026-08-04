@@ -122,6 +122,7 @@ interval:
     */2 * * * * bash -c 'poetry run aurweb-popupdate'
     */12 * * * * bash -c 'poetry run aurweb-votereminder'
     */12 * * * * bash -c 'poetry run aurweb-requestmaint'
+    7 * * * * bash -c 'poetry run aurweb-accountmaint'
 
 7) Create a new database and a user and import the aurweb SQL schema:
 

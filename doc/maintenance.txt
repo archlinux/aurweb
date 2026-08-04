@@ -82,6 +82,22 @@ computations and clean up the database:
 * aurweb-usermaint removes the last login IP address of all users that did not
   login within the past seven days.
 
+* aurweb-accountmaint warns, then deletes, accounts that never verified their
+  email address and left nothing behind. An account is spared if it owns any
+  content (package, comment, vote, request, notification or proposal), if it
+  has ever logged in or used ssh, or if it is anything other than a plain
+  User. A warning is mailed at `unverified_account_warning` and the account is
+  deleted at `unverified_account_lifetime`. Takes an optional --dry-run flag,
+  which reports what would happen without sending mail or deleting anything.
+
+  Warnings are idempotent, so this can run as often as you like: the
+  verification token minted when a warning is sent doubles as the record that
+  it went out, and an account is mailed at most once per
+  `email_verification_ttl`. Run it no less often than that TTL, though --
+  accounts are only mailed while their age falls inside a band that wide, so a
+  longer gap between runs leaves a cohort unwarned but still deleted on
+  schedule.
+
 * aurweb-git-archive generates Git repository archives based on a --spec.
   This script is a new generation of aurweb-mkpkglists, which creates and
   maintains Git repository versions of the archives produced by
@@ -112,6 +128,7 @@ usually scheduled using Cron. The current setup is:
 4 */2 * * * poetry run aurweb-usermaint
 5 */12 * * * poetry run aurweb-votereminder
 6 */12 * * * poetry run aurweb-requestmaint
+7 * * * * poetry run aurweb-accountmaint
 ----
 
 Advanced Administrative Features

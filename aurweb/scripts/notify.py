@@ -238,6 +238,31 @@ class VerificationNotification(Notification):
         return (aur_location + "/account/verify/" + self._token,)
 
 
+class VerificationReminderNotification(VerificationNotification):
+    """Last call before accountmaint deletes an unverified account.
+
+    Carries a freshly issued token: the one from registration expired days
+    ago, so a reminder pointing at it would be a dead link.
+    """
+
+    def __init__(self, uid, days_left: int):
+        self._days_left = days_left
+        super().__init__(uid)
+
+    def get_subject(self, lang):
+        return aurweb.l10n.translator.translate("AUR Account Pending Deletion", lang)
+
+    def get_body(self, lang):
+        return aurweb.l10n.translator.translate(
+            "The email address for the account {user} has never been "
+            "verified. The account will be deleted in {days} days unless "
+            "you verify the address by following the link [1] below. "
+            "If you no longer want this account, ignore this message and "
+            "it will be deleted for you.",
+            lang,
+        ).format(user=self._username, days=self._days_left)
+
+
 class CommentNotification(Notification):
     def __init__(self, uid, pkgbase_id, comment_id):
         self._user = db.query(User.Username).filter(User.ID == uid).first().Username

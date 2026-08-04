@@ -147,6 +147,7 @@ def process_account_form(request: Request, user: models.User, args: dict[str, An
         validate.invalid_user_password,
         validate.invalid_fields,
         validate.invalid_suspend_permission,
+        validate.invalid_captcha,
         validate.invalid_username,
         validate.invalid_password,
         validate.invalid_email,
@@ -160,7 +161,6 @@ def process_account_form(request: Request, user: models.User, args: dict[str, An
         validate.username_in_use,
         validate.email_in_use,
         validate.invalid_account_type,
-        validate.invalid_captcha,
     ]
 
     try:
