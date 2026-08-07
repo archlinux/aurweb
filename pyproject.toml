@@ -98,11 +98,12 @@ keywords = ["aurweb", "aur", "Arch", "Linux"]
 authors = [
     "Lucas Fleischer <lfleischer@archlinux.org>",
     "Eli Schwartz <eschwartz@archlinux.org>",
-    "Kevin Morris <kevr@0cost.org>"
+    "Kevin Morris <kevr@0cost.org>",
+    "Mario Oenning <moson@archlinux.org>",
+    "Leonidas Spyropoulos <artafinde@archlinux.org>",
 ]
 maintainers = [
-    "Leonidas Spyropoulos <artafinde@archlinux.org>",
-    "Mario Oenning <moson@archlinux.org>"
+    "Leonidas Spyropoulos <artafinde@archlinux.org>"
 ]
 packages = [
     { include = "aurweb" }
