@@ -537,6 +537,7 @@ PackageRequests = Table(
     Column("Status", TINYINT(unsigned=True), nullable=False, server_default=text("0")),
     Index("RequestsPackageBaseID", "PackageBaseID"),
     Index("RequestsUsersID", "UsersID"),
+    Index("RequestsClosedUID", "ClosedUID"),
     mysql_engine="InnoDB",
     mysql_charset="utf8mb4",
     mysql_collate="utf8mb4_general_ci",
