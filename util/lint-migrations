@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""Static checks on the alembic revision chain.
+
+Parses the revision files with ast instead of importing them, so it needs
+neither a database nor AUR_CONFIG and can run as a pre-push hook.
+
+Checks: every revision declares its identifiers, the chain is linear (one
+root, one head, no forks, no dangling parents) and every revision outside a
+short allowlist implements a real downgrade.
+
+Usage: lint-migrations [versions_dir]
+"""
+
+import ast
+import pathlib
+import sys
+
+DEFAULT_VERSIONS = (
+    pathlib.Path(__file__).resolve().parent.parent / "migrations" / "versions"
+)
+
+NO_DOWNGRADE = frozenset(["f47cad5d6d03"])
+
+UNSUPPORTED = object()
+
+
+def parse(path: pathlib.Path) -> tuple[object, object, bool]:
+    """Return (revision, down_revision, has_real_downgrade)."""
+    revision = down_revision = None
+    has_downgrade = False
+    for node in ast.parse(path.read_text()).body:
+        if isinstance(node, ast.Assign):
+            value = (
+                node.value.value
+                if isinstance(node.value, ast.Constant)
+                else UNSUPPORTED
+            )
+            for target in node.targets:
+                if isinstance(target, ast.Name):
+                    if target.id == "revision":
+                        revision = value
+                    elif target.id == "down_revision":
+                        down_revision = value
+        elif isinstance(node, ast.FunctionDef) and node.name == "downgrade":
+            has_downgrade = any(
+                not isinstance(child, ast.Pass)
+                for child in node.body
+                if not (
+                    isinstance(child, ast.Expr)
+                    and isinstance(child.value, ast.Constant)
+                )
+            )
+    return revision, down_revision, has_downgrade
+
+
+def collect(
+    versions: pathlib.Path,
+) -> tuple[list[str], dict[str, str], dict[str, str | None]]:
+    """Parse every revision file into an error list plus
+    {revision: filename} and {revision: down_revision} maps."""
+    errors: list[str] = []
+    revisions: dict[str, str] = {}
+    parents: dict[str, str | None] = {}
+    for path in sorted(versions.glob("*.py")):
+        try:
+            revision, down_revision, has_downgrade = parse(path)
+        except SyntaxError as exc:
+            errors.append(f"{path.name}: {exc}")
+            continue
+        if not isinstance(revision, str):
+            errors.append(f"{path.name}: no revision string found")
+            continue
+        if down_revision is not None and not isinstance(down_revision, str):
+            errors.append(
+                f"{path.name}: down_revision is not a string constant "
+                f"(merge revisions are not supported)"
+            )
+            continue
+        if not has_downgrade and revision not in NO_DOWNGRADE:
+            errors.append(f"{path.name}: downgrade() is missing or a no-op")
+        if revision in revisions:
+            errors.append(f"{path.name}: duplicate revision {revision}")
+            continue
+        revisions[revision] = path.name
+        parents[revision] = down_revision
+    return errors, revisions, parents
+
+
+def main() -> int:
+    versions = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_VERSIONS
+    errors, revisions, parents = collect(versions)
+
+    roots = [rev for rev, parent in parents.items() if parent is None]
+    if len(roots) != 1:
+        errors.append(f"expected exactly one root revision, found {sorted(roots)}")
+
+    children: dict[str, list[str]] = {}
+    for rev, parent in parents.items():
+        if parent is None:
+            continue
+        if parent not in revisions:
+            errors.append(f"{revisions[rev]}: down_revision {parent!r} does not exist")
+            continue
+        children.setdefault(parent, []).append(rev)
+
+    for parent, revs in children.items():
+        if len(revs) > 1:
+            errors.append(
+                f"fork: revisions {sorted(revs)} both revise {parent} "
+                f"({revisions[parent]})"
+            )
+
+    heads = [rev for rev in revisions if rev not in children]
+    if len(heads) != 1:
+        errors.append(f"expected exactly one head revision, found {sorted(heads)}")
+
+    for error in errors:
+        print(error, file=sys.stderr)
+    return 1 if errors else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

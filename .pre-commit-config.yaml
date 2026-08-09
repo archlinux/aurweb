@@ -1,4 +1,16 @@
+default_install_hook_types: [pre-commit, pre-push]
+
 repos:
+  - repo: local
+    hooks:
+      - id: lint-migrations
+        name: lint alembic migrations
+        entry: util/lint-migrations
+        language: system
+        files: ^migrations/
+        pass_filenames: false
+        stages: [pre-push]
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:

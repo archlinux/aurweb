@@ -26,6 +26,7 @@ lint:
   script:
     - export XDG_CACHE_HOME=.pre-commit
     - pre-commit run -a
+    - pre-commit run -a --hook-stage pre-push
 
 test:
   stage: test

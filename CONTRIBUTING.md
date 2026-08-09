@@ -35,10 +35,12 @@ We use `ruff` to enforce coding style in a PEP-8 compliant way. These tools run
 in GitLab CI using `pre-commit` to verify that any pushed code changes comply
 with this.
 
-To enable the `pre-commit` git hook, install the `pre-commit` package either
+To enable the `pre-commit` git hooks, install the `pre-commit` package either
 with `pacman` or `pip` and then run `pre-commit install --install-hooks`. This
-will ensure formatting is done before any code is commited to the git
-repository.
+runs the formatters before any code is committed to the git repository and
+lints the alembic migration chain before pushing.
+Existing clones need to re-run `pre-commit install --install-hooks` once to
+pick up the pre-push hook.
 
 There are plugins for editors or IDEs which automate this process. Some
 example plugins:
