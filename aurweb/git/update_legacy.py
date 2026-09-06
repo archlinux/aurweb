@@ -12,7 +12,9 @@ import srcinfo.utils
 import aurweb.config
 import aurweb.db
 from aurweb.git.update_common import (
+    claim_orphan_if_comaintainer,
     create_pkgbase,
+    deleted_pkgbase_msg,
     die,
     die_commit,
     update_notify,
@@ -69,11 +71,7 @@ def save_metadata(metadata, conn, user):  # noqa: C901
         + "PackagerUID = ?, OutOfDateTS = NULL WHERE ID = ?",
         [now, user_id, pkgbase_id],
     )
-    conn.execute(
-        "UPDATE PackageBases SET MaintainerUID = ? "
-        + "WHERE ID = ? AND MaintainerUID IS NULL",
-        [user_id, pkgbase_id],
-    )
+    claim_orphan_if_comaintainer(conn, pkgbase_id, user_id)
     for table in ("Sources", "Depends", "Relations", "Licenses", "Groups"):
         conn.execute(
             "DELETE FROM Package"
@@ -268,7 +266,9 @@ def main() -> None:  # noqa: C901
     allow_overwrite = (os.environ.get("AUR_OVERWRITE", "0") == "1") and privileged
     warn_or_die = warn if privileged else die
 
-    if len(sys.argv) == 2 and sys.argv[1] == "restore":
+    restore = len(sys.argv) == 2 and sys.argv[1] == "restore"
+
+    if restore:
         if "refs/heads/" + pkgbase not in repo.listall_references():
             die(f"{sys.argv[1]:s}: repository not found: {pkgbase:s}")
         refname = "refs/heads/master"
@@ -446,7 +446,12 @@ def main() -> None:  # noqa: C901
 
     # Create a new package base if it does not exist yet.
     if pkgbase_id == 0:
-        pkgbase_id = create_pkgbase(conn, pkgbase, user)
+        if restore:
+            pkgbase_id = create_pkgbase(conn, pkgbase, user, orphan=True)
+        elif sha1_old != "0" * 40:
+            die(deleted_pkgbase_msg(pkgbase))
+        else:
+            pkgbase_id = create_pkgbase(conn, pkgbase, user)
 
     # Store package base details in the database.
     save_metadata(metadata, conn, user)

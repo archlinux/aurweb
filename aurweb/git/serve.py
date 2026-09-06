@@ -630,6 +630,11 @@ def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
         pkgbase = cmdargv[1]
         validate_pkgbase(pkgbase, user)
 
+        warn(
+            f"{pkgbase:s} will be restored as an orphan. Use "
+            f"`{ssh_cmdline:s} adopt {pkgbase:s}` to request maintainership."
+        )
+
         os.environ["AUR_USER"] = user
         os.environ["AUR_PKGBASE"] = pkgbase
         os.execl(git_update_cmd, git_update_cmd, "restore")

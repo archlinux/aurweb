@@ -24,16 +24,18 @@ def size_humanize(num):
     return "{:.2f}{}".format(num, "YiB")
 
 
-def create_pkgbase(conn, pkgbase, user):
+def create_pkgbase(conn, pkgbase, user, orphan=False):
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
+
+    owner = None if orphan else userid
 
     now = int(time.time())
     cur = conn.execute(
         "INSERT INTO PackageBases (Name, SubmittedTS, "
         + "ModifiedTS, SubmitterUID, MaintainerUID, "
         + "FlaggerComment) VALUES (?, ?, ?, ?, ?, '')",
-        [pkgbase, now, now, userid, userid],
+        [pkgbase, now, now, owner, owner],
     )
     pkgbase_id = cur.lastrowid
 
@@ -45,6 +47,25 @@ def create_pkgbase(conn, pkgbase, user):
     conn.commit()
 
     return pkgbase_id
+
+
+def claim_orphan_if_comaintainer(conn, pkgbase_id, user_id):
+    conn.execute(
+        "UPDATE PackageBases SET MaintainerUID = ? "
+        + "WHERE ID = ? AND MaintainerUID IS NULL AND EXISTS ("
+        + "SELECT 1 FROM PackageComaintainers "
+        + "WHERE PackageBaseID = ? AND UsersID = ?)",
+        [user_id, pkgbase_id, pkgbase_id, user_id],
+    )
+
+
+def deleted_pkgbase_msg(pkgbase):
+    ssh_cmdline = aurweb.config.get("serve", "ssh-cmdline")
+    return (
+        f"{pkgbase:s} was deleted; pushing does not restore it. Run "
+        f"`{ssh_cmdline:s} restore {pkgbase:s}` to bring it back as an orphan, "
+        f"then `{ssh_cmdline:s} adopt {pkgbase:s}` to request maintainership."
+    )
 
 
 def update_notify(conn, user, pkgbase_id):

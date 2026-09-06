@@ -704,4 +704,104 @@ test_expect_success 'Trying to hijack a package.' '
 	test_cmp expected actual
 '
 
+maintainer_of() {
+	echo "SELECT IFNULL(MaintainerUID, 'NULL') FROM PackageBases WHERE Name = '$1';" | \
+	sqlite3 aur.db
+}
+
+# Mirror what deleting a package base on the website does: the package rows go
+# with the base, but refs/heads/<name> is deliberately left behind, which is
+# what makes the name resurrectable in the first place.
+# sqlite does not enforce the foreign keys here, so every child row has to go
+# explicitly or a later restore collides on a reused ID.
+delete_pkgbase() {
+	base="SELECT ID FROM PackageBases WHERE Name = '$1'"
+	pkgs="SELECT ID FROM Packages WHERE PackageBaseID IN ($base)"
+	sqlite3 aur.db <<-EOF
+	DELETE FROM PackageLicenses WHERE PackageID IN ($pkgs);
+	DELETE FROM PackageDepends WHERE PackageID IN ($pkgs);
+	DELETE FROM PackageRelations WHERE PackageID IN ($pkgs);
+	DELETE FROM PackageSources WHERE PackageID IN ($pkgs);
+	DELETE FROM PackageGroups WHERE PackageID IN ($pkgs);
+	DELETE FROM Packages WHERE PackageBaseID IN ($base);
+	DELETE FROM PackageNotifications WHERE PackageBaseID IN ($base);
+	DELETE FROM PackageComaintainers WHERE PackageBaseID IN ($base);
+	DELETE FROM PackageKeywords WHERE PackageBaseID IN ($base);
+	DELETE FROM PackageVotes WHERE PackageBaseID IN ($base);
+	DELETE FROM PackageBases WHERE Name = '$1';
+	EOF
+}
+
+# Deleting a package base removes its row but leaves refs/heads/<name> in
+# place, so a push to the name arrives with pkgbase_id == 0 and a non-zero
+# old sha. That used to fall through to create_pkgbase and hand the pusher
+# maintainership of someone else's package, bypassing adoption review.
+test_expect_success 'Pushing to a deleted package base is rejected.' '
+	delete_pkgbase foobar &&
+	old=$(git -C aur.git rev-parse HEAD^) &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	cat >expected <<-EOD &&
+	error: foobar was deleted; pushing does not restore it. Run \`ssh aur@aur.archlinux.org restore foobar\` to bring it back as an orphan, then \`ssh aur@aur.archlinux.org adopt foobar\` to request maintainership.
+	EOD
+	test_must_fail \
+	env AUR_USER=user2 AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_cmp expected actual &&
+	# The rejection must not have created a row as a side effect.
+	cat >expected <<-EOD &&
+	0
+	EOD
+	echo "SELECT COUNT(*) FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success 'Restoring a deleted package base yields an orphan.' '
+	# restore reads refs/heads/<name>, which earlier tests in this file left
+	# pointing at a commit with a deliberately invalid .SRCINFO.
+	git -C aur.git update-ref refs/heads/foobar HEAD &&
+	AUR_USER=user2 AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" restore 2>&1 &&
+	# Unowned, and not misattributed to whoever restored it.
+	cat >expected <<-EOD &&
+	NULL|NULL
+	EOD
+	echo "SELECT IFNULL(MaintainerUID, '"'"'NULL'"'"') || '"'"'|'"'"' || IFNULL(SubmitterUID, '"'"'NULL'"'"') FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+# Regression test for the orphan grab in save_metadata. A push must never
+# claim an orphan for a user who is not already a co-maintainer, even when
+# the push reaches the hook directly without passing through git-serve.
+test_expect_success 'Pushing to an orphan does not claim it.' '
+	old=$(git -C aur.git rev-parse HEAD^) &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	AUR_USER=user2 AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1 &&
+	cat >expected <<-EOD &&
+	NULL
+	EOD
+	maintainer_of foobar >actual &&
+	test_cmp expected actual
+'
+
+# Deleting a maintainer's account sets MaintainerUID to NULL but only
+# cascades that user's own co-maintainer row, so an orphan can retain
+# co-maintainers. Those users inherit the base by pushing.
+test_expect_success 'A co-maintainer inherits an orphan by pushing.' '
+	base=$(echo "SELECT ID FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | sqlite3 aur.db) &&
+	echo "INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES ($base, 4, 1);" | \
+	sqlite3 aur.db &&
+	old=$(git -C aur.git rev-parse HEAD^) &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	AUR_USER=user2 AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	cover "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1 &&
+	cat >expected <<-EOD &&
+	4
+	EOD
+	maintainer_of foobar >actual &&
+	test_cmp expected actual
+'
+
 test_done
