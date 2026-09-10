@@ -771,6 +771,15 @@ test_expect_success 'Restoring a deleted package base yields an orphan.' '
 	test_cmp expected actual
 '
 
+test_expect_success 'A restore is dated from the ref, not the wall clock.' '
+	first=$(git -C aur.git log --format=%ct refs/heads/foobar | tail -n 1) &&
+	last=$(git -C aur.git log --format=%ct refs/heads/foobar | head -n 1) &&
+	echo "$first|$last" >expected &&
+	echo "SELECT SubmittedTS || '"'"'|'"'"' || ModifiedTS FROM PackageBases WHERE Name = '"'"'foobar'"'"';" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
 # Regression test for the orphan grab in save_metadata. A push must never
 # claim an orphan for a user who is not already a co-maintainer, even when
 # the push reaches the hook directly without passing through git-serve.

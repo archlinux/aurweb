@@ -24,18 +24,24 @@ def size_humanize(num):
     return "{:.2f}{}".format(num, "YiB")
 
 
-def create_pkgbase(conn, pkgbase, user, orphan=False):
+def ref_commit_times(repo, sha1):
+    walker = repo.walk(sha1, pygit2.GIT_SORT_TOPOLOGICAL | pygit2.GIT_SORT_REVERSE)
+    first = next(iter(walker)).commit_time
+    return first, repo.get(sha1).commit_time
+
+
+def create_pkgbase(conn, pkgbase, user, orphan=False, submitted_ts=None):
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
 
     owner = None if orphan else userid
 
-    now = int(time.time())
+    submitted = int(time.time()) if submitted_ts is None else submitted_ts
     cur = conn.execute(
         "INSERT INTO PackageBases (Name, SubmittedTS, "
         + "ModifiedTS, SubmitterUID, MaintainerUID, "
         + "FlaggerComment) VALUES (?, ?, ?, ?, ?, '')",
-        [pkgbase, now, now, owner, owner],
+        [pkgbase, submitted, submitted, owner, owner],
     )
     pkgbase_id = cur.lastrowid
 

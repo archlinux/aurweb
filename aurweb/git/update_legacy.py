@@ -17,6 +17,7 @@ from aurweb.git.update_common import (
     deleted_pkgbase_msg,
     die,
     die_commit,
+    ref_commit_times,
     update_notify,
     validate_blob_size,
     warn,
@@ -51,7 +52,7 @@ def parse_dep(depstring):
     return depname, desc, depcond
 
 
-def save_metadata(metadata, conn, user):  # noqa: C901
+def save_metadata(metadata, conn, user, modified_ts=None):  # noqa: C901
     # Obtain package base ID and previous maintainer.
     pkgbase = metadata["pkgbase"]
     cur = conn.execute(
@@ -65,7 +66,7 @@ def save_metadata(metadata, conn, user):  # noqa: C901
     user_id = int(cur.fetchone()[0])
 
     # Update package base details and delete current packages.
-    now = int(time.time())
+    now = int(time.time()) if modified_ts is None else modified_ts
     conn.execute(
         "UPDATE PackageBases SET ModifiedTS = ?, "
         + "PackagerUID = ?, OutOfDateTS = NULL WHERE ID = ?",
@@ -445,16 +446,20 @@ def main() -> None:  # noqa: C901
             die(f"cannot overwrite package: {pkgname:s}")
 
     # Create a new package base if it does not exist yet.
+    restored_ts = None
     if pkgbase_id == 0:
         if restore:
-            pkgbase_id = create_pkgbase(conn, pkgbase, user, orphan=True)
+            submitted_ts, restored_ts = ref_commit_times(repo, sha1_new)
+            pkgbase_id = create_pkgbase(
+                conn, pkgbase, user, orphan=True, submitted_ts=submitted_ts
+            )
         elif sha1_old != "0" * 40:
             die(deleted_pkgbase_msg(pkgbase))
         else:
             pkgbase_id = create_pkgbase(conn, pkgbase, user)
 
     # Store package base details in the database.
-    save_metadata(metadata, conn, user)
+    save_metadata(metadata, conn, user, modified_ts=restored_ts)
 
     # Create (or update) a branch with the name of the package base for better
     # accessibility.
